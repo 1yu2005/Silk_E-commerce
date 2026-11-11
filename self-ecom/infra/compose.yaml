@@ -1,0 +1,72 @@
+name: self-ecom
+
+services:
+  api:
+    image: self-ecom-api:local
+    build:
+      context: ..
+      dockerfile: infra/api.Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://${POSTGRES_USER:?请配置 POSTGRES_USER}:${POSTGRES_PASSWORD:?请配置 POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:?请配置 POSTGRES_DB}
+      CORS_ORIGINS: ${COMPOSE_CORS_ORIGINS:-http://localhost:8080,http://localhost:8081}
+      UPLOAD_DIR: /app/storage/uploads
+      SWAGGER_ENABLED: ${SWAGGER_ENABLED:-false}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+    ports:
+      - "127.0.0.1:${API_HOST_PORT:-3000}:3000"
+    volumes:
+      - uploads:/app/storage/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    init: true
+    restart: unless-stopped
+  admin-web:
+    image: self-ecom-admin-web:local
+    build:
+      context: ..
+      dockerfile: infra/web.Dockerfile
+      args:
+        WEB_APP: admin-web
+    ports:
+      - "127.0.0.1:${ADMIN_HOST_PORT:-8080}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  store-web:
+    image: self-ecom-store-web:local
+    build:
+      context: ..
+      dockerfile: infra/web.Dockerfile
+      args:
+        WEB_APP: store-web
+    ports:
+      - "127.0.0.1:${STORE_HOST_PORT:-8081}:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
+  db:
+    image: postgres:16.6-bookworm
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?请配置 POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:?请配置 POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?请配置 POSTGRES_PASSWORD}
+      TZ: UTC
+    ports:
+      - "127.0.0.1:${DB_HOST_PORT:-15432}:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$${POSTGRES_USER}\" -d \"$${POSTGRES_DB}\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  db_data:
+  uploads:

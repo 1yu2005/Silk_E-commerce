@@ -1,0 +1,154 @@
+{
+  "project": "self-ecom-m0-cold-1794382950575",
+  "checks": [
+    {
+      "name": "compose config",
+      "exitCode": 0,
+      "elapsedMs": 512
+    },
+    {
+      "name": "initial project empty",
+      "exitCode": 0,
+      "elapsedMs": 566
+    },
+    {
+      "name": "empty database healthy",
+      "exitCode": 0,
+      "elapsedMs": 6880
+    },
+    {
+      "name": "first migration on empty database",
+      "exitCode": 0,
+      "elapsedMs": 3834
+    },
+    {
+      "name": "repeat migration",
+      "exitCode": 0,
+      "elapsedMs": 2853
+    },
+    {
+      "name": "migration status",
+      "exitCode": 0,
+      "elapsedMs": 5207
+    },
+    {
+      "name": "four services healthy",
+      "exitCode": 0,
+      "elapsedMs": 12782
+    },
+    {
+      "name": "four service state",
+      "exitCode": 0,
+      "elapsedMs": 569
+    },
+    {
+      "name": "SPA login",
+      "status": 200,
+      "elapsedMs": 109,
+      "requestId": null
+    },
+    {
+      "name": "proxied readiness",
+      "status": 200,
+      "elapsedMs": 10,
+      "requestId": "081f29d6-e3d7-45df-99fe-84bd45e579a0"
+    },
+    {
+      "name": "Swagger UI",
+      "status": 200,
+      "elapsedMs": 19,
+      "requestId": "facefb93-3bc0-4e69-a7fb-6b8194d150ae"
+    },
+    {
+      "name": "OpenAPI JSON",
+      "status": 200,
+      "elapsedMs": 14,
+      "requestId": "6f5abaac-084d-439a-a250-02fd910b5a5c"
+    },
+    {
+      "name": "API JSON404",
+      "status": 404,
+      "elapsedMs": 15,
+      "requestId": "5c84588a-2fb0-4175-a1d2-8d29b121df36"
+    },
+    {
+      "name": "SPA login",
+      "status": 200,
+      "elapsedMs": 6,
+      "requestId": null
+    },
+    {
+      "name": "proxied readiness",
+      "status": 200,
+      "elapsedMs": 10,
+      "requestId": "c8e46f9e-9f89-4935-9af9-982fbe6f3894"
+    },
+    {
+      "name": "Swagger UI",
+      "status": 200,
+      "elapsedMs": 5,
+      "requestId": "b230bc74-9c7d-41f9-835d-507324746b56"
+    },
+    {
+      "name": "OpenAPI JSON",
+      "status": 200,
+      "elapsedMs": 19,
+      "requestId": "51caef93-1f0e-4bc7-ac07-5830d6c472c6"
+    },
+    {
+      "name": "API JSON404",
+      "status": 404,
+      "elapsedMs": 7,
+      "requestId": "1421fd94-9e6b-4312-8013-3ede631ffb20"
+    },
+    {
+      "name": "invalid configuration DATABASE_URL",
+      "exitCode": 1,
+      "elapsedMs": 2140
+    },
+    {
+      "name": "invalid configuration PORT",
+      "exitCode": 1,
+      "elapsedMs": 1724
+    },
+    {
+      "name": "invalid configuration SWAGGER_ENABLED",
+      "exitCode": 1,
+      "elapsedMs": 1628
+    },
+    {
+      "name": "disable real Swagger",
+      "exitCode": 0,
+      "elapsedMs": 6906
+    },
+    {
+      "name": "disabled docs 404",
+      "status": 404,
+      "elapsedMs": 16,
+      "requestId": "71756554-13d7-4b42-9680-3ab39d2b5048"
+    },
+    {
+      "name": "disabled docs 404",
+      "status": 404,
+      "elapsedMs": 8,
+      "requestId": "819c0b58-e2e8-417a-9f7a-6f3a46b2c412"
+    },
+    {
+      "name": "live with docs disabled",
+      "status": 200,
+      "elapsedMs": 10,
+      "requestId": "bbbea998-63c2-4462-bcd9-2188fbfcff2d"
+    },
+    {
+      "name": "restore Swagger configuration",
+      "exitCode": 0,
+      "elapsedMs": 6856
+    },
+    {
+      "name": "restored docs",
+      "status": 200,
+      "elapsedMs": 12,
+      "requestId": "cbffdc48-ccce-412b-9bcb-b86b6c901991"
+    }
+  ]
+}

@@ -1,0 +1,229 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/api/v1/health/live": {
+      "get": {
+        "description": "不查询数据库，不接收业务参数。",
+        "operationId": "getLiveness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "进程可处理HTTP请求",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "properties": {
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "9bc421ac-5987-493e-a6cf-73fe46082272"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "status",
+                        "service",
+                        "timestamp"
+                      ],
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "ok"
+                          ]
+                        },
+                        "service": {
+                          "type": "string",
+                          "enum": [
+                            "shop-api"
+                          ]
+                        },
+                        "timestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "服务器UTC时间",
+                          "example": "2026-11-11T02:00:00.000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "检查API进程存活",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/v1/health/ready": {
+      "get": {
+        "description": "通过有界超时的SELECT 1检查数据库连接；不代表迁移已全部应用。",
+        "operationId": "getReadiness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "数据库连接正常",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "properties": {
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "9bc421ac-5987-493e-a6cf-73fe46082272"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "status",
+                        "checks",
+                        "timestamp"
+                      ],
+                      "properties": {
+                        "status": {
+                          "type": "string",
+                          "enum": [
+                            "ready"
+                          ]
+                        },
+                        "checks": {
+                          "type": "object",
+                          "required": [
+                            "database"
+                          ],
+                          "properties": {
+                            "database": {
+                              "type": "string",
+                              "enum": [
+                                "up"
+                              ]
+                            }
+                          }
+                        },
+                        "timestamp": {
+                          "type": "string",
+                          "format": "date-time",
+                          "description": "服务器UTC时间",
+                          "example": "2026-11-11T02:00:00.000Z"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "数据库不可用或检查超时",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "type": "string",
+                  "format": "uuid",
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "code",
+                    "message",
+                    "details",
+                    "requestId"
+                  ],
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "enum": [
+                        "SERVICE_NOT_READY"
+                      ]
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "服务暂未就绪"
+                    },
+                    "details": {
+                      "type": "object",
+                      "required": [
+                        "database"
+                      ],
+                      "properties": {
+                        "database": {
+                          "type": "string",
+                          "enum": [
+                            "unavailable"
+                          ]
+                        }
+                      }
+                    },
+                    "requestId": {
+                      "type": "string",
+                      "format": "uuid",
+                      "example": "9bc421ac-5987-493e-a6cf-73fe46082272"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "检查数据库就绪",
+        "tags": [
+          "Health"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "自营电商 API",
+    "description": "M0 工程基础接口。成功响应为 {data, requestId}，错误响应为 {code, message, details?, requestId}。",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "schemas": {}
+  }
+}

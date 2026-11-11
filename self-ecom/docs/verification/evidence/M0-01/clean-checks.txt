@@ -1,0 +1,281 @@
+COMMAND: pnpm install --frozen-lockfile --store-dir D:/.pnpm-store
+Scope: all 7 workspace projects
+? Verifying lockfile against supply-chain policies (658 entries)...
+Lockfile is up to date, resolution step is skipped
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Packages: +603
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Progress: resolved 603, reused 180, downloaded 0, added 0
+Progress: resolved 603, reused 603, downloaded 0, added 0
+Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: D:\.pnpm-store\v11
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 603, reused 603, downloaded 0, added 7
+Progress: resolved 603, reused 603, downloaded 0, added 15
+Progress: resolved 603, reused 603, downloaded 0, added 20
+Progress: resolved 603, reused 603, downloaded 0, added 25
+Progress: resolved 603, reused 603, downloaded 0, added 30
+Progress: resolved 603, reused 603, downloaded 0, added 36
+Progress: resolved 603, reused 603, downloaded 0, added 56
+Progress: resolved 603, reused 603, downloaded 0, added 73
+Progress: resolved 603, reused 603, downloaded 0, added 84
+Progress: resolved 603, reused 603, downloaded 0, added 90
+Progress: resolved 603, reused 603, downloaded 0, added 109
+Progress: resolved 603, reused 603, downloaded 0, added 120
+✓ Lockfile passes supply-chain policies (658 entries in 18.2s)
+Progress: resolved 603, reused 603, downloaded 0, added 135
+Progress: resolved 603, reused 603, downloaded 0, added 160
+Progress: resolved 603, reused 603, downloaded 0, added 185
+Progress: resolved 603, reused 603, downloaded 0, added 226
+Progress: resolved 603, reused 603, downloaded 0, added 270
+Progress: resolved 603, reused 603, downloaded 0, added 300
+Progress: resolved 603, reused 603, downloaded 0, added 347
+Progress: resolved 603, reused 603, downloaded 0, added 356
+Progress: resolved 603, reused 603, downloaded 0, added 368
+Progress: resolved 603, reused 603, downloaded 0, added 407
+Progress: resolved 603, reused 603, downloaded 0, added 496
+Progress: resolved 603, reused 603, downloaded 0, added 509
+Progress: resolved 603, reused 603, downloaded 0, added 603, done
+.../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+
+devDependencies:
++ @eslint/js 10.0.1
++ @types/node 24.19.2
++ eslint 10.14.0
++ eslint-plugin-react-hooks 7.1.1
++ eslint-plugin-react-refresh 0.5.7
++ globals 17.14.0
++ turbo 2.11.10
++ typescript 6.0.3
++ typescript-eslint 8.72.2
+
+Done in 38.3s using pnpm v11.25.0
+EXIT: 0
+COMMAND: pnpm run db:generate
+$ pnpm --filter @shop/api db:generate
+$ tsx scripts/database.ts generate
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+✔ Generated Prisma Client (v7.10.1) to .\..\..\node_modules\.pnpm\@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c\node_modules\@prisma\client in 131ms
+
+Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+
+
+EXIT: 0
+COMMAND: pnpm run lint
+$ turbo run lint
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/shared, @shop/store-web
+   • Running lint in 6 packages
+   • Remote caching disabled
+
+@shop/config:lint: cache miss, executing 53c7a8e7840789e8
+@shop/api:lint: cache miss, executing 8887ca40c5f630d8
+@shop/shared:lint: cache miss, executing 786584293a7cdc26
+@shop/shared:build: cache miss, executing 026c8021a7368713
+@shop/config:lint: $ eslint .
+@shop/api:lint: $ eslint src test scripts prisma.config.ts
+@shop/shared:lint: $ eslint src
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/api-client:build: cache miss, executing da84974d76162a40
+@shop/api-client:lint: cache miss, executing 4844ead8b1f2c684
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/api-client:lint: $ eslint src
+@shop/admin-web:lint: cache miss, executing d0f6bbe4faab5b96
+@shop/store-web:lint: cache miss, executing 1612b3b0e5553dfa
+@shop/admin-web:lint: $ eslint src vite.config.ts
+@shop/store-web:lint: $ eslint src vite.config.ts
+
+ Tasks:    8 successful, 8 total
+Cached:    0 cached, 8 total
+  Time:    24.381s
+
+EXIT: 0
+COMMAND: pnpm run typecheck
+$ turbo run typecheck
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/shared, @shop/store-web
+   • Running typecheck in 6 packages
+   • Remote caching disabled
+
+@shop/shared:typecheck: cache miss, executing ca8bbba469bbe211
+@shop/api:typecheck: cache miss, executing c87d84af9e32180c
+@shop/shared:build: cache hit, replaying logs 026c8021a7368713
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/api-client:typecheck: cache miss, executing 3d1524e0a0e043a5
+@shop/api-client:build: cache hit, replaying logs da84974d76162a40
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/store-web:typecheck: cache miss, executing c0ddcf382f384022
+@shop/admin-web:typecheck: cache miss, executing cb9f4a7259cabb97
+@shop/shared:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/api:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/api-client:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/store-web:typecheck: $ tsc --noEmit
+@shop/admin-web:typecheck: $ tsc --noEmit
+
+ Tasks:    7 successful, 7 total
+Cached:    2 cached, 7 total
+  Time:    12.2s
+
+EXIT: 0
+COMMAND: pnpm run test
+$ turbo run test
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/shared, @shop/store-web
+   • Running test in 6 packages
+   • Remote caching disabled
+
+@shop/api:test: cache bypass, force executing 66047b6a9291e4f1
+@shop/shared:build: cache hit, replaying logs 026c8021a7368713
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/api-client:build: cache hit, replaying logs da84974d76162a40
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/api:test: $ vitest run
+@shop/api:test:
+@shop/api:test:  RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/storage/verification/clean-m0-final/apps/api
+@shop/api:test:
+@shop/api:test:  ✓ test/database-safety.spec.ts (10 tests) 10ms
+@shop/api:test:  ✓ test/environment.spec.ts (33 tests) 23ms
+@shop/api:test:  ✓ test/logging.spec.ts (3 tests) 215ms
+@shop/api:test: {"level":30,"time":1794382191599,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"16694596-c3e7-482a-adc9-49e4ae1df44e","res":{"statusCode":200},"responseTime":7,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191616,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"dd1eadb8-e477-4825-b132-bc2e79c39ccf","res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+@shop/api:test: {"level":50,"time":1794382191633,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"ab21e470-d5f1-4973-ac72-321ed6a86d43","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+@shop/api:test: {"level":30,"time":1794382191647,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"34b4180c-802f-4a3b-bd22-f69ad168cfe1","res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+@shop/api:test: {"level":40,"time":1794382191677,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"97a2a568-eda2-47e6-9594-3196198706a0","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191690,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"095576d1-a7f6-4af6-a38d-97b207f1093a","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191691,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"9796da6b-34d7-48f8-b5f0-424841c77965","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191692,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"80748382-7ac7-4f1b-b28c-cdcc44c09e9c","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191693,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6bdae068-be62-43fa-b760-bb6968535117","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191694,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"e2a296dd-0bf0-4bdf-b9fa-976f82addaca","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191694,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"267523d5-7eb6-4bdb-a480-6f2b4d841883","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191695,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"dc244492-7f0f-4ec1-a8d2-373dee120f6b","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191696,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"a1212b6b-0d2d-423d-bb32-618386338346","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191696,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"100d7390-d11e-434e-8f55-016af76417b9","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191697,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"9e8196dd-3582-4529-9a21-04ff349671f6","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test:  ✓ test/swagger.spec.ts (2 tests) 1629ms
+@shop/api:test:    ✓ serves native Swagger documents only when enabled=true 1580ms
+@shop/api:test: {"level":30,"time":1794382191707,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"a9fc533a-40c6-4be9-ba7f-3d79341828b0","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":50,"time":1794382191709,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"439c396b-13e1-4933-93f3-ec9dd63d98bd","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+@shop/api:test: {"level":50,"time":1794382191722,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"052d6e07-bd58-4c3b-ae2e-538b888f1a40","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":0,"msg":"request failed"}
+@shop/api:test: {"level":30,"time":1794382191738,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"60a1c9f7-4bb1-4b69-9f4a-692ed28b43de","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191753,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"700a1f43-b681-484a-81fc-64a61f5ec802","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191768,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3fee8751-e97c-401d-a95a-976dc2e0ac08","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794382191784,"pid":78368,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"a6a88fe7-9ce1-4eb0-a73e-deb0739483bf","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test:  ✓ test/validation.spec.ts (33 tests) 1318ms
+@shop/api:test:  ✓ test/bootstrap.spec.ts (13 tests) 1717ms
+@shop/api:test:
+@shop/api:test:  Test Files  6 passed (6)
+@shop/api:test:       Tests  94 passed (94)
+@shop/api:test:    Start at  15:29:47
+@shop/api:test:    Duration  4.07s (import 51%, tests 41%, transform 8%, worker 1%)
+@shop/api:test:
+
+ Tasks:    3 successful, 3 total
+Cached:    2 cached, 3 total
+  Time:    5.902s
+
+EXIT: 0
+COMMAND: pnpm run test:integration
+$ pnpm --filter @shop/api test:integration
+$ tsx scripts/integration.ts
+独立测试库已就绪，未重置或清理任何数据库
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "shop_test", schema "public" at "localhost:15432"
+
+1 migration found in prisma/migrations
+
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 7.10.1 -> 8.0.0-rc.33                 │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+No pending migrations to apply.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/storage/verification/clean-m0-final/apps/api
+
+{"level":30,"time":1794382203252,"pid":6972,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"ac665b8f-29c4-4c7b-8a66-441b92140e62","res":{"statusCode":200},"responseTime":6,"msg":"request completed"}
+{"level":30,"time":1794382203267,"pid":6972,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"c7f8e983-5861-42be-8298-ccd902d39bf0","res":{"statusCode":200},"responseTime":4,"msg":"request completed"}
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  15:29:59
+   Duration  4.44s (import 53%, tests 38%, transform 9%)
+
+EXIT: 0
+COMMAND: pnpm run build
+$ turbo run build
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/shared, @shop/store-web
+   • Running build in 6 packages
+   • Remote caching disabled
+
+@shop/api:build: cache miss, executing 4562f0789e8bbe69
+@shop/shared:build: cache hit, replaying logs 026c8021a7368713
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/api-client:build: cache hit, replaying logs da84974d76162a40
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/admin-web:build: cache miss, executing f2cbc1d59138e603
+@shop/store-web:build: cache miss, executing ca673b168e4bd874
+@shop/api:build: $ tsc -p tsconfig.build.json
+@shop/admin-web:build: $ tsc --noEmit && vite build
+@shop/store-web:build: $ tsc --noEmit && vite build
+@shop/store-web:build: vite v8.3.8 building client environment for production...
+@shop/admin-web:build: vite v8.3.8 building client environment for production...
+@shop/store-web:build: transforming...
+@shop/admin-web:build: transforming...
+@shop/admin-web:build: ✓ 1504 modules transformed.
+@shop/store-web:build: ✓ 1504 modules transformed.
+@shop/admin-web:build: rendering chunks...
+@shop/store-web:build: rendering chunks...
+@shop/admin-web:build: computing gzip size...
+@shop/store-web:build: computing gzip size...
+@shop/admin-web:build: dist/index.html                                    0.53 kB │ gzip:   0.34 kB
+@shop/admin-web:build: dist/assets/index-CYiNvu2v.css                     4.50 kB │ gzip:   1.69 kB
+@shop/admin-web:build: dist/assets/rolldown-runtime-WkwZ5CU-.js           0.59 kB │ gzip:   0.36 kB
+@shop/admin-web:build: dist/assets/HomePage-39RaQWU2.js                   0.84 kB │ gzip:   0.56 kB
+@shop/admin-web:build: dist/assets/ExclamationCircleFilled-C2lz816J.js    2.69 kB │ gzip:   1.02 kB
+@shop/admin-web:build: dist/assets/NotFoundPage-qzFy-kHK.js              34.83 kB │ gzip:  11.08 kB
+@shop/admin-web:build: dist/assets/button-Dy1P4V1l.js                    71.22 kB │ gzip:  22.84 kB
+@shop/admin-web:build: dist/assets/LoginPage-BXphigdB.js                112.31 kB │ gzip:  37.10 kB
+@shop/admin-web:build: dist/assets/index-Bkqr3xRJ.js                    145.59 kB │ gzip:  50.77 kB
+@shop/admin-web:build: dist/assets/jsx-runtime-BYTVSYs6.js              304.80 kB │ gzip: 100.74 kB
+@shop/admin-web:build:
+@shop/store-web:build: dist/index.html                                    0.52 kB │ gzip:   0.33 kB
+@shop/store-web:build: dist/assets/index-CYiNvu2v.css                     4.50 kB │ gzip:   1.69 kB
+@shop/store-web:build: dist/assets/rolldown-runtime-WkwZ5CU-.js           0.59 kB │ gzip:   0.36 kB
+@shop/store-web:build: dist/assets/HomePage-CLfLv_Gx.js                   0.96 kB │ gzip:   0.64 kB
+@shop/store-web:build: dist/assets/ExclamationCircleFilled-C2lz816J.js    2.69 kB │ gzip:   1.02 kB
+@shop/store-web:build: dist/assets/NotFoundPage-CuaEqSpx.js              34.83 kB │ gzip:  11.08 kB
+@shop/store-web:build: dist/assets/button-Dy1P4V1l.js                    71.22 kB │ gzip:  22.84 kB
+@shop/store-web:build: dist/assets/LoginPage-D1d2Ui5Y.js                112.29 kB │ gzip:  37.08 kB
+@shop/store-web:build: dist/assets/index-B4NXS_cd.js                    145.57 kB │ gzip:  50.75 kB
+@shop/store-web:build: dist/assets/jsx-runtime-BYTVSYs6.js              304.80 kB │ gzip: 100.74 kB
+@shop/store-web:build:
+@shop/admin-web:build: ✓ built in 1.23s
+@shop/store-web:build: ✓ built in 1.23s
+
+ Tasks:    5 successful, 5 total
+Cached:    2 cached, 5 total
+  Time:    12.297s
+
+EXIT: 0
+COMMAND: pnpm run openapi:export
+$ pnpm --filter @shop/api openapi:export
+$ tsx scripts/openapi.ts
+OpenAPI已导出至docs/openapi/openapi.json
+EXIT: 0

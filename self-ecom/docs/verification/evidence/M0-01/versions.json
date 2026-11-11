@@ -1,0 +1,18 @@
+{
+  "date": "2026-11-11",
+  "executor": "Codex",
+  "node": "24.18.0",
+  "pnpm": "11.25.0",
+  "docker": "29.8.2",
+  "compose": "5.5.1",
+  "postgresImage": "16.6-bookworm",
+  "nginxImage": "1.28.0-alpine",
+  "images": {
+    "self-ecom-api:local": "sha256:0aca8823feb582470ceada6e66fd7f50b023027284be84aa45e1b7762f303cd5",
+    "self-ecom-admin-web:local": "sha256:5bb0837d1b689572f02186b6f7828b1ec315059aba6c67587d6e62deeda1c73d",
+    "self-ecom-store-web:local": "sha256:8b2d1ebeb5425e0c6289cb03af0bfe9e4ad7d2fd88dc60e672ce29d355495959"
+  },
+  "cleanCopyMatchesApplicationSourcesAndLock": true,
+  "sourceFilesCompared": 78,
+  "sourceDigest": "59645abef702e2b82904ce3ba2081e7395cea61974fd3aece365b90fe34eb914"
+}

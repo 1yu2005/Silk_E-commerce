@@ -1,0 +1,11 @@
+{
+  "name": "@shop/config",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./tsconfig.base.json": "./tsconfig.base.json",
+    "./tsconfig.web.json": "./tsconfig.web.json"
+  },
+  "scripts": { "lint": "eslint ." }
+}

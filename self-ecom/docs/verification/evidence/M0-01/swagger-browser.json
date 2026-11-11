@@ -1,0 +1,30 @@
+[
+  {
+    "stage": "ready-before-stop",
+    "response": "Code\tDetails\n200\t\nResponse body\nDownload\n{\n  \"data\": {\n    \"status\": \"ready\",\n    \"checks\": {\n      \"database\": \"up\"\n    },\n    \"timestamp\": \"2026-11-11T07:45:18.533Z\"\n  },\n  \"requestId\": \"ee1d4929-9057-4ac1-97a6-2a9fe5d54b55\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-length: 144 \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:45:18 GMT \n etag: W/\"90-Vg4ULhQZdAU1wKnHx/5cLU1Pryw\" \n server: nginx/1.28.0 \n vary: Origin \n x-powered-by: Express \n x-request-id: ee1d4929-9057-4ac1-97a6-2a9fe5d54b55 "
+  },
+  {
+    "stage": "ready-database-stopped",
+    "response": "Code\tDetails\n503\t\n\nError: Service Unavailable\n\nResponse body\nDownload\n{\n  \"code\": \"SERVICE_NOT_READY\",\n  \"message\": \"服务暂未就绪\",\n  \"details\": {\n    \"database\": \"unavailable\"\n  },\n  \"requestId\": \"45a33cc7-6da2-448e-8f93-3cf8f6e64037\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:46:19 GMT \n server: nginx/1.28.0 \n transfer-encoding: chunked \n vary: Origin \n x-powered-by: Express \n x-request-id: 45a33cc7-6da2-448e-8f93-3cf8f6e64037 "
+  },
+  {
+    "stage": "live-database-stopped",
+    "response": "Code\tDetails\n200\t\nResponse body\nDownload\n{\n  \"data\": {\n    \"status\": \"ok\",\n    \"service\": \"shop-api\",\n    \"timestamp\": \"2026-11-11T07:46:59.271Z\"\n  },\n  \"requestId\": \"483c1808-2afb-4fce-9a01-8147b08d2a96\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-length: 135 \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:46:59 GMT \n etag: W/\"87-B+hTZtn+BKtPOnkOsywqi/EMTRg\" \n server: nginx/1.28.0 \n vary: Origin \n x-powered-by: Express \n x-request-id: 483c1808-2afb-4fce-9a01-8147b08d2a96 "
+  },
+  {
+    "stage": "ready-after-recovery",
+    "response": "Code\tDetails\n200\t\nResponse body\nDownload\n{\n  \"data\": {\n    \"status\": \"ready\",\n    \"checks\": {\n      \"database\": \"up\"\n    },\n    \"timestamp\": \"2026-11-11T07:47:32.702Z\"\n  },\n  \"requestId\": \"3723c727-f299-428b-a3ba-3fa1a8d22066\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-length: 144 \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:47:32 GMT \n etag: W/\"90-tzSXQXHq6HQo36ZA/QTdTpPl6ho\" \n server: nginx/1.28.0 \n vary: Origin \n x-powered-by: Express \n x-request-id: 3723c727-f299-428b-a3ba-3fa1a8d22066 "
+  },
+  {
+    "stage": "live-repeat",
+    "response": "Code\tDetails\n200\t\nResponse body\nDownload\n{\n  \"data\": {\n    \"status\": \"ok\",\n    \"service\": \"shop-api\",\n    \"timestamp\": \"2026-11-11T07:48:10.658Z\"\n  },\n  \"requestId\": \"caf2c060-9e21-4fcd-ad0f-0a9f59d0832c\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-length: 135 \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:48:10 GMT \n etag: W/\"87-zojRWeNNSvR+OQTLizr2kxz1Zg4\" \n server: nginx/1.28.0 \n vary: Origin \n x-powered-by: Express \n x-request-id: caf2c060-9e21-4fcd-ad0f-0a9f59d0832c "
+  },
+  {
+    "stage": "store-proxy-ready",
+    "response": "Code\tDetails\n200\t\nResponse body\nDownload\n{\n  \"data\": {\n    \"status\": \"ready\",\n    \"checks\": {\n      \"database\": \"up\"\n    },\n    \"timestamp\": \"2026-11-11T07:48:32.745Z\"\n  },\n  \"requestId\": \"fc0d78ea-a12a-4be1-862c-f297e31049bc\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-length: 144 \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:48:32 GMT \n etag: W/\"90-0FQ72W/Vxd0HriwWNczJOYp8Wv0\" \n server: nginx/1.28.0 \n vary: Origin \n x-powered-by: Express \n x-request-id: fc0d78ea-a12a-4be1-862c-f297e31049bc "
+  },
+  {
+    "stage": "store-proxy-live",
+    "response": "Code\tDetails\n200\t\nResponse body\nDownload\n{\n  \"data\": {\n    \"status\": \"ok\",\n    \"service\": \"shop-api\",\n    \"timestamp\": \"2026-11-11T07:48:46.221Z\"\n  },\n  \"requestId\": \"fe307142-6e2f-4834-ab2e-e30a6ba2c2a2\"\n}\nResponse headers\n access-control-expose-headers: X-Request-Id \n connection: keep-alive \n content-length: 135 \n content-type: application/json; charset=utf-8 \n date: Wed,11 Nov 2026 07:48:46 GMT \n etag: W/\"87-mmdY0DsgS06D6gvTxXW8uoYjyLo\" \n server: nginx/1.28.0 \n vary: Origin \n x-powered-by: Express \n x-request-id: fe307142-6e2f-4834-ab2e-e30a6ba2c2a2 "
+  }
+]

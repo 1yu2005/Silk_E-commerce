@@ -1,0 +1,5 @@
+NAME                    IMAGE                       COMMAND                  SERVICE     CREATED         STATUS                   PORTS
+self-ecom-admin-web-1   self-ecom-admin-web:local   "/docker-entrypoint.…"   admin-web   9 minutes ago   Up 9 minutes (healthy)   127.0.0.1:8080->80/tcp
+self-ecom-api-1         self-ecom-api:local         "docker-entrypoint.s…"   api         9 minutes ago   Up 9 minutes (healthy)   127.0.0.1:3001->3000/tcp
+self-ecom-db-1          postgres:16.6-bookworm      "docker-entrypoint.s…"   db          2 hours ago     Up 6 minutes (healthy)   127.0.0.1:15432->5432/tcp
+self-ecom-store-web-1   self-ecom-store-web:local   "/docker-entrypoint.…"   store-web   9 minutes ago   Up 9 minutes (healthy)   127.0.0.1:8081->80/tcp

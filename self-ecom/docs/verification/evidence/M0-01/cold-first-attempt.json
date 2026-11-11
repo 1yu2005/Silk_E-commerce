@@ -1,0 +1,25 @@
+{
+  "project": "self-ecom-m0-cold-1794382492984",
+  "checks": [
+    {
+      "name": "compose config",
+      "exitCode": 0,
+      "elapsedMs": 609
+    },
+    {
+      "name": "initial project empty",
+      "exitCode": 0,
+      "elapsedMs": 543
+    },
+    {
+      "name": "empty database healthy",
+      "exitCode": 0,
+      "elapsedMs": 7220
+    },
+    {
+      "name": "first migration on empty database",
+      "exitCode": 1,
+      "elapsedMs": 3486
+    }
+  ]
+}

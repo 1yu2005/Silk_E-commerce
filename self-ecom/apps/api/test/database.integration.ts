@@ -1,0 +1,84 @@
+import 'reflect-metadata';
+import { Test } from '@nestjs/testing';
+import type { INestApplication } from '@nestjs/common';
+import { afterAll, beforeAll, expect, it } from 'vitest';
+import { AppModule } from '../src/app.module.js';
+import { configureApp } from '../src/common/configure-app.js';
+import { PrismaService } from '../src/prisma/prisma.service.js';
+import { assertSafeTestDatabase } from '../scripts/database-env.js';
+
+// 禁止使用任意继承的 DATABASE_URL 执行此测试。
+const safe = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
+if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
+let app: INestApplication;
+let prisma: PrismaService;
+let baseUrl: string;
+
+beforeAll(async () => {
+  const module = await Test.createTestingModule({ imports: [AppModule] }).compile();
+  app = module.createNestApplication();
+  configureApp(app);
+  await app.listen(0, '127.0.0.1');
+  prisma = app.get(PrismaService);
+  baseUrl = await app.getUrl();
+});
+afterAll(async () => { await app?.close(); });
+
+it('connects through the real Prisma PostgreSQL adapter to the isolated PostgreSQL16 database', async () => {
+  const [row] = await prisma.$queryRaw<{ database: string; version: string; timezone: string }[]>`
+    SELECT current_database() AS database, current_setting('server_version') AS version,
+      current_setting('TimeZone') AS timezone`;
+  expect(row?.database).toBe(safe.testName);
+  expect(row?.version).toMatch(/^16\./);
+  expect(row?.timezone).toBe('UTC');
+  await expect(prisma.ping()).resolves.toBeUndefined();
+});
+
+it('has an applied bootstrap migration and no placeholder business tables', async () => {
+  const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
+    SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
+  expect(rows).toEqual([{ migration_name: '0001_bootstrap', finished_at: expect.any(Date) }]);
+  const tables = await prisma.$queryRaw<{ tablename: string }[]>`
+    SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
+  expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations']);
+});
+
+it('keeps liveness working with the real database module installed', async () => {
+  const response = await fetch(`${baseUrl}/api/v1/health/live`);
+  expect(response.status).toBe(200);
+  const body = await response.json() as { data: { status: string }; requestId: string };
+  expect(body.data.status).toBe('ok');
+  expect(body.requestId).toBe(response.headers.get('x-request-id'));
+});
+
+it('checks readiness against the real PostgreSQL database', async () => {
+  const response = await fetch(`${baseUrl}/api/v1/health/ready`);
+  expect(response.status).toBe(200);
+  const body = await response.json() as {
+    data: { status: string; checks: { database: string } }; requestId: string;
+  };
+  expect(body.data.status).toBe('ready');
+  expect(body.data.checks.database).toBe('up');
+  expect(body.requestId).toBe(response.headers.get('x-request-id'));
+});
+
+it('cancels a slow server query instead of leaving it running behind a timeout response', async () => {
+  const started = performance.now();
+  await expect(prisma.$queryRaw`SELECT pg_sleep(5)`).rejects.toThrow();
+  expect(performance.now() - started).toBeLessThan(2500);
+  const [row] = await prisma.$queryRaw<{ active: number }[]>`
+    SELECT count(*)::int AS active FROM pg_stat_activity
+    WHERE datname=current_database() AND pid<>pg_backend_pid()
+      AND state='active' AND query LIKE '%pg_sleep(5)%'`;
+  expect(row?.active).toBe(0);
+  await expect(prisma.ping()).resolves.toBeUndefined();
+});
+
+it('shares concurrent probes only while in flight, then executes a fresh probe', async () => {
+  const first = prisma.ping();
+  expect(prisma.ping()).toBe(first);
+  await Promise.all(Array.from({ length: 20 }, () => prisma.ping()));
+  const next = prisma.ping();
+  expect(next).not.toBe(first);
+  await next;
+});

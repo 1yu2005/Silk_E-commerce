@@ -1,0 +1,62 @@
+{
+  "sameApiProcess": true,
+  "noSensitiveConfigurationInLogs": true,
+  "checks": [
+    {
+      "stage": "ready-before-stop",
+      "requestId": "ee1d4929-9057-4ac1-97a6-2a9fe5d54b55",
+      "method": "GET",
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "responseTimeMs": 2
+    },
+    {
+      "stage": "ready-database-stopped",
+      "requestId": "45a33cc7-6da2-448e-8f93-3cf8f6e64037",
+      "method": "GET",
+      "path": "/api/v1/health/ready",
+      "status": 503,
+      "responseTimeMs": 754
+    },
+    {
+      "stage": "live-database-stopped",
+      "requestId": "483c1808-2afb-4fce-9a01-8147b08d2a96",
+      "method": "GET",
+      "path": "/api/v1/health/live",
+      "status": 200,
+      "responseTimeMs": 1
+    },
+    {
+      "stage": "ready-after-recovery",
+      "requestId": "3723c727-f299-428b-a3ba-3fa1a8d22066",
+      "method": "GET",
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "responseTimeMs": 3
+    },
+    {
+      "stage": "live-repeat",
+      "requestId": "caf2c060-9e21-4fcd-ad0f-0a9f59d0832c",
+      "method": "GET",
+      "path": "/api/v1/health/live",
+      "status": 200,
+      "responseTimeMs": 1
+    },
+    {
+      "stage": "store-proxy-ready",
+      "requestId": "fc0d78ea-a12a-4be1-862c-f297e31049bc",
+      "method": "GET",
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "responseTimeMs": 2
+    },
+    {
+      "stage": "store-proxy-live",
+      "requestId": "fe307142-6e2f-4834-ab2e-e30a6ba2c2a2",
+      "method": "GET",
+      "path": "/api/v1/health/live",
+      "status": 200,
+      "responseTimeMs": 1
+    }
+  ]
+}

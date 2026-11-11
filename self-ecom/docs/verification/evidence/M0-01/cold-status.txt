@@ -1,0 +1,5 @@
+NAME                                          IMAGE                       COMMAND                  SERVICE     CREATED          STATUS                    PORTS
+self-ecom-m0-cold-1794382950575-admin-web-1   self-ecom-admin-web:local   "/docker-entrypoint.…"   admin-web   12 seconds ago   Up 5 seconds (healthy)    127.0.0.1:18080->80/tcp
+self-ecom-m0-cold-1794382950575-api-1         self-ecom-api:local         "docker-entrypoint.s…"   api         12 seconds ago   Up 11 seconds (healthy)   127.0.0.1:13003->3000/tcp
+self-ecom-m0-cold-1794382950575-db-1          postgres:16.6-bookworm      "docker-entrypoint.s…"   db          31 seconds ago   Up 31 seconds (healthy)   127.0.0.1:25432->5432/tcp
+self-ecom-m0-cold-1794382950575-store-web-1   self-ecom-store-web:local   "/docker-entrypoint.…"   store-web   12 seconds ago   Up 5 seconds (healthy)    127.0.0.1:18081->80/tcp
