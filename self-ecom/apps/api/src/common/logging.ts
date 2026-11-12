@@ -1,3 +1,4 @@
+// 作用：配置 HTTP 日志白名单和敏感字段脱敏，避免记录密码、令牌及请求正文。
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import type { Options } from 'pino-http';
 import type { EnvironmentConfig } from '../config/environment.js';

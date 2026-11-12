@@ -1,3 +1,4 @@
+// 作用：验证 HTTP 日志字段白名单、请求编号关联及密码和令牌脱敏。
 import { createServer } from 'node:http';
 import { Writable } from 'node:stream';
 import { pinoHttp } from 'pino-http';

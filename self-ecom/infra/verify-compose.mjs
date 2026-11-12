@@ -1,3 +1,4 @@
+// 文件作用：验证四服务部署的页面、静态缓存、同源 API 代理与数据库健康状态。
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';

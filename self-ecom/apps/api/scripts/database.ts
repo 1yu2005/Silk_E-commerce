@@ -1,3 +1,4 @@
+// 作用：统一执行 Prisma 生成与迁移命令，按入口校验目标并保护现有数据库。
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { Client } from 'pg';

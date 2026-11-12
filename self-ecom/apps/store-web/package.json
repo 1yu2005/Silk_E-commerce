@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src vite.config.ts"
+    "lint": "eslint src test vite.config.ts",
+    "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
     "@shop/api-client": "workspace:*",

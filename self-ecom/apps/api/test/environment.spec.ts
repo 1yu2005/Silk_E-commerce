@@ -1,3 +1,4 @@
+// 作用：验证工程环境读取、配置优先级及无效启动参数的严格拒绝。
 import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { isAbsolute, join } from 'node:path';

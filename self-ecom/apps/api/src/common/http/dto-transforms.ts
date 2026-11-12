@@ -1,3 +1,4 @@
+// 作用：提供严格数字等 DTO 转换规则，避免宽松类型转换接受非法请求值。
 /** 显式转换查询参数；数组、空白、空字符串和 null 仍视为无效值。 */
 export function strictInteger(value: unknown): unknown {
   if (typeof value === 'string' && /^-?\d+$/.test(value)) {

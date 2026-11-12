@@ -1,3 +1,4 @@
+// 作用：定义数据库尚未就绪的固定异常，供健康检查返回可识别的不可用状态。
 import { ServiceUnavailableException } from '@nestjs/common';
 
 /** 使用固定的公开错误，不附带驱动错误信息或连接字符串。 */

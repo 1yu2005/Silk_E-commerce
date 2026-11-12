@@ -1,0 +1,56 @@
+{
+  "date": "2026-11-12T08:14:22.925Z",
+  "preservedFiles": 153,
+  "preservedMismatches": 0,
+  "sourceFiles": 13,
+  "documents": 3,
+  "hygieneFiles": 16,
+  "bundlesScanned": 32,
+  "jsonEvidenceScanned": 5,
+  "sensitiveMatches": 0,
+  "localDocumentLinks": 16,
+  "checks": {
+    "lint": {
+      "exitCode": 0,
+      "tasks": 8,
+      "cache": 1,
+      "seconds": 5.375
+    },
+    "typecheck": {
+      "exitCode": 0,
+      "tasks": 7,
+      "cache": 2,
+      "seconds": 4.285
+    },
+    "test": {
+      "exitCode": 0,
+      "tasks": 6,
+      "cache": 2,
+      "seconds": 3.991,
+      "total": 475,
+      "api": 277,
+      "client": 110,
+      "admin": 53,
+      "store": 35
+    },
+    "build": {
+      "exitCode": 0,
+      "tasks": 5,
+      "cache": 2,
+      "seconds": 3.9
+    }
+  },
+  "browser": {
+    "checks": 22,
+    "pageErrors": 0,
+    "httpResponses": 119,
+    "cleanup": {
+      "employees": 0,
+      "sessions": 0,
+      "extraPermissions": 0,
+      "actorAudits": 0
+    }
+  },
+  "scope": "本批五组管理功能；整体验收、Docker与总览/完成说明待后续",
+  "temporaryPnpmRemoved": true
+}

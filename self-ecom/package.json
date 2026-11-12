@@ -19,7 +19,11 @@
     "db:migrate:deploy": "pnpm --filter @shop/api db:migrate:deploy",
     "db:migrate:status": "pnpm --filter @shop/api db:migrate:status",
     "db:test:prepare": "pnpm --filter @shop/api db:test:prepare",
-    "test:integration": "pnpm --filter @shop/api test:integration"
+    "test:integration": "pnpm --filter @shop/api test:integration",
+    "db:seed:permissions": "pnpm --filter @shop/api db:seed:permissions",
+    "db:seed:permissions:test": "pnpm --filter @shop/api db:seed:permissions:test",
+    "db:seed:admin": "pnpm --filter @shop/api db:seed:admin",
+    "db:seed:admin:test": "pnpm --filter @shop/api db:seed:admin:test"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

@@ -1,3 +1,4 @@
+/** 文件作用：定义后台页面、员工管理弹窗及手机适配样式。 */
 html { background: #f3f6f8; }
 body { margin: 0; color: #243746; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
 a { color: #087e8b; }
@@ -5,7 +6,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #087e8b; outline-offs
 .app-layout { min-height: 100vh; background: #f3f6f8; }
 .site-header { min-height: 76px; padding: 20px 5vw; background: #fff; border-bottom: 1px solid #dce5e9; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { color: #243746; font-size: 22px; font-weight: 700; text-decoration: none; }
-.site-header nav { display: flex; gap: 28px; }
+.site-header nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
 .page-content { width: min(1120px, 90vw); margin: 56px auto; flex: 1; }
 .welcome-panel { display: grid; grid-template-columns: 1.6fr 1fr; background: #fff; border: 1px solid #dce5e9; border-radius: 8px; overflow: hidden; }
 .welcome-copy { padding: 64px 48px; }
@@ -18,5 +19,51 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .login-panel { max-width: 440px; margin: 0 auto; padding: 36px; background: #fff; border: 1px solid #dce5e9; border-radius: 8px; }
 .login-panel h1 { font-size: 28px; }
 .login-form { margin-top: 28px; }
+.auth-notice { margin-bottom: 24px; }
+.auth-status { padding: 48px 24px; text-align: center; }
+.auth-actions { margin-top: 24px; }
+.request-id { font-size: 12px; overflow-wrap: anywhere; }
+.employee-panel { padding: 28px; border: 1px solid #dce5e9; border-radius: 8px; background: #fff; min-width: 0; overflow-wrap: anywhere; }
+.employee-panel h1 { font-size: 28px; }
+.employee-panel h2 { font-size: 21px; margin: 0; }
+.employee-filters { display: grid; grid-template-columns: minmax(180px, 2fr) minmax(140px, 1fr) minmax(110px, 1fr) auto; gap: 16px; align-items: start; margin: 28px 0 12px; }
+.employee-filters .ant-select { width: 100%; }
+.employee-filter-actions { padding-top: 30px; }
+.employee-result-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 20px 0; }
+.employee-table { min-width: 0; }
+.employee-table .ant-table-cell { overflow-wrap: anywhere; }
+.employee-panel .employee-detail-title { margin-top: 24px; }
+.employee-permissions { margin-top: 32px; }
+.employee-permission-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: 1px solid #dce5e9; border-radius: 6px; }
+.employee-permission-column { padding: 20px; min-width: 0; }
+.employee-permission-column + .employee-permission-column { border-left: 1px solid #dce5e9; }
+.employee-permission-column h3 { font-size: 16px; margin: 0 0 16px; }
+.employee-permission-column h3 span { display: block; color: #536a79; font-size: 13px; font-weight: 400; margin-top: 6px; }
+.employee-permission-column ul { padding-left: 18px; margin: 0; font-size: 13px; line-height: 1.9; }
+.employee-error { margin: 24px 0; }
+.employee-error h2 { margin-bottom: 16px; }
+.employee-create-link { display: inline-block; padding: 8px 16px; border: 1px solid #087e8b; border-radius: 6px; text-decoration: none; white-space: nowrap; }
+.employee-create-panel { max-width: 780px; margin: 0 auto; }
+.employee-create-form { margin-top: 28px; }
+.employee-create-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.employee-create-form .ant-select { width: 100%; }
+.employee-management { margin: 24px 0; }
+.employee-edit-target { color: #536a79; overflow-wrap: anywhere; }
+.employee-permission-column code { display: block; overflow-wrap: anywhere; }
+.permission-options { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; width: 100%; }
+.permission-options .ant-checkbox-wrapper { align-items: flex-start; padding: 12px; border: 1px solid #dce5e9; border-radius: 6px; margin: 0; min-width: 0; }
+.permission-options strong, .permission-options code, .permission-options span span { display: block; overflow-wrap: anywhere; }
+.permission-options code, .permission-options span span { font-size: 12px; color: #536a79; }
+.permission-defaults, .permission-preview { margin-bottom: 24px; padding: 16px; border: 1px solid #dce5e9; border-radius: 6px; }
+.permission-preview { background: #f3f8f8; }
+.permission-preview h3 { font-size: 15px; margin: 16px 0 8px; }
+.permission-preview h3:first-child { margin-top: 0; }
+.permission-preview-list { padding-left: 20px; line-height: 1.8; overflow-wrap: anywhere; font-size: 13px; }
+.permission-preview-list code { font-size: 12px; }
+.permission-defaults summary, .permission-preview summary { cursor: pointer; }
+@media (max-width: 720px) { .permission-options { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 900px) { .employee-filters { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 720px) { .employee-create-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } }
+@media (max-width: 720px) { .employee-panel { padding: 20px; } .employee-filters { grid-template-columns: minmax(0, 1fr); gap: 0; } .employee-filter-actions { padding-top: 0; margin-bottom: 16px; } .employee-permission-grid { grid-template-columns: minmax(0, 1fr); } .employee-permission-column + .employee-permission-column { border-left: 0; border-top: 1px solid #dce5e9; } }
 .site-footer { padding: 24px 5vw; color: #536a79; text-align: center; }
 @media (max-width: 720px) { .welcome-panel { grid-template-columns: 1fr; } .welcome-copy, .welcome-aside { padding: 32px 24px; } .site-header { align-items: flex-start; flex-direction: column; } .page-content { margin-top: 28px; } .login-panel { padding: 24px; } }

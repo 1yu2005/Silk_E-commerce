@@ -1,3 +1,4 @@
+// 作用：准备隔离测试库和测试配置，再运行 PostgreSQL 集成验收套件。
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { assertSafeTestDatabase, readDatabaseEnvironment } from './database-env.js';

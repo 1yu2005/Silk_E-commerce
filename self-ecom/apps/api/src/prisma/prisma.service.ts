@@ -1,3 +1,4 @@
+// 作用：根据已验证配置创建 PostgreSQL Prisma 客户端，并管理连接生命周期。
 import type { OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@prisma/client';

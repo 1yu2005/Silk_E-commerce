@@ -1,0 +1,736 @@
+{
+  "scenario": "旧登录迟到成功不刷新新身份或员工缓存",
+  "diagnostics": [
+    {
+      "surface": "admin",
+      "path": "/employees/5b4cc844-0099-4720-9e9e-e70505f53baa",
+      "status": "ready",
+      "role": "SUPER_ADMIN",
+      "permissions": [
+        "after-sale.close",
+        "after-sale.dispute.decide",
+        "after-sale.inspection.confirm",
+        "after-sale.inspection.read",
+        "after-sale.receipt.record",
+        "after-sale.refund.execute",
+        "after-sale.refund.retry",
+        "after-sale.return.follow",
+        "after-sale.review",
+        "after-sale.service.read",
+        "audit.read",
+        "category.manage",
+        "category.read",
+        "communication.service.write",
+        "customer.frozen.proxy",
+        "customer.read",
+        "customer.status.manage",
+        "dashboard.read",
+        "deadline.extend",
+        "employee.create",
+        "employee.password.reset",
+        "employee.permission.manage",
+        "employee.profile.update",
+        "employee.read",
+        "employee.role.change",
+        "employee.status.manage",
+        "inventory.adjustment.claim",
+        "inventory.adjustment.create",
+        "inventory.adjustment.post",
+        "inventory.adjustment.void",
+        "inventory.alert.manage",
+        "inventory.order-exception.manage",
+        "inventory.read",
+        "inventory.source.manage",
+        "offline-case.manage",
+        "order.fulfillment.read",
+        "order.physical.check",
+        "order.service.read",
+        "order.unpaid.close",
+        "product.cost.read",
+        "product.manage",
+        "product.publish",
+        "product.read",
+        "shipment.claim",
+        "shipment.customer-confirm",
+        "shipment.exception.manage",
+        "shipment.handover",
+        "shipment.history.correct",
+        "shipment.pack",
+        "shipment.tracking.correct",
+        "store.setting.manage",
+        "task.transfer"
+      ],
+      "headings": [
+        "员工详情"
+      ]
+    },
+    {
+      "surface": "ordinary",
+      "path": "/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": "ready",
+      "role": "CUSTOMER_SERVICE",
+      "permissions": [
+        "after-sale.close",
+        "after-sale.refund.execute",
+        "after-sale.refund.retry",
+        "after-sale.return.follow",
+        "after-sale.review",
+        "after-sale.service.read",
+        "communication.service.write",
+        "customer.frozen.proxy",
+        "customer.read",
+        "offline-case.manage",
+        "order.service.read",
+        "shipment.customer-confirm"
+      ],
+      "headings": [
+        "没有查看员工的权限"
+      ]
+    },
+    {
+      "surface": "self",
+      "unreadable": true
+    }
+  ],
+  "requests": [
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "8789d267-9f18-401f-bb99-804899214065",
+      "bodyFields": [
+        "password",
+        "username"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "50fda1e3-29c2-4ef3-8cab-52671425d859"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "63c6b8b0-0066-4a85-91be-7d252ae5b72b"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "6ed156f0-a354-4ff9-ba48-85dac0fd7912"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "91edb926-baca-4738-8201-4d7984cb563e"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "8f57df00-dced-4bdc-83f0-a2473ab76d17"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "994a49d0-8371-495a-871c-3495687f9104"
+    },
+    {
+      "surface": "ordinary",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "cbe7024a-3421-46f6-a153-9396c805ee8a",
+      "bodyFields": [
+        "password",
+        "username"
+      ]
+    },
+    {
+      "surface": "ordinary",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "0ea396f7-780e-4ac4-a1d4-5238113a4657"
+    },
+    {
+      "surface": "ordinary",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "29ab1cdf-3e36-4e0f-b58f-678cee48d8ec"
+    },
+    {
+      "surface": "ordinary",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "2b9d8160-d31d-49e4-9a2d-4518c6028322"
+    },
+    {
+      "surface": "ordinary",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "cb4c03d9-7e4a-43f7-acb2-2b3dc9346953"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "d6427de9-521f-442f-9228-e1eef0eedffd"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "311f7db1-aab5-452e-bd47-5122292413e4"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "161c7a3b-fe5e-4892-b6dd-f66012306fcf"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "c0ba5e22-e8f1-4e44-a10e-53a88d0ddd1d"
+    },
+    {
+      "surface": "admin",
+      "method": "PATCH",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/profile",
+      "status": 200,
+      "requestId": "69e98477-3017-47ce-837a-5fa73ebc5e3e",
+      "bodyFields": [
+        "displayName",
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "60e39837-021a-406a-89d6-157303725094"
+    },
+    {
+      "surface": "admin",
+      "method": "PATCH",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/profile",
+      "status": 200,
+      "requestId": "3116e709-0913-4b3f-8877-d41664b271f7",
+      "bodyFields": [
+        "displayName",
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "d0cb27d4-a047-4c52-9476-87b1909e550c"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "64045f26-132a-45cc-9413-1306a4314525"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "d2530bf7-4933-439a-9baf-349e7bf6f819"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "b1753eb9-15e0-4b29-8ad8-43eb7adf1cfe"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "433310d0-ed77-4fe2-9748-a2cc2a75d03a"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "ca7f6b99-fcb6-4627-aa0f-74cb1d6f27ad"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "107c57a8-72cb-4a63-8fc3-9d3c7cb37e7f"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "ae104a6c-72c5-4ff5-a4d5-10eab7c9f17a"
+    },
+    {
+      "surface": "admin",
+      "method": "PATCH",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/profile",
+      "status": 409,
+      "requestId": "5354aaab-ea0c-4dc1-a8c3-f970c68fd605",
+      "bodyFields": [
+        "displayName",
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "e2b3fd75-f68d-4473-ada6-1d306a831174"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/disable",
+      "status": 200,
+      "requestId": "cf04e1a5-abfb-488c-9ee1-ee7a5fbebffd",
+      "bodyFields": [
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "83ea5996-aba1-4ffc-849c-4e60ff4327a1"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/enable",
+      "status": 200,
+      "requestId": "878560bb-3336-473e-b46d-8de0cc2571fe",
+      "bodyFields": [
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "15b10382-38a4-4da0-9b43-b597c804b888"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/reset-password",
+      "status": 400,
+      "requestId": "263e9438-d6f3-4b55-a477-2f0af9410d89",
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "temporaryPassword"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/reset-password",
+      "status": 200,
+      "requestId": "3479be9d-49f5-4880-b588-65ae0a5b07ab",
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "temporaryPassword"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "1e493322-2d84-4f33-8ff1-14ddb43a029a"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "444bd6c0-b1d8-486c-b2a9-d8b2b1b4c4d0"
+    },
+    {
+      "surface": "admin",
+      "method": "PUT",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/extra-permissions",
+      "status": 200,
+      "requestId": "254c1948-b28d-4d6e-8722-d2f7571ce933",
+      "bodyFields": [
+        "expectedVersion",
+        "permissions",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "e5e0f137-13b3-4517-a047-1dc570f2262a"
+    },
+    {
+      "surface": "admin",
+      "method": "PUT",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/extra-permissions",
+      "status": 200,
+      "requestId": "f89f744f-06e5-4c11-a8a3-cf3f13f6b99b",
+      "bodyFields": [
+        "expectedVersion",
+        "permissions",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "8f2ab7b3-8f37-4a23-8f6e-03ec6cf53f90"
+    },
+    {
+      "surface": "admin",
+      "method": "PUT",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/extra-permissions",
+      "status": 200,
+      "requestId": "2d4bfc53-4921-40b1-af54-350a47d6a7f1",
+      "bodyFields": [
+        "expectedVersion",
+        "permissions",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "4020a149-6678-4574-afd8-168f1ce37d7d"
+    },
+    {
+      "surface": "admin",
+      "method": "PUT",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/extra-permissions",
+      "status": 200,
+      "requestId": "c6683851-2ab4-4cf2-b30c-f59d24ece84f",
+      "bodyFields": [
+        "expectedVersion",
+        "permissions",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "9b96bded-f96a-4b5e-aed0-2a3c771fa9f8"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/change-role",
+      "status": 200,
+      "requestId": "44565f43-0014-4b2b-889f-1349e976bfde",
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "role"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "3d1609ba-b168-4abd-a6a9-0b9bd13124f2"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/change-role",
+      "status": 200,
+      "requestId": "9edfee71-3090-4d44-bf8f-f5c3b783c46f",
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "role"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "568eb2f7-bfb6-4ee3-967e-dad5f37fe334"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/change-role",
+      "status": 200,
+      "requestId": "d1a4ef3d-930d-4a88-9d58-90f2b96e52d6",
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "role"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "03463fd8-0d82-4a09-abfb-89bfb5335a38"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/change-role",
+      "status": 200,
+      "requestId": "7d2bccfa-6d8d-4956-a380-b94b7ca7b018",
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "role"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "3465681d-a2bf-4943-9138-2bab03a66dba"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/disable",
+      "status": 409,
+      "requestId": null,
+      "bodyFields": [
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "1fa1c42b-3d11-47c2-b488-29a0536289f0"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "035c98a2-80b5-4539-a454-5cbb7fb52b61"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 500,
+      "requestId": null
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "7a0ed920-1626-4892-80cf-8191ca60a2ef"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "182198af-78fa-4eef-878c-73a4b583050a"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/reset-password",
+      "status": 500,
+      "requestId": null,
+      "bodyFields": [
+        "expectedVersion",
+        "reason",
+        "temporaryPassword"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "cdaa0b4c-30aa-443d-b0d7-76d7d326bbf9"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "9094381e-fca4-476b-a9f6-3374a8d0fe46"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "81aa271d-ed10-4c0e-8e30-d6b44194c8fd"
+    },
+    {
+      "surface": "admin",
+      "method": "PATCH",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d/profile",
+      "status": 200,
+      "requestId": "11472782-db04-4fc5-a01a-8383cd434ab2",
+      "bodyFields": [
+        "displayName",
+        "expectedVersion",
+        "reason"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "c9fde0e7-5018-4682-933a-23055bbc8df7"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/5b4cc844-0099-4720-9e9e-e70505f53baa",
+      "status": 200,
+      "requestId": "b6ff1536-eb70-42f0-947c-5e01136e64c5"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "9b60740a-b7c6-400b-952d-df60da16d2a3"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "9de7313e-5a7b-4a55-beec-f7517c5d1560"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "9fe9b772-3ea7-4706-8c2a-24ecfe6fd1b7"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/c630c966-f261-47fc-b6ea-ff0e1719072d",
+      "status": 200,
+      "requestId": "fad0a554-1c3f-487d-8fc6-e5cc8c758fd8"
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "6d752815-4ba5-41de-9ded-77315d3936d4",
+      "bodyFields": [
+        "password",
+        "username"
+      ]
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "7a59af8c-e4ed-4774-86b7-dcf442bfa055"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "b9270c0c-fcca-46f8-a6ed-4d0a96d37310"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "c52aabcc-10ec-478b-afa7-5a49d9f30bcb"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "51af3825-b358-455b-b179-b5ced33756e9"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "92b03c2f-a70e-4a84-bc9b-9decc690762c"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/5b4cc844-0099-4720-9e9e-e70505f53baa",
+      "status": 200,
+      "requestId": "e5a02923-fa27-4fed-8cdf-a58b15dcc69e"
+    }
+  ],
+  "pageErrors": []
+}

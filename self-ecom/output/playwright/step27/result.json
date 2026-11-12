@@ -1,0 +1,335 @@
+{
+  "date": "2026-11-12T05:57:20.505Z",
+  "node": "v24.18.0",
+  "browser": "145.0.7632.6",
+  "database": "shop_test",
+  "backend": "真实Nest API及PostgreSQL测试库，只有本人500/403与网络中止由浏览器注入",
+  "checks": [
+    "公开首页与私有账号路由",
+    "注册前端边界",
+    "真实注册、提交loading及不自动登录",
+    "重复手机号409与密码字段清理",
+    "可选昵称省略使用默认值",
+    "真实登录、密码原文及只读账号",
+    "刷新恢复与已登录表单保护",
+    "真实双端登录及跨域凭证拒绝",
+    "交易受限可读取及焦点刷新",
+    "本人500保留会话并可重试",
+    "本人403不注销或循环",
+    "真实冻结401清顾客身份且员工继续可用",
+    "真实注销只撤销当前会话且员工保持",
+    "员工退出不影响已登录顾客",
+    "注销网络失败仍清本地",
+    "顾客本地到期定时清理",
+    "离开注册页后迟到成功不跳转",
+    "登录网络失败固定提示",
+    "真实登录限流和Retry-After"
+  ],
+  "requests": [
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/register",
+      "status": 201,
+      "requestId": "9496093e-f3ba-4299-bb9b-9f9b21ac4283",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/register",
+      "status": 409,
+      "requestId": "a667997b-b516-4796-a439-f832e095175a",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/register",
+      "status": 201,
+      "requestId": "84cd4eba-08e5-4e4e-b6d9-b2b796dd9894",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "cc194230-7ff7-4dce-a908-aea686748ba7",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 200,
+      "requestId": "c1e2ded3-22b2-4ec7-baaa-1a11f5cb5ff6",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "ad6ce0e1-f696-4444-a2a2-0884434d0025",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "caf24343-61ee-4c2f-bc18-237c70c1d6e1",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "b97da425-7073-41fb-86e4-09def8715bb0",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "f1269c15-b4a8-4772-902f-854abb7ab877",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "516f9343-b790-4a24-9aa8-f1f6399f4d0b",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "9bb356ab-4884-46a2-9047-cef00041ea14",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "5c9f8ecb-419e-4d21-80d5-350400d01b06",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "62778851-b977-47ab-ab5f-4fecc5bc949b",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 500,
+      "requestId": "ad66e49a-9239-43dd-97ae-0a91dc559136",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "6176d297-8960-4a46-8f1f-c84ec5a94a28",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 403,
+      "requestId": "ad66e49a-9239-43dd-97ae-0a91dc559136",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "910b9cb6-3305-4c1f-a8a8-c6fae5c92545",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 401,
+      "requestId": "625d8b19-dde4-4cbc-a628-5de41c68377d",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "bfeab7af-88c2-4dcf-b869-db211dbfc17d",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "2f8b0c69-c465-47e5-aea4-ab43ec0b3ed0",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 200,
+      "requestId": "8d61b37e-3b2b-4a98-8e1e-e4a5f9b16b40",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "c9177c21-f725-45dc-b2b3-ad84da149051",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "requestId": "90a537f9-d9ff-4920-9414-78f6c12c2170",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 200,
+      "requestId": "800063a5-f8cd-4e63-8b90-da451a2e99af",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "94d068d2-df70-4866-9816-1aafa3612986",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "requestId": "c5e089a1-9eca-4142-a241-4773d1747db7",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "9167ece3-9876-4513-a998-714b4f3caed7",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 200,
+      "requestId": "0c687312-09cf-44f0-8a17-0e88edd25938",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "f7032cb1-cbfa-4557-8ce8-3aaebcdf5362",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "844e48f2-dbd7-428a-bcad-80079e070b4d",
+      "authorizationPresent": true
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/register",
+      "status": 201,
+      "requestId": "4440e22f-adfe-4fde-ab84-c8d1d9b95f45",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "a8286828-8d49-4028-81f3-3e986c9b4199",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "399df0f0-1f51-47d3-a426-d9819af5ac68",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "178ce69f-8c4d-4c17-9541-c9165631dc64",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "2648a7d7-37f3-460e-9854-8e71900d32a2",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 401,
+      "requestId": "278676fe-5dea-4a97-a0c5-18ab647b0a0e",
+      "authorizationPresent": false
+    },
+    {
+      "surface": "store",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 429,
+      "requestId": "6631f5bc-8bcd-4812-8a6a-3a5308d7bf38",
+      "authorizationPresent": false
+    }
+  ],
+  "pageErrors": [],
+  "localExpiry": "客户端期限缩短仅验证定时清理，不作为JWT服务端到期证据",
+  "separation": "同一浏览器上下文中的真实后台与顾客两站登录/注销，跨域token由API拒绝",
+  "cleanup": {
+    "customers": 0,
+    "employees": 0,
+    "sessions": 0,
+    "actorAudits": 0
+  }
+}

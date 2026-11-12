@@ -1,3 +1,4 @@
+// 文件作用：配置后台开发端口、React 构建及本机 API 的同源代理。
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 

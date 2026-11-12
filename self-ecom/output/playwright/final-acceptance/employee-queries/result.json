@@ -1,0 +1,646 @@
+{
+  "date": "2026-11-12T08:53:29.509Z",
+  "node": "v24.18.0",
+  "browser": "145.0.7632.6",
+  "database": "shop_test",
+  "backend": "真实Nest与PostgreSQL；500/网络失败及一次403为浏览器注入，资格变化/会话撤销为自有数据库夹具",
+  "checks": [
+    "匿名列表保护与管理员入口",
+    "真实筛选分页及详情返回保留条件",
+    "岗位状态组合筛选与页大小变更",
+    "文字通配符按字面搜索及空结果",
+    "地址栏非法参数与无效员工编号不发送查询",
+    "真实不存在员工404与安全错误",
+    "员工详情公开资料与只读权限三栏",
+    "列表与详情桌面手机布局",
+    "列表500网络失败与详情500可手动重试",
+    "新筛选取消旧请求且旧结果不覆盖",
+    "403权限刷新不循环且显式重试受控",
+    "普通员工页面拒绝与真实API403",
+    "强制改密不能进入员工查询",
+    "真实撤销查看资格后原token403并更新菜单",
+    "真实401清当前员工查询与身份且另一登录保持",
+    "查询未写员工字段额外授权或审计且最小存储保持"
+  ],
+  "requests": [
+    {
+      "surface": "admin",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "9e26152a-1ab5-4617-b02f-fea7d988933e"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "2df858b1-7340-40d2-a7fa-2827e1f779fc"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "ab72c050-1dc4-4ab9-83f9-cb4ffed3957e"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "3aac802b-0f8e-4c28-a810-fcb2c687efcb",
+      "query": {
+        "page": "1",
+        "pageSize": "20"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b96e269d-72c2-4b3a-9ab3-9c9513400fbb"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "0ebf1f26-bf4d-408e-90c7-1a070d35f255"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "438bf3b3-ec1e-427e-ae33-43c05d3af214",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "7a8d3864-97a8-4265-a943-b74b66695708",
+      "query": {
+        "page": "2",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/956b2e2b-7a85-4f5e-b779-09a00a33d7c3",
+      "status": 200,
+      "requestId": "0aeff064-bdeb-4c3d-a5d1-3033364cd02f"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "2a2887b4-0f89-4bd8-9e88-6a96e6fccd16"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "73b4b3f6-7af5-4545-b060-32719fee0659",
+      "query": {
+        "page": "2",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "369539a1-aec0-4089-b2a2-79e62f74c9e3",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_",
+        "role": "MERCH_WAREHOUSE",
+        "status": "DISABLED"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "aa5d599f-2404-4b03-b1b7-6beb7505c7dc",
+      "query": {
+        "page": "1",
+        "pageSize": "20",
+        "keyword": "q_3d01068adb_",
+        "role": "MERCH_WAREHOUSE",
+        "status": "DISABLED"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "620751ad-806b-42dd-bac2-da13e9b0a4c4",
+      "query": {
+        "page": "1",
+        "pageSize": "20"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "08353946-5d73-499f-9e7a-fc388e680faa",
+      "query": {
+        "page": "1",
+        "pageSize": "20",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "fd54582b-6acc-4d65-a6e1-d6ca4ca779ea",
+      "query": {
+        "page": "1",
+        "pageSize": "20",
+        "keyword": "missing_3d01068adb"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "d899eaca-8a6b-4867-9dfc-fd2033429cc7"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "085bafe6-44a0-4648-a735-c45d69ee3209"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "d98ac21b-9c13-4a0b-9b22-41a9698621b1"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "2fae1503-fde3-4862-9a0b-c40b88fcaece"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "dc7adea2-260d-4e26-b187-0ad54e093864"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "e5c0eea2-65c0-42a6-a67e-ef82d80014bb"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "3041a7c6-6a89-4380-bfeb-317f1045888b"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "7b23cc2a-bd15-491e-9f00-ae6ee2ef66f0"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b33c1803-9663-45bc-8f7e-dd33c28d1798"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "2dd8b68f-83b5-44cb-8baf-9da1fabd2317"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "07a1c4c5-7d26-4cf2-8868-4ce986731f13"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "bfb7f7aa-349a-4cbf-88e3-af8b12000af1"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/5f1c509f-29d2-4557-a20f-70f369eae823",
+      "status": 404,
+      "requestId": "7bb2e43b-d289-4bf5-b5aa-06b0b41d96a2"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "135c01e5-c321-4741-a8aa-30c8cf381d55"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "1db3f17d-4c38-44ff-aa60-be6809d38286"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "af4f0e3e-6fa6-41b8-ba2f-ea0e2fff9b57"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "afefe0c5-367a-45c6-bf94-f903ca5ecb72"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/f4d2fc60-dd45-4429-8336-da9fe31f822d",
+      "status": 200,
+      "requestId": "776ef29b-012f-413a-b80c-4221e57f44a8"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "3d9021f9-1d65-47c2-b538-30eb91bd7dad"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "f246f1fb-f891-4ee9-b4c5-fa43c80fc727"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "bbfa974d-8a0f-41a5-8e9c-ba50697abfb8",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 500,
+      "requestId": "68f22884-dc8c-4de7-bdd8-5d51c83a088e",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "65aed328-6945-40d5-81a6-d5247759872c",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "a758ca5e-fab4-46a4-9642-3f226ccfbf46",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "a0a73e74-93a8-44ea-ae46-a310c7f8d592"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "a768926d-edac-4321-bf86-29c63afcb6af"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/f4d2fc60-dd45-4429-8336-da9fe31f822d",
+      "status": 500,
+      "requestId": "68f22884-dc8c-4de7-bdd8-5d51c83a088e"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/permissions",
+      "status": 200,
+      "requestId": "31aacc58-201c-4ccf-a129-84fe6847d4aa"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees/f4d2fc60-dd45-4429-8336-da9fe31f822d",
+      "status": 200,
+      "requestId": "d2714fbd-aacd-4ee3-bb99-227b10c7fd1a"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "66e960bf-a504-43c2-b8bb-8b031bb76676"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "6a71b01f-d4e1-46af-ad35-b45a1a3eb9fc"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "613e14a6-42b3-4516-9ed5-f33fa847dd92",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "q_3d01068adb_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "e6491554-b899-4830-91c2-9d0145488778",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 403,
+      "requestId": "68f22884-dc8c-4de7-bdd8-5d51c83a088e",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "61ed1406-0e7e-478f-b394-f7f206739ecb"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "9e42a4c5-830d-4b15-91b6-f9e1be7b040d"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 403,
+      "requestId": "68f22884-dc8c-4de7-bdd8-5d51c83a088e",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "e3388874-8106-4589-a75b-2098378af609"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "fdbdb2be-ac12-4b86-a7ac-89ee0ea1b30e"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "c5873458-2a25-4265-a4d6-73c4600c4132",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "staff",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "385d3219-19b0-4cee-8686-2d45fce6b4b2"
+    },
+    {
+      "surface": "staff",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "62ca346d-c6b9-4779-a5ae-88142f8ad3bc"
+    },
+    {
+      "surface": "staff",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "87bbb9b1-1e6f-4094-a0b8-431dab81606f"
+    },
+    {
+      "surface": "staff",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "54d15aa1-547c-4561-9f6c-a1febd397eee"
+    },
+    {
+      "surface": "staff",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "b6a722c0-8bd6-4436-94f9-3a4658cd4f79"
+    },
+    {
+      "surface": "staff",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "8d2c1c38-46ea-4e68-bff8-2062ac4a788b"
+    },
+    {
+      "surface": "staff",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "f07c9207-8f0a-4e2e-9528-9aec5f7a2aef"
+    },
+    {
+      "surface": "forced",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "0453c520-2760-401f-9676-01cfe9662c02"
+    },
+    {
+      "surface": "forced",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "214bfe02-767d-46f3-b18a-7126a0ccd4ed"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 403,
+      "requestId": "2d51d09f-900c-4817-8af7-6a00b1ebc984",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "103fdd20-68fc-4ba0-b8a0-6e3b6ec001bc"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "b3ad2504-1f5b-4477-a152-a3491f7ac1ba"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b54848e2-a428-4e23-8cbf-c5a63717eebc"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "3946adf3-9322-4884-934e-61e9b9c6a417"
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 200,
+      "requestId": "e05f262b-bab3-4ec5-ba83-3b585163ff5a",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    },
+    {
+      "surface": "admin",
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 401,
+      "requestId": "21ef9022-ca32-40ba-a759-d8271a33c5bc",
+      "query": {
+        "page": "1",
+        "pageSize": "10",
+        "keyword": "折扣%_"
+      }
+    }
+  ],
+  "pageErrors": [],
+  "scope": "仅员工列表/详情读取页面；无员工创建、启停、重置、调岗或授权页面操作，权限三栏仅查看",
+  "cleanup": {
+    "employees": 0,
+    "sessions": 0,
+    "extraPermissions": 0,
+    "actorAudits": 0
+  }
+}

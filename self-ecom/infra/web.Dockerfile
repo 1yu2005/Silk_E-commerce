@@ -1,3 +1,4 @@
+# 文件作用：按指定站点构建前端静态资源，再由 Nginx 提供页面和同源 API 代理。
 FROM node:24.18.0-bookworm-slim AS build
 RUN npm install --global pnpm@11.25.0
 WORKDIR /app

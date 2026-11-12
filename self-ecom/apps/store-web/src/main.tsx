@@ -1,3 +1,4 @@
+/** 文件作用：挂载顾客商城，配置中文组件和全站主题。 */
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { ConfigProvider } from 'antd';

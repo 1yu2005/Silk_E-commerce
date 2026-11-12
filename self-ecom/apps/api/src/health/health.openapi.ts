@@ -1,3 +1,4 @@
+// 作用：定义健康检查和公共请求编号响应头的 Swagger 结构。
 import type { OpenAPIObject } from '@nestjs/swagger';
 
 type SchemaObject = NonNullable<NonNullable<OpenAPIObject['components']>['schemas']>[string];

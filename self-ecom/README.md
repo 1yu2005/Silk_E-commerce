@@ -1,158 +1,236 @@
 # 自营电商系统
 
-一家自营店铺的后台管理站、简单顾客站和统一 API。
+一家自营店铺的后台管理站、顾客站和统一API。
 
 ## 当前进度
 
-板块1（M0-01：工程、数据库与四容器骨架）已于2026-11-11通过验收，SW-01～06、CK-01～08全部通过。已完成workspace、严格TypeScript、ESLint、Turborepo、NestJS、健康检查、统一响应、环境配置、PostgreSQL/Prisma/首迁移、独立测试库、DTO、日志、Swagger、两个React应用壳和四服务容器部署。实际证据见[验收记录](docs/verification/M0-01.md)。
+板块1（工程、数据库与四服务骨架）和板块2（登录、员工与权限）已验收。当前支持员工认证与管理、岗位及个人授权、顾客注册登录和本人资料维护，两端均适配电脑和手机。商品、库存、订单、发货等业务留待后续板块。
 
-当前页面只提供首页、未开放的登录表单及 404；没有账号认证、商品或订单业务。顾客端明确展示模拟交易说明。
+功能和技术说明见[板块2开发完成说明](项目文档/开发进度文档/开发完成说明/板块2_开发完成说明.md)，历史整体验收及后续初始化调整见[验收记录](docs/verification/M0-02.md#initial-admin-defaults)，整体安排见[开发进度总览](项目文档/开发进度总览.md)。
 
-## 版本
+## 环境与目录
 
-2026-11-11 查询包仓库并安装，提交完整 `pnpm-lock.yaml`。
+使用Node.js **24.18.0**、pnpm **11.25.0**及Docker Compose。安装依赖使用锁文件；其余依赖版本见各包的`package.json`和`pnpm-lock.yaml`。确认pnpm实际使用上述Node版本，工具自带启动脚本可能使用不同运行时。
 
-| 工具 | 固定版本 |
-|---|---|
-| Node.js | 24.18.0（`.node-version`） |
-| pnpm | 11.25.0（`packageManager`） |
-| TypeScript | 6.0.3 |
-| Turborepo | 2.11.10 |
-| NestJS | 12.4.2 |
-| React / React DOM | 19.3.1 |
-| Vite / React 插件 | 8.3.8 / 5.2.0 |
-| Ant Design | 6.7.0 |
-| React Router DOM | 7.18.5 |
-| Axios | 1.21.1 |
-| ESLint / typescript-eslint | 10.14.0 / 8.72.2 |
-| Vitest | 5.1.0 |
-| Prisma CLI / Client / PostgreSQL适配器 | 7.10.1 |
-| pg / @types/pg | 8.23.1 |
-| tsx | 4.23.15 |
-| PostgreSQL镜像 | postgres:16.6-bookworm |
-| Nginx镜像 | nginx:1.28.0-alpine |
-| Swagger | 12.1.1 |
-| Pino / nestjs-pino / pino-http | 10.4.0 / 5.3.1 / 11.0.0 |
-| class-validator / class-transformer | 0.15.1 / 0.5.1 |
-
-TypeScript7不满足当前Swagger与typescript-eslint兼容范围，因此选用6.0.3。Prisma7使用PostgreSQL驱动适配器；CLI与客户端固定相同版本，不采用CLI提示的8.0候选版。pnpm11使用allowBuilds限定需要运行安装脚本的依赖。
-
-本机 `node` 指向 `D:\develop\nodejs\node.exe`；Codex 提供的 `pnpm.cmd` 自带另一 Node 运行时（24.22.1）。本轮验证显式用 Node 24.18.0 运行 pnpm 的 JS 入口。普通开发环境应先确保 pnpm 实际使用 Node 24.18.0，避免只检查 `node --version` 却忽略包管理器启动脚本。
-
-## 目录
+技术栈：NestJS、React、Ant Design、PostgreSQL、Prisma、TypeScript和Turborepo。
 
 ```text
-apps/api             NestJS API，端口 3000
-apps/admin-web       后台 React 站点，端口 5173
-apps/store-web       顾客 React 站点，端口 5174
-packages/shared      公开接口基础类型，不导出数据库实体
-packages/api-client  Axios 实例工厂，目前只配置地址和超时
-packages/config      TypeScript 和 ESLint 公共配置
-infra                四服务Compose、API/前端Dockerfile、Nginx与HTTP检查脚本
-docs                 实施方案和实际验证记录
+self-ecom/
+├─ apps/
+│  ├─ api/           NestJS后端
+│  ├─ admin-web/     员工后台
+│  └─ store-web/     顾客商城
+├─ packages/
+│  ├─ shared/        共用类型和校验规则
+│  ├─ api-client/    前端请求和会话工具
+│  └─ config/        TypeScript和代码检查配置
+├─ infra/            Docker、Nginx和部署验证脚本
+├─ docs/             技术设计、OpenAPI和验收证据
+└─ 项目文档/         需求、板块设计、开发进度与完成说明
 ```
 
-代码直接位于 self-ecom，不再嵌套 shop。当前目录属于上级学习笔记 Git 仓库，操作时不要修改其它学习笔记。
+当前项目属于上级学习笔记Git仓库，操作时保留其他目录和已有未提交修改。
+
+## 先选择启动方式
+
+| 场景 | 阅读位置 | 实际启动的服务 |
+|---|---|---|
+| 第一次在本机开发 | [首次准备](#首次准备)，按步骤执行到底 | Docker运行数据库，本机运行API、后台、商城 |
+| 已完成初始化，继续日常开发 | [日常启动](#日常启动)，执行两条命令 | 同上，修改代码后自动重新编译或刷新 |
+| 四个服务全部使用Docker | [四服务容器启动](#四服务容器启动) | 数据库、API、后台、商城全部运行在容器中 |
+
+先启动Docker Desktop并等待引擎就绪。以下命令使用PowerShell，均在项目根目录执行；若终端已位于该目录，直接执行对应场景的命令即可：
+
+```powershell
+Set-Location 'D:\实习\实习生全栈学习笔记\self-ecom'
+```
 
 ## 本地启动
 
-在 self-ecom 根目录执行：
+这是日常推荐方式：数据库在Docker，API与两个网站在本机。
+
+### 首次准备
+
+**第1步：确认版本并安装依赖。**
 
 ```powershell
 node --version
 pnpm --version
 pnpm install --frozen-lockfile
-Copy-Item .env.example .env
-# 仅首次复制；已有 .env 不要覆盖。替换示例开发密码。
+```
+
+Node应为24.18.0，pnpm应为11.25.0。
+
+**第2步：创建并填写环境配置。**
+
+```powershell
+# 已有.env时保留原配置。
+if (-not (Test-Path .env)) {
+  Copy-Item .env.example .env
+}
+```
+
+打开根`.env`，替换示例数据库密码，使`DATABASE_URL`与`POSTGRES_*`一致；填写至少32字节的随机`JWT_SECRET`。需要接口文档时设置`SWAGGER_ENABLED=true`。**保存配置后再继续下面的命令。**
+
+**第3步：生成数据库客户端、启动数据库、建表并初始化账号。**
+
+确认`DATABASE_URL`指向目标开发库，然后按顺序逐条执行，每条成功后再继续：
+
+```powershell
+# 生成Prisma客户端。
 pnpm db:generate
-docker compose --env-file .env -f infra/compose.yaml up -d db
-# 等待db显示healthy后应用迁移。
+# 启动数据库，等待它就绪。
+docker compose --env-file .env -f infra/compose.yaml up -d --wait db
+# 应用迁移建表，再检查迁移状态。
 pnpm db:migrate:deploy
+pnpm db:migrate:status
+# 初始化权限目录及首管理员；已有管理员不会被覆盖。
+pnpm db:seed:permissions
+pnpm db:seed:admin
+```
+
+首管理员默认账号为**`admin`**、密码为**`admin123`**，不要求首次改密。私有`.env`中的`INIT_ADMIN_USERNAME`和`INIT_ADMIN_PASSWORD`可覆盖默认值，显式空值会报错。seed仅在空员工库创建账号，不用于重置旧账号；新建员工和重置员工密码后的强制改密规则保留。
+
+**第4步：启动API和两个网站。**
+
+```powershell
 pnpm dev
 ```
 
-`pnpm dev` 会先构建依赖的公共包，再启动 API 与两个 Vite 服务。端口被占用时应先处理占用，两个 Vite 站点不会静默更换端口。
+等待终端显示三个应用就绪，保持该终端运行，打开下方“本机访问网址”。以后继续开发，使用下面两条日常命令即可。
 
-- 后台：<http://localhost:5173>
-- 顾客端：<http://localhost:5174>
-- 两站登录外壳：`/login`
-- API存活检查：<http://localhost:3000/api/v1/health/live>，查询本身不连接数据库。API启动阶段会验证数据库连接；启动完成后live仍只反映进程存活。未实现路径返回统一JSON404。
-- API就绪检查：<http://localhost:3000/api/v1/health/ready>，经Prisma执行SELECT1；成功200、data.status=ready、checks.database=up。数据库故障时返回503、SERVICE_NOT_READY和details.database=unavailable，不暴露驱动异常。
+### 日常启动
 
-Vite将`/api`原路径代理到3000。API端口读取PORT，默认3000；修改PORT时须同步两站Vite代理。成功响应为`{data,requestId}`，错误为`{code,message,details?,requestId}`；每次请求生成服务端UUID并返回X-Request-Id，不接受客户端指定编号。文件流保持原始内容。生产启动与HTTP测试复用公共配置。日志、DTO校验、业务细分错误码及Swagger后续补齐。
+前提：已完成上述首次准备。每次打开项目后，依次执行：
+
+```powershell
+# 启动数据库；已经运行时会保留现有数据。
+docker compose --env-file .env -f infra/compose.yaml up -d --wait db
+# 同时启动API、后台、商城，保持终端运行。
+pnpm dev
+```
+
+新增依赖后先执行`pnpm install --frozen-lockfile`；拉取了新迁移时，在启动前执行`pnpm db:generate`、`pnpm db:migrate:deploy`。日常重启不需要重复初始化账号。
+
+### 本机访问网址
+
+首次运行和日常开发使用同一组网址：
+
+| 入口 | 地址 |
+|---|---|
+| 后台登录 | <http://localhost:5173/login> |
+| 商城首页 | <http://localhost:5174> |
+| 顾客注册 / 登录 | <http://localhost:5174/register> / <http://localhost:5174/login> |
+| API就绪检查 | <http://localhost:3000/api/v1/health/ready> |
+| Swagger接口文档 | <http://localhost:3000/api/docs>，要求SWAGGER_ENABLED=true |
+
+`pnpm dev`先构建共享包，再启动API和两个Vite服务。两站通过`/api`代理到本机3000；修改API的`PORT`时同步修改Vite代理。端口占用时不会静默换端口。
+
+停止本机应用：在运行`pnpm dev`的终端按`Ctrl+C`。需要停止数据库时再执行：
+
+```powershell
+docker compose --env-file .env -f infra/compose.yaml stop db
+```
 
 ## 环境配置
 
-API统一从仓库根目录`.env`读取配置，不依赖启动时所在目录；进程/容器环境变量优先于文件。使用Node内置环境文件解析，不做`${...}`变量插值。`.env`已被Git忽略，不提交真实配置；`.env.example`只有示例。
+API和数据库脚本读取根`.env`，进程环境变量优先，不支持`${...}`插值。真实`.env`不提交，前端`VITE_*`只允许公开配置。
 
-| 变量 | 当前规则与用途 |
+| 变量 | 用途或默认值 |
 |---|---|
-| NODE_ENV | development/test/production，默认development |
-| PORT | 1～65535整数字符串，默认3000；实际用于监听 |
-| DATABASE_URL | 必填PostgreSQL URL，包含主机、用户名和数据库名；Prisma启动时真实连接 |
-| CORS_ORIGINS | 必填，逗号分隔两个不同的HTTP/HTTPS来源，不含路径或通配符；实际控制CORS并暴露X-Request-Id |
-| UPLOAD_DIR | 绝对路径；省略时为仓库根目录下storage/uploads的绝对路径，目前不创建目录 |
-| SWAGGER_ENABLED | 严格true/false，默认false；已解析，待Swagger接入 |
-| LOG_LEVEL | fatal/error/warn/info/debug/trace/silent，默认info；已解析，待Pino接入 |
+| `NODE_ENV`、`PORT` | 运行环境默认development，API端口默认3000 |
+| `DATABASE_URL` | 开发库连接串；宿主机示例为localhost:15432 |
+| `TEST_DATABASE_URL` | 独立测试库；与开发库同服务、不同名，库名以_test结尾 |
+| `POSTGRES_DB/USER/PASSWORD`、`DB_HOST_PORT` | Compose数据库配置；宿主端口默认15432 |
+| `JWT_SECRET`、`JWT_TTL_SECONDS` | 后端随机密钥至少32个UTF-8字节；有效期默认7200秒，允许1～86400 |
+| `INIT_ADMIN_USERNAME/PASSWORD` | 可选，覆盖首管理员默认admin/admin123；容器内使用覆盖值时需显式传入 |
+| `CORS_ORIGINS` | 两个不同的HTTP/HTTPS来源，逗号分隔 |
+| `SWAGGER_ENABLED`、`LOG_LEVEL` | Swagger开关默认false，日志级别默认info |
+| `UPLOAD_DIR` | 可选绝对路径，默认storage/uploads；文件上传留后续板块 |
+| `VITE_API_BASE_URL` | 前端公开接口前缀，默认/api/v1 |
+| `API_HOST_PORT/ADMIN_HOST_PORT/STORE_HOST_PORT` | 容器宿主端口默认3000/8080/8081 |
+| `COMPOSE_CORS_ORIGINS` | 容器网站来源，默认localhost:8080和localhost:8081 |
 
-配置错误统一指出变量名和规则，不输出输入值或连接串；启动在监听端口前失败。CORS仅控制浏览器跨来源读取，不替代认证或接口权限；两个站点通过同源Vite代理仍可工作。
+数据库首次初始化后，修改`.env`不会自动修改已有数据库账号密码。更改`DB_HOST_PORT`时同步本机连接串；容器API通过`db:5432`连接数据库。
 
-Compose读取POSTGRES_*与DB_HOST_PORT。TEST_DATABASE_URL供测试脚本使用，不能与开发库同名；本阶段要求位于相同数据库服务，测试库名以_test结尾。全局DTO校验尚未实现，环境校验不代表请求参数已校验。
+## 数据库与测试
 
-## 开发数据库（当前仅数据库容器）
+| 命令 | 用途 |
+|---|---|
+| `pnpm db:generate` | 生成Prisma客户端 |
+| `pnpm db:migrate:deploy` | 应用已有迁移 |
+| `pnpm db:migrate:status` | 检查迁移；存在待应用迁移时可能非零退出 |
+| `pnpm db:migrate:dev` | 开发新迁移，生产禁用 |
+| `pnpm db:seed:permissions` | 初始化固定权限及岗位绑定 |
+| `pnpm db:seed:admin` | 空员工库创建首管理员 |
+| `pnpm db:test:prepare` | 校验隔离后准备测试库，不重置已有库 |
+| `pnpm test:integration` | 校验隔离、准备测试库、应用测试库迁移并运行集成测试 |
 
-```powershell
-docker compose --env-file .env -f infra/compose.yaml up -d db
-docker compose --env-file .env -f infra/compose.yaml ps
-```
+权限和管理员seed也提供`:test`后缀命令，写入`TEST_DATABASE_URL`指定的库，要求已应用迁移。创建测试库需要数据库账号具有相应权限。
 
-镜像为postgres:16.6-bookworm，数据保存在db_data命名卷，健康检查通过pg_isready。当前本机5432已有PostgreSQL占用，因此项目默认映射`127.0.0.1:15432`到容器5432；本机DATABASE_URL/TEST_DATABASE_URL端口均为15432。容器内API连接数据库时将使用db:5432，而不是宿主机15432。如修改DB_HOST_PORT，需同时修改本机两个连接串端口。
-
-2026-11-11已确认容器healthy、Prisma真实查询成功、PostgreSQL16.6、时区UTC；开发库与测试库均已应用0001_bootstrap。其余三个服务容器尚未实现。不要使用`down -v`作为常规重启，它会删除数据库卷。初始化后的数据库账号密码不会因修改.env而自动改变。
-
-## Prisma、迁移与测试库
-
-```powershell
-pnpm db:generate
-pnpm db:migrate:deploy
-pnpm db:migrate:status
-pnpm db:test:prepare
-pnpm test:integration
-```
-
-脚本读取根目录.env，再调用固定版本Prisma。schema.prisma当前没有业务模型，已验证这种配置能生成Prisma7客户端；0001_bootstrap只执行CREATE SCHEMA IF NOT EXISTS public。唯一正式表为Prisma维护的_prisma_migrations，不添加虚假业务表或手动修改迁移记录。
-
-`db:migrate:dev`只用于开发新迁移，生产环境拒绝该命令；部署使用`db:migrate:deploy`。已应用迁移不得原地修改，后续变更新增迁移。API不会自行运行迁移，更不会reset数据库。
-
-PrismaService统一管理客户端和连接池：启动最多尝试3次，每次失败间隔250ms；连接/等待连接预算750ms，服务端statement_timeout为750ms，驱动query_timeout为1000ms。超时在驱动和数据库层生效，不仅靠Promise.race提前返回；真实pg_sleep(5)测试确认查询被终止。关闭应用时断开连接，最终启动错误不输出连接串，每连接使用UTC。
-
-并发ready共享当前尚未结束的SELECT1，完成后不缓存结果，后续请求重新检查数据库，避免大量探针排队和故障恢复误判。已实测同一API进程在db停止时ready503/live200，恢复db后ready200；ready只证明当时能查询数据库，不替代migrate status或完整业务验收。
-
-`db:test:prepare`校验目标后幂等创建shop_test，不重置已有库。`test:integration`先检查测试URL与开发库隔离，再准备测试库、仅对测试库执行migrate deploy并运行真实数据库测试。普通`pnpm test`隔离Prisma提供者，不连接或清理开发库。测试准备需要数据库账号具备创建数据库权限；失败时先检查权限，不删除现有卷。
+当前迁移为`0001_bootstrap`和`0002_auth_employee_permission_audit`。应用启动不自动迁移；已应用的迁移不要原地修改，后续变更新增迁移。普通`pnpm test`不连接开发库。
 
 ## 四服务容器启动
 
-在项目根目录执行（已存在`.env`时保留它）：
+用于板块完成后的部署验证，四个服务全部在Docker中运行。镜像构建会安装依赖并生成Prisma客户端。先启动Docker Desktop，并按“首次准备”的第2步配置根`.env`。
+
+### 第一次使用Docker，或切换到当前代码部署
+
+在项目根目录按顺序执行，每条成功后再继续：
 
 ```powershell
+# 检查配置并构建当前代码的镜像。
 docker compose --env-file .env -f infra/compose.yaml config --quiet
 docker compose --env-file .env -f infra/compose.yaml build
+# 先启动数据库，再在容器内执行迁移和初始化。
 docker compose --env-file .env -f infra/compose.yaml up -d --wait db
-docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm --filter @shop/api db:migrate:deploy
+docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm db:migrate:deploy
+docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm db:seed:permissions
+docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm db:seed:admin
+# 启动全部四个服务并查看状态。
 docker compose --env-file .env -f infra/compose.yaml up -d --wait --wait-timeout 90
 docker compose --env-file .env -f infra/compose.yaml ps
-node infra/verify-compose.mjs
 ```
 
-后台静态站为 http://localhost:8080 ，顾客静态站为 http://localhost:8081 。两站的`/api/docs`都可打开Swagger并同源试调。API容器内部为3000；宿主映射由`API_HOST_PORT`控制，示例默认3000，本机`.env`使用3001以便与开发模式并存，因此容器API文档为 http://localhost:3001/api/docs 。两种模式共用当前开发数据库；后续写入业务数据时需注意这一点。
+空员工库默认创建`admin / admin123`，无需首次强制改密；已有账号不覆盖。自定义容器初始化账号时，将配置放入当前进程环境，并为这次`run`增加`-e INIT_ADMIN_USERNAME -e INIT_ADMIN_PASSWORD`；API容器不会自动读取宿主机`.env`中的这两项。
 
-容器CORS默认允许8080/8081，可用`COMPOSE_CORS_ORIGINS`设置两个来源；若修改前端宿主端口，应同步更新该变量。数据库连接由Compose注入容器内`db:5432`地址，数据库用户名/密码用于拼接URL时应使用URI安全字符（随机十六进制密码适用）。前端只构建公开的`/api/v1`配置，不接收数据库或认证秘密。
+### 后续启动已有Docker部署
 
-API镜像使用Node 24.18.0、pnpm 11.25.0、多阶段构建和生产依赖，包含Linux环境生成的Prisma客户端、部署迁移CLI和运行迁移脚本所需的tsx，以uid1000运行。运行镜像关闭pnpm执行脚本前自动安装依赖，依赖在构建时使用锁文件安装；修改依赖后重新构建镜像。可用同样的覆盖命令运行`db:migrate:status`。前端运行镜像使用Nginx 1.28.0，仅包含构建产物和Nginx配置；`/api/`原路径转发，其他页面支持SPA刷新，缺失资源返回404。index.html使用no-cache，带哈希的assets使用一年immutable缓存。Nginx使用Docker DNS刷新API地址，API容器重建后可重新连接。
+代码、镜像和数据库结构没有变化时，只需：
 
-数据库复用`self-ecom_db_data`，上传目录使用`self-ecom_uploads`挂载到`/app/storage/uploads`，不挂载给Nginx。迁移独立执行，应用启动不会reset或自动迁移。停止服务可运行`docker compose --env-file .env -f infra/compose.yaml stop`；日常操作保留数据卷，不运行`down -v`。修改源码后重新build并up；修改运行环境后重新up使容器重建。
+```powershell
+docker compose --env-file .env -f infra/compose.yaml up -d --wait --wait-timeout 90
+docker compose --env-file .env -f infra/compose.yaml ps
+```
 
-## 工程检查命令
+`-d`表示后台运行，命令结束后可以关闭终端。源码或依赖变化后重新执行`build`再`up`；有新迁移时，在更新应用前执行上面的容器迁移命令。日常重启不需要重复seed。
+
+### Docker访问网址
+
+当前本机`.env`的API宿主端口为3001，后台和商城采用默认8080、8081：
+
+| 入口 | 当前本机地址 |
+|---|---|
+| 后台登录 | <http://localhost:8080/login> |
+| 商城首页 | <http://localhost:8081> |
+| 顾客注册 / 登录 | <http://localhost:8081/register> / <http://localhost:8081/login> |
+| 后台 / 商城代理的接口文档 | <http://localhost:8080/api/docs> / <http://localhost:8081/api/docs> |
+| API直连接口文档 | <http://localhost:3001/api/docs> |
+| API直连就绪检查 | <http://localhost:3001/api/v1/health/ready> |
+
+接口文档均要求`SWAGGER_ENABLED=true`。新电脑从`.env.example`复制时，`API_HOST_PORT`默认为3000，届时表中的3001改为3000；与本机开发同时运行时可设为3001以避免端口冲突。网站端口由`ADMIN_HOST_PORT`、`STORE_HOST_PORT`控制，修改后同步`COMPOSE_CORS_ORIGINS`。两种启动方式默认共用同一开发数据库。
+
+停止四服务并保留数据：
+
+```powershell
+docker compose --env-file .env -f infra/compose.yaml stop
+```
+
+数据保存在`db_data`卷，上传路径使用`uploads`卷，不要用`down -v`作为日常停止命令。Compose将JWT密钥作为运行配置传入API；数据库密码拼接连接串时应使用URI安全字符。Nginx不直接提供私有上传目录，修改运行配置后重新`up`使配置生效。
+
+板块2已通过独立四服务验收，原开发库和旧运行容器未被该轮验收迁移或替换。隔离复验入口为`node infra/verify-auth-compose.mjs`，需Docker及已有Playwright/Chromium；可用`DOCKER_EXECUTABLE`、`PLAYWRIGHT_MODULE_PATH`和`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定工具路径。执行范围及证据见[验收记录](docs/verification/M0-02.md#module2-final-acceptance)。
+
+## 工程检查与接口文档
 
 ```powershell
 pnpm lint
@@ -160,16 +238,19 @@ pnpm typecheck
 pnpm test
 pnpm test:integration
 pnpm build
+pnpm openapi:export
 ```
 
-实际源码包参与lint/typecheck/build。普通测试94项，涵盖配置、CORS、HTTP契约、DTO校验、Swagger开关与契约、ready错误脱敏、请求日志和测试库安全边界；真实数据库集成测试6项，验证PostgreSQL16/UTC/测试库身份、迁移、live/ready、慢查询实际终止及并发检查复用。实际Docker停库/恢复另有记录，没有用Mock替代故障实验。测试专用端点不注册生产AppModule；完整端到端验收后续补齐。
+OpenAPI导出到`docs/openapi/openapi.json`，需要有效环境配置（包括JWT），不连接数据库或启动服务。Swagger开关修改后需重启API；原始契约入口为`/api/docs-json`。浏览器复验所需环境、六组脚本和历史结果见[板块2验收记录](docs/verification/M0-02.md#module2-final-acceptance)。
 
-API以Pino输出JSON日志，`LOG_LEVEL`控制级别。请求日志包含method、去查询参数的path、statusCode、responseTime（毫秒）及与响应头/体一致的requestId。HTTP日志不采集请求体、请求头或响应头，错误信息与堆栈不直接输出；不要在自由文本日志中拼接敏感数据。这些运行日志不替代后续业务审计。
+四服务启动后，可在已有Node环境下执行`node infra/verify-compose.mjs`做基础检查；这是额外验证步骤，不是启动必需命令。
 
-设置根目录`.env`中的`SWAGGER_ENABLED=true`，启动API后访问 http://localhost:3000/api/docs ，原生OpenAPI JSON位于 http://localhost:3000/api/docs-json 。修改开关后需重启API；关闭时两个入口返回404。当前Health标签包含live/ready，展开接口后点击Try it out → Execute即可试调，无需登录。开发代理入口也可使用 http://localhost:5173/api/docs 和 http://localhost:5174/api/docs 。
+接口统一使用`/api/v1`前缀，成功返回`{ data, requestId }`，失败返回`{ code, message, details?, requestId }`。日志及响应通过requestId关联，日志不记录密码、JWT和连接串。`/health/live`检查进程，`/health/ready`检查数据库可访问；健康通过不代表迁移和业务验收已完成。
 
-运行`pnpm openapi:export`导出`docs/openapi/openapi.json`。导出仍校验环境配置，但不初始化数据库连接、不监听端口，也不要求Swagger开关开启。修改接口声明后重新导出；文档页面使用当前代码即时生成契约。后续Bearer认证在板块2接入。
+## 文档导航
 
-实施计划见 [M0-01 实施方案](docs/design/M0-01.md)，阶段验证见 [M0-01 验证记录](docs/verification/M0-01.md)。
-
-DTO校验基础：声明DTO类的参数启用严格字段白名单，额外字段和无效参数返回400（VALIDATION_FAILED），details包含field/message，不回显输入值。公共PaginationDto默认page=1、pageSize=20且最大100；数字和布尔转换必须显式声明，禁止宽松隐式转换。未声明DTO的路由不会自动获得字段校验；本阶段没有发布测试专用API。
+- [开发进度总览](项目文档/开发进度总览.md)：当前状态、后续计划和协作规则。
+- [通俗功能说明](项目文档/自营电商项目功能说明_通俗版.md) / [需求文档v2.0](项目文档/自营电商项目需求文档_v2.0.md)：项目业务和规则。
+- [板块1完成说明](项目文档/开发进度文档/开发完成说明/板块1_开发完成说明.md) / [板块2完成说明](项目文档/开发进度文档/开发完成说明/板块2_开发完成说明.md)：已完成功能、架构和关键技术。
+- [板块1设计](docs/design/M0-01.md) / [板块2设计](docs/design/M0-02.md)：技术方案和分步实施记录。
+- [板块1验收](docs/verification/M0-01.md) / [板块2验收](docs/verification/M0-02.md#module2-final-acceptance)：验证结果、复验方法和适用边界。

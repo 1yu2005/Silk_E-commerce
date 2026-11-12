@@ -1,3 +1,4 @@
+// 作用：读取根目录环境配置并验证端口、数据库连接及日志等启动约定。
 import { readFileSync } from 'node:fs';
 import { isAbsolute, resolve } from 'node:path';
 import { parseEnv } from 'node:util';
@@ -82,10 +83,10 @@ export function validateEnvironment(env: NodeJS.ProcessEnv): EnvironmentConfig {
   };
 }
 
-export function loadConfiguration(
+export function readEnvironmentValues(
   env: NodeJS.ProcessEnv = process.env,
   envFile = resolve(projectRoot, '.env'),
-): EnvironmentConfig {
+): NodeJS.ProcessEnv {
   let fileValues: NodeJS.ProcessEnv = {};
   try {
     fileValues = parseEnv(readFileSync(envFile, 'utf8'));
@@ -98,5 +99,14 @@ export function loadConfiguration(
   }
   // 进程或容器中显式设置的配置优先于本地文件。
   const overrides = Object.fromEntries(Object.entries(env).filter(([, value]) => value !== undefined));
-  return validateEnvironment({ ...fileValues, ...overrides });
+  return { ...fileValues, ...overrides };
+}
+
+
+/** 通用配置与JWT配置共用读取规则，各自校验所属配置项。 */
+export function loadConfiguration(
+  env: NodeJS.ProcessEnv = process.env,
+  envFile = resolve(projectRoot, '.env'),
+): EnvironmentConfig {
+  return validateEnvironment(readEnvironmentValues(env, envFile));
 }

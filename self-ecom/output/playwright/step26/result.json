@@ -1,0 +1,369 @@
+{
+  "date": "2026-11-12T05:15:06.998Z",
+  "node": "v24.18.0",
+  "browser": "145.0.7632.6",
+  "database": "shop_test",
+  "backend": "真实Nest API及PostgreSQL测试库；仅500、权限刷新403和注销网络失败由浏览器注入",
+  "checks": [
+    "匿名与前端校验",
+    "真实错误登录",
+    "真实首次登录及强制改密路由",
+    "改密校验及真实改密",
+    "新密码登录、刷新恢复及最小存储",
+    "真实403保留会话并受控刷新",
+    "权限刷新自身403不循环及重试",
+    "恢复500隐藏业务、保留会话并可重试",
+    "真实强制改密403立即切换页面",
+    "真实会话撤销401清身份及单域存储",
+    "真实注销撤销服务端会话",
+    "注销网络失败仍清本地并提示",
+    "本地到期定时清理",
+    "普通主动改密及所有会话撤销",
+    "真实登录限流及Retry-After提示"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "0b9501f6-6775-4ffc-b2db-2e30864fc067"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "58916c93-f0be-4dc6-8221-331ebf365d61"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "e3f9fd8d-79a1-497c-909d-cda2b7dfa87a"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b0cf6dde-b914-4a97-9928-a459f0c47610"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "cff6188b-c021-4cc0-b830-aeebc1144040"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "8899519d-0898-4f95-8582-efd57e0e1348"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "2e41b7ae-7e57-4e24-ab1c-83a4048708c2"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/change-password",
+      "status": 200,
+      "requestId": "39d3946f-6fe6-4677-a106-f104979eb351"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "6185693b-ae51-4d5a-a98f-59abdb2bc660"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "e407f14f-5da5-4294-b1e4-2b8af22c1b01"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "4a482da7-bd36-4a0c-80e7-557b6a8dd585"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "1c390451-0d63-4751-af85-3101f4178049"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "2703e881-fb64-48c8-9976-5bb995071ad5"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "2e63ba87-7fd3-49bf-b37e-82dfdc7d04fb"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 403,
+      "requestId": "c2062c0a-e8ce-4a50-9b6a-808b17f5f8f0"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "772829ba-0c3e-4883-97f7-d96ffe3892bf"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "605e911a-75fc-4d60-9e02-40a55f7f7e32"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 403,
+      "requestId": "d4b9a450-b569-441a-ab2e-d391017d2e4e"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b234d18b-fbb0-4155-8546-f0f06020d9e2"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 403,
+      "requestId": "65b5f8a0-57a0-4482-b0f7-53dc5d5a2264"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "bc074418-895b-4c63-a083-386f5899ad22"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "7562054c-5a29-402c-a2ae-af6f7c2b9af4"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 500,
+      "requestId": "65b5f8a0-57a0-4482-b0f7-53dc5d5a2264"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "c65bd0e2-629a-45d8-8921-243ee489d19f"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "e3847529-995e-4d02-85ca-6a51c25e8f7e"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/employees",
+      "status": 403,
+      "requestId": "4fe96ecf-8b52-4251-a065-d8d6193a918d"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b73620b5-caf2-4d39-808b-8230927409d3"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "be1694bc-9de8-44d8-93b8-466c0a421a47"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 401,
+      "requestId": "1aaf7a2d-7045-481d-899a-0122eca64f02"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "a1de42d3-35b5-4d50-8552-9d8910731285"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "f39054d9-4c61-4de6-a92d-8f6d7f29b3a9"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "6362cc6f-ac9e-46b0-bb81-945f7fd135c1"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "requestId": "649afb80-9b17-4448-b52a-34cb8f0794b2"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "1f72e2d1-09b5-415b-a675-7614d43995c5"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "5f18cfd5-b1e3-4942-8bc5-1856c53f8607"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "fbfbcc6b-1e2d-483b-b6a4-d8c55f9416c0"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "01e052d0-d84a-4099-b93b-5b5b0710b434"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "54e0910c-60c8-4ad6-94df-3c5d92aa6939"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "c2b3c051-6bef-4f52-8059-a304ca82a5bb"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "4f042a85-e6a8-4cb8-b1e9-86e96529d3e0"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "49cd97b6-c925-4e0e-9806-69a3592ea898"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "d4988477-fe1b-4f2a-9560-13bdf895e06c"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "1b1d4cc0-f628-44eb-8eb5-77571947e757"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "1d3703d5-d9b7-404c-93f7-468b3db822ff"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/change-password",
+      "status": 200,
+      "requestId": "c0a9eab8-b9bf-4126-bcd3-74413c360732"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "5572a291-ab6a-4f69-922d-3cb2a5db3c63"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "1891f8cd-1181-44a6-b61e-9b14e715fa83"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "bd1f3c5f-24ca-4d98-a792-1733eb7ecad3"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "d69c9843-c7d6-4d6b-b7c1-17f4e85ff7da"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/auth/logout",
+      "status": 200,
+      "requestId": "b1953d25-e8d4-48b4-a6e8-4e92553203ed"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "da463963-15f5-42fe-a122-59a4fe71d59b"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "d8021d3e-0eef-49de-b5d8-fd4deec1258c"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "acfa8186-3269-4aca-b0a8-cf05f0e14c1a"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "178d7276-d495-4668-a6c0-7f3008ffd662"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 401,
+      "requestId": "8536380e-56de-471e-bacc-78b635f6628f"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 429,
+      "requestId": "0e82a445-8622-47f8-ba28-4612824f118d"
+    }
+  ],
+  "pageErrors": [],
+  "localExpiry": "客户端期限缩短验证定时器，不作为JWT服务端过期证据",
+  "cleanup": {
+    "employees": 0,
+    "sessions": 0,
+    "actorAudits": 0
+  }
+}

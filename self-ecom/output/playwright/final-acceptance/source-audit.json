@@ -1,0 +1,1876 @@
+{
+  "checkedAt": "2026-11-12T16:41:54.3729611+08:00",
+  "mode": "protection audit with authorized header-only API annotation supplementation",
+  "baseline": "output/playwright/final-acceptance/initial-sha256.json",
+  "baselineFileCount": 315,
+  "modifiedFileCount": 231,
+  "modifiedFiles": [
+    ".dockerignore",
+    "apps/admin-web/src/app/AppLayout.tsx",
+    "apps/admin-web/src/app/router.tsx",
+    "apps/admin-web/src/auth/AuthError.tsx",
+    "apps/admin-web/src/auth/AuthRoutes.tsx",
+    "apps/admin-web/src/auth/controller.ts",
+    "apps/admin-web/src/auth/use-employee-auth.ts",
+    "apps/admin-web/src/employees/create.ts",
+    "apps/admin-web/src/employees/EmployeeCreateGuard.tsx",
+    "apps/admin-web/src/employees/EmployeeManagement.tsx",
+    "apps/admin-web/src/employees/EmployeeReadGuard.tsx",
+    "apps/admin-web/src/employees/management.ts",
+    "apps/admin-web/src/employees/query-controller.ts",
+    "apps/admin-web/src/employees/query.ts",
+    "apps/admin-web/src/employees/QueryState.tsx",
+    "apps/admin-web/src/employees/use-employee-query.ts",
+    "apps/admin-web/src/main.tsx",
+    "apps/admin-web/src/pages/ChangePasswordPage.tsx",
+    "apps/admin-web/src/pages/EmployeeCreatePage.tsx",
+    "apps/admin-web/src/pages/EmployeeDetailPage.tsx",
+    "apps/admin-web/src/pages/EmployeeListPage.tsx",
+    "apps/admin-web/src/pages/HomePage.tsx",
+    "apps/admin-web/src/pages/LoginPage.tsx",
+    "apps/admin-web/src/pages/NotFoundPage.tsx",
+    "apps/admin-web/src/services/api.ts",
+    "apps/admin-web/src/styles.css",
+    "apps/admin-web/test/auth-controller.test.mjs",
+    "apps/admin-web/test/employee-create.test.mjs",
+    "apps/admin-web/test/employee-management.test.mjs",
+    "apps/admin-web/test/employee-query.test.mjs",
+    "apps/admin-web/test/verify-browser.mjs",
+    "apps/admin-web/test/verify-employee-create-browser.mjs",
+    "apps/admin-web/test/verify-employee-management-browser.mjs",
+    "apps/admin-web/test/verify-employees-browser.mjs",
+    "apps/api/prisma.config.ts",
+    "apps/api/scripts/database-env.ts",
+    "apps/api/scripts/database.ts",
+    "apps/api/scripts/integration.ts",
+    "apps/api/scripts/openapi.ts",
+    "apps/api/scripts/password-benchmark.ts",
+    "apps/api/scripts/seed-admin.ts",
+    "apps/api/scripts/seed-permissions.ts",
+    "apps/api/src/app.module.ts",
+    "apps/api/src/audit/audit.module.ts",
+    "apps/api/src/audit/audit.service.ts",
+    "apps/api/src/auth/access-denied.error.ts",
+    "apps/api/src/auth/auth-guard.module.ts",
+    "apps/api/src/auth/auth-http-errors.ts",
+    "apps/api/src/auth/auth-policy.ts",
+    "apps/api/src/auth/auth-request-context.ts",
+    "apps/api/src/auth/auth-session.module.ts",
+    "apps/api/src/auth/auth-session.service.ts",
+    "apps/api/src/auth/auth-transaction.ts",
+    "apps/api/src/auth/auth.decorators.ts",
+    "apps/api/src/auth/change-password.dto.ts",
+    "apps/api/src/auth/current-identity.service.ts",
+    "apps/api/src/auth/customer-auth.controller.ts",
+    "apps/api/src/auth/customer-auth.module.ts",
+    "apps/api/src/auth/customer-auth.openapi.ts",
+    "apps/api/src/auth/customer-auth.service.ts",
+    "apps/api/src/auth/customer-login-rate.guard.ts",
+    "apps/api/src/auth/customer-login.dto.ts",
+    "apps/api/src/auth/customer-password.service.ts",
+    "apps/api/src/auth/customer-profile.dto.ts",
+    "apps/api/src/auth/customer-profile.service.ts",
+    "apps/api/src/auth/customer-register.controller.ts",
+    "apps/api/src/auth/customer-register.dto.ts",
+    "apps/api/src/auth/customer-register.error.ts",
+    "apps/api/src/auth/customer-register.module.ts",
+    "apps/api/src/auth/customer-register.openapi.ts",
+    "apps/api/src/auth/customer-register.service.ts",
+    "apps/api/src/auth/employee-auth.controller.ts",
+    "apps/api/src/auth/employee-auth.module.ts",
+    "apps/api/src/auth/employee-auth.openapi.ts",
+    "apps/api/src/auth/employee-auth.service.ts",
+    "apps/api/src/auth/employee-login.dto.ts",
+    "apps/api/src/auth/employee-password.service.ts",
+    "apps/api/src/auth/initial-admin-seed.ts",
+    "apps/api/src/auth/jwt-token.module.ts",
+    "apps/api/src/auth/jwt-token.service.ts",
+    "apps/api/src/auth/login-rate-limiter.ts",
+    "apps/api/src/auth/login-rate.guard.ts",
+    "apps/api/src/auth/login-support.ts",
+    "apps/api/src/auth/logout-token.guard.ts",
+    "apps/api/src/auth/logout.controller.ts",
+    "apps/api/src/auth/logout.module.ts",
+    "apps/api/src/auth/logout.service.ts",
+    "apps/api/src/auth/password.service.ts",
+    "apps/api/src/auth/permission.guard.ts",
+    "apps/api/src/auth/registration-rate.guard.ts",
+    "apps/api/src/auth/session-auth.guard.ts",
+    "apps/api/src/auth/session-support.ts",
+    "apps/api/src/common/configure-app.ts",
+    "apps/api/src/common/http/api-exception.filter.ts",
+    "apps/api/src/common/http/api-response.interceptor.ts",
+    "apps/api/src/common/http/database-not-ready.exception.ts",
+    "apps/api/src/common/http/dto-transforms.ts",
+    "apps/api/src/common/http/dto-validation.ts",
+    "apps/api/src/common/http/pagination.dto.ts",
+    "apps/api/src/common/http/request-context.ts",
+    "apps/api/src/common/logging.ts",
+    "apps/api/src/common/swagger.ts",
+    "apps/api/src/config/config.module.ts",
+    "apps/api/src/config/environment.ts",
+    "apps/api/src/config/jwt-configuration.ts",
+    "apps/api/src/employees/employee-command.errors.ts",
+    "apps/api/src/employees/employee-create.controller.ts",
+    "apps/api/src/employees/employee-create.dto.ts",
+    "apps/api/src/employees/employee-create.module.ts",
+    "apps/api/src/employees/employee-create.openapi.ts",
+    "apps/api/src/employees/employee-create.service.ts",
+    "apps/api/src/employees/employee-eligibility.module.ts",
+    "apps/api/src/employees/employee-eligibility.service.ts",
+    "apps/api/src/employees/employee-extra-permission.controller.ts",
+    "apps/api/src/employees/employee-extra-permission.dto.ts",
+    "apps/api/src/employees/employee-extra-permission.module.ts",
+    "apps/api/src/employees/employee-extra-permission.openapi.ts",
+    "apps/api/src/employees/employee-extra-permission.service.ts",
+    "apps/api/src/employees/employee-password-reset.controller.ts",
+    "apps/api/src/employees/employee-password-reset.dto.ts",
+    "apps/api/src/employees/employee-password-reset.module.ts",
+    "apps/api/src/employees/employee-password-reset.openapi.ts",
+    "apps/api/src/employees/employee-password-reset.service.ts",
+    "apps/api/src/employees/employee-profile.controller.ts",
+    "apps/api/src/employees/employee-profile.dto.ts",
+    "apps/api/src/employees/employee-profile.module.ts",
+    "apps/api/src/employees/employee-profile.openapi.ts",
+    "apps/api/src/employees/employee-profile.service.ts",
+    "apps/api/src/employees/employee-query.controller.ts",
+    "apps/api/src/employees/employee-query.dto.ts",
+    "apps/api/src/employees/employee-query.module.ts",
+    "apps/api/src/employees/employee-query.openapi.ts",
+    "apps/api/src/employees/employee-query.service.ts",
+    "apps/api/src/employees/employee-role.controller.ts",
+    "apps/api/src/employees/employee-role.dto.ts",
+    "apps/api/src/employees/employee-role.module.ts",
+    "apps/api/src/employees/employee-role.openapi.ts",
+    "apps/api/src/employees/employee-role.service.ts",
+    "apps/api/src/employees/employee-status.controller.ts",
+    "apps/api/src/employees/employee-status.dto.ts",
+    "apps/api/src/employees/employee-status.module.ts",
+    "apps/api/src/employees/employee-status.openapi.ts",
+    "apps/api/src/employees/employee-status.service.ts",
+    "apps/api/src/health/health.controller.ts",
+    "apps/api/src/health/health.module.ts",
+    "apps/api/src/health/health.openapi.ts",
+    "apps/api/src/main.ts",
+    "apps/api/src/permissions/permission-catalog.ts",
+    "apps/api/src/permissions/permission-query.controller.ts",
+    "apps/api/src/permissions/permission-query.module.ts",
+    "apps/api/src/permissions/permission-query.openapi.ts",
+    "apps/api/src/permissions/permission-seed.ts",
+    "apps/api/src/permissions/permission.module.ts",
+    "apps/api/src/permissions/permission.service.ts",
+    "apps/api/src/prisma/prisma.module.ts",
+    "apps/api/src/prisma/prisma.service.ts",
+    "apps/api/test/audit.integration.ts",
+    "apps/api/test/auth-guard.integration.ts",
+    "apps/api/test/auth-guard.spec.ts",
+    "apps/api/test/auth-schema.integration.ts",
+    "apps/api/test/auth-session.integration.ts",
+    "apps/api/test/auth-session.spec.ts",
+    "apps/api/test/auth-transaction.spec.ts",
+    "apps/api/test/bootstrap.spec.ts",
+    "apps/api/test/customer-auth.integration.ts",
+    "apps/api/test/customer-profile-password.integration.ts",
+    "apps/api/test/customer-register.integration.ts",
+    "apps/api/test/database-safety.spec.ts",
+    "apps/api/test/database.integration.ts",
+    "apps/api/test/employee-auth.integration.ts",
+    "apps/api/test/employee-create.integration.ts",
+    "apps/api/test/employee-extra-permission.integration.ts",
+    "apps/api/test/employee-password-reset.integration.ts",
+    "apps/api/test/employee-password.integration.ts",
+    "apps/api/test/employee-profile.integration.ts",
+    "apps/api/test/employee-query.integration.ts",
+    "apps/api/test/employee-role.integration.ts",
+    "apps/api/test/employee-status.integration.ts",
+    "apps/api/test/environment.spec.ts",
+    "apps/api/test/fixtures/auth-guard.controllers.ts",
+    "apps/api/test/initial-admin-config.spec.ts",
+    "apps/api/test/initial-admin-seed.integration.ts",
+    "apps/api/test/jwt-configuration.spec.ts",
+    "apps/api/test/jwt-token.spec.ts",
+    "apps/api/test/logging.spec.ts",
+    "apps/api/test/login-rate-limiter.spec.ts",
+    "apps/api/test/logout.integration.ts",
+    "apps/api/test/password.spec.ts",
+    "apps/api/test/permission-seed.integration.ts",
+    "apps/api/test/permissions.spec.ts",
+    "apps/api/test/swagger.spec.ts",
+    "apps/api/test/validation.spec.ts",
+    "apps/api/vitest.config.mts",
+    "apps/api/vitest.integration.config.mts",
+    "apps/store-web/src/app/AppLayout.tsx",
+    "apps/store-web/src/app/router.tsx",
+    "apps/store-web/src/auth/AuthError.tsx",
+    "apps/store-web/src/auth/AuthRoutes.tsx",
+    "apps/store-web/src/auth/controller.ts",
+    "apps/store-web/src/auth/form-rules.ts",
+    "apps/store-web/src/auth/use-customer-auth.ts",
+    "apps/store-web/src/main.tsx",
+    "apps/store-web/src/pages/AccountPage.tsx",
+    "apps/store-web/src/pages/ChangePasswordPage.tsx",
+    "apps/store-web/src/pages/HomePage.tsx",
+    "apps/store-web/src/pages/LoginPage.tsx",
+    "apps/store-web/src/pages/NotFoundPage.tsx",
+    "apps/store-web/src/pages/RegisterPage.tsx",
+    "apps/store-web/src/services/api.ts",
+    "apps/store-web/src/styles.css",
+    "apps/store-web/test/auth-controller.test.mjs",
+    "apps/store-web/test/verify-browser.mjs",
+    "apps/store-web/test/verify-profile-browser.mjs",
+    "docs/openapi/openapi.json",
+    "infra/api.Dockerfile",
+    "infra/compose.yaml",
+    "infra/nginx.conf",
+    "infra/verify-compose.mjs",
+    "infra/web.Dockerfile",
+    "packages/api-client/src/api-error.ts",
+    "packages/api-client/src/auth-client.ts",
+    "packages/api-client/src/index.ts",
+    "packages/api-client/src/session.ts",
+    "packages/api-client/test/auth-client.test.mjs",
+    "packages/api-client/test/contracts.test.mjs",
+    "packages/api-client/test/employee-management.test.mjs",
+    "packages/api-client/test/session.test.mjs",
+    "packages/shared/src/auth.ts",
+    "packages/shared/src/employees.ts",
+    "packages/shared/src/index.ts",
+    "packages/shared/src/password.ts"
+  ],
+  "deletedBaselineFiles": [],
+  "unchangedBaselineFileCount": 84,
+  "newlyDetectedSourceFilesNotInBaseline": [
+    "infra/verify-auth-compose.mjs"
+  ],
+  "gitStatusInterpretation": "Git状态包括先前未提交及未跟踪工作；本报告以本轮初始摘要为变化基线，不把既有未跟踪文件算作本轮新增或删除",
+  "protectedFiles": {
+    "allUnchanged": true,
+    "checkedCount": 37,
+    "checks": [
+      {
+        "path": ".env",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": ".env.example",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": ".node-version",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": ".npmrc",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "apps/api/prisma/migrations/migration_lock.toml",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "apps/api/prisma/schema.prisma",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/design/M0-01.md",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/admin-home.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/admin-login.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/api-process-before.txt",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/browser-console.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/clean-checks.txt",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cleanup.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-first-attempt.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-project.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-start.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-status.txt",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/final-status.txt",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/live-database-stopped.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/ready-after-recovery.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/ready-before-stop.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/ready-database-stopped.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/static-scan.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/store-home.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/store-login.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/store-swagger.jpg",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/swagger-browser.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/swagger-correlated.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/test-isolation.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/versions.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/evidence/M0-02/password-benchmark.json",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "docs/verification/M0-01.md",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "pnpm-workspace.yaml",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      },
+      {
+        "path": "项目文档/开发进度文档/开发完成说明/板块1_开发完成说明.md",
+        "exists": true,
+        "unchanged": true,
+        "status": "unchanged"
+      }
+    ],
+    "historicalEvidenceBaselineCount": 24,
+    "limitations": [
+      "初始摘要未收录output/与storage/历史目录，不能据此证明这些历史文件的字节摘要不变；本子任务未修改这些目录的历史文件",
+      "本报告为带时间的最终源码核查快照；总览更新及构建证据由主线程继续完成"
+    ]
+  },
+  "purposeHeaderCoverage": {
+    "rule": "文件前8行含注释形式的中文作用：说明；保留工具指令，未要求JSON或锁文件添加非法注释",
+    "scannedFileCount": 232,
+    "coveredFileCount": 230,
+    "missingCount": 2,
+    "missing": [
+      {
+        "path": "apps/admin-web/vite.config.ts",
+        "area": "admin-web",
+        "recommendation": "遵照父线程指令保留前端Vite配置，属于明确排除的可选注释补充"
+      },
+      {
+        "path": "apps/store-web/vite.config.ts",
+        "area": "store-web",
+        "recommendation": "遵照父线程指令保留前端Vite配置，属于明确排除的可选注释补充"
+      }
+    ],
+    "byArea": [
+      {
+        "area": "admin-web",
+        "scanned": 34,
+        "missing": 1
+      },
+      {
+        "area": "backend-board2",
+        "scanned": 94,
+        "missing": 0
+      },
+      {
+        "area": "backend-wiring-tests-and-scripts",
+        "scanned": 66,
+        "missing": 0
+      },
+      {
+        "area": "deployment",
+        "scanned": 6,
+        "missing": 0
+      },
+      {
+        "area": "shared-and-client",
+        "scanned": 12,
+        "missing": 0
+      },
+      {
+        "area": "store-web",
+        "scanned": 20,
+        "missing": 1
+      }
+    ],
+    "allFiles": [
+      {
+        "path": "apps/admin-web/src/app/AppLayout.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/app/router.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/auth/AuthError.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/auth/AuthRoutes.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/auth/controller.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/auth/use-employee-auth.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/create.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/EmployeeCreateGuard.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/EmployeeManagement.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/EmployeeReadGuard.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/management.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/query-controller.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/query.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/QueryState.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/employees/use-employee-query.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/main.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/ChangePasswordPage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/EmployeeCreatePage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/EmployeeDetailPage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/EmployeeListPage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/HomePage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/LoginPage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/pages/NotFoundPage.tsx",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/services/api.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/src/styles.css",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/auth-controller.test.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/employee-create.test.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/employee-management.test.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/employee-query.test.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/verify-browser.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/verify-employee-create-browser.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/verify-employee-management-browser.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/test/verify-employees-browser.mjs",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/admin-web/vite.config.ts",
+        "area": "admin-web",
+        "hasChinesePurposeHeader": false
+      },
+      {
+        "path": "apps/api/prisma.config.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/database-env.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/database.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/openapi.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/password-benchmark.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/seed-admin.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/scripts/seed-permissions.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/app.module.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/audit/audit.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/audit/audit.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/access-denied.error.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-guard.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-http-errors.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-policy.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-request-context.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-session.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-session.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth-transaction.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/auth.decorators.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/change-password.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/current-identity.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-auth.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-auth.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-auth.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-auth.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-login-rate.guard.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-login.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-password.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-profile.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-profile.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-register.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-register.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-register.error.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-register.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-register.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/customer-register.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/employee-auth.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/employee-auth.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/employee-auth.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/employee-auth.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/employee-login.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/employee-password.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/initial-admin-seed.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/jwt-token.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/jwt-token.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/login-rate-limiter.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/login-rate.guard.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/login-support.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/logout-token.guard.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/logout.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/logout.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/logout.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/password.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/permission.guard.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/registration-rate.guard.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/session-auth.guard.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/auth/session-support.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/configure-app.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/api-exception.filter.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/api-response.interceptor.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/database-not-ready.exception.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/dto-transforms.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/dto-validation.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/pagination.dto.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/http/request-context.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/logging.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/common/swagger.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/config/config.module.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/config/environment.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/config/jwt-configuration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-command.errors.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-create.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-create.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-create.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-create.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-create.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-eligibility.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-eligibility.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-extra-permission.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-extra-permission.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-extra-permission.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-extra-permission.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-extra-permission.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-password-reset.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-password-reset.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-password-reset.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-password-reset.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-password-reset.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-profile.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-profile.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-profile.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-profile.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-profile.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-query.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-query.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-query.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-query.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-query.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-role.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-role.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-role.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-role.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-role.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-status.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-status.dto.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-status.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-status.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/employees/employee-status.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/health/health.controller.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/health/health.module.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/health/health.openapi.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/main.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission-catalog.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission-query.controller.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission-query.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission-query.openapi.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission-seed.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission.module.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/permissions/permission.service.ts",
+        "area": "backend-board2",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/prisma/prisma.module.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/src/prisma/prisma.service.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/audit.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/auth-guard.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/auth-guard.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/auth-schema.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/auth-session.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/auth-session.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/auth-transaction.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/bootstrap.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/customer-auth.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/customer-profile-password.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/customer-register.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/database-safety.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/database.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-auth.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-create.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-extra-permission.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-password-reset.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-password.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-profile.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-query.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-role.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/employee-status.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/environment.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/fixtures/auth-guard.controllers.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/initial-admin-config.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/initial-admin-seed.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/jwt-configuration.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/jwt-token.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/logging.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/login-rate-limiter.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/logout.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/password.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/permission-seed.integration.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/permissions.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/swagger.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/test/validation.spec.ts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/vitest.config.mts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/api/vitest.integration.config.mts",
+        "area": "backend-wiring-tests-and-scripts",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/app/AppLayout.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/app/router.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/auth/AuthError.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/auth/AuthRoutes.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/auth/controller.ts",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/auth/form-rules.ts",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/auth/use-customer-auth.ts",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/main.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/pages/AccountPage.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/pages/ChangePasswordPage.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/pages/HomePage.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/pages/LoginPage.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/pages/NotFoundPage.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/pages/RegisterPage.tsx",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/services/api.ts",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/src/styles.css",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/test/auth-controller.test.mjs",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/test/verify-browser.mjs",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/test/verify-profile-browser.mjs",
+        "area": "store-web",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "apps/store-web/vite.config.ts",
+        "area": "store-web",
+        "hasChinesePurposeHeader": false
+      },
+      {
+        "path": "infra/api.Dockerfile",
+        "area": "deployment",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "infra/compose.yaml",
+        "area": "deployment",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "infra/nginx.conf",
+        "area": "deployment",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "infra/verify-auth-compose.mjs",
+        "area": "deployment",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "infra/verify-compose.mjs",
+        "area": "deployment",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "infra/web.Dockerfile",
+        "area": "deployment",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/src/api-error.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/src/auth-client.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/src/index.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/src/session.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/test/auth-client.test.mjs",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/test/contracts.test.mjs",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/test/employee-management.test.mjs",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/api-client/test/session.test.mjs",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/shared/src/auth.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/shared/src/employees.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/shared/src/index.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      },
+      {
+        "path": "packages/shared/src/password.ts",
+        "area": "shared-and-client",
+        "hasChinesePurposeHeader": true
+      }
+    ],
+    "excludedByParentInstruction": [
+      "apps/admin-web/vite.config.ts",
+      "apps/store-web/vite.config.ts"
+    ],
+    "requiredScopeCovered": true
+  },
+  "noBuildDatabaseOrBrowserCommandsExecuted": true,
+  "annotationSupplementation": {
+    "count": 34,
+    "files": [
+      "apps/api/prisma.config.ts",
+      "apps/api/scripts/database-env.ts",
+      "apps/api/scripts/database.ts",
+      "apps/api/scripts/integration.ts",
+      "apps/api/scripts/openapi.ts",
+      "apps/api/src/app.module.ts",
+      "apps/api/src/common/configure-app.ts",
+      "apps/api/src/common/http/api-exception.filter.ts",
+      "apps/api/src/common/http/api-response.interceptor.ts",
+      "apps/api/src/common/http/database-not-ready.exception.ts",
+      "apps/api/src/common/http/dto-transforms.ts",
+      "apps/api/src/common/http/dto-validation.ts",
+      "apps/api/src/common/http/pagination.dto.ts",
+      "apps/api/src/common/http/request-context.ts",
+      "apps/api/src/common/logging.ts",
+      "apps/api/src/common/swagger.ts",
+      "apps/api/src/config/config.module.ts",
+      "apps/api/src/config/environment.ts",
+      "apps/api/src/config/jwt-configuration.ts",
+      "apps/api/src/health/health.controller.ts",
+      "apps/api/src/health/health.module.ts",
+      "apps/api/src/health/health.openapi.ts",
+      "apps/api/src/main.ts",
+      "apps/api/src/prisma/prisma.module.ts",
+      "apps/api/src/prisma/prisma.service.ts",
+      "apps/api/test/bootstrap.spec.ts",
+      "apps/api/test/database-safety.spec.ts",
+      "apps/api/test/database.integration.ts",
+      "apps/api/test/environment.spec.ts",
+      "apps/api/test/logging.spec.ts",
+      "apps/api/test/swagger.spec.ts",
+      "apps/api/test/validation.spec.ts",
+      "apps/api/vitest.config.mts",
+      "apps/api/vitest.integration.config.mts"
+    ],
+    "onlyPrependedPurposeComments": true,
+    "proof": [
+      {
+        "path": "apps/api/prisma.config.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/scripts/database-env.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/scripts/database.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/scripts/integration.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/scripts/openapi.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/app.module.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/configure-app.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/api-exception.filter.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/api-response.interceptor.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/database-not-ready.exception.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/dto-transforms.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/dto-validation.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/pagination.dto.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/http/request-context.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/logging.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/common/swagger.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/config/config.module.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/config/environment.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/config/jwt-configuration.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/health/health.controller.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/health/health.module.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/health/health.openapi.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/main.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/prisma/prisma.module.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/src/prisma/prisma.service.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/bootstrap.spec.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/database-safety.spec.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/database.integration.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/environment.spec.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/logging.spec.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/swagger.spec.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/test/validation.spec.ts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/vitest.config.mts",
+        "restoredContentMatchesInitialHash": true
+      },
+      {
+        "path": "apps/api/vitest.integration.config.mts",
+        "restoredContentMatchesInitialHash": true
+      }
+    ],
+    "testsNotRerun": "仅文件头注释，父线程统一执行最终静态与构建检查"
+  }
+}

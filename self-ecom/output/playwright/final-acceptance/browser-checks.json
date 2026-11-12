@@ -1,0 +1,79 @@
+[
+  {
+    "suite": "admin-auth",
+    "exitCode": 0,
+    "checks": 15,
+    "httpRequests": 56,
+    "pageErrors": 0,
+    "cleanup": {
+      "employees": 0,
+      "sessions": 0,
+      "actorAudits": 0
+    }
+  },
+  {
+    "suite": "store-auth",
+    "exitCode": 0,
+    "checks": 19,
+    "httpRequests": 37,
+    "pageErrors": 0,
+    "cleanup": {
+      "customers": 0,
+      "employees": 0,
+      "sessions": 0,
+      "actorAudits": 0
+    }
+  },
+  {
+    "suite": "store-profile",
+    "exitCode": 0,
+    "checks": 14,
+    "httpRequests": 29,
+    "pageErrors": 0,
+    "cleanup": {
+      "customers": 0,
+      "employees": 0,
+      "sessions": 0,
+      "actorAudits": 0
+    }
+  },
+  {
+    "suite": "employee-queries",
+    "exitCode": 0,
+    "checks": 16,
+    "httpRequests": 72,
+    "pageErrors": 0,
+    "cleanup": {
+      "employees": 0,
+      "sessions": 0,
+      "extraPermissions": 0,
+      "actorAudits": 0
+    }
+  },
+  {
+    "suite": "employee-create",
+    "exitCode": 0,
+    "checks": 16,
+    "httpRequests": 57,
+    "pageErrors": 0,
+    "cleanup": {
+      "employees": 0,
+      "sessions": 0,
+      "extraPermissions": 0,
+      "actorAudits": 0
+    }
+  },
+  {
+    "suite": "employee-management",
+    "exitCode": 0,
+    "checks": 22,
+    "httpRequests": 121,
+    "pageErrors": 0,
+    "cleanup": {
+      "employees": 0,
+      "sessions": 0,
+      "extraPermissions": 0,
+      "actorAudits": 0
+    }
+  }
+]

@@ -1,8 +1,11 @@
+// 作用：将校验、认证和业务异常转换为统一脱敏响应，并维护状态码和请求编号。
 import { type ArgumentsHost, Catch, type ExceptionFilter, HttpException } from '@nestjs/common';
 import type { ServerResponse } from 'node:http';
 import type { RequestWithId } from './request-context.js';
 import { DatabaseNotReadyException } from './database-not-ready.exception.js';
 import { DtoValidationException } from './dto-validation.js';
+import { authHttpError } from '../../auth/auth-http-errors.js';
+import { employeeCommandHttpError } from '../../employees/employee-command.errors.js';
 
 const errors: Record<number, { code: string; message: string }> = {
   400: { code: 'VALIDATION_FAILED', message: '请求参数不合法' },
@@ -26,9 +29,12 @@ export class ApiExceptionFilter implements ExceptionFilter {
       return;
     }
 
-    const status = exception instanceof HttpException ? exception.getStatus() : 500;
-    const error = errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };
+    const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception);
+    const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
+    const error = knownError ? { code: knownError.code, message: knownError.message }
+      : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };
     response.statusCode = status;
+    if (knownError?.retryAfterSeconds !== undefined) response.setHeader('Retry-After', String(knownError.retryAfterSeconds));
     response.setHeader('Content-Type', 'application/json; charset=utf-8');
     response.end(JSON.stringify({ ...error,
       ...(exception instanceof DatabaseNotReadyException ? { details: { database: 'unavailable' } } : {}),

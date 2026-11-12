@@ -1,4 +1,4 @@
-/** 这里只定义公开的 HTTP 接口契约，不导出数据库实体或敏感信息。 */
+/** 文件作用：汇总公开 HTTP 响应、分页和业务契约，禁止导出数据库实体。 */
 export interface ApiResponse<T> {
   data: T;
   requestId: string;
@@ -17,3 +17,6 @@ export interface Page<T> {
   page: number;
   pageSize: number;
 }
+export { PASSWORD_POLICY, validatePassword, validatePasswordChange, type PasswordIssue } from './password.js';
+export type * from './auth.js';
+export type * from './employees.js';

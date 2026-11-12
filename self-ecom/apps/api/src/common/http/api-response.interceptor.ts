@@ -1,3 +1,4 @@
+// 作用：为正常 JSON 响应统一封装 data 和 requestId，保留文件等特殊响应行为。
 import {
   type CallHandler,
   type ExecutionContext,

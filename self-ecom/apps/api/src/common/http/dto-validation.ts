@@ -1,3 +1,4 @@
+// 作用：整理字段级 DTO 校验错误，使用固定提示并避免回显敏感输入。
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import type { ValidationError } from 'class-validator';
 

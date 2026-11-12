@@ -1,3 +1,4 @@
+// 作用：生成或校验请求编号，并为日志、响应和业务审计提供同一关联标识。
 import { randomUUID } from 'node:crypto';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 

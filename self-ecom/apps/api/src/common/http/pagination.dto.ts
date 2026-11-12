@@ -1,3 +1,4 @@
+// 作用：定义列表接口共用的严格分页输入、默认值及安全整数范围。
 import { Transform } from 'class-transformer';
 import { IsInt, Max, Min } from 'class-validator';
 import { strictInteger } from './dto-transforms.js';

@@ -6,4 +6,158 @@ datasource db {
   provider = "postgresql"
 }
 
-// M0-01 阶段不定义业务模型，后续通过新增迁移添加。
+// 固定身份、岗位与账号状态，不提供动态岗位编辑。
+enum SubjectType {
+  EMPLOYEE
+  CUSTOMER
+}
+
+enum EmployeeRole {
+  SUPER_ADMIN
+  MERCH_WAREHOUSE
+  CUSTOMER_SERVICE
+}
+
+enum EmployeeStatus {
+  ACTIVE
+  DISABLED
+}
+
+enum CustomerStatus {
+  NORMAL
+  TRADE_RESTRICTED
+  LOGIN_FROZEN
+}
+
+enum AuditActorType {
+  EMPLOYEE
+  CUSTOMER
+  SYSTEM
+}
+
+model Employee {
+  id                 String                    @id @default(uuid()) @db.Uuid
+  username           String                    @unique @db.VarChar(32)
+  displayName        String                    @map("display_name") @db.VarChar(40)
+  passwordHash       String                    @map("password_hash")
+  role               EmployeeRole
+  status             EmployeeStatus            @default(ACTIVE)
+  mustChangePassword Boolean                   @default(true) @map("must_change_password")
+  tokenVersion       Int                       @default(0) @map("token_version")
+  permissionVersion  Int                       @default(0) @map("permission_version")
+  version            Int                       @default(0)
+  lastLoginAt        DateTime?                 @map("last_login_at") @db.Timestamptz(3)
+  createdAt          DateTime                  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt          DateTime                  @updatedAt @map("updated_at") @db.Timestamptz(3)
+  sessions           AuthSession[]
+  extraPermissions   EmployeeExtraPermission[] @relation("PermissionOwner")
+  grantedPermissions EmployeeExtraPermission[] @relation("PermissionGrantor")
+  audits             AuditLog[]
+
+  @@index([status, role])
+  @@index([createdAt, id])
+  @@map("employee")
+}
+
+model Customer {
+  id           String         @id @default(uuid()) @db.Uuid
+  phone        String         @unique @db.VarChar(11)
+  passwordHash String         @map("password_hash")
+  nickname     String         @db.VarChar(40)
+  status       CustomerStatus @default(NORMAL)
+  tokenVersion Int            @default(0) @map("token_version")
+  lastLoginAt  DateTime?      @map("last_login_at") @db.Timestamptz(3)
+  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
+  sessions     AuthSession[]
+  audits       AuditLog[]
+
+  @@index([status, createdAt, id])
+  @@map("customer")
+}
+
+// 互斥主体及时间约束由迁移中的 CHECK 保证。
+model AuthSession {
+  id           String      @id @default(uuid()) @db.Uuid
+  subjectType  SubjectType @map("subject_type")
+  employeeId   String?     @map("employee_id") @db.Uuid
+  customerId   String?     @map("customer_id") @db.Uuid
+  tokenVersion Int         @map("token_version")
+  expiresAt    DateTime    @map("expires_at") @db.Timestamptz(3)
+  revokedAt    DateTime?   @map("revoked_at") @db.Timestamptz(3)
+  revokeReason String?     @map("revoke_reason") @db.VarChar(64)
+  createdAt    DateTime    @default(now()) @map("created_at") @db.Timestamptz(3)
+  employee     Employee?   @relation(fields: [employeeId], references: [id], onDelete: Restrict)
+  customer     Customer?   @relation(fields: [customerId], references: [id], onDelete: Restrict)
+
+  @@index([employeeId, expiresAt])
+  @@index([customerId, expiresAt])
+  @@index([expiresAt])
+  @@map("auth_session")
+}
+
+model PermissionDefinition {
+  code             String                    @id @db.VarChar(100)
+  name             String                    @db.VarChar(80)
+  description      String
+  adminOnly        Boolean                   @map("admin_only")
+  dependencies     Json
+  rolePermissions  RolePermission[]
+  extraPermissions EmployeeExtraPermission[]
+
+  @@map("permission_definition")
+}
+
+model RolePermission {
+  role           EmployeeRole
+  permissionCode String               @map("permission_code") @db.VarChar(100)
+  permission     PermissionDefinition @relation(fields: [permissionCode], references: [code], onDelete: Restrict)
+
+  @@id([role, permissionCode])
+  @@map("role_permission")
+}
+
+model EmployeeExtraPermission {
+  employeeId     String               @map("employee_id") @db.Uuid
+  permissionCode String               @map("permission_code") @db.VarChar(100)
+  grantedById    String               @map("granted_by_id") @db.Uuid
+  grantedAt      DateTime             @default(now()) @map("granted_at") @db.Timestamptz(3)
+  employee       Employee             @relation("PermissionOwner", fields: [employeeId], references: [id], onDelete: Restrict)
+  permission     PermissionDefinition @relation(fields: [permissionCode], references: [code], onDelete: Restrict)
+  grantedBy      Employee             @relation("PermissionGrantor", fields: [grantedById], references: [id], onDelete: Restrict)
+
+  @@id([employeeId, permissionCode])
+  @@map("employee_extra_permission")
+}
+
+// 审计仅保存白名单差异，禁止写入密码、哈希和令牌。
+model AuditLog {
+  id              String         @id @default(uuid()) @db.Uuid
+  actorType       AuditActorType @map("actor_type")
+  actorEmployeeId String?        @map("actor_employee_id") @db.Uuid
+  actorCustomerId String?        @map("actor_customer_id") @db.Uuid
+  action          String         @db.VarChar(100)
+  targetType      String         @map("target_type") @db.VarChar(80)
+  targetId        String         @map("target_id") @db.VarChar(100)
+  reason          String?        @db.VarChar(500)
+  beforeData      Json?          @map("before_data")
+  afterData       Json?          @map("after_data")
+  requestId       String         @map("request_id") @db.VarChar(64)
+  createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
+  actorEmployee   Employee?      @relation(fields: [actorEmployeeId], references: [id], onDelete: Restrict)
+  actorCustomer   Customer?      @relation(fields: [actorCustomerId], references: [id], onDelete: Restrict)
+
+  @@index([targetType, targetId, createdAt])
+  @@index([actorEmployeeId, createdAt])
+  @@index([action, createdAt])
+  @@index([requestId])
+  @@map("audit_log")
+}
+
+// 所有影响可用管理员集合的命令先锁定固定行，再锁员工主体。
+model SystemGuard {
+  key       String   @id @db.VarChar(80)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+
+  @@map("system_guard")
+}

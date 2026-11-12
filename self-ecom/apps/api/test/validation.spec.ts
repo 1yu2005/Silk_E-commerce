@@ -1,3 +1,4 @@
+// 作用：验证严格 DTO 转换、未声明字段拒绝、分页边界和脱敏校验响应。
 import 'reflect-metadata';
 import { Body, Controller, Get, Post, Query, type INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';

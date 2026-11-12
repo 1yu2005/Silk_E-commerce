@@ -1,3 +1,4 @@
+// 作用：验证独立测试库目标识别和危险数据库命令的连接前隔离保护。
 import { expect, it } from 'vitest';
 import { assertSafeTestDatabase } from '../scripts/database-env.js';
 

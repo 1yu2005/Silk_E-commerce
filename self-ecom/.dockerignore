@@ -1,3 +1,4 @@
+# 文件作用：排除依赖、秘密、本地产物与验收证据，缩小 Docker 构建上下文。
 **/node_modules
 **/dist
 **/.turbo
@@ -8,6 +9,7 @@
 !.env.example
 .pnpm-store
 storage
+output
 项目文档
 docs
 **/*.log

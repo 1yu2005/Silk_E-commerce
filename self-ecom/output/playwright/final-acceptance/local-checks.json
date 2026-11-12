@@ -1,0 +1,36 @@
+{
+  "node": "v24.18.0",
+  "results": [
+    {
+      "command": "lint",
+      "status": 0,
+      "durationMs": 6723
+    },
+    {
+      "command": "typecheck",
+      "status": 0,
+      "durationMs": 5944
+    },
+    {
+      "command": "test",
+      "status": 0,
+      "durationMs": 6131
+    },
+    {
+      "command": "build",
+      "status": 0,
+      "durationMs": 6468
+    },
+    {
+      "command": "test:integration",
+      "status": 0,
+      "durationMs": 211969
+    },
+    {
+      "command": "openapi:export",
+      "status": 0,
+      "durationMs": 3865
+    }
+  ],
+  "temporaryPnpmWrapperRemoved": true
+}

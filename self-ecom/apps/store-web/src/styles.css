@@ -1,3 +1,4 @@
+/** 文件作用：定义商城登录、注册、账号页面及手机适配样式。 */
 html { background: #f3f6f8; }
 body { margin: 0; color: #243746; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; }
 a { color: #087e8b; }
@@ -5,7 +6,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #087e8b; outline-offs
 .app-layout { min-height: 100vh; background: #f3f6f8; }
 .site-header { min-height: 76px; padding: 20px 5vw; background: #fff; border-bottom: 1px solid #dce5e9; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { color: #243746; font-size: 22px; font-weight: 700; text-decoration: none; }
-.site-header nav { display: flex; gap: 28px; }
+.site-header nav { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; }
 .page-content { width: min(1120px, 90vw); margin: 56px auto; flex: 1; }
 .welcome-panel { display: grid; grid-template-columns: 1.6fr 1fr; background: #fff; border: 1px solid #dce5e9; border-radius: 8px; overflow: hidden; }
 .welcome-copy { padding: 64px 48px; }
@@ -18,5 +19,16 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .login-panel { max-width: 440px; margin: 0 auto; padding: 36px; background: #fff; border: 1px solid #dce5e9; border-radius: 8px; }
 .login-panel h1 { font-size: 28px; }
 .login-form { margin-top: 28px; }
+.auth-notice { margin-bottom: 24px; }
+.auth-status { padding: 48px 24px; text-align: center; }
+.auth-actions { margin-top: 24px; }
+.request-id { font-size: 12px; overflow-wrap: anywhere; }
+.form-link { margin-bottom: 0; font-size: 14px; }
+.customer-name { max-width: 12em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.account-panel { max-width: 720px; margin: 0 auto; padding: 28px; border: 1px solid #dce5e9; border-radius: 8px; background: #fff; overflow-wrap: anywhere; }
+.account-panel h1 { font-size: 28px; }
+.nickname-editor { margin-top: 24px; padding-top: 20px; border-top: 1px solid #dce5e9; }
+.nickname-editor h2 { font-size: 20px; margin: 0 0 20px; }
+.nickname-editor form { margin-top: 20px; }
 .site-footer { padding: 24px 5vw; color: #536a79; text-align: center; }
 @media (max-width: 720px) { .welcome-panel { grid-template-columns: 1fr; } .welcome-copy, .welcome-aside { padding: 32px 24px; } .site-header { align-items: flex-start; flex-direction: column; } .page-content { margin-top: 28px; } .login-panel { padding: 24px; } }

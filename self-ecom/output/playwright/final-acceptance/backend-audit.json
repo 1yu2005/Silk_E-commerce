@@ -1,0 +1,64 @@
+{
+  "scope": "M0-02 backend acceptance audit",
+  "checkedAt": "2026-11-12T16:30:49.8343144+08:00",
+  "sourceDirectories": [
+    "apps/api/src/auth",
+    "apps/api/src/audit",
+    "apps/api/src/employees",
+    "apps/api/src/permissions"
+  ],
+  "findings": [
+    {
+      "issue": "员工详情不存在时使用通用NOT_FOUND，与板块2文档6.3及管理命令的专用错误码不一致",
+      "status": "implementation-and-existing-regression-case-updated",
+      "files": [
+        "apps/api/src/employees/employee-query.service.ts",
+        "apps/api/src/employees/employee-query.controller.ts",
+        "apps/api/test/employee-query.integration.ts"
+      ],
+      "expected": "404 EMPLOYEE_NOT_FOUND",
+      "remainingVerification": "父线程运行完整数据库集成套件并重新导出OpenAPI"
+    }
+  ],
+  "comments": {
+    "total": 126,
+    "auth": 47,
+    "employeePermissionAuditAndScripts": 50,
+    "testsAndFixture": 29,
+    "style": "文件首行中文作用说明，保留既有实现注释及工具指令"
+  },
+  "cleanup": [
+    "移除详情服务已不再使用的Nest NotFoundException依赖",
+    "修正认证模块和权限初始化中已过时的未来阶段注释"
+  ],
+  "retainedContracts": [
+    "板块4员工资格变更事务接入点",
+    "公开认证装饰器与模块导出",
+    "身份联合类型收窄检查",
+    "同事务锁内重新认证"
+  ],
+  "freshVerification": [
+    {
+      "check": "API TypeScript noEmit",
+      "command": "node node_modules/typescript/bin/tsc -p apps/api/tsconfig.json --noEmit",
+      "exitCode": 0
+    },
+    {
+      "check": "Backend scoped ESLint",
+      "command": "node node_modules/eslint/bin/eslint.js apps/api/src/auth apps/api/src/audit apps/api/src/employees apps/api/src/permissions apps/api/test apps/api/scripts/seed-admin.ts apps/api/scripts/seed-permissions.ts apps/api/scripts/password-benchmark.ts",
+      "exitCode": 0
+    },
+    {
+      "check": "API ordinary Vitest",
+      "command": "node node_modules/vitest/vitest.mjs run (cwd apps/api)",
+      "exitCode": 0,
+      "testFilesPassed": 15,
+      "testsPassed": 277
+    }
+  ],
+  "notRunHere": [
+    "数据库集成套件",
+    "浏览器验收",
+    "Docker四服务验收"
+  ]
+}

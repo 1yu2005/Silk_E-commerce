@@ -1,3 +1,4 @@
+// 作用：配置 Swagger 文档、Bearer 认证及公开接口契约的导出入口。
 import type { INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { APP_CONFIG, type EnvironmentConfig } from '../config/environment.js';
@@ -7,9 +8,10 @@ import type { RequestWithId } from './http/request-context.js';
 export function createOpenApiDocument(app: INestApplication) {
   return SwaggerModule.createDocument(app, new DocumentBuilder()
     .setTitle('自营电商 API')
-    .setDescription('M0 工程基础接口。成功响应为 {data, requestId}，错误响应为 {code, message, details?, requestId}。')
+    .setDescription('M0 工程基础与员工认证接口。成功响应为 {data, requestId}，错误响应为 {code, message, details?, requestId}。Authorize输入token本体。')
     .setVersion('1.0.0')
     .addServer('/')
+    .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'bearerAuth')
     .build(), { operationIdFactory: (_controller, method) => method });
 }
 

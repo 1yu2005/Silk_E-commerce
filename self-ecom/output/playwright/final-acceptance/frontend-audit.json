@@ -1,0 +1,144 @@
+{
+  "scope": [
+    "apps/admin-web/src",
+    "apps/store-web/src",
+    "packages/api-client/src",
+    "packages/shared/src",
+    "对应 *.test.mjs 纯测试"
+  ],
+  "findings": [
+    {
+      "title": "员工注销期间焦点恢复重新展示旧身份",
+      "trigger": "注销 HTTP 请求未完成时触发 restore(true)，原实现再次读取旧会话的本人和权限并进入 ready。",
+      "evidenceBefore": "新增回归测试运行：24 项中 23 通过、1 失败；actual ready，expected checking。",
+      "fix": "EmployeeAuthController 用 signingOutRevision 阻止同一会话版本在注销期间恢复；新登录的不同 revision 继续允许恢复。",
+      "file": "apps/admin-web/src/auth/controller.ts",
+      "test": "apps/admin-web/test/auth-controller.test.mjs:186",
+      "evidenceAfter": "后台认证测试 24/24 通过，包含不同 revision 新登录不被迟到注销覆盖。"
+    }
+  ],
+  "redundancyRemoved": [
+    {
+      "file": "apps/admin-web/src/pages/HomePage.tsx",
+      "removed": "重复岗位中文名称映射 roleNames",
+      "basis": "与 employees/query.ts 的 employeeRoles 字面值一致，首页改为复用已有映射。"
+    },
+    {
+      "file": "packages/api-client/src/index.ts",
+      "removed": "显式 ApiResponse、ApiError、Page 类型导出声明",
+      "basis": "同文件 export type * from @shop/shared 已完整覆盖，110 项客户端与契约测试通过。"
+    }
+  ],
+  "retainedWithEvidence": [
+    "services/api.ts 的 api、auth、session 等导出被页面或浏览器脚本动态导入使用，保留。",
+    "createApiClient 为既有公开工厂且有测试消费者，保留。",
+    "employees.catalog 的占位 input 参数用于查询控制器的统一回调形状，保留。",
+    "员工和顾客认证控制器具有不同强制改密、权限恢复、注册和资料写入规则，保留各自实现。"
+  ],
+  "fileRoleComments": {
+    "sourceFiles": 49,
+    "pureTestFiles": 9,
+    "total": 58,
+    "missing": [],
+    "files": [
+      "apps/admin-web/src\\app\\AppLayout.tsx",
+      "apps/admin-web/src\\app\\router.tsx",
+      "apps/admin-web/src\\auth\\AuthError.tsx",
+      "apps/admin-web/src\\auth\\AuthRoutes.tsx",
+      "apps/admin-web/src\\auth\\controller.ts",
+      "apps/admin-web/src\\auth\\use-employee-auth.ts",
+      "apps/admin-web/src\\employees\\create.ts",
+      "apps/admin-web/src\\employees\\EmployeeCreateGuard.tsx",
+      "apps/admin-web/src\\employees\\EmployeeManagement.tsx",
+      "apps/admin-web/src\\employees\\EmployeeReadGuard.tsx",
+      "apps/admin-web/src\\employees\\management.ts",
+      "apps/admin-web/src\\employees\\query-controller.ts",
+      "apps/admin-web/src\\employees\\query.ts",
+      "apps/admin-web/src\\employees\\QueryState.tsx",
+      "apps/admin-web/src\\employees\\use-employee-query.ts",
+      "apps/admin-web/src\\main.tsx",
+      "apps/admin-web/src\\pages\\ChangePasswordPage.tsx",
+      "apps/admin-web/src\\pages\\EmployeeCreatePage.tsx",
+      "apps/admin-web/src\\pages\\EmployeeDetailPage.tsx",
+      "apps/admin-web/src\\pages\\EmployeeListPage.tsx",
+      "apps/admin-web/src\\pages\\HomePage.tsx",
+      "apps/admin-web/src\\pages\\LoginPage.tsx",
+      "apps/admin-web/src\\pages\\NotFoundPage.tsx",
+      "apps/admin-web/src\\services\\api.ts",
+      "apps/admin-web/src\\styles.css",
+      "apps/admin-web/test\\auth-controller.test.mjs",
+      "apps/admin-web/test\\employee-create.test.mjs",
+      "apps/admin-web/test\\employee-management.test.mjs",
+      "apps/admin-web/test\\employee-query.test.mjs",
+      "apps/store-web/src\\app\\AppLayout.tsx",
+      "apps/store-web/src\\app\\router.tsx",
+      "apps/store-web/src\\auth\\AuthError.tsx",
+      "apps/store-web/src\\auth\\AuthRoutes.tsx",
+      "apps/store-web/src\\auth\\controller.ts",
+      "apps/store-web/src\\auth\\form-rules.ts",
+      "apps/store-web/src\\auth\\use-customer-auth.ts",
+      "apps/store-web/src\\main.tsx",
+      "apps/store-web/src\\pages\\AccountPage.tsx",
+      "apps/store-web/src\\pages\\ChangePasswordPage.tsx",
+      "apps/store-web/src\\pages\\HomePage.tsx",
+      "apps/store-web/src\\pages\\LoginPage.tsx",
+      "apps/store-web/src\\pages\\NotFoundPage.tsx",
+      "apps/store-web/src\\pages\\RegisterPage.tsx",
+      "apps/store-web/src\\services\\api.ts",
+      "apps/store-web/src\\styles.css",
+      "apps/store-web/test\\auth-controller.test.mjs",
+      "packages/api-client/src\\api-error.ts",
+      "packages/api-client/src\\auth-client.ts",
+      "packages/api-client/src\\index.ts",
+      "packages/api-client/src\\session.ts",
+      "packages/api-client/test\\auth-client.test.mjs",
+      "packages/api-client/test\\contracts.test.mjs",
+      "packages/api-client/test\\employee-management.test.mjs",
+      "packages/api-client/test\\session.test.mjs",
+      "packages/shared/src\\auth.ts",
+      "packages/shared/src\\employees.ts",
+      "packages/shared/src\\index.ts",
+      "packages/shared/src\\password.ts"
+    ]
+  },
+  "verification": [
+    {
+      "command": "node node_modules/typescript/bin/tsc -p packages/shared/tsconfig.json",
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p packages/api-client/tsconfig.json",
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p apps/admin-web/tsconfig.json --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/typescript/bin/tsc -p apps/store-web/tsconfig.json --noEmit",
+      "exitCode": 0
+    },
+    {
+      "command": "node node_modules/eslint/bin/eslint.js apps/admin-web/src apps/admin-web/test apps/store-web/src apps/store-web/test packages/api-client/src packages/api-client/test packages/shared/src",
+      "exitCode": 0
+    },
+    {
+      "command": "node --test apps/admin-web/test/*.test.mjs apps/store-web/test/*.test.mjs packages/api-client/test/*.test.mjs",
+      "exitCode": 0,
+      "tests": 199,
+      "passed": 199,
+      "failed": 0,
+      "admin": 54,
+      "store": 35,
+      "apiClient": 110
+    }
+  ],
+  "pendingAtHandoff": [
+    "主代理统一执行浏览器验收、完整后端/数据库验证与四服务 Docker 部署验证。"
+  ],
+  "excluded": [
+    "未修改 .env、锁文件、后端、infra 和设计/验收文档。",
+    "未修改或运行既有浏览器脚本。",
+    "未产出最终开发完成说明。"
+  ]
+}

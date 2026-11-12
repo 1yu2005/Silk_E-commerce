@@ -1,0 +1,606 @@
+[
+  {
+    "path": ".env",
+    "sha256": "CC5A781B920301B562B83488122D9060C840A6803FA3203375DCD94E5B434B66"
+  },
+  {
+    "path": "pnpm-lock.yaml",
+    "sha256": "861F462B11B725ACC6798889DCA8AE189DC5E57D8C394F0A7B91ED3E0B09C6E0"
+  },
+  {
+    "path": "项目文档/开发进度总览.md",
+    "sha256": "7825B554659C6D156CC6C807A444A5293CB0A0F18A8E365A5A278BFA75B7FA56"
+  },
+  {
+    "path": "docs/openapi/openapi.json",
+    "sha256": "2BE83F7F2FD8EC3DC31F3FF9B65C8249BE7CAA665EC1AAF3F97D880B5DBA4F40"
+  },
+  {
+    "path": "apps/admin-web/src/auth/controller.ts",
+    "sha256": "2658240E061C4E57AA24DF45CAD05A740196EB22E939F1EA0F761303056688C8"
+  },
+  {
+    "path": "apps/admin-web/test/verify-employees-browser.mjs",
+    "sha256": "BD5A93FA5BE455F992B786417F7565D1422769A492CD9BD3E1411AC350550250"
+  },
+  {
+    "path": "apps/admin-web/test/verify-browser.mjs",
+    "sha256": "73859A58EF0EAE08691EBB8AA2F3F2CC5D98893E1E69926C6722E9B69D2C34E9"
+  },
+  {
+    "path": "apps/store-web/test/verify-browser.mjs",
+    "sha256": "0A4914B0AE0951159A83CC5530216275178C53C1D9CB4C04146307DA3A5E9787"
+  },
+  {
+    "path": "apps/store-web/test/verify-profile-browser.mjs",
+    "sha256": "FB962B8EABBC5B80B5426926017E47212703945D24BA17AE1F4E19B7505C03CB"
+  },
+  {
+    "path": "packages/shared/src/password.ts",
+    "sha256": "0DE72E982368B5DFB5390547645E75899E23DF049D271D2AFF5DD7D8D47431B1"
+  },
+  {
+    "path": "apps/api/src/app.module.ts",
+    "sha256": "2884D0DCCC71BDA7227E265D26E509D236CA0E54ABA84C20BB884D4209DBD1A6"
+  },
+  {
+    "path": "apps/api/src/audit/audit.module.ts",
+    "sha256": "B7FF53A3292B642A61A676C17DC21986DCA160474F2EEAE7A38412C62997BD3F"
+  },
+  {
+    "path": "apps/api/src/audit/audit.service.ts",
+    "sha256": "B626B69D28B902C7C8363EB5BFC57CDF99431486568CAC9FC12CA87CF39E0495"
+  },
+  {
+    "path": "apps/api/src/auth/access-denied.error.ts",
+    "sha256": "D1A696DEE86E98240447298431A6FAF99DFF51F9F42549A38A9725E2C7A7289D"
+  },
+  {
+    "path": "apps/api/src/auth/auth-guard.module.ts",
+    "sha256": "22126662C5EC6EF9DCEC7A95FD9C7556544F445875E72D23B814A31797AD3337"
+  },
+  {
+    "path": "apps/api/src/auth/auth-http-errors.ts",
+    "sha256": "B112F370B75FC955BF3D3F611D25E06B5BC3DA6823208E4F2E72716FC84DEDEF"
+  },
+  {
+    "path": "apps/api/src/auth/auth-policy.ts",
+    "sha256": "E10F3FDFA072E192D786576B3A7D7BBE2847CC2078A0D9B4D7E8108FCECCF90F"
+  },
+  {
+    "path": "apps/api/src/auth/auth-request-context.ts",
+    "sha256": "FA95FDD6C829433D86D218964C02A31954B199FCB1AAF4D5A9C0223F0ECA899D"
+  },
+  {
+    "path": "apps/api/src/auth/auth-session.module.ts",
+    "sha256": "47F175A4422A67C5DFDB1C27D13E6B04160D8D1100690B6373EFF07C8F94A028"
+  },
+  {
+    "path": "apps/api/src/auth/auth-session.service.ts",
+    "sha256": "2E45CA45249EF8A452EB7944E8B88A6ECAEEC0F9D328D36F0ACDA9F45058D16A"
+  },
+  {
+    "path": "apps/api/src/auth/auth-transaction.ts",
+    "sha256": "074830D16E94865A6B65E825A6AB78A9BE81557DF9B77CC35B3BD36DD5B527A2"
+  },
+  {
+    "path": "apps/api/src/auth/auth.decorators.ts",
+    "sha256": "E2EE799EBB0D59FA4FAA7418CFFA3EDC1FDDF7832E81747FC5F40760E4D43D48"
+  },
+  {
+    "path": "apps/api/src/auth/change-password.dto.ts",
+    "sha256": "1E58C830BAD48387146DAD8B3EC0C346E90AACE8AF8A933BC6ACFD7A20302F1A"
+  },
+  {
+    "path": "apps/api/src/auth/current-identity.service.ts",
+    "sha256": "68262E1CC16EEB0B1F72F8CC9027848F1259108F7E661986908D34CFDFBEF3EF"
+  },
+  {
+    "path": "apps/api/src/auth/customer-auth.controller.ts",
+    "sha256": "E0D2DD4AF7FECF88AE74285BC77CF134575D609CD6CA1531D8F4E7D8FA39688F"
+  },
+  {
+    "path": "apps/api/src/auth/customer-auth.module.ts",
+    "sha256": "243E2594C143553324B6788018C14DE35A9AA574B4262651F9D4879EF553EC00"
+  },
+  {
+    "path": "apps/api/src/auth/customer-auth.openapi.ts",
+    "sha256": "EE5094DC9856ED06135C96C306B250E442F41E5D558E19CAED4EA07EB505454C"
+  },
+  {
+    "path": "apps/api/src/auth/customer-auth.service.ts",
+    "sha256": "BE92AE4D7AB8BD54EBA36574E31A9217EFF16ABE43614D00708756D1B246B09F"
+  },
+  {
+    "path": "apps/api/src/auth/customer-login-rate.guard.ts",
+    "sha256": "2A5A0D130D56F1305FE18FDB5C06EEC1AECFA2CBBE5C020B76C73DC65563F1AF"
+  },
+  {
+    "path": "apps/api/src/auth/customer-login.dto.ts",
+    "sha256": "D32D4E01479FF3C853A3849788B7E9AF142E859D9510979ED8EC2A33CF474AD6"
+  },
+  {
+    "path": "apps/api/src/auth/customer-password.service.ts",
+    "sha256": "6AC726D91730D127F110121216EF9992FA75D52FBF0875D81F49442F2DA01172"
+  },
+  {
+    "path": "apps/api/src/auth/customer-profile.dto.ts",
+    "sha256": "FAEE9DF783DA1A0DDD098F736D3BFFC5BC1EA7E321149558448FFB4E83B32A96"
+  },
+  {
+    "path": "apps/api/src/auth/customer-profile.service.ts",
+    "sha256": "BC030365B59B513C131AE11D3DD2BDB13A1CA42A5785A04D30E255262E41F57E"
+  },
+  {
+    "path": "apps/api/src/auth/customer-register.controller.ts",
+    "sha256": "4D1D1263028E403F097BECC2181B642C3358ED81981A8CFF3603630D93508E7D"
+  },
+  {
+    "path": "apps/api/src/auth/customer-register.dto.ts",
+    "sha256": "CAA05B6E0D588BC4A96D67F86F4C220BDDBBF930B825693871649DA1470F8614"
+  },
+  {
+    "path": "apps/api/src/auth/customer-register.error.ts",
+    "sha256": "F935BC5C29C142B18AAD1D75B9028F975E123568EEA856E82FBFE84C5C1D7F44"
+  },
+  {
+    "path": "apps/api/src/auth/customer-register.module.ts",
+    "sha256": "D07E6B7A912FFCF29C148DD2C8C76AD5B4D8037789E1FDBD8012D4AB65CC2A27"
+  },
+  {
+    "path": "apps/api/src/auth/customer-register.openapi.ts",
+    "sha256": "0BB88F589C4539E003FAF26ECB8EC89D3927C948EA4DF25F4A4A2CF70FE482F6"
+  },
+  {
+    "path": "apps/api/src/auth/customer-register.service.ts",
+    "sha256": "808EEE3921B3552C95AA953CC99B5CD7ED1F7C90F7295770DC415DD83F8EF7DD"
+  },
+  {
+    "path": "apps/api/src/auth/employee-auth.controller.ts",
+    "sha256": "3D1F8082C9D17B6A59383F1885BE072D72F8E1D8D08EAFA3C68722C6CE9A246D"
+  },
+  {
+    "path": "apps/api/src/auth/employee-auth.module.ts",
+    "sha256": "91A443B3DEF3C98BD0FA9B0BD9671464FAFB3BE7001C70C9C3620EF9F7440700"
+  },
+  {
+    "path": "apps/api/src/auth/employee-auth.openapi.ts",
+    "sha256": "68C0943211EF965E0A7F478EECAAC1459F7F5581997DE33F88A157B5B66AAB53"
+  },
+  {
+    "path": "apps/api/src/auth/employee-auth.service.ts",
+    "sha256": "EBACC73E764543AA9326875BC358A9FC696C6A6F4457E5FE4F680DB60D2B44F1"
+  },
+  {
+    "path": "apps/api/src/auth/employee-login.dto.ts",
+    "sha256": "4C76EB4D604FD54E697E8D561D3198C2A7C37503EB7DD060ED5C3F722589CA61"
+  },
+  {
+    "path": "apps/api/src/auth/employee-password.service.ts",
+    "sha256": "B5BB52FC8ADE77FCF5B2C6EB17A86F0E466C667B889884A6FFDDDBE8124AD919"
+  },
+  {
+    "path": "apps/api/src/auth/initial-admin-seed.ts",
+    "sha256": "01B725CC2064F61B48AFC380A684C593C5754BFAE0732816D50982C21093A84A"
+  },
+  {
+    "path": "apps/api/src/auth/jwt-token.module.ts",
+    "sha256": "216CFE90CD2367D9FF2C65055FE36CEA108E231C1CBA29251A2933542EA95CFF"
+  },
+  {
+    "path": "apps/api/src/auth/jwt-token.service.ts",
+    "sha256": "60C3D7298614A6CD279FF344AE3E870DFCC3C07E650D7E0BC5D9841F4CAF0268"
+  },
+  {
+    "path": "apps/api/src/auth/login-rate-limiter.ts",
+    "sha256": "3F81705D4F39B692A67D7BC84B69B22DB059262737927E7B19E0EBE418D89CC4"
+  },
+  {
+    "path": "apps/api/src/auth/login-rate.guard.ts",
+    "sha256": "900247486A329C144EE4A538CBB1E93D5289270B563D368F56CEFBCEED09280F"
+  },
+  {
+    "path": "apps/api/src/auth/login-support.ts",
+    "sha256": "AC3AD7D662AFFE49E477278E8EB46ED1801CDD34E4562E260EF9C95F0DB7552C"
+  },
+  {
+    "path": "apps/api/src/auth/logout-token.guard.ts",
+    "sha256": "86796FEB6C7B63E3594CD272CF70AE1794F55A88F8282759B7753D2CBECBA931"
+  },
+  {
+    "path": "apps/api/src/auth/logout.controller.ts",
+    "sha256": "8EF5FF511E3C334E3698DAA0BA18107E4C83EBB7763BD79D64D74291718955B3"
+  },
+  {
+    "path": "apps/api/src/auth/logout.module.ts",
+    "sha256": "89C27BDA10210665D9BC1D41393AE8A52F311CEB17C08694A140DB86FBED0925"
+  },
+  {
+    "path": "apps/api/src/auth/logout.service.ts",
+    "sha256": "A1DACD2FD72570406E53A42B517B45406DA8597466756DD823E39728660AE8DF"
+  },
+  {
+    "path": "apps/api/src/auth/password.service.ts",
+    "sha256": "B1FD553F4C6D61BD3F7442A56F331365B9C7B3B02629A3B79300B7CC417A1819"
+  },
+  {
+    "path": "apps/api/src/auth/permission.guard.ts",
+    "sha256": "E01362F0E7667417FB5E550BAFE3316FEE5039B6A290D8891D8B523F59AF0C1A"
+  },
+  {
+    "path": "apps/api/src/auth/registration-rate.guard.ts",
+    "sha256": "9AB27C70C398E8BE4CF890262F6FCD0396F2EB7FD126B41D35002A0A7397D020"
+  },
+  {
+    "path": "apps/api/src/auth/session-auth.guard.ts",
+    "sha256": "358D0D7D30EA0625470DEA1E45E4C7DD49ED5EFC91EF483A171ED2E79C26AB13"
+  },
+  {
+    "path": "apps/api/src/auth/session-support.ts",
+    "sha256": "61FD79379D410E00188915DEF9F0FB92A63EB3381225E64ACDF685C4A28FE346"
+  },
+  {
+    "path": "apps/api/src/common/configure-app.ts",
+    "sha256": "1CB396BA5C7D3D7C820ACBC88009D13FC77283FDE0C4ADF83930501FD18FCD65"
+  },
+  {
+    "path": "apps/api/src/common/http/api-exception.filter.ts",
+    "sha256": "AD5120B6D601763DB556CA4EA33AA176C9BA2F4535021DE269A9CBDFB075E032"
+  },
+  {
+    "path": "apps/api/src/common/http/api-response.interceptor.ts",
+    "sha256": "FC58AC0DF6C90FB6C827338F4526981590C64A0AC51F19776E248BBFAE29C84C"
+  },
+  {
+    "path": "apps/api/src/common/http/database-not-ready.exception.ts",
+    "sha256": "82A02148DA1E459B603E141EBD2CD787320DEDB9778A370CA37FFA8E7C4AC7D8"
+  },
+  {
+    "path": "apps/api/src/common/http/dto-transforms.ts",
+    "sha256": "5FA0358F420EF31F53F512FD7B84C70F27DF5353F1DCA5DB363C0DE386DC8EB9"
+  },
+  {
+    "path": "apps/api/src/common/http/dto-validation.ts",
+    "sha256": "2AE944086E04FD441FC665B818D080E4DB4C7ECF16BC3E88BDE51E680676B2F0"
+  },
+  {
+    "path": "apps/api/src/common/http/pagination.dto.ts",
+    "sha256": "A9BD8EE21F8DF1F0A18CDF3092CB2C97056B267CA2DD57C9DB9470A85765FE51"
+  },
+  {
+    "path": "apps/api/src/common/http/request-context.ts",
+    "sha256": "F5395EE3756377B0BF0FA7DD21EB3D0A5AE8B5D1E6FA77A530F956D0C74240BF"
+  },
+  {
+    "path": "apps/api/src/common/logging.ts",
+    "sha256": "84443FD6B1454861FF7687C18CB1DD851906C86ECFC5B5CE10D57E54228E0D0A"
+  },
+  {
+    "path": "apps/api/src/common/swagger.ts",
+    "sha256": "CA02BB4B8D1ADABA2C4995A91B7A4292BC8C8D815B628F41099BDC6FF9483AAE"
+  },
+  {
+    "path": "apps/api/src/config/config.module.ts",
+    "sha256": "FC4F09E6CE5CB499CC1F670CF97041DA096658C0022D61D03ED4FDA2B5547A3F"
+  },
+  {
+    "path": "apps/api/src/config/environment.ts",
+    "sha256": "978C0076BAA19922B5007E7B61F602C2859132A0DE3DD3779CAB5D3B748B761B"
+  },
+  {
+    "path": "apps/api/src/config/jwt-configuration.ts",
+    "sha256": "60A99D68F2986FE5C2161BD5CEFF061442F7E29DF72E6E237A418469D6654583"
+  },
+  {
+    "path": "apps/api/src/employees/employee-command.errors.ts",
+    "sha256": "591FA3EE0914D13D46B01A4EA8F1CFD0CB153CB63C2EDAC68870D4A2C03B9325"
+  },
+  {
+    "path": "apps/api/src/employees/employee-create.controller.ts",
+    "sha256": "C6B1D6390E1A05FA341815E887CFA8B2F3EBCD50654F12B1D45F49D5220DFAA2"
+  },
+  {
+    "path": "apps/api/src/employees/employee-create.dto.ts",
+    "sha256": "12998B774870D61EB738ED8B572E8B2841DC8D44F9DBD3DC6C1BA828BDF65841"
+  },
+  {
+    "path": "apps/api/src/employees/employee-create.module.ts",
+    "sha256": "48E0D8EB09FB2AD336A65FB626674EB3AEB218DCACEE4A97958F021002153177"
+  },
+  {
+    "path": "apps/api/src/employees/employee-create.openapi.ts",
+    "sha256": "D2F95B33CD42641DBBB328888F02D0B0BAC38B6EEE074EAC9F43BCDDCD589ED5"
+  },
+  {
+    "path": "apps/api/src/employees/employee-create.service.ts",
+    "sha256": "4133F914BB618E6C23CEF7DE4EA9BE50E0E36BDAEE46DC600E60EC43975FD96C"
+  },
+  {
+    "path": "apps/api/src/employees/employee-eligibility.module.ts",
+    "sha256": "7A66803F1D1BCED88B35B3A4532767CFF35412075975795670E2425320C05645"
+  },
+  {
+    "path": "apps/api/src/employees/employee-eligibility.service.ts",
+    "sha256": "9F5DF01ACE6F1D918CC7AC29CFC17B6DD1BE345184D6215B5969029E9D7D6804"
+  },
+  {
+    "path": "apps/api/src/employees/employee-extra-permission.controller.ts",
+    "sha256": "2088D1A7A5B816295B93C7474C19A275E87ADB19C94C2CE4B9FF44AF440E318C"
+  },
+  {
+    "path": "apps/api/src/employees/employee-extra-permission.dto.ts",
+    "sha256": "9244832937B8607E9A0442181E458303286D296EBB9E9CE5D8B91A934C85A6EE"
+  },
+  {
+    "path": "apps/api/src/employees/employee-extra-permission.module.ts",
+    "sha256": "BF0658CE340C103C3F8B2ECD5ED1E34CFA24E6195838B41340F84688B6F3371E"
+  },
+  {
+    "path": "apps/api/src/employees/employee-extra-permission.openapi.ts",
+    "sha256": "B561C27D761467F6E0F9786B9185C69B4A6B565D217485100EB5AD48475CDD1F"
+  },
+  {
+    "path": "apps/api/src/employees/employee-extra-permission.service.ts",
+    "sha256": "A34576FEB45390846AB3A471EDA9CB7B0B43C46837D61D6B1A6B92A623F32D16"
+  },
+  {
+    "path": "apps/api/src/employees/employee-password-reset.controller.ts",
+    "sha256": "A75713335E65AA173698F8AE1FC5A31CD3D73AB78E96C306D3A0E876450463AA"
+  },
+  {
+    "path": "apps/api/src/employees/employee-password-reset.dto.ts",
+    "sha256": "F70E93DB90C583C468B279D6997654FA53839F9CF1EBC2ACA7584F3A20F66908"
+  },
+  {
+    "path": "apps/api/src/employees/employee-password-reset.module.ts",
+    "sha256": "0371D508FF89030A1EF63F99C0B74DFA8617FF1ED0F1C1BEAEC4CE67BF8D4CEB"
+  },
+  {
+    "path": "apps/api/src/employees/employee-password-reset.openapi.ts",
+    "sha256": "49DF90F667E565B4F874368D504655A34F9A1CA19059FA352D307BDE8E528C70"
+  },
+  {
+    "path": "apps/api/src/employees/employee-password-reset.service.ts",
+    "sha256": "958C9ED2025D328012CA4A012B175D1BD107EE0FBF3943A5A187DAA12BF91595"
+  },
+  {
+    "path": "apps/api/src/employees/employee-profile.controller.ts",
+    "sha256": "60FE17C65AA1282B4E3BC3FE6BB2531B0F4664E34ACA3D7D5B7A69747C2C23A3"
+  },
+  {
+    "path": "apps/api/src/employees/employee-profile.dto.ts",
+    "sha256": "6E9F648BD46D67814D4188DEB2764EF8E9DBBFB0E8E0B1A7E8DEC7CF42DB0EFB"
+  },
+  {
+    "path": "apps/api/src/employees/employee-profile.module.ts",
+    "sha256": "CF7505D318F59E0E7F12B2A42075ED3A2A1490BD25999DE8764841C52BA0E3C6"
+  },
+  {
+    "path": "apps/api/src/employees/employee-profile.openapi.ts",
+    "sha256": "B6F9BCA8A8389E7BF16E17BD57475454B989B241AEEE0D8E6FF8819E5C904E8F"
+  },
+  {
+    "path": "apps/api/src/employees/employee-profile.service.ts",
+    "sha256": "DB1B7E421104DA47665F5BB85E9C6A587CC76CD365BE06E4D50D2598FB6AB854"
+  },
+  {
+    "path": "apps/api/src/employees/employee-query.controller.ts",
+    "sha256": "C0A19444425D0F8BF5BE369CD3722CCD7F15A8F293439B6CBA00101A79CA163F"
+  },
+  {
+    "path": "apps/api/src/employees/employee-query.dto.ts",
+    "sha256": "734D49739A1CC75C721BC95BAC8C1FBDE5818013EB18B5F9BFDAB3B86836C390"
+  },
+  {
+    "path": "apps/api/src/employees/employee-query.module.ts",
+    "sha256": "847D22F6736829F9239DB2FF97D5BA470D2717BD4FFF53B1C9477BC431383686"
+  },
+  {
+    "path": "apps/api/src/employees/employee-query.openapi.ts",
+    "sha256": "44AEA5631F92F8EE08DDE4C264FCAB51146606678DF1FFA6B5CD6C9CCF88DD59"
+  },
+  {
+    "path": "apps/api/src/employees/employee-query.service.ts",
+    "sha256": "93C69B18AF32B1AEA6ACC5B550CCE8EA5FC43991DD7334D1E103FB933F6C2D9C"
+  },
+  {
+    "path": "apps/api/src/employees/employee-role.controller.ts",
+    "sha256": "587FD60C39E3F54D35FEE353020705864CEA495EA2520A7EE0F8DA74993ABDE5"
+  },
+  {
+    "path": "apps/api/src/employees/employee-role.dto.ts",
+    "sha256": "97BD58F92F03FCDCB904F6F4A7551A99C6FF18A184624A987DEAA8BC9C50AC71"
+  },
+  {
+    "path": "apps/api/src/employees/employee-role.module.ts",
+    "sha256": "11AE287ECBC247F1908D2BA0699FEBF0A36A2D1897CCE65FB8F09DF80949D7E6"
+  },
+  {
+    "path": "apps/api/src/employees/employee-role.openapi.ts",
+    "sha256": "2A002F6AD7045504CF84E7D174D360524F8152E06421C94CB93D7D4F6B1CA648"
+  },
+  {
+    "path": "apps/api/src/employees/employee-role.service.ts",
+    "sha256": "EDD62AE3DA06523C0287B8EE9F967CC6245A6563421A83C095D7088937CFEA02"
+  },
+  {
+    "path": "apps/api/src/employees/employee-status.controller.ts",
+    "sha256": "4DE757A6A04469B52260B11CE71F0C28840FE9473FD1C4224433FF3C628469E1"
+  },
+  {
+    "path": "apps/api/src/employees/employee-status.dto.ts",
+    "sha256": "E79FCACECD71BF478D8B61766AFA2DF6EB6F5BA0B705A53D2F8BAAEF219C32B4"
+  },
+  {
+    "path": "apps/api/src/employees/employee-status.module.ts",
+    "sha256": "EA8C0AD4E20CDAD589898950564A44EA72F6BFFB21FA03CF5E1F6F79EB58A980"
+  },
+  {
+    "path": "apps/api/src/employees/employee-status.openapi.ts",
+    "sha256": "58CF377BB71AFD0F417CD0AA18116A0CBE9F7485A2C4B9AD71A56C573EF519D0"
+  },
+  {
+    "path": "apps/api/src/employees/employee-status.service.ts",
+    "sha256": "67A112467D3B9CE673B46B9273848069AE4CDA348F54B8C17B47F97157171407"
+  },
+  {
+    "path": "apps/api/src/health/health.controller.ts",
+    "sha256": "A31C2418A5CFBB69A553C97CB9012E7AF3E7C711BC02F4BC3234E61526059207"
+  },
+  {
+    "path": "apps/api/src/health/health.module.ts",
+    "sha256": "71E5616553ADA0432590AEC5BF924DD228798FB48C3360F5C7DD4830E2FD1055"
+  },
+  {
+    "path": "apps/api/src/health/health.openapi.ts",
+    "sha256": "3BFEFD164EDD3F30ACDBAF2F98919DE3DF7CE7FB6A10C0DF95AD405B003AC7D8"
+  },
+  {
+    "path": "apps/api/src/main.ts",
+    "sha256": "D510C416920928EB43207A7B0F481A944BB3AD6BA03D4E2E6E4719A3BDD0E872"
+  },
+  {
+    "path": "apps/api/src/permissions/permission-catalog.ts",
+    "sha256": "759DD5F64D371710582D2C4F19BB3E1221A298A5269F4FFB2FBC688756B2AFF6"
+  },
+  {
+    "path": "apps/api/src/permissions/permission-query.controller.ts",
+    "sha256": "4FFC74F9E08DF8A61EEBDAED252BF0F91F5E1C0C137CA8800A21E57905EE3C6D"
+  },
+  {
+    "path": "apps/api/src/permissions/permission-query.module.ts",
+    "sha256": "23E1B8FC7FA2D9C26FA0866E945EC2E0AD5D655BCB22286520A59663976E1629"
+  },
+  {
+    "path": "apps/api/src/permissions/permission-query.openapi.ts",
+    "sha256": "12E5909A603044C4C8BDC00F4B9113272723D96EB791454E576E061FA245BA32"
+  },
+  {
+    "path": "apps/api/src/permissions/permission-seed.ts",
+    "sha256": "6BF51DE238FFE4CB929565A4ABECCB90353F84880A9BA8B37D1D9CE20E7914F6"
+  },
+  {
+    "path": "apps/api/src/permissions/permission.module.ts",
+    "sha256": "A500CD35C1BDC94289EB8A41A03F629610396CD064DF641B0513A2671BFEA1A5"
+  },
+  {
+    "path": "apps/api/src/permissions/permission.service.ts",
+    "sha256": "4A6A75FDDA4528B9527468D4A12A278E5D01FCCCCA59DFA35ABA86ED468D4DFD"
+  },
+  {
+    "path": "apps/api/src/prisma/prisma.module.ts",
+    "sha256": "239EFCC4E23FD7866AFD74304905DDCAD0651F641B2EF8984261FCC6D881483B"
+  },
+  {
+    "path": "apps/api/src/prisma/prisma.service.ts",
+    "sha256": "A9EAE2C73D13A81B5D31A5E19B313E793B7EB2186307CDEB7E2289BB2896E97B"
+  },
+  {
+    "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+    "sha256": "5E9D9B6ADAF05917642EAC873C1719E561631C49D1FC03AE085F6DB178E6C3E3"
+  },
+  {
+    "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+    "sha256": "59F83C81067FA3721E9CEF6698A01728FBAAB37ABDB1F5B790F4C6E22690F18A"
+  },
+  {
+    "path": "apps/api/prisma/migrations/migration_lock.toml",
+    "sha256": "1DB17A8D051AA136110736752C5E1F8B7ED92B6EA8E803112FBBE2497047C210"
+  },
+  {
+    "path": "apps/api/prisma/schema.prisma",
+    "sha256": "A18392F7B2D82A0454394F022C29D42C7D9BFCD22B3587D654B294F302F34C2D"
+  },
+  {
+    "path": "apps/api/scripts/database-env.ts",
+    "sha256": "1368981993E54EBBF178A7441F26DDFFE66C31FDCE30FC0AE60B06D71F072055"
+  },
+  {
+    "path": "apps/api/scripts/database.ts",
+    "sha256": "5B15ACCF5DE853A93F370EF52BC291D211A86224E17489619B10247DF1958B43"
+  },
+  {
+    "path": "apps/api/scripts/integration.ts",
+    "sha256": "DAA124C059925B764F4DA05BBDB70C4D76ADEABDA9CCD24EBEC45287CF033C74"
+  },
+  {
+    "path": "apps/api/scripts/openapi.ts",
+    "sha256": "04316FBA66D42F1FA902DD8CD27884AD14B06BA21ACBD88C1C6403A08A20981A"
+  },
+  {
+    "path": "apps/api/scripts/password-benchmark.ts",
+    "sha256": "8C3AE5BE22ECFCE3088AC9264FEF54692B858DCBA65EF0CE3BA304FC77B94DEC"
+  },
+  {
+    "path": "apps/api/scripts/seed-admin.ts",
+    "sha256": "94F346C1A71E7A3D4919ED4FCE3614DFA3685A233C79950A32F3427ABD998E61"
+  },
+  {
+    "path": "apps/api/scripts/seed-permissions.ts",
+    "sha256": "86834044EA08DA0682EE64CBBB319BA70DDB0C33E69F2AD80E5C09F08EF22901"
+  },
+  {
+    "path": "apps/store-web/src/app/AppLayout.tsx",
+    "sha256": "0394C6D95FCF6A3040737BB71D28445C60AF9348E2EF2CE9DDA4F8EE990F41BE"
+  },
+  {
+    "path": "apps/store-web/src/app/router.tsx",
+    "sha256": "17C5E72EA1266AE8FA236B7F382961E63717A10798EF60A304B990AD96979DB5"
+  },
+  {
+    "path": "apps/store-web/src/auth/AuthError.tsx",
+    "sha256": "4E8D956517FFB09049F8419F7373A58897B0AA6F5AE8126ED1CEA4A57D23F7D3"
+  },
+  {
+    "path": "apps/store-web/src/auth/AuthRoutes.tsx",
+    "sha256": "22C0703D0B3E43421BCB141279CB7A7690BF0D355095AE236556A4A44257F847"
+  },
+  {
+    "path": "apps/store-web/src/auth/controller.ts",
+    "sha256": "0AB25EFA4BA94EED7DB51B53A8026BBD58059F73C5AF5D9C2BF52467F42C6BF1"
+  },
+  {
+    "path": "apps/store-web/src/auth/form-rules.ts",
+    "sha256": "6D78028502619D1C80682F7C91174262B9F0E8D48251654AB04055D92860A535"
+  },
+  {
+    "path": "apps/store-web/src/auth/use-customer-auth.ts",
+    "sha256": "67535541955C17DC3838B4798EA914961536C73F9BF2B394A2A8232843728D11"
+  },
+  {
+    "path": "apps/store-web/src/main.tsx",
+    "sha256": "99CD2B706A1C5C1B4124FB32248D1E277F90CCBFCA45B772FAC073177053D4F8"
+  },
+  {
+    "path": "apps/store-web/src/pages/AccountPage.tsx",
+    "sha256": "FAFD4FE9D7ED5AE94E2276AE50759C2885F25A6C79BC63859B4558E389662B76"
+  },
+  {
+    "path": "apps/store-web/src/pages/ChangePasswordPage.tsx",
+    "sha256": "AC3D8DADB45C1ECC26E1CAAECFB70C26974A751EF762CD543D3E338573C476EE"
+  },
+  {
+    "path": "apps/store-web/src/pages/HomePage.tsx",
+    "sha256": "1A6D351749A1DAC1E7E7067A5975E998B9D52FA4679D5B2A1029DEFC18B9E03C"
+  },
+  {
+    "path": "apps/store-web/src/pages/LoginPage.tsx",
+    "sha256": "06F981E8BF280A81D6FB6B47B66E36B20C30E1544E2B9072954FC96F26B566CE"
+  },
+  {
+    "path": "apps/store-web/src/pages/NotFoundPage.tsx",
+    "sha256": "3EAE400E7D78AD756A3D02B126401E546DBCD22510226A1485B87CF1083FA83B"
+  },
+  {
+    "path": "apps/store-web/src/pages/RegisterPage.tsx",
+    "sha256": "37F0120308E67118BEF9D2C76A5E5972784D99E69AD03F1B287B2680F5C8ACF7"
+  },
+  {
+    "path": "apps/store-web/src/services/api.ts",
+    "sha256": "7BDF902760FE5851ACD7D2C1CD936D00607A6B9636ABB79AE14985E7B0B23B72"
+  },
+  {
+    "path": "apps/store-web/src/styles.css",
+    "sha256": "D43B9A7E387A81DAC2B0FF12ADB7DBD4C5B2340A31F7A85550EFB4C4CE072D8E"
+  }
+]

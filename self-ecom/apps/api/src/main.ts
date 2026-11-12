@@ -1,3 +1,4 @@
+// 作用：启动 Nest 应用，加载统一配置、日志与 HTTP 约定并监听 API 端口。
 import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import { Logger } from 'nestjs-pino';

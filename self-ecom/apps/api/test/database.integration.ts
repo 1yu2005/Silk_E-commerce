@@ -1,3 +1,4 @@
+// 作用：使用独立 PostgreSQL 测试库验证数据库连接、迁移和健康检查恢复行为。
 import 'reflect-metadata';
 import { Test } from '@nestjs/testing';
 import type { INestApplication } from '@nestjs/common';
@@ -34,13 +35,13 @@ it('connects through the real Prisma PostgreSQL adapter to the isolated PostgreS
   await expect(prisma.ping()).resolves.toBeUndefined();
 });
 
-it('has an applied bootstrap migration and no placeholder business tables', async () => {
+it('has applied bootstrap and authentication migrations', async () => {
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
-  expect(rows).toEqual([{ migration_name: '0001_bootstrap', finished_at: expect.any(Date) }]);
+  expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit'].map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
-  expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations']);
+  expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations', 'audit_log', 'auth_session', 'customer', 'employee', 'employee_extra_permission', 'permission_definition', 'role_permission', 'system_guard']);
 });
 
 it('keeps liveness working with the real database module installed', async () => {

@@ -1,3 +1,4 @@
+// 作用：验证真实应用装配、公共健康检查、响应与日志约定及生产路由边界。
 import 'reflect-metadata';
 import { Controller, Get, HttpException, type INestApplication, StreamableFile } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
@@ -106,6 +107,29 @@ it('returns only safe database details on readiness failure and keeps liveness i
 it('does not expose liveness without the API prefix', async () => {
   const response = await fetch(`${baseUrl}/health/live`);
   expect(response.status).toBe(404);
+});
+
+it('does not register authentication test fixtures', async () => {
+  const path = '/guard-public';
+  const response = await fetch(`${baseUrl}/api/v1${path}`);
+  expect(response.status).toBe(404);
+});
+
+it('requires a Bearer token at the real customer profile endpoint', async () => {
+  const response = await fetch(`${baseUrl}/api/v1/store/me`);
+  expect(response.status).toBe(401); expect((await response.json() as { code: string }).code).toBe('TOKEN_INVALID');
+});
+
+it('requires a Bearer token at the real logout endpoint', async () => {
+  const response = await fetch(`${baseUrl}/api/v1/auth/logout`, { method: 'POST' });
+  expect(response.status).toBe(401);
+  expect((await response.json() as { code: string }).code).toBe('TOKEN_INVALID');
+});
+
+it('requires a Bearer token at the real employee profile endpoint', async () => {
+  const response = await fetch(`${baseUrl}/api/v1/admin/me`);
+  expect(response.status).toBe(401);
+  expect((await response.json() as { code: string }).code).toBe('TOKEN_INVALID');
 });
 
 it('starts an HTTP server and rejects an unimplemented route', async () => {

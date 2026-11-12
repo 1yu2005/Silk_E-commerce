@@ -1,3 +1,4 @@
+// 作用：提供无需登录的存活与就绪检查，并声明对应 Swagger 响应。
 import { Controller, Get, Inject } from '@nestjs/common';
 import { DatabaseNotReadyException } from '../common/http/database-not-ready.exception.js';
 import { PrismaService } from '../prisma/prisma.service.js';

@@ -1,3 +1,11 @@
-import { createApiClient } from '@shop/api-client';
+/** 文件作用：创建独立的顾客 API 客户端并连接顾客身份控制器。 */
+import { createCustomerClient } from '@shop/api-client';
+import { CustomerAuthController } from '../auth/controller';
 
-export const api = createApiClient(import.meta.env.VITE_API_BASE_URL || '/api/v1');
+const client = createCustomerClient({ baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
+  onUnauthorized: () => customerAuth.onUnauthorized(), onForbidden: () => customerAuth.onForbidden(),
+});
+export const api = client.api;
+export const auth = client.auth;
+export const session = client.session;
+export const customerAuth = new CustomerAuthController(client);

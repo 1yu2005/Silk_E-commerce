@@ -1,3 +1,4 @@
+// 作用：为数据库脚本加载根环境配置并校验正式库和独立测试库的目标隔离。
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { parseEnv } from 'node:util';

@@ -1,0 +1,242 @@
+{
+  "timestamp": "2026-11-12T08:38:13.781Z",
+  "status": "failed",
+  "project": "self-ecom-m002-acceptance-173fda4a",
+  "ports": {
+    "api": "62601",
+    "admin": "62602",
+    "store": "62603",
+    "database": "62604"
+  },
+  "checks": [
+    "Compose强制JWT密钥，三个应用使用独立标签构建成功",
+    "空库迁移、两类seed幂等、四服务健康与两站代理/缓存/Swagger/私有目录",
+    "首管理员强制改密、全会话撤销、最终权限与最后可用管理员保护"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "c3535a5d-829e-4d3d-9750-be5f10a5173c"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees",
+      "status": 403,
+      "requestId": "bdbcc718-4f99-4dd7-8f3c-3599face6134"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "08d8588f-71e3-454c-8ee5-babac896a7f6"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 401,
+      "requestId": "2672e95e-5928-45ee-8609-2ee6b80cc0c9"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 401,
+      "requestId": "b852918e-0815-4330-9d36-a3cfa588f3d8"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "18bb32c5-d579-4ef0-a4cd-2557f8290e12"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "00975aa9-6fbd-4f51-8a3e-8b375d3b59da"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "a84b891a-d07b-4518-92fe-d726590849f9"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me/permissions",
+      "status": 200,
+      "requestId": "a39ce542-a378-4944-88b1-e3564a802ad6"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/permissions",
+      "status": 200,
+      "requestId": "94644c0f-f5d2-4c75-8c89-c58c9e5f5d8e"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees/d7c7b24f-cdbe-4c70-b773-e8e568a4dd2d",
+      "status": 200,
+      "requestId": "f6e7d4ba-3951-4b44-8830-7606c0b48e25"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees/d7c7b24f-cdbe-4c70-b773-e8e568a4dd2d/disable",
+      "status": 409,
+      "requestId": "7c7ab5a0-aa34-420e-9b83-49ec0913e63f"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees/8a9e1364-cfe5-4a2b-95cb-dfadba9041ae",
+      "status": 404,
+      "requestId": "8ead4aea-4e8c-4c89-a0d7-015cc81af7dc"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees",
+      "status": 201,
+      "requestId": "f12a7084-5263-4f2c-9743-faf7c63eca8e"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea",
+      "status": 200,
+      "requestId": "8de7f1ba-7db5-4172-81a8-a2591890f09d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "1d226278-c4bf-4caf-a365-74fd147257df"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "549c7cb6-3eff-4e68-8f5e-2e6ab024342b"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "6764f29f-4b85-48ff-a3e8-0eefd82b430d"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees",
+      "status": 403,
+      "requestId": "ec3e9c42-45e0-43e1-99f9-363b84402b6c"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea",
+      "status": 200,
+      "requestId": "8a1480bf-a355-44af-b495-53b7546d9ced"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea/profile",
+      "status": 200,
+      "requestId": "2b3b8f6d-c3d4-443b-af5f-0fc2b48eee2f"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea/profile",
+      "status": 409,
+      "requestId": "b5605b80-754d-4349-aa28-adfa5a95e089"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea",
+      "status": 200,
+      "requestId": "909bbd5e-9b6b-4a77-8c52-b0e1ea21e691"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea/extra-permissions",
+      "status": 200,
+      "requestId": "d473bb07-7f3a-4b24-a523-a864c9ef1ffd"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/employees/e82e0b3c-a24e-46cf-8cbf-d10f14c924ea",
+      "status": 200,
+      "requestId": "c8657142-7c98-43c3-b0b8-4a68f94a6bb3"
+    }
+  ],
+  "commands": [
+    {
+      "label": "读取原有容器",
+      "status": 0
+    },
+    {
+      "label": "读取原有卷",
+      "status": 0
+    },
+    {
+      "label": "读取原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "缺少JWT密钥必须失败",
+      "status": 1
+    },
+    {
+      "label": "校验Compose配置",
+      "status": 0
+    },
+    {
+      "label": "构建三个应用镜像",
+      "status": 0
+    },
+    {
+      "label": "从空数据卷启动数据库",
+      "status": 0
+    },
+    {
+      "label": "空库执行全部迁移",
+      "status": 0
+    },
+    {
+      "label": "首次权限seed",
+      "status": 0
+    },
+    {
+      "label": "重复权限seed",
+      "status": 0
+    },
+    {
+      "label": "首次管理员seed",
+      "status": 0
+    },
+    {
+      "label": "重复管理员seed",
+      "status": 0
+    },
+    {
+      "label": "启动四服务并等待健康",
+      "status": 0
+    },
+    {
+      "label": "确认自建卷归属",
+      "status": 0
+    },
+    {
+      "label": "仅移除本次随机项目及所属新卷",
+      "status": 0
+    },
+    {
+      "label": "复核原有卷",
+      "status": 0
+    },
+    {
+      "label": "复核原有容器",
+      "status": 0
+    }
+  ],
+  "pageErrors": [],
+  "cleaned": true,
+  "originalResourcesPreserved": true,
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(target.extraPermissions.includes('shipment.read'))\n\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-auth-compose.mjs:130:107\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)"
+}

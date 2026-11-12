@@ -1,0 +1,646 @@
+{
+  "date": "2026-11-12T09:03:15.767Z",
+  "status": "passed",
+  "node": "v24.18.0",
+  "branch": "main",
+  "head": "d4fa544",
+  "uncommitted": true,
+  "scope": "板块2本期功能、代码审查/精简/中文作用注释、真实数据库及独立四服务验收；最终开发完成说明按用户要求延期。",
+  "unitTests": {
+    "total": 476,
+    "api": 277,
+    "apiClient": 110,
+    "admin": 54,
+    "store": 35
+  },
+  "integrationTests": {
+    "files": 20,
+    "passed": 806
+  },
+  "engineering": [
+    {
+      "command": "lint",
+      "status": 0,
+      "durationMs": 6723
+    },
+    {
+      "command": "typecheck",
+      "status": 0,
+      "durationMs": 5944
+    },
+    {
+      "command": "test",
+      "status": 0,
+      "durationMs": 6131
+    },
+    {
+      "command": "build",
+      "status": 0,
+      "durationMs": 6468
+    },
+    {
+      "command": "test:integration",
+      "status": 0,
+      "durationMs": 211969
+    },
+    {
+      "command": "openapi:export",
+      "status": 0,
+      "durationMs": 3865
+    }
+  ],
+  "browser": {
+    "suites": [
+      {
+        "suite": "admin-auth",
+        "exitCode": 0,
+        "checks": 15,
+        "httpRequests": 56,
+        "pageErrors": 0,
+        "cleanup": {
+          "employees": 0,
+          "sessions": 0,
+          "actorAudits": 0
+        }
+      },
+      {
+        "suite": "store-auth",
+        "exitCode": 0,
+        "checks": 19,
+        "httpRequests": 37,
+        "pageErrors": 0,
+        "cleanup": {
+          "customers": 0,
+          "employees": 0,
+          "sessions": 0,
+          "actorAudits": 0
+        }
+      },
+      {
+        "suite": "store-profile",
+        "exitCode": 0,
+        "checks": 14,
+        "httpRequests": 29,
+        "pageErrors": 0,
+        "cleanup": {
+          "customers": 0,
+          "employees": 0,
+          "sessions": 0,
+          "actorAudits": 0
+        }
+      },
+      {
+        "suite": "employee-queries",
+        "exitCode": 0,
+        "checks": 16,
+        "httpRequests": 72,
+        "pageErrors": 0,
+        "cleanup": {
+          "employees": 0,
+          "sessions": 0,
+          "extraPermissions": 0,
+          "actorAudits": 0
+        }
+      },
+      {
+        "suite": "employee-create",
+        "exitCode": 0,
+        "checks": 16,
+        "httpRequests": 57,
+        "pageErrors": 0,
+        "cleanup": {
+          "employees": 0,
+          "sessions": 0,
+          "extraPermissions": 0,
+          "actorAudits": 0
+        }
+      },
+      {
+        "suite": "employee-management",
+        "exitCode": 0,
+        "checks": 22,
+        "httpRequests": 121,
+        "pageErrors": 0,
+        "cleanup": {
+          "employees": 0,
+          "sessions": 0,
+          "extraPermissions": 0,
+          "actorAudits": 0
+        }
+      }
+    ],
+    "checks": 102,
+    "httpRequests": 372,
+    "pageErrors": 0
+  },
+  "docker": {
+    "checks": 9,
+    "httpRequests": 71,
+    "pageErrors": 0,
+    "project": "self-ecom-m002-acceptance-90389b8a",
+    "cleaned": true,
+    "originalResourcesPreserved": true,
+    "realExpiry": "JWT_TTL_SECONDS=3，两个登录域本人200→自然到期401 TOKEN_EXPIRED"
+  },
+  "operations": {
+    "business": 20,
+    "health": 2,
+    "operationIds": [
+      "getLiveness",
+      "getReadiness",
+      "loginEmployee",
+      "changeEmployeePassword",
+      "getEmployeeMe",
+      "getEmployeeMePermissions",
+      "logoutCurrentSession",
+      "listEmployees",
+      "createEmployee",
+      "getEmployeeDetail",
+      "getPermissionCatalog",
+      "updateEmployeeProfile",
+      "disableEmployee",
+      "enableEmployee",
+      "resetEmployeePassword",
+      "changeEmployeeRole",
+      "replaceEmployeeExtraPermissions",
+      "registerCustomer",
+      "loginCustomer",
+      "getCustomerMe",
+      "updateCustomerMe",
+      "changeCustomerPassword"
+    ]
+  },
+  "preservation": {
+    "baselineFiles": 315,
+    "deletedBaselineFiles": [],
+    "protectedFiles": [
+      {
+        "path": ".env",
+        "unchanged": true,
+        "sha256": "CC5A781B920301B562B83488122D9060C840A6803FA3203375DCD94E5B434B66"
+      },
+      {
+        "path": ".env.example",
+        "unchanged": true,
+        "sha256": "3893B7543ABAE6047ECEEF29A2546C9ED50A04A1E8EBB5B54C197DCB2C087806"
+      },
+      {
+        "path": ".node-version",
+        "unchanged": true,
+        "sha256": "55075B5EC4E8B31936CBBC282B8829116D1FD48F2F2F1856DEE592A6650700CE"
+      },
+      {
+        "path": ".npmrc",
+        "unchanged": true,
+        "sha256": "2421FEBEF445A76BABC0EE7AE760B4EAC0E0849304D8B208C9CACDDD9FE8073E"
+      },
+      {
+        "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+        "unchanged": true,
+        "sha256": "5E9D9B6ADAF05917642EAC873C1719E561631C49D1FC03AE085F6DB178E6C3E3"
+      },
+      {
+        "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+        "unchanged": true,
+        "sha256": "59F83C81067FA3721E9CEF6698A01728FBAAB37ABDB1F5B790F4C6E22690F18A"
+      },
+      {
+        "path": "apps/api/prisma/migrations/migration_lock.toml",
+        "unchanged": true,
+        "sha256": "1DB17A8D051AA136110736752C5E1F8B7ED92B6EA8E803112FBBE2497047C210"
+      },
+      {
+        "path": "apps/api/prisma/schema.prisma",
+        "unchanged": true,
+        "sha256": "A18392F7B2D82A0454394F022C29D42C7D9BFCD22B3587D654B294F302F34C2D"
+      },
+      {
+        "path": "docs/design/M0-01.md",
+        "unchanged": true,
+        "sha256": "FAA4C05B6EF02162BA985C280A15CD744B048FD6360D9402A879CEC46AE8DB5E"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/admin-home.jpg",
+        "unchanged": true,
+        "sha256": "C6C6164C7B39264894CF7C59DA1F3F5CD088292AEBAE3A5ED8F07559E9417D55"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/admin-login.jpg",
+        "unchanged": true,
+        "sha256": "8EDD8BBB191A47ED45465EBA89C09CFB95B97B1CF459E6FBE50C22FE1F92E25E"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/api-process-before.txt",
+        "unchanged": true,
+        "sha256": "97D321EEA5BEF3289A1622C2FE8ACFED6FB9311CCAE7D752EB230E01A7922FAD"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/browser-console.json",
+        "unchanged": true,
+        "sha256": "E516AA9AC1199CA04F00057B8B3C9743AD87DB4439CC12840124495B3D464AA3"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/clean-checks.txt",
+        "unchanged": true,
+        "sha256": "BB01A34618C404DE86A3B48AEDFDECD46AE5D7A268DC5FF48BB284D55C004BC3"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cleanup.json",
+        "unchanged": true,
+        "sha256": "360C3336AC2FB7B6732BFD7F7C2671DDD91DABA3F05B69EF67F99AA49FB768EE"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-first-attempt.json",
+        "unchanged": true,
+        "sha256": "A101973C2D3BE6EADF6F7BD33D439B9C332A77817EB0F7BC3747EC551B8819A5"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-project.json",
+        "unchanged": true,
+        "sha256": "4029BFA563B1796EA5F2EF51144175B452626F8B720398277F23F972E6AED27B"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-start.json",
+        "unchanged": true,
+        "sha256": "BAEA2DF60FF23950480183098C79C7E7DADD4C7A1041002CDDCAA3804734178B"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/cold-status.txt",
+        "unchanged": true,
+        "sha256": "F4481868FD4ACB45C60ADB4128AAC06B72A4C636DE88DA3EF5CFECEC675F2169"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/final-status.txt",
+        "unchanged": true,
+        "sha256": "224CD160C6527A9E5FFE22E67778A504090A45D01314EFEBCDCC0F95BF33D95B"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/live-database-stopped.jpg",
+        "unchanged": true,
+        "sha256": "2FA41056DB1385874E1EA5F302494BE04A695126E7C1116AA1FC01DA1E742BC7"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/ready-after-recovery.jpg",
+        "unchanged": true,
+        "sha256": "D32835F94B5F25E15F9A381FACB46F88E3C47F4822DAB68D218CBDB4279553AB"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/ready-before-stop.jpg",
+        "unchanged": true,
+        "sha256": "684F771B7C2647AA0033357CB95117D6B84B0283404DF1172369BC8937DAFE8C"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/ready-database-stopped.jpg",
+        "unchanged": true,
+        "sha256": "5B03EE3108C138CB4E1174BD1685A5A52C85FE111EBBB32D4614BADE11FC1310"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/static-scan.json",
+        "unchanged": true,
+        "sha256": "E193CEB04F2203F7881264C1600C30C7DB069FF3ABA7080B1F36CE3EADFE60A2"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/store-home.jpg",
+        "unchanged": true,
+        "sha256": "2932348911073FC71D1F37511E02A7B4744FBA97193A143A9C63979163DF08B4"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/store-login.jpg",
+        "unchanged": true,
+        "sha256": "908719578DBC094C0CC2124B4E446726E930AADB3C4F5A92E9EFE3A01BE259EB"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/store-swagger.jpg",
+        "unchanged": true,
+        "sha256": "244C1F3A484014152FA6557E9408615ECFAD00CCDC76EA35B49261E6601DB11F"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/swagger-browser.json",
+        "unchanged": true,
+        "sha256": "5E785C7ECBA44F4BAF7271579ABF2A5229AD38EFE514172BD89E2BF5B5878192"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/swagger-correlated.json",
+        "unchanged": true,
+        "sha256": "A503331F1AC23895E5A69EC1623D773F26B11F4C2FFB038D666D79D4F097322D"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/test-isolation.json",
+        "unchanged": true,
+        "sha256": "2833694237F322A6D9C52EE9252E9323305758F6510E321C8E3FDB9597C57D93"
+      },
+      {
+        "path": "docs/verification/evidence/M0-01/versions.json",
+        "unchanged": true,
+        "sha256": "FB90FADED04D31B0AC52144FD6271E25824C5CA51D311C480AAC3A1831F2A3AF"
+      },
+      {
+        "path": "docs/verification/evidence/M0-02/password-benchmark.json",
+        "unchanged": true,
+        "sha256": "1411AD07B8B5064FA4569CA53C23E29B52E8AB4AF65137F1E33B2448AAD02D45"
+      },
+      {
+        "path": "docs/verification/M0-01.md",
+        "unchanged": true,
+        "sha256": "44B7C83B4EE41CB6BEE42D2F0B68EB8C84488DF720EA2CEBB3F3F8BCB8EB591C"
+      },
+      {
+        "path": "pnpm-lock.yaml",
+        "unchanged": true,
+        "sha256": "861F462B11B725ACC6798889DCA8AE189DC5E57D8C394F0A7B91ED3E0B09C6E0"
+      },
+      {
+        "path": "pnpm-workspace.yaml",
+        "unchanged": true,
+        "sha256": "254B16FEE4BCD74F8E3E660244F875D77BBCF55D20AABFCC4CDADCEBB0F55C14"
+      },
+      {
+        "path": "项目文档/开发进度文档/开发完成说明/板块1_开发完成说明.md",
+        "unchanged": true,
+        "sha256": "D30A5A9DA51CF3EE91D609F241EB4717EDD2F1B7921AA5D1B27A11B90144911F"
+      }
+    ],
+    "temporaryPnpmWrapperRemoved": true,
+    "limitation": "初始摘要排除output/storage，不借此声称这些历史目录的全量字节保护；本轮浏览器证据另存。"
+  },
+  "purposeHeaders": {
+    "checked": 232,
+    "missing": 0
+  },
+  "scans": {
+    "builtTextFiles": 146,
+    "evidenceTextFiles": 39,
+    "secretsFound": 0,
+    "sourceWhitespaceOrConflictIssues": 0,
+    "gitDiffCheckExit": 0
+  },
+  "currentBaselineChanges": [
+    ".dockerignore",
+    "apps/admin-web/src/app/AppLayout.tsx",
+    "apps/admin-web/src/app/router.tsx",
+    "apps/admin-web/src/auth/AuthError.tsx",
+    "apps/admin-web/src/auth/AuthRoutes.tsx",
+    "apps/admin-web/src/auth/controller.ts",
+    "apps/admin-web/src/auth/use-employee-auth.ts",
+    "apps/admin-web/src/employees/create.ts",
+    "apps/admin-web/src/employees/EmployeeCreateGuard.tsx",
+    "apps/admin-web/src/employees/EmployeeManagement.tsx",
+    "apps/admin-web/src/employees/EmployeeReadGuard.tsx",
+    "apps/admin-web/src/employees/management.ts",
+    "apps/admin-web/src/employees/query-controller.ts",
+    "apps/admin-web/src/employees/query.ts",
+    "apps/admin-web/src/employees/QueryState.tsx",
+    "apps/admin-web/src/employees/use-employee-query.ts",
+    "apps/admin-web/src/main.tsx",
+    "apps/admin-web/src/pages/ChangePasswordPage.tsx",
+    "apps/admin-web/src/pages/EmployeeCreatePage.tsx",
+    "apps/admin-web/src/pages/EmployeeDetailPage.tsx",
+    "apps/admin-web/src/pages/EmployeeListPage.tsx",
+    "apps/admin-web/src/pages/HomePage.tsx",
+    "apps/admin-web/src/pages/LoginPage.tsx",
+    "apps/admin-web/src/pages/NotFoundPage.tsx",
+    "apps/admin-web/src/services/api.ts",
+    "apps/admin-web/src/styles.css",
+    "apps/admin-web/test/auth-controller.test.mjs",
+    "apps/admin-web/test/employee-create.test.mjs",
+    "apps/admin-web/test/employee-management.test.mjs",
+    "apps/admin-web/test/employee-query.test.mjs",
+    "apps/admin-web/test/verify-browser.mjs",
+    "apps/admin-web/test/verify-employee-create-browser.mjs",
+    "apps/admin-web/test/verify-employee-management-browser.mjs",
+    "apps/admin-web/test/verify-employees-browser.mjs",
+    "apps/admin-web/vite.config.ts",
+    "apps/api/prisma.config.ts",
+    "apps/api/scripts/database-env.ts",
+    "apps/api/scripts/database.ts",
+    "apps/api/scripts/integration.ts",
+    "apps/api/scripts/openapi.ts",
+    "apps/api/scripts/password-benchmark.ts",
+    "apps/api/scripts/seed-admin.ts",
+    "apps/api/scripts/seed-permissions.ts",
+    "apps/api/src/app.module.ts",
+    "apps/api/src/audit/audit.module.ts",
+    "apps/api/src/audit/audit.service.ts",
+    "apps/api/src/auth/access-denied.error.ts",
+    "apps/api/src/auth/auth-guard.module.ts",
+    "apps/api/src/auth/auth-http-errors.ts",
+    "apps/api/src/auth/auth-policy.ts",
+    "apps/api/src/auth/auth-request-context.ts",
+    "apps/api/src/auth/auth-session.module.ts",
+    "apps/api/src/auth/auth-session.service.ts",
+    "apps/api/src/auth/auth-transaction.ts",
+    "apps/api/src/auth/auth.decorators.ts",
+    "apps/api/src/auth/change-password.dto.ts",
+    "apps/api/src/auth/current-identity.service.ts",
+    "apps/api/src/auth/customer-auth.controller.ts",
+    "apps/api/src/auth/customer-auth.module.ts",
+    "apps/api/src/auth/customer-auth.openapi.ts",
+    "apps/api/src/auth/customer-auth.service.ts",
+    "apps/api/src/auth/customer-login-rate.guard.ts",
+    "apps/api/src/auth/customer-login.dto.ts",
+    "apps/api/src/auth/customer-password.service.ts",
+    "apps/api/src/auth/customer-profile.dto.ts",
+    "apps/api/src/auth/customer-profile.service.ts",
+    "apps/api/src/auth/customer-register.controller.ts",
+    "apps/api/src/auth/customer-register.dto.ts",
+    "apps/api/src/auth/customer-register.error.ts",
+    "apps/api/src/auth/customer-register.module.ts",
+    "apps/api/src/auth/customer-register.openapi.ts",
+    "apps/api/src/auth/customer-register.service.ts",
+    "apps/api/src/auth/employee-auth.controller.ts",
+    "apps/api/src/auth/employee-auth.module.ts",
+    "apps/api/src/auth/employee-auth.openapi.ts",
+    "apps/api/src/auth/employee-auth.service.ts",
+    "apps/api/src/auth/employee-login.dto.ts",
+    "apps/api/src/auth/employee-password.service.ts",
+    "apps/api/src/auth/initial-admin-seed.ts",
+    "apps/api/src/auth/jwt-token.module.ts",
+    "apps/api/src/auth/jwt-token.service.ts",
+    "apps/api/src/auth/login-rate-limiter.ts",
+    "apps/api/src/auth/login-rate.guard.ts",
+    "apps/api/src/auth/login-support.ts",
+    "apps/api/src/auth/logout-token.guard.ts",
+    "apps/api/src/auth/logout.controller.ts",
+    "apps/api/src/auth/logout.module.ts",
+    "apps/api/src/auth/logout.service.ts",
+    "apps/api/src/auth/password.service.ts",
+    "apps/api/src/auth/permission.guard.ts",
+    "apps/api/src/auth/registration-rate.guard.ts",
+    "apps/api/src/auth/session-auth.guard.ts",
+    "apps/api/src/auth/session-support.ts",
+    "apps/api/src/common/configure-app.ts",
+    "apps/api/src/common/http/api-exception.filter.ts",
+    "apps/api/src/common/http/api-response.interceptor.ts",
+    "apps/api/src/common/http/database-not-ready.exception.ts",
+    "apps/api/src/common/http/dto-transforms.ts",
+    "apps/api/src/common/http/dto-validation.ts",
+    "apps/api/src/common/http/pagination.dto.ts",
+    "apps/api/src/common/http/request-context.ts",
+    "apps/api/src/common/logging.ts",
+    "apps/api/src/common/swagger.ts",
+    "apps/api/src/config/config.module.ts",
+    "apps/api/src/config/environment.ts",
+    "apps/api/src/config/jwt-configuration.ts",
+    "apps/api/src/employees/employee-command.errors.ts",
+    "apps/api/src/employees/employee-create.controller.ts",
+    "apps/api/src/employees/employee-create.dto.ts",
+    "apps/api/src/employees/employee-create.module.ts",
+    "apps/api/src/employees/employee-create.openapi.ts",
+    "apps/api/src/employees/employee-create.service.ts",
+    "apps/api/src/employees/employee-eligibility.module.ts",
+    "apps/api/src/employees/employee-eligibility.service.ts",
+    "apps/api/src/employees/employee-extra-permission.controller.ts",
+    "apps/api/src/employees/employee-extra-permission.dto.ts",
+    "apps/api/src/employees/employee-extra-permission.module.ts",
+    "apps/api/src/employees/employee-extra-permission.openapi.ts",
+    "apps/api/src/employees/employee-extra-permission.service.ts",
+    "apps/api/src/employees/employee-password-reset.controller.ts",
+    "apps/api/src/employees/employee-password-reset.dto.ts",
+    "apps/api/src/employees/employee-password-reset.module.ts",
+    "apps/api/src/employees/employee-password-reset.openapi.ts",
+    "apps/api/src/employees/employee-password-reset.service.ts",
+    "apps/api/src/employees/employee-profile.controller.ts",
+    "apps/api/src/employees/employee-profile.dto.ts",
+    "apps/api/src/employees/employee-profile.module.ts",
+    "apps/api/src/employees/employee-profile.openapi.ts",
+    "apps/api/src/employees/employee-profile.service.ts",
+    "apps/api/src/employees/employee-query.controller.ts",
+    "apps/api/src/employees/employee-query.dto.ts",
+    "apps/api/src/employees/employee-query.module.ts",
+    "apps/api/src/employees/employee-query.openapi.ts",
+    "apps/api/src/employees/employee-query.service.ts",
+    "apps/api/src/employees/employee-role.controller.ts",
+    "apps/api/src/employees/employee-role.dto.ts",
+    "apps/api/src/employees/employee-role.module.ts",
+    "apps/api/src/employees/employee-role.openapi.ts",
+    "apps/api/src/employees/employee-role.service.ts",
+    "apps/api/src/employees/employee-status.controller.ts",
+    "apps/api/src/employees/employee-status.dto.ts",
+    "apps/api/src/employees/employee-status.module.ts",
+    "apps/api/src/employees/employee-status.openapi.ts",
+    "apps/api/src/employees/employee-status.service.ts",
+    "apps/api/src/health/health.controller.ts",
+    "apps/api/src/health/health.module.ts",
+    "apps/api/src/health/health.openapi.ts",
+    "apps/api/src/main.ts",
+    "apps/api/src/permissions/permission-catalog.ts",
+    "apps/api/src/permissions/permission-query.controller.ts",
+    "apps/api/src/permissions/permission-query.module.ts",
+    "apps/api/src/permissions/permission-query.openapi.ts",
+    "apps/api/src/permissions/permission-seed.ts",
+    "apps/api/src/permissions/permission.module.ts",
+    "apps/api/src/permissions/permission.service.ts",
+    "apps/api/src/prisma/prisma.module.ts",
+    "apps/api/src/prisma/prisma.service.ts",
+    "apps/api/test/audit.integration.ts",
+    "apps/api/test/auth-guard.integration.ts",
+    "apps/api/test/auth-guard.spec.ts",
+    "apps/api/test/auth-schema.integration.ts",
+    "apps/api/test/auth-session.integration.ts",
+    "apps/api/test/auth-session.spec.ts",
+    "apps/api/test/auth-transaction.spec.ts",
+    "apps/api/test/bootstrap.spec.ts",
+    "apps/api/test/customer-auth.integration.ts",
+    "apps/api/test/customer-profile-password.integration.ts",
+    "apps/api/test/customer-register.integration.ts",
+    "apps/api/test/database-safety.spec.ts",
+    "apps/api/test/database.integration.ts",
+    "apps/api/test/employee-auth.integration.ts",
+    "apps/api/test/employee-create.integration.ts",
+    "apps/api/test/employee-extra-permission.integration.ts",
+    "apps/api/test/employee-password-reset.integration.ts",
+    "apps/api/test/employee-password.integration.ts",
+    "apps/api/test/employee-profile.integration.ts",
+    "apps/api/test/employee-query.integration.ts",
+    "apps/api/test/employee-role.integration.ts",
+    "apps/api/test/employee-status.integration.ts",
+    "apps/api/test/environment.spec.ts",
+    "apps/api/test/fixtures/auth-guard.controllers.ts",
+    "apps/api/test/initial-admin-config.spec.ts",
+    "apps/api/test/initial-admin-seed.integration.ts",
+    "apps/api/test/jwt-configuration.spec.ts",
+    "apps/api/test/jwt-token.spec.ts",
+    "apps/api/test/logging.spec.ts",
+    "apps/api/test/login-rate-limiter.spec.ts",
+    "apps/api/test/logout.integration.ts",
+    "apps/api/test/password.spec.ts",
+    "apps/api/test/permission-seed.integration.ts",
+    "apps/api/test/permissions.spec.ts",
+    "apps/api/test/swagger.spec.ts",
+    "apps/api/test/validation.spec.ts",
+    "apps/api/vitest.config.mts",
+    "apps/api/vitest.integration.config.mts",
+    "apps/store-web/src/app/AppLayout.tsx",
+    "apps/store-web/src/app/router.tsx",
+    "apps/store-web/src/auth/AuthError.tsx",
+    "apps/store-web/src/auth/AuthRoutes.tsx",
+    "apps/store-web/src/auth/controller.ts",
+    "apps/store-web/src/auth/form-rules.ts",
+    "apps/store-web/src/auth/use-customer-auth.ts",
+    "apps/store-web/src/main.tsx",
+    "apps/store-web/src/pages/AccountPage.tsx",
+    "apps/store-web/src/pages/ChangePasswordPage.tsx",
+    "apps/store-web/src/pages/HomePage.tsx",
+    "apps/store-web/src/pages/LoginPage.tsx",
+    "apps/store-web/src/pages/NotFoundPage.tsx",
+    "apps/store-web/src/pages/RegisterPage.tsx",
+    "apps/store-web/src/services/api.ts",
+    "apps/store-web/src/styles.css",
+    "apps/store-web/test/auth-controller.test.mjs",
+    "apps/store-web/test/verify-browser.mjs",
+    "apps/store-web/test/verify-profile-browser.mjs",
+    "apps/store-web/vite.config.ts",
+    "docs/design/M0-02.md",
+    "docs/openapi/openapi.json",
+    "docs/verification/M0-02.md",
+    "infra/api.Dockerfile",
+    "infra/compose.yaml",
+    "infra/nginx.conf",
+    "infra/verify-compose.mjs",
+    "infra/web.Dockerfile",
+    "packages/api-client/src/api-error.ts",
+    "packages/api-client/src/auth-client.ts",
+    "packages/api-client/src/index.ts",
+    "packages/api-client/src/session.ts",
+    "packages/api-client/test/auth-client.test.mjs",
+    "packages/api-client/test/contracts.test.mjs",
+    "packages/api-client/test/employee-management.test.mjs",
+    "packages/api-client/test/session.test.mjs",
+    "packages/shared/src/auth.ts",
+    "packages/shared/src/employees.ts",
+    "packages/shared/src/index.ts",
+    "packages/shared/src/password.ts",
+    "README.md",
+    "项目文档/开发进度总览.md"
+  ],
+  "knownBoundaries": [
+    {
+      "module": "板块3",
+      "pending": "头像上传；本期avatarUrl固定null，不开放任意外部头像URL。"
+    },
+    {
+      "module": "板块4",
+      "pending": "真实任务回池；EmployeeEligibilityService仅提供同事务资格变更接入点并校验参数，不创建Task、内存事件或假待办。"
+    },
+    {
+      "module": "板块7",
+      "pending": "顾客列表、限制交易/冻结/恢复正式管理命令与管理页面；本期只验证认证三状态基础。"
+    },
+    {
+      "module": "板块8～9",
+      "pending": "TRADE_RESTRICTED不能新建订单但可支付原订单等真实订单规则。"
+    },
+    {
+      "module": "板块10及后续业务",
+      "pending": "真实发货、退款及其他业务权限端点与撤权竞态，当前固定目录和权限解析不等于实际业务完成。"
+    },
+    {
+      "module": "板块13",
+      "pending": "冻结顾客线下核实与代录、归属及售后期限规则。"
+    },
+    {
+      "module": "板块14",
+      "pending": "全店审计查询界面；本期审计以数据库集成验证。"
+    }
+  ]
+}
