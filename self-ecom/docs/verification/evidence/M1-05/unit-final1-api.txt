@@ -1,0 +1,115 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:45268) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:47236) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:76832) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"level":30,"time":1794580026011,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"7ee12a34-a614-4d30-bfb9-f417759707f3","res":{"statusCode":200},"responseTime":7,"msg":"request completed"}
+{"level":30,"time":1794580026027,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"2ec2810c-4ba0-4b92-a747-b8805a28785e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":50,"time":1794580026038,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"6805e311-6759-446b-8b92-5c71ac76e8fc","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":3,"msg":"request failed"}
+{"level":30,"time":1794580026051,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6f0a1af4-e715-4f7b-a5f4-1bbaa3b4f05c","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794580026079,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/guard-public"},"requestId":"33683946-500a-4ffa-8d5c-030b2dfd729e","res":{"statusCode":404},"responseTime":2,"msg":"request completed"}
+{"level":40,"time":1794580026090,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/store/me"},"requestId":"17f38650-3729-4144-abc2-5c26a43a19d8","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794580026104,"pid":63612,"hostname":"YHY","req":{"method":"POST","path":"/api/v1/auth/logout"},"requestId":"a2453f0c-41a6-4724-9e5f-b2823cadc0ac","res":{"statusCode":401},"responseTime":0,"msg":"request completed"}
+{"level":40,"time":1794580026119,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/admin/me"},"requestId":"7522072e-d988-42ea-8abe-f58c7d8a47d3","res":{"statusCode":401},"responseTime":0,"msg":"request completed"}
+{"level":40,"time":1794580026134,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"77ebfe77-7fba-487c-8c8c-93fee69d5522","res":{"statusCode":404},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026142,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"8ed6ee6d-3699-4fa3-bfcb-c2b8fc42394e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794580026142,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"cac1e112-62e4-4615-bddf-797570d2df2b","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026143,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"35cc2706-63ed-4569-bd51-bec0a198ea44","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026143,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"31ca87bb-56e5-425e-a4a7-2bec4133fb77","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026144,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"e41e00e4-05c7-4868-93b6-7ac6d58ca97f","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794580026144,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"2473352e-7a2d-458c-b505-95cc8ce7514b","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026144,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"00b4ffa8-677d-4167-9f72-967f45b4476c","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026145,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"637f5ee3-0d10-4027-a8d8-d996fe168595","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026145,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"fb3258d7-adbd-4a80-b06a-527e36e59472","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026145,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"2b773688-51db-4687-a8f2-9ad26729f82a","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026148,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"736b23ac-d3ad-47b1-a081-f54cb72f3089","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+ ❯ test/swagger.spec.ts (2 tests | 1 failed) 594ms
+   × serves native Swagger documents only when enabled=true 530ms
+{"level":50,"time":1794580026166,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"76521138-18b9-402b-8061-b8e48f6b2922","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":50,"time":1794580026181,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"74033b65-fc18-4c2b-b901-ee3170adad5f","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":0,"msg":"request failed"}
+{"level":30,"time":1794580026196,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"551ecfa2-22ef-4a80-9bd1-698705ce29f8","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794580026198,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"cb1f2dc6-bf19-4c27-9c62-33cdb9c98af9","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026211,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3172f26b-a5ea-476c-a2dd-323456e1a26d","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794580026226,"pid":63612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"f1875bf6-eb8b-4347-aa85-c473a5d328df","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/swagger.spec.ts > serves native Swagger documents only when enabled=true
+AssertionError: expected [ …(57) ] to deeply equal [ …(36) ]
+
+- Expected
++ Received
+
+@@ -1,8 +1,12 @@
+  [
+    "/api/v1/admin/auth/change-password",
+    "/api/v1/admin/auth/login",
++   "/api/v1/admin/categories",
++   "/api/v1/admin/categories/tree",
++   "/api/v1/admin/categories/{id}",
++   "/api/v1/admin/categories/{id}/move",
+    "/api/v1/admin/employees",
+    "/api/v1/admin/employees/{id}",
+    "/api/v1/admin/employees/{id}/change-role",
+    "/api/v1/admin/employees/{id}/disable",
+    "/api/v1/admin/employees/{id}/enable",
+@@ -10,10 +14,24 @@
+    "/api/v1/admin/employees/{id}/profile",
+    "/api/v1/admin/employees/{id}/reset-password",
+    "/api/v1/admin/me",
+    "/api/v1/admin/me/permissions",
+    "/api/v1/admin/permissions",
++   "/api/v1/admin/products",
++   "/api/v1/admin/products/batch-status",
++   "/api/v1/admin/products/{id}",
++   "/api/v1/admin/products/{id}/archive",
++   "/api/v1/admin/products/{id}/images",
++   "/api/v1/admin/products/{id}/initial-inventory-draft",
++   "/api/v1/admin/products/{id}/initial-inventory-draft/void",
++   "/api/v1/admin/products/{id}/publish",
++   "/api/v1/admin/products/{id}/sku-combinations/preview",
++   "/api/v1/admin/products/{id}/sku-scheme",
++   "/api/v1/admin/products/{id}/skus/batch-fill",
++   "/api/v1/admin/products/{id}/skus/{skuId}",
++   "/api/v1/admin/products/{id}/skus/{skuId}/set-enabled",
++   "/api/v1/admin/products/{id}/unpublish",
+    "/api/v1/admin/settings",
+    "/api/v1/admin/settings/versions",
+    "/api/v1/admin/settings/versions/{id}",
+    "/api/v1/admin/tasks",
+    "/api/v1/admin/tasks/summary",
+@@ -30,9 +48,12 @@
+    "/api/v1/health/live",
+    "/api/v1/health/ready",
+    "/api/v1/store/auth/change-password",
+    "/api/v1/store/auth/login",
+    "/api/v1/store/auth/register",
++   "/api/v1/store/categories",
+    "/api/v1/store/contact",
+    "/api/v1/store/me",
+    "/api/v1/store/me/avatar",
++   "/api/v1/store/products",
++   "/api/v1/store/products/{id}",
+  ]
+
+ ❯ test/swagger.spec.ts:34:47
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 24 passed (25)
+      Tests  1 failed | 491 passed (492)
+   Start at  22:27:01
+   Duration  5.29s (import 74%, tests 20%, transform 6%, worker 1%)
+

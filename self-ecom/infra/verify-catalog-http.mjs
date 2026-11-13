@@ -1,0 +1,68 @@
+// 作用：在本次随机四服务验证生产商品链路及图片持久化，正余额夹具严格限制在独占验收库。
+/* global document, innerWidth */
+import assert from 'node:assert/strict';
+import { createHash,randomUUID } from 'node:crypto';
+import { createRequire } from 'node:module';
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
+export async function verifyCatalog(context){
+  const {origin,storeOrigin,adminToken,browser,call,passed,requests,output,compose,env,pageErrors,adminUsername,adminPassword}=context;
+  assert.equal(env.POSTGRES_DB,'acceptance_dev');assert.equal(env.POSTGRES_USER,'acceptance');
+  const request=(endpoint,method='GET',body,expected=200,code)=>call(origin,endpoint,method,body,adminToken,expected,code);
+  const sql=statement=>compose(['exec','-T','db','psql','-v','ON_ERROR_STOP=1','-U',env.POSTGRES_USER,'-d',env.POSTGRES_DB,'-Atc',statement],'独占库商品夹具/核查').stdout.trim();
+  const root=await request('/admin/categories','POST',{name:'Docker服装'},201);
+  const child=await request('/admin/categories','POST',{name:'Docker上衣',parentId:root.id},201);
+  let p=await request('/admin/products','POST',{name:'Docker纯棉T恤',categoryId:child.id,description:'纯文本介绍 <b>不是HTML</b>'},201);
+  const productId=p.id;
+  const dimensions=[['黑色','白色'],['S','M','L']].map((values,i)=>({clientKey:randomUUID(),name:i?'尺码':'颜色',values:values.map(name=>({clientKey:randomUUID(),name}))}));
+  assert.equal((await request(`/admin/products/${p.id}/sku-combinations/preview`,'POST',{dimensions})).count,6);
+  assert.equal(sql(`SELECT count(*) FROM sku WHERE product_id='${productId}'`),'1');
+  p=await request(`/admin/products/${p.id}/sku-scheme`,'PUT',{expectedVersion:p.version,mode:'REBUILD',reason:'独立Docker规格验收',dimensions});
+  const skus=p.skus.filter(s=>!s.retiredAt);assert.equal(skus.length,6);assert.ok(p.skus.every(s=>s.available===0&&s.reserved===0));
+  p=await request(`/admin/products/${p.id}/skus/batch-fill`,'POST',{expectedVersion:p.version,skuIds:skus.map(s=>s.id),priceCents:9900,costCents:4500});
+  const require=createRequire(new URL('../apps/api/package.json',import.meta.url));
+  const png=await require('sharp')({create:{width:320,height:420,channels:3,background:'#c3ae8d'}}).png().toBuffer();
+  const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
+  const upload=async()=>{const body=new FormData();body.append('purpose','PRODUCT_IMAGE');body.append('file',new Blob([png],{type:'image/png'}),'catalog.png');
+    const r=await fetch(origin+'/api/v1/files',{method:'POST',headers:{Authorization:'Bearer '+adminToken},body});const json=await r.json();
+    requests.push({method:'POST',path:'/files',status:r.status,requestId:r.headers.get('x-request-id')});assert.equal(r.status,201);assert.equal(json.requestId,r.headers.get('x-request-id'));return json.data;};
+  const main=await upload(),gallery=await upload();
+  p=await request(`/admin/products/${p.id}/images`,'PUT',{expectedVersion:p.version,mainImageId:main.id,galleryImageIds:[gallery.id]});
+  p=await request(`/admin/products/${p.id}/initial-inventory-draft`,'PUT',{expectedProductVersion:p.version,expectedDraftVersion:null,lines:skus.map(s=>({skuId:s.id,quantity:10}))});
+  assert.ok(p.skus.every(s=>s.available===0&&s.reserved===0));
+  const rejected=await request(`/admin/products/${p.id}/publish`,'POST',{expectedVersion:p.version,reason:'草稿不能替代入账'},409,'PRODUCT_NOT_PUBLISHABLE');
+  assert.match(JSON.stringify(rejected),/可售库存不足/);
+  await call(storeOrigin,`/store/products/${p.id}`,'GET',undefined,undefined,404,'PRODUCT_NOT_FOUND');
+  passed('板块5：真实分类/六SKU/批量价格/商品图片/数量草稿全链路，A/R保持0且上架拒绝');
+  // 该SQL只作用于本次随机Compose的空库，不能作为真实库存登记证据。
+  sql(`UPDATE inventory_balance b SET available=5 FROM sku s WHERE s.id=b.sku_id AND s.product_id='${productId}' AND s.retired_at IS NULL`);
+  p=await request(`/admin/products/${p.id}/publish`,'POST',{expectedVersion:p.version,reason:'独占库存夹具上架'});
+  const visible=await call(storeOrigin,`/store/products/${p.id}`);assert.equal(visible.skus.length,6);assert.equal(visible.availableQuantity,'30');
+  assert.ok(!/costCents|reserved|purchaseBlocked|createdById|updatedById/.test(JSON.stringify(visible)));
+  const listed=await call(storeOrigin,`/store/products?categoryId=${root.id}&keyword=${encodeURIComponent('纯棉')}&sort=PRICE_DESC`);assert.ok(listed.items.some(v=>v.id===p.id));
+  const imageRead=async()=>{const r=await fetch(storeOrigin+main.contentUrl);requests.push({method:'GET',path:main.contentUrl,status:r.status,requestId:r.headers.get('x-request-id')});assert.equal(r.status,200);assert.equal(digest(Buffer.from(await r.arrayBuffer())),digest(png));};
+  await imageRead();
+  const swagger=await browser.newPage();swagger.on('pageerror',error=>pageErrors.push(error.name));await swagger.goto(storeOrigin+'/api/docs');
+  const operation=swagger.locator('.opblock').filter({has:swagger.getByText('公开商品与有效可选SKU',{exact:true})});
+  await operation.locator('.opblock-summary').click();await operation.locator('.try-out__btn').click();await operation.locator('input[type=text]').fill(productId);
+  const response=swagger.waitForResponse(r=>r.url().endsWith('/api/v1/store/products/'+productId)&&r.request().method()==='GET');await operation.locator('.execute').click();const actual=await response;assert.equal(actual.status(),200);assert.equal((await actual.json()).data.skus.length,6);
+  requests.push({method:'GET',path:'/store/products/'+productId,status:actual.status(),requestId:actual.headers()['x-request-id'],surface:'Swagger UI'});await swagger.screenshot({path:path.join(output,'catalog-swagger-public.png'),fullPage:true});await swagger.close();
+  passed('板块5：Swagger UI执行公开详情200，真实六SKU且无需Bearer');
+  const store=await browser.newPage({viewport:{width:1366,height:768}}),admin=await browser.newPage();
+  for(const page of [store,admin])page.on('pageerror',error=>pageErrors.push(error.name));
+  await store.goto(storeOrigin+'/products/'+p.id);await store.getByRole('button',{name:'黑色',exact:true}).click();await store.getByRole('button',{name:'M',exact:true}).click();await store.getByText(/此款有货/).waitFor();
+  assert.equal(await store.locator('.product-description b').count(),0);await store.screenshot({path:path.join(output,'catalog-production.png'),fullPage:true});
+  await store.setViewportSize({width:390,height:844});assert.ok(await store.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await store.screenshot({path:path.join(output,'catalog-production-mobile.png'),fullPage:true});
+  await admin.goto(origin+'/login');await admin.getByLabel('员工账号',{exact:true}).fill(adminUsername);await admin.getByLabel('密码',{exact:true}).fill(adminPassword);await admin.locator('form button[type=submit]').click();await admin.waitForURL(origin+'/');
+  await admin.goto(origin+'/products/'+p.id);await admin.getByRole('heading',{name:'Docker纯棉T恤',exact:true}).waitFor();await admin.locator('#images img').first().waitFor();await admin.screenshot({path:path.join(output,'catalog-admin-production.png'),fullPage:true});
+  passed('板块5：Nginx生产构建的商品编辑、商城规格/手机布局、公开投影与两站真实图片');
+  sql(`UPDATE inventory_balance b SET available=0 FROM sku s WHERE s.id=b.sku_id AND s.product_id='${productId}'`);
+  const soldout=await call(storeOrigin,`/store/products/${p.id}`);assert.equal(soldout.purchasable,false);assert.equal(soldout.availableQuantity,'0');
+  const off=await request(`/admin/products/${p.id}/unpublish`,'POST',{expectedVersion:p.version,reason:'独占普通下架'});
+  await call(storeOrigin,`/store/products/${p.id}`,'GET',undefined,undefined,404,'PRODUCT_NOT_FOUND');
+  sql(`UPDATE inventory_balance b SET available=5 FROM sku s WHERE s.id=b.sku_id AND s.product_id='${productId}' AND s.retired_at IS NULL`);
+  p=await request(`/admin/products/${p.id}/publish`,'POST',{expectedVersion:off.version,reason:'持久化前独占夹具重上架'});
+  await writeFile(path.join(output,'catalog-fixture.json'),JSON.stringify({productId,categoryId:child.id,mainImageId:main.id,galleryImageId:gallery.id,fixture:'仅独占验收库正余额，不代表库存入账'},null,2)+'\n');
+  passed('板块5：自然缺货仍公开且不可购、下架404、重新上架重新校验');
+  return {async verifyPersistence(){const current=await call(storeOrigin,`/store/products/${productId}`);assert.equal(current.skus.length,6);assert.equal(current.availableQuantity,'30');await imageRead();assert.equal((await request(`/admin/products/${productId}/initial-inventory-draft`)).lines.length,6);passed('板块5：数据库重启及API强制重建后商品/六SKU/数量草稿/图片真实持久化');}};
+}

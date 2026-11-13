@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'category.change': { target: 'Category', fields: ['catalogVersion','catalogAction','affectedCount','catalogChanges'], reason: false },
+  'product.change': { target: 'Product', fields: ['catalogVersion','catalogAction','affectedCount','catalogChanges'], reason: false },
   'employee.create': { target: 'Employee', fields: ['username', 'displayName', 'role', 'status', 'mustChangePassword'], reason: true },
   'employee.profile.update': { target: 'Employee', fields: ['displayName'], reason: true },
   'employee.disable': { target: 'Employee', fields: ['status'], reason: true },
@@ -72,7 +74,17 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
   for (const [field, item] of Object.entries(value)) {
     if (!fields.includes(field)) invalid();
     let valid = false;
-    if (field === 'passwordChanged' || field === 'loggedOut') valid = item === true;
+    if (field === 'catalogVersion' || field === 'affectedCount') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
+    else if (field === 'catalogAction') valid = typeof item==='string' && /^[a-z.-]{1,60}$/.test(item);
+    else if (field === 'catalogChanges') valid = Array.isArray(item) && item.length<=1000 && item.every(change => {
+      if (!change || typeof change!=='object' || Array.isArray(change)) return false;
+      const row=change as Record<string,unknown>;
+      return Object.keys(row).every(k=>['id','field','before','after'].includes(k))
+        && typeof row.id==='string' && uuid.test(row.id) && typeof row.field==='string'
+        && ['name','parentId','pathIds','categoryId','status','archivedAt','code','priceCents','costCents','enabled','retiredAt','images','dimensions','quantity','sortOrder','iconKey','brand','description'].includes(row.field)
+        && [row.before,row.after].every(v=>v===null || typeof v==='boolean' || (typeof v==='number' && Number.isSafeInteger(v)) || (typeof v==='string' && v.length<=30000));
+    });
+    else if (field === 'passwordChanged' || field === 'loggedOut') valid = item === true;
     else if (field === 'mustChangePassword' || field === 'reassignNeeded') valid = typeof item === 'boolean';
     else if (field === 'role') valid = typeof item === 'string' && roles.has(item);
     else if (field === 'status') valid = typeof item === 'string'
@@ -140,7 +152,7 @@ export class AuditService {
     if (payload.action.startsWith('employee.') && actor.type === 'CUSTOMER') invalid();
     if (payload.action.startsWith('customer.') && actor.type !== 'CUSTOMER') invalid();
     if (payload.action.startsWith('communication.') && actor.type !== 'EMPLOYEE') invalid();
-    if (payload.action === 'store.setting.update' && actor.type !== 'EMPLOYEE') invalid();
+    if ((payload.action === 'store.setting.update' || payload.action === 'category.change' || payload.action === 'product.change') && actor.type !== 'EMPLOYEE') invalid();
     const reason = payload.reason?.trim();
     if ((policy.reason && !reason) || (reason !== undefined && [...reason].length > 500)) invalid();
     const beforeData = snapshot(payload.before, policy.fields);

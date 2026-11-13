@@ -234,6 +234,7 @@ enum CommunicationChannel {
 }
 
 enum BusinessAggregateType {
+  PRODUCT
   ORDER
   FULFILLMENT
   AFTER_SALE
@@ -263,6 +264,7 @@ model FileAsset {
   uploaderEmployee   Employee?       @relation("EmployeeFileUploader", fields: [uploaderEmployeeId], references: [id], onDelete: Restrict)
   uploaderCustomer   Customer?       @relation("CustomerFileUploader", fields: [uploaderCustomerId], references: [id], onDelete: Restrict)
   references         FileReference[]
+  productImages      ProductImage[]
   currentAvatars     Customer[]      @relation("CurrentCustomerAvatar")
 
   @@index([state, expiresAt, id])
@@ -600,4 +602,160 @@ model SchedulerFailure {
   @@index([runId, occurredAt])
   @@index([taskId])
   @@map("scheduler_failure")
+}
+
+// 商品只管理资料和销售资格；数量变更由后续库存记账模块负责。
+enum ProductStatus {
+  DRAFT
+  ON_SALE
+  OFF_SALE
+}
+enum InitialInventoryDraftStatus {
+  EDITABLE
+  CONVERTED
+  VOID
+}
+model Category {
+  id String @id @default(uuid()) @db.Uuid
+  parentId String? @map("parent_id") @db.Uuid
+  name String @db.VarChar(50)
+  nameKey String @map("name_key") @db.VarChar(100)
+  iconKey String? @map("icon_key") @db.VarChar(50)
+  sortOrder Int @default(0) @map("sort_order")
+  depth Int @db.SmallInt
+  pathIds String[] @map("path_ids") @db.Uuid
+  version Int @default(0)
+  deletedAt DateTime? @map("deleted_at") @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  parent Category? @relation("CategoryTree", fields: [parentId], references: [id], onDelete: Restrict)
+  children Category[] @relation("CategoryTree")
+  products Product[]
+  @@index([parentId, sortOrder, id])
+  @@map("category")
+}
+model Product {
+  id String @id @default(uuid()) @db.Uuid
+  productCode String @unique @map("product_code") @db.VarChar(64)
+  name String @db.VarChar(120)
+  brand String? @db.VarChar(80)
+  description String? @db.Text
+  categoryId String? @map("category_id") @db.Uuid
+  status ProductStatus @default(DRAFT)
+  archivedAt DateTime? @map("archived_at") @db.Timestamptz(3)
+  paidSalesCount BigInt @default(0) @map("paid_sales_count")
+  version Int @default(0)
+  createdById String @map("created_by_id") @db.Uuid
+  updatedById String @map("updated_by_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  category Category? @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  images ProductImage[]
+  dimensions ProductSpecDimension[]
+  skus Sku[]
+  initialDrafts InitialInventoryDraft[]
+  @@index([status, archivedAt, createdAt, id])
+  @@index([categoryId])
+  @@map("product")
+}
+model ProductImage {
+  id String @id @default(uuid()) @db.Uuid
+  productId String @map("product_id") @db.Uuid
+  assetId String @map("asset_id") @db.Uuid
+  slot String @db.VarChar(10)
+  sortOrder Int @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  asset FileAsset @relation(fields: [assetId], references: [id], onDelete: Restrict)
+  @@unique([productId,slot,sortOrder])
+  @@unique([productId,slot,assetId])
+  @@map("product_image")
+}
+model ProductSpecDimension {
+  id String @id @default(uuid()) @db.Uuid
+  productId String @map("product_id") @db.Uuid
+  name String @db.VarChar(30)
+  nameKey String @map("name_key") @db.VarChar(100)
+  sortOrder Int @map("sort_order")
+  retiredAt DateTime? @map("retired_at") @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  values ProductSpecValue[]
+  choices SkuSpecChoice[]
+  @@map("product_spec_dimension")
+}
+model ProductSpecValue {
+  id String @id @default(uuid()) @db.Uuid
+  dimensionId String @map("dimension_id") @db.Uuid
+  name String @db.VarChar(30)
+  nameKey String @map("name_key") @db.VarChar(100)
+  sortOrder Int @map("sort_order")
+  retiredAt DateTime? @map("retired_at") @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  dimension ProductSpecDimension @relation(fields: [dimensionId], references: [id], onDelete: Restrict)
+  choices SkuSpecChoice[]
+  @@unique([id,dimensionId])
+  @@map("product_spec_value")
+}
+model Sku {
+  id String @id @default(uuid()) @db.Uuid
+  productId String @map("product_id") @db.Uuid
+  code String @unique @db.VarChar(64)
+  combinationSignature String @map("combination_signature") @db.VarChar(64)
+  priceCents Int? @map("price_cents")
+  costCents Int? @map("cost_cents")
+  enabled Boolean @default(true)
+  retiredAt DateTime? @map("retired_at") @db.Timestamptz(3)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  choices SkuSpecChoice[]
+  balance InventoryBalance?
+  draftLines InitialInventoryDraftLine[]
+  @@unique([productId,combinationSignature])
+  @@map("sku")
+}
+model SkuSpecChoice {
+  skuId String @map("sku_id") @db.Uuid
+  dimensionId String @map("dimension_id") @db.Uuid
+  valueId String @map("value_id") @db.Uuid
+  sku Sku @relation(fields: [skuId], references: [id], onDelete: Restrict)
+  dimension ProductSpecDimension @relation(fields: [dimensionId], references: [id], onDelete: Restrict)
+  value ProductSpecValue @relation(fields: [valueId,dimensionId], references: [id,dimensionId], onDelete: Restrict)
+  @@id([skuId,dimensionId])
+  @@map("sku_spec_choice")
+}
+model InventoryBalance {
+  skuId String @id @map("sku_id") @db.Uuid
+  available Int @default(0)
+  reserved Int @default(0)
+  warningThreshold Int @default(10) @map("warning_threshold")
+  purchaseBlocked Boolean @default(false) @map("purchase_blocked")
+  version Int @default(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  sku Sku @relation(fields: [skuId], references: [id], onDelete: Restrict)
+  @@map("inventory_balance")
+}
+model InitialInventoryDraft {
+  id String @id @default(uuid()) @db.Uuid
+  productId String @map("product_id") @db.Uuid
+  conversionKey String @unique @default(uuid()) @map("conversion_key") @db.Uuid
+  status InitialInventoryDraftStatus @default(EDITABLE)
+  version Int @default(0)
+  createdById String @map("created_by_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  lines InitialInventoryDraftLine[]
+  @@map("initial_inventory_draft")
+}
+model InitialInventoryDraftLine {
+  draftId String @map("draft_id") @db.Uuid
+  skuId String @map("sku_id") @db.Uuid
+  quantity Int
+  draft InitialInventoryDraft @relation(fields: [draftId], references: [id], onDelete: Restrict)
+  sku Sku @relation(fields: [skuId], references: [id], onDelete: Restrict)
+  @@id([draftId,skuId])
+  @@map("initial_inventory_draft_line")
 }

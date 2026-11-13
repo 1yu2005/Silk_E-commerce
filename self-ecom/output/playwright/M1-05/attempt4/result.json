@@ -1,0 +1,488 @@
+{
+  "at": "2026-11-13T14:15:36.363Z",
+  "database": "catalog_ui_f8cfc69123694ca9a6dd5262b0d006d9_test",
+  "checks": [
+    "分类新增、三级树与子树移动",
+    "新建服装草稿、资料保存与六SKU矩阵",
+    "批量填价、正式图片上传和轮播顺序",
+    "初始数量草稿不入账，上架明确失败"
+  ],
+  "requests": [
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "2f619404-8a78-479c-b07c-d6fa33ab93f5",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4b119e85-bc6d-4b51-bbab-4e3563e48499",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "77b6f5a0-d191-4003-aab0-3c07e0407db4",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8df5db54-6334-4a59-ad32-01bfcfc48a87",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "17a124d1-c9b4-43bc-9fe3-e8d56cd37242",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c2207cb6-6e37-42a9-835b-5e3e294df8a3",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "99273dd3-a0f2-424a-ad14-046990241306",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "72c1d43d-409b-4896-b354-bf70c7024b00",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "91dbada9-e016-4485-8de4-08a7a2e2008b",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/3b0d248f-7e60-4562-837d-0556e10bb0e7/move",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a12ad685-c876-46f8-935e-d75fd7513b59",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "afe28c4c-a3bf-4679-bbcf-04d667d11500",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "cd49e35d-aefe-4af3-889f-df32ca29cc73",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "69f86513-a13f-4931-b52a-dc6f29fa2801",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e84315bb-0423-45fb-9276-64db9f4b143e",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "status": 200,
+      "requestId": "79e1a821-b772-42cb-ae5f-e3a87392f2db",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products",
+      "method": "POST",
+      "status": 201,
+      "requestId": "6515407f-8720-412b-9e81-248eca2e4dce",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "status": 200,
+      "requestId": "46ac7540-2a2c-4c26-85ea-ed0ce27f4307",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "08a0eda0-9e21-4ae5-8f92-206707185817",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3ffc53da-e36a-438b-abf5-5cf2ed6e9a51",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "577d0d33-ba3f-4a56-bf9d-b77cece36d51",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "PATCH",
+      "status": 200,
+      "requestId": "80ab4f42-1898-4b59-89e8-d2aeafb1baa1",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0e3c058b-0c3a-4a82-a61f-1b8ab36c3c1d",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "628f51c9-0094-47e3-a837-09311e12d69d",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "093d0271-935d-4d6b-911f-eccb78b12142",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/sku-combinations/preview",
+      "method": "POST",
+      "status": 200,
+      "requestId": "97440410-1328-47ec-afdb-61830b796c8c",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/sku-scheme",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "36ad4212-1be7-4db7-8323-d0d28ad2805a",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ab703665-02b5-4e90-8a1f-7b60b94536ab",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b09de6da-5f7f-41e4-8c89-04bb2c8ca255",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e8c0e711-1b3c-499f-b9ab-60bf948122ed",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/skus/batch-fill",
+      "method": "POST",
+      "status": 200,
+      "requestId": "73aff24a-ad8c-447d-9726-cfa0fbe176bf",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "faa9ba94-6782-4ba1-be3d-807da7e12a9e",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0c411bfc-21ca-4209-9b96-2a3b5d294aba",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0ee32ccd-360e-40fa-a112-b33b6e08dbe0",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "f3ca6c48-e4fa-4c54-a73a-f0b0efbfeecb",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/996c38a0-e274-4bb4-b0eb-4a1edbd30731/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "756b4026-27cf-4c29-8038-bf8d8dfc8b13",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/996c38a0-e274-4bb4-b0eb-4a1edbd30731/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7158d4a0-67f0-4e84-8939-c247d9466969",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "5f0a2942-d019-403d-98d8-3c9577bdb870",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/0eb77b6d-4ca5-49e8-a66d-0a767fe7629b/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0db079fd-3a79-4f5f-bceb-09d22cd0f2ab",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/0eb77b6d-4ca5-49e8-a66d-0a767fe7629b/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "935fd23c-cfe1-4c2a-9ee9-b1ebb1200575",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "52dce4b4-97c3-4858-8952-f243b049c5d1",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/14e6edeb-a167-46b0-9ad2-1ee5925a4d28/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "166d8ed6-e90e-4a6f-bdb4-4dc510cebc31",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/14e6edeb-a167-46b0-9ad2-1ee5925a4d28/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "76fd0574-4f62-45f3-8c51-70ae3c2a896b",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/images",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "40579a5c-ea0c-46fd-a812-a8cc674ce304",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ce94644c-dcd3-4144-8ef1-d40f5390fe22",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "fd56cee6-10a2-4a8d-b291-7735754d7a72",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5332ca37-ed45-4f29-89bd-d64d3f9984d0",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/996c38a0-e274-4bb4-b0eb-4a1edbd30731/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "74264b58-7770-4410-bbe4-46e4c9c2c188",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/0eb77b6d-4ca5-49e8-a66d-0a767fe7629b/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b2885b80-e665-4e65-8d77-0e358d4720bc",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/14e6edeb-a167-46b0-9ad2-1ee5925a4d28/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "19ab8707-d004-4f84-9d9a-61d2b8492d00",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "04bb87bb-3644-41b5-bcad-7268301bcf05",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "027d314d-1597-4dc2-bb6d-b2fe6bf3e658",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bf87045c-4270-4db8-8327-e6a3f1a60215",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/996c38a0-e274-4bb4-b0eb-4a1edbd30731/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "74264b58-7770-4410-bbe4-46e4c9c2c188",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/14e6edeb-a167-46b0-9ad2-1ee5925a4d28/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "19ab8707-d004-4f84-9d9a-61d2b8492d00",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/0eb77b6d-4ca5-49e8-a66d-0a767fe7629b/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b2885b80-e665-4e65-8d77-0e358d4720bc",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "cbc4451c-9129-43a4-b334-cd6f93b6749b",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2/publish",
+      "method": "POST",
+      "status": 409,
+      "requestId": "3d7128ab-2d6b-4641-87f2-d10ff91cf45a",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+      "method": "PATCH",
+      "status": 409,
+      "requestId": "fe315c76-05d8-47e5-81af-f62a53fe770a",
+      "bearer": true
+    }
+  ],
+  "pageErrors": [],
+  "fixtures": "正余额仅为独占测试库销售规则夹具，未实现库存入账",
+  "retainedUploadDirectory": "C:\\Users\\20334\\AppData\\Local\\Temp\\self-ecom-catalog-browser-aiaWFc",
+  "browser": "157.0.4341.42",
+  "productId": "892b9077-45c7-4e1f-a5c0-b681503cf0d2",
+  "failure": {
+    "scenario": "版本冲突后重新读取，不自动覆盖",
+    "name": "TimeoutError",
+    "message": "locator.isDisabled: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: '保存资料', exact: true })\u001b[22m\n",
+    "line": "    at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-catalog-browser.mjs:67:435"
+  },
+  "databaseRemoved": true
+}

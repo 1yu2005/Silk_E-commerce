@@ -1,7 +1,7 @@
 // 作用：以真实上传、当前会话和数据库验证头像闭环、越权拒绝、失败回滚与并发历史保留。
 import 'reflect-metadata';
 import { randomInt, randomUUID } from 'node:crypto';
-import { mkdtemp, rm } from 'node:fs/promises';
+import { mkdtemp } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
 import type { INestApplication } from '@nestjs/common';
@@ -43,7 +43,7 @@ afterEach(async () => {
   await prisma.customer.deleteMany({ where: { id: { in: ids } } }); ids.length = 0;
 });
 afterAll(async () => {
-  await app?.close(); if (directory && resolve(directory).startsWith(resolve(tmpdir()) + sep) && directory.includes('self-ecom-avatar-')) await rm(directory, { recursive: true, force: true });
+  await app?.close(); if (directory && resolve(directory).startsWith(resolve(tmpdir()) + sep) && directory.includes('self-ecom-avatar-')) console.log('保留测试临时目录：' + directory);
 });
 async function customer() {
   const id = randomUUID(); ids.push(id); const phone = `135${String(randomInt(100000000)).padStart(8, '0')}`;

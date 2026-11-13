@@ -1,0 +1,913 @@
+{
+  "checkedAt": "2026-11-13T14:45:52.469Z",
+  "checks": [
+    {
+      "group": "core",
+      "scenario": "本人、岗位池和后端动作范围，桌面与手机列表"
+    },
+    {
+      "group": "core",
+      "scenario": "领取同步禁用、防重复提交和实际经办历史"
+    },
+    {
+      "group": "core",
+      "scenario": "释放原因必填，真实释放不改轮次和原截止"
+    },
+    {
+      "group": "core",
+      "scenario": "另一员工已领取时旧版本409，读取最新前不能重发"
+    },
+    {
+      "group": "core",
+      "scenario": "管理员候选来自真实员工查询，不合资格拒绝后可重新选择合资格员工"
+    },
+    {
+      "group": "core",
+      "scenario": "领域阻塞任务不提供释放入口"
+    },
+    {
+      "group": "deadline",
+      "scenario": "已逾期后延期保留原始截止、曾逾期和真实事件，浏览器非北京时间也正确"
+    },
+    {
+      "group": "deadline",
+      "scenario": "处理和期限统一时间线分页，详情返回保留筛选位置"
+    },
+    {
+      "group": "deadline",
+      "scenario": "首次指定截止保留originalDueAt为空并写DEADLINE_ASSIGNED"
+    },
+    {
+      "group": "scope",
+      "scenario": "真实撤权回池后管理员待安排和摘要刷新"
+    },
+    {
+      "group": "scope",
+      "scenario": "普通员工隐藏待安排入口，直接地址不发管理员列表请求"
+    },
+    {
+      "group": "scope",
+      "scenario": "真实筛选分页与URL往返，false逾期不丢失，非法地址不查询"
+    },
+    {
+      "group": "scope",
+      "scenario": "不可见详情真实404，不显示旧资料或假业务链接"
+    },
+    {
+      "group": "resilience",
+      "scenario": "真实提交后丢失响应不能重复释放，重读后呈现真实OPEN"
+    },
+    {
+      "group": "resilience",
+      "scenario": "读取500保留requestId且可手动重试，不能当作空列表"
+    },
+    {
+      "group": "resilience",
+      "scenario": "真实会话撤销后401清缓存并返回登录，任务和密码不持久化"
+    },
+    {
+      "group": "empty",
+      "scenario": "未配置无任务应用显示真实0摘要及空态，桌面和手机可用"
+    }
+  ],
+  "requests": [
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d2d5ff32-e1b2-4bd2-8a54-db440540e8a6"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8d8ddea9-3ec0-4c76-8cf4-5b57b5e54272"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8e8fd3f9-bff0-4ac2-9166-26efc3e6506e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e69bc97e-72d5-404a-b172-6c78926a5ad7"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3814bf59-5259-4372-b701-688673e61095"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "6133b69f-03a4-4d72-8038-5efb1d1e26b1"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "11b065dc-2f2e-48e8-9a70-3f7697ba37ba"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c8535d9e-e30d-424e-89c2-062f8504438e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "92130250-b472-42a3-aa7f-55e05e1dda63"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/release",
+      "method": "POST",
+      "status": 200,
+      "requestId": "50f6078a-84d0-49f0-acf8-d1a8738224d5"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c6d4224d-7122-498d-97ae-62a2518fd726"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "adf59840-8a49-4a94-937c-b8d48de6fcf4"
+    },
+    {
+      "source": "direct",
+      "group": "core",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "ab57af47-9fbf-4adc-b251-4e6ecda4521b"
+    },
+    {
+      "source": "direct",
+      "group": "core",
+      "path": "/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a31eaf7d-6f45-4061-b2b7-45e6942f4f52"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/claim",
+      "method": "POST",
+      "status": 409,
+      "requestId": "0611f30d-ab11-4a7e-b341-c00431682218"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "35e41c80-6c76-4832-a8ec-861d9d8db1bf"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d30ad87e-8a52-4307-ab40-b6d69b72808e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8804b343-110f-482b-80ec-ec3b6ddb6a21"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "68ad7cb9-0f2c-43fe-a2bd-0b0d792c3ddb"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7ac87309-14a6-49a1-b89f-bd9f9fde3a4e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/transfer",
+      "method": "POST",
+      "status": 409,
+      "requestId": "946ac822-4ad2-473d-9824-c751d2490af5"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5bc64dd7-b24a-4735-b2a5-62bcf6ef77d3"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a28640e7-2b13-4237-b999-98ada4d48fd3"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "f3151ab1-a17f-422a-b079-38b023f68580"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/transfer",
+      "method": "POST",
+      "status": 200,
+      "requestId": "99031db9-4729-4e81-b238-f263db5444a1"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9d52ce80-3fb7-4abd-a9df-93750e80597c"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561",
+      "method": "GET",
+      "status": 200,
+      "requestId": "829e95b1-9008-46ab-96df-ed98a629d99d"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a4c9ccd6-b586-4400-be3f-909e29bc318c"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/20f8164f-7a76-41d6-92d3-00a8e855bffe",
+      "method": "GET",
+      "status": 200,
+      "requestId": "56674710-a6f8-4224-89cf-96a860f81d9c"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ad8c548e-a107-4759-8eff-c497b0babcd4"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a9a949a4-f8ed-4bd5-9250-54b88ac9503e"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "5bcb4f35-3a02-425e-967d-8e8cc5d89769"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0be4700a-c6db-4044-8169-71442c66944f"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "359f1c07-7e90-4155-9d01-54ce3ee9e955"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a23f2fd1-b7a9-41d3-a59d-5f16f0a560b5"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "b6d74b10-be6c-47f1-8704-f3306f11e8ee"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "5849373a-a776-4214-8cba-0188b96fd8ea"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "63ce66e0-885a-419a-896a-382255c849b4"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "44694cd4-1577-4a82-bb10-ae1869ea156b"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "708a09db-f490-493b-987e-c5ae195e9e2d"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0059d93c-4c01-49ac-8e71-e1f46f4e8687"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4275421b-27ec-4009-b700-f1f27467f8d4"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "833561ca-8271-45ad-8c90-df815ac8d675"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/420fe708-ca60-40c5-9f7a-7e6d74001b5f",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2ea381d0-d068-46a6-b5bd-d6c196b6b05f"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/420fe708-ca60-40c5-9f7a-7e6d74001b5f/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b349d953-c25d-4d20-a3ba-350263bc1fcf"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/420fe708-ca60-40c5-9f7a-7e6d74001b5f/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "ae6ae598-0ae6-4426-986d-2c4c038f2f2a"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/420fe708-ca60-40c5-9f7a-7e6d74001b5f",
+      "method": "GET",
+      "status": 200,
+      "requestId": "963dd481-c247-4fbd-99cc-38026a4fc6c4"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/420fe708-ca60-40c5-9f7a-7e6d74001b5f/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "243da8d0-2f26-4850-9e90-208b765136da"
+    },
+    {
+      "source": "direct",
+      "group": "scope",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "19c72c40-f526-4ce7-bb7f-391d0e31dfcb"
+    },
+    {
+      "source": "direct",
+      "group": "scope",
+      "path": "/admin/employees/2e4487b2-c0e2-442e-87f4-fa11719d1c7a/extra-permissions",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "605fa1d9-78a8-4d8c-a231-f6e883aade8e"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "33b3c2d5-aa81-4889-927a-d697e41ecc8f"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2fe47ebc-6b1f-4175-8658-1c3064fabf91"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4ae6a176-4e2a-4267-9518-59dc5346f6e1"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/ab35118e-d08f-4db2-83b3-be6f5df292bb",
+      "method": "GET",
+      "status": 200,
+      "requestId": "896a4f89-0a4d-4ce6-aefe-dfc7b92813cf"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/ab35118e-d08f-4db2-83b3-be6f5df292bb/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "524248d3-f2b0-427d-ba25-6c9babe7cf27"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9202ef12-fd0a-4cb6-a000-bfe9ba225ba2"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e7e14d32-59dc-4c86-935a-2780f8a9fe46"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "14667192-f805-49df-8a17-56aff6acafe3"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/ab35118e-d08f-4db2-83b3-be6f5df292bb",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4e97c56f-6919-476b-aee6-29dc3f9cee0b"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/ab35118e-d08f-4db2-83b3-be6f5df292bb/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "f939ff04-8ffa-45b0-8bdf-7653dca29c98"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7fd44ea3-1c2d-4e10-9b7c-1ef67127d4c9"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "025edc82-738f-4db1-aa8f-b74a17aad858"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "57c94fa4-2b9f-4af1-84ec-822f6961780d"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ce3eb011-a887-45e4-8d2a-f259bf570811"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "dcf7365a-418f-427a-ae74-e81db663b301"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a43986f3-7220-4ded-8f5a-fb84a0e38dd9"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/a4e3ec21-e9d3-4a89-a600-37402bf0c126",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ace63c44-de45-4db6-a75d-83c6bb3087cc"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/c0918cb0-f7fa-4907-9a79-a3ee74af9be1",
+      "method": "GET",
+      "status": 404,
+      "requestId": "fbb130fb-464c-4c07-b50e-f1545bf0f9c0"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58",
+      "method": "GET",
+      "status": 200,
+      "requestId": "35a519f2-be28-4009-b267-d168f024c810"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "f61cdbd2-7437-46b4-b9ef-515ccfb62c6a"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "956230aa-10f4-402c-9bb8-586ba0e3b08f"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9c85051a-e3c5-4996-b83a-d07f76576076"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e6b77c8c-1d3f-4498-8e83-9ea9028d3446"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d5bfb7d0-7fde-4454-ad10-acaa488bdd4c"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "70cd9f40-db23-48a8-852a-5214d155ae4f"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 500
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a1e8cce3-9da8-4b53-a579-ed39c2fb15da"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "39c5c135-9267-4957-ac8f-6b0a1f2b6178"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bde969e5-aaee-436e-b191-a256855ebd18"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 401,
+      "requestId": "817dab6d-486f-4e4b-a2e3-af575776c604"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 401,
+      "requestId": "32ef9177-78dc-4024-8390-9d5194c775c1"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "157dfb71-471c-45ea-b2cd-24270f309a90"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "cd1547e6-84a9-4c96-af8c-076785ab65cf"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "fa842d26-664a-46d3-b503-7acd0d878e84"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "78a6a710-e8d9-4029-9efb-c32508aca0e8"
+    }
+  ],
+  "writes": [
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/release",
+      "body": {
+        "expectedVersion": 1,
+        "reason": "交接前重新安排"
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/claim",
+      "body": {
+        "expectedVersion": 2
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/transfer",
+      "body": {
+        "expectedVersion": 3,
+        "reason": "验证目标完整资格",
+        "targetEmployeeId": "2a8291c4-29bf-4cd8-a949-bb18fe801354"
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ba5e754b-c936-4610-86da-10bf26a8d561/transfer",
+      "body": {
+        "expectedVersion": 3,
+        "reason": "核实后转交仓储甲",
+        "targetEmployeeId": "a7e11b98-9dc4-4fad-b958-8f0df63658a4"
+      }
+    },
+    {
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/6c072a53-3220-43f4-8ed2-2e786e8c7d42/extend-deadline",
+      "body": {
+        "expectedVersion": 0,
+        "reason": "核实开衫资料后延长期限",
+        "newDueAt": "2026-11-15T14:46:36.000Z"
+      }
+    },
+    {
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/420fe708-ca60-40c5-9f7a-7e6d74001b5f/extend-deadline",
+      "body": {
+        "expectedVersion": 0,
+        "reason": "首次指定人工截止",
+        "newDueAt": "2026-11-15T14:46:36.000Z"
+      }
+    },
+    {
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    },
+    {
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/e898688b-e12e-44ed-91a3-b1346a3eef58/release",
+      "body": {
+        "expectedVersion": 1,
+        "reason": "提交后丢失响应"
+      }
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [
+    "真实提交release成功后abort响应，只验证网络结果不确定保护",
+    "GET任务列表500只验证读取错误与手动重试，不伪造成功"
+  ],
+  "groups": [
+    {
+      "name": "core",
+      "passed": true,
+      "databaseName": "task_acceptance_e0a359f3ff37421f9a1518235d20327f_test",
+      "databaseRemoved": true
+    },
+    {
+      "name": "deadline",
+      "passed": true,
+      "databaseName": "task_acceptance_4e4d4fa4b75442a88954cc33a07238e7_test",
+      "databaseRemoved": true
+    },
+    {
+      "name": "scope",
+      "passed": true,
+      "databaseName": "task_acceptance_e9e19503354a41ef85ecaf382fb5ad97_test",
+      "databaseRemoved": true
+    },
+    {
+      "name": "resilience",
+      "passed": true,
+      "databaseName": "task_acceptance_09f32243bdd8400ba4f3bd72f7a82041_test",
+      "databaseRemoved": true
+    },
+    {
+      "name": "empty",
+      "passed": true,
+      "databaseName": "task_acceptance_e419d91a47394349a0dd5ea115df68f0_test",
+      "databaseRemoved": true
+    }
+  ],
+  "probes": [
+    {
+      "point": "before-click",
+      "at": "2026-11-13T14:46:17.195Z"
+    },
+    {
+      "point": "claim-intercepted",
+      "at": "2026-11-13T14:46:17.574Z"
+    },
+    {
+      "point": "gate-ready",
+      "at": "2026-11-13T14:46:17.575Z"
+    },
+    {
+      "point": "pending-button-state",
+      "at": "2026-11-13T14:46:17.592Z",
+      "buttons": [
+        {
+          "text": "确认领取",
+          "disabled": true,
+          "className": "ant-btn css-dev-only-do-not-override-i19pbt css-var-_r_0_ ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
+        }
+      ]
+    },
+    {
+      "point": "button-disabled",
+      "at": "2026-11-13T14:46:17.592Z"
+    },
+    {
+      "point": "gate-release-called",
+      "at": "2026-11-13T14:46:17.598Z"
+    },
+    {
+      "point": "claim-released",
+      "at": "2026-11-13T14:46:17.598Z"
+    },
+    {
+      "point": "click-complete",
+      "at": "2026-11-13T14:46:17.599Z"
+    },
+    {
+      "point": "claim-forwarded",
+      "at": "2026-11-13T14:46:17.600Z"
+    }
+  ],
+  "browser": "157.0.4341.42",
+  "passed": true
+}

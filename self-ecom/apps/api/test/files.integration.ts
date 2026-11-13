@@ -1,7 +1,7 @@
 // 作用：以真实HTTP、会话、PostgreSQL与隔离磁盘验证上传授权、原子引用、限额和清理竞争。
 import 'reflect-metadata';
 import { randomUUID, randomInt } from 'node:crypto';
-import { mkdtemp, readdir, rm, utimes } from 'node:fs/promises';
+import { mkdtemp, readdir, utimes } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
 import type { INestApplication } from '@nestjs/common';
@@ -68,7 +68,7 @@ afterAll(async () => {
     await prisma.customer.deleteMany({ where: { id: { in: customers } } }); await prisma.employee.deleteMany({ where: { id: { in: employees } } });
   }
   await app?.close();
-  if (directory && resolve(directory).startsWith(resolve(tmpdir()) + sep) && directory.includes('self-ecom-files-db-')) await rm(directory, { recursive: true, force: true });
+  if (directory && resolve(directory).startsWith(resolve(tmpdir()) + sep) && directory.includes('self-ecom-files-db-')) console.log('保留测试临时目录：' + directory);
 });
 async function actor(type: 'CUSTOMER' | 'EMPLOYEE'): Promise<FileAccess> {
   const id = randomUUID(); const sid = randomUUID();
@@ -203,7 +203,7 @@ it('绑定拒绝他人图片、错误用途、过期及未知业务', async () =
   const evidence = await created(customer, 'AFTER_SALE_EVIDENCE'); await expect(bind(evidence)).rejects.toMatchObject({ code: 'FILE_PURPOSE_MISMATCH' });
   await expire(id); await expect(bind(id)).rejects.toMatchObject({ code: 'FILE_NOT_BINDABLE' });
   await expect(prisma.$transaction(tx => bindings.bindFiles(tx, staff, { ownerType: 'PRODUCT', ownerId: randomUUID(), slot: 'gallery',
-    audience: 'PUBLIC', fileIds: [id], commandKey: randomUUID() }))).rejects.toMatchObject({ code: 'FILE_BUSINESS_NOT_READY' });
+    audience: 'PUBLIC', fileIds: [id], commandKey: randomUUID() }))).rejects.toMatchObject({ code: 'FILE_NOT_FOUND' });
 });
 it('审计真实外键故障回滚上传元数据及审计，并补偿最终磁盘文件', async () => {
   const before = await prisma.fileAsset.count(); const objects = await readdir(join(directory, 'objects'));

@@ -1,0 +1,39 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:13464) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-lsTIs0
+
+ ❯ test/catalog.integration.ts (18 tests | 1 failed) 4658ms
+   × SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝 852ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝
+AssertionError: expected { status: 'rejected', …(1) } to match object { Object (reason) }
+(5 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "reason": {
+-     "code": "VERSION_CONFLICT",
++   "reason": PrismaClientKnownRequestError {
++     "code": "P2010",
+    },
+  }
+
+ ❯ test/catalog.integration.ts:171:271
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 17 passed (18)
+   Start at  22:04:31
+   Duration  7.10s (tests 67%, import 27%, transform 6%)
+

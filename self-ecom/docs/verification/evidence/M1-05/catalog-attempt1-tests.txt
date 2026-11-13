@@ -1,0 +1,50 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:44752) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-0GuNdN
+
+ ❯ test/catalog.integration.ts (15 tests | 1 failed) 3356ms
+   × SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝 34ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝
+PrismaClientValidationError: 
+Invalid `db.employeeExtraPermission.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/catalog.integration.ts:168:81
+
+  165 });
+  166 it('SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝',async()=>{
+  167   await bad('/admin/products','GET',undefined,403,'FORBIDDEN',service);await bad('/admin/categories/tree','GET',undefined,403,'FORBIDDEN',service);
+→ 168   const reader=await actor('CUSTOMER_SERVICE');await db.employeeExtraPermission.create({
+          data: {
+            employeeId: "1bae4971-bee8-4e2c-b4a7-8c353e2d7d12",
+            permissionCode: "product.read",
+        +   employee: {
+        +     create: EmployeeCreateWithoutExtraPermissionsInput | EmployeeUncheckedCreateWithoutExtraPermissionsInput,
+        +     connectOrCreate: EmployeeCreateOrConnectWithoutExtraPermissionsInput,
+        +     connect: EmployeeWhereUniqueInput
+        +   }
+          }
+        })
+
+Argument `employee` is missing.
+ ❯ Fr ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:46:9
+ ❯ throwValidationException ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:212:7
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/catalog.integration.ts:168:48
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  21:47:43
+   Duration  5.58s (tests 62%, import 29%, transform 9%)
+

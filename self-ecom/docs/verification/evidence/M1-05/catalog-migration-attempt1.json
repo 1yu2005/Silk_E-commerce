@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-13T14:07:07.375Z",
+  "mode": "catalog-migration",
+  "label": "attempt1",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T14:07:07.753Z",
+      "endedAt": "2026-11-13T14:07:14.048Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/catalog-migration-attempt1-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/catalog-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-13T14:07:14.048Z",
+      "endedAt": "2026-11-13T14:07:21.067Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/catalog-migration-attempt1-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_3997645c6f5a45e1a5753d0bdd79d73e_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

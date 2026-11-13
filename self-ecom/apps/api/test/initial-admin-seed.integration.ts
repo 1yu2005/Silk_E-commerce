@@ -236,7 +236,8 @@ it('测试CLI首次及重复执行均成功，输出不含密码、哈希或连�
     encoding: 'utf8', timeout: 10_000, windowsHide: true,
   });
   const first = run(); const second = run();
-  expect(first.status).toBe(0); expect(second.status).toBe(0);
+  const diagnostic=(result:typeof first)=>(result.stderr+String(result.error??'')).replaceAll(input.password,'[REDACTED]').replaceAll(safe.testUrl,'[REDACTED]').replaceAll(base.developmentUrl,'[REDACTED]');
+  expect(first.status,diagnostic(first)).toBe(0); expect(second.status,diagnostic(second)).toBe(0);
   expect(JSON.parse(first.stdout)).toMatchObject({ target: 'test', created: true });
   expect(JSON.parse(second.stdout)).toMatchObject({ target: 'test', created: false });
   const output = first.stdout + first.stderr + second.stdout + second.stderr;

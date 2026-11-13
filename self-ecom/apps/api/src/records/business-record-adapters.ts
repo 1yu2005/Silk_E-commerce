@@ -40,7 +40,7 @@ export class BusinessRecordAdapters {
     this.scopes.set(adapter.scopeType, adapter);
   }
   registerStateHistory(adapter: StateHistoryAdapter): void {
-    if (!['ORDER', 'FULFILLMENT', 'AFTER_SALE'].includes(adapter.aggregateType) || typeof adapter.lockAndValidate !== 'function'
+    if (!['PRODUCT', 'ORDER', 'FULFILLMENT', 'AFTER_SALE'].includes(adapter.aggregateType) || typeof adapter.lockAndValidate !== 'function'
       || this.histories.has(adapter.aggregateType)) throw new RecordInputError('状态适配器无效或重复注册');
     this.histories.set(adapter.aggregateType, adapter);
   }

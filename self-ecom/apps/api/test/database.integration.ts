@@ -39,13 +39,14 @@ it('已应用工程、认证、文件及设置任务基础迁移，并保留完�
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
   expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history',
-    '0004_store_settings_tasks_deadlines']
+    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts']
     .map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
   expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations', 'audit_log', 'auth_session', 'business_state_history',
-    'communication', 'customer', 'deadline_event', 'employee', 'employee_extra_permission', 'file_asset', 'file_reference',
-    'permission_definition', 'role_permission', 'scheduler_failure', 'scheduler_run', 'store_setting_head',
+    'category', 'communication', 'customer', 'deadline_event', 'employee', 'employee_extra_permission', 'file_asset', 'file_reference',
+    'initial_inventory_draft', 'initial_inventory_draft_line', 'inventory_balance',
+    'permission_definition', 'product', 'product_image', 'product_spec_dimension', 'product_spec_value', 'role_permission', 'scheduler_failure', 'scheduler_run', 'sku', 'sku_spec_choice', 'store_setting_head',
     'store_setting_version', 'system_guard', 'task', 'task_history', 'task_stage_cursor']);
 });
 

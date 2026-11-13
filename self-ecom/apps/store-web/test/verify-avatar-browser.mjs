@@ -3,14 +3,14 @@
 import assert from 'node:assert/strict';
 import { randomBytes, randomInt } from 'node:crypto';
 import { readFileSync } from 'node:fs';
-import { mkdtemp, mkdir, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
 const root = fileURLToPath(new URL('../../../', import.meta.url));
-const env = parseEnv(readFileSync(path.join(root, '.env'), 'utf8')); const dev = new URL(env.DATABASE_URL); const test = new URL(env.TEST_DATABASE_URL);
+const env = { ...parseEnv(readFileSync(path.join(root, '.env'), 'utf8')), ...process.env }; const dev = new URL(env.DATABASE_URL); const test = new URL(env.TEST_DATABASE_URL);
 assert.ok(test.pathname !== dev.pathname && /^[a-z][a-z0-9_]*_test$/.test(test.pathname.slice(1)));
 const directory = await mkdtemp(path.join(tmpdir(), 'self-ecom-avatar-browser-'));
 Object.assign(process.env, env, { DATABASE_URL: test.toString(), NODE_ENV: 'test', LOG_LEVEL: 'silent', UPLOAD_DIR: directory,
@@ -112,6 +112,6 @@ try {
     await prisma.auditLog.deleteMany({ where: { actorCustomerId: customerId } }); await prisma.authSession.deleteMany({ where: { customerId } }); await prisma.customer.delete({ where: { id: customerId } });
   }
   await app.close();
-  if (path.resolve(directory).startsWith(path.resolve(tmpdir()) + path.sep) && directory.includes('self-ecom-avatar-browser-')) await rm(directory, { recursive: true, force: true });
+  if (path.resolve(directory).startsWith(path.resolve(tmpdir()) + path.sep) && directory.includes('self-ecom-avatar-browser-')) console.log('保留浏览器测试图片目录：'+directory);
   if (report) { await writeFile(path.join(artifacts, 'result.json'), JSON.stringify({ ...report, fixtureCleaned: true }, null, 2) + '\n'); console.log(JSON.stringify({ passed: checks.length, pageErrors: errors.length, fixtureCleaned: true })); }
 }

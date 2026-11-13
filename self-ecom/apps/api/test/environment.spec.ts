@@ -1,5 +1,5 @@
 // 作用：验证工程环境读取、配置优先级及无效启动参数的严格拒绝。
-import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { isAbsolute, join } from 'node:path';
 import { afterAll, expect, it } from 'vitest';
@@ -10,7 +10,7 @@ const valid = {
   CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174',
 };
 const directory = mkdtempSync(join(tmpdir(), 'shop-config-'));
-afterAll(() => { rmSync(directory, { recursive: true, force: true }); });
+afterAll(() => { console.log('保留测试临时目录：' + directory); });
 
 it('uses explicit, typed defaults', () => {
   const config = validateEnvironment(valid);

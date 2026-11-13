@@ -10,4 +10,5 @@ export const auth = client.auth;
 export const session = client.session;
 export const files = client.files;
 export const customerAuth = new CustomerAuthController(client);
-export const publicContact = createGeneratedClient(api).getStoreContact;
+export const catalog=createGeneratedClient(api);
+export const publicContact = catalog.getStoreContact;

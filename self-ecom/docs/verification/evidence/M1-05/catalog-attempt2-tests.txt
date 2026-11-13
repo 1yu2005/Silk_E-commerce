@@ -1,0 +1,27 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:58996) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-qWymJr
+
+ ❯ test/catalog.integration.ts (15 tests | 1 failed) 3423ms
+   × SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝 51ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝
+AssertionError: {"code":"INTERNAL_ERROR","message":"系统暂时异常，请稍后重试","requestId":"4f7bc5e1-dccf-43fb-8fe4-b63cc790faf5"}: expected [ 200, 201 ] to include 500
+ ❯ ok test/catalog.integration.ts:61:176
+
+ ❯ test/catalog.integration.ts:169:35
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  21:48:37
+   Duration  5.47s (tests 64%, import 29%, transform 7%)
+

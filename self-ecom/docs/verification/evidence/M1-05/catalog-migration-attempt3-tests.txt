@@ -1,0 +1,59 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-migration-zrfPex\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_7a5cb2ed2a3c4983a49bc26110c94ae1_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_7a5cb2ed2a3c4983a49bc26110c94ae1_test", schema "public" at "localhost:15432"
+
+5 migrations found in prisma/migrations
+
+Applying migration `0005_categories_products_skus_inventory_accounts`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_7a5cb2ed2a3c4983a49bc26110c94ae1_test", schema "public" at "localhost:15432"
+
+5 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  22:40:47
+   Duration  17.73s (tests 99%)
+

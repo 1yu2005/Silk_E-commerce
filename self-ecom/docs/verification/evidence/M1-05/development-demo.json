@@ -1,0 +1,161 @@
+{
+  "at": "2026-11-13T14:52:18.096Z",
+  "origin": "http://localhost:3001",
+  "account": {
+    "username": "m105_warehouse",
+    "role": "MERCH_WAREHOUSE",
+    "purpose": "板块5分类与服装草稿演示，密码仅当前对话或终端交付",
+    "id": "9fc973a1-c634-43f2-bf35-d4e0b7d7449f"
+  },
+  "requests": [
+    {
+      "endpoint": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "58c03e2d-4677-4e4a-8562-3bc7dee7917b"
+    },
+    {
+      "endpoint": "/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "cb6df36e-3cf9-4328-bc8d-c03a63bed296"
+    },
+    {
+      "endpoint": "/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "43e892aa-afc7-43fb-9343-b1311f00e0e1"
+    },
+    {
+      "endpoint": "/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "1dcddef3-172f-40c8-b6d7-9e084097287e"
+    },
+    {
+      "endpoint": "/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "6ef29ae5-c1cb-4eba-a381-20687b0d0d8f"
+    },
+    {
+      "endpoint": "/admin/products",
+      "method": "POST",
+      "status": 201,
+      "requestId": "dcb85b3e-8d2b-4910-9e14-070ff6d79e46"
+    },
+    {
+      "endpoint": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/sku-scheme",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "3b6e9a4e-0be5-47a8-96c6-62cd0059ee78"
+    },
+    {
+      "endpoint": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/skus/batch-fill",
+      "method": "POST",
+      "status": 200,
+      "requestId": "93615d5b-1668-4b8b-9572-82e7907a7d25"
+    },
+    {
+      "endpoint": "/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "c2f2d6f4-bb8b-4c93-9594-763c584f058b"
+    },
+    {
+      "endpoint": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/images",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "e0507d58-4305-446d-94a1-1e62cb74d469"
+    },
+    {
+      "endpoint": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/initial-inventory-draft",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "26d4b3e7-a8f1-4704-a15e-ccbb005be829"
+    },
+    {
+      "endpoint": "/admin/products",
+      "method": "POST",
+      "status": 201,
+      "requestId": "c5d7d717-521c-4a7c-a273-38e56836a68c"
+    },
+    {
+      "endpoint": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/sku-scheme",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "0cf7c10b-d84d-45cf-8645-8e94c64da276"
+    },
+    {
+      "endpoint": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/skus/batch-fill",
+      "method": "POST",
+      "status": 200,
+      "requestId": "46b35e1e-406b-463f-ad38-82039ded0b56"
+    },
+    {
+      "endpoint": "/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "a57dbb84-994b-470c-958b-f17e2e0144f3"
+    },
+    {
+      "endpoint": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/images",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "0aa82435-97d1-42dd-8a5d-217f44dcec22"
+    },
+    {
+      "endpoint": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/initial-inventory-draft",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "68af02c9-4627-4997-bb94-bfeeada0ca37"
+    },
+    {
+      "endpoint": "/store/products",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9cdd63cc-17df-4c97-9904-6eeb1fe9ae86"
+    }
+  ],
+  "products": [
+    {
+      "id": "85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "name": "日常纯棉T恤",
+      "currentSkus": 6,
+      "status": "DRAFT",
+      "available": 0,
+      "reserved": 0,
+      "imageId": "7da6c13a-0340-4a67-9a18-0daeecf3350e",
+      "version": 4
+    },
+    {
+      "id": "cdde35cb-472f-4f45-afda-a2807e657344",
+      "name": "简约拉链外套",
+      "currentSkus": 2,
+      "status": "DRAFT",
+      "available": 0,
+      "reserved": 0,
+      "imageId": "0c0985de-16bd-4d6d-a02b-689327ca5778",
+      "version": 4
+    }
+  ],
+  "sources": [
+    {
+      "name": "日常纯棉T恤",
+      "file": "output/assets/M1-05/tshirt-unsplash.jpg",
+      "image": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+      "source": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab",
+      "sha256": "23d2bdf25919d5be8d7117aeef7a5ad844310a3972cf42c0e3e718267a0babe8",
+      "use": "开发演示图，通过PRODUCT_IMAGE上传与正式商品绑定，不代表真实品牌或销售承诺"
+    },
+    {
+      "name": "简约拉链外套",
+      "file": "output/assets/M1-05/jacket-unsplash.jpg",
+      "image": "https://images.unsplash.com/photo-1551028719-00167b16eac5",
+      "source": "https://images.unsplash.com/photo-1551028719-00167b16eac5",
+      "sha256": "f5b4fcf5a862a989328f7411967775d786af598454a62f8ab82d5579bc45b7b6",
+      "use": "开发演示图，通过PRODUCT_IMAGE上传与正式商品绑定，不代表真实品牌或销售承诺"
+    }
+  ],
+  "passed": true
+}

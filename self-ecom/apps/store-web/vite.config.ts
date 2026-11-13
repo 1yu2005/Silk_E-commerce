@@ -4,6 +4,8 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
+  // 保留已有构建输出，遵守禁止批量删除文件的工作区约定。
+  build: { emptyOutDir: false },
   server: {
     host: '127.0.0.1', port: 5174, strictPort: true,
     proxy: { '/api': { target: 'http://127.0.0.1:3000', changeOrigin: true } },

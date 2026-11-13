@@ -1,0 +1,358 @@
+{
+  "at": "2026-11-13T14:13:00.652Z",
+  "database": "catalog_ui_3cfd42e02ad148a8a4277cdca0a92147_test",
+  "checks": [
+    "分类新增、三级树与子树移动",
+    "新建服装草稿、资料保存与六SKU矩阵"
+  ],
+  "requests": [
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "25d06093-a420-4331-8808-2017db218137",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ddb7caef-5ef2-438e-9c5a-ab497cc50997",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "613096b1-2b76-4254-955e-ce8eb741efdd",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ccb3462c-99cf-4cbf-90d0-74f4ca996b88",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "f37de70c-d649-4b47-a23c-86e1ab4b2145",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b3557fb8-3e0d-40b1-ad91-e3aa170bb071",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "18827f05-e9c9-4ab4-a0db-1b7ccf854dfa",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3b370277-cd0f-46fc-84e3-e2642103e28e",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "789319f0-28b6-41b1-a53c-a21e9b784a70",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/d52b1dab-6869-4ee4-bbb7-1751a3a9d16a/move",
+      "method": "POST",
+      "status": 200,
+      "requestId": "f917813e-a4c1-48c3-b8be-5e8a58001574",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a501d43c-ce60-46b4-803b-bae50137e718",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c0c98868-fc2f-45bf-b029-d49bb82e069c",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7f5f8777-ba4b-478f-bda1-70956768e810",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "status": 200,
+      "requestId": "6bf61e6d-05d0-4842-8e23-735162dfa9bf",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2dcadd4d-5ab1-46a6-9320-5bb51c5b4fb9",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products",
+      "method": "POST",
+      "status": 201,
+      "requestId": "411b3d97-ed06-4185-b8d9-6d7013ab3268",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products",
+      "method": "GET",
+      "status": 200,
+      "requestId": "faec4979-e1af-44e3-8a31-876e0d57a93a",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8584b392-031b-45e3-b013-dc494899c2ba",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8c90a907-e065-456b-9cb4-29ee23cf6c99",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5e67bc84-2aa8-496c-9162-196b5f3c5e00",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956",
+      "method": "PATCH",
+      "status": 200,
+      "requestId": "b2f27d64-387f-49ed-b095-528e1d09a060",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "de14ab10-7128-469a-aefb-c39273985b32",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bd262ccb-732f-4843-96f2-74e204140fbe",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ec1128d6-4bb9-4e58-88f0-02b2bdd754a2",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/sku-combinations/preview",
+      "method": "POST",
+      "status": 200,
+      "requestId": "e7fa08b9-5276-4c08-ad8c-90fd3cbb05c3",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/sku-scheme",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "d2bc71b7-f22d-4e57-948c-693e661509c4",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c33d80b8-a9c2-4e4b-9b3c-d36bc1879cb3",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c0df3ddb-5550-4d23-9920-c52123cc6f26",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "6640856d-6311-4690-b22a-e9ce4ac5c354",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/skus/batch-fill",
+      "method": "POST",
+      "status": 200,
+      "requestId": "404eb54f-0f69-408a-9b80-cbe2a1aa2ba8",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "605b814f-648e-4018-9566-6932d9448688",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c36213ca-6783-427a-bbdc-1c74359242d1",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/products/b13a13e1-fc64-4074-829f-d049209f3956/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "1d2f04e0-ea95-4e78-a13f-d8f1b2b7b593",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "cc088043-c24b-4afe-8384-6e7472320cc2",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/0cf64068-720e-4d4d-905e-51da6fed5fa1/content",
+      "method": "GET",
+      "status": 404,
+      "requestId": "31a3c63e-9f3c-452c-9b9f-bb66cb519bdc",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/0cf64068-720e-4d4d-905e-51da6fed5fa1/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "80836211-518a-4837-979b-1bda832de98d",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "9beb4911-1d37-4cd4-a9f8-d15227d66ad7",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/571b6d93-8b84-435a-978d-35f118127cf5/content",
+      "method": "GET",
+      "status": 404,
+      "requestId": "a4e53e73-4db6-41d3-bd20-6d88e8bc1dff",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/571b6d93-8b84-435a-978d-35f118127cf5/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d3df0a89-14d7-4ced-90f2-f8b07d0836b9",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files",
+      "method": "POST",
+      "status": 201,
+      "requestId": "693bebf5-b190-41be-9dd8-692087cd212c",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/4c0671ab-9e49-4d2e-8d52-5b6153befbcf/content",
+      "method": "GET",
+      "status": 404,
+      "requestId": "6a9b81f0-c6dd-4975-bb47-004d881841de",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/files/4c0671ab-9e49-4d2e-8d52-5b6153befbcf/content",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2681852a-678c-436c-9115-967d45daace4",
+      "bearer": true
+    }
+  ],
+  "pageErrors": [],
+  "fixtures": "正余额仅为独占测试库销售规则夹具，未实现库存入账",
+  "retainedUploadDirectory": "C:\\Users\\20334\\AppData\\Local\\Temp\\self-ecom-catalog-browser-NvXuEH",
+  "browser": "157.0.4341.42",
+  "productId": "b13a13e1-fc64-4074-829f-d049209f3956",
+  "failure": {
+    "scenario": "批量填价、正式图片上传和轮播顺序",
+    "name": "TimeoutError",
+    "message": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.catalog-gallery li').nth(1).getByRole('button', { name: '上移', exact: true })\u001b[22m\n",
+    "line": "    at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-catalog-browser.mjs:64:95"
+  },
+  "databaseRemoved": true
+}

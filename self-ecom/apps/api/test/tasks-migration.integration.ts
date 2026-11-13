@@ -1,6 +1,6 @@
 // 作用：用本轮专用空库和0003升级库验证0004、旧数据保留、真实唯一索引竞争及客户端关系。
 import { randomUUID } from 'node:crypto';
-import { copyFileSync, mkdirSync, mkdtempSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { Client } from 'pg';
@@ -17,7 +17,7 @@ import { cursorRow, deadlineRow, fixtureDue, fixtureTime, insertSchemaRow, setti
 const base = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
 if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
 const previousMigrations = ['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history'];
-const expectedMigrations = [...previousMigrations, '0004_store_settings_tasks_deadlines'];
+const expectedMigrations = [...previousMigrations, '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts'];
 const oldTables = ['employee', 'customer', 'auth_session', 'permission_definition', 'role_permission',
   'employee_extra_permission', 'audit_log', 'system_guard', 'file_asset', 'file_reference',
   'communication', 'business_state_history'] as const;
@@ -129,24 +129,25 @@ afterAll(async () => {
     expect(createdDatabases.size).toBe(0);
   } finally {
     await admin.end();
-    for (const file of scratchFiles.reverse()) unlinkSync(file);
-    for (const directory of scratchDirectories.reverse()) rmdirSync(directory);
+    console.log('保留迁移测试临时目录：' + scratchDirectories.join(', '));
   }
 }, 30_000);
 
-it('空库通过四条正式迁移，仅Head有未配置行，不提前建立订单和来源表', async () => {
+it('空库通过五条正式迁移，仅Head有未配置行，不提前建立订单和来源表', async () => {
   expect((await freshClient.query('SHOW server_version')).rows[0].server_version).toMatch(/^16\./);
   expect((await freshClient.query('SELECT migration_name,finished_at,rolled_back_at FROM _prisma_migrations ORDER BY migration_name')).rows)
     .toEqual(expectedMigrations.map(migration_name => ({ migration_name, finished_at: expect.any(Date), rolled_back_at: null })));
   for (const table of taskTables) expect((await freshClient.query(`SELECT count(*)::int AS count FROM "${table}"`)).rows[0].count)
     .toBe(table === 'store_setting_head' ? 1 : 0);
   expect((await freshClient.query('SELECT * FROM store_setting_head')).rows).toEqual([{ id: 1, current_version_id: null, version: 0 }]);
-  for (const table of ['product', 'order', 'after_sale', 'inventory_adjustment', 'task_business_source', 'order_block', 'timer_pause']) {
+  for (const table of ['order', 'after_sale', 'inventory_adjustment', 'task_business_source', 'order_block', 'timer_pause']) {
     expect((await freshClient.query('SELECT to_regclass($1) AS relation', [`public.${table}`])).rows[0].relation).toBeNull();
   }
 });
 it('0003升级保留12张旧表的每一行、真实密码哈希、会话、权限、头像引用和历史', async () => {
-  const after = await snapshot(upgradeClient); expect(after).toEqual(before);
+  const after = await snapshot(upgradeClient);
+  expect(after.system_guard?.find(row=>row.key==='CATEGORY_TREE')).toEqual({key:'CATEGORY_TREE',created_at:expect.any(Date)});
+  after.system_guard=after.system_guard!.filter(row=>row.key!=='CATEGORY_TREE');expect(after).toEqual(before);
   expect(after.permission_definition).toHaveLength(52); expect(after.role_permission).toHaveLength(89);
   expect(after.auth_session).toHaveLength(2); expect(after.file_reference).toHaveLength(1);
   expect(after.communication).toHaveLength(2); expect(after.business_state_history).toHaveLength(1);

@@ -1,0 +1,75 @@
+{
+  "at": "2026-11-13T14:54:18.454Z",
+  "checks": [
+    "保留演示两商品8个当前SKU、10个零账户、两数量草稿与上架拒绝/公开404",
+    "常用Nginx实际登录、商品真图/六SKU/手机编辑与商城备货空态",
+    "常用API重建后同一图片内容、商品版本、SKU和会话保持，数据库未重启",
+    "原20表既有行逐行不变，真实.env/0001～0004/无关CI文件摘要保持"
+  ],
+  "requests": [
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a99a2317-70d4-4896-9e62-e096872f502e"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e69aef9d-a2ef-444b-ae12-0a4bd044f6c8"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "70e3a946-46b7-41b9-879f-64efac38c933"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2bb04b18-8118-4583-946f-600256f1ee5e"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "f05c06b6-4cd3-4d4c-b607-31f15da330bd"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/publish",
+      "method": "POST",
+      "status": 409,
+      "requestId": "15b1e7ac-1ad0-48f6-963e-81d25716a9d2"
+    },
+    {
+      "path": "/store/products",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8f99c1fd-f45c-4c94-a999-5f33f8993eaf"
+    },
+    {
+      "path": "/store/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 404,
+      "requestId": "ce0a8788-ca8f-4164-8e43-da80738689fc"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "cbb7837e-b7d8-4a25-8aef-1f16f49285a8"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4efc972f-9c3e-4feb-9351-5f30cdc61520"
+    }
+  ],
+  "pageErrors": [],
+  "recreateExitCode": 0,
+  "protectionExitCode": 0,
+  "passed": true
+}

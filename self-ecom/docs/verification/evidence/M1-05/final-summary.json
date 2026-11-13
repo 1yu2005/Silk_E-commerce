@@ -1,0 +1,180 @@
+{
+  "at": "2026-11-13T15:14:11.276Z",
+  "module": "M1-05",
+  "status": "本期范围完成并验收",
+  "git": {
+    "branch": "main",
+    "head": "0f47d756b7b5b5d001371eca40604d33a76d7b19",
+    "staged": false,
+    "committed": false,
+    "status": [
+      "M README.md",
+      " M apps/admin-web/src/app/AppLayout.tsx",
+      " M apps/admin-web/src/app/router.tsx",
+      " M apps/admin-web/src/services/api.ts",
+      " M apps/admin-web/src/styles.css",
+      " M apps/admin-web/vite.config.ts",
+      " M apps/api/prisma/schema.prisma",
+      " M apps/api/src/app.module.ts",
+      " M apps/api/src/audit/audit.service.ts",
+      " M apps/api/src/common/http/api-exception.filter.ts",
+      " M apps/api/src/common/http/pagination.dto.ts",
+      " M apps/api/src/files/file-binding.service.ts",
+      " M apps/api/src/records/business-record-adapters.ts",
+      " M apps/api/src/records/state-history.service.ts",
+      " M apps/api/test/customer-avatar.integration.ts",
+      " M apps/api/test/database.integration.ts",
+      " M apps/api/test/environment.spec.ts",
+      " M apps/api/test/files-migration.integration.ts",
+      " M apps/api/test/files.integration.ts",
+      " M apps/api/test/files.spec.ts",
+      " M apps/api/test/initial-admin-seed.integration.ts",
+      " M apps/api/test/jwt-configuration.spec.ts",
+      " M apps/api/test/swagger.spec.ts",
+      " M apps/api/test/tasks-migration.integration.ts",
+      " M apps/store-web/src/app/AppLayout.tsx",
+      " M apps/store-web/src/app/router.tsx",
+      " M apps/store-web/src/pages/HomePage.tsx",
+      " M apps/store-web/src/services/api.ts",
+      " M apps/store-web/src/styles.css",
+      " M apps/store-web/test/verify-avatar-browser.mjs",
+      " M apps/store-web/vite.config.ts",
+      " M docs/openapi/openapi.json",
+      " M infra/verify-auth-compose.mjs",
+      " M packages/api-client/src/auth-client.ts",
+      " M packages/api-client/src/generated/client.ts",
+      " M packages/api-client/src/generated/schema.ts",
+      " M scripts/test-contract-drift.mjs",
+      " M 项目文档/开发进度总览.md",
+      " M 项目文档/开发进度文档/M1_商品可售/05_板块5_分类商品与前台浏览.md",
+      "?? ../.github/",
+      "?? apps/admin-web/src/catalog/",
+      "?? apps/admin-web/src/pages/CategoryPage.tsx",
+      "?? apps/admin-web/src/pages/ProductEditPage.tsx",
+      "?? apps/admin-web/src/pages/ProductListPage.tsx",
+      "?? apps/admin-web/test/verify-catalog-browser.mjs",
+      "?? apps/api/prisma/migrations/0005_categories_products_skus_inventory_accounts/",
+      "?? apps/api/src/catalog/",
+      "?? apps/api/test/catalog-migration.integration.ts",
+      "?? apps/api/test/catalog.integration.ts",
+      "?? apps/store-web/src/catalog/",
+      "?? apps/store-web/src/pages/ProductDetailPage.tsx",
+      "?? docs/design/M1-05.md",
+      "?? docs/verification/M1-05.md",
+      "?? docs/verification/evidence/M1-05/",
+      "?? infra/verify-catalog-http.mjs",
+      "?? output/assets/",
+      "?? output/build/M1-05/",
+      "?? output/playwright/M1-05/",
+      "?? scripts/deploy-module5.mjs",
+      "?? scripts/prepare-module5-demo.mjs",
+      "?? scripts/protect-module5-data.mjs",
+      "?? scripts/verify-module5-deployed.mjs",
+      "?? scripts/verify-module5.mjs",
+      "?? 项目文档/开发进度文档/开发完成说明/板块5_开发完成说明.md"
+    ]
+  },
+  "tests": {
+    "unit": {
+      "total": 756,
+      "passed": 756,
+      "evidence": "docs/verification/evidence/M1-05/unit-final2.json"
+    },
+    "integration": {
+      "total": 1394,
+      "initialPassed": 1393,
+      "initialFailed": 1,
+      "initialExitCode": 1,
+      "failure": "初始化CLI受沙箱uv_os_get_passwd ENOMEM影响",
+      "targetedRetest": {
+        "total": 12,
+        "passed": 12,
+        "exitCode": 0,
+        "evidence": "docs/verification/evidence/M1-05/integration-seed-attempt2.json"
+      },
+      "fullRerun": false
+    },
+    "catalogRetest": {
+      "total": 20,
+      "passed": 20,
+      "overlapsIntegration": true
+    },
+    "migrationRetest": {
+      "total": 1,
+      "passed": 1,
+      "overlapsIntegration": true
+    },
+    "browser": {
+      "total": 45,
+      "catalog": 10,
+      "settings": 11,
+      "tasks": 17,
+      "avatar": 7,
+      "pageErrors": 0
+    },
+    "docker": {
+      "groups": 26,
+      "http": 188,
+      "passed": true,
+      "evidence": "output/playwright/M1-05/docker-attempt1/result.json"
+    },
+    "commonDeployment": {
+      "groups": 4,
+      "passed": true,
+      "evidence": "output/playwright/M1-05/deployed-final1/result.json"
+    },
+    "engineering": {
+      "types": true,
+      "build": true,
+      "contracts": true,
+      "lint": true,
+      "lintEvidence": "docs/verification/evidence/M1-05/lint-final3.json"
+    }
+  },
+  "protection": {
+    "oldTables": 20,
+    "oldRows": 583,
+    "completeRowHashesEqual": true,
+    "protectedFileHashesEqual": true,
+    "migration0005AppliedChecksumMatches": true,
+    "databaseContainerAndStartedAtPreserved": true,
+    "volumes": [
+      "self-ecom_db_data",
+      "self-ecom_uploads"
+    ],
+    "originalAccountsPreserved": true,
+    "allAvailableAndReservedZero": true,
+    "evidence": "docs/verification/evidence/M1-05/development-final.json"
+  },
+  "demo": {
+    "username": "m105_warehouse",
+    "role": "MERCH_WAREHOUSE",
+    "passwordDelivery": "当前对话单独交付，仓库不保存",
+    "products": 2,
+    "currentSkus": 8,
+    "zeroAccounts": 10,
+    "initialDrafts": 2,
+    "customersAdded": 0,
+    "evidence": "docs/verification/evidence/M1-05/development-demo.json"
+  },
+  "runtime": {
+    "docker": "docs/verification/evidence/M1-05/runtime-final.json",
+    "development": "docs/verification/evidence/M1-05/development-runtime-final.json"
+  },
+  "notExecuted": [
+    "远程GitHub CI"
+  ],
+  "followups": [
+    {
+      "id": "SW-L01",
+      "module": 6,
+      "scope": "真实来源、草稿转换、登记确认入账和上架浏览"
+    },
+    {
+      "id": "SW-L02",
+      "module": "8+9",
+      "scope": "订单快照、下架与建单/旧单支付竞争"
+    }
+  ],
+  "nextModuleStarted": false
+}

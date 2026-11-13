@@ -38,7 +38,8 @@ function createAuthTransport(domain: AuthDomain, options: AuthClientOptions) {
     const path = requestPath(config, baseURL);
     const fileRequest = (config.method === 'post' && path === '/files') || (config.method === 'get'
       && /^\/files\/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}(\/content)?$/i.test(path));
-    const publicContact = config.method === 'get' && path === '/store/contact';
+    const publicContact = config.method === 'get' && (['/store/contact','/store/categories','/store/products'].includes(path)
+      || /^\/store\/products\/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(path));
     if (!fileRequest && !publicContact && !path.startsWith(prefix) && path !== '/auth/logout' && !['/health/live', '/health/ready'].includes(path)) {
       throw new ApiClientError('CLIENT_REQUEST_TARGET_INVALID', '请求地址不属于当前站点API');
     }

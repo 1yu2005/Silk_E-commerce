@@ -128,3 +128,50 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .task-message { display: grid; gap: 16px; margin: 20px 0; }
 .task-message > button { justify-self: start; }
 @media (max-width: 720px) { .task-panel { padding: 20px; } .task-filters { grid-template-columns: minmax(0, 1fr); } .task-filter-actions { padding-top: 0; margin-bottom: 16px; } .task-summary dl { gap: 16px 30px; } .task-history li { padding-left: 12px; } }
+/* 分类商品页面延续后台信息密度，宽屏并列、窄屏顺排，长SKU表可局部滚动。 */
+.catalog-panel { background:#fff; border:1px solid #dce5e9; padding:28px; border-radius:8px; }
+.catalog-heading { display:flex; align-items:center; justify-content:space-between; gap:24px; margin-bottom:28px; }
+.catalog-heading h1 { font-size:28px; margin:8px 0; }
+.catalog-heading p { color:#536a79; margin:8px 0; }
+.eyebrow { font-size:11px; letter-spacing:.1em; color:#58747c; overflow-wrap:anywhere; }
+.catalog-card { border-top:1px solid #dce5e9; padding:24px 0; scroll-margin-top:20px; }
+.catalog-card h2 { font-size:20px; margin:0 0 14px; }
+.catalog-card h3 { font-size:16px; }
+.catalog-grid,.category-columns { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.catalog-form fieldset,.sku-row-form fieldset { padding:0; margin:0; border:0; min-width:0; }
+.catalog-form legend { margin:20px 0 12px; font-weight:700; }
+.catalog-form label,.catalog-filter label,.catalog-create label,.catalog-batch label,.sku-table label { display:flex; flex-direction:column; gap:6px; font-size:13px; margin-bottom:14px; }
+.catalog-panel input:not([type=checkbox]),.catalog-panel select,.catalog-panel textarea { font:inherit; color:#243746; padding:9px 10px; border:1px solid #b9cbd1; border-radius:4px; width:100%; box-sizing:border-box; background:white; }
+.catalog-panel :disabled { cursor:not-allowed; opacity:.65; }
+.catalog-panel input:focus-visible,.catalog-panel select:focus-visible,.catalog-panel textarea:focus-visible { outline:2px solid #087e8b; outline-offset:2px; }
+.catalog-filter,.catalog-create,.catalog-batch { display:flex; align-items:end; flex-wrap:wrap; gap:12px; margin:20px 0; }
+.catalog-filter label { max-width:170px; flex:1; min-width:120px; }
+.catalog-create label { min-width:280px; }
+.catalog-create label,.catalog-filter label,.catalog-batch label { margin:0; }
+.catalog-section-nav { display:flex; flex-wrap:wrap; gap:22px; margin:24px 0; padding:14px 0; border-block:1px solid #dce5e9; }
+.category-tree { list-style:none; padding:0; }
+.category-tree li { display:flex; gap:12px; align-items:center; padding:14px 0; border-bottom:1px solid #edf1f3; }
+.category-tree li span { flex:1; }
+.category-tree small { color:#536a79; }
+.product-name-cell { display:flex; align-items:center; gap:14px; }
+.product-name-cell img,.image-placeholder { width:48px; height:64px; object-fit:cover; background:#eeeae3; display:grid; place-items:center; }
+.product-name-cell small,.sku-table small { display:block; font-size:12px; color:#536a79; margin:6px 0; overflow-wrap:anywhere; }
+.catalog-image img { width:180px; height:230px; object-fit:cover; display:block; margin:10px 0; }
+.catalog-gallery { padding:0; list-style:none; }
+.catalog-gallery li { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:10px 0; }
+.catalog-gallery img { width:52px; height:65px; object-fit:cover; }
+.spec-dimension { padding:16px; margin:14px 0; border:1px solid #dce5e9; background:#f7f9fa; }
+.spec-dimension>label { max-width:300px; }
+.spec-values { display:flex; flex-wrap:wrap; gap:14px; }
+.spec-values>div { width:140px; }
+.spec-values input[readonly] { background:#eef3f4; }
+.sku-scroll { overflow-x:auto; }
+.sku-table { border-collapse:collapse; width:100%; min-width:900px; font-size:13px; }
+.sku-table th,.sku-table td { padding:14px 10px; text-align:left; border-bottom:1px solid #e0e8eb; vertical-align:top; }
+.sku-table th { background:#f1f6f7; }
+.sku-row-form fieldset { display:flex; flex-wrap:wrap; gap:8px; align-items:end; }
+.sku-row-form label { width:110px; margin:0; }
+.sku-row-form label:first-child { width:180px; }
+.retired-sku { background:#f5f5f5; color:#68777e; }
+.catalog-panel .ant-pagination { margin:20px 0; }
+@media(max-width:850px) { .catalog-grid,.category-columns { grid-template-columns:1fr; } .catalog-panel { padding:18px; } .catalog-heading { align-items:flex-start; flex-direction:column; } .catalog-heading h1 { font-size:24px; } }

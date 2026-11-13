@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-13T14:11:33.556Z",
+  "database": "catalog_ui_899da205df614790824f1acf7fd7483b_test",
+  "checks": [],
+  "requests": [
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "7f612017-6ef0-4373-9fc5-54ca41cdccc8",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e5ac9361-991d-4073-9704-9f9f108bebb9",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9117d0bb-9bcc-42d6-9b7d-04b052b3d398",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7ef0fcf7-cb0e-4143-9156-434e1c7f4ece",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0b71f819-9d78-445f-8fc8-626e192c0b85",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5f84159e-6db0-4180-9e78-dd37ef21b2b6",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "d66292d4-99d0-4e4b-a9f3-f2244c700eca",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7ab71a51-6cc3-4ec0-a823-1f300574ec93",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8d685cbd-d746-45c5-ba1d-03057139c7c8",
+      "bearer": true
+    }
+  ],
+  "pageErrors": [],
+  "fixtures": "正余额仅为独占测试库销售规则夹具，未实现库存入账",
+  "retainedUploadDirectory": "C:\\Users\\20334\\AppData\\Local\\Temp\\self-ecom-catalog-browser-CHsbAO",
+  "browser": "157.0.4341.42",
+  "failure": {
+    "scenario": "分类新增、三级树与子树移动",
+    "name": "TimeoutError",
+    "message": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('目标父分类', { exact: true })\u001b[22m\n",
+    "line": "    at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-catalog-browser.mjs:52:47"
+  },
+  "databaseRemoved": true
+}

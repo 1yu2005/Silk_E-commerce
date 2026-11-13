@@ -1,0 +1,31 @@
+{
+  "at": "2026-11-13T15:12:21.728Z",
+  "readOnly": true,
+  "checks": [
+    {
+      "origin": "http://localhost:3000",
+      "ready": 200,
+      "requestId": "2a092745-8e62-4601-99d4-8c1fde4202ce",
+      "operations": 65,
+      "contractMatches": true
+    },
+    {
+      "origin": "http://localhost:5173",
+      "ready": 200,
+      "requestId": "1d6fa7d3-3c03-4b8a-a3cc-53e475b2b775",
+      "operations": 65,
+      "contractMatches": true,
+      "productsPage": 200
+    },
+    {
+      "origin": "http://localhost:5174",
+      "ready": 200,
+      "requestId": "8ca10b73-653e-40a7-8ce9-5e8846c090b4",
+      "operations": 65,
+      "contractMatches": true,
+      "productsPage": 200
+    }
+  ],
+  "processesChanged": false,
+  "passed": true
+}

@@ -1,0 +1,33 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:34076) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-vh4nqo
+
+ ❯ test/catalog.integration.ts (15 tests | 1 failed) 3269ms
+   × SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝 47ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝
+Error: 已保存的员工权限缺少依赖
+ ❯ PermissionService.effectivePermissions src/permissions/permission.service.ts:104:15
+    102|     for (const code of effective) {
+    103|       if (this.byCode.get(code)!.dependencies.some(dependency => !effe…
+    104|         throw new Error('已保存的员工权限缺少依赖');
+       |               ^
+    105|       }
+    106|     }
+ ❯ CurrentIdentityService.authenticate src/auth/current-identity.service.ts:80:48
+ ❯ test/catalog.integration.ts:169:50
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  21:51:16
+   Duration  5.34s (tests 63%, import 30%, transform 7%)
+

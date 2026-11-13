@@ -5,6 +5,7 @@ import { EmployeeQueryController } from '../employees/query-controller';
 import type { EmployeeDetail, EmployeeListData, EmployeeListQuery, PermissionCatalog } from '@shop/api-client';
 import type { CurrentSettings, SettingsHistory, SettingsVersion } from '../settings/model';
 import type { TaskDetail, TaskHistory, TaskList, TaskSearch, TaskSummary } from '../tasks/model';
+import type { CategoryTree, Draft, Product, ProductQuery, Products } from '../catalog/model';
 
 const client = createEmployeeClient({ baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
   onUnauthorized: () => employeeAuth.onUnauthorized(),
@@ -30,6 +31,13 @@ export const settingsQueries = {
 };
 // 设置和任务共享同一个无状态生成调用器，避免重复创建整套HTTP方法；查询缓存仍各自独立。
 export const tasks = settings;
+export const catalog=settings;
+export const catalogQueries={
+  categories:new EmployeeQueryController<undefined,CategoryTree>(session,(_,signal)=>catalog.getAdminCategoryTree({signal}),'分类读取失败'),
+  products:new EmployeeQueryController<ProductQuery,Products>(session,(query,signal)=>catalog.listAdminProducts({query,signal}),'商品读取失败'),
+  product:new EmployeeQueryController<string,Product>(session,(id,signal)=>catalog.getAdminProduct({path:{id},signal}),'商品读取失败'),
+  draft:new EmployeeQueryController<string,Draft>(session,(id,signal)=>catalog.getInitialInventoryDraft({path:{id},signal}),'数量草稿读取失败'),
+};
 export const taskQueries = {
   list: new EmployeeQueryController<TaskSearch, TaskList>(session, (query, signal) => tasks.listTasks({ query, signal }), '任务列表读取失败，请重试'),
   summary: new EmployeeQueryController<undefined, TaskSummary>(session, (_, signal) => tasks.getTaskSummary({ signal }), '任务摘要读取失败，请重试'),

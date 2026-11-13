@@ -40,6 +40,90 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 新增分类
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["createCategory"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/categories/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /**
+         * 软删除空分类
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        delete: operations["deleteCategory"];
+        options?: never;
+        head?: never;
+        /**
+         * 修改分类
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        patch: operations["updateCategory"];
+        trace?: never;
+    };
+    "/api/v1/admin/categories/{id}/move": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 移动完整分类子树
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["moveCategory"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/categories/tree": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 后台分类树
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["getAdminCategoryTree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/employees": {
         parameters: {
             query?: never;
@@ -258,6 +342,298 @@ export interface paths {
         get: operations["getPermissionCatalog"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 筛选后台商品
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["listAdminProducts"];
+        put?: never;
+        /**
+         * 新建草稿和默认SKU零账户
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["createProduct"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 后台商品和授权SKU字段
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["getAdminProduct"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 保存商品资料
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        patch: operations["updateProduct"];
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/archive": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 下架并归档保留历史
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["archiveProduct"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/images": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * 替换当前图片并保留历史引用
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        put: operations["setProductImages"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/initial-inventory-draft": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 读取数量草稿及转换状态
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["getInitialInventoryDraft"];
+        /**
+         * 保存非记账数量草稿
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        put: operations["saveInitialInventoryDraft"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/initial-inventory-draft/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 原因作废数量草稿
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["voidInitialInventoryDraft"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/publish": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 校验资料和可售库存后上架
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["publishProduct"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/sku-combinations/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 只读预览组合与复用建议
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["previewProductSkus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/sku-scheme": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * 保存规格方案和零账户
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        put: operations["saveProductSkuScheme"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/skus/{skuId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 修改SKU编码售价成本
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        patch: operations["updateProductSku"];
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/skus/{skuId}/set-enabled": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 启停当前SKU
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["setProductSkuEnabled"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/skus/batch-fill": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 原子批量填价
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["batchFillProductSkus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/unpublish": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 商品下架
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["unpublishProduct"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/batch-status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 逐项上下架结果
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        post: operations["batchProductStatus"];
         delete?: never;
         options?: never;
         head?: never;
@@ -668,6 +1044,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/store/categories": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 有公开商品的分类和祖先
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["getStoreCategoryTree"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/store/contact": {
         parameters: {
             query?: never;
@@ -731,6 +1127,46 @@ export interface paths {
          * @description 无业务请求体；重复移除changed=false。只清当前指针，不删除历史引用或已公开的旧图片。
          */
         delete: operations["removeCustomerAvatar"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/products": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 公开商品搜索排序
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["listStoreProducts"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/products/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 公开商品与有效可选SKU
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        get: operations["getStoreProduct"];
+        put?: never;
+        post?: never;
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -943,6 +1379,797 @@ export interface operations {
                     "application/json": {
                         /** @enum {string} */
                         code: "AUTH_RATE_LIMITED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string|null} */
+                    iconKey?: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                    name: string;
+                    /** Format: uuid */
+                    parentId?: string | null;
+                    sortOrder?: number;
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            affected: number;
+                            changed: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            deletedAt: string | null;
+                            depth: number;
+                            /** @enum {string|null} */
+                            iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            nameKey: string;
+                            /** Format: uuid */
+                            parentId: string | null;
+                            pathIds: string[];
+                            sortOrder: number;
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            affected: number;
+                            changed: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            deletedAt: string | null;
+                            depth: number;
+                            /** @enum {string|null} */
+                            iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            nameKey: string;
+                            /** Format: uuid */
+                            parentId: string | null;
+                            pathIds: string[];
+                            sortOrder: number;
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    updateCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    /** @enum {string|null} */
+                    iconKey?: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                    name?: string;
+                    sortOrder?: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            affected: number;
+                            changed: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            deletedAt: string | null;
+                            depth: number;
+                            /** @enum {string|null} */
+                            iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            nameKey: string;
+                            /** Format: uuid */
+                            parentId: string | null;
+                            pathIds: string[];
+                            sortOrder: number;
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    moveCategory: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    /** Format: uuid */
+                    parentId: string | null;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            affected: number;
+                            changed: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: date-time */
+                            deletedAt: string | null;
+                            depth: number;
+                            /** @enum {string|null} */
+                            iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            nameKey: string;
+                            /** Format: uuid */
+                            parentId: string | null;
+                            pathIds: string[];
+                            sortOrder: number;
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getAdminCategoryTree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            children: {
+                                children: {
+                                    children: Record<string, never>[];
+                                    depth: number;
+                                    /** @enum {string|null} */
+                                    iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** Format: uuid */
+                                    parentId: string | null;
+                                    pathIds: string[];
+                                    sortOrder: number;
+                                    version: number;
+                                }[];
+                                depth: number;
+                                /** @enum {string|null} */
+                                iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                /** Format: uuid */
+                                parentId: string | null;
+                                pathIds: string[];
+                                sortOrder: number;
+                                version: number;
+                            }[];
+                            depth: number;
+                            /** @enum {string|null} */
+                            iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            /** Format: uuid */
+                            parentId: string | null;
+                            pathIds: string[];
+                            sortOrder: number;
+                            version: number;
+                        }[];
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -2469,6 +3696,3636 @@ export interface operations {
                     "application/json": {
                         /** @enum {string} */
                         code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listAdminProducts: {
+        parameters: {
+            query?: {
+                archived?: boolean;
+                categoryId?: string;
+                keyword?: string;
+                maxPriceCents?: number;
+                minPriceCents?: number;
+                page?: number;
+                pageSize?: number;
+                sort?: "NEWEST" | "PRICE_ASC" | "PRICE_DESC" | "SALES_DESC";
+                status?: "DRAFT" | "ON_SALE" | "OFF_SALE";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: date-time */
+                                archivedAt: string | null;
+                                /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                                availableQuantity: string;
+                                brand: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                mainImageUrl: string | null;
+                                name: string;
+                                /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                                paidSalesCount: string;
+                                priceFromCents: number | null;
+                                purchasable: boolean;
+                                /** @enum {string} */
+                                status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                                version: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    brand?: string | null;
+                    /** Format: uuid */
+                    categoryId?: string | null;
+                    description?: string | null;
+                    name: string;
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getAdminProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            description: string | null;
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    updateProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    brand?: string | null;
+                    /** Format: uuid */
+                    categoryId?: string | null;
+                    description?: string | null;
+                    expectedVersion: number;
+                    name?: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    archiveProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    setProductImages: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    galleryImageIds: string[];
+                    /** Format: uuid */
+                    mainImageId: string | null;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getInitialInventoryDraft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            conversionKey: string;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            /** Format: uuid */
+                            id: string;
+                            lines: {
+                                quantity: number;
+                                /** Format: uuid */
+                                skuId: string;
+                            }[];
+                            /** Format: uuid */
+                            productId: string;
+                            /** @enum {string} */
+                            status: "EDITABLE" | "CONVERTED" | "VOID";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        } | null;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    saveInitialInventoryDraft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedDraftVersion: number | null;
+                    expectedProductVersion: number;
+                    lines: {
+                        quantity: number;
+                        /** Format: uuid */
+                        skuId: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    voidInitialInventoryDraft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedDraftVersion: number;
+                    expectedProductVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    publishProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    previewProductSkus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    dimensions: {
+                        /** Format: uuid */
+                        clientKey?: string;
+                        /** Format: uuid */
+                        id?: string;
+                        name: string;
+                        values: {
+                            /** Format: uuid */
+                            clientKey?: string;
+                            /** Format: uuid */
+                            id?: string;
+                            name: string;
+                        }[];
+                    }[];
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            combinations: {
+                                choices: {
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                /** Format: uuid */
+                                reusableSkuId: string | null;
+                            }[];
+                            count: number;
+                            maximum: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    saveProductSkuScheme: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    dimensions: {
+                        /** Format: uuid */
+                        clientKey?: string;
+                        /** Format: uuid */
+                        id?: string;
+                        name: string;
+                        values: {
+                            /** Format: uuid */
+                            clientKey?: string;
+                            /** Format: uuid */
+                            id?: string;
+                            name: string;
+                        }[];
+                    }[];
+                    expectedVersion: number;
+                    /** @enum {string} */
+                    mode: "APPEND" | "REBUILD";
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    updateProductSku: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                skuId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    code?: string;
+                    costCents?: number | null;
+                    expectedVersion: number;
+                    priceCents?: number | null;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    setProductSkuEnabled: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+                skuId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    enabled: boolean;
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    batchFillProductSkus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    costCents?: number | null;
+                    expectedVersion: number;
+                    priceCents?: number | null;
+                    skuIds: string[];
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    unpublishProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            archivedAt: string | null;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            /** Format: uuid */
+                            categoryId: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            changed: boolean;
+                            clientKeyMap?: {
+                                [key: string]: string;
+                            };
+                            description: string | null;
+                            draft?: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                /** Format: uuid */
+                                productId: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            };
+                            galleryImageIds: string[];
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            initialInventoryDraft: {
+                                /** Format: uuid */
+                                conversionKey: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                status: "EDITABLE" | "CONVERTED" | "VOID";
+                                version: number;
+                            } | null;
+                            /** Format: uuid */
+                            mainImageId: string | null;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            productCode: string;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                costCents?: number | null;
+                                enabled: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                                purchaseBlocked?: boolean;
+                                reserved?: number;
+                                /** Format: date-time */
+                                retiredAt: string | null;
+                                warningThreshold?: number;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                            /** @enum {string} */
+                            status: "DRAFT" | "ON_SALE" | "OFF_SALE";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    batchProductStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** @enum {string} */
+                    action: "PUBLISH" | "UNPUBLISH";
+                    items: {
+                        expectedVersion: number;
+                        /** Format: uuid */
+                        id: string;
+                    }[];
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                code?: string;
+                                /** Format: uuid */
+                                id: string;
+                                message?: string;
+                                success: boolean;
+                                version?: number;
+                            }[];
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -5094,6 +9951,121 @@ export interface operations {
             };
         };
     };
+    getStoreCategoryTree: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            children: {
+                                children: {
+                                    children: Record<string, never>[];
+                                    /** @enum {string|null} */
+                                    iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                    /** Format: uuid */
+                                    parentId: string | null;
+                                    sortOrder: number;
+                                }[];
+                                /** @enum {string|null} */
+                                iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                /** Format: uuid */
+                                parentId: string | null;
+                                sortOrder: number;
+                            }[];
+                            /** @enum {string|null} */
+                            iconKey: "clothes" | "top" | "trousers" | "coat" | "dress" | "accessory" | null;
+                            /** Format: uuid */
+                            id: string;
+                            name: string;
+                            /** Format: uuid */
+                            parentId: string | null;
+                            sortOrder: number;
+                        }[];
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
     getStoreContact: {
         parameters: {
             query?: never;
@@ -5441,6 +10413,246 @@ export interface operations {
                     "application/json": {
                         /** @enum {string} */
                         code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listStoreProducts: {
+        parameters: {
+            query?: {
+                categoryId?: string;
+                keyword?: string;
+                page?: number;
+                pageSize?: number;
+                sort?: "NEWEST" | "PRICE_ASC" | "PRICE_DESC" | "SALES_DESC";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                                availableQuantity: string;
+                                brand: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                mainImageUrl: string | null;
+                                name: string;
+                                /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                                paidSalesCount: string;
+                                priceFromCents: number | null;
+                                purchasable: boolean;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getStoreProduct: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            availableQuantity: string;
+                            brand: string | null;
+                            categoryPath: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                            }[];
+                            description: string | null;
+                            galleryImageUrls: string[];
+                            /** Format: uuid */
+                            id: string;
+                            mainImageUrl: string | null;
+                            name: string;
+                            /** @description 十进制整数，避免汇总超出JavaScript安全整数 */
+                            paidSalesCount: string;
+                            priceFromCents: number | null;
+                            purchasable: boolean;
+                            skus: {
+                                available: number;
+                                choices: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                code: string;
+                                /** Format: uuid */
+                                id: string;
+                                priceCents: number | null;
+                                purchasable: boolean;
+                            }[];
+                            specDimensions: {
+                                /** Format: uuid */
+                                id: string;
+                                name: string;
+                                values: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    name: string;
+                                }[];
+                            }[];
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;

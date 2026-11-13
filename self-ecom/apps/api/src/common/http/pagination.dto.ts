@@ -9,11 +9,11 @@ export class PaginationDto {
   @IsInt()
   @Min(1)
   @Max(Number.MAX_SAFE_INTEGER)
-  page = PAGINATION.page;
+  page: number = PAGINATION.page;
 
   @Transform(({ value }: { value: unknown }) => strictInteger(value))
   @IsInt()
   @Min(1)
   @Max(PAGINATION.maxPageSize)
-  pageSize = PAGINATION.pageSize;
+  pageSize: number = PAGINATION.pageSize;
 }

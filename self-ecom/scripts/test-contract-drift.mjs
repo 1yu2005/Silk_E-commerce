@@ -1,6 +1,6 @@
 /** 文件作用：在独立临时目录验证生成稳定性和漂移失败，不改仓库契约或已有生成文件。 */
 import assert from 'node:assert/strict';
-import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -30,5 +30,5 @@ try {
 } finally {
   const target = path.resolve(directory);
   assert.ok(target.startsWith(path.resolve(tmpdir()) + path.sep) && path.basename(target).startsWith('self-ecom-contract-drift-'));
-  await rm(target, { recursive: true, force: true });
+  console.log('保留契约测试临时目录：' + target);
 }

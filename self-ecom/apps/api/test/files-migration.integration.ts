@@ -1,6 +1,6 @@
 // 作用：在本轮专用空库和板块2升级库中验证0003迁移、旧数据保持、重复部署及Prisma关系。
 import { randomUUID } from 'node:crypto';
-import { copyFileSync, mkdirSync, mkdtempSync, rmdirSync, unlinkSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { Client } from 'pg';
@@ -15,7 +15,7 @@ import { PrismaService } from '../src/prisma/prisma.service.js';
 const base = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
 if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
 const previousMigrations = ['0001_bootstrap', '0002_auth_employee_permission_audit'];
-const expectedMigrations = [...previousMigrations, '0003_files_communication_history', '0004_store_settings_tasks_deadlines'];
+const expectedMigrations = [...previousMigrations, '0003_files_communication_history', '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts'];
 const oldTables = ['employee', 'customer', 'auth_session', 'permission_definition', 'role_permission',
   'employee_extra_permission', 'audit_log', 'system_guard'] as const;
 const newTables = ['file_asset', 'file_reference', 'communication', 'business_state_history'];
@@ -118,17 +118,16 @@ afterAll(async () => {
   } finally {
     await admin.end();
     // 只逐个删除本轮登记的文件和空目录，不递归扫描临时目录。
-    for (const file of scratchFiles.reverse()) unlinkSync(file);
-    for (const directory of scratchDirectories.reverse()) rmdirSync(directory);
+    console.log('保留迁移测试临时目录：' + scratchDirectories.join(', '));
   }
 }, 30_000);
 
-it('PostgreSQL16空库通过四条正式迁移，文件表为空且没有提前创建订单等业务表', async () => {
+it('PostgreSQL16空库通过五条正式迁移，文件表为空且没有提前创建订单等业务表', async () => {
   expect((await freshClient.query('SHOW server_version')).rows[0].server_version).toMatch(/^16\./);
   const migrations = await freshClient.query('SELECT migration_name,finished_at,rolled_back_at FROM _prisma_migrations ORDER BY migration_name');
   expect(migrations.rows).toEqual(expectedMigrations.map(migration_name => ({ migration_name, finished_at: expect.any(Date), rolled_back_at: null })));
   for (const table of newTables) expect((await freshClient.query(`SELECT count(*)::int AS count FROM "${table}"`)).rows[0].count).toBe(0);
-  for (const table of ['product', 'order', 'after_sale', 'inventory_adjustment']) {
+  for (const table of ['order', 'after_sale', 'inventory_adjustment']) {
     expect((await freshClient.query('SELECT to_regclass($1) AS relation', [`public.${table}`])).rows[0].relation).toBeNull();
   }
 });
@@ -138,6 +137,8 @@ it('已有板块2的账号、真实密码哈希、状态版本、会话、52项�
   after.customer = after.customer!.map(({ avatar_asset_id: avatarAssetId, ...customer }) => {
     expect(avatarAssetId).toBeNull(); return customer;
   });
+  expect(after.system_guard?.find(row=>row.key==='CATEGORY_TREE')).toEqual({key:'CATEGORY_TREE',created_at:expect.any(Date)});
+  after.system_guard=after.system_guard!.filter(row=>row.key!=='CATEGORY_TREE');
   expect(after).toEqual(before);
   expect(after.permission_definition).toHaveLength(52); expect(after.role_permission).toHaveLength(89);
   expect(after.auth_session).toHaveLength(2); expect(after.audit_log).toHaveLength(1);

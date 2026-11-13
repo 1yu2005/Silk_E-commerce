@@ -1,0 +1,40 @@
+{
+  "at": "2026-11-13T14:46:47.718Z",
+  "mode": "avatar",
+  "label": "final1",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T14:46:48.093Z",
+      "endedAt": "2026-11-13T14:46:55.093Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/avatar-final1-migrate.txt"
+    },
+    {
+      "name": "browser",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\test\\verify-avatar-browser.mjs",
+        "--output=output/playwright/M1-05/avatar-final1"
+      ],
+      "startedAt": "2026-11-13T14:46:55.094Z",
+      "endedAt": "2026-11-13T14:47:08.095Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/avatar-final1-browser.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_a67815490ed94bad8981156cef4dda5d_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": true
+}

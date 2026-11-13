@@ -1,5 +1,5 @@
 // 作用：用真实解码器与临时目录验证图片重编码、资源限制、受控路径和链接防护。
-import { mkdtemp, rm, symlink, writeFile } from 'node:fs/promises';
+import { mkdtemp, symlink, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve, sep } from 'node:path';
 import sharp from 'sharp';
@@ -16,7 +16,7 @@ beforeAll(async () => {
 });
 afterAll(async () => {
   if (!resolve(directory).startsWith(resolve(tmpdir()) + sep) || !directory.includes('self-ecom-files-unit-')) throw new Error('拒绝清理非测试目录');
-  await rm(directory, { recursive: true, force: true });
+  console.log('保留测试临时目录：' + directory);
 });
 it.each(['jpeg', 'png', 'webp'] as const)('实际解码及重编码%s，剥离元数据并保持真实属性', async format => {
   const input = await sharp({ create: { width: 8, height: 6, channels: 3, background: '#aabbcc' } }).toFormat(format)

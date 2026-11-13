@@ -1,0 +1,98 @@
+{
+  "at": "2026-11-13T14:24:53.316Z",
+  "mode": "types",
+  "label": "final1",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T14:24:53.319Z",
+      "endedAt": "2026-11-13T14:24:53.754Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/types-final1-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T14:24:53.754Z",
+      "endedAt": "2026-11-13T14:24:54.389Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/types-final1-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T14:24:54.389Z",
+      "endedAt": "2026-11-13T14:24:55.024Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/types-final1-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T14:24:55.024Z",
+      "endedAt": "2026-11-13T14:24:59.592Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/types-final1-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T14:24:59.592Z",
+      "endedAt": "2026-11-13T14:25:02.749Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/types-final1-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T14:25:02.749Z",
+      "endedAt": "2026-11-13T14:25:04.974Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-05/types-final1-apps-store-web.txt"
+    }
+  ],
+  "passed": true
+}

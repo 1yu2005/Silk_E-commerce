@@ -31,7 +31,23 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
         expect(doc.openapi).toMatch(/^3\./);
         expect(doc).not.toHaveProperty('data');
         expect(doc.servers).toEqual([{ url: '/' }]);
-        expect(Object.keys(doc.paths).sort()).toEqual(['/api/v1/admin/auth/change-password', '/api/v1/admin/auth/login', '/api/v1/admin/employees', '/api/v1/admin/employees/{id}', '/api/v1/admin/employees/{id}/change-role', '/api/v1/admin/employees/{id}/disable', '/api/v1/admin/employees/{id}/enable', '/api/v1/admin/employees/{id}/extra-permissions', '/api/v1/admin/employees/{id}/profile', '/api/v1/admin/employees/{id}/reset-password', '/api/v1/admin/me', '/api/v1/admin/me/permissions', '/api/v1/admin/permissions', '/api/v1/admin/settings', '/api/v1/admin/settings/versions', '/api/v1/admin/settings/versions/{id}', '/api/v1/admin/tasks', '/api/v1/admin/tasks/summary', '/api/v1/admin/tasks/{id}', '/api/v1/admin/tasks/{id}/claim', '/api/v1/admin/tasks/{id}/extend-deadline', '/api/v1/admin/tasks/{id}/history', '/api/v1/admin/tasks/{id}/release', '/api/v1/admin/tasks/{id}/transfer', '/api/v1/auth/logout', '/api/v1/files', '/api/v1/files/{id}', '/api/v1/files/{id}/content', '/api/v1/health/live', '/api/v1/health/ready', '/api/v1/store/auth/change-password', '/api/v1/store/auth/login', '/api/v1/store/auth/register', '/api/v1/store/contact', '/api/v1/store/me', '/api/v1/store/me/avatar']);
+        expect(Object.keys(doc.paths).sort()).toEqual(['/api/v1/admin/auth/change-password', '/api/v1/admin/auth/login', '/api/v1/admin/employees', '/api/v1/admin/employees/{id}', '/api/v1/admin/employees/{id}/change-role', '/api/v1/admin/employees/{id}/disable', '/api/v1/admin/employees/{id}/enable', '/api/v1/admin/employees/{id}/extra-permissions', '/api/v1/admin/employees/{id}/profile', '/api/v1/admin/employees/{id}/reset-password', '/api/v1/admin/me', '/api/v1/admin/me/permissions', '/api/v1/admin/permissions', '/api/v1/admin/settings', '/api/v1/admin/settings/versions', '/api/v1/admin/settings/versions/{id}', '/api/v1/admin/tasks', '/api/v1/admin/tasks/summary', '/api/v1/admin/tasks/{id}', '/api/v1/admin/tasks/{id}/claim', '/api/v1/admin/tasks/{id}/extend-deadline', '/api/v1/admin/tasks/{id}/history', '/api/v1/admin/tasks/{id}/release', '/api/v1/admin/tasks/{id}/transfer', '/api/v1/auth/logout', '/api/v1/files', '/api/v1/files/{id}', '/api/v1/files/{id}/content', '/api/v1/health/live', '/api/v1/health/ready', '/api/v1/store/auth/change-password', '/api/v1/store/auth/login', '/api/v1/store/auth/register', '/api/v1/store/contact', '/api/v1/store/me', '/api/v1/store/me/avatar'].concat([
+          '/api/v1/admin/categories','/api/v1/admin/categories/tree','/api/v1/admin/categories/{id}','/api/v1/admin/categories/{id}/move',
+          '/api/v1/admin/products','/api/v1/admin/products/batch-status','/api/v1/admin/products/{id}','/api/v1/admin/products/{id}/archive',
+          '/api/v1/admin/products/{id}/images','/api/v1/admin/products/{id}/initial-inventory-draft','/api/v1/admin/products/{id}/initial-inventory-draft/void',
+          '/api/v1/admin/products/{id}/publish','/api/v1/admin/products/{id}/unpublish','/api/v1/admin/products/{id}/sku-combinations/preview',
+          '/api/v1/admin/products/{id}/sku-scheme','/api/v1/admin/products/{id}/skus/batch-fill','/api/v1/admin/products/{id}/skus/{skuId}',
+          '/api/v1/admin/products/{id}/skus/{skuId}/set-enabled','/api/v1/store/categories','/api/v1/store/products','/api/v1/store/products/{id}',
+        ]).sort());
+        for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){
+          const operation=item![key];if(operation)expect(operation.security).toEqual([{bearerAuth:[]}]);
+        }
+        for(const path of ['/api/v1/store/categories','/api/v1/store/products','/api/v1/store/products/{id}']){
+          const operation=doc.paths[path]!.get!;expect(operation.security??[]).toEqual([]);
+          expect(JSON.stringify(operation.responses['200'])).not.toMatch(/costCents|reserved|purchaseBlocked|createdById|updatedById/);
+        }
+        expect(JSON.stringify(doc.paths['/api/v1/admin/products/{id}/sku-scheme']!.put!.responses)).toContain('clientKeyMap');
+        expect(JSON.stringify(doc.paths['/api/v1/admin/products']!.post!.requestBody)).not.toMatch(/available|reserved|status/);
         const settings = doc.paths['/api/v1/admin/settings']!;
         for (const operation of [settings.get!, settings.put!, doc.paths['/api/v1/admin/settings/versions']!.get!,
           doc.paths['/api/v1/admin/settings/versions/{id}']!.get!]) {

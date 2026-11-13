@@ -1,5 +1,5 @@
 // 作用：验证 JWT 密钥、签发者、受众和期限等启动配置的严格校验。
-import { mkdtempSync, writeFileSync, unlinkSync, rmdirSync } from 'node:fs';
+import { mkdtempSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { afterAll, expect, it } from 'vitest';
@@ -9,7 +9,7 @@ const secret = 'test-only-key-'.repeat(4);
 const directory = mkdtempSync(join(tmpdir(), 'shop-jwt-config-'));
 const envFile = join(directory, '.env');
 writeFileSync(envFile, `JWT_SECRET=${secret}\nJWT_TTL_SECONDS=60\n`);
-afterAll(() => { unlinkSync(envFile); rmdirSync(directory); });
+afterAll(() => { console.log('保留JWT配置测试临时目录：'+directory); });
 
 it('JWT默认两小时，允许1秒测试期限及一天上界', () => {
   expect(validateJwtConfiguration({ JWT_SECRET: secret }).ttlSeconds).toBe(7200);

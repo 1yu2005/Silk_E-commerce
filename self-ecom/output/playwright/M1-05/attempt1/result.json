@@ -1,0 +1,90 @@
+{
+  "at": "2026-11-13T14:10:16.900Z",
+  "database": "catalog_ui_03d88ef9f71846ecbd754edc9ab986fd_test",
+  "checks": [],
+  "requests": [
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "14a2af12-b7fb-42e8-a8c2-4d9e54492da1",
+      "bearer": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7edb23b9-417d-4fdd-824f-1bacab5ec9c8",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "beb5209e-f160-45aa-a183-3772343e20d1",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "dca3dc77-f15f-4b79-848e-83383b5123db",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7aa5551b-5730-41e5-87fc-b262d210559c",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bda4b4c5-5e46-41c4-9cea-477f7a6da58c",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories",
+      "method": "POST",
+      "status": 201,
+      "requestId": "4982ba82-a40f-4b1d-8711-d55d332f1175",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "375ba857-7e42-4fb5-9885-74fd1adbdcac",
+      "bearer": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/categories/tree",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e538c829-2e62-4c2b-ad7f-9702a9a1abb5",
+      "bearer": true
+    }
+  ],
+  "pageErrors": [],
+  "fixtures": "正余额仅为独占测试库销售规则夹具，未实现库存入账",
+  "retainedUploadDirectory": "C:\\Users\\20334\\AppData\\Local\\Temp\\self-ecom-catalog-browser-YcfZDA",
+  "browser": "157.0.4341.42",
+  "failure": {
+    "scenario": "分类新增、三级树与子树移动",
+    "name": "Error",
+    "message": "locator.waitFor: Error: strict mode violation: getByText('　上衣', { exact: true }) resolved to 2 elements:\n    1) <span>　上衣</span> aka getByRole('list').getByText('上衣')\n    2) <option value=\"492957e3-37ba-4e16-8d9f-65ffe3510f89\">　上衣</option> aka getByLabel('父分类根分类服装验收 上衣')\n\nCall log:\n\u001b[2m  - waiting for getByText('　上衣', { exact: true }) to be visible\u001b[22m\n",
+    "line": "    at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-catalog-browser.mjs:51:97"
+  },
+  "databaseRemoved": true
+}

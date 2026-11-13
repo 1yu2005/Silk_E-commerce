@@ -5,6 +5,7 @@ import { AuthRoot, LoginOnly, RequireEmployee } from '../auth/AuthRoutes';
 import { EmployeeReadGuard } from '../employees/EmployeeReadGuard';
 import { EmployeeCreateGuard } from '../employees/EmployeeCreateGuard';
 import { SettingsGuard } from '../settings/SettingsGuard';
+import { CatalogGuard } from '../catalog/CatalogGuard';
 
 export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{ element: <AppLayout />, children: [
   { element: <LoginOnly />, children: [
@@ -15,6 +16,11 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
   ] },
   { element: <RequireEmployee />, children: [
     { path: '/', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
+    {element:<CatalogGuard permission="category.read"/>,children:[{path:'/categories',lazy:async()=>({Component:(await import('../pages/CategoryPage')).CategoryPage})}]},
+    {element:<CatalogGuard permission="product.read"/>,children:[
+      {path:'/products',lazy:async()=>({Component:(await import('../pages/ProductListPage')).ProductListPage})},
+      {path:'/products/:id',lazy:async()=>({Component:(await import('../pages/ProductEditPage')).ProductEditPage})},
+    ]},
     { path: '/tasks', lazy: async () => ({ Component: (await import('../pages/TaskListPage')).TaskListPage }) },
     { path: '/tasks/:id', lazy: async () => ({ Component: (await import('../pages/TaskDetailPage')).TaskDetailPage }) },
     { element: <SettingsGuard />, children: [

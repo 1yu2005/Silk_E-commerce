@@ -48,6 +48,8 @@ export class FileBindingService {
       if (!['STAGED', 'RETAINED'].includes(asset.state)
         || (asset.state === 'STAGED' && (!asset.expiresAt || asset.expiresAt <= now))) throw new FileError('FILE_NOT_BINDABLE');
       if (target.ownerType === 'CUSTOMER_AVATAR' && !uploadedBy(asset, actor)) throw new FileError('FILE_NOT_FOUND');
+      if (target.ownerType === 'PRODUCT' && asset.state === 'RETAINED'
+        && !asset.references.some(ref=>ref.ownerType==='PRODUCT'&&ref.ownerId===target.ownerId)) throw new FileError('FILE_NOT_BINDABLE');
       for (const reference of asset.references) {
         const previous = await this.adapters.get(reference.ownerType).aggregate(tx, reference);
         if (previous !== aggregate) throw new FileError('FILE_NOT_BINDABLE');

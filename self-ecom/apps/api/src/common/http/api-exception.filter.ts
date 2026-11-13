@@ -10,6 +10,7 @@ import { FileError } from '../../files/file.errors.js';
 import { StoreSettingsError } from '../../settings/store-settings.errors.js';
 import { TaskError } from '../../tasks/task.errors.js';
 import { ContractError } from '@shop/shared';
+import { CatalogError } from '../../catalog/catalog.errors.js';
 
 const errors: Record<number, { code: string; message: string }> = {
   400: { code: 'VALIDATION_FAILED', message: '请求参数不合法' },
@@ -34,7 +35,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
     }
 
     const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
-      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError ? exception : undefined);
+      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError ? exception : undefined);
     const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
     const error = knownError ? { code: knownError.code, message: knownError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };
@@ -44,6 +45,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
     response.end(JSON.stringify({ ...error,
       ...(exception instanceof DatabaseNotReadyException ? { details: { database: 'unavailable' } } : {}),
       ...(exception instanceof DtoValidationException ? { details: exception.details } : {}),
+      ...(exception instanceof CatalogError && exception.details ? { details: exception.details } : {}),
       requestId: request.requestId }));
   }
 }

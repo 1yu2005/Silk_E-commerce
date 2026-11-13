@@ -9,7 +9,7 @@ import { StoreContact } from '../contact/StoreContact';
 export function AppLayout() {
   const state = useCustomerAuth();
   return <Layout className="app-layout">
-    <header className="site-header"><Link className="brand" to="/">自营好物</Link><nav aria-label="主导航"><Link to="/">首页</Link>
+    <header className="site-header"><Link className="brand" to="/">日常衣橱 <small>EVERYDAY</small></Link><nav aria-label="主导航"><Link to="/">首页</Link><Link to="/products">全部款式</Link>
       {state.status === 'ready' ? <><Link to="/account">我的账号</Link><span className="customer-name" title={state.customer?.nickname}>{state.customer?.nickname}</span>
         <Button onClick={() => void customerAuth.logout()}>退出登录</Button></> : null}
       {state.status === 'anonymous' ? <><Link to="/login">顾客登录</Link><Link to="/register">注册账号</Link></> : null}

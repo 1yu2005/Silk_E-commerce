@@ -5,6 +5,8 @@ import { AnonymousOnly, AuthRoot, RequireCustomer } from '../auth/AuthRoutes';
 
 export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{ element: <AppLayout />, children: [
   { path: '/', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
+  { path: '/products', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
+  { path: '/products/:id', lazy: async () => ({ Component: (await import('../pages/ProductDetailPage')).ProductDetailPage }) },
   { element: <AnonymousOnly />, children: [
     { path: '/login', lazy: async () => ({ Component: (await import('../pages/LoginPage')).LoginPage }) },
     { path: '/register', lazy: async () => ({ Component: (await import('../pages/RegisterPage')).RegisterPage }) },
