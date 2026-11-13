@@ -10,6 +10,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { EmployeeNotFoundError, EmployeeVersionConflictError } from './employee-command.errors.js';
 import { EmployeeEligibilityService } from './employee-eligibility.service.js';
 import { EmployeeExtraPermissionDto } from './employee-extra-permission.dto.js';
+import { TaskError } from '../tasks/task.errors.js';
 
 @Injectable()
 export class EmployeeExtraPermissionService {
@@ -45,6 +46,10 @@ export class EmployeeExtraPermissionService {
       if (added.length === 0 && removed.length === 0) return { id: targetId, ...resolution,
         version: before.version, permissionVersion: before.permissionVersion, changed: false };
       const oldEffective = this.permissions.effectivePermissions(before.role, oldExtras);
+      const nextEffective = before.status === 'ACTIVE' ? [...resolution.effectivePermissions] : [];
+      const taskContext = await this.eligibility.prepare(tx, targetId, nextEffective, {
+        actor: current, token, permission: 'employee.permission.manage', reason: input.reason, requestId,
+      });
       // 只增删差集；保留未变授权关系的原授权人和时间，不把PUT伪记为全部重新授权。
       if (removed.length > 0) await tx.employeeExtraPermission.deleteMany({ where: { employeeId: targetId, permissionCode: { in: removed } } });
       if (added.length > 0) await tx.employeeExtraPermission.createMany({ data: added.map(permissionCode => ({
@@ -56,8 +61,8 @@ export class EmployeeExtraPermissionService {
       await this.audit.appendAudit(tx, { actor: { type: 'EMPLOYEE', id: current.subjectId }, action: 'employee.permission.replace',
         targetId, requestId, reason: input.reason, before: { extraPermissions: oldExtras }, after: { extraPermissions: resolved } });
       await this.eligibility.onEmployeeEligibilityChanged(tx, targetId,
-        before.status === 'ACTIVE' ? oldEffective : [], before.status === 'ACTIVE' ? [...resolution.effectivePermissions] : [], input.reason);
+        before.status === 'ACTIVE' ? oldEffective : [], nextEffective, input.reason, taskContext);
       return { ...result, ...resolution, changed: true };
-    });
+    }, error => error instanceof TaskError && error.code === 'TASK_LOCK_PLAN_CHANGED');
   }
 }

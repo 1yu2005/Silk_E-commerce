@@ -4,14 +4,16 @@ import { Link, Outlet } from 'react-router-dom';
 import { useEmployeeAuth } from '../auth/use-employee-auth';
 import { employeeAuth } from '../services/api';
 import { canReadEmployees } from '../employees/query';
+import { canManageSettings } from '../settings/model';
 
 export function AppLayout() {
   const state = useEmployeeAuth();
   const signedIn = state.status === 'ready' || state.status === 'password-change';
   return <Layout className="app-layout">
     <header className="site-header"><span className="brand">自营店铺管理</span><nav aria-label="主导航">
-      {state.status === 'ready' ? <><Link to="/">首页</Link><Link to="/change-password">修改密码</Link></> : null}
+      {state.status === 'ready' ? <><Link to="/">首页</Link><Link to="/tasks">任务工作台</Link><Link to="/change-password">修改密码</Link></> : null}
       {state.status === 'ready' && canReadEmployees(state.permissions) ? <Link to="/employees">员工管理</Link> : null}
+      {state.status === 'ready' && canManageSettings(state.permissions) ? <Link to="/settings">全店设置</Link> : null}
       {signedIn ? <><span>{state.employee?.displayName ?? '当前员工'}</span><Button onClick={() => void employeeAuth.logout()}>退出登录</Button></> : null}
     </nav></header>
     <main className="page-content">{state.notice ? <Alert className="auth-notice" title={state.notice} type="info" showIcon /> : null}<Outlet /></main>

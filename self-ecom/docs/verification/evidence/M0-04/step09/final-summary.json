@@ -1,0 +1,71 @@
+{
+  "checkedAt": "2026-11-13T09:54:32.209Z",
+  "scope": "仅合并步骤9；未执行步骤10、步骤11或整板块验收",
+  "checksRead": 26,
+  "failuresPreservedAndResolved": [
+    {
+      "name": "typecheck-source1",
+      "exitCode": 2
+    },
+    {
+      "name": "typecheck-tests1",
+      "exitCode": 2
+    },
+    {
+      "name": "typecheck-integration1",
+      "exitCode": 2
+    },
+    {
+      "name": "lint-attempt1",
+      "exitCode": 1
+    },
+    {
+      "name": "integration-suspended-red",
+      "exitCode": 1
+    }
+  ],
+  "ordinaryIndependentCases": 199,
+  "ordinaryCoverage": "197整组+新增2项定向；未最后整组199重跑",
+  "newKernelIndependentCases": 47,
+  "kernelCoverage": "34整组+新增11项定向+暂停边界新增2项定向；其他定向复验不重复计数",
+  "regression": [
+    {
+      "group": "entry",
+      "passed": 34
+    },
+    {
+      "group": "deadline",
+      "passed": 57
+    },
+    {
+      "group": "access",
+      "passed": 38
+    },
+    {
+      "group": "reassign",
+      "passed": 44
+    }
+  ],
+  "databaseIndependentCases": 220,
+  "latestTypeLintContractsPassed": true,
+  "compiledSmokePassed": true,
+  "developmentOriginalDataPreserved": true,
+  "schedulerRunsAtReadonlySnapshot": 24,
+  "schedulerCountsAllZero": true,
+  "temporaryDatabasesRemaining": 0,
+  "baselineFiles": 1126,
+  "unchangedFiles": 1118,
+  "authorizedChangedFiles": [
+    "apps/api/src/tasks/task-business-adapters.ts",
+    "apps/api/src/tasks/task-deadline-events.service.ts",
+    "apps/api/src/tasks/task-entry.service.ts",
+    "apps/api/src/tasks/task.errors.ts",
+    "apps/api/src/tasks/tasks.module.ts",
+    "docs/design/M0-04.md",
+    "docs/verification/M0-04.md",
+    "apps/api/src/audit/audit.service.ts"
+  ],
+  "headBranchStagedAndContractPreserved": true,
+  "documentLinksChecked": 151,
+  "passed": true
+}

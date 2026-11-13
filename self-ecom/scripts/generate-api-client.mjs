@@ -1,12 +1,13 @@
 /** 文件作用：固定使用openapi-typescript生成公开类型和JSON调用器；--check只比较，不改写产物。 */
 import { readFile, mkdir, writeFile } from 'node:fs/promises';
 import { createRequire } from 'node:module';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 const root = fileURLToPath(new URL('../', import.meta.url));
 let require = createRequire(new URL('../packages/contract-tools/package.json', import.meta.url));
 let generator;
-try { generator = await import(pathToFileURL(require.resolve('openapi-typescript')).href); }
+// createRequire命中包的CommonJS入口，直接require以取得真实default，避免动态import再包一层default对象。
+try { generator = require('openapi-typescript'); }
 catch (error) {
   if (!['ERR_MODULE_NOT_FOUND', 'MODULE_NOT_FOUND'].includes(error.code)) throw error;
   // 本机保留旧node_modules时的隔离工具目录；标准安装使用contract-tools工作区。

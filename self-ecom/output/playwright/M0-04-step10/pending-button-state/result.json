@@ -1,0 +1,136 @@
+{
+  "checkedAt": "2026-11-13T11:15:25.486Z",
+  "checks": [
+    {
+      "group": "core",
+      "scenario": "本人、岗位池和后端动作范围，桌面与手机列表"
+    }
+  ],
+  "requests": [
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7f308b19-658c-46fc-bb45-0559766210d5"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a244a80c-66e0-4a51-8091-7f8528d86cc3"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "29dd219b-cbf5-4431-9ef8-140dd39f385e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/f5c66435-2a2c-4c5d-9321-cd9f0d52eda2",
+      "method": "GET",
+      "status": 200,
+      "requestId": "97bff442-7281-44b1-85b8-9a779f9e451f"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/f5c66435-2a2c-4c5d-9321-cd9f0d52eda2/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "30bebdaf-894a-4177-87d5-354759e051d3"
+    }
+  ],
+  "writes": [
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/f5c66435-2a2c-4c5d-9321-cd9f0d52eda2/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [],
+  "groups": [
+    {
+      "name": "core",
+      "passed": false,
+      "databaseName": "task_acceptance_4f253eee876e48fb838d03d2bdf7f4ae_test",
+      "failure": {
+        "scenario": "领取同步禁用、防重复提交和实际经办历史",
+        "message": "The expression evaluated to a falsy value:\n\n  assert.ok(pendingButtons[0]?.disabled)\n",
+        "line": "at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/test/verify-tasks-browser.mjs:79:12"
+      },
+      "taskStateAtFailure": [
+        {
+          "id": "f5c66435-2a2c-4c5d-9321-cd9f0d52eda2",
+          "version": 0,
+          "status": "OPEN",
+          "assigneeId": null
+        },
+        {
+          "id": "ad3202e6-0a30-468c-97c5-ad84705ba350",
+          "version": 0,
+          "status": "OPEN",
+          "assigneeId": null
+        },
+        {
+          "id": "e44643c2-ac8c-477d-9d98-70079498d9f4",
+          "version": 1,
+          "status": "CLAIMED",
+          "assigneeId": "dc248cad-15ed-4afe-9368-ac1860c6a98a"
+        },
+        {
+          "id": "6e310542-1e98-4e20-970e-49a079f51826",
+          "version": 1,
+          "status": "CLAIMED",
+          "assigneeId": "b2bdc4c7-8980-425f-b202-0fc1fc76c6ae"
+        }
+      ],
+      "databaseRemoved": true
+    }
+  ],
+  "probes": [
+    {
+      "point": "before-click",
+      "at": "2026-11-13T11:15:38.475Z"
+    },
+    {
+      "point": "claim-intercepted",
+      "at": "2026-11-13T11:15:38.958Z"
+    },
+    {
+      "point": "gate-ready",
+      "at": "2026-11-13T11:15:38.958Z"
+    },
+    {
+      "point": "pending-button-state",
+      "at": "2026-11-13T11:15:38.994Z",
+      "buttons": [
+        {
+          "text": "确认领取",
+          "disabled": false,
+          "className": "ant-btn css-dev-only-do-not-override-i19pbt css-var-_r_0_ ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
+        }
+      ]
+    },
+    {
+      "point": "claim-released",
+      "at": "2026-11-13T11:15:39.183Z"
+    },
+    {
+      "point": "claim-forwarded",
+      "at": "2026-11-13T11:15:39.186Z"
+    }
+  ],
+  "browser": "145.0.7632.6",
+  "passed": false
+}

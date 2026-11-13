@@ -38,10 +38,11 @@ function createAuthTransport(domain: AuthDomain, options: AuthClientOptions) {
     const path = requestPath(config, baseURL);
     const fileRequest = (config.method === 'post' && path === '/files') || (config.method === 'get'
       && /^\/files\/[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}(\/content)?$/i.test(path));
-    if (!fileRequest && !path.startsWith(prefix) && path !== '/auth/logout' && !['/health/live', '/health/ready'].includes(path)) {
+    const publicContact = config.method === 'get' && path === '/store/contact';
+    if (!fileRequest && !publicContact && !path.startsWith(prefix) && path !== '/auth/logout' && !['/health/live', '/health/ready'].includes(path)) {
       throw new ApiClientError('CLIENT_REQUEST_TARGET_INVALID', '请求地址不属于当前站点API');
     }
-    const isPublic = (config.method === 'post' && [`${prefix}auth/login`, '/store/auth/register'].includes(path)) || path.startsWith('/health/');
+    const isPublic = publicContact || (config.method === 'post' && [`${prefix}auth/login`, '/store/auth/register'].includes(path)) || path.startsWith('/health/');
     const current = session.current();
     // 每次读当前凭证，覆盖调用方或defaults中的旧Authorization；禁止Basic认证覆盖Bearer。
     config.headers.delete('Authorization'); delete config.auth;

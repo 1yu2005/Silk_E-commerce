@@ -1,0 +1,48 @@
+{
+  "checkedAt": "2026-11-13T07:44:31.480Z",
+  "compiledMetadata": true,
+  "isolatedDatabase": true,
+  "cases": [
+    {
+      "businessType": "ORDER",
+      "code": "BUSINESS_MODULE_NOT_READY"
+    },
+    {
+      "businessType": "AFTER_SALE",
+      "code": "BUSINESS_MODULE_NOT_READY"
+    },
+    {
+      "businessType": "INVENTORY_ADJUSTMENT",
+      "code": "BUSINESS_MODULE_NOT_READY"
+    },
+    {
+      "businessType": "OFFLINE_CASE",
+      "code": "BUSINESS_MODULE_NOT_READY"
+    },
+    {
+      "businessType": "CUSTODY_ARRANGEMENT",
+      "code": "BUSINESS_MODULE_NOT_READY"
+    },
+    {
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "requestId": "d75787e5-1fa5-4926-ba09-4ab3810551ca"
+    },
+    {
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "e0919495-969e-4bc5-bde4-4dc1c1130e0d"
+    },
+    {
+      "path": "/api/v1/admin/tasks",
+      "status": 404,
+      "requestId": "96f60c5f-2dc8-406a-a865-e3ef4c223dd9"
+    }
+  ],
+  "migrateExitCode": 0,
+  "diAndDefaultRefusal": true,
+  "operations": 32,
+  "noTaskHttp": true,
+  "passed": true,
+  "databaseRemoved": true
+}

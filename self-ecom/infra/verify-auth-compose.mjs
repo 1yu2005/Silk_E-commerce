@@ -11,13 +11,14 @@ import { parseEnv } from 'node:util';
 import { readdirSync, writeFileSync } from 'node:fs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const filesMode = process.argv.includes('--files');
+const settingsMode = process.argv.includes('--settings');
+const filesMode = process.argv.includes('--files') || settingsMode;
 const outputArgument = process.argv.find(arg => arg.startsWith('--output='))?.slice(9);
 const output = path.resolve(root, outputArgument ?? (filesMode ? 'output/playwright/M0-03-final/docker' : 'output/playwright/final-acceptance/docker'));
 await mkdir(output, { recursive: true });
-const project = `self-ecom-${filesMode ? 'm003' : 'm002'}-acceptance-${randomUUID().slice(0, 8)}`;
+const project = `self-ecom-${settingsMode ? 'm004' : filesMode ? 'm003' : 'm002'}-acceptance-${randomUUID().slice(0, 8)}`;
 const imagePrefix = process.argv.find(arg => arg.startsWith('--reuse-images-from='))?.slice(20) ?? project;
-assert.match(imagePrefix, /^self-ecom-m00[23]-acceptance-[0-9a-f]{8}$/);
+assert.match(imagePrefix, /^self-ecom-m00[234]-acceptance-[0-9a-f]{8}$/);
 const docker = process.env.DOCKER_EXECUTABLE ?? 'docker';
 const configured = parseEnv(await readFile(path.join(root, '.env'), 'utf8'));
 const secret = randomBytes(48).toString('hex'); const dbPassword = randomBytes(24).toString('hex');
@@ -186,6 +187,9 @@ try {
   const files = filesMode ? await (await import('./verify-files-http.mjs')).verifyFiles({ origin, storeOrigin,
     token: survivingCustomer.accessToken, adminToken: otherAdmin.accessToken, browser, call, passed, requests, output,
     secrets, compose, env, login, staffUsername: username, resetPassword }) : null;
+  const settings = settingsMode ? await (await import('./verify-settings-http.mjs')).verifySettings({ origin, storeOrigin,
+    adminToken: otherAdmin.accessToken, browser, call, passed, output, secrets, compose, env, login,
+    adminUsername: env.INIT_ADMIN_USERNAME, adminPassword, pageErrors }) : null;
   const adminPage = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const storePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   for (const page of [adminPage, storePage]) page.on('pageerror', error => pageErrors.push(error.name));
@@ -210,6 +214,7 @@ try {
   const probe = compose(['exec', '-T', 'api', 'node', '-e', "process.stdout.write(require('node:fs').readFileSync('/app/storage/uploads/acceptance-probe.txt','utf8'))"], '读取上传卷探针');
   assert.equal(probe.stdout, 'acceptance-persistence');
   if (files) await files.verifyPersistence();
+  if (settings) await settings.verifyPersistence();
   await call(storeOrigin, '/store/me', 'GET', undefined, survivingCustomer.accessToken);
   assert.equal((await fetch(`${storeOrigin}/uploads/acceptance-probe.txt`)).status, 404);
   passed('数据库/会话在重启后持久化，API重建保留上传卷且Nginx仍禁止直读');

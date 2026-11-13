@@ -1,0 +1,69 @@
+{
+  "checkedAt": "2026-11-13T06:46:17.862Z",
+  "compiledMetadata": true,
+  "isolatedDatabase": true,
+  "cases": [
+    {
+      "path": "/admin/settings",
+      "method": "PUT",
+      "status": 400,
+      "requestId": "af24afb4-9c72-4f1c-8b2f-00270a29267b",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/settings",
+      "method": "PUT",
+      "status": 400,
+      "requestId": "32bbfe77-981e-4e9b-a300-6569afdd44a3",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/settings",
+      "method": "PUT",
+      "status": 400,
+      "requestId": "3be28b1e-ee0a-4ddc-868a-9f039f056f30",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "f14e9ebd-d482-4701-8d29-1ff7ebded23e"
+    },
+    {
+      "path": "/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "9de71395-e556-4ff0-9ace-49524de861c4"
+    },
+    {
+      "path": "/admin/settings",
+      "method": "PUT",
+      "status": 409,
+      "requestId": "5efd83f4-d7f8-45e3-8c8e-6f67676a1687",
+      "code": "VERSION_CONFLICT"
+    },
+    {
+      "path": "/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "afc1128a-b026-4734-aa54-d0091b010b94"
+    },
+    {
+      "path": "/admin/settings/versions/1eb1e388-96f7-4351-ab07-252c11d8d345",
+      "method": "GET",
+      "status": 200,
+      "requestId": "94cb242c-9e6f-4638-850e-b8ae16cc26ec"
+    },
+    {
+      "path": "/admin/settings/versions?page=1&pageSize=1",
+      "method": "GET",
+      "status": 200,
+      "requestId": "719f34d7-96f3-464a-840a-d5757e20bc38"
+    }
+  ],
+  "migrateExitCode": 0,
+  "operations": 32,
+  "passed": true,
+  "databaseRemoved": true
+}

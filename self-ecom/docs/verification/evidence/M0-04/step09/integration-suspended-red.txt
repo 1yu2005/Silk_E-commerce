@@ -1,0 +1,155 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Datasource "db": PostgreSQL database "task_kernel_babdcae20c2d40a5b9965f025257023e_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-kernel.integration.ts
+步骤9专属内核库已删除
+
+ ❯ test/task-kernel.integration.ts (47 tests | 2 failed | 45 skipped) 6718ms
+   × 暂停任务不能借lifecycle直接完成，须先合法恢复或取消旧轮 167ms
+   × 暂停任务不能借replacement直接完成，须先合法恢复或取消旧轮 137ms
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 45 skipped (47)
+   Start at  17:44:22
+   Duration  8.68s (tests 79%, import 17%, transform 5%)
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-kernel.integration.ts > 暂停任务不能借lifecycle直接完成，须先合法恢复或取消旧轮
+AssertionError: promise resolved "{ changed: true, task: { …(22) } }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "changed": true,
++   "task": {
++     "assigneeId": null,
++     "businessId": "e73bcb3a-554b-452e-a382-2e9b85fa1bbf",
++     "businessType": "ORDER",
++     "closedAt": 2026-11-18T02:00:00.000Z,
++     "createdAt": 2026-11-18T02:00:00.000Z,
++     "cursorId": "3fea943e-8770-4c43-8878-c08bce516a88",
++     "dueAt": null,
++     "entryKey": "kernel:initial",
++     "everOverdue": false,
++     "firstOverdueAt": null,
++     "id": "4c55eb34-bd80-4afb-8517-ea13b0d7c174",
++     "originalDueAt": null,
++     "reassignNeeded": false,
++     "requiredPermissions": [
++       "order.fulfillment.read",
++       "shipment.claim",
++       "shipment.handover",
++       "shipment.pack",
++     ],
++     "round": 1,
++     "ruleSnapshot": {
++       "algorithmVersion": "shanghai-calendar-v1",
++       "amount": null,
++       "ruleCode": "SHIPMENT_PROCESS",
++       "settingsVersionNumber": null,
++       "source": "NO_DEFAULT_SLA",
++       "sourceField": null,
++       "stageCatalogVersion": "M0-04.stages.v1",
++       "timeZone": "Asia/Shanghai",
++       "unit": null,
++     },
++     "settingsVersionId": null,
++     "stage": "SHIPMENT_PROCESS",
++     "startedAt": 2026-11-10T02:00:00.000Z,
++     "status": "COMPLETED",
++     "updatedAt": 2026-11-18T02:00:00.000Z,
++     "version": 2,
++   },
+  }
+
+ ❯ test/task-kernel.integration.ts:386:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/task-kernel.integration.ts > 暂停任务不能借replacement直接完成，须先合法恢复或取消旧轮
+AssertionError: promise resolved "{ task: { …(22) }, changed: true }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "changed": true,
++   "task": {
++     "assigneeId": null,
++     "businessId": "df7fc074-f653-4f75-8e93-411761f25edf",
++     "businessType": "ORDER",
++     "closedAt": null,
++     "createdAt": 2026-11-18T02:00:00.000Z,
++     "cursorId": "f4c49951-b26c-41dc-af8a-ad99082dbe57",
++     "dueAt": null,
++     "entryKey": "blocked-completion",
++     "everOverdue": false,
++     "firstOverdueAt": null,
++     "id": "50ef8e83-c7de-4abf-8497-01173136c0f5",
++     "originalDueAt": null,
++     "reassignNeeded": false,
++     "requiredPermissions": [
++       "order.fulfillment.read",
++       "shipment.claim",
++       "shipment.handover",
++       "shipment.pack",
++     ],
++     "round": 2,
++     "ruleSnapshot": {
++       "algorithmVersion": "shanghai-calendar-v1",
++       "amount": null,
++       "ruleCode": "SHIPMENT_PROCESS",
++       "settingsVersionNumber": null,
++       "source": "NO_DEFAULT_SLA",
++       "sourceField": null,
++       "stageCatalogVersion": "M0-04.stages.v1",
++       "timeZone": "Asia/Shanghai",
++       "unit": null,
++     },
++     "settingsVersionId": null,
++     "stage": "SHIPMENT_PROCESS",
++     "startedAt": 2026-11-10T02:00:00.000Z,
++     "status": "OPEN",
++     "updatedAt": 2026-11-18T02:00:00.000Z,
++     "version": 0,
++   },
+  }
+
+ ❯ test/task-kernel.integration.ts:387:168
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+

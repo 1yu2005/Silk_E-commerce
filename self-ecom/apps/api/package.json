@@ -16,6 +16,8 @@
     "db:migrate:status": "tsx scripts/database.ts migrate-status",
     "db:test:prepare": "tsx scripts/database.ts prepare-test",
     "test:integration": "tsx scripts/integration.ts",
+    "test:tasks:serve": "node scripts/task-acceptance.mjs",
+    "test:tasks:fixtures": "node scripts/task-acceptance.mjs --fixtures",
     "db:seed:permissions": "tsx scripts/seed-permissions.ts",
     "db:seed:permissions:test": "tsx scripts/seed-permissions.ts --test",
     "db:seed:admin": "tsx scripts/seed-admin.ts",

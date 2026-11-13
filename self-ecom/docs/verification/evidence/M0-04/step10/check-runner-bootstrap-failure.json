@@ -1,0 +1,7 @@
+{
+  "status": "failed-before-checks",
+  "commands": ["admin-types attempt1", "api-types attempt1"],
+  "exitCode": 1,
+  "cause": "生成检查脚本时换行字面量被提前解释，导致SyntaxError；两项类型检查均尚未开始",
+  "resolution": "修正脚本中的换行转义，保留此记录；随后仍使用attempt1生成真正类型检查证据"
+}

@@ -66,4 +66,65 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 @media (max-width: 720px) { .employee-create-grid { grid-template-columns: minmax(0, 1fr); gap: 0; } }
 @media (max-width: 720px) { .employee-panel { padding: 20px; } .employee-filters { grid-template-columns: minmax(0, 1fr); gap: 0; } .employee-filter-actions { padding-top: 0; margin-bottom: 16px; } .employee-permission-grid { grid-template-columns: minmax(0, 1fr); } .employee-permission-column + .employee-permission-column { border-left: 0; border-top: 1px solid #dce5e9; } }
 .site-footer { padding: 24px 5vw; color: #536a79; text-align: center; }
+/* 全店配置沿用现有蓝绿色与表单样式；四组配置以分隔线组织，方便逐项核对。 */
+.settings-panel { background: #fff; border: 1px solid #dce5e9; border-radius: 8px; padding: 28px; min-width: 0; overflow-wrap: anywhere; }
+.settings-panel h1 { font-size: 28px; margin: 0 0 8px; }
+.settings-heading { display: flex; justify-content: space-between; align-items: baseline; gap: 24px; margin: 20px 0 24px; }
+.settings-heading p { margin: 0; }
+.settings-heading > a { flex-shrink: 0; }
+.settings-version-bar { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 16px 20px; margin-bottom: 24px; background: #e6f2f3; border-left: 4px solid #087e8b; }
+.settings-version-bar span, .settings-hint { color: #536a79; font-size: 14px; line-height: 1.8; }
+.settings-group { border: 0; padding: 24px 0 8px; margin: 0; min-width: 0; border-bottom: 1px solid #dce5e9; }
+.settings-group legend, .settings-group h2 { color: #243746; border: 0; font-size: 21px; font-weight: 700; padding: 0; margin: 0; }
+.settings-group legend { float: left; width: 100%; }
+.settings-group > .settings-hint { clear: both; margin: 0 0 24px; padding-top: 10px; }
+.settings-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; }
+.settings-save { padding-top: 28px; max-width: 720px; }
+.settings-message { display: grid; gap: 16px; margin-bottom: 20px; }
+.settings-message:empty { display: none; }
+.settings-message .ant-alert { align-items: flex-start; flex-wrap: wrap; }
+.settings-message .ant-alert-actions { margin-top: 12px; }
+.settings-history { padding: 0; margin: 0 0 24px; list-style: none; }
+.settings-history li { padding: 20px 0; border-bottom: 1px solid #dce5e9; }
+.settings-history-title { display: flex; flex-wrap: wrap; gap: 12px 32px; align-items: baseline; }
+.settings-history-title a { font-size: 18px; font-weight: 700; }
+.settings-history-title time { color: #536a79; font-size: 14px; }
+.settings-history p { white-space: pre-wrap; max-width: none; margin: 8px 0; }
+.settings-version-meta { background: #f3f6f8; padding: 16px 20px; }
+.settings-version-meta p { font-size: 14px; margin: 4px 0; max-width: none; white-space: pre-wrap; }
+.settings-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 28px; margin: 20px 0; }
+.settings-facts dt { color: #536a79; font-size: 14px; margin-bottom: 6px; }
+.settings-facts dd { margin: 0; line-height: 1.8; }
+@media (max-width: 720px) { .settings-panel { padding: 20px; } .settings-heading { flex-direction: column; gap: 12px; } .settings-grid, .settings-facts { grid-template-columns: minmax(0, 1fr); } .settings-version-bar { padding: 12px; } }
 @media (max-width: 720px) { .welcome-panel { grid-template-columns: 1fr; } .welcome-copy, .welcome-aside { padding: 32px 24px; } .site-header { align-items: flex-start; flex-direction: column; } .page-content { margin-top: 28px; } .login-panel { padding: 24px; } }
+/* 任务工作台沿用现有蓝绿色；紧凑摘要、列表和时间线分别表达数量、当前任务和历史事实。 */
+.task-panel { padding: 28px; background: #fff; border: 1px solid #dce5e9; border-radius: 8px; min-width: 0; overflow-wrap: anywhere; }
+.task-panel h1 { font-size: 28px; margin-bottom: 8px; }
+.task-panel h2 { font-size: 21px; margin: 0; }
+.task-heading p { margin: 0 0 24px; }
+.task-summary { border-top: 1px solid #dce5e9; border-bottom: 1px solid #dce5e9; padding: 20px 0 12px; }
+.task-summary dl { display: flex; flex-wrap: wrap; gap: 20px 42px; margin: 0; }
+.task-summary dt { color: #536a79; font-size: 13px; }
+.task-summary dd { margin: 6px 0 0; font-size: 24px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.task-summary p, .task-hint { color: #536a79; font-size: 13px; line-height: 1.8; }
+.task-summary p { max-width: none; margin: 14px 0 0; }
+.task-views { display: flex; flex-wrap: wrap; gap: 10px 24px; margin: 28px 0 20px; border-bottom: 1px solid #dce5e9; }
+.task-views a { padding: 10px 2px; text-decoration: none; border-bottom: 3px solid transparent; }
+.task-views a[aria-current="page"] { font-weight: 700; border-color: #087e8b; }
+.task-filters { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 20px; }
+.task-filters .ant-select { width: 100%; }
+.task-filter-actions { align-self: start; padding-top: 30px; }
+.task-subline { color: #536a79; font-size: 13px; line-height: 1.8; margin-top: 5px; }
+.task-table .ant-table-cell { overflow-wrap: anywhere; }
+.task-detail-heading { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 24px 0; }
+.task-actions { margin: 0 0 24px; }
+.task-history { margin-top: 32px; }
+.task-history ol { list-style: none; padding: 0; margin: 0 0 24px; }
+.task-history li { border-left: 3px solid #dce5e9; padding: 0 0 20px 18px; margin-bottom: 12px; }
+.task-history-title { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.task-history-title time { color: #536a79; font-size: 13px; }
+.task-history p { font-size: 14px; margin: 6px 0 0; max-width: none; }
+.task-reason { white-space: pre-wrap; }
+.task-message { display: grid; gap: 16px; margin: 20px 0; }
+.task-message > button { justify-self: start; }
+@media (max-width: 720px) { .task-panel { padding: 20px; } .task-filters { grid-template-columns: minmax(0, 1fr); } .task-filter-actions { padding-top: 0; margin-bottom: 16px; } .task-summary dl { gap: 16px 30px; } .task-history li { padding-left: 12px; } }

@@ -19,3 +19,23 @@ type Assert<T extends true> = T;
 export type ProfileContract = Assert<Same<CustomerProfile, operations['getCustomerMe']['responses'][200]['content']['application/json']['data']>>;
 export type AvatarContract = Assert<Same<CustomerAvatarData, operations['removeCustomerAvatar']['responses'][200]['content']['application/json']['data']>>;
 export type FileContract = Assert<Same<FileMetadata, operations['getFileMetadata']['responses'][200]['content']['application/json']['data']>>;
+
+declare const settings: operations['updateStoreSettings']['requestBody']['content']['application/json'];
+void client.updateStoreSettings({ body: settings });
+void client.getStoreSettings();
+void client.listStoreSettingVersions({ query: { page: 2, pageSize: 10 } });
+void client.getStoreSettingVersion({ path: { id: 'id' } });
+void client.getStoreContact();
+// @ts-expect-error 设置严格boolean，不能用字符串替代。
+void client.updateStoreSettings({ body: { ...settings, freeShippingEnabled: 'false' } });
+// @ts-expect-error 期限输入必须为数字。
+void client.updateStoreSettings({ body: { ...settings, deadlines: { ...settings.deadlines, reviewWorkdays: '2' } } });
+// @ts-expect-error 完整替换必须提供完整地址。
+void client.updateStoreSettings({ body: { ...settings, returnAddress: { receiver: '收件人' } } });
+// @ts-expect-error 不允许提交服务端修改人字段。
+void client.updateStoreSettings({ body: { ...settings, createdByEmployeeId: 'id' } });
+// @ts-expect-error 设置历史详情必须提供路径ID。
+void client.getStoreSettingVersion({});
+type Contact = operations['getStoreContact']['responses'][200]['content']['application/json']['data'];
+export type ContactFields = Assert<Same<keyof Contact, 'configured' | 'servicePhone' | 'serviceHours' | 'settingsVersion'>>;
+export type ContactNullable = Assert<Same<Contact['servicePhone'], string | null>>;

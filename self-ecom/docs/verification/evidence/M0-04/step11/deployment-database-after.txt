@@ -1,0 +1,68 @@
+[
+  {
+    "Id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "Name": "/self-ecom-db-1",
+    "Image": "sha256:557fea37a744d5f4c8faab304b0a90858b53ab119735a88c131fd19dab802f36",
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 66963,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-11-12T10:13:54.461500349Z",
+      "FinishedAt": "2026-11-12T10:11:21.665118521Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-13T11:45:57.459017354Z",
+            "End": "2026-11-13T11:45:57.518219317Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:02.519743888Z",
+            "End": "2026-11-13T11:46:02.610737432Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:07.61244893Z",
+            "End": "2026-11-13T11:46:07.664916525Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:12.666603248Z",
+            "End": "2026-11-13T11:46:12.724900132Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:17.720950276Z",
+            "End": "2026-11-13T11:46:17.786760716Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          }
+        ]
+      }
+    },
+    "Mounts": [
+      {
+        "Type": "volume",
+        "Name": "self-ecom_db_data",
+        "Source": "/var/lib/docker/volumes/self-ecom_db_data/_data",
+        "Destination": "/var/lib/postgresql/data",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ]
+  }
+]

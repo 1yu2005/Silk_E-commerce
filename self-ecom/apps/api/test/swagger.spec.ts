@@ -31,7 +31,25 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
         expect(doc.openapi).toMatch(/^3\./);
         expect(doc).not.toHaveProperty('data');
         expect(doc.servers).toEqual([{ url: '/' }]);
-        expect(Object.keys(doc.paths).sort()).toEqual(['/api/v1/admin/auth/change-password', '/api/v1/admin/auth/login', '/api/v1/admin/employees', '/api/v1/admin/employees/{id}', '/api/v1/admin/employees/{id}/change-role', '/api/v1/admin/employees/{id}/disable', '/api/v1/admin/employees/{id}/enable', '/api/v1/admin/employees/{id}/extra-permissions', '/api/v1/admin/employees/{id}/profile', '/api/v1/admin/employees/{id}/reset-password', '/api/v1/admin/me', '/api/v1/admin/me/permissions', '/api/v1/admin/permissions', '/api/v1/auth/logout', '/api/v1/files', '/api/v1/files/{id}', '/api/v1/files/{id}/content', '/api/v1/health/live', '/api/v1/health/ready', '/api/v1/store/auth/change-password', '/api/v1/store/auth/login', '/api/v1/store/auth/register', '/api/v1/store/me', '/api/v1/store/me/avatar']);
+        expect(Object.keys(doc.paths).sort()).toEqual(['/api/v1/admin/auth/change-password', '/api/v1/admin/auth/login', '/api/v1/admin/employees', '/api/v1/admin/employees/{id}', '/api/v1/admin/employees/{id}/change-role', '/api/v1/admin/employees/{id}/disable', '/api/v1/admin/employees/{id}/enable', '/api/v1/admin/employees/{id}/extra-permissions', '/api/v1/admin/employees/{id}/profile', '/api/v1/admin/employees/{id}/reset-password', '/api/v1/admin/me', '/api/v1/admin/me/permissions', '/api/v1/admin/permissions', '/api/v1/admin/settings', '/api/v1/admin/settings/versions', '/api/v1/admin/settings/versions/{id}', '/api/v1/admin/tasks', '/api/v1/admin/tasks/summary', '/api/v1/admin/tasks/{id}', '/api/v1/admin/tasks/{id}/claim', '/api/v1/admin/tasks/{id}/extend-deadline', '/api/v1/admin/tasks/{id}/history', '/api/v1/admin/tasks/{id}/release', '/api/v1/admin/tasks/{id}/transfer', '/api/v1/auth/logout', '/api/v1/files', '/api/v1/files/{id}', '/api/v1/files/{id}/content', '/api/v1/health/live', '/api/v1/health/ready', '/api/v1/store/auth/change-password', '/api/v1/store/auth/login', '/api/v1/store/auth/register', '/api/v1/store/contact', '/api/v1/store/me', '/api/v1/store/me/avatar']);
+        const settings = doc.paths['/api/v1/admin/settings']!;
+        for (const operation of [settings.get!, settings.put!, doc.paths['/api/v1/admin/settings/versions']!.get!,
+          doc.paths['/api/v1/admin/settings/versions/{id}']!.get!]) {
+          expect(operation.security).toEqual([{ bearerAuth: [] }]);
+          for (const status of ['200', '401', '403']) expect(operation.responses).toHaveProperty(status);
+        }
+        expect(settings.put!.requestBody).toMatchObject({ required: true, content: { 'application/json': { schema: {
+          additionalProperties: false, required: ['expectedVersion', 'reason', 'shippingFeeCents', 'freeShippingEnabled',
+            'freeShippingThresholdCents', 'returnAddress', 'serviceContact', 'deadlines'], properties: {
+            shippingFeeCents: { type: 'integer', minimum: 0, maximum: 1000000 }, freeShippingEnabled: { type: 'boolean' },
+            returnAddress: { additionalProperties: false, required: ['receiver', 'phone', 'province', 'city', 'district', 'detail'] },
+            deadlines: { additionalProperties: false, properties: { reviewWorkdays: { type: 'integer', minimum: 1, maximum: 30 } } },
+          } } } } });
+        expect(JSON.stringify(settings.put!.responses['409'])).toContain('VERSION_CONFLICT');
+        const contact = doc.paths['/api/v1/store/contact']!.get!;
+        expect(contact.security ?? []).toEqual([]); expect(contact.operationId).toBe('getStoreContact');
+        expect(JSON.stringify(contact.responses['200'])).not.toMatch(/returnAddress|reason|createdByEmployeeId|deadlines|shippingFee/);
+        expect(JSON.stringify(contact.responses['200'])).toContain('servicePhone');
         const live = doc.paths['/api/v1/health/live']!.get!;
         const ready = doc.paths['/api/v1/health/ready']!.get!;
         expect(live.operationId).toBe('getLiveness');

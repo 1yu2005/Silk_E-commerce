@@ -1,0 +1,547 @@
+{
+  "checkedAt": "2026-11-13T07:13:15.817Z",
+  "isolatedDatabase": "settings_ui_d282b30be14942a2a3729f00682a575c_test",
+  "checks": [
+    "商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403",
+    "表单金额和期限单位、必填与小数边界验证失败不发写请求",
+    "真实首次保存整数分与完整配置，提交中防重复，生成版本与审计",
+    "商城已配置电话可拨打，匿名和登录顾客公共请求均无令牌且不泄露内部地址",
+    "相同配置保存明确未变化，不新增历史且修改原因清空",
+    "两份真实表单产生409，旧表单禁止重发，读取新版后重新填写才能保存",
+    "历史分页与完整旧版详情显示元分和期限单位，详情返回保留页码且不存在版本真实404",
+    "公开联系读取失败与重试保留顾客登录，不以维护空态掩盖请求失败",
+    "服务器已保存但网络失败时不重发，读取真实新版本后方可继续",
+    "设置读取失败可重试，真实权限变化403后隐藏表单且不重放写入",
+    "无浏览器异常、无敏感资料持久化、公开联系均不带令牌"
+  ],
+  "requests": [
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "937bbfd0-e39c-43d0-ab94-b031adc27ab8",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "7aaa7284-daca-4a1b-97a6-13f70ab532c7",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "03e292ae-9e9c-4ac1-85d9-797da81060fa",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3a2ccab9-0e84-442b-986c-5006334ecd8f",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7e2b19d5-f29f-4a9c-ab98-13cc27afb9dc",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "27f34069-e70e-4639-86e8-6c09aa4fdf46",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "884117f0-ed2a-41dd-949d-d152109617c1",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "b15f17da-d626-4998-b69a-aa01c12ac078",
+      "bearerAttached": false
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "1ef7e389-2c97-4a80-b59d-0203f29668af",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2be6f7b9-127c-40e4-b59f-8227c4c740e0",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bc8f3cef-02fe-4d17-a38b-24d8529c33cd",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e20ef86f-fcd7-469b-b036-b0fe4984af5c",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "fdade8aa-52d6-4cd8-812a-ca4de0ac5caa",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b2c130f5-707f-482b-8d36-028a25f7ef44",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "25301ab7-a848-407a-9c84-a59bb0af8f65",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "25c31932-3289-410a-a0e5-7a83765e0f04",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "aeadedc8-5d16-436f-bcbe-538c275a6a46",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "640f5470-bf93-409c-9e74-5b75f554a797",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "acf12e4b-df98-4a5f-a934-0048f523fbe2",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7b842790-ea15-4667-82a2-26c93f7268c9",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2d04ea3d-5200-4b0e-b171-4655099cc408",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "856024dd-4f93-4bfb-8d41-b5df54bd1c3c",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "e89487a5-b655-4f97-aa74-6b3f7cdff4bc",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7b3e138e-06a8-4298-bccf-50da91f6739b",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "c5cae872-2377-46f0-8cc3-913b549f3cbe",
+      "bearerAttached": false
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "025801f6-5ac2-40c6-96c0-8edc26ceab50",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "38dda360-6fd9-4330-9cc0-40a16456ed84",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "42324de4-86cf-4156-8ca9-8315f2133077",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bf04c285-cd38-4700-b3d7-b9085a2fd3f9",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "848f1695-226a-4a9b-8eba-6a62d5b70c5b",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "bbff5806-2a2f-4c44-b1a5-9c792891cbf6",
+      "bearerAttached": true
+    },
+    {
+      "surface": "second-admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b376a886-0250-4cd1-8b96-3e23711b2854",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 409,
+      "requestId": "80aabcb8-6b86-497e-bfa8-391a06716c9f",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "da6a50cf-e9f2-4c70-835f-5c227666700b",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "3d3e8ffb-2f38-4703-9d46-27075631e849",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5caf9755-a8de-4179-ba44-aba7eb1d1074",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e35327db-109e-4498-9786-d9160fe3ed8f",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "6dc9a1a8-fd4a-4403-ad00-aa348caf6ae5",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "31b42dbe-d2da-4a93-b0ab-e5e1e34d5b51",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "1c3cb076-9321-498a-a351-75d106c94265",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2854d291-2af8-4008-a47d-5b6bcb0061e0",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "015605ed-4aef-4269-80d1-61f89ec45a10",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions/759a1d91-05e2-48ce-bdbd-2b54d6bdd933",
+      "method": "GET",
+      "status": 200,
+      "requestId": "296ec32c-1326-4929-8e01-61b4e4e72be6",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9f9c2801-aa45-4c36-ba8e-91441423de78",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7fef39ba-b907-41e0-87b6-3a80e4aa012f",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "92ee392b-d72d-449a-b59c-74a471dbbd3d",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions/3a7f7f87-4fbb-460f-8ff0-e582a314769b",
+      "method": "GET",
+      "status": 404,
+      "requestId": "f86cf361-e369-4232-9d23-586578500a56",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 401,
+      "requestId": null,
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8fee4b26-c07a-4b2d-8e1c-b4315b0b7508",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "38de654f-1f31-4149-bd7d-c2bf18999bdb",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4a5eb66b-65a3-4347-8ef5-422a56ed25a1",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "89a19aa9-8e1b-4dfb-a323-2db7d1977eea",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a2d2b723-fe21-478e-9dc2-666ff4bef95f",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e8735d3f-194f-4a83-a16f-1e36f017acbd",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b8075223-cbbc-4038-84a6-013452254586",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "1cb681db-6735-4368-adb9-358221a12187",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 500,
+      "requestId": null,
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "588fbca4-d181-495e-a702-2331cc858924",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 403,
+      "requestId": "649635ba-8bbf-4b01-8216-7d1765f98579",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "717d2d66-704c-4b41-8d67-babfaf46ee43",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "927d6037-60c8-4a36-9845-6121d0b8ccdb",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/auth/logout",
+      "method": "POST",
+      "status": 200,
+      "requestId": "20b48b30-c614-4d45-a1e6-f62e925ac295",
+      "bearerAttached": true
+    }
+  ],
+  "writeAttempts": [
+    {
+      "surface": "admin"
+    },
+    {
+      "surface": "admin"
+    },
+    {
+      "surface": "second-admin"
+    },
+    {
+      "surface": "admin"
+    },
+    {
+      "surface": "admin"
+    },
+    {
+      "surface": "admin"
+    },
+    {
+      "surface": "admin"
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [
+    "公开联系GET401，仅验证错误交互与会话保持",
+    "PUT先真实提交成功再abort浏览器响应，验证不确定结果处理",
+    "后台当前设置GET500，仅验证错误显示和手动重试"
+  ],
+  "browser": "145.0.7632.6",
+  "passed": true,
+  "databaseRemoved": true
+}

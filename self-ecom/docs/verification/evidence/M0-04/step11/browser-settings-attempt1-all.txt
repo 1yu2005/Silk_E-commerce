@@ -1,0 +1,12 @@
+{"checkpoint":"商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403","status":"passed"}
+{"checkpoint":"表单金额和期限单位、必填与小数边界验证失败不发写请求","status":"passed"}
+{"checkpoint":"真实首次保存整数分与完整配置，提交中防重复，生成版本与审计","status":"passed"}
+{"checkpoint":"商城已配置电话可拨打，匿名和登录顾客公共请求均无令牌且不泄露内部地址","status":"passed"}
+{"checkpoint":"相同配置保存明确未变化，不新增历史且修改原因清空","status":"passed"}
+{"checkpoint":"两份真实表单产生409，旧表单禁止重发，读取新版后重新填写才能保存","status":"passed"}
+{"checkpoint":"历史分页与完整旧版详情显示元分和期限单位，详情返回保留页码且不存在版本真实404","status":"passed"}
+{"checkpoint":"公开联系读取失败与重试保留顾客登录，不以维护空态掩盖请求失败","status":"passed"}
+{"checkpoint":"服务器已保存但网络失败时不重发，读取真实新版本后方可继续","status":"passed"}
+{"checkpoint":"设置读取失败可重试，真实权限变化403后隐藏表单且不重放写入","status":"passed"}
+{"checkpoint":"无浏览器异常、无敏感资料持久化、公开联系均不带令牌","status":"passed"}
+{"passed":true,"checks":11,"pageErrors":0,"databaseRemoved":true,"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step11\\browser-settings-attempt1"}

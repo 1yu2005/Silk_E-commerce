@@ -1,0 +1,161 @@
+{
+  "checkedAt": "2026-11-13T11:46:20.978Z",
+  "passed": true,
+  "acceptance": "output/playwright/M0-04-step11/docker-attempt1/result.json",
+  "images": [
+    {
+      "service": "api",
+      "verified": "self-ecom-m004-acceptance-73650ee0-api:local",
+      "deployed": "self-ecom-api:local",
+      "digest": "sha256:dc678421a5f4a6bba4af7989bd8348efc5d06926c15cd5e3502d9e7579bbd474"
+    },
+    {
+      "service": "admin-web",
+      "verified": "self-ecom-m004-acceptance-73650ee0-admin:local",
+      "deployed": "self-ecom-admin-web:local",
+      "digest": "sha256:dd4300f0b9a24b32e0a8d169347acf8dd9191c701e65c36f0d2e296d1ef2f0ba"
+    },
+    {
+      "service": "store-web",
+      "verified": "self-ecom-m004-acceptance-73650ee0-store:local",
+      "deployed": "self-ecom-store-web:local",
+      "digest": "sha256:6d571f905c0ee8d61f45ede55caf4c62864996e44b4f984e82ebed55fe7441c2"
+    }
+  ],
+  "endpoints": [
+    {
+      "port": 3001,
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "requestId": "20c3907f-e0bd-4c1b-9cd7-3e6f7e66d86c"
+    },
+    {
+      "port": 3001,
+      "path": "/api/docs-json",
+      "status": 200,
+      "requestId": "e398a53d-b7ba-47a2-a8f0-335b37d0a042",
+      "operations": 40
+    },
+    {
+      "port": 8080,
+      "path": "/tasks",
+      "status": 200,
+      "requestId": null
+    },
+    {
+      "port": 8080,
+      "path": "/settings",
+      "status": 200,
+      "requestId": null
+    },
+    {
+      "port": 8081,
+      "path": "/",
+      "status": 200,
+      "requestId": null
+    },
+    {
+      "port": 8081,
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "f399f17b-7e0c-4911-b7f5-3ae3e0dadb00",
+      "data": {
+        "configured": false,
+        "servicePhone": null,
+        "serviceHours": null,
+        "settingsVersion": 0
+      }
+    }
+  ],
+  "containers": [
+    {
+      "name": "/self-ecom-db-1",
+      "image": "sha256:557fea37a744d5f4c8faab304b0a90858b53ab119735a88c131fd19dab802f36",
+      "running": true,
+      "health": "healthy"
+    },
+    {
+      "name": "/self-ecom-api-1",
+      "image": "sha256:dc678421a5f4a6bba4af7989bd8348efc5d06926c15cd5e3502d9e7579bbd474",
+      "running": true,
+      "health": "healthy"
+    },
+    {
+      "name": "/self-ecom-admin-web-1",
+      "image": "sha256:dd4300f0b9a24b32e0a8d169347acf8dd9191c701e65c36f0d2e296d1ef2f0ba",
+      "running": true,
+      "health": "healthy"
+    },
+    {
+      "name": "/self-ecom-store-web-1",
+      "image": "sha256:6d571f905c0ee8d61f45ede55caf4c62864996e44b4f984e82ebed55fe7441c2",
+      "running": true,
+      "health": "healthy"
+    }
+  ],
+  "commands": [
+    {
+      "name": "configuration",
+      "exitCode": 0
+    },
+    {
+      "name": "database-before",
+      "exitCode": 0
+    },
+    {
+      "name": "tag-api",
+      "exitCode": 0
+    },
+    {
+      "name": "image-api",
+      "exitCode": 0
+    },
+    {
+      "name": "tag-check-api",
+      "exitCode": 0
+    },
+    {
+      "name": "tag-admin-web",
+      "exitCode": 0
+    },
+    {
+      "name": "image-admin-web",
+      "exitCode": 0
+    },
+    {
+      "name": "tag-check-admin-web",
+      "exitCode": 0
+    },
+    {
+      "name": "tag-store-web",
+      "exitCode": 0
+    },
+    {
+      "name": "image-store-web",
+      "exitCode": 0
+    },
+    {
+      "name": "tag-check-store-web",
+      "exitCode": 0
+    },
+    {
+      "name": "migration-status",
+      "exitCode": 0
+    },
+    {
+      "name": "start-applications",
+      "exitCode": 0
+    },
+    {
+      "name": "database-after",
+      "exitCode": 0
+    },
+    {
+      "name": "containers",
+      "exitCode": 0
+    }
+  ],
+  "databaseContainerUnchanged": true,
+  "databaseVolumePreserved": true,
+  "noSeedsOrBusinessWrites": true
+}

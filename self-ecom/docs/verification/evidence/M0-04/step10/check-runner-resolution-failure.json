@@ -1,0 +1,7 @@
+{
+  "status": "failed-before-checks",
+  "commands": ["admin-types attempt1", "api-types attempt1"],
+  "exitCode": 1,
+  "cause": "检查计划提前解析未导出的vitest/vitest.mjs子路径，触发ERR_PACKAGE_PATH_NOT_EXPORTED；类型检查尚未开始",
+  "resolution": "沿用既有脚本，从vitest/package.json解析实际CLI文件路径"
+}

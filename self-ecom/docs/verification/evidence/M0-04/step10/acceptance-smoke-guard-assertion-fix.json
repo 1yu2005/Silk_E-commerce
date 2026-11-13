@@ -1,0 +1,91 @@
+{
+  "checkedAt": "2026-11-13T10:11:45.837Z",
+  "checks": [
+    "隔离启动保护",
+    "3001端口真实启动及40操作Swagger",
+    "四类夹具真实建立及岗位范围",
+    "真实领取释放和阻塞拒绝"
+  ],
+  "requests": [
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "c033182b-c624-4038-af6f-67c94f3c0fb2"
+    },
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "ec420449-4f10-4445-8ecd-08db70206abb"
+    },
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "c950b061-e942-4df0-a144-27d4f2ff296a"
+    },
+    {
+      "path": "/admin/tasks?view=pool",
+      "method": "GET",
+      "status": 200,
+      "requestId": "6c72fe9d-8fda-48ee-831e-2c1f4f207dce"
+    },
+    {
+      "path": "/admin/tasks?view=mine",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5d30d8fe-b100-43bf-bd20-08533a39ccd4"
+    },
+    {
+      "path": "/admin/tasks/1468e483-9c4e-4168-bde1-c4db13f3c9dd",
+      "method": "GET",
+      "status": 404,
+      "requestId": "d793533d-20af-486c-a859-5d8f9088c234",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks?view=reassign",
+      "method": "GET",
+      "status": 403,
+      "requestId": "eb908c77-8fa7-49b3-bc19-5c5c5ebcc846",
+      "code": "FORBIDDEN"
+    },
+    {
+      "path": "/admin/tasks/1468e483-9c4e-4168-bde1-c4db13f3c9dd/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "243be895-4846-4066-a246-a274fdd7a5d6"
+    },
+    {
+      "path": "/admin/tasks/1468e483-9c4e-4168-bde1-c4db13f3c9dd/release",
+      "method": "POST",
+      "status": 200,
+      "requestId": "f42679ca-c1ce-4d45-bade-4a8f3f696274"
+    },
+    {
+      "path": "/admin/tasks/50dcd8e5-aa4c-4607-b5f9-b6bfcecf8715/release",
+      "method": "POST",
+      "status": 409,
+      "requestId": "2220c85a-1934-4672-81b0-3e2ad2bb907d",
+      "code": "TASK_RELEASE_BLOCKED"
+    },
+    {
+      "path": "/admin/employees/91aa7c29-ee84-4db1-b419-f127b6cd96ce/extra-permissions",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "6e2783f7-1798-4f9d-a298-ce092b00aa49"
+    },
+    {
+      "path": "/admin/tasks?view=reassign",
+      "method": "GET",
+      "status": 200,
+      "requestId": "536dbf9b-f33d-4f51-ac62-28dc492f9a0d"
+    }
+  ],
+  "failure": {
+    "scenario": "真实撤销个人资格同事务回池",
+    "message": "Expected values to be strictly equal:\n\n0 !== 1\n"
+  },
+  "databaseRemoved": true
+}

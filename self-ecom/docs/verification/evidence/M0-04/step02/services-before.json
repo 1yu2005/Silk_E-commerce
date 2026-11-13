@@ -1,0 +1,56 @@
+{
+  "checkedAt": "2026-11-13T06:20:55.609Z",
+  "checks": [
+    {
+      "port": 3000,
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "requestId": "65493121-b8c9-414a-9918-111e7ddf54fe"
+    },
+    {
+      "port": 3000,
+      "path": "/api/docs-json",
+      "status": 200,
+      "requestId": "537244fe-90ad-4a3b-9a2e-b6f973550f39",
+      "operations": 27
+    },
+    {
+      "port": 5173,
+      "path": "/",
+      "status": 200,
+      "requestId": null
+    },
+    {
+      "port": 5174,
+      "path": "/",
+      "status": 200,
+      "requestId": null
+    }
+  ],
+  "containers": [
+    {
+      "name": "/self-ecom-store-web-1",
+      "service": "store-web",
+      "state": "exited",
+      "status": "Exited (0) About an hour ago"
+    },
+    {
+      "name": "/self-ecom-admin-web-1",
+      "service": "admin-web",
+      "state": "exited",
+      "status": "Exited (0) About an hour ago"
+    },
+    {
+      "name": "/self-ecom-api-1",
+      "service": "api",
+      "state": "exited",
+      "status": "Exited (143) About an hour ago"
+    },
+    {
+      "name": "/self-ecom-db-1",
+      "service": "db",
+      "state": "running",
+      "status": "Up 20 hours (healthy)"
+    }
+  ]
+}

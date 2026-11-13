@@ -1,0 +1,186 @@
+{
+  "checkedAt": "2026-11-13T07:11:30.191Z",
+  "isolatedDatabase": "settings_ui_428242a101a443e3abd105f69d7aac59_test",
+  "checks": [
+    "商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403",
+    "表单金额和期限单位、必填与小数边界验证失败不发写请求",
+    "真实首次保存整数分与完整配置，提交中防重复，生成版本与审计"
+  ],
+  "requests": [
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9839c0d2-fd84-4fc6-a0e3-b8fed1850b54",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "fec0fca4-62cd-4bcb-a2d0-3c80a75c247e",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "96d111dd-eea7-4c1d-b693-b7bbaf45c9aa",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "93b240ee-7e0a-4b9c-8c3f-184b7d238b5a",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e6319f8c-97d0-47bd-8f33-05a61a122dee",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c300d4fa-08f5-43f3-bca0-cd092ade2fbe",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "42d200c4-07b9-457f-83e9-6aa2204020a8",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "62dff93b-5624-4a89-bb09-2fbc671301d0",
+      "bearerAttached": false
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "70785eac-8373-47e5-b999-7f1565355a46",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7980f3bd-3613-4c22-b25c-b3c8adc51e4e",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d0d6d7d2-3296-48d3-8bda-5d7d3fdfcd1d",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "473373ef-213f-4ca8-aa13-37246a5ad7de",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "90ade894-c8c8-4e76-9bab-aae849ec8e28",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9578f4a4-051d-4854-9d97-4948adeed315",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "87644a9b-ba4b-4b64-bc6c-b57afca2a8ab",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "145434cd-d107-4f3c-ba0e-efa93733a4d7",
+      "bearerAttached": true
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "edae4bdb-df7c-4805-968b-29c4bad7ac3f",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b19cc883-cd79-401a-91d0-77fcdad3c6f0",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "ce4130b7-07b8-4cdd-9cb6-86f59140b402",
+      "bearerAttached": false
+    },
+    {
+      "surface": "store",
+      "path": "/api/v1/store/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "19ccd854-0b3f-4ab9-b59c-b3ee8a8b7622",
+      "bearerAttached": true
+    }
+  ],
+  "writeAttempts": [
+    {
+      "surface": "admin"
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [],
+  "browser": "145.0.7632.6",
+  "failure": {
+    "scenario": "商城已配置电话可拨打，匿名和登录顾客公共请求均无令牌且不泄露内部地址",
+    "error": "TimeoutError",
+    "message": "page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"http://127.0.0.1:63989/\" until \"load\"\n  navigated to \"http://127.0.0.1:63989/account\"\n============================================================",
+    "sourceLine": "at login (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-settings-browser.mjs:87:80)"
+  },
+  "databaseRemoved": true
+}

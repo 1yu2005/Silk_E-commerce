@@ -1,7 +1,6 @@
 # 文件作用：构建含 Prisma 与显式运维命令的 API 镜像，并以非 root 用户运行。
 FROM node:24.18.0-bookworm-slim AS base
-RUN apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
+RUN --mount=type=cache,target=/var/lib/apt/lists apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates \
     && npm install --global pnpm@11.25.0
 WORKDIR /app
 

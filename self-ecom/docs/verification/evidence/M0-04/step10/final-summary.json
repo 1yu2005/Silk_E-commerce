@@ -1,0 +1,117 @@
+{
+  "checkedAt": "2026-11-13T11:23:00.611Z",
+  "scope": "合并步骤10：任务页面与独立隔离验收",
+  "passed": true,
+  "checks": [
+    {
+      "path": "docs/verification/evidence/M0-04/step10/api-types-attempt1.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/admin-types-button-disabled-final.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/admin-build-attempt1.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/acceptance-build-permission-dependencies-fix.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/contracts-attempt1.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/lint-evidence-final.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/unit-error-constructor-fix.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/acceptance-cli-attempt1.json",
+      "exitCode": 0
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step10/acceptance-page-cli-attempt1.json",
+      "exitCode": 0
+    }
+  ],
+  "ordinaryTests": {
+    "distinct": 44,
+    "firstRunPassed": 40,
+    "repairedFailures": 4,
+    "targetedActualCases": 5,
+    "targetedFileShellsExcluded": 3,
+    "finalWholeSuiteRerun": false
+  },
+  "browser": {
+    "distinct": 17,
+    "finalWholeSuiteRerun": false,
+    "groups": [
+      {
+        "group": "core",
+        "count": 6,
+        "path": "output/playwright/M0-04-step10/pending-button-fix/result.json"
+      },
+      {
+        "group": "deadline",
+        "count": 3,
+        "path": "output/playwright/M0-04-step10/targeted-selectors/result.json"
+      },
+      {
+        "group": "scope",
+        "count": 4,
+        "path": "output/playwright/M0-04-step10/targeted-selectors/result.json"
+      },
+      {
+        "group": "resilience",
+        "count": 3,
+        "path": "output/playwright/M0-04-step10/installed-browser/result.json"
+      },
+      {
+        "group": "empty",
+        "count": 1,
+        "path": "output/playwright/M0-04-step10/installed-browser/result.json"
+      }
+    ]
+  },
+  "httpSmokeChecks": 7,
+  "temporaryDatabasesRemaining": 0,
+  "development": {
+    "originalTablesUnchanged": 12,
+    "schedulerRunsAtFinal": 78,
+    "normalSchedulerRunIncrease": 43
+  },
+  "protection": {
+    "baselineFiles": 1201,
+    "authorizedChanges": [
+      "docs/design/M0-04.md",
+      "docs/verification/M0-04.md",
+      "apps/admin-web/package.json",
+      "apps/admin-web/src/app/AppLayout.tsx",
+      "apps/admin-web/src/app/router.tsx",
+      "apps/admin-web/src/services/api.ts",
+      "apps/admin-web/src/styles.css",
+      "apps/api/package.json"
+    ],
+    "realEnvironmentProtected": true,
+    "productionBackendProtected": true,
+    "migrationsProtected": true,
+    "contractsProtected": true
+  },
+  "notRun": [
+    "全工程回归",
+    "四服务Docker部署",
+    "人工逐条Swagger",
+    "整板块验收"
+  ],
+  "deferred": [
+    "SW-L真实领域补验",
+    "真实服装订单/库存/售后及BR-05业务闭环"
+  ],
+  "nextStep": "11：全量回归与Docker收尾，等待用户执行"
+}

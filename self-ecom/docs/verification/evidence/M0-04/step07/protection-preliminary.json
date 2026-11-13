@@ -1,0 +1,5358 @@
+{
+  "checkedAt": "2026-11-13T08:44:34.870Z",
+  "headUnchanged": true,
+  "branchUnchanged": true,
+  "stagedUnchanged": true,
+  "diffCheckPassed": true,
+  "previousContractRestoredShaMatches": true,
+  "oldOperations": 38,
+  "currentOperations": 39,
+  "protectedFiles": [
+    {
+      "path": "apps/admin-web/src/pages/SettingsHistoryPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/SettingsVersionPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/StoreSettingsPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/settings/SettingsForm.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/settings/SettingsGuard.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/settings/SettingsQueryState.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/settings/SettingsSnapshot.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/settings/model.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/settings.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/verify-settings-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/0004_store_settings_tasks_deadlines/migration.sql",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/time/clock.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/time/deadline.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/time/time.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/settings/store-settings.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/settings/store-settings.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/settings/store-settings.errors.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/settings/store-settings.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/settings/store-settings.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/settings/store-settings.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/tasks/task-access.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/task-business-adapters.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/task-command.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/task-entry.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/tasks/task-lock.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/task-query.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/tasks/task-stage.catalog.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/tasks/task.dto.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/task.errors.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/tasks.controller.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/tasks.module.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/tasks/tasks.openapi.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/fixtures/task-access-business.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/fixtures/task-entry-business.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/fixtures/task-schema.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/settings-audit.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/settings.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/task-access.integration.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/task-access.spec.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/task-entry.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/task-stage.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/tasks-migration.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/tasks-schema.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/time.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/contact/StoreContact.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/design/M0-04.md",
+      "unchanged": true,
+      "authorizedChange": true
+    },
+    {
+      "path": "docs/verification/M0-04.md",
+      "unchanged": true,
+      "authorizedChange": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/time-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/development-deploy.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/development-diff.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/development-migration.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/development-status.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/diff-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/diff-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/diff-test-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/diff-test-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/format-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/format-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/generate-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/generate-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/integration-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/integration-outside-sandbox.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/integration-outside-sandbox.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/integration-schema-fixture-fix.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/integration-schema-fixture-fix.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-final2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-final2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-final3.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/lint-final3.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/null-check-fixed.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/null-check-original.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/probe-null.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/run-check.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/schema-before.prisma",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/service-snapshot.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/services-after.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/services-before.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/sync-development.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/typecheck-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/typecheck-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/typecheck-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/validate-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/validate-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/verify-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/capture-baseline.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/client-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/client-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/client-build-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/client-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/client-typecheck-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/client-typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/compiled-smoke.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/compiled-smoke.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/contracts-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/contracts-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/development-readonly.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/drift-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/drift-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/export-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/export-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/generate-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/generate-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/generate-fix1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/generate-fix1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/generator-loader.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/inspect-development.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/integration-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-final2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-final2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-final3.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-final3.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-fix1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/lint-fix1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/run-check.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/settings-only-lock-chain-fix.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/settings-only-lock-chain-fix.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/settings-only-lock-diagnostic.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/settings-only-lock-diagnostic.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/typecheck-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/typecheck-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/typecheck-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/typecheck-fix1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/typecheck-fix1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/unit-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/unit-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step03/verify-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-build-browser-prep.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-build-browser-prep.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-build-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-build-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-test-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-test-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-type-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-type-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-type-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/admin-type-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/api-build-browser-prep.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/api-build-browser-prep.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-customer-route-fix.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-customer-route-fix.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-initial-values-fix.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-initial-values-fix.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-submit-disabled-fix.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/browser-submit-disabled-fix.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/capture-baseline.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/development-readonly.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/inspect-development.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-browser-prep.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-browser-prep.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-fix-browser-globals.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/lint-fix-browser-globals.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/protection-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/run-check.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/store-build-browser-prep.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/store-build-browser-prep.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/store-test-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/store-test-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/store-type-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/store-type-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step04/verify-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/build-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/capture-baseline.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/compiled-smoke.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/compiled-smoke.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/development-readonly.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/inspect-development.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/integration-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/integration-clock-login-fix.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/integration-clock-login-fix.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/lint-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/lint-attempt2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/lint-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/lint-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/protection-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/run-check.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/typecheck-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/typecheck-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/typecheck-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/unit-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/unit-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step05/verify-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/capture-baseline.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-build-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-test-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-test-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-typecheck-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-types-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/client-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/compiled-smoke.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/compiled-smoke.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/contracts-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/contracts-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/development-readonly-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/development-readonly-initial.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/entry-integration-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/entry-integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/export-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/export-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/generate-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/generate-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/inspect-development.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/integration-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/lint-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/lint-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/protection-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/run-check.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-source1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-source1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-source2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-source2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-tests1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/typecheck-tests1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/unit-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/unit-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step06/verify-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/contact-empty-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/failure-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/failure-ordinary.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/failure-second-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/failure-store.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/attempt1/settings-unconfigured.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/contact-configured-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/contact-empty-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/settings-conflict.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/settings-final-desktop.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/settings-form-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/settings-saved-desktop.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/settings-unconfigured.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/customer-route-fix/settings-version-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/contact-empty-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/failure-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/failure-ordinary.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/failure-second-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/failure-store.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/settings-form-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/initial-values-fix/settings-unconfigured.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/contact-empty-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/failure-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/failure-ordinary.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/failure-second-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/failure-store.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/settings-form-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/settings-saved-desktop.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-04-step04/submit-disabled-fix/settings-unconfigured.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/settings-client.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/tasks-client.test.mjs",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "packages/api-client/test/tasks-types.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": ".dockerignore",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": ".env.example",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": ".gitignore",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": ".node-version",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": ".npmrc",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "README.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/index.html",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/app/AppLayout.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/app/router.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/auth/AuthError.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/auth/AuthRoutes.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/auth/controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/auth/use-employee-auth.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/EmployeeCreateGuard.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/EmployeeManagement.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/EmployeeReadGuard.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/QueryState.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/create.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/management.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/query-controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/query.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/employees/use-employee-query.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/main.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/ChangePasswordPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/EmployeeCreatePage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/EmployeeDetailPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/EmployeeListPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/HomePage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/LoginPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/pages/NotFoundPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/services/api.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/src/styles.css",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/auth-controller.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/employee-create.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/employee-management.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/employee-query.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/verify-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/verify-employee-create-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/verify-employee-management-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/test/verify-employees-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/tsconfig.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/admin-web/vite.config.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/nest-cli.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma.config.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/0003_files_communication_history/migration.sql",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/migration_lock.toml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/database-env.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/database.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/password-benchmark.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/seed-admin.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/scripts/seed-permissions.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/app.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/audit/audit.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/audit/audit.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/auth/access-denied.error.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-guard.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-http-errors.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-policy.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-request-context.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-session.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-session.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth-transaction.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/auth.decorators.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/change-password.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/current-identity.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-auth.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-auth.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-auth.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-auth.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-avatar.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-avatar.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-avatar.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-login-rate.guard.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-login.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-password.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-profile.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-profile.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-register.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-register.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-register.error.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-register.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-register.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-register.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/customer-summary.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/employee-auth.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/employee-auth.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/employee-auth.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/employee-auth.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/employee-login.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/employee-password.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/initial-admin-seed.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/jwt-token.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/jwt-token.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/login-rate-limiter.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/login-rate.guard.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/login-support.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/logout-token.guard.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/logout.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/logout.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/logout.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/password.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/permission.guard.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/registration-rate.guard.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/session-auth.guard.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/auth/session-support.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/command-fingerprint.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/configure-app.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/api-exception.filter.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/api-response.interceptor.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/database-not-ready.exception.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/dto-transforms.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/dto-validation.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/pagination.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/http/request-context.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/logging.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/common/swagger.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/config/config.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/config/environment.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/config/jwt-configuration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-command.errors.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-create.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-create.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-create.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-create.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-create.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-eligibility.module.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-eligibility.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.controller.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-password-reset.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-password-reset.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-password-reset.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-password-reset.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-password-reset.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-profile.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-profile.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-profile.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-profile.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-profile.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-query.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-query.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-query.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-query.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-query.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.controller.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.controller.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.dto.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.service.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/src/files/busboy.d.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-access.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-binding.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-business-adapters.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-cleanup.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-configuration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-policy.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file-storage.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/file.errors.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/files.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/files.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/files.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/files.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/image-codec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/files/multipart-upload.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/health/health.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/health/health.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/health/health.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/main.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission-catalog.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission-query.controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission-query.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission-query.openapi.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission-seed.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/permissions/permission.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/prisma/prisma.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/prisma/prisma.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/records/business-record-adapters.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/records/communication-files.adapter.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/records/communication.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/records/record-support.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/records/records.module.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/src/records/state-history.service.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/audit-records.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/audit.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/auth-guard.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/auth-guard.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/auth-schema.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/auth-session.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/auth-session.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/auth-transaction.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/bootstrap.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/command-fingerprint.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/customer-auth.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/customer-avatar.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/customer-profile-password.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/customer-register.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/database-safety.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/database.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-auth.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-create.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-extra-permission.integration.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/employee-password-reset.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-password.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-profile.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-query.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/employee-role.integration.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/employee-status.integration.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/environment.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/files-migration.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/files-schema.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/files.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/files.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/fixtures/auth-guard.controllers.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/initial-admin-config.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/initial-admin-seed.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/jwt-configuration.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/jwt-token.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/logging.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/login-rate-limiter.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/logout.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/password.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/permission-seed.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/permissions.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/records.integration.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/test/swagger.spec.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "apps/api/test/validation.spec.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/tsconfig.build.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/tsconfig.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/vitest.config.mts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/api/vitest.integration.config.mts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/index.html",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/app/AppLayout.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/app/router.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/auth/AuthError.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/auth/AuthRoutes.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/auth/controller.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/auth/form-rules.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/auth/use-customer-auth.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/main.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/AccountPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/AvatarEditor.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/ChangePasswordPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/HomePage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/LoginPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/NotFoundPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/pages/RegisterPage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/services/api.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/src/styles.css",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/test/auth-controller.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/test/verify-avatar-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/test/verify-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/test/verify-profile-browser.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/tsconfig.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "apps/store-web/vite.config.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/design/M0-01.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/design/M0-02.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/design/M0-03.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/openapi/openapi.json",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "docs/verification/M0-01.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/M0-02.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/M0-03.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/admin-home.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/admin-login.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/api-process-before.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/browser-console.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/clean-checks.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/cleanup.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/cold-first-attempt.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/cold-project.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/cold-start.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/cold-status.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/final-status.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/live-database-stopped.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/ready-after-recovery.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/ready-before-stop.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/ready-database-stopped.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/static-scan.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/store-home.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/store-login.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/store-swagger.jpg",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/swagger-browser.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/swagger-correlated.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/test-isolation.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-01/versions.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-02/final-acceptance.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-02/final-source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-02/password-benchmark.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/affected-api-types.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/affected-lint.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/api-client-generate.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/build-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/build.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/contracts-check.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/contracts-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/contracts.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/customer-auth-fixed.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/customer-auth-fixed.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/customer-auth-isolated-original.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/customer-auth-isolated-original.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/document-links.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/drift.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/engineering-attempt2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/engineering.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/final-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/generated-types.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/generation.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/integration-attempt2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/integration.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/lint-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/lint.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/openapi-export.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/protected-before.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/redact-image.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/run-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/run-targeted.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/screenshot-redaction.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/service-snapshot.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/test-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/test-integration-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/test-integration.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/test.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/typecheck-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/final/typecheck.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/after.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/auth-regression-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/auth-regression.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/before.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/check.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/live-services.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/migration-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/migration-status.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/migration.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/regression.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/schema-drift.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/local-db-repair/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/build.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/closeout.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/integration-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/lint.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/protection-baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/schema-drift.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/schema-retest.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/schema-validate.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/typecheck.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step01/unit.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/baseline.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/build.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/full-attempt1-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/full-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/integration-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/lint.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/live-auth.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/records-targeted-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/records-targeted.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/run-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/static-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/targeted-attempt1-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/targeted-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/tsx-bootstrap-outside.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/tsx-bootstrap.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/typecheck.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/unit-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step02/unit.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/build-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/build-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/build-final2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/check-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/export-openapi.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/files-final2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/files-final2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/integration-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/integration-attempt3.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/integration-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/lint-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/lint-final2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/openapi.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/protected-before.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/run-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/static-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/static-attempt2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/static-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/static-final2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/targeted-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/targeted-attempt2.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/targeted-attempt3.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/targeted-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/typecheck-attempt2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/typecheck-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/typecheck-final2.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/unit-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/unit-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/unit-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step03/unit-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/admin-web-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/admin-web-build-production.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/admin-web-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/admin-web-types-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/api-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/api-build-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/api-client-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/api-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/api-types-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/avatar-integration-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/check-protection.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/client-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/client-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/export-openapi.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/openapi.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/packages-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/protected-before.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/run-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/shared-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/static-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/static-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/store-controller-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/store-controller-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/store-web-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/store-web-build-production.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/store-web-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/store-web-types-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/swagger-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/swagger-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/targeted-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/ui-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/unit-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/unit-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/web-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step04/web-production.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/contracts-check-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/contracts-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/drift.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/final-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/generated-check.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/lint-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/protected-before.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/protection.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/run-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-admin-web-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-api-client-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-api-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-generated-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-shared-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-store-web-types-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/static-ui-build-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/swagger-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/targeted-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/targeted-pagination-callers-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/unit-admin-web-controller-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/unit-api-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/unit-attempt1.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/unit-client-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/unit-shared-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/unit-store-web-controller-attempt1.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/web-admin-web-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/web-final.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-03/step05/web-store-web-final.txt",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "eslint.config.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/api.Dockerfile",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/compose.yaml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/nginx.conf",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/verify-auth-compose.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/verify-compose.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/verify-files-http.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "infra/web.Dockerfile",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/avatar/account-desktop.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/avatar/account-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/avatar/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/compose.override.yaml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/docker-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/docker-store-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/files.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/swagger-files.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker-attempt2/swagger-redacted-detail.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker/compose.override.yaml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-final/docker/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step04/account-desktop.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step04/account-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step04/failure.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step04/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step05/account-desktop.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step05/account-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/M0-03-step05/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/admin-auth/employee-home.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/admin-auth/employee-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/admin-auth/forced-password.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/admin-auth/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/backend-audit.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/browser-checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/docker/attempt1-result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/docker/compose.override.yaml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/docker/docker-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/docker/docker-store-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/docker/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/document-links.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-create/employee-create-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-create/employee-create.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-create/employee-created.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-create/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-conflict.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-disable-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-management.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-permission-cascade.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-permissions-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-permissions-preview-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-permissions-preview.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-permissions.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-profile-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-reset-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/employee-role-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-management/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/attempt2-failure-diagnostics.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/attempt2-failure-state.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/attempt3-failure-diagnostics.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/attempt3-failure-state.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/employee-detail-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/employee-detail.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/employee-list-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/employee-list.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/failure-diagnostics.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/failure-state.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/employee-queries/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/final-checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/final-checks.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/frontend-audit.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/initial-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/local-checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/requirements-audit.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/source-audit.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-auth/customer-account.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-auth/customer-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-auth/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-profile/customer-password-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-profile/customer-password.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-profile/customer-profile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/store-profile/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/verify-browsers.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/verify-document-links.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/final-acceptance/verify-local.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step26/employee-home.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step26/employee-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step26/forced-navigation-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step26/forced-password.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step26/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step26/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step27/customer-account.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step27/customer-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step27/login-selector-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step27/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step27/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step28/cancel-selector-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step28/customer-password-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step28/customer-password.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step28/customer-profile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step28/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step28/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/employee-detail-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/employee-detail.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/employee-list-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/employee-list.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/failure-state.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/final-checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/pagination-wait-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/render-wait-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/select-locator-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step29/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/dropdown-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/employee-create-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/employee-create.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/employee-created.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/failure-state.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/final-checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/list-render-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/mobile-overlay-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/preserved-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step30/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-conflict.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-disable-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-management.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-permission-cascade.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-permissions-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-permissions-preview-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-permissions-preview.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-permissions.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-profile-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-reset-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/employee-role-mobile.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/failure-admin.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/failure-diagnostics.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/failure-ordinary.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/failure-self.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/failure-state.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/final-checks.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/form-initial-values-before-fix.png",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/preserved-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/result.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "output/playwright/step31-35/source-sha256.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/src/api-error.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/src/auth-client.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/src/file-client.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/src/generated/client.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "packages/api-client/src/generated/schema.ts",
+      "unchanged": false,
+      "authorizedChange": true
+    },
+    {
+      "path": "packages/api-client/src/index.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/src/json-transport.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/src/session.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/auth-client.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/contracts.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/employee-management.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/files-client.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/generated-client.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/generated-types.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/test/session.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/tsconfig.contracts.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/api-client/tsconfig.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/config/eslint.config.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/config/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/config/tsconfig.base.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/config/tsconfig.web.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/contract-tools/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/auth.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/command-contract.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/employees.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/files.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/index.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/pagination.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/src/password.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/test/command-contract.test.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/shared/tsconfig.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/package.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/src/FileError.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/src/ImageUploader.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/src/PrivateImage.tsx",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/src/index.ts",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/src/styles.css",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "packages/ui/tsconfig.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "pnpm-workspace.yaml",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "scripts/check-contracts.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "scripts/export-openapi.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "scripts/generate-api-client.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "scripts/test-contract-drift.mjs",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "turbo.json",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度总览.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M0_工程可运行/01_板块1_工程数据库与四容器骨架.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M0_工程可运行/02_板块2_登录员工与权限.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M0_工程可运行/03_板块3_文件审计与公共接口契约.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M0_工程可运行/04_板块4_全店配置期限与任务内核.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M1_商品可售/05_板块5_分类商品与前台浏览.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M1_商品可售/06_板块6_库存入账与记账内核.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M2_购买闭环/07_板块7_顾客地址购物车与账号限制.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M2_购买闭环/08_板块8加9_报价下单模拟支付与关单.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M2_购买闭环/09_板块10_领取发货交运与收货.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M3_售后闭环/10_板块11_售后申请审核材料与暂停恢复.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M3_售后闭环/11_板块12_退货实收验收与退款.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M3_售后闭环/12_板块13_异常协作争议与线下处理闭环.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M4_可验收交付/13_板块14_经营看板净消费与审计查询.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/M4_可验收交付/14_板块15_集成验收性能与部署交付.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/开发完成说明/板块1_开发完成说明.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/开发完成说明/板块2_开发完成说明.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/开发进度文档/开发完成说明/板块3_开发完成说明.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/自营电商项目功能说明_简练版.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/自营电商项目功能说明_通俗版.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/自营电商项目开发顺序说明_v2.0.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "项目文档/自营电商项目需求文档_v2.0.md",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": ".env",
+      "unchanged": true,
+      "authorizedChange": false
+    },
+    {
+      "path": "../.github/workflows/self-ecom-contracts.yml",
+      "unchanged": true,
+      "authorizedChange": false
+    }
+  ],
+  "newPaths": [
+    "apps/api/src/tasks/task-eligibility.service.ts",
+    "apps/api/test/fixtures/task-reassign-business.ts",
+    "apps/api/test/task-reassign.integration.ts",
+    "docs/verification/evidence/M0-04/step07/access-integration-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/access-integration-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/baseline.json",
+    "docs/verification/evidence/M0-04/step07/capture-baseline.mjs",
+    "docs/verification/evidence/M0-04/step07/client-build-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/client-build-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/client-test-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/client-test-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/client-typecheck-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/client-typecheck-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/client-typecheck-final.json",
+    "docs/verification/evidence/M0-04/step07/client-typecheck-final.txt",
+    "docs/verification/evidence/M0-04/step07/client-types-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/client-types-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/client-types-final.json",
+    "docs/verification/evidence/M0-04/step07/client-types-final.txt",
+    "docs/verification/evidence/M0-04/step07/compiled-smoke.json",
+    "docs/verification/evidence/M0-04/step07/compiled-smoke.mjs",
+    "docs/verification/evidence/M0-04/step07/contracts-final.json",
+    "docs/verification/evidence/M0-04/step07/contracts-final.txt",
+    "docs/verification/evidence/M0-04/step07/development-readonly-final.json",
+    "docs/verification/evidence/M0-04/step07/development-readonly-initial.json",
+    "docs/verification/evidence/M0-04/step07/employees-integration-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/employees-integration-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/entry-integration-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/entry-integration-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/export-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/export-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/export-final.json",
+    "docs/verification/evidence/M0-04/step07/export-final.txt",
+    "docs/verification/evidence/M0-04/step07/generate-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/generate-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/generate-final.json",
+    "docs/verification/evidence/M0-04/step07/generate-final.txt",
+    "docs/verification/evidence/M0-04/step07/inspect-development.mjs",
+    "docs/verification/evidence/M0-04/step07/integration-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/integration-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/integration-final1.json",
+    "docs/verification/evidence/M0-04/step07/integration-final1.txt",
+    "docs/verification/evidence/M0-04/step07/integration-retry-target-lock-races.json",
+    "docs/verification/evidence/M0-04/step07/integration-retry-target-lock-races.txt",
+    "docs/verification/evidence/M0-04/step07/integration-supplement1-metrics.json",
+    "docs/verification/evidence/M0-04/step07/integration-supplement1.json",
+    "docs/verification/evidence/M0-04/step07/integration-supplement1.txt",
+    "docs/verification/evidence/M0-04/step07/lint-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/lint-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/run-check.mjs",
+    "docs/verification/evidence/M0-04/step07/typecheck-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/typecheck-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/typecheck-final.json",
+    "docs/verification/evidence/M0-04/step07/typecheck-final.txt",
+    "docs/verification/evidence/M0-04/step07/typecheck-retry1.json",
+    "docs/verification/evidence/M0-04/step07/typecheck-retry1.txt",
+    "docs/verification/evidence/M0-04/step07/typecheck-tests1.json",
+    "docs/verification/evidence/M0-04/step07/typecheck-tests1.txt",
+    "docs/verification/evidence/M0-04/step07/typecheck-tests2.json",
+    "docs/verification/evidence/M0-04/step07/typecheck-tests2.txt",
+    "docs/verification/evidence/M0-04/step07/unit-attempt1.json",
+    "docs/verification/evidence/M0-04/step07/unit-attempt1.txt",
+    "docs/verification/evidence/M0-04/step07/unit-docs-final.json",
+    "docs/verification/evidence/M0-04/step07/unit-docs-final.txt",
+    "docs/verification/evidence/M0-04/step07/verify-protection.mjs"
+  ],
+  "sourceSha256": [
+    {
+      "path": "apps/api/src/tasks/task-business-adapters.ts",
+      "sha256": "478936a548d7456ddb4502c444374f734a599d611e5dad31073752dc498532c7"
+    },
+    {
+      "path": "apps/api/src/tasks/task-command.service.ts",
+      "sha256": "c8d121829328078c487851a5854716d10a846a85584444c69898a93e967b1cff"
+    },
+    {
+      "path": "apps/api/src/tasks/task-access.service.ts",
+      "sha256": "3d671cef507777681609440ef24ad42a1b516d67d1e7c5592d95b1e5228333bb"
+    },
+    {
+      "path": "apps/api/src/tasks/task-lock.service.ts",
+      "sha256": "6629c8616c61315648600a218edc49feb6c22b42e28fa6f8b5a1cee100be49b8"
+    },
+    {
+      "path": "apps/api/src/tasks/task.errors.ts",
+      "sha256": "e4e4e2ac3cc23fa7df3bb4fb9e10e97ba2f2e21441f6a510f585e59465107c38"
+    },
+    {
+      "path": "apps/api/src/tasks/task.dto.ts",
+      "sha256": "894b2b06a6d6334c02a93302ca08921884a6036481b6b386eb67941a70996d0b"
+    },
+    {
+      "path": "apps/api/src/tasks/tasks.module.ts",
+      "sha256": "b30f8cda556d34c43c6d74306fb35ea72ef2d11602df202728c7ceead8b4ae28"
+    },
+    {
+      "path": "apps/api/src/tasks/tasks.controller.ts",
+      "sha256": "d3154c424143bb4f4d86ef22a879828aaa2ccdac6023942ac17f3c58f606a3b8"
+    },
+    {
+      "path": "apps/api/src/tasks/tasks.openapi.ts",
+      "sha256": "01bff93044298c9fde9f8275296edff71b5f6c241ea32b3544cd1fdb2b71d362"
+    },
+    {
+      "path": "apps/api/src/employees/employee-eligibility.service.ts",
+      "sha256": "c28678ae9e2fd6ce9dadffb671e6f865f3801020806e5c3c29eb9848e93d92de"
+    },
+    {
+      "path": "apps/api/src/employees/employee-eligibility.module.ts",
+      "sha256": "4c24b454f88e3fce66460df223468418d448942ae549aebd0ce467a949287c68"
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.service.ts",
+      "sha256": "2dd407794ed4bd1be65cb2a8491061932c8dcdff1f95bf6b847395decd5c7a60"
+    },
+    {
+      "path": "apps/api/src/employees/employee-status.controller.ts",
+      "sha256": "b14050a83c87044280a11f5c654c39da6772a9cbfa4cf15b57c2deaacce6b553"
+    },
+    {
+      "path": "apps/api/test/employee-status.integration.ts",
+      "sha256": "70cb01b8181ba39b2b751eb0575d67fd504be25a3d1b480610f09049bb9971be"
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.service.ts",
+      "sha256": "f1787e0d81a77d25aca437edae5c68750915dd098510567cd89d742281eeefc9"
+    },
+    {
+      "path": "apps/api/src/employees/employee-role.controller.ts",
+      "sha256": "5090964d3476b7c022668c51133dc72f80cdd1bfecbcfdb5389883c60483ba1d"
+    },
+    {
+      "path": "apps/api/test/employee-role.integration.ts",
+      "sha256": "a181d5a2e645294ad7f172856b3ff73b31fbae8f4356290c365437f9c06ae715"
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.service.ts",
+      "sha256": "6e34b0c88fd1e7dd678e1e724b72eabbd7dace5d43b63d6181070078e03a8c02"
+    },
+    {
+      "path": "apps/api/src/employees/employee-extra-permission.controller.ts",
+      "sha256": "cb2841a3cd15022460b8b7d6a2081c6835c4ab9ccf21d765f1e6d7804e0f2514"
+    },
+    {
+      "path": "apps/api/test/employee-extra-permission.integration.ts",
+      "sha256": "5c989f6986b5e67e378301b24489cfeddca91764ecaef92a7b6b4171db2872e8"
+    },
+    {
+      "path": "apps/api/src/audit/audit.service.ts",
+      "sha256": "7e07b6a11dc7ff59ff707efdbff268dd663e82c6352312b4b2670a5e44c4b9eb"
+    },
+    {
+      "path": "apps/api/test/task-access.spec.ts",
+      "sha256": "f944431530a802e5c4684b011ec98835022e57244d745565c3bf57eba4828c00"
+    },
+    {
+      "path": "apps/api/test/task-access.integration.ts",
+      "sha256": "1ebc5b6e0370d4b76067846d7735123e98dc46ba511e3ba26413b9fc23e6bcf0"
+    },
+    {
+      "path": "apps/api/test/swagger.spec.ts",
+      "sha256": "24de0fdac7ca65b16b73eb10b2fe9a05ca07f53b3d9946221f363c23b216bc1e"
+    },
+    {
+      "path": "docs/openapi/openapi.json",
+      "sha256": "0c45e0f895bc75c0af26f2b9a233acba9bb106c5156f0ad9a79294a172442c50"
+    },
+    {
+      "path": "packages/api-client/src/generated/schema.ts",
+      "sha256": "d7fa1a91a7466001ea225abd87dd5f1d0c82864652ce00143b38a2c9afd59a7e"
+    },
+    {
+      "path": "packages/api-client/src/generated/client.ts",
+      "sha256": "2795a70a49e39355d3e050d3ebdc680cb57a37ed4fd1fcab53e09d75930ceb57"
+    },
+    {
+      "path": "packages/api-client/test/tasks-client.test.mjs",
+      "sha256": "1e31c42006165994d68a08b1a8451b118c33e0b29cbfc61fde7b96beeb86f90e"
+    },
+    {
+      "path": "packages/api-client/test/tasks-types.ts",
+      "sha256": "ddfa043370ea42cbc343b9d56cd0e9772ae84af2e32b7488c5f3c06f053be11f"
+    },
+    {
+      "path": "apps/api/src/tasks/task-eligibility.service.ts",
+      "sha256": "6f39d84e3cb5ba092e2eaefc9d1f5f41ea91afc8038d885a1801a0208f87fba0"
+    },
+    {
+      "path": "apps/api/test/fixtures/task-reassign-business.ts",
+      "sha256": "e1595e81ac511871b93b7f68dc7db99fef38aab7b8967dad10a04d2a995143cb"
+    },
+    {
+      "path": "apps/api/test/task-reassign.integration.ts",
+      "sha256": "ff836b1087d15bd142c924402d6749c6c25b420c3df51fbd79e4d8df3ef652c0"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/access-integration-attempt1.json",
+      "sha256": "0449cc47eb1b9eb103e17722514e7018e7e37f9c94188b90fae581846c0d1853"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/baseline.json",
+      "sha256": "cbcfa3ce08766e5c8c58d6da887a0efac3d6aa20257e972b0279fb59930226d6"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/capture-baseline.mjs",
+      "sha256": "758adaedb7b2628dee24f1723cb6c7710385a6f91c336bf675447b3f1692b899"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/client-build-attempt1.json",
+      "sha256": "a9c70e2dc6f25d512c7be6628f5f85556307e256fa8ca774d788f713b64d3ee5"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/client-test-attempt1.json",
+      "sha256": "dfe519e22987d2458fccaa3b8d6e618c9c7d1767f0d07a509b6d9a8d8968290c"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/client-typecheck-attempt1.json",
+      "sha256": "a93b1ca8d97a13cd4e98af84cbfc731f3c47c1d9f9b0f97a6700706ca17d858a"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/client-typecheck-final.json",
+      "sha256": "fcc6b8860343e653e3a6d4edec71ca57b65f90efa1eb8fe2e83896cbd0edb2c6"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/client-types-attempt1.json",
+      "sha256": "c810fd70ade33647e5ff9ab620a69d92cad2937d57d6bbf7380ae448de5e642c"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/client-types-final.json",
+      "sha256": "8c2aba117b04cc2fda75fb03820343a78739e0ef8177cc10609526ce5fb46975"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/compiled-smoke.json",
+      "sha256": "30f448ac9ba78acf49fa8d6e1f6bb8bf606aa6ca7af0d6086ae103f48794c2d5"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/compiled-smoke.mjs",
+      "sha256": "37a4ce03c0c971220fd0d7467b9986b53339bc885cccaba13609759147e0a919"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/contracts-final.json",
+      "sha256": "441a6e577e264428d3e6ab4e27c2f2e8a0276e349e1529b869ca77a4da0ea748"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/development-readonly-final.json",
+      "sha256": "4768eba87bb837335be03c05462f71078e2e331d2792fe9f2eb1764ffacf6db5"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/development-readonly-initial.json",
+      "sha256": "2ea859e195400a10336b004ace214fd60be874ec536d27e35f1c1492e648e60b"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/employees-integration-attempt1.json",
+      "sha256": "b68678969490869bafebb59f66e42f4a88a334a3f5261478657279011825130d"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/entry-integration-attempt1.json",
+      "sha256": "f997db67389380667301b1fee2cb51a0a3494bdaa625be1810bac9ee8ab21d13"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/export-attempt1.json",
+      "sha256": "26537218f063acc9cbe9540555e549523edc769472e11ff5ad671b0c8fb84a83"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/export-final.json",
+      "sha256": "c03f1303c8f68b0a70da35112fab2517c30d0b002935ef912cb45718807e2763"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/generate-attempt1.json",
+      "sha256": "f96a46698bd45884b4c98bbd043d851461c80e9a0ea25f46a7220eb3457881db"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/generate-final.json",
+      "sha256": "1004fac37310007d57a5049a696288901f504783a60842746d36daa097b50f6d"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/inspect-development.mjs",
+      "sha256": "767f3a4b820647404e9cd8ce3da00b7be6dea1f36c612bdd6818dbd6afcab7c4"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/integration-attempt1.json",
+      "sha256": "37aa27ea5e7bc7f183e803b369b5db3eeaf7dcd1694f57bdf1776b14e44fbdc7"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/integration-final1.json",
+      "sha256": "e7d9a8d4f344654246c677b739eed390498fc15c8f584247f60e3dd413d41ea7"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/integration-retry-target-lock-races.json",
+      "sha256": "a27576287dd22a50f608ae7f7c260963ae403af5cfd1d835f0893cfc10ef61ff"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/integration-supplement1-metrics.json",
+      "sha256": "2d3556d93f0796bf2a2541baeaf6bd4782c4b75de48fa03f276c269a594dd85d"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/integration-supplement1.json",
+      "sha256": "a4651a91effa0d21e3612e8080ceaee6e4505197c775ad89dbf902216dad89f3"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/lint-attempt1.json",
+      "sha256": "ffa6b3ef34764fa9ae4675e1e3b42f703e9d580ba0f33370000c49ee65575fae"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/run-check.mjs",
+      "sha256": "0a6113475cdef3ae940e308f7c7b0bed4258a769ca573391d3ab14358d3ba00b"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/typecheck-attempt1.json",
+      "sha256": "cd1d02e99609b59bd66bb74288418ebd44511364155bc513ab9c4f22d059aac0"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/typecheck-final.json",
+      "sha256": "50700dd0ffb88354c5329407e85d58e0b074bce9982c58b01276b90fd07bc740"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/typecheck-retry1.json",
+      "sha256": "999ec68e9f85a70ec055b0b067e573c1adecc33cb496672194d04aab3e16a4e6"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/typecheck-tests1.json",
+      "sha256": "9bd7eb7f5c2dd078ccdd7f6ebf70a6b616e6e0dcab2f48b1413c36aaa08702ee"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/typecheck-tests2.json",
+      "sha256": "3c9a0d1e8f6710e4cc6926382f79db8a461965a168cd54ac5cfd85e5c83b9c09"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/unit-attempt1.json",
+      "sha256": "ef0e979c275beaba2e19f97d603e60325e78151af02f0c6c729d9ea3b3d870f6"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/unit-docs-final.json",
+      "sha256": "fca2a1d79db3746f5a5bad19e9815fd532c73aad2d486fbefa6fb8eebf3890db"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step07/verify-protection.mjs",
+      "sha256": "cc6f0ffa7829be0a8947753e1ab9850dac8cc490ff7ba20b29dab27391b5f584"
+    }
+  ]
+}

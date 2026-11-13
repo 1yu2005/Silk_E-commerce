@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-13T11:49:24.012Z",
+  "mode": "unit",
+  "label": "retention-fix",
+  "checks": [
+    {
+      "name": "packages-shared-build",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "docs/verification/evidence/M0-04/step11/unit-retention-fix-packages-shared-build.txt"
+    },
+    {
+      "name": "packages-api-client-build",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "docs/verification/evidence/M0-04/step11/unit-retention-fix-packages-api-client-build.txt"
+    },
+    {
+      "name": "api",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "docs/verification/evidence/M0-04/step11/unit-retention-fix-api.txt"
+    }
+  ],
+  "passed": true
+}

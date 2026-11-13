@@ -19,6 +19,7 @@ import { PasswordService } from '../src/auth/password.service.js';
 import { configureApp } from '../src/common/configure-app.js';
 import { APP_CONFIG, loadConfiguration } from '../src/config/environment.js';
 import { EmployeeEligibilityService } from '../src/employees/employee-eligibility.service.js';
+import { TaskEligibilityService, type TaskEligibilityContext } from '../src/tasks/task-eligibility.service.js';
 import { EmployeeCreateController } from '../src/employees/employee-create.controller.js';
 import { EmployeeCreateDto } from '../src/employees/employee-create.dto.js';
 import { EmployeeStatusController } from '../src/employees/employee-status.controller.js';
@@ -75,8 +76,8 @@ interface EligibilityCall { id: string; oldEffective: string[]; newEffective: st
 class ControlledEligibility extends EmployeeEligibilityService {
   fail = false; calls: EligibilityCall[] = [];
   override async onEmployeeEligibilityChanged(tx: Prisma.TransactionClient, id: string,
-    oldEffective: readonly string[], newEffective: readonly string[], reason: string) {
-    await super.onEmployeeEligibilityChanged(tx, id, oldEffective, newEffective, reason);
+    oldEffective: readonly string[], newEffective: readonly string[], reason: string, context: TaskEligibilityContext) {
+    await super.onEmployeeEligibilityChanged(tx, id, oldEffective, newEffective, reason, context);
     this.calls.push({ id, oldEffective: [...oldEffective], newEffective: [...newEffective], reason, sameTransaction: tx === audit.tx,
       insideStatus: (await tx.employee.findUniqueOrThrow({ where: { id } })).status,
       outsideStatus: (await peer.employee.findUniqueOrThrow({ where: { id } })).status,
@@ -86,7 +87,7 @@ class ControlledEligibility extends EmployeeEligibilityService {
   }
 }
 const identities = new ControlledIdentities(tokens, new PermissionService(), clock);
-const audit = new ControlledAudit(); const eligibility = new ControlledEligibility();
+const audit = new ControlledAudit(); let eligibility: ControlledEligibility;
 let app: INestApplication; let prisma: PrismaService; let peer: PrismaService; let baseUrl = '';
 let actorId = ''; let token = ''; let changeSpy: MockInstance<EmployeeStatusService['change']>;
 type Action = 'disable' | 'enable';
@@ -97,7 +98,8 @@ beforeAll(async () => {
   const module = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(APP_CONFIG).useValue(config)
     .overrideProvider(JwtTokenService).useValue(tokens).overrideProvider(AuthSessionService).useValue(sessions)
     .overrideProvider(CurrentIdentityService).useValue(identities).overrideProvider(AuditService).useValue(audit)
-    .overrideProvider(EmployeeEligibilityService).useValue(eligibility).compile();
+    .overrideProvider(EmployeeEligibilityService).useFactory({ inject: [TaskEligibilityService],
+      factory: (tasks: TaskEligibilityService) => { eligibility = new ControlledEligibility(tasks); return eligibility; } }).compile();
   app = module.createNestApplication(); configureApp(app); await app.listen(0, '127.0.0.1');
   prisma = app.get(PrismaService); baseUrl = await app.getUrl(); peer = new PrismaService(config); await peer.onModuleInit();
   await seedPermissionCatalog(prisma); changeSpy = vi.spyOn(app.get(EmployeeStatusService), 'change');

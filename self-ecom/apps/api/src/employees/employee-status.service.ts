@@ -12,6 +12,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { EmployeeLastAdminRequiredError, EmployeeNotFoundError, EmployeeVersionConflictError } from './employee-command.errors.js';
 import { EmployeeEligibilityService } from './employee-eligibility.service.js';
 import { EmployeeStatusDto } from './employee-status.dto.js';
+import { TaskError } from '../tasks/task.errors.js';
 
 @Injectable()
 export class EmployeeStatusService {
@@ -46,6 +47,10 @@ export class EmployeeStatusService {
       const activeAdmins = await tx.employee.count({ where: { role: 'SUPER_ADMIN', status: 'ACTIVE' } });
       if (nextStatus === 'DISABLED' && before.role === 'SUPER_ADMIN' && activeAdmins <= 1) throw new EmployeeLastAdminRequiredError();
       const effective = this.permissions.effectivePermissions(before.role, before.extraPermissions.map(item => item.permissionCode));
+      const nextEffective = nextStatus === 'ACTIVE' ? [...effective] : [];
+      const taskContext = await this.eligibility.prepare(tx, targetId, nextEffective, {
+        actor: current, token, permission: 'employee.status.manage', reason: input.reason, requestId,
+      });
       const result = await tx.employee.update({ where: { id: targetId }, data: {
         status: nextStatus, version: { increment: 1 }, ...(nextStatus === 'DISABLED' ? { tokenVersion: { increment: 1 } } : {}),
       }, select: { id: true, status: true, version: true } });
@@ -56,8 +61,8 @@ export class EmployeeStatusService {
         before: { status: before.status }, after: { status: nextStatus } });
       // 资格变更以状态折算可用能力；岗位模板/个人授权原样保留，强制改密仍由Guard独立限制。
       await this.eligibility.onEmployeeEligibilityChanged(tx, targetId,
-        before.status === 'ACTIVE' ? [...effective] : [], nextStatus === 'ACTIVE' ? [...effective] : [], input.reason);
+        before.status === 'ACTIVE' ? [...effective] : [], nextEffective, input.reason, taskContext);
       return { ...result, changed: true };
-    });
+    }, error => error instanceof TaskError && error.code === 'TASK_LOCK_PLAN_CHANGED');
   }
 }

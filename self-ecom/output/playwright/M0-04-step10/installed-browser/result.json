@@ -1,0 +1,477 @@
+{
+  "checkedAt": "2026-11-13T10:20:06.792Z",
+  "checks": [
+    {
+      "group": "core",
+      "scenario": "本人、岗位池和后端动作范围，桌面与手机列表"
+    },
+    {
+      "group": "deadline",
+      "scenario": "已逾期后延期保留原始截止、曾逾期和真实事件，浏览器非北京时间也正确"
+    },
+    {
+      "group": "scope",
+      "scenario": "真实撤权回池后管理员待安排和摘要刷新"
+    },
+    {
+      "group": "scope",
+      "scenario": "普通员工隐藏待安排入口，直接地址不发管理员列表请求"
+    },
+    {
+      "group": "resilience",
+      "scenario": "真实提交后丢失响应不能重复释放，重读后呈现真实OPEN"
+    },
+    {
+      "group": "resilience",
+      "scenario": "读取500保留requestId且可手动重试，不能当作空列表"
+    },
+    {
+      "group": "resilience",
+      "scenario": "真实会话撤销后401清缓存并返回登录，任务和密码不持久化"
+    },
+    {
+      "group": "empty",
+      "scenario": "未配置无任务应用显示真实0摘要及空态，桌面和手机可用"
+    }
+  ],
+  "requests": [
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ce89f7a1-3b89-4f1a-8b0f-56e31cf0d18a"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "59f22af5-f105-4bf0-aba1-8c2055e0312e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "86b04da2-f6d2-44c4-9d6f-78271d0877fd"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/5cf8eab4-447b-4326-9f0b-8aa405038508",
+      "method": "GET",
+      "status": 200,
+      "requestId": "84b11eef-9ac6-4418-bb6e-747da0d25438"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/5cf8eab4-447b-4326-9f0b-8aa405038508/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5b606163-72e8-4a2f-9d43-5cd516f219e6"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a3104700-0566-4a7b-9fbc-a69423ae2a9c"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "92da3d0c-009b-4de6-a2d7-ddb31d106363"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "82997a62-7ea3-44ed-a833-f62a3c023fd0"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3",
+      "method": "GET",
+      "status": 200,
+      "requestId": "af7ee247-2798-467e-88ac-5b090cbe358f"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e3f1d5a3-a9d7-4757-a5f4-debb650b8b15"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "73e83c73-267c-437e-a9ac-132ce6791512"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "419d7266-9751-4722-ad19-bc92f0428911"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "4f0ed4a6-8987-4f6f-8b2c-db2a28ada41e"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "b9f70cbc-451d-4828-9e22-4a4f0507831a"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "da181c87-3f07-4256-b28c-da6d21b8f3c2"
+    },
+    {
+      "source": "direct",
+      "group": "deadline",
+      "path": "/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "method": "POST",
+      "status": 200,
+      "requestId": "dcdc47c8-bdfc-4eea-9cb4-5a792c970de2"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3",
+      "method": "GET",
+      "status": 200,
+      "requestId": "38cde8ce-9405-4705-9664-e294a4088e28"
+    },
+    {
+      "source": "browser",
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d1943e36-da86-453c-b650-e2bf617a310a"
+    },
+    {
+      "source": "direct",
+      "group": "scope",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "ccf52f7f-3609-4ded-87f3-6054cc847b58"
+    },
+    {
+      "source": "direct",
+      "group": "scope",
+      "path": "/admin/employees/a502d3f1-543c-45d7-bdd6-bd042b7266f4/extra-permissions",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "93fa415e-411e-4a83-9194-60080cda8331"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "1ada86db-9ed0-4848-ab11-9e399dc8ef62"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "04505b58-5bbb-47c7-90d9-c7d2a96661e5"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c3e6caaf-407a-4364-8ef7-65b9e91e1b40"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/1fb7821e-8b0d-459c-9c63-ce1acf7cf0fd",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7dc363f8-047f-4faf-8804-0866d29b6899"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/1fb7821e-8b0d-459c-9c63-ce1acf7cf0fd/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "618c7642-a5b1-4495-bc30-9d841995efde"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3d6e9342-c9e7-4eba-9a93-c85410935810"
+    },
+    {
+      "source": "browser",
+      "group": "scope",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d2eb93eb-8c6c-4963-92e0-0d82d2102859"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5fa7f024-3cd4-4457-a91c-510c80cddd5d"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ec3da171-9f66-4132-bd9f-bfb0b751f4cb"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "763a6f34-9bb2-4535-a74f-62bed0a3c898"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d23b1f7d-fe66-445c-ab2c-88d313a9f9a4"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2be9d743-3d0c-4e9a-9cc6-5a18a708eee1"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0678c2d4-7e0b-4efe-9583-8e479d2d6c7b"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "48f4db35-7402-4d7d-b208-5155d52fde8e"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 500
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b965bafc-3651-44bb-af20-561ff702b449"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e64196e1-467e-422a-a061-20410288edda"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "50144356-9358-4cc3-aee7-e435df24a243"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 401,
+      "requestId": "92f7f256-63ba-4c0e-b3c1-63d39615f383"
+    },
+    {
+      "source": "browser",
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 401,
+      "requestId": "5280ab0e-1903-4f41-8485-c041aaf28802"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5c4fdd39-7ef2-4e40-822d-44348e220589"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e75e8fdd-bbf1-49ed-bd21-f7edc512ffea"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "8966df09-1532-4b1a-8c55-8128103418fc"
+    },
+    {
+      "source": "browser",
+      "group": "empty",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "80f1a1f5-97dd-4594-bd23-e544b60e736b"
+    }
+  ],
+  "writes": [
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/5cf8eab4-447b-4326-9f0b-8aa405038508/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    },
+    {
+      "group": "deadline",
+      "path": "/api/v1/admin/tasks/bcbd7ad5-83e8-40a7-9ed3-57f66090c2c3/extend-deadline",
+      "body": {
+        "expectedVersion": 0,
+        "reason": "核实开衫资料后延长期限",
+        "newDueAt": "2026-11-15T10:20:50.000Z"
+      }
+    },
+    {
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    },
+    {
+      "group": "resilience",
+      "path": "/api/v1/admin/tasks/b9dd7251-dc6f-409c-8f6b-f7d7404d0265/release",
+      "body": {
+        "expectedVersion": 1,
+        "reason": "提交后丢失响应"
+      }
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [
+    "真实提交release成功后abort响应，只验证网络结果不确定保护",
+    "GET任务列表500只验证读取错误与手动重试，不伪造成功"
+  ],
+  "groups": [
+    {
+      "name": "core",
+      "passed": false,
+      "databaseName": "task_acceptance_ee0a505ac7154cb6849dd9296e52f50e_test",
+      "failure": {
+        "scenario": "领取同步禁用、防重复提交和实际经办历史",
+        "message": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog') to be hidden\u001b[22m\n\u001b[2m    27 × locator resolved to visible <div role=\"dialog\" tabindex=\"-1\" aria-modal=\"true\" aria-labelledby=\"test-id\" class=\"ant-modal css-dev-only-do-not-override-i19pbt\">…</div>\u001b[22m\n",
+        "line": "at waitSuccess (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:47:72)"
+      },
+      "databaseRemoved": true
+    },
+    {
+      "name": "deadline",
+      "passed": false,
+      "databaseName": "task_acceptance_8effc4ee3b244ae783300b41276045a3_test",
+      "failure": {
+        "scenario": "处理和期限统一时间线分页，详情返回保留筛选位置",
+        "message": "Expected values to be strictly equal:\n\n14 !== 10\n",
+        "line": "at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/test/verify-tasks-browser.mjs:110:141"
+      },
+      "databaseRemoved": true
+    },
+    {
+      "name": "scope",
+      "passed": false,
+      "databaseName": "task_acceptance_28ded2507444420abcf1d14383dafba3_test",
+      "failure": {
+        "scenario": "真实筛选分页与URL往返，false逾期不丢失，非法地址不查询",
+        "message": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.task-table tbody tr').first() to be visible\u001b[22m\n\u001b[2m    24 × locator resolved to hidden <tr aria-hidden=\"true\" class=\"ant-table-measure-row\">…</tr>\u001b[22m\n",
+        "line": "at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:131:113"
+      },
+      "databaseRemoved": true
+    },
+    {
+      "name": "resilience",
+      "passed": true,
+      "databaseName": "task_acceptance_d3af6e60f77a414faca89e03742e5006_test",
+      "databaseRemoved": true
+    },
+    {
+      "name": "empty",
+      "passed": true,
+      "databaseName": "task_acceptance_8a18c8e7dde5422d845f5d2acb801e5a_test",
+      "databaseRemoved": true
+    }
+  ],
+  "browser": "145.0.7632.6",
+  "passed": false
+}

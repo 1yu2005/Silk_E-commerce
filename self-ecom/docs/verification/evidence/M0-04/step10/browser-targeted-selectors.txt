@@ -1,0 +1,10 @@
+{"group":"core","scenario":"本人、岗位池和后端动作范围，桌面与手机列表","passed":true}
+{"group":"deadline","scenario":"已逾期后延期保留原始截止、曾逾期和真实事件，浏览器非北京时间也正确","passed":true}
+{"group":"deadline","scenario":"处理和期限统一时间线分页，详情返回保留筛选位置","passed":true}
+{"group":"deadline","scenario":"首次指定截止保留originalDueAt为空并写DEADLINE_ASSIGNED","passed":true}
+{"group":"scope","scenario":"真实撤权回池后管理员待安排和摘要刷新","passed":true}
+{"group":"scope","scenario":"普通员工隐藏待安排入口，直接地址不发管理员列表请求","passed":true}
+{"group":"scope","scenario":"真实筛选分页与URL往返，false逾期不丢失，非法地址不查询","passed":true}
+{"group":"scope","scenario":"不可见详情真实404，不显示旧资料或假业务链接","passed":true}
+{"passed":false,"checks":8,"groups":[{"name":"core","passed":false,"databaseRemoved":true},{"name":"deadline","passed":true,"databaseRemoved":true},{"name":"scope","passed":true,"databaseRemoved":true}],"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step10\\targeted-selectors"}
+{"group":"core","scenario":"领取同步禁用、防重复提交和实际经办历史","message":"locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog') to be hidden\u001b[22m\n\u001b[2m    28 × locator resolved to visible <div role=\"dialog\" tabindex=\"-1\" aria-modal=\"true\" aria-labelledby=\"test-id\" class=\"ant-modal css-dev-only-do-not-override-i19pbt\">…</div>\u001b[22m\n","line":"at waitSuccess (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:47:72)"}

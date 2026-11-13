@@ -19,6 +19,7 @@ import { PasswordService } from '../src/auth/password.service.js';
 import { configureApp } from '../src/common/configure-app.js';
 import { APP_CONFIG, loadConfiguration } from '../src/config/environment.js';
 import { EmployeeEligibilityService } from '../src/employees/employee-eligibility.service.js';
+import { TaskEligibilityService, type TaskEligibilityContext } from '../src/tasks/task-eligibility.service.js';
 import { EmployeeRoleController } from '../src/employees/employee-role.controller.js';
 import { EmployeeRoleDto } from '../src/employees/employee-role.dto.js';
 import { EmployeeRoleService } from '../src/employees/employee-role.service.js';
@@ -77,8 +78,8 @@ interface EligibilityCall { id: string; oldEffective: string[]; newEffective: st
 class ControlledEligibility extends EmployeeEligibilityService {
   fail = false; calls: EligibilityCall[] = [];
   override async onEmployeeEligibilityChanged(tx: Prisma.TransactionClient, id: string,
-    oldEffective: readonly string[], newEffective: readonly string[], reason: string) {
-    await super.onEmployeeEligibilityChanged(tx, id, oldEffective, newEffective, reason);
+    oldEffective: readonly string[], newEffective: readonly string[], reason: string, context: TaskEligibilityContext) {
+    await super.onEmployeeEligibilityChanged(tx, id, oldEffective, newEffective, reason, context);
     if (audit.tx === tx) {
       this.calls.push({ id, oldEffective: [...oldEffective], newEffective: [...newEffective], reason, sameTransaction: true,
         insideRole: (await tx.employee.findUniqueOrThrow({ where: { id } })).role,
@@ -91,7 +92,7 @@ class ControlledEligibility extends EmployeeEligibilityService {
   }
 }
 const identities = new ControlledIdentities(tokens, new PermissionService(), clock);
-const audit = new ControlledAudit(); const eligibility = new ControlledEligibility();
+const audit = new ControlledAudit(); let eligibility: ControlledEligibility;
 let app: INestApplication; let prisma: PrismaService; let peer: PrismaService; let baseUrl = ''; let actorId = ''; let token = '';
 let changeSpy: MockInstance<EmployeeRoleService['change']>;
 beforeAll(async () => {
@@ -100,7 +101,8 @@ beforeAll(async () => {
   const module = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(APP_CONFIG).useValue(config)
     .overrideProvider(JwtTokenService).useValue(tokens).overrideProvider(AuthSessionService).useValue(sessions)
     .overrideProvider(CurrentIdentityService).useValue(identities).overrideProvider(AuditService).useValue(audit)
-    .overrideProvider(EmployeeEligibilityService).useValue(eligibility).compile();
+    .overrideProvider(EmployeeEligibilityService).useFactory({ inject: [TaskEligibilityService],
+      factory: (tasks: TaskEligibilityService) => { eligibility = new ControlledEligibility(tasks); return eligibility; } }).compile();
   app = module.createNestApplication(); configureApp(app); await app.listen(0, '127.0.0.1');
   prisma = app.get(PrismaService); baseUrl = await app.getUrl(); peer = new PrismaService(config); await peer.onModuleInit();
   await seedPermissionCatalog(prisma); changeSpy = vi.spyOn(app.get(EmployeeRoleService), 'change');

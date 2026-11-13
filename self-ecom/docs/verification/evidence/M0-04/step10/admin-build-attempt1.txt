@@ -1,0 +1,45 @@
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 1606 modules transformed.
+rendering chunks...
+computing gzip size...
+apps/admin-web/dist/index.html                                0.84 kB │ gzip:   0.41 kB
+apps/admin-web/dist/assets/index-AMNpoltC.css                13.15 kB │ gzip:   3.36 kB
+apps/admin-web/dist/assets/use-employee-query-qWANHN2F.js     0.31 kB │ gzip:   0.25 kB
+apps/admin-web/dist/assets/rolldown-runtime-XKyaHtl9.js       0.72 kB │ gzip:   0.42 kB
+apps/admin-web/dist/assets/SettingsQueryState-ChiAe0XL.js     0.93 kB │ gzip:   0.48 kB
+apps/admin-web/dist/assets/QueryState-1YQcypGF.js             1.14 kB │ gzip:   0.57 kB
+apps/admin-web/dist/assets/HomePage-DycV01ww.js               1.30 kB │ gzip:   0.65 kB
+apps/admin-web/dist/assets/LeftOutlined-GIOkgMf1.js           1.47 kB │ gzip:   0.70 kB
+apps/admin-web/dist/assets/LoginPage-BEX9l_Ie.js              2.35 kB │ gzip:   1.13 kB
+apps/admin-web/dist/assets/ChangePasswordPage-BVLLyeCJ.js     3.02 kB │ gzip:   1.35 kB
+apps/admin-web/dist/assets/SettingsHistoryPage-CwweRrYj.js    3.48 kB │ gzip:   1.38 kB
+apps/admin-web/dist/assets/TaskQueryState-1xjO-Ywv.js         4.02 kB │ gzip:   2.20 kB
+apps/admin-web/dist/assets/EmployeeListPage-fjQDntUX.js       5.76 kB │ gzip:   2.16 kB
+apps/admin-web/dist/assets/EmployeeCreatePage-BfsisCXd.js     6.22 kB │ gzip:   2.35 kB
+apps/admin-web/dist/assets/SettingsVersionPage-C5Azvm6l.js    7.01 kB │ gzip:   1.63 kB
+apps/admin-web/dist/assets/checkbox-SSqfE9Ug.js               8.03 kB │ gzip:   3.33 kB
+apps/admin-web/dist/assets/tag-rXLtUwDp.js                   10.10 kB │ gzip:   3.98 kB
+apps/admin-web/dist/assets/TaskListPage-C5bQyHGi.js          10.51 kB │ gzip:   3.03 kB
+apps/admin-web/dist/assets/StoreSettingsPage-CwosFztt.js     11.69 kB │ gzip:   3.68 kB
+apps/admin-web/dist/assets/TaskDetailPage-BNN-HkaC.js        15.43 kB │ gzip:   5.29 kB
+apps/admin-web/dist/assets/EmployeeDetailPage-Q2Uo4JTA.js    18.46 kB │ gzip:   5.52 kB
+apps/admin-web/dist/assets/style-DbPN5ABy.js                 21.70 kB │ gzip:   6.45 kB
+apps/admin-web/dist/assets/jsx-dev-runtime-BupgUZYW.js       26.21 kB │ gzip:   8.36 kB
+apps/admin-web/dist/assets/pagination-CpAaSo_X.js            26.85 kB │ gzip:   8.05 kB
+apps/admin-web/dist/assets/statusUtils-CXYGlsbv.js           31.13 kB │ gzip:  12.14 kB
+apps/admin-web/dist/assets/NotFoundPage-C3KmNnFs.js          35.31 kB │ gzip:  11.38 kB
+apps/admin-web/dist/assets/management-CezAadih.js            48.39 kB │ gzip:  16.15 kB
+apps/admin-web/dist/assets/api-D2DzgNDF.js                   78.22 kB │ gzip:  27.04 kB
+apps/admin-web/dist/assets/input-DfEUVaQX.js                 80.67 kB │ gzip:  28.40 kB
+apps/admin-web/dist/assets/select-Cqb0qcG7.js                89.44 kB │ gzip:  30.82 kB
+apps/admin-web/dist/assets/index-CtqDmckH.js                156.98 kB │ gzip:  52.92 kB
+apps/admin-web/dist/assets/table-BXlb64iw.js                218.73 kB │ gzip:  67.73 kB
+apps/admin-web/dist/assets/button-ljM8xIg6.js               574.23 kB │ gzip: 181.76 kB
+
+✓ built in 563ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

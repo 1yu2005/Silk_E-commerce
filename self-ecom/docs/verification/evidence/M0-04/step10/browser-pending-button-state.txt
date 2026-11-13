@@ -1,0 +1,8 @@
+{"group":"core","scenario":"本人、岗位池和后端动作范围，桌面与手机列表","passed":true}
+{"probe":"before-click"}
+{"probe":"claim-intercepted"}
+{"probe":"gate-ready"}
+{"probe":"claim-released"}
+{"probe":"claim-forwarded"}
+{"passed":false,"checks":1,"groups":[{"name":"core","passed":false,"databaseRemoved":true}],"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step10\\pending-button-state"}
+{"group":"core","scenario":"领取同步禁用、防重复提交和实际经办历史","message":"The expression evaluated to a falsy value:\n\n  assert.ok(pendingButtons[0]?.disabled)\n","line":"at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/test/verify-tasks-browser.mjs:79:12"}

@@ -16,7 +16,7 @@ import { EmployeeStatusService } from './employee-status.service.js';
 @ApiTags('Employees')
 @ApiBearerAuth('bearerAuth')
 @ApiBadRequestResponse({ headers: requestIdHeader, schema: authErrorSchema(['VALIDATION_FAILED']) })
-@ApiConflictResponse({ headers: requestIdHeader, schema: authErrorSchema(['VERSION_CONFLICT', 'LAST_ADMIN_REQUIRED']) })
+@ApiConflictResponse({ headers: requestIdHeader, schema: authErrorSchema(['VERSION_CONFLICT', 'LAST_ADMIN_REQUIRED', 'TASK_LOCK_PLAN_CHANGED', 'BUSINESS_MODULE_NOT_READY', 'TASK_VERSION_EXHAUSTED']) })
 @ApiNotFoundResponse({ headers: requestIdHeader, schema: authErrorSchema(['EMPLOYEE_NOT_FOUND']) })
 @ApiForbiddenResponse({ headers: requestIdHeader, schema: authErrorSchema(['FORBIDDEN', 'PASSWORD_CHANGE_REQUIRED']) })
 @ApiUnauthorizedResponse({ headers: requestIdHeader, schema: authErrorSchema([
@@ -29,7 +29,7 @@ export class EmployeeStatusController {
   @HttpCode(200)
   @Header('Cache-Control', 'no-store')
   @ApiOperation({ operationId: 'disableEmployee', summary: '停用员工',
-    description: '稳定锁→员工ID升序锁，锁内重验操作者及版本；禁止停用最后一名ACTIVE超级管理员。状态变为DISABLED，version/tokenVersion递增、全部会话撤销、审计和资格变更入口同事务；同状态匹配版本changed=false，旧版本仍409。' })
+    description: '稳定锁→员工ID升序锁，锁内重验操作者及版本；禁止停用最后一名ACTIVE超级管理员。状态变为DISABLED，version/tokenVersion递增、全部会话撤销、审计和资格变更入口同事务；同状态匹配版本changed=false，旧版本仍409。 员工写入前合并全部失资格任务的完整业务锁；任务回池、领域经办同步、历史及审计与员工变更同事务，失败整体回滚。锁集合变化整笔最多重试3次。' })
   @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiBody({ schema: employeeStatusBodySchema })
   @ApiOkResponse({ headers: requestIdHeader, schema: employeeStatusSuccessSchema })

@@ -1,0 +1,666 @@
+独立测试库已就绪，未重置或清理任何数据库
+Datasource "db": PostgreSQL database "shop_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Datasource "db": PostgreSQL database "tasks_migration_4880f7165ca443c38266b6a65224ad47_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "tasks_migration_7baef66783254770967e5f0f8da740dd_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "tasks_migration_4880f7165ca443c38266b6a65224ad47_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "tasks_migration_4880f7165ca443c38266b6a65224ad47_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+ ❯ test/tasks-schema.integration.ts (92 tests | 91 failed) 291ms
+   × 负运费被数据库拒绝 9ms
+   × 运费超限被数据库拒绝 3ms
+   × 负门槛被数据库拒绝 4ms
+   × 门槛超限被数据库拒绝 3ms
+   × 空原因被数据库拒绝 3ms
+   × 空收件人被数据库拒绝 3ms
+   × 空地区被数据库拒绝 3ms
+   × 空地址被数据库拒绝 3ms
+   × 非法电话被数据库拒绝 4ms
+   × 电话太短被数据库拒绝 2ms
+   × 电话太长被数据库拒绝 3ms
+   × 零版本被数据库拒绝 3ms
+   × 收件人超长被数据库拒绝 3ms
+   × 服务时间超长被数据库拒绝 3ms
+   × 配置创建人不存在被数据库拒绝 3ms
+   × payment_minutes期限上下界由CHECK保护 3ms
+   × auto_receipt_days期限上下界由CHECK保护 3ms
+   × after_sale_window_days期限上下界由CHECK保护 3ms
+   × review_workdays期限上下界由CHECK保护 3ms
+   × supplement_days期限上下界由CHECK保护 2ms
+   × return_ship_days期限上下界由CHECK保护 2ms
+   × inspection_workdays期限上下界由CHECK保护 2ms
+   × refund_workdays期限上下界由CHECK保护 4ms
+   × 零运费、零包邮门槛和关闭包邮可保存，配置指针及版本号必须匹配 3ms
+   × Head不能另建第二家店{ id: 2 } 3ms
+   × Head不能另建第二家店{ id: 0 } 2ms
+   × Head缺配置指针时不能标记正版本 3ms
+   × 配置版本号唯一，未提供完整地址不能保存初版 2ms
+   × 零轮次被任务底线拒绝 4ms
+   × 负版本被任务底线拒绝 3ms
+   × 空动作键被任务底线拒绝 3ms
+   × 已领取无经办被任务底线拒绝 3ms
+   × 已完成无结束时刻被任务底线拒绝 3ms
+   × 有效任务携带结束时刻被任务底线拒绝 3ms
+   × 截止早于起算被任务底线拒绝 3ms
+   × 清空已有截止被任务底线拒绝 3ms
+   × 当前截止早于原始截止被任务底线拒绝 3ms
+   × 曾逾期无事实时刻被任务底线拒绝 3ms
+   × 未逾期却有事实时刻被任务底线拒绝 2ms
+   × 权限不是数组被任务底线拒绝 3ms
+   × 权限空数组被任务底线拒绝 2ms
+   × 权限含数字被任务底线拒绝 2ms
+   × 权限含空串被任务底线拒绝 2ms
+   × 权限含非法代码被任务底线拒绝 3ms
+   × 规则快照不是对象被任务底线拒绝 5ms
+   × 设置版本不存在被任务底线拒绝 3ms
+   × 未知状态被任务底线拒绝 3ms
+   × OPEN不得保留经办人 2ms
+   × SUSPENDED不得保留经办人 3ms
+   × COMPLETED不得保留经办人 3ms
+   × CANCELLED不得保留经办人 2ms
+   × 已领取经办有真实员工外键，未规定SLA可保留null或首次人工指定 2ms
+   × 任务不能借其它业务游标或错误阶段入库 2ms
+   × 已有OPEN时同阶段新轮仍被有效唯一索引拒绝 2ms
+   × 已有CLAIMED时同阶段新轮仍被有效唯一索引拒绝 3ms
+   × 已有SUSPENDED时同阶段新轮仍被有效唯一索引拒绝 3ms
+   × 旧轮终结可进入新轮，旧entryKey及旧round仍不能复用 2ms
+   × 历史员工主体缺员工由CHECK拒绝 2ms
+   × 历史空动作键由CHECK拒绝 3ms
+   × 历史空requestId由CHECK拒绝 3ms
+   × 历史释放缺原因由CHECK拒绝 3ms
+   × 历史已领取历史缺新经办由CHECK拒绝 3ms
+   × 历史旧已领取缺原经办由CHECK拒绝 3ms
+   × 初建历史没有旧状态时也不能凭空保留原经办 4ms
+   × 员工历史、转交两端及任务引用均为真实外键；相同动作只记一次 2ms
+   × 同一截止只产生一次逾期，新的截止可再记，语义动作键也唯一 3ms
+   × 逾期冒充检测时刻被期限事件CHECK拒绝 2ms
+   × 逾期携带新截止被期限事件CHECK拒绝 2ms
+   × 系统冒用员工被期限事件CHECK拒绝 3ms
+   × 员工缺主体被期限事件CHECK拒绝 3ms
+   × 延期缺新截止被期限事件CHECK拒绝 3ms
+   × 延期缺原因被期限事件CHECK拒绝 3ms
+   × 首次指定伪造旧截止被期限事件CHECK拒绝 4ms
+   × 合法延期及首次指定保留独立事实，历史逾期不被覆盖 2ms
+   × 调度负扫描数量被CHECK拒绝 2ms
+   × 调度负变更数量被CHECK拒绝 3ms
+   × 调度负失败数量被CHECK拒绝 3ms
+   × 调度空作业名被CHECK拒绝 2ms
+   × 调度空实例名被CHECK拒绝 3ms
+   × 调度空requestId被CHECK拒绝 3ms
+   × 调度运行中标结束被CHECK拒绝 2ms
+   × 调度成功缺结束时刻被CHECK拒绝 2ms
+   × 调度结束早于开始被CHECK拒绝 2ms
+   × 调度SUCCEEDED可保存真实完成记录和脱敏失败 2ms
+   × 调度PARTIAL_FAILED可保存真实完成记录和脱敏失败 2ms
+   × 调度FAILED可保存真实完成记录和脱敏失败 2ms
+   × 调度ABANDONED可保存真实完成记录和脱敏失败 2ms
+   × scheduler_failure拒绝不存在的上游记录 3ms
+   × task_history拒绝不存在的上游记录 3ms
+   × deadline_event拒绝不存在的上游记录 2ms
+   × 失败摘要不能为空或超长，诊断记录保护原任务和运行记录不被级联删除 2ms
+Datasource "db": PostgreSQL database "files_migration_2bfdf207c1a64c37b878018fbdc56394_test", schema "public" at "localhost:15432"
+
+2 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "files_migration_012261bff57f4321b52b8cc3b7c22304_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "files_migration_2bfdf207c1a64c37b878018fbdc56394_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "files_migration_2bfdf207c1a64c37b878018fbdc56394_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  91 failed | 19 passed (110)
+   Start at  14:16:06
+   Duration  53.09s (tests 94%, import 5%, transform 2%)
+
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-m004-migrations-admuLB\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+(node:75388) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-m003-migrations-jG8a74\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 91 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/tasks-schema.integration.ts > 负运费被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 运费超限被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 负门槛被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 门槛超限被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 空原因被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 空收件人被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 空地区被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 空地址被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 非法电话被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 电话太短被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 电话太长被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 零版本被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 收件人超长被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 服务时间超长被数据库拒绝
+ FAIL  test/tasks-schema.integration.ts > 配置创建人不存在被数据库拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:42:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > payment_minutes期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > auto_receipt_days期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > after_sale_window_days期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > review_workdays期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > supplement_days期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > return_ship_days期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > inspection_workdays期限上下界由CHECK保护
+ FAIL  test/tasks-schema.integration.ts > refund_workdays期限上下界由CHECK保护
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:49:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 零运费、零包邮门槛和关闭包邮可保存，配置指针及版本号必须匹配
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:60:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > Head不能另建第二家店{ id: 2 }
+ FAIL  test/tasks-schema.integration.ts > Head不能另建第二家店{ id: 0 }
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:70:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > Head缺配置指针时不能标记正版本
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:73:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 配置版本号唯一，未提供完整地址不能保存初版
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:77:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 零轮次被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 负版本被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 空动作键被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 已领取无经办被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 已完成无结束时刻被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 有效任务携带结束时刻被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 截止早于起算被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 清空已有截止被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 当前截止早于原始截止被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 曾逾期无事实时刻被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 未逾期却有事实时刻被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 权限不是数组被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 权限空数组被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 权限含数字被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 权限含空串被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 权限含非法代码被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 规则快照不是对象被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 设置版本不存在被任务底线拒绝
+ FAIL  test/tasks-schema.integration.ts > 未知状态被任务底线拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:97:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > OPEN不得保留经办人
+ FAIL  test/tasks-schema.integration.ts > SUSPENDED不得保留经办人
+ FAIL  test/tasks-schema.integration.ts > COMPLETED不得保留经办人
+ FAIL  test/tasks-schema.integration.ts > CANCELLED不得保留经办人
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:103:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 已领取经办有真实员工外键，未规定SLA可保留null或首次人工指定
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:110:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 任务不能借其它业务游标或错误阶段入库
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:119:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 已有OPEN时同阶段新轮仍被有效唯一索引拒绝
+ FAIL  test/tasks-schema.integration.ts > 已有CLAIMED时同阶段新轮仍被有效唯一索引拒绝
+ FAIL  test/tasks-schema.integration.ts > 已有SUSPENDED时同阶段新轮仍被有效唯一索引拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:130:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 旧轮终结可进入新轮，旧entryKey及旧round仍不能复用
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:137:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 历史员工主体缺员工由CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 历史空动作键由CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 历史空requestId由CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 历史释放缺原因由CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 历史已领取历史缺新经办由CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 历史旧已领取缺原经办由CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:153:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 初建历史没有旧状态时也不能凭空保留原经办
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:157:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 员工历史、转交两端及任务引用均为真实外键；相同动作只记一次
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:161:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 同一截止只产生一次逾期，新的截止可再记，语义动作键也唯一
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:171:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 逾期冒充检测时刻被期限事件CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 逾期携带新截止被期限事件CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 系统冒用员工被期限事件CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 员工缺主体被期限事件CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 延期缺新截止被期限事件CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 延期缺原因被期限事件CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 首次指定伪造旧截止被期限事件CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:190:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 合法延期及首次指定保留独立事实，历史逾期不被覆盖
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:194:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 调度负扫描数量被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度负变更数量被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度负失败数量被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度空作业名被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度空实例名被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度空requestId被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度运行中标结束被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度成功缺结束时刻被CHECK拒绝
+ FAIL  test/tasks-schema.integration.ts > 调度结束早于开始被CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:211:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 调度SUCCEEDED可保存真实完成记录和脱敏失败
+ FAIL  test/tasks-schema.integration.ts > 调度PARTIAL_FAILED可保存真实完成记录和脱敏失败
+ FAIL  test/tasks-schema.integration.ts > 调度FAILED可保存真实完成记录和脱敏失败
+ FAIL  test/tasks-schema.integration.ts > 调度ABANDONED可保存真实完成记录和脱敏失败
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:214:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > scheduler_failure拒绝不存在的上游记录
+ FAIL  test/tasks-schema.integration.ts > task_history拒绝不存在的上游记录
+ FAIL  test/tasks-schema.integration.ts > deadline_event拒绝不存在的上游记录
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:225:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/91]⎯
+
+ FAIL  test/tasks-schema.integration.ts > 失败摘要不能为空或超长，诊断记录保护原任务和运行记录不被级联删除
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insertSchemaRow test/fixtures/task-schema.ts:15:3
+     13|   const columns = Object.keys(row);
+     14|   // 表名和字段仅来自本文件及调用方的固定测试代码；所有数据值均参数化。
+     15|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     16|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     17| }
+ ❯ transaction test/tasks-schema.integration.ts:19:5
+ ❯ test/tasks-schema.integration.ts:228:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/91]⎯
+

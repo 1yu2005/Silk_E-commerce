@@ -1,0 +1,137 @@
+{
+  "checkedAt": "2026-11-13T10:26:08.494Z",
+  "checks": [
+    {
+      "group": "core",
+      "scenario": "本人、岗位池和后端动作范围，桌面与手机列表"
+    }
+  ],
+  "requests": [
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4b4ab5b6-a984-417a-938d-78b60e8da46f"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "152286de-71a0-4987-bc3a-fbc14e69e418"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "619d1e80-e5e2-4be4-8690-7a1b77370ae7"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/b9e85101-bb70-4351-838b-a9ab61356e85",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9fe2ff6f-df24-424d-8f4b-765cbf6c1e90"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/b9e85101-bb70-4351-838b-a9ab61356e85/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4685d748-c799-403d-b130-45b4af9952fc"
+    }
+  ],
+  "writes": [
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/b9e85101-bb70-4351-838b-a9ab61356e85/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [],
+  "groups": [
+    {
+      "name": "core",
+      "passed": false,
+      "databaseName": "task_acceptance_aa9d3fb04d384f90bb057e5af9764d56_test",
+      "failure": {
+        "scenario": "领取同步禁用、防重复提交和实际经办历史",
+        "message": "locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog') to be hidden\u001b[22m\n\u001b[2m    28 × locator resolved to visible <div role=\"dialog\" tabindex=\"-1\" aria-modal=\"true\" aria-labelledby=\"test-id\" class=\"ant-modal css-dev-only-do-not-override-i19pbt\">…</div>\u001b[22m\n",
+        "line": "at waitSuccess (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:47:72)"
+      },
+      "taskStateAtFailure": [
+        {
+          "id": "b9e85101-bb70-4351-838b-a9ab61356e85",
+          "version": 0,
+          "status": "OPEN",
+          "assigneeId": null
+        },
+        {
+          "id": "0ea28b36-9754-4553-88be-aa8a231839d6",
+          "version": 0,
+          "status": "OPEN",
+          "assigneeId": null
+        },
+        {
+          "id": "45c8d801-0e5e-4104-9309-3941fa5b4d58",
+          "version": 1,
+          "status": "CLAIMED",
+          "assigneeId": "b6c50d8e-5ca4-426a-bb75-fa12ccb22e2a"
+        },
+        {
+          "id": "5e83db5c-2dd5-4655-8935-6024c01fb1f6",
+          "version": 1,
+          "status": "CLAIMED",
+          "assigneeId": "73723fe4-5d10-40ec-9b24-4329124344c7"
+        }
+      ],
+      "databaseRemoved": true
+    }
+  ],
+  "probes": [
+    {
+      "point": "before-click",
+      "at": "2026-11-13T10:26:19.780Z"
+    },
+    {
+      "point": "claim-intercepted",
+      "at": "2026-11-13T10:26:20.611Z"
+    },
+    {
+      "point": "gate-ready",
+      "at": "2026-11-13T10:26:20.611Z"
+    },
+    {
+      "point": "button-disabled",
+      "at": "2026-11-13T10:26:31.101Z"
+    },
+    {
+      "point": "gate-release-called",
+      "at": "2026-11-13T10:26:31.101Z"
+    },
+    {
+      "point": "claim-released",
+      "at": "2026-11-13T10:26:31.101Z"
+    },
+    {
+      "point": "click-complete",
+      "at": "2026-11-13T10:26:31.101Z"
+    },
+    {
+      "point": "claim-forwarded",
+      "at": "2026-11-13T10:26:31.102Z"
+    }
+  ],
+  "browser": "145.0.7632.6",
+  "passed": false
+}

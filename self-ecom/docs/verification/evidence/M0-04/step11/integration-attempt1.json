@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-11-13T11:31:42.538Z",
+  "mode": "integration",
+  "label": "attempt1",
+  "checks": [
+    {
+      "name": "migrate",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "docs/verification/evidence/M0-04/step11/integration-attempt1-migrate.txt"
+    },
+    {
+      "name": "all",
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "log": "docs/verification/evidence/M0-04/step11/integration-attempt1-all.txt"
+    }
+  ],
+  "database": {
+    "name": "full_regression_00a0b9a175074145bf4d9ece88c28dae_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": true
+}

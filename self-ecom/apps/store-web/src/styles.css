@@ -31,6 +31,13 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .nickname-editor h2 { font-size: 20px; margin: 0 0 20px; }
 .nickname-editor form { margin-top: 20px; }
 .site-footer { padding: 24px 5vw; color: #536a79; text-align: center; }
+/* 公开联系独立于账号，长服务时间在手机下换行；电话可直接拨打。 */
+.store-contact { border-top: 1px solid #dce5e9; padding: 24px 0; text-align: left; color: #243746; overflow-wrap: anywhere; }
+.store-contact h2 { font-size: 18px; margin: 0 0 12px; }
+.store-contact p { font-size: 14px; margin: 6px 0; max-width: none; }
+.store-contact-details { display: flex; flex-wrap: wrap; gap: 8px 40px; }
+.store-contact a { font-weight: 700; }
+.store-footer-note { max-width: none; margin: 0; font-size: 13px; }
 .avatar-editor { padding-bottom: 24px; margin-bottom: 24px; border-bottom: 1px solid #dce5e9; }
 .avatar-summary { display: flex; align-items: center; gap: 20px; margin-bottom: 16px; }
 .avatar-summary h2 { font-size: 18px; margin: 0; }

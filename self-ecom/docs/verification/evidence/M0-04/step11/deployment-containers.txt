@@ -1,0 +1,172 @@
+[
+  {
+    "Id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "Name": "/self-ecom-db-1",
+    "Image": "sha256:557fea37a744d5f4c8faab304b0a90858b53ab119735a88c131fd19dab802f36",
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 66963,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-11-12T10:13:54.461500349Z",
+      "FinishedAt": "2026-11-12T10:11:21.665118521Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-13T11:45:57.459017354Z",
+            "End": "2026-11-13T11:45:57.518219317Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:02.519743888Z",
+            "End": "2026-11-13T11:46:02.610737432Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:07.61244893Z",
+            "End": "2026-11-13T11:46:07.664916525Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:12.666603248Z",
+            "End": "2026-11-13T11:46:12.724900132Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          },
+          {
+            "Start": "2026-11-13T11:46:17.720950276Z",
+            "End": "2026-11-13T11:46:17.786760716Z",
+            "ExitCode": 0,
+            "Output": "/var/run/postgresql:5432 - accepting connections\n"
+          }
+        ]
+      }
+    },
+    "Mounts": [
+      {
+        "Type": "volume",
+        "Name": "self-ecom_db_data",
+        "Source": "/var/lib/docker/volumes/self-ecom_db_data/_data",
+        "Destination": "/var/lib/postgresql/data",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ]
+  },
+  {
+    "Id": "798cdf5a765cb8ecc1648f5781b85677a5789c5ba4f9ac81bdf1c6f600c51e74",
+    "Name": "/self-ecom-api-1",
+    "Image": "sha256:dc678421a5f4a6bba4af7989bd8348efc5d06926c15cd5e3502d9e7579bbd474",
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 50467,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-11-13T11:46:08.948543789Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-13T11:46:14.109421373Z",
+            "End": "2026-11-13T11:46:14.224401585Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    },
+    "Mounts": [
+      {
+        "Type": "volume",
+        "Name": "self-ecom_uploads",
+        "Source": "/var/lib/docker/volumes/self-ecom_uploads/_data",
+        "Destination": "/app/storage/uploads",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ]
+  },
+  {
+    "Id": "052497b6fb013c9490f831de52e7f1632471ddf0e7e4e9567662e5cd8db9df53",
+    "Name": "/self-ecom-admin-web-1",
+    "Image": "sha256:dd4300f0b9a24b32e0a8d169347acf8dd9191c701e65c36f0d2e296d1ef2f0ba",
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 50595,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-11-13T11:46:14.675872399Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-13T11:46:19.676039839Z",
+            "End": "2026-11-13T11:46:19.711666938Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    },
+    "Mounts": []
+  },
+  {
+    "Id": "6493a595254b0cff83e07dbcfb5d68da1c70bf01fe401bde1e1322d2eaab7d57",
+    "Name": "/self-ecom-store-web-1",
+    "Image": "sha256:6d571f905c0ee8d61f45ede55caf4c62864996e44b4f984e82ebed55fe7441c2",
+    "State": {
+      "Status": "running",
+      "Running": true,
+      "Paused": false,
+      "Restarting": false,
+      "OOMKilled": false,
+      "Dead": false,
+      "Pid": 50684,
+      "ExitCode": 0,
+      "Error": "",
+      "StartedAt": "2026-11-13T11:46:14.908638071Z",
+      "FinishedAt": "0001-01-01T00:00:00Z",
+      "Health": {
+        "Status": "healthy",
+        "FailingStreak": 0,
+        "Log": [
+          {
+            "Start": "2026-11-13T11:46:19.908840839Z",
+            "End": "2026-11-13T11:46:19.93967404Z",
+            "ExitCode": 0,
+            "Output": ""
+          }
+        ]
+      }
+    },
+    "Mounts": []
+  }
+]

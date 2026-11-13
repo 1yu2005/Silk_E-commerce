@@ -4,6 +4,7 @@ import { AppLayout } from './AppLayout';
 import { AuthRoot, LoginOnly, RequireEmployee } from '../auth/AuthRoutes';
 import { EmployeeReadGuard } from '../employees/EmployeeReadGuard';
 import { EmployeeCreateGuard } from '../employees/EmployeeCreateGuard';
+import { SettingsGuard } from '../settings/SettingsGuard';
 
 export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{ element: <AppLayout />, children: [
   { element: <LoginOnly />, children: [
@@ -14,6 +15,13 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
   ] },
   { element: <RequireEmployee />, children: [
     { path: '/', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
+    { path: '/tasks', lazy: async () => ({ Component: (await import('../pages/TaskListPage')).TaskListPage }) },
+    { path: '/tasks/:id', lazy: async () => ({ Component: (await import('../pages/TaskDetailPage')).TaskDetailPage }) },
+    { element: <SettingsGuard />, children: [
+      { path: '/settings', lazy: async () => ({ Component: (await import('../pages/StoreSettingsPage')).StoreSettingsPage }) },
+      { path: '/settings/versions', lazy: async () => ({ Component: (await import('../pages/SettingsHistoryPage')).SettingsHistoryPage }) },
+      { path: '/settings/versions/:id', lazy: async () => ({ Component: (await import('../pages/SettingsVersionPage')).SettingsVersionPage }) },
+    ] },
     { element: <EmployeeCreateGuard />, children: [
       { path: '/employees/new', lazy: async () => ({ Component: (await import('../pages/EmployeeCreatePage')).EmployeeCreatePage }) },
     ] },

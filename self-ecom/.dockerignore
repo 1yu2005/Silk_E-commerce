@@ -1,6 +1,10 @@
 # 文件作用：排除依赖、秘密、本地产物与验收证据，缩小 Docker 构建上下文。
 **/node_modules
 **/dist
+# API测试适配器和隔离启动入口只供本机验收，不进入生产镜像上下文。
+apps/api/test
+apps/api/scripts/task-acceptance.mjs
+apps/api/tsconfig.acceptance.json
 **/.turbo
 **/coverage
 .git

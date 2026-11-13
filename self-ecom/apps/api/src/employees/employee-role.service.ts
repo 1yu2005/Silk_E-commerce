@@ -10,6 +10,7 @@ import { PrismaService } from '../prisma/prisma.service.js';
 import { EmployeeLastAdminRequiredError, EmployeeNotFoundError, EmployeeVersionConflictError } from './employee-command.errors.js';
 import { EmployeeEligibilityService } from './employee-eligibility.service.js';
 import { EmployeeRoleDto } from './employee-role.dto.js';
+import { TaskError } from '../tasks/task.errors.js';
 
 @Injectable()
 export class EmployeeRoleService {
@@ -49,6 +50,10 @@ export class EmployeeRoleService {
       }
       const oldEffective = this.permissions.effectivePermissions(before.role, oldExtras);
       const newEffective = this.permissions.effectivePermissions(input.role, []);
+      const nextEffective = before.status === 'ACTIVE' ? newEffective : [];
+      const taskContext = await this.eligibility.prepare(tx, targetId, nextEffective, {
+        actor: current, token, permission: 'employee.role.change', reason: input.reason, requestId,
+      });
       await tx.employeeExtraPermission.deleteMany({ where: { employeeId: targetId } });
       const result = await tx.employee.update({ where: { id: targetId }, data: {
         role: input.role, version: { increment: 1 }, permissionVersion: { increment: 1 },
@@ -59,8 +64,8 @@ export class EmployeeRoleService {
         after: { role: input.role, extraPermissions: [] } });
       // 永久业务资格按启停状态折算，强制改密仍由Guard独立限制；失败必须连同授权清空一起回滚。
       await this.eligibility.onEmployeeEligibilityChanged(tx, targetId,
-        before.status === 'ACTIVE' ? oldEffective : [], before.status === 'ACTIVE' ? newEffective : [], input.reason);
+        before.status === 'ACTIVE' ? oldEffective : [], nextEffective, input.reason, taskContext);
       return { ...result, extraPermissions: [], changed: true };
-    });
+    }, error => error instanceof TaskError && error.code === 'TASK_LOCK_PLAN_CHANGED');
   }
 }

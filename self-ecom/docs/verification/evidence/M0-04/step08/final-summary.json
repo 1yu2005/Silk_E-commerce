@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-11-13T09:13:38.202Z",
+  "step08EvidenceLinks": "passed",
+  "successfulCommandReports": [
+    "unit-attempt1",
+    "entry-integration-attempt1",
+    "access-integration-attempt1",
+    "reassign-integration-attempt1",
+    "integration-retry-role",
+    "typecheck-tests2",
+    "lint-final",
+    "export-attempt1",
+    "generate-attempt1",
+    "client-typecheck-attempt1",
+    "client-types-attempt1",
+    "client-build-attempt1",
+    "client-test-attempt1",
+    "contracts-attempt1"
+  ],
+  "retainedFailureReports": [
+    {
+      "label": "integration-attempt1",
+      "exitCode": 1
+    },
+    {
+      "label": "typecheck-tests1",
+      "exitCode": 2
+    }
+  ],
+  "compiledHttp": "passed",
+  "developmentReadOnly": "passed",
+  "protectionBeforeSummary": "passed",
+  "apiUnitCases": 168,
+  "clientCases": 96,
+  "databaseUniqueCases": {
+    "deadlineFirstRoundPassed": 55,
+    "deadlineTargetedPassed": 2,
+    "entryPassed": 34,
+    "accessPassed": 38,
+    "reassignPassed": 44,
+    "total": 173,
+    "finalWholeDeadlineSuiteRun": false
+  },
+  "summaryInspectionCorrection": {
+    "firstInspection": "failed",
+    "reason": "汇总断言误要求tsc失败退出1，实际为2；非0均应视为失败",
+    "correctedInspection": "passed",
+    "testsRerun": false
+  },
+  "wholeModuleAcceptance": "not-run"
+}

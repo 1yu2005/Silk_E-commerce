@@ -1,0 +1,251 @@
+{
+  "checkedAt": "2026-11-13T06:25:33.642Z",
+  "protectedFiles": [
+    {
+      "path": ".env",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": ".env.example",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "package.json",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/package.json",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "unchanged": false,
+      "authorizedSchemaChange": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/prisma/migrations/0003_files_communication_history/migration.sql",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "../.github/workflows/self-ecom-contracts.yml",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/src/common/time/clock.ts",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/src/common/time/deadline.ts",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/src/common/time/time.module.ts",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/baseline.json",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/checks.json",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/lint-attempt1.txt",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/protection.json",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/time-attempt1.txt",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step01/typecheck-attempt1.txt",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    },
+    {
+      "path": "apps/api/test/time.spec.ts",
+      "unchanged": true,
+      "authorizedSchemaChange": false
+    }
+  ],
+  "trackedChanges": [
+    "apps/api/prisma/schema.prisma",
+    "apps/api/test/database.integration.ts",
+    "apps/api/test/files-migration.integration.ts"
+  ],
+  "stagedEmpty": true,
+  "headUnchanged": true,
+  "appliedMigrationUnchanged": true,
+  "gitDiffCheckPassed": true,
+  "newTextWhitespace": [
+    {
+      "path": "apps/api/prisma/migrations/0004_store_settings_tasks_deadlines/migration.sql",
+      "valid": true
+    },
+    {
+      "path": "apps/api/src/common/time/clock.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/src/common/time/deadline.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/src/common/time/time.module.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/test/fixtures/task-schema.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/test/tasks-migration.integration.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/test/tasks-schema.integration.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/test/time.spec.ts",
+      "valid": true
+    },
+    {
+      "path": "docs/design/M0-04.md",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/M0-04.md",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/probe-null.mjs",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/run-check.mjs",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/schema-before.prisma",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/service-snapshot.mjs",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/sync-development.mjs",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/verify-protection.mjs",
+      "valid": true
+    }
+  ],
+  "sourceSha256": [
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "sha256": "a6976ea2a8d253501fec90c5e927aa17a1220806443ea3e248a0683921cf3967"
+    },
+    {
+      "path": "apps/api/test/database.integration.ts",
+      "sha256": "eeb36243e0b5932c8a39d0610616cdf94bc62f161a2dc56ce5287e44d1961605"
+    },
+    {
+      "path": "apps/api/test/files-migration.integration.ts",
+      "sha256": "309c1703f258840fe1826e93baa7ff90a428c0f6a4ba77a2e18b63bacbd31965"
+    },
+    {
+      "path": "apps/api/prisma/migrations/0004_store_settings_tasks_deadlines/migration.sql",
+      "sha256": "052a6951ba7788a471aec6cc8955dafc68e9746cd524a74565c7bf8d163caa75"
+    },
+    {
+      "path": "apps/api/src/common/time/clock.ts",
+      "sha256": "77915cf26ffdeec4c5e300512d8f9ac500795b4b23db9793f378c8e1557d644a"
+    },
+    {
+      "path": "apps/api/src/common/time/deadline.ts",
+      "sha256": "6ff3c866ee4865ae9f68cdebe8a78dcd116e7db8b3c04c9500f98b51a8f70d56"
+    },
+    {
+      "path": "apps/api/src/common/time/time.module.ts",
+      "sha256": "e0ac878008d78192b0817bdc2536c4211e265e563ae74f77e3958e0fa05b971e"
+    },
+    {
+      "path": "apps/api/test/fixtures/task-schema.ts",
+      "sha256": "49ce48311e23a9d26972266a371cfb8ba88b68abcddf5f2b8d592c850bc95c1e"
+    },
+    {
+      "path": "apps/api/test/tasks-migration.integration.ts",
+      "sha256": "016ae389fef4aa04a93d992b71aa4b96888fbc87811ba0dee13e756e13a16a34"
+    },
+    {
+      "path": "apps/api/test/tasks-schema.integration.ts",
+      "sha256": "7dd1ca8c6714dda73756c3ede890bacd1d26ca6fb3b9faedb00a2d87a791beee"
+    },
+    {
+      "path": "apps/api/test/time.spec.ts",
+      "sha256": "f6d7902da13f05f611991808f3f10b08ce2f0628b04aedd31aa35381532aae6e"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/probe-null.mjs",
+      "sha256": "e2ffe5649c2e49989773e285406876f8ad10441267d5cd80bec6bef26d9e4e03"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/run-check.mjs",
+      "sha256": "2679b8be5123c3cfd624e12b4376d570444ee6bc6f9f0c011ec82480075ee9f1"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/schema-before.prisma",
+      "sha256": "e3ca940d5aba634ff538871248bca775e8e9bf2867502712aa1b13616b226358"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/service-snapshot.mjs",
+      "sha256": "45a0670f74e5f8712e100d6fc680ddb8c1b1c5c79ce5e7a683fcc705afefcee6"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/sync-development.mjs",
+      "sha256": "5c99ec7f84eceefb0151d25f6c598b042e4b6dcb0b895d284f607aa87aaede40"
+    },
+    {
+      "path": "docs/verification/evidence/M0-04/step02/verify-protection.mjs",
+      "sha256": "da2ae9f6a5ad87f55c171bd685c1c547dcd702893b3823cfc339b803116f30ca"
+    }
+  ],
+  "status": "M apps/api/prisma/schema.prisma\n M apps/api/test/database.integration.ts\n M apps/api/test/files-migration.integration.ts\n?? ../.github/workflows/self-ecom-contracts.yml\n?? apps/api/prisma/migrations/0004_store_settings_tasks_deadlines/migration.sql\n?? apps/api/src/common/time/clock.ts\n?? apps/api/src/common/time/deadline.ts\n?? apps/api/src/common/time/time.module.ts\n?? apps/api/test/fixtures/task-schema.ts\n?? apps/api/test/tasks-migration.integration.ts\n?? apps/api/test/tasks-schema.integration.ts\n?? apps/api/test/time.spec.ts\n?? docs/design/M0-04.md\n?? docs/verification/M0-04.md\n?? docs/verification/evidence/M0-04/step01/baseline.json\n?? docs/verification/evidence/M0-04/step01/checks.json\n?? docs/verification/evidence/M0-04/step01/lint-attempt1.txt\n?? docs/verification/evidence/M0-04/step01/protection.json\n?? docs/verification/evidence/M0-04/step01/time-attempt1.txt\n?? docs/verification/evidence/M0-04/step01/typecheck-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/baseline.json\n?? docs/verification/evidence/M0-04/step02/development-deploy.txt\n?? docs/verification/evidence/M0-04/step02/development-diff.txt\n?? docs/verification/evidence/M0-04/step02/development-migration.json\n?? docs/verification/evidence/M0-04/step02/development-status.txt\n?? docs/verification/evidence/M0-04/step02/diff-attempt1.json\n?? docs/verification/evidence/M0-04/step02/diff-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/diff-test-attempt1.json\n?? docs/verification/evidence/M0-04/step02/diff-test-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/format-attempt1.json\n?? docs/verification/evidence/M0-04/step02/format-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/generate-attempt1.json\n?? docs/verification/evidence/M0-04/step02/generate-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/integration-attempt1.json\n?? docs/verification/evidence/M0-04/step02/integration-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/integration-outside-sandbox.json\n?? docs/verification/evidence/M0-04/step02/integration-outside-sandbox.txt\n?? docs/verification/evidence/M0-04/step02/integration-schema-fixture-fix.json\n?? docs/verification/evidence/M0-04/step02/integration-schema-fixture-fix.txt\n?? docs/verification/evidence/M0-04/step02/lint-attempt1.json\n?? docs/verification/evidence/M0-04/step02/lint-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/lint-final.json\n?? docs/verification/evidence/M0-04/step02/lint-final.txt\n?? docs/verification/evidence/M0-04/step02/lint-final2.json\n?? docs/verification/evidence/M0-04/step02/lint-final2.txt\n?? docs/verification/evidence/M0-04/step02/lint-final3.json\n?? docs/verification/evidence/M0-04/step02/lint-final3.txt\n?? docs/verification/evidence/M0-04/step02/null-check-fixed.json\n?? docs/verification/evidence/M0-04/step02/null-check-original.json\n?? docs/verification/evidence/M0-04/step02/probe-null.mjs\n?? docs/verification/evidence/M0-04/step02/protection.json\n?? docs/verification/evidence/M0-04/step02/run-check.mjs\n?? docs/verification/evidence/M0-04/step02/schema-before.prisma\n?? docs/verification/evidence/M0-04/step02/service-snapshot.mjs\n?? docs/verification/evidence/M0-04/step02/services-after.json\n?? docs/verification/evidence/M0-04/step02/services-before.json\n?? docs/verification/evidence/M0-04/step02/sync-development.mjs\n?? docs/verification/evidence/M0-04/step02/typecheck-attempt1.json\n?? docs/verification/evidence/M0-04/step02/typecheck-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/typecheck-final.json\n?? docs/verification/evidence/M0-04/step02/typecheck-final.txt\n?? docs/verification/evidence/M0-04/step02/validate-attempt1.json\n?? docs/verification/evidence/M0-04/step02/validate-attempt1.txt\n?? docs/verification/evidence/M0-04/step02/verify-protection.mjs"
+}

@@ -1,0 +1,91 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Datasource "db": PostgreSQL database "task_entry_03ff6e0d234a4c0ca06c9c9946a19839_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-entry.integration.ts
+步骤5本轮独占测试库已删除，未清空共享测试库或开发库
+
+ ❯ test/task-entry.integration.ts (34 tests | 5 failed) 10133ms
+   × 旧截止等号时重入先记真实逾期，重放不重记且新轮不继承旧逾期标志 85ms
+   × 已有同截止逾期事件时复用唯一事实，保留更早首次逾期，不重复审计 92ms
+   × task.create真实落审计后故障，业务、游标、旧/新任务、历史、事件、审计整体回滚 88ms
+   × task.stage.cancel真实落审计后故障，业务、游标、旧/新任务、历史、事件、审计整体回滚 84ms
+   × task.overdue.record真实落审计后故障，业务、游标、旧/新任务、历史、事件、审计整体回滚 81ms
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 29 passed (34)
+   Start at  15:40:11
+   Duration  12.53s (tests 82%, import 15%, transform 3%)
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-entry.integration.ts > 旧截止等号时重入先记真实逾期，重放不重记且新轮不继承旧逾期标志
+TokenValidationError: 登录凭证已过期
+ ❯ JwtTokenService.verify src/auth/jwt-token.service.ts:99:13
+     97|       if (error instanceof TokenValidationError) throw error;
+     98|       // jose异常可能附带payload；只转换为固定错误，不保留原异常或cause。
+     99|       throw new TokenValidationError(error instanceof errors.JWTExpire…
+       |             ^
+    100|     }
+    101|   }
+ ❯ CurrentIdentityService.authenticate src/auth/current-identity.service.ts:38:20
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:66:15
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ test/task-entry.integration.ts:214:17
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  test/task-entry.integration.ts > 已有同截止逾期事件时复用唯一事实，保留更早首次逾期，不重复审计
+TokenValidationError: 登录凭证已过期
+ ❯ JwtTokenService.verify src/auth/jwt-token.service.ts:99:13
+     97|       if (error instanceof TokenValidationError) throw error;
+     98|       // jose异常可能附带payload；只转换为固定错误，不保留原异常或cause。
+     99|       throw new TokenValidationError(error instanceof errors.JWTExpire…
+       |             ^
+    100|     }
+    101|   }
+ ❯ CurrentIdentityService.authenticate src/auth/current-identity.service.ts:38:20
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:66:15
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ test/task-entry.integration.ts:224:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  test/task-entry.integration.ts > task.create真实落审计后故障，业务、游标、旧/新任务、历史、事件、审计整体回滚
+ FAIL  test/task-entry.integration.ts > task.stage.cancel真实落审计后故障，业务、游标、旧/新任务、历史、事件、审计整体回滚
+ FAIL  test/task-entry.integration.ts > task.overdue.record真实落审计后故障，业务、游标、旧/新任务、历史、事件、审计整体回滚
+AssertionError: expected [Function] to throw error including '实际审计写入后故障' but got '登录凭证已过期'
+
+Expected: "实际审计写入后故障"
+Received: "登录凭证已过期"
+
+ ❯ test/task-entry.integration.ts:231:177
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+

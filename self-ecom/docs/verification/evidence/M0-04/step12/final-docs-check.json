@@ -1,0 +1,199 @@
+{
+  "checkedAt": "2026-11-13T12:31:59.732Z",
+  "passed": true,
+  "scope": "板块4步骤12文档交付，只读核对，无软件测试重跑",
+  "head": "5342a690d97d733ac2958ab652d6373a85fe91ae",
+  "branch": "main",
+  "documents": [
+    {
+      "path": "README.md",
+      "sha256": "70161ca0da0f984e9773961fb6aa22c1d4331800f5ced2dc6d15e170119835a0"
+    },
+    {
+      "path": "项目文档/开发进度总览.md",
+      "sha256": "7684de740c3475f77a447438594a2ae290502ecda79b573e4d2494e6d3fb437c"
+    },
+    {
+      "path": "项目文档/开发进度文档/M0_工程可运行/04_板块4_全店配置期限与任务内核.md",
+      "sha256": "53318a610465b8dee4e068a3e2ee99f4dc6e5fb267584ac4571b3105410ddc7c"
+    },
+    {
+      "path": "项目文档/开发进度文档/开发完成说明/板块4_开发完成说明.md",
+      "sha256": "7bdf98674ff183a3023bb408dd7ad451d63f7eba93b1b39e38e0813fd9290645"
+    },
+    {
+      "path": "docs/design/M0-04.md",
+      "sha256": "5724eb74bc31b657f937f42d01ac734e166e3cb2cdea5522125296803794f2d1"
+    },
+    {
+      "path": "docs/verification/M0-04.md",
+      "sha256": "5042fc828cfd3b20360a7bcb29007b8cb9c129e472f257e336262b00fd395b92"
+    },
+    {
+      "path": "apps/api/test/acceptance/README.md",
+      "sha256": "0c4d4d502acd7c1f69dddbd38b80bbc529d7e070fe256e2cddf31fcb1542b0c1"
+    }
+  ],
+  "localLinks": 287,
+  "localLinksAndAnchorsPassed": true,
+  "contract": {
+    "newOperations": [
+      {
+        "method": "get",
+        "path": "/api/v1/admin/settings"
+      },
+      {
+        "method": "put",
+        "path": "/api/v1/admin/settings"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/admin/settings/versions"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/admin/settings/versions/{id}"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/store/contact"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/admin/tasks"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/admin/tasks/summary"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/admin/tasks/{id}"
+      },
+      {
+        "method": "get",
+        "path": "/api/v1/admin/tasks/{id}/history"
+      },
+      {
+        "method": "post",
+        "path": "/api/v1/admin/tasks/{id}/claim"
+      },
+      {
+        "method": "post",
+        "path": "/api/v1/admin/tasks/{id}/release"
+      },
+      {
+        "method": "post",
+        "path": "/api/v1/admin/tasks/{id}/transfer"
+      },
+      {
+        "method": "post",
+        "path": "/api/v1/admin/tasks/{id}/extend-deadline"
+      }
+    ],
+    "projectOperations": 40,
+    "generatedJsonCallers": 38,
+    "sourcePatternMatches": 38
+  },
+  "migration": {
+    "path": "apps/api/prisma/migrations/0004_store_settings_tasks_deadlines/migration.sql",
+    "tables": [
+      "store_setting_head",
+      "store_setting_version",
+      "task_stage_cursor",
+      "task",
+      "task_history",
+      "deadline_event",
+      "scheduler_run",
+      "scheduler_failure"
+    ],
+    "unchanged": true
+  },
+  "deadlines": [
+    {
+      "field": "paymentMinutes",
+      "min": 1,
+      "max": 1440
+    },
+    {
+      "field": "autoReceiptDays",
+      "min": 1,
+      "max": 365
+    },
+    {
+      "field": "afterSaleWindowDays",
+      "min": 1,
+      "max": 365
+    },
+    {
+      "field": "reviewWorkdays",
+      "min": 1,
+      "max": 30
+    },
+    {
+      "field": "supplementDays",
+      "min": 1,
+      "max": 90
+    },
+    {
+      "field": "returnShipDays",
+      "min": 1,
+      "max": 90
+    },
+    {
+      "field": "inspectionWorkdays",
+      "min": 1,
+      "max": 30
+    },
+    {
+      "field": "refundWorkdays",
+      "min": 1,
+      "max": 30
+    }
+  ],
+  "stageCount": 20,
+  "permissions": [
+    "store.setting.manage",
+    "task.transfer",
+    "deadline.extend"
+  ],
+  "scriptsChecked": true,
+  "referencedSoftwareResults": {
+    "source": "docs/verification/evidence/M0-04/step11/final-summary.json",
+    "ordinary": 756,
+    "integration": 1373,
+    "browser": 28,
+    "dockerGroups": 21,
+    "httpRequests": 164,
+    "rerunInThisStep": false
+  },
+  "protection": {
+    "baselineFiles": 1523,
+    "unchangedFiles": 1517,
+    "changedExisting": [
+      "apps/api/test/acceptance/README.md",
+      "docs/design/M0-04.md",
+      "docs/verification/M0-04.md",
+      "README.md",
+      "项目文档/开发进度总览.md",
+      "项目文档/开发进度文档/M0_工程可运行/04_板块4_全店配置期限与任务内核.md"
+    ],
+    "added": [
+      "docs/verification/evidence/M0-04/step12/baseline.json",
+      "项目文档/开发进度文档/开发完成说明/板块4_开发完成说明.md"
+    ],
+    "sourceConfigurationMigrationsDependenciesAndOldEvidenceUnchanged": true,
+    "headBranchAndStagingUnchanged": true,
+    "diffCheckPassed": true
+  },
+  "checksNotRun": [
+    "软件普通/集成/浏览器测试重跑",
+    "Docker重部署/验收",
+    "用户逐条人工SW",
+    "GitHub远程CI"
+  ],
+  "pending": [
+    "真实业务SW-L01～02和订单/库存/售后领域接入",
+    "板块5开始前只读核查及分步授权"
+  ]
+}

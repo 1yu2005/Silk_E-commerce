@@ -1,0 +1,4 @@
+{"checkpoint":"商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403","status":"passed"}
+{"checkpoint":"表单金额和期限单位、必填与小数边界验证失败不发写请求","status":"passed"}
+{"passed":false,"checks":2,"pageErrors":0,"databaseRemoved":true,"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step04\\initial-values-fix"}
+{"scenario":"真实首次保存整数分与完整配置，提交中防重复，生成版本与审计","error":"AssertionError","message":"The expression evaluated to a falsy value:\n\n  assert.ok(await page.getByRole('button', { name: '保存全店设置' }).isDisabled())\n","sourceLine":"at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/test/verify-settings-browser.mjs:155:10"}

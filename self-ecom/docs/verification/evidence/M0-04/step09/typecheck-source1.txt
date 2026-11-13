@@ -1,0 +1,6 @@
+apps/api/src/tasks/order-timer.rules.ts(80,34): error TS2339: Property 'terminal' does not exist on type '(TimerCommandBase & { readonly action: "ADD_BLOCK" | "RELEASE_BLOCK"; readonly source: TaskSourceReference; }) | (TimerCommandBase & { ...; })'.
+  Property 'terminal' does not exist on type 'TimerCommandBase & { readonly action: "ADD_BLOCK" | "RELEASE_BLOCK"; readonly source: TaskSourceReference; }'.
+apps/api/src/tasks/order-timer.rules.ts(81,81): error TS2339: Property 'terminal' does not exist on type '(TimerCommandBase & { readonly action: "ADD_BLOCK" | "RELEASE_BLOCK"; readonly source: TaskSourceReference; }) | (TimerCommandBase & { ...; })'.
+  Property 'terminal' does not exist on type 'TimerCommandBase & { readonly action: "ADD_BLOCK" | "RELEASE_BLOCK"; readonly source: TaskSourceReference; }'.
+apps/api/src/tasks/order-timer.rules.ts(82,28): error TS2339: Property 'terminal' does not exist on type '(TimerCommandBase & { readonly action: "ADD_BLOCK" | "RELEASE_BLOCK"; readonly source: TaskSourceReference; }) | (TimerCommandBase & { ...; })'.
+  Property 'terminal' does not exist on type 'TimerCommandBase & { readonly action: "ADD_BLOCK" | "RELEASE_BLOCK"; readonly source: TaskSourceReference; }'.

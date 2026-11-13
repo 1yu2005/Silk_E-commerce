@@ -1,0 +1,63 @@
+{
+  "checkedAt": "2026-11-13T08:11:53.188Z",
+  "compiledMetadata": true,
+  "isolatedDatabase": true,
+  "cases": [
+    {
+      "path": "/admin/tasks?view=mine",
+      "status": 200,
+      "requestId": "8e1365bf-0fa6-4afa-8470-0c7fedf0f9f0"
+    },
+    {
+      "path": "/admin/tasks?view=pool",
+      "status": 200,
+      "requestId": "c19316a1-321b-44d1-b514-0401adb2d42c"
+    },
+    {
+      "path": "/admin/tasks?view=reassign",
+      "status": 200,
+      "requestId": "bd2ca090-3636-4f9c-8bfc-4be1f4f65703"
+    },
+    {
+      "path": "/admin/tasks/summary",
+      "status": 200,
+      "requestId": "3b12a33f-487b-4b67-ab65-1213ee2f3821"
+    },
+    {
+      "path": "/admin/tasks/313a12b1-6b62-47cc-b284-f67021642941",
+      "status": 404,
+      "requestId": "85a485f3-3d3b-46c9-81ec-944403eb7441",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/313a12b1-6b62-47cc-b284-f67021642941/history",
+      "status": 404,
+      "requestId": "a6dd906d-a0fb-4aba-9141-121c2e34ec88",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/313a12b1-6b62-47cc-b284-f67021642941/claim",
+      "status": 404,
+      "requestId": "c2eef97c-12ef-42c6-b882-11a982d5d771",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/313a12b1-6b62-47cc-b284-f67021642941/release",
+      "status": 404,
+      "requestId": "09836ce5-5b23-4b12-ac71-a17011466eac",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/313a12b1-6b62-47cc-b284-f67021642941/claim",
+      "status": 400,
+      "requestId": "096d0777-3e6f-4a4d-b4d3-397185eea12e",
+      "code": "VALIDATION_FAILED"
+    }
+  ],
+  "migrateExitCode": 0,
+  "operations": 38,
+  "productionAdaptersEmpty": true,
+  "orphanTaskHiddenAndImmutable": true,
+  "passed": true,
+  "databaseRemoved": true
+}

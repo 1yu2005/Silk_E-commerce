@@ -1,0 +1,15 @@
+{"group":"core","scenario":"本人、岗位池和后端动作范围，桌面与手机列表","passed":true}
+{"probe":"before-click"}
+{"probe":"claim-intercepted"}
+{"probe":"gate-ready"}
+{"probe":"button-disabled"}
+{"probe":"gate-release-called"}
+{"probe":"claim-released"}
+{"probe":"click-complete"}
+{"probe":"claim-forwarded"}
+{"group":"core","scenario":"领取同步禁用、防重复提交和实际经办历史","passed":true}
+{"group":"core","scenario":"释放原因必填，真实释放不改轮次和原截止","passed":true}
+{"group":"core","scenario":"另一员工已领取时旧版本409，读取最新前不能重发","passed":true}
+{"group":"core","scenario":"管理员候选来自真实员工查询，不合资格拒绝后可重新选择合资格员工","passed":true}
+{"group":"core","scenario":"领域阻塞任务不提供释放入口","passed":true}
+{"passed":true,"checks":6,"groups":[{"name":"core","passed":true,"databaseRemoved":true}],"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step10\\pending-button-fix"}

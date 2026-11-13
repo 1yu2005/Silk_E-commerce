@@ -22,12 +22,12 @@ export class EmployeeExtraPermissionController {
   @EmployeeAccess('employee.permission.manage')
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ operationId: 'replaceEmployeeExtraPermissions', summary: '替换员工个人额外权限',
-    description: '按员工ID升序锁定并重验当前身份/权限及目标版本，超级管理员目标不适用（包括空集合）。服务端解析依赖，实际变化递增version/permissionVersion，授权差集、审计、资格入口同事务；保留会话，旧token下一请求读取新权限。同集合匹配版本changed=false，旧版本409。响应丢失先刷新详情核实，前端须保留完整解析集合再编辑。' })
+    description: '按员工ID升序锁定并重验当前身份/权限及目标版本，超级管理员目标不适用（包括空集合）。服务端解析依赖，实际变化递增version/permissionVersion，授权差集、审计、资格入口同事务；保留会话，旧token下一请求读取新权限。同集合匹配版本changed=false，旧版本409。响应丢失先刷新详情核实，前端须保留完整解析集合再编辑。 员工写入前合并全部失资格任务的完整业务锁；任务回池、领域经办同步、历史及审计与员工变更同事务，失败整体回滚。锁集合变化整笔最多重试3次。' })
   @ApiParam({ name: 'id', schema: { type: 'string', format: 'uuid' } })
   @ApiBody({ schema: employeeExtraPermissionBodySchema })
   @ApiOkResponse({ headers: requestIdHeader, schema: employeeExtraPermissionSuccessSchema })
   @ApiBadRequestResponse({ headers: requestIdHeader, schema: authErrorSchema(['VALIDATION_FAILED', 'PERMISSION_NOT_GRANTABLE', 'EXTRA_PERMISSION_NOT_APPLICABLE']) })
-  @ApiConflictResponse({ headers: requestIdHeader, schema: authErrorSchema(['VERSION_CONFLICT']) })
+  @ApiConflictResponse({ headers: requestIdHeader, schema: authErrorSchema(['VERSION_CONFLICT', 'TASK_LOCK_PLAN_CHANGED', 'BUSINESS_MODULE_NOT_READY', 'TASK_VERSION_EXHAUSTED']) })
   @ApiNotFoundResponse({ headers: requestIdHeader, schema: authErrorSchema(['EMPLOYEE_NOT_FOUND']) })
   @ApiForbiddenResponse({ headers: requestIdHeader, schema: authErrorSchema(['FORBIDDEN', 'PASSWORD_CHANGE_REQUIRED']) })
   @ApiUnauthorizedResponse({ headers: requestIdHeader, schema: authErrorSchema([

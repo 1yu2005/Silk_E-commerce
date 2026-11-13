@@ -1,0 +1,143 @@
+{
+  "checkedAt": "2026-11-13T08:12:29.401Z",
+  "databaseReadOnly": true,
+  "tables": {
+    "employee": {
+      "count": 2,
+      "sha256": "025c83e95ccf4b8eb9940e3e3f84ba20fc3526661409001fe5f7ca42394d2b43"
+    },
+    "customer": {
+      "count": 2,
+      "sha256": "8b52be8d746c8eceedb44ce09cce1f7d4a2d711c0d712fc66c48d54a48956713"
+    },
+    "auth_session": {
+      "count": 18,
+      "sha256": "fb16ba895dcd29f957a892497c00d3cdc3f772a7b8de9a176276edcae0b4c01b"
+    },
+    "permission_definition": {
+      "count": 52,
+      "sha256": "9353d850202b708608b6d42282667afda6bf6ca67bdae7f5ae3bba21cba97ebf"
+    },
+    "role_permission": {
+      "count": 89,
+      "sha256": "6551479021c3c13bbf0f8468e629156b7081bd155e6fc4925ed75f9515b14f34"
+    },
+    "employee_extra_permission": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "audit_log": {
+      "count": 17,
+      "sha256": "ed2b61f5eb4a379484711ffcb050a0651caab91c14bf6f871c4a296194553fc4"
+    },
+    "system_guard": {
+      "count": 1,
+      "sha256": "025d771179d194472346aeac4b4de857bd39a688fb9acec8a0bda76dab4ff856"
+    },
+    "file_asset": {
+      "count": 1,
+      "sha256": "655ef8b95bc174ebe21881edcccc2562eb0c8bc70edd741b01164a2bf2142565"
+    },
+    "file_reference": {
+      "count": 1,
+      "sha256": "c055a249bb21c027001ff57ca182bce7302a8d040f0ba3b4012e537bf769640a"
+    },
+    "communication": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "business_state_history": {
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "checks": [
+    {
+      "port": 3000,
+      "path": "/api/v1/health/ready",
+      "status": 200,
+      "requestId": "6017e185-2496-4427-8f9e-46b791473b80"
+    },
+    {
+      "port": 3000,
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "57930211-082c-4866-bc92-f4945d747bfd",
+      "data": {
+        "configured": false,
+        "servicePhone": null,
+        "serviceHours": null,
+        "settingsVersion": 0
+      }
+    },
+    {
+      "port": 3000,
+      "path": "/api/docs-json",
+      "status": 200,
+      "requestId": "eca21274-51fa-457e-8906-1b5cbd08ea7c",
+      "operations": 38
+    },
+    {
+      "port": 5173,
+      "path": "/",
+      "status": 200,
+      "requestId": null
+    },
+    {
+      "port": 5174,
+      "path": "/",
+      "status": 200,
+      "requestId": null
+    }
+  ],
+  "unchangedSinceStep05": true,
+  "migrations": [
+    {
+      "migration_name": "0001_bootstrap",
+      "checksum": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3"
+    },
+    {
+      "migration_name": "0002_auth_employee_permission_audit",
+      "checksum": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a"
+    },
+    {
+      "migration_name": "0003_files_communication_history",
+      "checksum": "bae9e336b648ed6dac9c6ca4bb17024ec1268fe4a3d002a0c1d45bb2ec5d1978"
+    },
+    {
+      "migration_name": "0004_store_settings_tasks_deadlines",
+      "checksum": "052a6951ba7788a471aec6cc8955dafc68e9746cd524a74565c7bf8d163caa75"
+    }
+  ],
+  "settingHead": [
+    {
+      "id": 1,
+      "current_version_id": null,
+      "version": 0
+    }
+  ],
+  "temporaryDatabasesRemaining": 0,
+  "containers": [
+    {
+      "service": "store-web",
+      "state": "exited",
+      "status": "Exited (0) 3 hours ago"
+    },
+    {
+      "service": "admin-web",
+      "state": "exited",
+      "status": "Exited (0) 3 hours ago"
+    },
+    {
+      "service": "api",
+      "state": "exited",
+      "status": "Exited (143) 3 hours ago"
+    },
+    {
+      "service": "db",
+      "state": "running",
+      "status": "Up 22 hours (healthy)"
+    }
+  ],
+  "passed": true
+}

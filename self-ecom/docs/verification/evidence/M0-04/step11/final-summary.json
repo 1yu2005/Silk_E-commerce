@@ -1,0 +1,98 @@
+{
+  "checkedAt": "2026-11-13T12:02:13.776Z",
+  "passed": true,
+  "scope": "板块4本期内核/页面全量、部署与自动化整体验收",
+  "head": "5342a690d97d733ac2958ab652d6373a85fe91ae",
+  "branch": "main",
+  "ordinaryTests": 756,
+  "unitCounts": {
+    "api": 492,
+    "packages-shared": 19,
+    "packages-api-client": 133,
+    "apps-admin-web": 75,
+    "apps-store-web": 37
+  },
+  "integrationTests": 1373,
+  "integrationFiles": 33,
+  "ordinaryReport": "docs/verification/evidence/M0-04/step11/unit-attempt1.json",
+  "integrationReport": "docs/verification/evidence/M0-04/step11/integration-attempt1.json",
+  "retentionTargetedTests": {
+    "count": 54,
+    "additionalUniqueTests": 0
+  },
+  "typeWorkspaces": 6,
+  "browser": {
+    "tasks": 17,
+    "settings": 11,
+    "allGroupsPassed": true,
+    "pageErrors": 0
+  },
+  "docker": {
+    "project": "self-ecom-m004-acceptance-73650ee0",
+    "groups": 21,
+    "requests": 164,
+    "cleaned": true,
+    "originalResourcesPreserved": true
+  },
+  "deployment": {
+    "report": "docs/verification/evidence/M0-04/step11/deployment.json",
+    "healthyServices": 4,
+    "imageIds": [
+      {
+        "service": "api",
+        "digest": "sha256:dc678421a5f4a6bba4af7989bd8348efc5d06926c15cd5e3502d9e7579bbd474"
+      },
+      {
+        "service": "admin-web",
+        "digest": "sha256:dd4300f0b9a24b32e0a8d169347acf8dd9191c701e65c36f0d2e296d1ef2f0ba"
+      },
+      {
+        "service": "store-web",
+        "digest": "sha256:6d571f905c0ee8d61f45ede55caf4c62864996e44b4f984e82ebed55fe7441c2"
+      }
+    ]
+  },
+  "protection": {
+    "report": "docs/verification/evidence/M0-04/step11/protection-final.json",
+    "baselineFiles": 1315,
+    "changedExisting": [
+      "docs/design/M0-04.md",
+      "docs/verification/M0-04.md",
+      ".dockerignore",
+      "apps/admin-web/src/services/api.ts",
+      "infra/api.Dockerfile",
+      "infra/verify-auth-compose.mjs"
+    ],
+    "configurationAndMigrationsPreserved": true,
+    "headBranchAndStagingPreserved": true
+  },
+  "data": {
+    "report": "docs/verification/evidence/M0-04/step11/development-readonly-deployed-final.json",
+    "oldTablesUnchanged": 12,
+    "migrationsUnchanged": 4,
+    "settingVersion": 0,
+    "tasks": 0,
+    "temporaryDatabasesRemaining": 0,
+    "schedulerRunsInSnapshot": 122
+  },
+  "retainedTemporaryDirectories": 7,
+  "requirements": "docs/verification/evidence/M0-04/step11/requirements-checklist.md",
+  "pending": [
+    "SW-L01/02及真实订单/库存/售后/暂停领域接入补验",
+    "用户逐条人工验收",
+    "总览/项目README/板块交付清单/最终完成说明等待后续指令"
+  ],
+  "results": [
+    "unit",
+    "integration",
+    "types",
+    "production-build",
+    "contracts",
+    "lint",
+    "dead-locals",
+    "browser",
+    "docker",
+    "deployment",
+    "file-protection"
+  ]
+}

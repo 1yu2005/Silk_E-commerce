@@ -1,0 +1,137 @@
+{
+  "checkedAt": "2026-11-13T07:10:13.507Z",
+  "isolatedDatabase": "settings_ui_c6f0175720df4f4eb518d988e25c2920_test",
+  "checks": [
+    "商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403",
+    "表单金额和期限单位、必填与小数边界验证失败不发写请求"
+  ],
+  "requests": [
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a32ea2c6-774e-4b09-8a83-36fdf418089e",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "3dea27ad-72ad-4005-a5fd-ff8f6148f547",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b87061d8-b5b8-460d-987d-f1a96819b21a",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "33781632-78b3-45e4-a3ee-3137567fdb44",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "934b69a6-2fc4-4c5a-a62c-8af26cd6ff1e",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ed3cd2b8-1628-4527-b76c-82744bf702e8",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2a607ca4-ae3e-4668-8a59-7875d14236c1",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "0f29e46a-5d04-453b-b6c8-feb6dbc438a2",
+      "bearerAttached": false
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "af7e50f5-999e-495c-abc2-ca9bdba07697",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e490908f-6a5b-4cdc-9dfe-3ddd795a337b",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "950526a1-a13c-4efc-854d-c98ef2df019f",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4bb31e59-83f6-4715-881c-45a0346d5695",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "56fe616b-908f-481a-b43f-01c840d73fb2",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "061e2952-396c-428b-8a5b-f5c71fcec56e",
+      "bearerAttached": true
+    }
+  ],
+  "writeAttempts": [
+    {
+      "surface": "admin"
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [],
+  "browser": "145.0.7632.6",
+  "failure": {
+    "scenario": "真实首次保存整数分与完整配置，提交中防重复，生成版本与审计",
+    "error": "AssertionError",
+    "message": "The expression evaluated to a falsy value:\n\n  assert.ok(await page.getByRole('button', { name: '保存全店设置' }).isDisabled())\n",
+    "sourceLine": "at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/test/verify-settings-browser.mjs:155:10"
+  },
+  "databaseRemoved": true
+}

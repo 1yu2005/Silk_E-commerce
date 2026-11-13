@@ -1,0 +1,10 @@
+apps/api/test/task-deadline.integration.ts(259,21): error TS2352: Conversion of type 'TaskHistoryDelegate<DefaultArgs, PrismaClientOptions> | DeadlineEventDelegate<DefaultArgs, PrismaClientOptions>' to type '{ create: (input: { data: Record<string, unknown>; }) => Promise<unknown>; }' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type 'DeadlineEventDelegate<DefaultArgs, PrismaClientOptions>' is not comparable to type '{ create: (input: { data: Record<string, unknown>; }) => Promise<unknown>; }'.
+    Types of property 'create' are incompatible.
+      Type '<T extends DeadlineEventCreateArgs>(args: SelectSubset<T, DeadlineEventCreateArgs<DefaultArgs>>) => Prisma__DeadlineEventClient<GetFindResult<$DeadlineEventPayload<DefaultArgs>, T, PrismaClientOptions>, never, DefaultArgs, PrismaClientOptions>' is not comparable to type '(input: { data: Record<string, unknown>; }) => Promise<unknown>'.
+        Types of parameters 'args' and 'input' are incompatible.
+          Type '{ data: Record<string, unknown>; }' is not comparable to type 'SelectSubset<any, DeadlineEventCreateArgs<DefaultArgs>>'.
+            Type '{ data: Record<string, unknown>; }' is not comparable to type '{ [x: string]: never; } & "Please either choose `select` or `omit`."'.
+              Type '{ data: Record<string, unknown>; }' is not comparable to type '{ [x: string]: never; }'.
+                Property 'data' is incompatible with index signature.
+                  Type 'Record<string, unknown>' is not comparable to type 'never'.

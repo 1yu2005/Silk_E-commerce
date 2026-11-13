@@ -1,0 +1,26 @@
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 1591 modules transformed.
+rendering chunks...
+computing gzip size...
+../../output/build/M0-04-step11/attempt1/store-web/index.html                               0.60 kB │ gzip:   0.34 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/index-JIXfjY-l.css                6.81 kB │ gzip:   2.25 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/form-rules-GvzMaJpV.js            0.51 kB │ gzip:   0.38 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/rolldown-runtime-XKyaHtl9.js      0.72 kB │ gzip:   0.42 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/HomePage-CJZNRhFk.js              1.92 kB │ gzip:   0.88 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/LoginPage-D18fSPO2.js             2.41 kB │ gzip:   1.04 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/ChangePasswordPage-5YoB6dWj.js    3.18 kB │ gzip:   1.35 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/RegisterPage-C7AYLjVU.js          3.46 kB │ gzip:   1.42 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/NotFoundPage-6DHOgi34.js         35.28 kB │ gzip:  11.36 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/AccountPage-BDcegmJH.js          43.33 kB │ gzip:  15.55 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/api-BO-XVtSh.js                  75.89 kB │ gzip:  26.57 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/index-DcsiQJbD.js                91.02 kB │ gzip:  31.82 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/input-RVeVf4fL.js               101.74 kB │ gzip:  33.94 kB
+../../output/build/M0-04-step11/attempt1/store-web/assets/jsx-dev-runtime-aDlgOB2Z.js     686.42 kB │ gzip: 218.04 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 432ms

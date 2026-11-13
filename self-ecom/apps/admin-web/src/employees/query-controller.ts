@@ -20,8 +20,11 @@ export class EmployeeQueryController<Input, Data> {
   private abort: AbortController | null = null;
   private pending: Promise<void> | null = null;
   private lastRead: { key: string; input: Input } | null = null;
+  private readonly failureMessage: string;
 
-  constructor(session: AuthSessionStore, fetch: (input: Input, signal: AbortSignal) => Promise<ApiResponse<Data>>) {
+  constructor(session: AuthSessionStore, fetch: (input: Input, signal: AbortSignal) => Promise<ApiResponse<Data>>,
+    failureMessage = '员工信息读取失败，请重试') {
+    this.failureMessage = failureMessage;
     this.session = session; this.fetch = fetch; this.revision = session.getSnapshot().revision;
     this.stopSession = session.subscribe(() => {
       const current = session.getSnapshot().revision;
@@ -66,7 +69,7 @@ export class EmployeeQueryController<Input, Data> {
       if (isCurrent()) this.update({ key, status: 'ready', data, error: null });
     } catch (error) {
       if (isCurrent()) this.update({ key, status: 'error', data: null,
-        error: error instanceof ApiClientError ? error : new ApiClientError('REQUEST_FAILED', '员工信息读取失败，请重试') });
+        error: error instanceof ApiClientError ? error : new ApiClientError('REQUEST_FAILED', this.failureMessage) });
     }
   }
 

@@ -7,6 +7,8 @@ import { DtoValidationException } from './dto-validation.js';
 import { authHttpError } from '../../auth/auth-http-errors.js';
 import { employeeCommandHttpError } from '../../employees/employee-command.errors.js';
 import { FileError } from '../../files/file.errors.js';
+import { StoreSettingsError } from '../../settings/store-settings.errors.js';
+import { TaskError } from '../../tasks/task.errors.js';
 import { ContractError } from '@shop/shared';
 
 const errors: Record<number, { code: string; message: string }> = {
@@ -32,7 +34,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
     }
 
     const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
-      ?? (exception instanceof FileError || exception instanceof ContractError ? exception : undefined);
+      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError ? exception : undefined);
     const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
     const error = knownError ? { code: knownError.code, message: knownError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };

@@ -1,0 +1,109 @@
+{
+  "checkedAt": "2026-11-13T10:15:41.317Z",
+  "checks": [
+    "隔离启动保护",
+    "3001端口真实启动及40操作Swagger",
+    "四类夹具真实建立及岗位范围",
+    "真实领取释放和阻塞拒绝",
+    "真实撤销个人资格同事务回池",
+    "真实扫描重入与调度记录",
+    "无造任务接口且生产入口未引入测试应用"
+  ],
+  "requests": [
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "d49ed4dd-91a0-4076-b968-00e01acc5abe"
+    },
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "7e4ebb69-9646-4f23-b86e-a8f9f300eb6c"
+    },
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "26387085-4c08-4013-8b8b-125b9506ce6d"
+    },
+    {
+      "path": "/admin/tasks?view=pool",
+      "method": "GET",
+      "status": 200,
+      "requestId": "909f6a3d-e14c-41f0-9f47-84d7e213990f"
+    },
+    {
+      "path": "/admin/tasks?view=mine",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3aece7af-e63a-4e5c-89db-89280fbdad55"
+    },
+    {
+      "path": "/admin/tasks/2fa7b6ea-0d2b-48c0-b854-a45cc9109578",
+      "method": "GET",
+      "status": 404,
+      "requestId": "d661201e-c34a-490c-931c-12bb2319c8a1",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks?view=reassign",
+      "method": "GET",
+      "status": 403,
+      "requestId": "629a318a-05cd-4a0b-af4b-871d39b19034",
+      "code": "FORBIDDEN"
+    },
+    {
+      "path": "/admin/tasks/2fa7b6ea-0d2b-48c0-b854-a45cc9109578/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "8db77d99-484b-425f-b045-2d8d376d210e"
+    },
+    {
+      "path": "/admin/tasks/2fa7b6ea-0d2b-48c0-b854-a45cc9109578/release",
+      "method": "POST",
+      "status": 200,
+      "requestId": "4bb3408a-8452-48b8-a190-f3aefe710bb6"
+    },
+    {
+      "path": "/admin/tasks/ad772968-dddd-4c6d-8e25-122945da99a1/release",
+      "method": "POST",
+      "status": 409,
+      "requestId": "2e235426-3fd9-498b-8978-3644b4a2932c",
+      "code": "TASK_RELEASE_BLOCKED"
+    },
+    {
+      "path": "/admin/employees/de0365e0-e7c6-40e5-b478-538dc3a2b886/extra-permissions",
+      "method": "PUT",
+      "status": 200,
+      "requestId": "574008ed-85f3-4b07-bff3-3e7a9bfbba7b"
+    },
+    {
+      "path": "/admin/tasks?view=reassign",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2195f15e-fe2a-4906-96c4-9b815aa76859"
+    }
+  ],
+  "runs": [
+    {
+      "id": "f22430b8-38ea-4387-b309-8d73dfc90ba0",
+      "requestId": "51a834cd-c12f-4468-84f2-e5c6c4296678",
+      "status": "SUCCEEDED",
+      "scannedCount": 1,
+      "changedCount": 1,
+      "failedCount": 0
+    },
+    {
+      "id": "d3e263d4-0f6f-4e14-adff-f649305604e6",
+      "requestId": "d325d2db-a26e-4b36-8d5d-75db7037be78",
+      "status": "SUCCEEDED",
+      "scannedCount": 0,
+      "changedCount": 0,
+      "failedCount": 0
+    }
+  ],
+  "passed": true,
+  "databaseRemoved": true
+}

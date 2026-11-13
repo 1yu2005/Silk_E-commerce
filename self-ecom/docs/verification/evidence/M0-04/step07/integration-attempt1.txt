@@ -1,0 +1,126 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Datasource "db": PostgreSQL database "task_reassign_495f7d5ffebc43bd9891efca1cd8b9f8_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-reassign.integration.ts
+步骤7专属测试库已删除
+
+ ❯ test/task-reassign.integration.ts (37 tests | 4 failed) 12452ms
+   × 转交拒绝目标missing且没有任何写入 109ms
+   × 多顾客/订单/SKU批量回池合并锁序，全部业务先于全部Cursor/Task，记录小店耗时 572ms
+   × 领取先锁员工，撤权等待后必须看到刚领的任务并回池 94ms
+   × 撤权先持员工锁，领取等待后按新权限拒绝 21ms
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 33 passed (37)
+     Errors  1 error
+   Start at  16:33:21
+   Duration  14.63s (tests 86%, import 11%, transform 3%)
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-reassign.integration.ts > 转交拒绝目标missing且没有任何写入
+AssertionError: {"code":"ACCOUNT_UNAVAILABLE","message":"账号当前不可用","requestId":"bcaf84ce-1e1b-4d3d-bf4a-938cdb77f82c"}: expected 401 to be 409 // Object.is equality
+
+- Expected
++ Received
+
+- 409
++ 401
+
+ ❯ http test/task-reassign.integration.ts:97:51
+     95|   const response = await fetch(base + path, { method, headers: { Autho…
+     96|   const result = await response.json() as { data: CommandResult; code:…
+     97|   expect(response.status, JSON.stringify(result)).toBe(status); expect…
+       |                                                   ^
+     98|   if (response.ok) expect(response.headers.get('cache-control')).toBe(…
+     99|   for (const secret of [passwordHash, manager.token, warehouse.token])…
+ ❯ test/task-reassign.integration.ts:155:41
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/task-reassign.integration.ts > 多顾客/订单/SKU批量回池合并锁序，全部业务先于全部Cursor/Task，记录小店耗时
+AssertionError: expected 43 to be less than 3
+ ❯ test/task-reassign.integration.ts:242:67
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/task-reassign.integration.ts > 领取先锁员工，撤权等待后必须看到刚领的任务并回池
+AssertionError: expected 0 to be greater than 0
+ ❯ test/task-reassign.integration.ts:254:21
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/task-reassign.integration.ts > 撤权先持员工锁，领取等待后按新权限拒绝
+PrismaClientKnownRequestError: 
+Invalid `prisma.deadlineEvent.deleteMany()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/task-reassign.integration.ts:76:169
+
+  73 beforeEach(async () => {
+  74   millis = start; audit.failAction = ''; audit.seen = 0; audit.failAt = 1;
+  75   adapters.onTransfer = undefined; adapters.onRepool = undefined; adapters.onPlan = undefined; adapters.onClaim = undefined; adapters.onScope = undefined;
+→ 76   await prisma.$executeRawUnsafe('DELETE FROM task_handoff_fixture'); await prisma.deadlineEvent.deleteMany(
+Foreign key constraint violated on the constraint: `task_history_task_id_fkey`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/task-reassign.integration.ts:76:151
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+TokenValidationError: 登录凭证无效
+ ❯ CurrentIdentityService.authenticate src/auth/current-identity.service.ts:55:21
+     53|         s.token_version AS "tokenVersion", s.expires_at AS "expiresAt"…
+     54|       FROM auth_session s ${join} WHERE s.id=${claims.sid}::uuid`);
+     55|     if (!row) throw new TokenValidationError('TOKEN_INVALID');
+       |                     ^
+     56|     if (row.subjectType !== expectedSubject) throw new TokenValidation…
+     57|     const subjectId = claims.sub.toLowerCase();
+ ❯ process.processTicksAndRejections node:internal/process/task_queues:104:5
+ ❯ src/employees/employee-extra-permission.service.ts:30:23
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/runtime/client.js:99:4854
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:9:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'TOKEN_INVALID' }
+This error originated in "test/task-reassign.integration.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "目标先被停用，转交等待后拒绝不合资格目标". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+

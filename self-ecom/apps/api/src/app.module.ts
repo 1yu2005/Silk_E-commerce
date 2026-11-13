@@ -21,10 +21,12 @@ import { CustomerRegisterModule } from './auth/customer-register.module.js';
 import { CustomerAuthModule } from './auth/customer-auth.module.js';
 import { RecordsModule } from './records/records.module.js';
 import { FilesModule } from './files/files.module.js';
+import { StoreSettingsModule } from './settings/store-settings.module.js';
+import { TasksModule } from './tasks/tasks.module.js';
 
 @Module({ imports: [ConfigModule, LoggerModule.forRootAsync({
   imports: [ConfigModule],
   inject: [APP_CONFIG],
   useFactory: (config: EnvironmentConfig) => ({ pinoHttp: httpLogOptions(config) }),
-}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule] })
+}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule] })
 export class AppModule {}

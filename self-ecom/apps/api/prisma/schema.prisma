@@ -1,4 +1,4 @@
-// 作用：定义账号权限、审计及文件、沟通和状态历史的数据模型；补充数据库约束随迁移交付。
+// 作用：定义账号、文件、公共记录及配置/任务期限的数据模型；补充数据库约束随增量迁移交付。
 generator client {
   provider = "prisma-client-js"
 }
@@ -37,27 +37,33 @@ enum AuditActorType {
 }
 
 model Employee {
-  id                 String                    @id @default(uuid()) @db.Uuid
-  username           String                    @unique @db.VarChar(32)
-  displayName        String                    @map("display_name") @db.VarChar(40)
-  passwordHash       String                    @map("password_hash")
-  role               EmployeeRole
-  status             EmployeeStatus            @default(ACTIVE)
-  mustChangePassword Boolean                   @default(true) @map("must_change_password")
-  tokenVersion       Int                       @default(0) @map("token_version")
-  permissionVersion  Int                       @default(0) @map("permission_version")
-  version            Int                       @default(0)
-  lastLoginAt        DateTime?                 @map("last_login_at") @db.Timestamptz(3)
-  createdAt          DateTime                  @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt          DateTime                  @updatedAt @map("updated_at") @db.Timestamptz(3)
-  sessions           AuthSession[]
-  extraPermissions   EmployeeExtraPermission[] @relation("PermissionOwner")
-  grantedPermissions EmployeeExtraPermission[] @relation("PermissionGrantor")
-  audits             AuditLog[]
-  uploadedFiles      FileAsset[]               @relation("EmployeeFileUploader")
-  fileReferences     FileReference[]           @relation("EmployeeFileCreator")
-  communications     Communication[]
-  stateHistory       BusinessStateHistory[]    @relation("EmployeeStateActor")
+  id                  String                    @id @default(uuid()) @db.Uuid
+  username            String                    @unique @db.VarChar(32)
+  displayName         String                    @map("display_name") @db.VarChar(40)
+  passwordHash        String                    @map("password_hash")
+  role                EmployeeRole
+  status              EmployeeStatus            @default(ACTIVE)
+  mustChangePassword  Boolean                   @default(true) @map("must_change_password")
+  tokenVersion        Int                       @default(0) @map("token_version")
+  permissionVersion   Int                       @default(0) @map("permission_version")
+  version             Int                       @default(0)
+  lastLoginAt         DateTime?                 @map("last_login_at") @db.Timestamptz(3)
+  createdAt           DateTime                  @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime                  @updatedAt @map("updated_at") @db.Timestamptz(3)
+  sessions            AuthSession[]
+  extraPermissions    EmployeeExtraPermission[] @relation("PermissionOwner")
+  grantedPermissions  EmployeeExtraPermission[] @relation("PermissionGrantor")
+  audits              AuditLog[]
+  uploadedFiles       FileAsset[]               @relation("EmployeeFileUploader")
+  fileReferences      FileReference[]           @relation("EmployeeFileCreator")
+  communications      Communication[]
+  stateHistory        BusinessStateHistory[]    @relation("EmployeeStateActor")
+  settingVersions     StoreSettingVersion[]
+  assignedTasks       Task[]
+  taskActions         TaskHistory[]             @relation("TaskHistoryActor")
+  taskAssignmentsFrom TaskHistory[]             @relation("TaskHistoryFromAssignee")
+  taskAssignmentsTo   TaskHistory[]             @relation("TaskHistoryToAssignee")
+  deadlineActions     DeadlineEvent[]
 
   @@index([status, role])
   @@index([createdAt, id])
@@ -337,4 +343,261 @@ model BusinessStateHistory {
   @@index([actorEmployeeId])
   @@index([actorCustomerId])
   @@map("business_state_history")
+}
+
+// 固定业务类型和阶段，不提供动态工作流；真实业务归属由后续领域适配器验证。
+enum TaskBusinessType {
+  INVENTORY_ADJUSTMENT
+  ORDER
+  AFTER_SALE
+  OFFLINE_CASE
+  CUSTODY_ARRANGEMENT
+}
+
+enum TaskStage {
+  INVENTORY_POST
+  INVENTORY_RECONCILE
+  SHIPMENT_PROCESS
+  HANDOVER_VERIFY
+  PHYSICAL_VERIFY
+  STOCK_EXCEPTION_VERIFY
+  SHIPMENT_EXCEPTION_VERIFY
+  CUSTOMER_CONTACT
+  AFTER_SALE_REVIEW
+  SUPPLEMENT_FOLLOW
+  RETURN_FOLLOW
+  RETURN_RECEIVE
+  RETURN_INSPECT
+  INSPECTION_EXCEPTION_CONTACT
+  REFUND_PROCESS
+  ADMIN_DISPUTE
+  ADMIN_STOCK_REVIEW
+  PROXY_INPUT
+  OFFLINE_FOLLOW
+  CUSTODY_EXECUTE
+}
+
+enum TaskStatus {
+  OPEN
+  CLAIMED
+  SUSPENDED
+  COMPLETED
+  CANCELLED
+}
+
+enum TaskHistoryAction {
+  CREATED
+  CLAIMED
+  RELEASED
+  TRANSFERRED
+  QUALIFICATION_LOST
+  SUSPENDED
+  RESUMED
+  COMPLETED
+  CANCELLED
+  DEADLINE_CHANGED
+}
+
+// 员工任务历史与系统触发记录；顾客动作仍由其真实业务记录保存顾客主体。
+enum TaskActorType {
+  EMPLOYEE
+  SYSTEM
+}
+
+enum DeadlineEventType {
+  OVERDUE
+  EXTENDED
+  DEADLINE_ASSIGNED
+}
+
+enum SchedulerRunStatus {
+  RUNNING
+  SUCCEEDED
+  PARTIAL_FAILED
+  FAILED
+  ABANDONED
+}
+
+// 单店稳定行作为并发锁锚点；复合外键保证当前指针和版本号一致。
+model StoreSettingHead {
+  id               Int                  @id @default(1) @db.SmallInt
+  currentVersionId String?              @map("current_version_id") @db.Uuid
+  version          Int                  @default(0)
+  currentVersion   StoreSettingVersion? @relation(fields: [currentVersionId, version], references: [id, versionNumber], onDelete: Restrict, onUpdate: Restrict)
+
+  @@map("store_setting_head")
+}
+
+// 完整设置快照只追加；地址和电话无虚构默认值，初版由后续管理员命令创建。
+model StoreSettingVersion {
+  id                         String             @id @default(uuid()) @db.Uuid
+  versionNumber              Int                @unique @map("version_number")
+  createdByEmployeeId        String?            @map("created_by_employee_id") @db.Uuid
+  reason                     String             @db.VarChar(500)
+  createdAt                  DateTime           @default(now()) @map("created_at") @db.Timestamptz(3)
+  shippingFeeCents           Int                @map("shipping_fee_cents")
+  freeShippingEnabled        Boolean            @map("free_shipping_enabled")
+  freeShippingThresholdCents Int                @map("free_shipping_threshold_cents")
+  returnReceiver             String             @map("return_receiver") @db.VarChar(40)
+  returnPhone                String             @map("return_phone") @db.VarChar(30)
+  returnProvince             String             @map("return_province") @db.VarChar(50)
+  returnCity                 String             @map("return_city") @db.VarChar(50)
+  returnDistrict             String             @map("return_district") @db.VarChar(50)
+  returnDetail               String             @map("return_detail") @db.VarChar(200)
+  servicePhone               String             @map("service_phone") @db.VarChar(30)
+  serviceHours               String?            @map("service_hours") @db.VarChar(100)
+  paymentMinutes             Int                @map("payment_minutes")
+  autoReceiptDays            Int                @map("auto_receipt_days")
+  afterSaleWindowDays        Int                @map("after_sale_window_days")
+  reviewWorkdays             Int                @map("review_workdays")
+  supplementDays             Int                @map("supplement_days")
+  returnShipDays             Int                @map("return_ship_days")
+  inspectionWorkdays         Int                @map("inspection_workdays")
+  refundWorkdays             Int                @map("refund_workdays")
+  createdByEmployee          Employee?          @relation(fields: [createdByEmployeeId], references: [id], onDelete: Restrict)
+  heads                      StoreSettingHead[]
+  tasks                      Task[]
+
+  @@unique([id, versionNumber], map: "store_setting_version_id_number_key")
+  @@index([createdAt, id])
+  @@map("store_setting_version")
+}
+
+// 稳定阶段游标仲裁轮次；不使用无锁max(round)+1。
+model TaskStageCursor {
+  id           String           @id @default(uuid()) @db.Uuid
+  businessType TaskBusinessType @map("business_type")
+  businessId   String           @map("business_id") @db.Uuid
+  stage        TaskStage
+  lastRound    Int              @default(0) @map("last_round")
+  createdAt    DateTime         @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime         @updatedAt @map("updated_at") @db.Timestamptz(3)
+  tasks        Task[]
+
+  @@unique([businessType, businessId, stage], map: "task_stage_cursor_business_stage_key")
+  @@unique([id, businessType, businessId, stage], map: "task_stage_cursor_id_business_stage_key")
+  @@map("task_stage_cursor")
+}
+
+// 同业务同阶段最多一个有效任务的部分唯一索引由0004 SQL补充。
+model Task {
+  id                  String               @id @default(uuid()) @db.Uuid
+  cursorId            String               @map("cursor_id") @db.Uuid
+  businessType        TaskBusinessType     @map("business_type")
+  businessId          String               @map("business_id") @db.Uuid
+  stage               TaskStage
+  round               Int
+  entryKey            String               @map("entry_key") @db.VarChar(150)
+  requiredPermissions Json                 @map("required_permissions")
+  status              TaskStatus           @default(OPEN)
+  assigneeId          String?              @map("assignee_id") @db.Uuid
+  startedAt           DateTime             @map("started_at") @db.Timestamptz(3)
+  originalDueAt       DateTime?            @map("original_due_at") @db.Timestamptz(3)
+  dueAt               DateTime?            @map("due_at") @db.Timestamptz(3)
+  settingsVersionId   String?              @map("settings_version_id") @db.Uuid
+  ruleSnapshot        Json                 @map("rule_snapshot")
+  everOverdue         Boolean              @default(false) @map("ever_overdue")
+  firstOverdueAt      DateTime?            @map("first_overdue_at") @db.Timestamptz(3)
+  closedAt            DateTime?            @map("closed_at") @db.Timestamptz(3)
+  reassignNeeded      Boolean              @default(false) @map("reassign_needed")
+  version             Int                  @default(0)
+  createdAt           DateTime             @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt           DateTime             @updatedAt @map("updated_at") @db.Timestamptz(3)
+  cursor              TaskStageCursor      @relation(fields: [cursorId, businessType, businessId, stage], references: [id, businessType, businessId, stage], onDelete: Restrict, onUpdate: Restrict)
+  assignee            Employee?            @relation(fields: [assigneeId], references: [id], onDelete: Restrict)
+  settingsVersion     StoreSettingVersion? @relation(fields: [settingsVersionId], references: [id], onDelete: Restrict)
+  history             TaskHistory[]
+  deadlineEvents      DeadlineEvent[]
+  schedulerFailures   SchedulerFailure[]
+
+  @@unique([businessType, businessId, stage, round], map: "task_business_stage_round_key")
+  @@unique([businessType, businessId, stage, entryKey], map: "task_business_stage_entry_key")
+  @@index([assigneeId, status, dueAt, id], map: "task_assignee_status_due_idx")
+  @@index([status, dueAt, id], map: "task_status_due_idx")
+  @@index([reassignNeeded, status])
+  @@index([businessType, businessId])
+  @@index([settingsVersionId])
+  @@map("task")
+}
+
+// 仅追加任务环节历史，不替代业务状态机或全店审计。
+model TaskHistory {
+  id              String            @id @default(uuid()) @db.Uuid
+  taskId          String            @map("task_id") @db.Uuid
+  action          TaskHistoryAction
+  actorType       TaskActorType     @map("actor_type")
+  actorEmployeeId String?           @map("actor_employee_id") @db.Uuid
+  fromAssigneeId  String?           @map("from_assignee_id") @db.Uuid
+  toAssigneeId    String?           @map("to_assignee_id") @db.Uuid
+  beforeStatus    TaskStatus?       @map("before_status")
+  afterStatus     TaskStatus        @map("after_status")
+  reason          String?           @db.VarChar(500)
+  commandKey      String            @map("command_key") @db.VarChar(150)
+  requestId       String            @map("request_id") @db.VarChar(64)
+  createdAt       DateTime          @default(now()) @map("created_at") @db.Timestamptz(3)
+  task            Task              @relation(fields: [taskId], references: [id], onDelete: Restrict)
+  actorEmployee   Employee?         @relation("TaskHistoryActor", fields: [actorEmployeeId], references: [id], onDelete: Restrict)
+  fromAssignee    Employee?         @relation("TaskHistoryFromAssignee", fields: [fromAssigneeId], references: [id], onDelete: Restrict)
+  toAssignee      Employee?         @relation("TaskHistoryToAssignee", fields: [toAssigneeId], references: [id], onDelete: Restrict)
+
+  @@unique([taskId, action, commandKey], map: "task_history_command_key")
+  @@index([taskId, createdAt, id], map: "task_history_time_idx")
+  @@map("task_history")
+}
+
+// 逾期事实和延期分别保存；同一任务同一截止的OVERDUE另由部分唯一索引去重。
+model DeadlineEvent {
+  id              String            @id @default(uuid()) @db.Uuid
+  taskId          String            @map("task_id") @db.Uuid
+  eventType       DeadlineEventType @map("event_type")
+  deadlineAt      DateTime          @map("deadline_at") @db.Timestamptz(3)
+  newDueAt        DateTime?         @map("new_due_at") @db.Timestamptz(3)
+  occurredAt      DateTime          @map("occurred_at") @db.Timestamptz(3)
+  detectedAt      DateTime          @map("detected_at") @db.Timestamptz(3)
+  actorType       TaskActorType     @map("actor_type")
+  actorEmployeeId String?           @map("actor_employee_id") @db.Uuid
+  reason          String?           @db.VarChar(500)
+  commandKey      String            @map("command_key") @db.VarChar(150)
+  requestId       String            @map("request_id") @db.VarChar(64)
+  task            Task              @relation(fields: [taskId], references: [id], onDelete: Restrict)
+  actorEmployee   Employee?         @relation(fields: [actorEmployeeId], references: [id], onDelete: Restrict)
+
+  @@unique([taskId, eventType, commandKey], map: "deadline_event_command_key")
+  @@index([taskId, occurredAt, id], map: "deadline_event_time_idx")
+  @@map("deadline_event")
+}
+
+// 每轮调度的运行事实；进程崩溃遗留RUNNING由后续恢复扫描标ABANDONED。
+model SchedulerRun {
+  id           String             @id @default(uuid()) @db.Uuid
+  jobName      String             @map("job_name") @db.VarChar(80)
+  instanceId   String             @map("instance_id") @db.VarChar(100)
+  startedAt    DateTime           @default(now()) @map("started_at") @db.Timestamptz(3)
+  finishedAt   DateTime?          @map("finished_at") @db.Timestamptz(3)
+  status       SchedulerRunStatus @default(RUNNING)
+  scannedCount Int                @default(0) @map("scanned_count")
+  changedCount Int                @default(0) @map("changed_count")
+  failedCount  Int                @default(0) @map("failed_count")
+  requestId    String             @map("request_id") @db.VarChar(64)
+  failures     SchedulerFailure[]
+
+  @@index([jobName, startedAt])
+  @@index([status, startedAt])
+  @@map("scheduler_run")
+}
+
+// 只允许脱敏错误摘要；诊断事务不冒充成功业务审计。
+model SchedulerFailure {
+  id               String       @id @default(uuid()) @db.Uuid
+  runId            String       @map("run_id") @db.Uuid
+  taskId           String?      @map("task_id") @db.Uuid
+  errorCode        String       @map("error_code") @db.VarChar(80)
+  sanitizedMessage String       @map("sanitized_message") @db.VarChar(500)
+  occurredAt       DateTime     @default(now()) @map("occurred_at") @db.Timestamptz(3)
+  run              SchedulerRun @relation(fields: [runId], references: [id], onDelete: Restrict)
+  task             Task?        @relation(fields: [taskId], references: [id], onDelete: Restrict)
+
+  @@index([runId, occurredAt])
+  @@index([taskId])
+  @@map("scheduler_failure")
 }

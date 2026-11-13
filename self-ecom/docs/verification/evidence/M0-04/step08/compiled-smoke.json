@@ -1,0 +1,103 @@
+{
+  "checkedAt": "2026-11-13T09:09:11.126Z",
+  "compiledMetadata": true,
+  "isolatedDatabase": true,
+  "cases": [
+    {
+      "path": "/admin/tasks?view=pool",
+      "status": 200,
+      "requestId": "203c404e-08cc-4555-a6ee-117c96a49431"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5",
+      "status": 404,
+      "requestId": "33ccd213-e75b-4cec-951f-eb9cdebe74dc",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 404,
+      "requestId": "4e41e0cd-8462-48dc-a65d-a617afd7dfbd",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 404,
+      "requestId": "662362df-d19f-4eb7-824e-d57fb064d5c0",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "1b138b76-b979-4a67-93c2-c429adc0a07b",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "a4ed8a90-aad9-4484-a365-1dbd6e4db52f",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "4986b75e-0c46-44a9-bd60-c0da79631982",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "0adce507-8103-4df8-a624-ec887caf526d",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "89311bfc-477f-4efa-ab35-35f5d634ca0e",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "50151b0e-0b1d-4f41-8a4f-74638f7cbea5",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "91c2c46d-b399-4357-ab29-04d4e4b503b8",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "f19ea505-1f14-40b3-9365-9fea423462ba",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "6bedf095-b511-49b1-ae3a-4b815c86825a",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "d940777b-008b-4280-9408-809657c30b60",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/f408e4db-47fa-4d74-aca1-5ca24ba78ac5/extend-deadline",
+      "status": 400,
+      "requestId": "58c57929-627c-473c-a333-fe678ed06f13",
+      "code": "VALIDATION_FAILED"
+    }
+  ],
+  "migrateExitCode": 0,
+  "operations": 40,
+  "productionDeadlineAdaptersEmpty": true,
+  "orphanTaskHiddenAndImmutable": true,
+  "noAuditHistoryOrDeadlineWrites": true,
+  "passed": true,
+  "databaseRemoved": true
+}

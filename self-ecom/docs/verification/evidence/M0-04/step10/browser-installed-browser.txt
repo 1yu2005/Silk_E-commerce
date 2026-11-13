@@ -1,0 +1,12 @@
+{"group":"core","scenario":"本人、岗位池和后端动作范围，桌面与手机列表","passed":true}
+{"group":"deadline","scenario":"已逾期后延期保留原始截止、曾逾期和真实事件，浏览器非北京时间也正确","passed":true}
+{"group":"scope","scenario":"真实撤权回池后管理员待安排和摘要刷新","passed":true}
+{"group":"scope","scenario":"普通员工隐藏待安排入口，直接地址不发管理员列表请求","passed":true}
+{"group":"resilience","scenario":"真实提交后丢失响应不能重复释放，重读后呈现真实OPEN","passed":true}
+{"group":"resilience","scenario":"读取500保留requestId且可手动重试，不能当作空列表","passed":true}
+{"group":"resilience","scenario":"真实会话撤销后401清缓存并返回登录，任务和密码不持久化","passed":true}
+{"group":"empty","scenario":"未配置无任务应用显示真实0摘要及空态，桌面和手机可用","passed":true}
+{"passed":false,"checks":8,"groups":[{"name":"core","passed":false,"databaseRemoved":true},{"name":"deadline","passed":false,"databaseRemoved":true},{"name":"scope","passed":false,"databaseRemoved":true},{"name":"resilience","passed":true,"databaseRemoved":true},{"name":"empty","passed":true,"databaseRemoved":true}],"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step10\\installed-browser"}
+{"group":"core","scenario":"领取同步禁用、防重复提交和实际经办历史","message":"locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog') to be hidden\u001b[22m\n\u001b[2m    27 × locator resolved to visible <div role=\"dialog\" tabindex=\"-1\" aria-modal=\"true\" aria-labelledby=\"test-id\" class=\"ant-modal css-dev-only-do-not-override-i19pbt\">…</div>\u001b[22m\n","line":"at waitSuccess (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:47:72)"}
+{"group":"deadline","scenario":"处理和期限统一时间线分页，详情返回保留筛选位置","message":"Expected values to be strictly equal:\n\n14 !== 10\n","line":"at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/test/verify-tasks-browser.mjs:110:141"}
+{"group":"scope","scenario":"真实筛选分页与URL往返，false逾期不丢失，非法地址不查询","message":"locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.task-table tbody tr').first() to be visible\u001b[22m\n\u001b[2m    24 × locator resolved to hidden <tr aria-hidden=\"true\" class=\"ant-table-measure-row\">…</tr>\u001b[22m\n","line":"at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:131:113"}

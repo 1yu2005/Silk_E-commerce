@@ -1,0 +1,5 @@
+{"checkpoint":"商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403","status":"passed"}
+{"checkpoint":"表单金额和期限单位、必填与小数边界验证失败不发写请求","status":"passed"}
+{"checkpoint":"真实首次保存整数分与完整配置，提交中防重复，生成版本与审计","status":"passed"}
+{"passed":false,"checks":3,"pageErrors":0,"databaseRemoved":true,"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step04\\submit-disabled-fix"}
+{"scenario":"商城已配置电话可拨打，匿名和登录顾客公共请求均无令牌且不泄露内部地址","error":"TimeoutError","message":"page.waitForURL: Timeout 30000ms exceeded.\n=========================== logs ===========================\nwaiting for navigation to \"http://127.0.0.1:63989/\" until \"load\"\n  navigated to \"http://127.0.0.1:63989/account\"\n============================================================","sourceLine":"at login (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-settings-browser.mjs:87:80)"}

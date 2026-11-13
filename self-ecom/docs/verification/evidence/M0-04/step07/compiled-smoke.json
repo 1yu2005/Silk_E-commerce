@@ -1,0 +1,81 @@
+{
+  "checkedAt": "2026-11-13T08:42:39.793Z",
+  "compiledMetadata": true,
+  "isolatedDatabase": true,
+  "cases": [
+    {
+      "path": "/admin/tasks?view=mine",
+      "status": 200,
+      "requestId": "2780c3a0-1e9e-4c9f-9ded-fd590c2df53a"
+    },
+    {
+      "path": "/admin/tasks?view=pool",
+      "status": 200,
+      "requestId": "61d2e110-b96a-4686-80f6-07efab36910b"
+    },
+    {
+      "path": "/admin/tasks?view=reassign",
+      "status": 200,
+      "requestId": "f7495dac-41e4-4fe3-82e2-d7053c798204"
+    },
+    {
+      "path": "/admin/tasks/summary",
+      "status": 200,
+      "requestId": "0e0ecaa9-3d9e-49d5-8bce-232fe5592189"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5",
+      "status": 404,
+      "requestId": "1cf61df8-1e8a-42f9-9c66-12a1cd3490e0",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/history",
+      "status": 404,
+      "requestId": "622ea917-7e18-4d09-860f-1823acbd9073",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/claim",
+      "status": 404,
+      "requestId": "4fe42e35-95e0-4558-8175-c78130c06e84",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/release",
+      "status": 404,
+      "requestId": "fb7235c9-1839-4396-ad0e-92e09d3b4f8c",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/claim",
+      "status": 400,
+      "requestId": "14329ad7-2184-4b1f-b388-f6a59e09840f",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/transfer",
+      "status": 404,
+      "requestId": "2791912f-059a-4900-b96d-9c32e3874e23",
+      "code": "TASK_NOT_FOUND"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/transfer",
+      "status": 400,
+      "requestId": "d9bed29d-f20d-4608-9a03-0d5a537a3f2c",
+      "code": "VALIDATION_FAILED"
+    },
+    {
+      "path": "/admin/tasks/ef2a087d-bb87-4b02-9326-b95062d2d2d5/transfer",
+      "status": 400,
+      "requestId": "a36879f1-57c3-42f8-a1e4-59978352546e",
+      "code": "VALIDATION_FAILED"
+    }
+  ],
+  "migrateExitCode": 0,
+  "operations": 39,
+  "productionAdaptersEmpty": true,
+  "orphanTaskHiddenAndImmutable": true,
+  "passed": true,
+  "databaseRemoved": true
+}

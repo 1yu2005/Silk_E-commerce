@@ -1,0 +1,19 @@
+
+D:\实习\实习生全栈学习笔记\self-ecom\apps\admin-web\src\tasks\TaskActions.tsx
+  34:21  error  Error: This value cannot be modified
+
+Modifying a value returned from 'useState()', which should not be modified directly. Use the setter function to update instead.
+
+D:\实习\实习生全栈学习笔记\self-ecom\apps\admin-web\src\tasks\TaskActions.tsx:34:21
+  32 |   const state = useSyncExternalStore(controller.subscribe, controller.getSnapshot);
+  33 |   const [active] = useState(() => ({ current: true }));
+> 34 |   useEffect(() => { active.current = true; return () => { active.current = false; }; }, [active]);
+     |                     ^^^^^^ `active` cannot be modified
+  35 |   const submit = (values: CommandForm) => {
+  36 |     const common = { expectedVersion: task.version, reason: values.reason?.trim() ?? '' }; const path = { id: task.id };
+  37 |     const send = () => action === 'claim' ? tasks.claimTask({ path, body: { expectedVersion: task.version } })
+
+Hint: If this value is a Ref (value returned by `useRef()`), rename the variable to end in "Ref"  react-hooks/immutability
+
+✖ 1 problem (1 error, 0 warnings)
+

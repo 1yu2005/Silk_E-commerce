@@ -1,0 +1,102 @@
+{
+  "checkedAt": "2026-11-13T05:57:26.768Z",
+  "protectedFiles": [
+    {
+      "path": ".env",
+      "unchanged": true
+    },
+    {
+      "path": ".env.example",
+      "unchanged": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "unchanged": true
+    },
+    {
+      "path": "package.json",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/package.json",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0003_files_communication_history/migration.sql",
+      "unchanged": true
+    },
+    {
+      "path": "../.github/workflows/self-ecom-contracts.yml",
+      "unchanged": true
+    }
+  ],
+  "trackedDiffExitCode": 0,
+  "stagedDiffExitCode": 0,
+  "gitDiffCheckExitCode": 0,
+  "onlyPlannedNewProjectFiles": true,
+  "newTextWhitespace": [
+    {
+      "path": "apps/api/src/common/time/clock.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/src/common/time/deadline.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/src/common/time/time.module.ts",
+      "valid": true
+    },
+    {
+      "path": "apps/api/test/time.spec.ts",
+      "valid": true
+    },
+    {
+      "path": "docs/design/M0-04.md",
+      "valid": true
+    },
+    {
+      "path": "docs/verification/M0-04.md",
+      "valid": true
+    }
+  ],
+  "sourceSha256": [
+    {
+      "path": "apps/api/src/common/time/clock.ts",
+      "sha256": "77915cf26ffdeec4c5e300512d8f9ac500795b4b23db9793f378c8e1557d644a"
+    },
+    {
+      "path": "apps/api/src/common/time/deadline.ts",
+      "sha256": "6ff3c866ee4865ae9f68cdebe8a78dcd116e7db8b3c04c9500f98b51a8f70d56"
+    },
+    {
+      "path": "apps/api/src/common/time/time.module.ts",
+      "sha256": "e0ac878008d78192b0817bdc2536c4211e265e563ae74f77e3958e0fa05b971e"
+    },
+    {
+      "path": "apps/api/test/time.spec.ts",
+      "sha256": "f6d7902da13f05f611991808f3f10b08ce2f0628b04aedd31aa35381532aae6e"
+    },
+    {
+      "path": "docs/design/M0-04.md",
+      "sha256": "fee611fa2b184915f16bf76751ad80fc3eef4fbe173d5baeea47858bc0b9daa0"
+    },
+    {
+      "path": "docs/verification/M0-04.md",
+      "sha256": "1a6cd3945e6697b920e0887dae4f497c59d5bcae0cf7fcb0f4762b5013007135"
+    }
+  ],
+  "noDatabaseOrContainerCommandsExecuted": true
+}

@@ -1,0 +1,346 @@
+{
+  "checkedAt": "2026-11-13T11:16:38.103Z",
+  "checks": [
+    {
+      "group": "core",
+      "scenario": "本人、岗位池和后端动作范围，桌面与手机列表"
+    },
+    {
+      "group": "core",
+      "scenario": "领取同步禁用、防重复提交和实际经办历史"
+    },
+    {
+      "group": "core",
+      "scenario": "释放原因必填，真实释放不改轮次和原截止"
+    },
+    {
+      "group": "core",
+      "scenario": "另一员工已领取时旧版本409，读取最新前不能重发"
+    },
+    {
+      "group": "core",
+      "scenario": "管理员候选来自真实员工查询，不合资格拒绝后可重新选择合资格员工"
+    },
+    {
+      "group": "core",
+      "scenario": "领域阻塞任务不提供释放入口"
+    }
+  ],
+  "requests": [
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/summary",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2bc5f09f-d818-4b27-a8ea-7c303536d8d7"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "88e49e63-c7b9-4a2a-a49f-677afa63036b"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks",
+      "method": "GET",
+      "status": 200,
+      "requestId": "135e1cef-06b9-4bef-94f8-934bdb0db849"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "fbb6e364-7689-4cee-8879-09c57adb2d6e"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "36665857-f0fe-4cae-94a2-896c0f822d98"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "2ccbd3db-bdb5-4c40-8410-67b71f6dad11"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "45b4e064-fbc8-47d4-a130-88d0e3f8e518"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "202d5585-6074-4d5d-911a-21d95b61de05"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/release",
+      "method": "POST",
+      "status": 200,
+      "requestId": "6bdb309f-72a7-4003-96e9-d50b0d5e91d9"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b9b1d669-b6f8-4011-a127-cb7d21e55cb6"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7401b63b-4819-496b-aa55-d50a50f2b2e8"
+    },
+    {
+      "source": "direct",
+      "group": "core",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "b6f4572d-1928-4200-9ebc-753339744b58"
+    },
+    {
+      "source": "direct",
+      "group": "core",
+      "path": "/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "f6bf61f6-53ce-4b9b-b2b7-a6cf60b8f43b"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/claim",
+      "method": "POST",
+      "status": 409,
+      "requestId": "b58c24eb-1f7f-4f9b-a3ce-498c7b8875ad"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0ee6fc70-1d98-4de2-8727-5d34c975fc3f"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "72fb1619-b8cc-4394-97fd-81ec679bbc4c"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c6410674-5583-47e1-b243-5fd289c8f843"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0ef7fc5d-107b-4c14-963d-b16d8ad984cf"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "5dd76885-faa1-4a6d-80f9-c5982b655ed8"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/transfer",
+      "method": "POST",
+      "status": 409,
+      "requestId": "8fbb3257-5020-4477-aac5-5acad4cbbeda"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "4ecba8e5-3e9c-41f3-9416-3571810606eb"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2661c26b-20b0-48f7-a891-3f26f00781ee"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/transfer",
+      "method": "POST",
+      "status": 200,
+      "requestId": "39038d1d-00e5-48ee-ba33-f259c0a8fd81"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "164ead7c-045a-4b31-89eb-c05e80ed35dd"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee",
+      "method": "GET",
+      "status": 200,
+      "requestId": "fc46aea6-d51b-4f27-a683-782d634f47e7"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/history",
+      "method": "GET",
+      "status": 200,
+      "requestId": "dd41172b-a0fc-4006-bf8b-ee77ebe48de0"
+    },
+    {
+      "source": "browser",
+      "group": "core",
+      "path": "/api/v1/admin/tasks/ff654620-88ff-41f0-942f-59b209b09da4",
+      "method": "GET",
+      "status": 200,
+      "requestId": "b392ff59-e21d-46be-a8c7-0adea94434e5"
+    }
+  ],
+  "writes": [
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/claim",
+      "body": {
+        "expectedVersion": 0
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/release",
+      "body": {
+        "expectedVersion": 1,
+        "reason": "交接前重新安排"
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/claim",
+      "body": {
+        "expectedVersion": 2
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/transfer",
+      "body": {
+        "expectedVersion": 3,
+        "reason": "验证目标完整资格",
+        "targetEmployeeId": "3de232ae-47f5-43e0-b378-5d3e56a41a1c"
+      }
+    },
+    {
+      "group": "core",
+      "path": "/api/v1/admin/tasks/23b14e9b-d519-4dca-9226-31632eba97ee/transfer",
+      "body": {
+        "expectedVersion": 3,
+        "reason": "核实后转交仓储甲",
+        "targetEmployeeId": "7f4606ff-8ccf-4733-80a8-513d94fce0cd"
+      }
+    }
+  ],
+  "pageErrors": [],
+  "injectedFailures": [],
+  "groups": [
+    {
+      "name": "core",
+      "passed": true,
+      "databaseName": "task_acceptance_4e8a15f320914a969c52e7e915045a62_test",
+      "databaseRemoved": true
+    }
+  ],
+  "probes": [
+    {
+      "point": "before-click",
+      "at": "2026-11-13T11:16:50.475Z"
+    },
+    {
+      "point": "claim-intercepted",
+      "at": "2026-11-13T11:16:50.552Z"
+    },
+    {
+      "point": "gate-ready",
+      "at": "2026-11-13T11:16:50.553Z"
+    },
+    {
+      "point": "pending-button-state",
+      "at": "2026-11-13T11:16:50.616Z",
+      "buttons": [
+        {
+          "text": "确认领取",
+          "disabled": true,
+          "className": "ant-btn css-dev-only-do-not-override-i19pbt css-var-_r_0_ ant-btn-primary ant-btn-color-primary ant-btn-variant-solid ant-btn-loading"
+        }
+      ]
+    },
+    {
+      "point": "button-disabled",
+      "at": "2026-11-13T11:16:50.616Z"
+    },
+    {
+      "point": "gate-release-called",
+      "at": "2026-11-13T11:16:50.641Z"
+    },
+    {
+      "point": "claim-released",
+      "at": "2026-11-13T11:16:50.642Z"
+    },
+    {
+      "point": "click-complete",
+      "at": "2026-11-13T11:16:50.642Z"
+    },
+    {
+      "point": "claim-forwarded",
+      "at": "2026-11-13T11:16:50.645Z"
+    }
+  ],
+  "browser": "145.0.7632.6",
+  "passed": true
+}

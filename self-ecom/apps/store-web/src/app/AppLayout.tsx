@@ -4,6 +4,7 @@ import { Link, Outlet } from 'react-router-dom';
 import { useCustomerAuth } from '../auth/use-customer-auth';
 import { AuthError } from '../auth/AuthError';
 import { customerAuth } from '../services/api';
+import { StoreContact } from '../contact/StoreContact';
 
 export function AppLayout() {
   const state = useCustomerAuth();
@@ -17,6 +18,6 @@ export function AppLayout() {
     </nav></header>
     <main className="page-content">{state.notice ? <Alert className="auth-notice" title={state.notice} type="info" showIcon /> : null}
       {state.status === 'anonymous' ? <AuthError error={state.error} /> : null}<Outlet /></main>
-    <footer className="site-footer">模拟交易，不发生真实资金流转。</footer>
+    <footer className="site-footer"><StoreContact /><p className="store-footer-note">模拟交易，不发生真实资金流转。</p></footer>
   </Layout>;
 }

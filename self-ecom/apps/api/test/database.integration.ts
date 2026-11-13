@@ -35,16 +35,18 @@ it('connects through the real Prisma PostgreSQL adapter to the isolated PostgreS
   await expect(prisma.ping()).resolves.toBeUndefined();
 });
 
-it('已应用工程、认证和文件基础迁移，并保留完整业务表', async () => {
+it('已应用工程、认证、文件及设置任务基础迁移，并保留完整业务表', async () => {
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
-  expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history']
+  expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history',
+    '0004_store_settings_tasks_deadlines']
     .map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
   expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations', 'audit_log', 'auth_session', 'business_state_history',
-    'communication', 'customer', 'employee', 'employee_extra_permission', 'file_asset', 'file_reference',
-    'permission_definition', 'role_permission', 'system_guard']);
+    'communication', 'customer', 'deadline_event', 'employee', 'employee_extra_permission', 'file_asset', 'file_reference',
+    'permission_definition', 'role_permission', 'scheduler_failure', 'scheduler_run', 'store_setting_head',
+    'store_setting_version', 'system_guard', 'task', 'task_history', 'task_stage_cursor']);
 });
 
 it('keeps liveness working with the real database module installed', async () => {

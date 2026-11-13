@@ -1,0 +1,132 @@
+{
+  "checkedAt": "2026-11-13T07:08:02.201Z",
+  "isolatedDatabase": "settings_ui_3c54c17136e841d28f895dd8a002a4aa_test",
+  "checks": [
+    "商城匿名维护空态、管理员首次配置与空历史、普通员工隐藏入口及真实403"
+  ],
+  "requests": [
+    {
+      "surface": "store",
+      "path": "/api/v1/store/contact",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c3382272-8afc-4352-a979-ce023b213f53",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "edd1fc8c-215a-4330-a9cc-a33d25003e88",
+      "bearerAttached": false
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "76396768-c9c0-4867-8687-701c18dbae0b",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "d15071b1-f03b-4fb5-9f42-b0b2efb93483",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "08b9792c-4569-4cd5-a179-2d27cc92e15d",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings/versions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9d7b77ae-f372-48cf-b511-2ab5e44188db",
+      "bearerAttached": true
+    },
+    {
+      "surface": "admin",
+      "path": "/api/v1/admin/settings",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a0e5ed00-d43c-4c54-8a52-ac0f02194d48",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "4e0e6c5d-53ba-418a-bf73-02f7cdbeecb6",
+      "bearerAttached": false
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "3ee59d7d-af03-46a7-9658-38f6461ef5bd",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e60e13ca-5c27-422f-8a41-982808125ad1",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "7fe11a08-6746-4cf7-8b4b-a5178d34f1b1",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "70a70b93-d78a-478d-8536-849705b954ff",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me",
+      "method": "GET",
+      "status": 200,
+      "requestId": "83b2fe70-631a-46c3-8a04-d2f29e2ffd85",
+      "bearerAttached": true
+    },
+    {
+      "surface": "ordinary",
+      "path": "/api/v1/admin/me/permissions",
+      "method": "GET",
+      "status": 200,
+      "requestId": "cc5bff0d-798e-4b59-9488-989e172c6590",
+      "bearerAttached": true
+    }
+  ],
+  "writeAttempts": [],
+  "pageErrors": [],
+  "injectedFailures": [],
+  "browser": "145.0.7632.6",
+  "failure": {
+    "scenario": "表单金额和期限单位、必填与小数边界验证失败不发写请求",
+    "error": "Error",
+    "message": "locator.waitFor: Error: strict mode violation: getByText('请输入1～30的整数', { exact: true }) resolved to 3 elements:\n    1) <div class=\"ant-form-item-explain-error\">请输入1～30的整数</div> aka locator('#store-settings_deadlines_reviewWorkdays_help').getByText('请输入1～30的整数')\n    2) <div class=\"ant-form-show-help-item-appear ant-form-show-help-item-appear-start ant-form-show-help-item ant-form-item-explain-error\">请输入1～30的整数</div> aka locator('#store-settings_deadlines_inspectionWorkdays_help').getByText('请输入1～30的整数')\n    3) <div class=\"ant-form-show-help-item-appear ant-form-show-help-item-appear-start ant-form-show-help-item ant-form-item-explain-error\">请输入1～30的整数</div> aka locator('#store-settings_deadlines_refundWorkdays_help').getByText('请输入1～30的整数')\n\nCall log:\n\u001b[2m  - waiting for getByText('请输入1～30的整数', { exact: true }) to be visible\u001b[22m\n",
+    "sourceLine": "at D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-settings-browser.mjs:139:55"
+  },
+  "databaseRemoved": true
+}

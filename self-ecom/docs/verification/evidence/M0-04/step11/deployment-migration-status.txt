@@ -1,0 +1,11 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+4 migrations found in prisma/migrations
+
+Database schema is up to date!
+ Container self-ecom-api-run-1c4df5b24736 Creating 
+ Container self-ecom-api-run-1c4df5b24736 Created 
+$ tsx scripts/database.ts migrate-status
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

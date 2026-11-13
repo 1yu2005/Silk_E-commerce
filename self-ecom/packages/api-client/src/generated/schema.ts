@@ -95,7 +95,7 @@ export interface paths {
         put?: never;
         /**
          * 员工调岗
-         * @description 稳定锁→员工ID升序锁，锁内重验身份/权限及目标版本；禁止降级最后一名ACTIVE超级管理员。真实换岗清空额外授权、递增version/permissionVersion，与审计及资格变更同事务；保留会话，旧token下一请求按新岗位执行。同岗位且版本匹配changed=false并保留授权，旧版本仍409。响应丢失先刷新核实。
+         * @description 稳定锁→员工ID升序锁，锁内重验身份/权限及目标版本；禁止降级最后一名ACTIVE超级管理员。真实换岗清空额外授权、递增version/permissionVersion，与审计及资格变更同事务；保留会话，旧token下一请求按新岗位执行。同岗位且版本匹配changed=false并保留授权，旧版本仍409。响应丢失先刷新核实。 员工写入前合并全部失资格任务的完整业务锁；任务回池、领域经办同步、历史及审计与员工变更同事务，失败整体回滚。锁集合变化整笔最多重试3次。
          */
         post: operations["changeEmployeeRole"];
         delete?: never;
@@ -115,7 +115,7 @@ export interface paths {
         put?: never;
         /**
          * 停用员工
-         * @description 稳定锁→员工ID升序锁，锁内重验操作者及版本；禁止停用最后一名ACTIVE超级管理员。状态变为DISABLED，version/tokenVersion递增、全部会话撤销、审计和资格变更入口同事务；同状态匹配版本changed=false，旧版本仍409。
+         * @description 稳定锁→员工ID升序锁，锁内重验操作者及版本；禁止停用最后一名ACTIVE超级管理员。状态变为DISABLED，version/tokenVersion递增、全部会话撤销、审计和资格变更入口同事务；同状态匹配版本changed=false，旧版本仍409。 员工写入前合并全部失资格任务的完整业务锁；任务回池、领域经办同步、历史及审计与员工变更同事务，失败整体回滚。锁集合变化整笔最多重试3次。
          */
         post: operations["disableEmployee"];
         delete?: never;
@@ -154,7 +154,7 @@ export interface paths {
         get?: never;
         /**
          * 替换员工个人额外权限
-         * @description 按员工ID升序锁定并重验当前身份/权限及目标版本，超级管理员目标不适用（包括空集合）。服务端解析依赖，实际变化递增version/permissionVersion，授权差集、审计、资格入口同事务；保留会话，旧token下一请求读取新权限。同集合匹配版本changed=false，旧版本409。响应丢失先刷新详情核实，前端须保留完整解析集合再编辑。
+         * @description 按员工ID升序锁定并重验当前身份/权限及目标版本，超级管理员目标不适用（包括空集合）。服务端解析依赖，实际变化递增version/permissionVersion，授权差集、审计、资格入口同事务；保留会话，旧token下一请求读取新权限。同集合匹配版本changed=false，旧版本409。响应丢失先刷新详情核实，前端须保留完整解析集合再编辑。 员工写入前合并全部失资格任务的完整业务锁；任务回池、领域经办同步、历史及审计与员工变更同事务，失败整体回滚。锁集合变化整笔最多重试3次。
          */
         put: operations["replaceEmployeeExtraPermissions"];
         post?: never;
@@ -256,6 +256,230 @@ export interface paths {
          * @description 仅employee.read可用，强制改密员工禁止访问。无业务输入，不支持过滤或修改；查询参数不会改变目录。返回代码配置中的权限、管理员专属标识、直接依赖及三岗位模板，各码数组稳定排序。目录读取不额外查库，不自动seed或授权；认证仍校验当前数据库身份。
          */
         get: operations["getPermissionCatalog"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/settings": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查询当前全店设置
+         * @description 仅管理员store.setting.manage可用；未配置时configured=false、version=0、currentSetting=null。完整配置包含地址和内部期限，不向普通员工或顾客开放。
+         */
+        get: operations["getStoreSettings"];
+        /**
+         * 完整替换全店设置并追加版本
+         * @description 金额为整数分，期限为正整数且单位固定；严格boolean与嵌套字段白名单。文本去首尾空白，电话移除空格和连字符。先锁员工再锁Head，锁内复核身份和管理员权限。expectedVersion过期始终409；同内容且版本匹配changed=false、不新增版本/审计；变化时版本、指针和审计同事务提交。仅影响之后新阶段，旧版本和已固化期限不回写。
+         */
+        put: operations["updateStoreSettings"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/settings/versions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 分页查询全店设置版本摘要
+         * @description 版本编号倒序；总数和本页使用一致快照。只返回ID、编号、修改人ID、时间和原因；完整配置由详情接口读取。
+         */
+        get: operations["listStoreSettingVersions"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/settings/versions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查询全店设置历史版本
+         * @description 仅管理员可查完整历史与修改原因；不存在版本404。已保存的旧配置不随现值变化。
+         */
+        get: operations["getStoreSettingVersion"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 分页查询本人任务、合资格岗位池或管理员待安排
+         * @description 默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；reassign须管理员task.transfer。所有范围还需真实业务读取权。按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。
+         */
+        get: operations["listTasks"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查询任务、期限快照及裁剪后的业务摘要
+         * @description 业务读取权并满足当前资格/当前或历史经办/管理员范围；不可查看与不存在均404。allowedActions仅提示，提交仍重新检查当前权限、任务版本和真实业务允许条件。
+         */
+        get: operations["getTaskDetail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/{id}/claim": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 原子领取本人任务
+         * @description 锁员工、完整业务、游标和任务后复核当前身份、全部资格、业务允许条件和版本。重复原expectedVersion仅在当前仍为该主体最后一次领取结果时changed=false；释放或再领取后旧请求冲突。
+         */
+        post: operations["claimTask"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/{id}/extend-deadline": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 管理员延期或首次指定人工任务截止
+         * @description 仅SUPER_ADMIN且deadline.extend，真实领域适配器必须允许并同步合法领域截止。新截止须为ISO UTC且晚于当前截止和现在；不改付款、售后申请窗口、自动收货或交运事实。保留原截止、经办、状态和轮次；旧截止已到（含等号）先补记OVERDUE，再写EXTENDED或DEADLINE_ASSIGNED及历史/审计，全部同事务。终结拒绝；暂停是否允许由领域决定，延期不会恢复任务。同主体/旧版本/原因/规范化截止的最后成功结果changed=false，仍复核身份和领域资格。
+         */
+        post: operations["extendTaskDeadline"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/{id}/history": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 分页查询任务动作与期限事件统一时间线
+         * @description 与详情使用同一业务读取范围，旧经办不替代当前业务读取权。occurredAt降序、kind/id升序稳定分页；原因按业务权限隐藏，响应不包含全店审计、员工账号或凭证。
+         */
+        get: operations["getTaskHistory"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/{id}/release": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 本人安全释放任务并保留轮次和期限
+         * @description 当前经办且真实业务确认可安全交接才释放，原因必填。同主体、同expectedVersion、同规范化原因的最后一次成功释放可以重放；不借释放恢复暂停任务。
+         */
+        post: operations["releaseTask"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/{id}/transfer": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 管理员显式指派或安全转交任务
+         * @description 仅SUPER_ADMIN且task.transfer；目标须启用、已改密且满足完整资格。OPEN可指派，CLAIMED可转交，暂停/终结不可转交。按完整锁序复核并与真实领域交接、历史、审计同事务；保留轮次与期限。同主体/旧版本/目标/原因的最后成功结果可幂等重放。
+         */
+        post: operations["transferTask"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/tasks/summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查询本人待办、岗位池及逾期摘要
+         * @description 各卡片可重叠。逾期仅统计本人可读任务：当前逾期为未终结且now>=dueAt；历史曾逾期含持久事实或当前已到期。普通员工待安排数为null；无真实业务范围时返回真实零值。
+         */
+        get: operations["getTaskSummary"];
         put?: never;
         post?: never;
         delete?: never;
@@ -438,6 +662,26 @@ export interface paths {
          * @description 公开接口；每实际来源IP每分钟5次，格式错误也计数，超限429及Retry-After。手机号唯一，注册不自动登录、不发送短信、不代表已验证手机号所有权。顾客与最小审计同事务，失败全部回滚。响应丢失先尝试登录核实，不覆盖已有账号。
          */
         post: operations["registerCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/contact": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 公开查询店铺服务联系方式
+         * @description 无需登录。仅返回configured、servicePhone、serviceHours和settingsVersion；未配置时联系方式为null、版本0。不返回退货地址、内部期限、运费、修改人或原因。
+         */
+        get: operations["getStoreContact"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -1238,7 +1482,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "LAST_ADMIN_REQUIRED";
+                        code: "VERSION_CONFLICT" | "LAST_ADMIN_REQUIRED" | "TASK_LOCK_PLAN_CHANGED" | "BUSINESS_MODULE_NOT_READY" | "TASK_VERSION_EXHAUSTED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -1388,7 +1632,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "LAST_ADMIN_REQUIRED";
+                        code: "VERSION_CONFLICT" | "LAST_ADMIN_REQUIRED" | "TASK_LOCK_PLAN_CHANGED" | "BUSINESS_MODULE_NOT_READY" | "TASK_VERSION_EXHAUSTED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -1538,7 +1782,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "LAST_ADMIN_REQUIRED";
+                        code: "VERSION_CONFLICT" | "LAST_ADMIN_REQUIRED" | "TASK_LOCK_PLAN_CHANGED" | "BUSINESS_MODULE_NOT_READY" | "TASK_VERSION_EXHAUSTED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -1698,7 +1942,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT";
+                        code: "VERSION_CONFLICT" | "TASK_LOCK_PLAN_CHANGED" | "BUSINESS_MODULE_NOT_READY" | "TASK_VERSION_EXHAUSTED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -2190,6 +2434,1831 @@ export interface operations {
                                 SUPER_ADMIN: ("category.read" | "category.manage" | "product.read" | "product.cost.read" | "product.manage" | "product.publish" | "inventory.read" | "inventory.adjustment.create" | "inventory.adjustment.claim" | "inventory.adjustment.post" | "inventory.adjustment.void" | "inventory.source.manage" | "inventory.alert.manage" | "order.fulfillment.read" | "shipment.claim" | "shipment.pack" | "shipment.handover" | "shipment.tracking.correct" | "shipment.exception.manage" | "order.physical.check" | "inventory.order-exception.manage" | "after-sale.inspection.read" | "after-sale.receipt.record" | "after-sale.inspection.confirm" | "dashboard.read" | "order.service.read" | "communication.service.write" | "customer.read" | "after-sale.service.read" | "after-sale.review" | "after-sale.close" | "after-sale.return.follow" | "after-sale.refund.execute" | "after-sale.refund.retry" | "shipment.customer-confirm" | "offline-case.manage" | "customer.frozen.proxy" | "employee.read" | "employee.create" | "employee.profile.update" | "employee.status.manage" | "employee.password.reset" | "employee.role.change" | "employee.permission.manage" | "customer.status.manage" | "store.setting.manage" | "audit.read" | "order.unpaid.close" | "shipment.history.correct" | "after-sale.dispute.decide" | "deadline.extend" | "task.transfer")[];
                             };
                         };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getStoreSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            configured: boolean;
+                            currentSetting: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdByEmployeeId: string | null;
+                                deadlines: {
+                                    /** @description 自然日；订单完成起算 */
+                                    afterSaleWindowDays: number;
+                                    /** @description 自然日；实际交运起算 */
+                                    autoReceiptDays: number;
+                                    /** @description 工作日；实际到货起算 */
+                                    inspectionWorkdays: number;
+                                    /** @description 分钟；建单时固化付款期限 */
+                                    paymentMinutes: number;
+                                    /** @description 工作日；退款条件满足起算 */
+                                    refundWorkdays: number;
+                                    /** @description 自然日；同意寄回阶段起算 */
+                                    returnShipDays: number;
+                                    /** @description 工作日；每轮审核起算 */
+                                    reviewWorkdays: number;
+                                    /** @description 自然日；每轮要求补材料起算 */
+                                    supplementDays: number;
+                                };
+                                freeShippingEnabled: boolean;
+                                freeShippingThresholdCents: number;
+                                /** Format: uuid */
+                                id: string;
+                                reason: string;
+                                returnAddress: {
+                                    city: string;
+                                    detail: string;
+                                    district: string;
+                                    /** @description 规范化后保存的电话；仅保留可选国际前缀和数字 */
+                                    phone: string;
+                                    province: string;
+                                    receiver: string;
+                                };
+                                serviceContact: {
+                                    /** @description 规范化后保存的电话；仅保留可选国际前缀和数字 */
+                                    phone: string;
+                                    /** @description 省略、null或空白表示未设置服务时间；完整替换时清除旧值 */
+                                    serviceHours: string | null;
+                                };
+                                shippingFeeCents: number;
+                                versionNumber: number;
+                            } | null;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    updateStoreSettings: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    deadlines: {
+                        /** @description 自然日；订单完成起算 */
+                        afterSaleWindowDays: number;
+                        /** @description 自然日；实际交运起算 */
+                        autoReceiptDays: number;
+                        /** @description 工作日；实际到货起算 */
+                        inspectionWorkdays: number;
+                        /** @description 分钟；建单时固化付款期限 */
+                        paymentMinutes: number;
+                        /** @description 工作日；退款条件满足起算 */
+                        refundWorkdays: number;
+                        /** @description 自然日；同意寄回阶段起算 */
+                        returnShipDays: number;
+                        /** @description 工作日；每轮审核起算 */
+                        reviewWorkdays: number;
+                        /** @description 自然日；每轮要求补材料起算 */
+                        supplementDays: number;
+                    };
+                    expectedVersion: number;
+                    freeShippingEnabled: boolean;
+                    freeShippingThresholdCents: number;
+                    reason: string;
+                    returnAddress: {
+                        city: string;
+                        detail: string;
+                        district: string;
+                        /** @description 去首尾空白后的输入与规范化结果长度均须3～30；允许国际前缀、数字、空格/连字符，移除分隔符后保存 */
+                        phone: string;
+                        province: string;
+                        receiver: string;
+                    };
+                    serviceContact: {
+                        /** @description 去首尾空白后的输入与规范化结果长度均须3～30；允许国际前缀、数字、空格/连字符，移除分隔符后保存 */
+                        phone: string;
+                        /** @description 省略、null或空白表示未设置服务时间；完整替换时清除旧值 */
+                        serviceHours?: string | null;
+                    };
+                    shippingFeeCents: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed: boolean;
+                            currentSetting: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdByEmployeeId: string | null;
+                                deadlines: {
+                                    /** @description 自然日；订单完成起算 */
+                                    afterSaleWindowDays: number;
+                                    /** @description 自然日；实际交运起算 */
+                                    autoReceiptDays: number;
+                                    /** @description 工作日；实际到货起算 */
+                                    inspectionWorkdays: number;
+                                    /** @description 分钟；建单时固化付款期限 */
+                                    paymentMinutes: number;
+                                    /** @description 工作日；退款条件满足起算 */
+                                    refundWorkdays: number;
+                                    /** @description 自然日；同意寄回阶段起算 */
+                                    returnShipDays: number;
+                                    /** @description 工作日；每轮审核起算 */
+                                    reviewWorkdays: number;
+                                    /** @description 自然日；每轮要求补材料起算 */
+                                    supplementDays: number;
+                                };
+                                freeShippingEnabled: boolean;
+                                freeShippingThresholdCents: number;
+                                /** Format: uuid */
+                                id: string;
+                                reason: string;
+                                returnAddress: {
+                                    city: string;
+                                    detail: string;
+                                    district: string;
+                                    /** @description 规范化后保存的电话；仅保留可选国际前缀和数字 */
+                                    phone: string;
+                                    province: string;
+                                    receiver: string;
+                                };
+                                serviceContact: {
+                                    /** @description 规范化后保存的电话；仅保留可选国际前缀和数字 */
+                                    phone: string;
+                                    /** @description 省略、null或空白表示未设置服务时间；完整替换时清除旧值 */
+                                    serviceHours: string | null;
+                                };
+                                shippingFeeCents: number;
+                                versionNumber: number;
+                            };
+                            /** Format: uuid */
+                            settingVersionId: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listStoreSettingVersions: {
+        parameters: {
+            query?: {
+                page?: number;
+                pageSize?: number;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdByEmployeeId: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reason: string;
+                                versionNumber: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getStoreSettingVersion: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdByEmployeeId: string | null;
+                            deadlines: {
+                                /** @description 自然日；订单完成起算 */
+                                afterSaleWindowDays: number;
+                                /** @description 自然日；实际交运起算 */
+                                autoReceiptDays: number;
+                                /** @description 工作日；实际到货起算 */
+                                inspectionWorkdays: number;
+                                /** @description 分钟；建单时固化付款期限 */
+                                paymentMinutes: number;
+                                /** @description 工作日；退款条件满足起算 */
+                                refundWorkdays: number;
+                                /** @description 自然日；同意寄回阶段起算 */
+                                returnShipDays: number;
+                                /** @description 工作日；每轮审核起算 */
+                                reviewWorkdays: number;
+                                /** @description 自然日；每轮要求补材料起算 */
+                                supplementDays: number;
+                            };
+                            freeShippingEnabled: boolean;
+                            freeShippingThresholdCents: number;
+                            /** Format: uuid */
+                            id: string;
+                            reason: string;
+                            returnAddress: {
+                                city: string;
+                                detail: string;
+                                district: string;
+                                /** @description 规范化后保存的电话；仅保留可选国际前缀和数字 */
+                                phone: string;
+                                province: string;
+                                receiver: string;
+                            };
+                            serviceContact: {
+                                /** @description 规范化后保存的电话；仅保留可选国际前缀和数字 */
+                                phone: string;
+                                /** @description 省略、null或空白表示未设置服务时间；完整替换时清除旧值 */
+                                serviceHours: string | null;
+                            };
+                            shippingFeeCents: number;
+                            versionNumber: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "SETTING_VERSION_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listTasks: {
+        parameters: {
+            query?: {
+                businessId?: string;
+                businessType?: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                overdue?: boolean;
+                page?: number;
+                pageSize?: number;
+                stage?: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                status?: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                view?: "mine" | "pool" | "reassign";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                allowedActions: ("claim" | "release" | "transfer" | "extendDeadline")[];
+                                assignee: {
+                                    displayName: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                } | null;
+                                business: {
+                                    /** @description 由真实业务提供的安全应用内详情路径；未接页面时为null */
+                                    detailPath: string | null;
+                                    label: string;
+                                    number: string;
+                                };
+                                /** Format: uuid */
+                                businessId: string;
+                                /** @enum {string} */
+                                businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: date-time */
+                                firstOverdueAt: string | null;
+                                hasEverOverdue: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                isCurrentlyOverdue: boolean;
+                                /** Format: date-time */
+                                originalDueAt: string | null;
+                                reassignNeeded: boolean;
+                                requiredPermissions: string[];
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                                /** Format: date-time */
+                                startedAt: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getTaskDetail: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            allowedActions: ("claim" | "release" | "transfer" | "extendDeadline")[];
+                            assignee: {
+                                displayName: string;
+                                /** Format: uuid */
+                                id: string;
+                            } | null;
+                            business: {
+                                /** @description 由真实业务提供的安全应用内详情路径；未接页面时为null */
+                                detailPath: string | null;
+                                label: string;
+                                number: string;
+                            };
+                            /** Format: uuid */
+                            businessId: string;
+                            /** @enum {string} */
+                            businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                            /** Format: date-time */
+                            closedAt: string | null;
+                            /** Format: date-time */
+                            dueAt: string | null;
+                            /** Format: date-time */
+                            firstOverdueAt: string | null;
+                            hasEverOverdue: boolean;
+                            /** Format: uuid */
+                            id: string;
+                            isCurrentlyOverdue: boolean;
+                            latestDeadlineEvent: {
+                                /** Format: date-time */
+                                deadlineAt: string;
+                                /** Format: date-time */
+                                detectedAt: string;
+                                /** @enum {string} */
+                                eventType: "OVERDUE" | "EXTENDED" | "DEADLINE_ASSIGNED";
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "DEADLINE_EVENT";
+                                /** Format: date-time */
+                                newDueAt: string | null;
+                                /** Format: date-time */
+                                occurredAt: string;
+                                reason: string | null;
+                            } | null;
+                            /** Format: date-time */
+                            originalDueAt: string | null;
+                            reassignNeeded: boolean;
+                            requiredPermissions: string[];
+                            round: number;
+                            ruleSnapshot: {
+                                algorithmVersion: string | null;
+                                amount: number | null;
+                                ruleCode: string | null;
+                                settingsVersionNumber: number | null;
+                                source: string | null;
+                                sourceField: string | null;
+                                stageCatalogVersion: string | null;
+                                timeZone: string | null;
+                                unit: string | null;
+                            };
+                            /** Format: uuid */
+                            settingsVersionId: string | null;
+                            /** @enum {string} */
+                            stage: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                            /** Format: date-time */
+                            startedAt: string;
+                            /** @enum {string} */
+                            status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TASK_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    claimTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed: boolean;
+                            task: {
+                                allowedActions: ("claim" | "release" | "transfer" | "extendDeadline")[];
+                                assignee: {
+                                    displayName: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                } | null;
+                                business: {
+                                    /** @description 由真实业务提供的安全应用内详情路径；未接页面时为null */
+                                    detailPath: string | null;
+                                    label: string;
+                                    number: string;
+                                };
+                                /** Format: uuid */
+                                businessId: string;
+                                /** @enum {string} */
+                                businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: date-time */
+                                firstOverdueAt: string | null;
+                                hasEverOverdue: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                isCurrentlyOverdue: boolean;
+                                /** Format: date-time */
+                                originalDueAt: string | null;
+                                reassignNeeded: boolean;
+                                requiredPermissions: string[];
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                                /** Format: date-time */
+                                startedAt: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            };
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TASK_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "TASK_ALREADY_CLAIMED" | "TASK_NOT_OPEN" | "TASK_ENTRY_BLOCKED" | "BUSINESS_MODULE_NOT_READY" | "TASK_LOCK_PLAN_CHANGED" | "TASK_VERSION_EXHAUSTED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    extendTaskDeadline: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    /**
+                     * Format: date-time
+                     * @description 真实有效的ISO UTC时刻，必须带Z，精度最多毫秒；必须晚于当前截止及服务器当前时间
+                     */
+                    newDueAt: string;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed: boolean;
+                            task: {
+                                allowedActions: ("claim" | "release" | "transfer" | "extendDeadline")[];
+                                assignee: {
+                                    displayName: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                } | null;
+                                business: {
+                                    /** @description 由真实业务提供的安全应用内详情路径；未接页面时为null */
+                                    detailPath: string | null;
+                                    label: string;
+                                    number: string;
+                                };
+                                /** Format: uuid */
+                                businessId: string;
+                                /** @enum {string} */
+                                businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: date-time */
+                                firstOverdueAt: string | null;
+                                hasEverOverdue: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                isCurrentlyOverdue: boolean;
+                                /** Format: date-time */
+                                originalDueAt: string | null;
+                                reassignNeeded: boolean;
+                                requiredPermissions: string[];
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                                /** Format: date-time */
+                                startedAt: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            };
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TASK_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "TASK_DEADLINE_BLOCKED" | "TASK_DEADLINE_NOT_LATER" | "BUSINESS_MODULE_NOT_READY" | "TASK_LOCK_PLAN_CHANGED" | "TASK_VERSION_EXHAUSTED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getTaskHistory: {
+        parameters: {
+            query?: {
+                page?: number;
+                pageSize?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: ({
+                                /** @enum {string} */
+                                action: "CREATED" | "CLAIMED" | "RELEASED" | "TRANSFERRED" | "QUALIFICATION_LOST" | "SUSPENDED" | "RESUMED" | "COMPLETED" | "CANCELLED" | "DEADLINE_CHANGED";
+                                /** @enum {string} */
+                                afterStatus: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                /** @enum {string|null} */
+                                beforeStatus: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED" | null;
+                                /** Format: uuid */
+                                fromAssigneeId: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "TASK_CHANGE";
+                                /** Format: date-time */
+                                occurredAt: string;
+                                reason: string | null;
+                                /** Format: uuid */
+                                toAssigneeId: string | null;
+                            } | {
+                                /** Format: date-time */
+                                deadlineAt: string;
+                                /** Format: date-time */
+                                detectedAt: string;
+                                /** @enum {string} */
+                                eventType: "OVERDUE" | "EXTENDED" | "DEADLINE_ASSIGNED";
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                kind: "DEADLINE_EVENT";
+                                /** Format: date-time */
+                                newDueAt: string | null;
+                                /** Format: date-time */
+                                occurredAt: string;
+                                reason: string | null;
+                            })[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TASK_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    releaseTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed: boolean;
+                            task: {
+                                allowedActions: ("claim" | "release" | "transfer" | "extendDeadline")[];
+                                assignee: {
+                                    displayName: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                } | null;
+                                business: {
+                                    /** @description 由真实业务提供的安全应用内详情路径；未接页面时为null */
+                                    detailPath: string | null;
+                                    label: string;
+                                    number: string;
+                                };
+                                /** Format: uuid */
+                                businessId: string;
+                                /** @enum {string} */
+                                businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: date-time */
+                                firstOverdueAt: string | null;
+                                hasEverOverdue: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                isCurrentlyOverdue: boolean;
+                                /** Format: date-time */
+                                originalDueAt: string | null;
+                                reassignNeeded: boolean;
+                                requiredPermissions: string[];
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                                /** Format: date-time */
+                                startedAt: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            };
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TASK_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "TASK_RELEASE_BLOCKED" | "BUSINESS_MODULE_NOT_READY" | "TASK_LOCK_PLAN_CHANGED" | "TASK_VERSION_EXHAUSTED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    transferTask: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                    /** Format: uuid */
+                    targetEmployeeId: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed: boolean;
+                            task: {
+                                allowedActions: ("claim" | "release" | "transfer" | "extendDeadline")[];
+                                assignee: {
+                                    displayName: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                } | null;
+                                business: {
+                                    /** @description 由真实业务提供的安全应用内详情路径；未接页面时为null */
+                                    detailPath: string | null;
+                                    label: string;
+                                    number: string;
+                                };
+                                /** Format: uuid */
+                                businessId: string;
+                                /** @enum {string} */
+                                businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: date-time */
+                                firstOverdueAt: string | null;
+                                hasEverOverdue: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                isCurrentlyOverdue: boolean;
+                                /** Format: date-time */
+                                originalDueAt: string | null;
+                                reassignNeeded: boolean;
+                                requiredPermissions: string[];
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
+                                /** Format: date-time */
+                                startedAt: string;
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            };
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TASK_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "TARGET_NOT_ELIGIBLE" | "TASK_TRANSFER_BLOCKED" | "BUSINESS_MODULE_NOT_READY" | "TASK_LOCK_PLAN_CHANGED" | "TASK_VERSION_EXHAUSTED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getTaskSummary: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            asOf: string;
+                            /** @enum {boolean} */
+                            countsOverlap: true;
+                            currentOverdue: number;
+                            eligibleOpen: number;
+                            everOverdue: number;
+                            myPending: number;
+                            reassignNeeded: number | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
                         /** Format: uuid */
                         requestId: string;
                     };
@@ -3018,6 +5087,36 @@ export interface operations {
                             message?: string;
                         }[];
                         message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getStoreContact: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            configured: boolean;
+                            serviceHours: string | null;
+                            servicePhone: string | null;
+                            settingsVersion: number;
+                        };
                         /** Format: uuid */
                         requestId: string;
                     };

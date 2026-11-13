@@ -1,0 +1,50 @@
+{
+  "executionDate": "2026-11-13",
+  "node": "v24.18.0",
+  "scope": "板块4步骤1，仅时间基础",
+  "tests": {
+    "files": 1,
+    "passed": 47,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "name": "定向时间测试",
+      "key": "time-attempt1",
+      "command": "node node_modules/vitest/vitest.mjs run --config vitest.config.mts test/time.spec.ts",
+      "cwd": "apps/api",
+      "log": "time-attempt1.txt",
+      "exitCode": 0,
+      "wallTimeSeconds": 3.2042238
+    },
+    {
+      "name": "相关ESLint",
+      "key": "lint-attempt1",
+      "command": "node node_modules/eslint/bin/eslint.js apps/api/src/common/time apps/api/test/time.spec.ts",
+      "cwd": ".",
+      "log": "lint-attempt1.txt",
+      "exitCode": 0,
+      "wallTimeSeconds": 4.0562979
+    },
+    {
+      "name": "API类型检查",
+      "key": "typecheck-attempt1",
+      "command": "node node_modules/typescript/bin/tsc -p apps/api/tsconfig.json --noEmit",
+      "cwd": ".",
+      "log": "typecheck-attempt1.txt",
+      "exitCode": 0,
+      "wallTimeSeconds": 5.2007658
+    }
+  ],
+  "warnings": [
+    "宿主时区子进程原生加载纯TypeScript工具时产生MODULE_TYPELESS_PACKAGE_JSON提示，Node检测为ES模块后正常完成；未改API包模块制式或隐藏警告。"
+  ],
+  "notExecuted": [
+    "全量普通测试",
+    "数据库集成",
+    "生产构建",
+    "OpenAPI导出/生成",
+    "浏览器",
+    "四服务Docker"
+  ]
+}

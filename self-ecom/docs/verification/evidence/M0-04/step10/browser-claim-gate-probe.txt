@@ -1,0 +1,11 @@
+{"group":"core","scenario":"本人、岗位池和后端动作范围，桌面与手机列表","passed":true}
+{"probe":"before-click"}
+{"probe":"claim-intercepted"}
+{"probe":"gate-ready"}
+{"probe":"button-disabled"}
+{"probe":"gate-release-called"}
+{"probe":"claim-released"}
+{"probe":"click-complete"}
+{"probe":"claim-forwarded"}
+{"passed":false,"checks":1,"groups":[{"name":"core","passed":false,"databaseRemoved":true}],"artifacts":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M0-04-step10\\claim-gate-probe"}
+{"group":"core","scenario":"领取同步禁用、防重复提交和实际经办历史","message":"locator.waitFor: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('dialog') to be hidden\u001b[22m\n\u001b[2m    28 × locator resolved to visible <div role=\"dialog\" tabindex=\"-1\" aria-modal=\"true\" aria-labelledby=\"test-id\" class=\"ant-modal css-dev-only-do-not-override-i19pbt\">…</div>\u001b[22m\n","line":"at waitSuccess (D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\verify-tasks-browser.mjs:47:72)"}

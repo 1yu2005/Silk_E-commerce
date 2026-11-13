@@ -1,0 +1,68 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Datasource "db": PostgreSQL database "task_deadline_f598def3f7914777a3a0c94814bebc99_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-deadline.integration.ts
+步骤8专属延期库已删除
+
+ ❯ test/task-deadline.integration.ts (56 tests | 1 failed) 17700ms
+   × 预定位后真实调岗，持锁后使用最新权限拒绝延期 166ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 55 passed (56)
+   Start at  17:01:28
+   Duration  20.13s (tests 89%, import 9%, transform 2%)
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-deadline.integration.ts > 预定位后真实调岗，持锁后使用最新权限拒绝延期
+AssertionError: expected { status: 'rejected', …(1) } to match object { status: 'rejected', …(1) }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "reason": {
+-     "code": "FORBIDDEN",
++   "reason": TaskError {
++     "code": "TASK_NOT_FOUND",
+    },
+    "status": "rejected",
+  }
+
+ ❯ test/task-deadline.integration.ts:287:30
+    285|   try { await app.get(EmployeeRoleService).change(otherManager.identit…
+    286|     { expectedVersion: 0, role: 'CUSTOMER_SERVICE', reason: '隔离真实调岗竞争'…
+    287|   expect((await settled)[0]).toMatchObject({ status: 'rejected', reaso…
+       |                              ^
+    288|   expect(await prisma.deadlineEvent.count()).toBe(0); expect((await pr…
+    289| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

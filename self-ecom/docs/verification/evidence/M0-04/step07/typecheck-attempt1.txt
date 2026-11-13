@@ -1,0 +1,5 @@
+apps/api/test/fixtures/task-access-business.ts(39,17): error TS2416: Property 'handoff' in type 'FixtureAccessAdapters' is not assignable to the same property in base type 'FixtureTaskAdapters'.
+  Type '(tx: TransactionClient, _actor: BaseIdentity & { subjectType: "EMPLOYEE"; role: EmployeeRole; mustChangePassword: boolean; username: string; ... 4 more ...; effectivePermissions: string[]; }, task: { ...; }, action: "claim" | "release") => Promise<...>' is not assignable to type '(type: TaskBusinessType) => TaskBusinessHandoff | undefined'.
+    Target signature provides too few arguments. Expected 4 or more, but got 1.
+apps/api/test/task-access.integration.ts(231,163): error TS2345: Argument of type 'FixtureAccessAdapters' is not assignable to parameter of type 'TaskBusinessAdapters'.
+  Property 'handoff' is private in type 'FixtureAccessAdapters' but not in type 'TaskBusinessAdapters'.
