@@ -21,6 +21,7 @@ export class CustomerAuthController {
   private pending: Promise<void> | null = null;
   private signingOutRevision: number | null = null;
   private profileUpdate = 0;
+  private avatarUpdate = 0;
   private passwordAttempt = 0;
 
   constructor(client: CustomerClient) {
@@ -42,7 +43,7 @@ export class CustomerAuthController {
     return () => { stop(); if (this.stopSession === stop) this.stopSession = undefined; };
   };
 
-  restore = (force = false): Promise<void> => {
+  restore = (force = false, keepReady = false): Promise<void> => {
     const current = this.client.session.current();
     if (!current.credential) {
       const lost = this.snapshot.status !== 'anonymous';
@@ -54,9 +55,11 @@ export class CustomerAuthController {
     // 注销未完成时不因焦点事件重新展示旧身份，新登录的不同revision仍可恢复。
     if (this.signingOutRevision === current.revision) return Promise.resolve();
     if (current.revision === this.observedRevision && (this.pending || !force)) return this.pending ?? Promise.resolve();
+    const background = keepReady && force && current.revision === this.observedRevision && this.snapshot.status === 'ready';
     this.observedRevision = current.revision;
     const generation = ++this.generation;
-    this.update({ status: 'checking', customer: null, error: null, notice: null });
+    // 同一会话的焦点复核保持页面挂载，避免系统选图对话框返回焦点时丢掉上传选择。
+    if (!background) this.update({ status: 'checking', customer: null, error: null, notice: null });
     const task = this.load(current.revision, generation).finally(() => {
       if (this.pending === task) this.pending = null;
     });
@@ -107,13 +110,27 @@ export class CustomerAuthController {
   updateProfile = async (input: CustomerProfileInput): Promise<boolean> => {
     const revision = this.client.session.current().revision;
     const attempt = ++this.profileUpdate;
+    const avatarAttempt = this.avatarUpdate;
     const { data: customer } = await this.client.auth.updateProfile({ nickname: input.nickname.trim() });
     const current = this.client.session.current();
     if (!current.credential || current.revision !== revision || attempt !== this.profileUpdate || this.signingOutRevision === revision) return false;
     // 写入响应比此前发出的本人查询更新；使旧查询失效，避免导航昵称被迟到结果覆盖。
     this.generation++; this.pending = null; this.observedRevision = revision;
-    this.update({ status: 'ready', customer, error: null, notice: '昵称已保存。' });
+    // 昵称响应与并发头像命令可能交错，仅合并本命令修改的字段，避免覆盖更新后的头像。
+    this.update({ status: 'ready', customer: this.avatarUpdate !== avatarAttempt && this.snapshot.customer?.id === customer.id
+      ? { ...this.snapshot.customer, nickname: customer.nickname } : customer, error: null, notice: '昵称已保存。' });
     return true;
+  };
+
+  changeAvatar = async (fileId: string | null): Promise<boolean> => {
+    const revision = this.client.session.current().revision; const attempt = ++this.avatarUpdate;
+    const result = fileId === null ? await this.client.auth.removeAvatar() : await this.client.auth.setAvatar(fileId);
+    const current = this.client.session.current();
+    if (!current.credential || current.revision !== revision || attempt !== this.avatarUpdate
+      || this.signingOutRevision === revision || !this.snapshot.customer) return false;
+    this.generation++; this.pending = null; this.observedRevision = revision;
+    this.update({ status: 'ready', customer: { ...this.snapshot.customer, avatarUrl: result.data.avatarUrl }, error: null,
+      notice: fileId === null ? '头像已移除。' : '头像已保存。' }); return true;
   };
 
   changePassword = async (input: ChangePasswordInput) => {

@@ -1,0 +1,4 @@
+.                                        | [WARN] Unsupported engine: wanted: {"node":"24.18.0"} (current: {"node":"v24.22.1","pnpm":"11.25.0"})
+{"mode":"export","databaseConnected":false,"operations":27}
+$ pnpm --filter @shop/api openapi:export
+$ node ../../scripts/export-openapi.mjs

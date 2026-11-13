@@ -1,0 +1,29 @@
+.                                        | [WARN] Unsupported engine: wanted: {"node":"24.18.0"} (current: {"node":"v24.22.1","pnpm":"11.25.0"})
+D:\实习\实习生全栈学习笔记\self-ecom\apps\api:
+[ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL] @shop/api@0.0.0 test:integration: `tsx scripts/integration.ts`
+Exit status 1
+[ELIFECYCLE] Command failed with exit code 1.
+$ pnpm --filter @shop/api test:integration
+$ tsx scripts/integration.ts
+node:os:306
+    throw new ERR_SYSTEM_ERROR(ctx);
+          ^
+
+SystemError [ERR_SYSTEM_ERROR]: A system error occurred: uv_os_get_passwd returned ENOMEM (not enough memory)
+    at Object.userInfo (node:os:306:11)
+    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/temporary-directory-Du7LpLp9.mjs:1:659
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  code: 'ERR_SYSTEM_ERROR',
+  info: {
+    errno: -4057,
+    code: 'ENOMEM',
+    message: 'not enough memory',
+    syscall: 'uv_os_get_passwd'
+  },
+  errno: [Getter/Setter],
+  syscall: [Getter/Setter]
+}
+
+Node.js v24.18.0

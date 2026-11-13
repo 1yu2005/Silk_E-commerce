@@ -1,0 +1,71 @@
+{
+  "timestamp": "2026-11-13T05:11:35.731Z",
+  "git": {
+    "branch": "main",
+    "head": "53598a6",
+    "stagedPaths": "",
+    "diffCheckPassed": true
+  },
+  "checks": [
+    {
+      "name": "contracts-final",
+      "exitCode": 0,
+      "spawnError": null
+    },
+    {
+      "name": "drift",
+      "exitCode": 0,
+      "spawnError": null
+    },
+    {
+      "name": "generated-types",
+      "exitCode": 0,
+      "spawnError": null
+    },
+    {
+      "name": "affected-api-types",
+      "exitCode": 0,
+      "spawnError": null
+    },
+    {
+      "name": "affected-lint",
+      "exitCode": 0,
+      "spawnError": null
+    }
+  ],
+  "protection": [
+    {
+      "path": ".env",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0001_bootstrap/migration.sql",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0003_files_communication_history/migration.sql",
+      "unchanged": true
+    }
+  ],
+  "legacyMigrationsUnchangedFromHead": true,
+  "testFixtures": {
+    "file_assets": 0,
+    "known_customers": 0,
+    "known_employees": 0,
+    "communications": 0,
+    "state_histories": 0
+  },
+  "secretMatches": [],
+  "developmentDatabaseWritten": false,
+  "originalContainersAndVolumesPreserved": true,
+  "avatarFixtureCleaned": true,
+  "githubWorkflowExecuted": false
+}

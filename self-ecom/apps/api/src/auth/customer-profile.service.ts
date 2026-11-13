@@ -7,6 +7,7 @@ import { CurrentIdentityService, type CurrentIdentity } from './current-identity
 import { CustomerProfileDto } from './customer-profile.dto.js';
 import { TokenValidationError } from './jwt-token.service.js';
 import { lockSessionSubject } from './session-support.js';
+import { customerSummary, customerSummarySelect as select } from './customer-summary.js';
 
 @Injectable()
 export class CustomerProfileService {
@@ -21,14 +22,13 @@ export class CustomerProfileService {
       await lockSessionSubject(tx, actor);
       const current = await this.identities.authenticate(tx, token, 'CUSTOMER');
       if (current.subjectId !== actor.subjectId || current.sessionId !== actor.sessionId) throw new TokenValidationError('TOKEN_INVALID');
-      const select = { id: true, phone: true, nickname: true, status: true, createdAt: true } as const;
       const before = await tx.customer.findUniqueOrThrow({ where: { id: actor.subjectId }, select });
-      if (before.nickname === input.nickname) return { ...before, avatarUrl: null };
+      if (before.nickname === input.nickname) return customerSummary(before);
       const customer = await tx.customer.update({ where: { id: actor.subjectId }, data: { nickname: input.nickname }, select });
       await this.audit.appendAudit(tx, { actor: { type: 'CUSTOMER', id: actor.subjectId },
         action: 'customer.profile.update', targetId: actor.subjectId, requestId,
         before: { nickname: before.nickname }, after: { nickname: customer.nickname } });
-      return { ...customer, avatarUrl: null };
+      return customerSummary(customer);
     });
   }
 }

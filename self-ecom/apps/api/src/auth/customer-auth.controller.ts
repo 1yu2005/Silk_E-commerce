@@ -43,7 +43,7 @@ export class CustomerAuthController {
   @CustomerAccess()
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ operationId: 'getCustomerMe', summary: '读取当前顾客资料',
-    description: '仅凭当前顾客会话查询本人；忽略客户端自报ID。NORMAL和TRADE_RESTRICTED可读取，冻结/撤销/到期会话拒绝。返回白名单资料，avatarUrl固定null，不返回密码、内部版本或员工权限。' })
+    description: '仅凭当前顾客会话查询本人；忽略客户端自报ID。NORMAL和TRADE_RESTRICTED可读取，冻结/撤销/到期会话拒绝。返回白名单资料及真实头像URL，无头像为null，不返回密码、内部版本或员工权限。' })
   @ApiOkResponse({ headers: requestIdHeader, schema: customerAuthSuccessSchema(false) })
   @ApiUnauthorizedResponse({ headers: requestIdHeader, schema: authErrorSchema([
     'TOKEN_INVALID', 'TOKEN_EXPIRED', 'TOKEN_SUBJECT_MISMATCH', 'SESSION_REVOKED', 'ACCOUNT_UNAVAILABLE',
@@ -55,7 +55,7 @@ export class CustomerAuthController {
   @CustomerAccess()
   @ApiBearerAuth('bearerAuth')
   @ApiOperation({ operationId: 'updateCustomerMe', summary: '顾客本人修改昵称',
-    description: '仅接受nickname，去首尾空白后1～40字符；NORMAL和TRADE_RESTRICTED可用。锁本人并重新认证，昵称和审计同事务；同名不重复更新或写审计。无客户端目标ID/版本；并发合法修改按主体锁顺序提交。头像暂为null。' })
+    description: '仅接受nickname，去首尾空白后1～40字符；NORMAL和TRADE_RESTRICTED可用。锁本人并重新认证，昵称和审计同事务；同名不重复更新或写审计。无客户端目标ID/版本；并发合法修改按主体锁顺序提交，响应保留当前真实头像。' })
   @ApiBody({ schema: customerProfileBodySchema })
   @ApiOkResponse({ headers: requestIdHeader, schema: customerAuthSuccessSchema(false) })
   @ApiBadRequestResponse({ headers: requestIdHeader, schema: authErrorSchema(['VALIDATION_FAILED']) })

@@ -20,6 +20,8 @@ function fixture({ loggedIn = true, status = 'NORMAL', initialMe } = {}) {
     login: async () => { save('new-customer-token'); return result({}); }, logout: async () => result({ loggedOut: true }),
     updateProfile: async input => result({ ...profile, ...input, status }), changePassword: async () => result({ changed: true, requireLogin: true }) };
   const client = { session, api: {}, auth: {
+    setAvatar: async fileId => result({ avatarAssetId: fileId, avatarUrl: `/api/v1/files/${fileId}/content`, changed: true }),
+    removeAvatar: async () => result({ avatarAssetId: null, avatarUrl: null, changed: true }),
     me: async () => { calls.me++; return behavior.me(); },
     login: async input => { calls.login++; return behavior.login(input); },
     register: async input => { calls.register++; return behavior.register(input); },
@@ -297,4 +299,25 @@ test('主动注销后迟到改密成功，不覆盖注销提示', async () => {
   const pending = f.controller.changePassword({ oldPassword: 'OldPass#2026', newPassword: 'NewPass#2026' });
   await f.controller.logout(); gate.resolve(result({ changed: true, requireLogin: true })); await pending;
   assert.equal(f.controller.getSnapshot().notice, '已退出登录。'); assert.equal(f.values.size, 0); f.stop();
+});
+
+
+test('焦点后台复核保持同会话页面，显式强制恢复与换会话仍隐藏旧身份', async () => {
+  const f = fixture(); await f.controller.restore();
+  const gate = deferred(); f.behavior.me = () => gate.promise;
+  const pending = f.controller.restore(true, true);
+  assert.equal(f.controller.getSnapshot().status, 'ready'); assert.equal(f.controller.getSnapshot().customer.id, profile.id);
+  gate.resolve(result(profile)); await pending; f.stop();
+});
+test('头像设置/移除更新资料，迟到的昵称和本人查询不覆盖新头像', async () => {
+  const f = fixture(); await f.controller.restore();
+  const nickGate = deferred(); f.behavior.updateProfile = () => nickGate.promise;
+  const nickname = f.controller.updateProfile({ nickname: '并发昵称' });
+  const meGate = deferred(); f.behavior.me = () => meGate.promise; const restore = f.controller.restore(true, true);
+  assert.equal(await f.controller.changeAvatar('image-id'), true);
+  nickGate.resolve(result({ ...profile, nickname: '并发昵称' })); await nickname;
+  meGate.resolve(result(profile)); await restore;
+  assert.equal(f.controller.getSnapshot().customer.avatarUrl, '/api/v1/files/image-id/content');
+  assert.equal(f.controller.getSnapshot().customer.nickname, '并发昵称');
+  assert.equal(await f.controller.changeAvatar(null), true); assert.equal(f.controller.getSnapshot().customer.avatarUrl, null); f.stop();
 });

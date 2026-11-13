@@ -1,0 +1,377 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/records.integration.ts (56 tests | 16 failed) 1558ms
+   × 追加内部沟通及最小审计；作者取当前会话，公开说明不从内部文字生成 165ms
+   × 公开投影只含允许字段，跨页保留公开更正关系，内部原文及员工ID不进入响应 22ms
+   × 私有原记录转公开更正时，不泄露私有原记录ID 21ms
+   × 公开记录不能仅在内部更正，原公开内容及数据库旧记录不被改写 19ms
+   × 拒绝更正other-scope中的记录 18ms
+   × 拒绝更正other-type中的记录 21ms
+   × 拒绝更正missing中的记录 23ms
+   × 从当前会话和真实业务夹具拒绝warehouse 31ms
+   × 从当前会话和真实业务夹具拒绝stale-permission 21ms
+   × 从当前会话和真实业务夹具拒绝missing-business 20ms
+   × 从当前会话和真实业务夹具拒绝wrong-assignee 20ms
+   × 交易受限顾客仍可读本人公开说明；伪造会话主体和顾客写入被拒绝 22ms
+   × 拒绝非法沟通字段，不将载荷回显到异常：{"occurredAt":"2026-11-13T03:50:14.525Z"} 19ms
+   × 文字长度边界与纯文本原样存储；内部空白公开说明规范化为NULL 19ms
+   × 审计真实外键失败同时回滚沟通、状态历史、主体更改及测试业务变更 24ms
+   × 无真实适配器时写入及读取全部明确拒绝，不能生成虚假成功记录 18ms
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  16 failed | 55 passed (71)
+   Start at  10:50:13
+   Duration  3.43s (tests 60%, import 36%, transform 4%)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 16 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/records.integration.ts > 追加内部沟通及最小审计；作者取当前会话，公开说明不从内部文字生成
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:107:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/16]⎯
+
+ FAIL  test/records.integration.ts > 公开投影只含允许字段，跨页保留公开更正关系，内部原文及员工ID不进入响应
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:120:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/16]⎯
+
+ FAIL  test/records.integration.ts > 私有原记录转公开更正时，不泄露私有原记录ID
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:142:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/16]⎯
+
+ FAIL  test/records.integration.ts > 公开记录不能仅在内部更正，原公开内容及数据库旧记录不被改写
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:153:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/16]⎯
+
+ FAIL  test/records.integration.ts > 拒绝更正other-scope中的记录
+ FAIL  test/records.integration.ts > 拒绝更正other-type中的记录
+ FAIL  test/records.integration.ts > 拒绝更正missing中的记录
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:165:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/16]⎯
+
+ FAIL  test/records.integration.ts > 从当前会话和真实业务夹具拒绝warehouse
+ FAIL  test/records.integration.ts > 从当前会话和真实业务夹具拒绝stale-permission
+AssertionError: expected AssertionError: expected AccessDeniedErro… { …(3) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AssertionError {
++   "message": "expected AccessDeniedError: 请先修改初始密码 { …(1) } to match object { code: 'FORBIDDEN' }
++ (1 matching property omitted from actual)",
++   "showDiff": true,
++   "expected": {
++     "code": "FORBIDDEN",
++   },
++   "actual": AccessDeniedError {
++     "code": "PASSWORD_CHANGE_REQUIRED",
++   },
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:180:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/16]⎯
+
+ FAIL  test/records.integration.ts > 从当前会话和真实业务夹具拒绝missing-business
+AssertionError: expected AssertionError: expected [Function] to th… { …(4) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AssertionError {
++   "message": "expected [Function] to throw error including '测试业务不存在' but got '请先修改初始密码'",
++   "actual": "请先修改初始密码",
++   "expected": "测试业务不存在",
++   "showDiff": true,
++   "operator": "strictEqual",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:180:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/16]⎯
+
+ FAIL  test/records.integration.ts > 从当前会话和真实业务夹具拒绝wrong-assignee
+AssertionError: expected AssertionError: expected [Function] to th… { …(4) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AssertionError {
++   "message": "expected [Function] to throw error including '测试经办人拒绝' but got '请先修改初始密码'",
++   "actual": "请先修改初始密码",
++   "expected": "测试经办人拒绝",
++   "showDiff": true,
++   "operator": "strictEqual",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:180:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/16]⎯
+
+ FAIL  test/records.integration.ts > 交易受限顾客仍可读本人公开说明；伪造会话主体和顾客写入被拒绝
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:209:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/16]⎯
+
+ FAIL  test/records.integration.ts > 拒绝非法沟通字段，不将载荷回显到异常：{"occurredAt":"2026-11-13T03:50:14.525Z"}
+AssertionError: expected AssertionError: expected AccessDeniedErro… { …(4) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AssertionError {
++   "message": "expected AccessDeniedError: 请先修改初始密码 { …(1) } to be an instance of RecordInputError",
++   "actual": AccessDeniedError {
++     "message": "请先修改初始密码",
++     "code": "PASSWORD_CHANGE_REQUIRED",
++     "name": "AccessDeniedError",
++   },
++   "expected": undefined,
++   "showDiff": false,
++   "operator": "strictEqual",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:225:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/16]⎯
+
+ FAIL  test/records.integration.ts > 文字长度边界与纯文本原样存储；内部空白公开说明规范化为NULL
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AccessDeniedError {
++   "message": "请先修改初始密码",
++   "code": "PASSWORD_CHANGE_REQUIRED",
++   "name": "AccessDeniedError",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:233:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/16]⎯
+
+ FAIL  test/records.integration.ts > 审计真实外键失败同时回滚沟通、状态历史、主体更改及测试业务变更
+AssertionError: expected AccessDeniedError: 请先修改初始密码 { …(1) } to match object { code: 'P2003' }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "P2003",
++ AccessDeniedError {
++   "code": "PASSWORD_CHANGE_REQUIRED",
+  }
+
+ ❯ test/records.integration.ts:320:6
+    318|     await tx.$executeRaw`UPDATE record_contract_fixture SET state='CON…
+    319|     await new CommunicationService(identities, f.adapters, new Failing…
+    320|   })).rejects.toMatchObject({ code: 'P2003' });
+       |      ^
+    321|   expect(await prisma.communication.count({ where: { scopeId: business…
+    322|   expect(await prisma.businessStateHistory.count({ where: { commandKey…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/16]⎯
+
+ FAIL  test/records.integration.ts > 无真实适配器时写入及读取全部明确拒绝，不能生成虚假成功记录
+AssertionError: expected AssertionError: expected AccessDeniedErro… { …(4) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AssertionError {
++   "message": "expected AccessDeniedError: 请先修改初始密码 { …(1) } to be an instance of BusinessModuleNotReadyError",
++   "actual": AccessDeniedError {
++     "message": "请先修改初始密码",
++     "code": "PASSWORD_CHANGE_REQUIRED",
++     "name": "AccessDeniedError",
++   },
++   "expected": undefined,
++   "showDiff": false,
++   "operator": "strictEqual",
+  }
+
+ ❯ transaction test/records.integration.ts:95:123
+     93| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     94| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     95|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     96| }
+     97| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:328:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/16]⎯
+

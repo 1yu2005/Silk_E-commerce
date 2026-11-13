@@ -1,0 +1,25 @@
+{
+  "recordedAt": "2026-11-13T02:25:17.584Z",
+  "checks": {
+    "migration-status": {
+      "exitCode": 0,
+      "spawnErrorCode": null
+    },
+    "schema-drift": {
+      "exitCode": 0,
+      "spawnErrorCode": null
+    }
+  },
+  "live": [
+    {
+      "port": 3000,
+      "status": 200,
+      "requestId": "1135b07d-fde2-4799-9187-5786018b6d0c"
+    },
+    {
+      "port": 5174,
+      "status": 200,
+      "requestId": "ab25338c-2982-4e30-986e-b4646c32455b"
+    }
+  ]
+}

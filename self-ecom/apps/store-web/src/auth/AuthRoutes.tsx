@@ -16,7 +16,7 @@ export function AuthRoot() {
       const current = session.current();
       if (current.credential) timer = setTimeout(schedule, Math.min(2_147_483_647, Math.max(1, Date.parse(current.credential.expiresAt) - Date.now())));
     };
-    const refresh = () => { if (document.visibilityState === 'visible') void customerAuth.restore(true); };
+    const refresh = () => { if (document.visibilityState === 'visible') void customerAuth.restore(true, true); };
     schedule(); window.addEventListener('focus', refresh); document.addEventListener('visibilitychange', refresh);
     return () => { clearTimeout(timer); window.removeEventListener('focus', refresh); document.removeEventListener('visibilitychange', refresh); };
   }, [credential]);

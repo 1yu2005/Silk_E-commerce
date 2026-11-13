@@ -1,6 +1,5 @@
 // 作用：验证顾客手机号密码与状态，创建顾客会话并查询本人公开资料。
 import { Inject, Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
 import { DtoValidationException } from '../common/http/dto-validation.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuthSessionService } from './auth-session.service.js';
@@ -13,8 +12,7 @@ import { LoginRateLimiter } from './login-rate-limiter.js';
 import { DUMMY_LOGIN_HASH } from './login-support.js';
 import { PasswordService } from './password.service.js';
 import { SessionAuthenticationError } from './session-support.js';
-
-const summarySelect = { id: true, phone: true, nickname: true, status: true, createdAt: true } satisfies Prisma.CustomerSelect;
+import { customerSummary, customerSummarySelect as summarySelect } from './customer-summary.js';
 
 @Injectable()
 export class CustomerAuthService {
@@ -38,7 +36,7 @@ export class CustomerAuthService {
         const issued = await this.sessions.createAfterPasswordVerified(tx, { subjectType: 'CUSTOMER', subjectId: current.id,
           expectedPasswordHash: current.passwordHash, expectedTokenVersion: current.tokenVersion });
         const customer = await tx.customer.findUniqueOrThrow({ where: { id: current.id }, select: summarySelect });
-        return { accessToken: issued.accessToken, tokenType: 'Bearer' as const, expiresAt: issued.expiresAt, customer: { ...customer, avatarUrl: null } };
+        return { accessToken: issued.accessToken, tokenType: 'Bearer' as const, expiresAt: issued.expiresAt, customer: customerSummary(customer) };
       });
     } catch (error: unknown) {
       failed = error instanceof SessionAuthenticationError && ['INVALID_CREDENTIALS', 'ACCOUNT_UNAVAILABLE'].includes(error.code); throw error;
@@ -50,6 +48,6 @@ export class CustomerAuthService {
     // 只按Guard确认的本人ID查询，不接受客户端自报对象；通用身份结果继续不携带手机号。
     const customer = await this.prisma.customer.findUnique({ where: { id: identity.subjectId }, select: summarySelect });
     if (!customer || customer.status === 'LOGIN_FROZEN') throw new SessionAuthenticationError('ACCOUNT_UNAVAILABLE');
-    return { ...customer, avatarUrl: null };
+    return customerSummary(customer);
   }
 }

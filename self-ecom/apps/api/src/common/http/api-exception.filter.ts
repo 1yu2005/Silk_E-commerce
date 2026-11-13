@@ -6,6 +6,8 @@ import { DatabaseNotReadyException } from './database-not-ready.exception.js';
 import { DtoValidationException } from './dto-validation.js';
 import { authHttpError } from '../../auth/auth-http-errors.js';
 import { employeeCommandHttpError } from '../../employees/employee-command.errors.js';
+import { FileError } from '../../files/file.errors.js';
+import { ContractError } from '@shop/shared';
 
 const errors: Record<number, { code: string; message: string }> = {
   400: { code: 'VALIDATION_FAILED', message: '请求参数不合法' },
@@ -29,7 +31,8 @@ export class ApiExceptionFilter implements ExceptionFilter {
       return;
     }
 
-    const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception);
+    const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
+      ?? (exception instanceof FileError || exception instanceof ContractError ? exception : undefined);
     const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
     const error = knownError ? { code: knownError.code, message: knownError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };

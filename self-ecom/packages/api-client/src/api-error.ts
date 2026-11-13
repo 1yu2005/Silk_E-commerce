@@ -28,7 +28,8 @@ export function toApiClientError(error: unknown): ApiClientError {
     const issue = item as Record<string, unknown>; return typeof issue.field === 'string' && typeof issue.message === 'string';
   }).map(item => ({ field: item.field, message: item.message })) : undefined;
   const retry = Number(headers['retry-after']);
-  return new ApiClientError(valid ? record.code as string : 'HTTP_ERROR', valid ? record.message as string : '服务暂时不可用，请稍后重试',
+  return new ApiClientError(valid ? record.code as string : status === 413 ? 'FILE_TOO_LARGE' : 'HTTP_ERROR',
+    valid ? record.message as string : status === 413 ? '图片或请求体过大，请选择5MiB以内的图片' : '服务暂时不可用，请稍后重试',
     status, valid ? record.requestId as string : undefined, details,
     Number.isSafeInteger(retry) && retry > 0 ? retry : undefined);
 }

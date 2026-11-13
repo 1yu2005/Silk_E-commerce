@@ -20,3 +20,6 @@ export interface Page<T> {
 export { PASSWORD_POLICY, validatePassword, validatePasswordChange, type PasswordIssue } from './password.js';
 export type * from './auth.js';
 export type * from './employees.js';
+export type * from './files.js';
+export { PAGINATION, normalizePagination, paginationWindow, type PaginationInput } from './pagination.js';
+export { canonicalJson, canonicalSet, validateIdempotencyKey, ContractError, type ContractErrorCode } from './command-contract.js';

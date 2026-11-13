@@ -31,7 +31,7 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
         expect(doc.openapi).toMatch(/^3\./);
         expect(doc).not.toHaveProperty('data');
         expect(doc.servers).toEqual([{ url: '/' }]);
-        expect(Object.keys(doc.paths).sort()).toEqual(['/api/v1/admin/auth/change-password', '/api/v1/admin/auth/login', '/api/v1/admin/employees', '/api/v1/admin/employees/{id}', '/api/v1/admin/employees/{id}/change-role', '/api/v1/admin/employees/{id}/disable', '/api/v1/admin/employees/{id}/enable', '/api/v1/admin/employees/{id}/extra-permissions', '/api/v1/admin/employees/{id}/profile', '/api/v1/admin/employees/{id}/reset-password', '/api/v1/admin/me', '/api/v1/admin/me/permissions', '/api/v1/admin/permissions', '/api/v1/auth/logout', '/api/v1/health/live', '/api/v1/health/ready', '/api/v1/store/auth/change-password', '/api/v1/store/auth/login', '/api/v1/store/auth/register', '/api/v1/store/me']);
+        expect(Object.keys(doc.paths).sort()).toEqual(['/api/v1/admin/auth/change-password', '/api/v1/admin/auth/login', '/api/v1/admin/employees', '/api/v1/admin/employees/{id}', '/api/v1/admin/employees/{id}/change-role', '/api/v1/admin/employees/{id}/disable', '/api/v1/admin/employees/{id}/enable', '/api/v1/admin/employees/{id}/extra-permissions', '/api/v1/admin/employees/{id}/profile', '/api/v1/admin/employees/{id}/reset-password', '/api/v1/admin/me', '/api/v1/admin/me/permissions', '/api/v1/admin/permissions', '/api/v1/auth/logout', '/api/v1/files', '/api/v1/files/{id}', '/api/v1/files/{id}/content', '/api/v1/health/live', '/api/v1/health/ready', '/api/v1/store/auth/change-password', '/api/v1/store/auth/login', '/api/v1/store/auth/register', '/api/v1/store/me', '/api/v1/store/me/avatar']);
         const live = doc.paths['/api/v1/health/live']!.get!;
         const ready = doc.paths['/api/v1/health/ready']!.get!;
         expect(live.operationId).toBe('getLiveness');
@@ -42,6 +42,15 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
         expect(JSON.stringify(live.responses)).toContain('date-time');
         expect(JSON.stringify(live.responses)).toContain('requestId');
         expect(doc.components?.securitySchemes).toEqual({ bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' } });
+        const upload = doc.paths['/api/v1/files']!.post!;
+        expect(upload.security).toEqual([{ bearerAuth: [] }]);
+        expect(upload.requestBody).toMatchObject({ content: { 'multipart/form-data': { schema: { required: ['purpose', 'file'],
+          additionalProperties: false, properties: { file: { type: 'string', format: 'binary' } } } } } });
+        for (const status of ['201', '400', '401', '403', '413', '429']) expect(upload.responses).toHaveProperty(status);
+        const content = doc.paths['/api/v1/files/{id}/content']!.get!;
+        expect(content.security).toEqual([{ bearerAuth: [] }, {}]);
+        expect(content.responses['200']).toMatchObject({ content: { 'image/png': { schema: { type: 'string', format: 'binary' } } } });
+        expect(JSON.stringify(upload.responses['201'])).not.toMatch(/storageKey|uploaderCustomerId|sha256|originalName/);
         const login = doc.paths['/api/v1/admin/auth/login']!.post!;
         const me = doc.paths['/api/v1/admin/me']!.get!;
         expect(login.security ?? []).toEqual([]);
@@ -181,8 +190,10 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           properties: { phone: { pattern: '^1[3-9][0-9]{9}$' }, password: { writeOnly: true, format: 'password' } } } } } });
         const customerMeResponse = customerMe.responses['200'] as unknown as { content: { 'application/json': { schema: { properties: { data: { additionalProperties: boolean; properties: Record<string, unknown> } } } } } };
         const customerData = customerMeResponse.content['application/json'].schema.properties.data;
+        const avatar = doc.paths['/api/v1/store/me/avatar']!;
+        expect(avatar.delete!.responses['200']).toEqual(avatar.put!.responses['200']);
         expect(customerData.additionalProperties).toBe(false); expect(Object.keys(customerData.properties).sort()).toEqual(['avatarUrl', 'createdAt', 'id', 'nickname', 'phone', 'status']);
-        expect(customerData.properties.avatarUrl).toMatchObject({ nullable: true, enum: [null] }); expect(customerData.properties.status).toMatchObject({ enum: ['NORMAL', 'TRADE_RESTRICTED'] });
+        expect(customerData.properties.avatarUrl).toMatchObject({ type: 'string', nullable: true }); expect(customerData.properties.status).toMatchObject({ enum: ['NORMAL', 'TRADE_RESTRICTED'] });
         expect(JSON.stringify(customerMe.responses['200'])).not.toMatch(/password|Hash|accessToken|tokenVersion|effectivePermissions|mustChangePassword/);
         const customerProfile = doc.paths['/api/v1/store/me']!.patch!;
         const customerPassword = doc.paths['/api/v1/store/auth/change-password']!.post!;

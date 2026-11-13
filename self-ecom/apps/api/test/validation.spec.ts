@@ -11,6 +11,7 @@ import { PaginationDto } from '../src/common/http/pagination.dto.js';
 import { strictBoolean } from '../src/common/http/dto-transforms.js';
 import { APP_CONFIG, validateEnvironment } from '../src/config/environment.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import { ContractError } from '@shop/shared';
 
 class InputDto {
   @IsDefined()
@@ -29,6 +30,8 @@ class ValidationController {
 
   @Post()
   create(@Body() input: InputDto) { return input; }
+  @Post('conflict')
+  conflict() { throw new ContractError('IDEMPOTENCY_PAYLOAD_CONFLICT'); }
 }
 
 // Vitest 的 TypeScript 转换器不生成装饰器元数据，这里补充与生产环境
@@ -50,6 +53,13 @@ beforeAll(async () => {
   url = `${await app.getUrl()}/api/v1/validation-test`;
 });
 afterAll(async () => { await app?.close(); });
+
+it('公共幂等冲突返回409及统一请求编号，不回显请求内的秘密', async () => {
+  const response = await fetch(`${url}/conflict`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: 'private-transient-value' }) });
+  expect(response.status).toBe(409); const body = await response.json() as { code: string; requestId: string };
+  expect(body.code).toBe('IDEMPOTENCY_PAYLOAD_CONFLICT'); expect(body.requestId).toBe(response.headers.get('x-request-id'));
+  expect(JSON.stringify(body)).not.toContain('private-transient-value');
+});
 
 it.each([
   ['', { page: 1, pageSize: 20 }],

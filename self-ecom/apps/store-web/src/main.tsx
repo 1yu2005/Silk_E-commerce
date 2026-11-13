@@ -6,6 +6,7 @@ import zhCN from 'antd/locale/zh_CN';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './app/router';
 import 'antd/dist/reset.css';
+import '@shop/ui/styles.css';
 import './styles.css';
 
 const root = document.getElementById('root');

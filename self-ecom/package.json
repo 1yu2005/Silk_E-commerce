@@ -9,6 +9,8 @@
   },
   "scripts": {
     "openapi:export": "pnpm --filter @shop/api openapi:export",
+    "api-client:generate": "node scripts/generate-api-client.mjs",
+    "contracts:check": "node scripts/check-contracts.mjs",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",

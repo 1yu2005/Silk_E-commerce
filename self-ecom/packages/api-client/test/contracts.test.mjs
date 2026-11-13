@@ -43,6 +43,9 @@ const contracts = [
   ['EmployeeExtraPermissionsData', data('/api/v1/admin/employees/{id}/extra-permissions', 'put')],
   ['PermissionCatalog', data('/api/v1/admin/permissions')],
   ['PermissionDefinition', data('/api/v1/admin/permissions').properties.permissions.items],
+  ['FileMetadata', data('/api/v1/files/{id}')],
+  ['CustomerAvatarData', data('/api/v1/store/me/avatar', 'put')],
+  ['CustomerAvatarData', data('/api/v1/store/me/avatar', 'delete')],
 ];
 for (const [name, schema] of contracts) {
   test(`${name}声明的字段及必填性与导出OpenAPI一致`, () => {
@@ -50,9 +53,9 @@ for (const [name, schema] of contracts) {
     assert.deepEqual(fields.filter(field => !(field.flags & ts.SymbolFlags.Optional)).map(field => field.name).sort(), [...schema.required].sort());
   });
 }
-test('岗位、可用顾客状态、头像null及固定成功标记与API枚举一致', () => {
+test('岗位、可用顾客状态及固定成功标记与API枚举一致', () => {
   for (const [name, field, schema] of [['EmployeeProfile', 'role', data('/api/v1/admin/me')], ['EmployeeProfile', 'status', data('/api/v1/admin/me')],
-    ['CustomerProfile', 'status', data('/api/v1/store/me')], ['CustomerProfile', 'avatarUrl', data('/api/v1/store/me')],
+    ['CustomerProfile', 'status', data('/api/v1/store/me')],
     ['EmployeeLoginData', 'tokenType', data('/api/v1/admin/auth/login', 'post')], ['ChangePasswordData', 'changed', data('/api/v1/store/auth/change-password', 'post')],
     ['ChangePasswordData', 'requireLogin', data('/api/v1/store/auth/change-password', 'post')], ['LogoutData', 'loggedOut', data('/api/v1/auth/logout', 'post')]]) {
     const symbol = checker.getPropertyOfType(type(name), field); const value = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration);
@@ -74,4 +77,14 @@ test('员工查询枚举、可空登录时间及分页元素与导出OpenAPI一�
   const items = checker.getPropertyOfType(type('EmployeeListData'), 'items');
   const itemType = checker.getIndexTypeOfType(checker.getTypeOfSymbolAtLocation(items, items.valueDeclaration), ts.IndexKind.Number);
   assert.equal(checker.typeToString(itemType), 'EmployeeListItem');
+});
+
+test('头像声明为string|null，设置和移除成功响应均明确声明该结构', () => {
+  const symbol = checker.getPropertyOfType(type('CustomerProfile'), 'avatarUrl');
+  const value = checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration);
+  assert.ok(value.types.some(item => item.flags & ts.TypeFlags.Null));
+  assert.ok(value.types.some(item => item.flags & ts.TypeFlags.String));
+  for (const schema of [data('/api/v1/store/me'), data('/api/v1/store/me/avatar', 'put'), data('/api/v1/store/me/avatar', 'delete')]) {
+    assert.equal(schema.properties.avatarUrl.type, 'string'); assert.equal(schema.properties.avatarUrl.nullable, true);
+  }
 });

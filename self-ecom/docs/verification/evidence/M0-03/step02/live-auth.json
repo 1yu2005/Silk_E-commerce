@@ -1,0 +1,53 @@
+{
+  "recordedAt": "2026-11-13T02:54:17.909Z",
+  "accounts": [
+    {
+      "label": "顾客尾号6328",
+      "loginStatus": 200,
+      "loginRequestId": "9001a31d-9844-4d27-ad23-6bd581dc70c1",
+      "meStatus": 200,
+      "meRequestId": "6000d690-b244-410f-b652-b9cf181b9462",
+      "identityMatches": true,
+      "passwordChangeRequired": null
+    },
+    {
+      "label": "顾客尾号6694",
+      "loginStatus": 200,
+      "loginRequestId": "8a4a938d-d414-4a46-afaa-a6ab787fba22",
+      "meStatus": 200,
+      "meRequestId": "a085b7b4-e7f1-4579-b0a7-ec9a63293b41",
+      "identityMatches": true,
+      "passwordChangeRequired": null
+    },
+    {
+      "label": "员工Iris",
+      "loginStatus": 200,
+      "loginRequestId": "a9f69885-3c13-4574-9cd4-abc8ac3c14cb",
+      "meStatus": 200,
+      "meRequestId": "5b2f9415-28d1-45c1-b379-00276577148e",
+      "identityMatches": true,
+      "passwordChangeRequired": false
+    }
+  ],
+  "readiness": [
+    {
+      "port": 3000,
+      "status": 200
+    },
+    {
+      "port": 5173,
+      "status": 200
+    },
+    {
+      "port": 5174,
+      "status": 200
+    }
+  ],
+  "api": {
+    "openapiStatus": 200,
+    "operations": 22,
+    "communicationRoutesRegistered": false,
+    "historyRoutesRegistered": false
+  },
+  "exitCode": 0
+}

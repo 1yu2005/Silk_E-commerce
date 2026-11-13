@@ -1,0 +1,33 @@
+{
+  "timestamp": "2026-11-13T03:46:47.611Z",
+  "protection": [
+    {
+      "path": ".env",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/package.json",
+      "unchanged": true
+    },
+    {
+      "path": "pnpm-lock.yaml",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0003_files_communication_history/migration.sql",
+      "unchanged": true
+    }
+  ],
+  "legacyMigrationsUnchangedFromHead": true,
+  "database": {
+    "fixtureTablesRemaining": 0,
+    "fixtureEmployeesRemaining": 0,
+    "fixtureCustomersRemaining": 0
+  },
+  "secretMatches": [],
+  "developmentDatabaseWritten": false
+}

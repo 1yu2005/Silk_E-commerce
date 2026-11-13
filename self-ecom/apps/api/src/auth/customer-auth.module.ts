@@ -9,8 +9,11 @@ import { LoginRateLimiter } from './login-rate-limiter.js';
 import { PasswordService } from './password.service.js';
 import { CustomerProfileService } from './customer-profile.service.js';
 import { CustomerPasswordService } from './customer-password.service.js';
+import { FilesModule } from '../files/files.module.js';
+import { CustomerAvatarController } from './customer-avatar.controller.js';
+import { CustomerAvatarService } from './customer-avatar.service.js';
 
-@Module({ imports: [AuthGuardModule, AuditModule], controllers: [CustomerAuthController], providers: [
+@Module({ imports: [AuthGuardModule, AuditModule, FilesModule], controllers: [CustomerAuthController, CustomerAvatarController], providers: [CustomerAvatarService,
   CustomerAuthService, CustomerProfileService, CustomerPasswordService, PasswordService, CustomerLoginRateGuard,
   { provide: CUSTOMER_LOGIN_RATE_LIMITER, useFactory: () => new LoginRateLimiter(undefined, undefined, 'CUSTOMER') },
 ] })

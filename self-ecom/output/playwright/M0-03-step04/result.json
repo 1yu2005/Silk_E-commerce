@@ -1,0 +1,61 @@
+{
+  "timestamp": "2026-11-13T04:11:21.434Z",
+  "browser": "157.0.4341.42",
+  "checks": [
+    "前端预检拒绝超限及SVG，不发送上传",
+    "429上传失败保留选择并手动重试，错误编号显示",
+    "私有Blob预览、选图返回焦点后保留选择及业务失败重试不重传",
+    "公开头像刷新保留、桌面和移动布局",
+    "移除只清当前头像，旧链接仍可读",
+    "取消选择释放Blob对象URL",
+    "私有Blob JSON404显示安全错误，手动重试，401退出当前顾客"
+  ],
+  "pageErrors": [],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/api/v1/files"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/files"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/files/6be78f49-5e4d-47a3-b330-f5de07bc8ce3/content"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/files/6be78f49-5e4d-47a3-b330-f5de07bc8ce3/content"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/files/6be78f49-5e4d-47a3-b330-f5de07bc8ce3/content"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/files"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/files/ebf3e0fb-1e8d-4202-a7f1-d64afd27c920/content"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/files"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/files/e05364a8-57aa-41b2-92e7-5a191ed58b29/content"
+    },
+    {
+      "method": "GET",
+      "path": "/api/v1/files/e05364a8-57aa-41b2-92e7-5a191ed58b29/content"
+    },
+    {
+      "method": "POST",
+      "path": "/api/v1/files"
+    }
+  ],
+  "fixtureCleaned": true
+}

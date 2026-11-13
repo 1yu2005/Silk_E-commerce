@@ -7,7 +7,7 @@ export interface EmployeeProfile {
   id: string; username: string; displayName: string; role: EmployeeRole; status: 'ACTIVE' | 'DISABLED'; mustChangePassword: boolean;
 }
 export interface CustomerProfile {
-  id: string; phone: string; nickname: string; avatarUrl: null; status: AvailableCustomerStatus; createdAt: string;
+  id: string; phone: string; nickname: string; avatarUrl: string | null; status: AvailableCustomerStatus; createdAt: string;
 }
 export interface EmployeeLoginInput { username: string; password: string }
 export interface CustomerLoginInput { phone: string; password: string }

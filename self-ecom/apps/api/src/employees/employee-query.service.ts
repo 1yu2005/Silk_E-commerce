@@ -6,6 +6,7 @@ import { PermissionService } from '../permissions/permission.service.js';
 import { roleTemplates } from '../permissions/permission-catalog.js';
 import { EmployeeListQueryDto } from './employee-query.dto.js';
 import { EmployeeNotFoundError } from './employee-command.errors.js';
+import { paginationWindow } from '@shop/shared';
 
 const employeeListSelect = {
   id: true, username: true, displayName: true, role: true, status: true,
@@ -30,10 +31,10 @@ export class EmployeeQueryService {
     return this.prisma.$transaction(async tx => {
       const total = await tx.employee.count({ where });
       // 公共分页允许安全整数page；先用BigInt比较，避免乘法溢出或将巨大skip交给数据库。
-      const offset = BigInt(query.page - 1) * BigInt(query.pageSize);
-      const items = offset >= BigInt(total) ? [] : await tx.employee.findMany({ where,
+      const window = paginationWindow(query, total);
+      const items = window.skip === null ? [] : await tx.employee.findMany({ where,
         select: employeeListSelect, orderBy: [{ createdAt: 'desc' }, { id: 'desc' }],
-        skip: Number(offset), take: query.pageSize });
+        skip: window.skip, take: window.take });
       return { items, total, page: query.page, pageSize: query.pageSize };
     }, readOptions);
   }

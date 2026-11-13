@@ -1,0 +1,11 @@
+{
+  "name": "@shop/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" }, "./styles.css": "./src/styles.css" },
+  "scripts": { "build": "tsc -p tsconfig.json", "typecheck": "tsc -p tsconfig.json --noEmit", "lint": "eslint src" },
+  "dependencies": { "@shop/api-client": "workspace:*" },
+  "peerDependencies": { "react": "19.3.1" },
+  "devDependencies": { "@types/react": "19.3.0" }
+}

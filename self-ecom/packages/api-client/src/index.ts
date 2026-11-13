@@ -11,3 +11,5 @@ export { validatePassword, validatePasswordChange, PASSWORD_POLICY } from '@shop
 export { AuthSessionStore, SESSION_KEYS, type SessionOptions, type SessionSnapshot, type SessionStorageAccess } from './session.js';
 export { ApiClientError, type FieldIssue } from './api-error.js';
 export { createEmployeeClient, createCustomerClient, type AuthClientOptions } from './auth-client.js';
+export { createGeneratedClient } from './generated/client.js';
+export type { paths as ApiPaths, operations as ApiOperations } from './generated/schema.js';

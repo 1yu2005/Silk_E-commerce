@@ -1,0 +1,70 @@
+{
+  "date": "2026-11-13",
+  "scope": "用户授权的本机顾客登录缺失头像字段修复；板块3第二步暂缓",
+  "status": "passed_for_missing_column_repair",
+  "reproductionBefore": {
+    "code": "P2022",
+    "schema": "0002"
+  },
+  "migration": {
+    "exitCode": 0,
+    "schema": "0003",
+    "existingMigrationChecksumsUnchanged": true
+  },
+  "dataProtectionAtMigration": {
+    "oldTables": 8,
+    "snapshotsUnchanged": true,
+    "customerComparison": "仅排除新增avatar_asset_id，其余字段全部比较",
+    "newTablesEmpty": true,
+    "existingAvatarsNull": true
+  },
+  "customerAvatarRead": {
+    "status": "passed"
+  },
+  "customerUpdateReturning": {
+    "status": "passed",
+    "transaction": "rolled_back"
+  },
+  "regression": {
+    "files": 6,
+    "passed": 273,
+    "exitCode": 0,
+    "database": "独立测试库",
+    "log": "auth-regression.txt"
+  },
+  "live": [
+    {
+      "port": 3000,
+      "status": 200,
+      "requestId": "1135b07d-fde2-4799-9187-5786018b6d0c"
+    },
+    {
+      "port": 5174,
+      "status": 200,
+      "requestId": "ab25338c-2982-4e30-986e-b4646c32455b"
+    }
+  ],
+  "schemaChecks": {
+    "migration-status": {
+      "exitCode": 0,
+      "spawnErrorCode": null
+    },
+    "schema-drift": {
+      "exitCode": 0,
+      "spawnErrorCode": null
+    }
+  },
+  "protectedFilesUnchangedNow": true,
+  "firstStepImplementationUnchanged": true,
+  "realConfigSecretScan": {
+    "files": 11,
+    "matches": []
+  },
+  "gitDiffCheckExitCode": 0,
+  "stagedFiles": [],
+  "committed": false,
+  "actualUserPasswordLogin": "未执行；请用户用原账号重试页面",
+  "dockerDeployment": "未执行",
+  "applicationRestart": "未执行",
+  "firstStepEvidence": "原始步骤1记录与源码摘要按当时状态保留，不覆盖"
+}

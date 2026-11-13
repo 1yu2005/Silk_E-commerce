@@ -292,16 +292,20 @@ it('会话创建及登录时间写后故障整体回滚；五次系统故障不�
   sessions.fail = false; sessions.afterCreate = undefined; await signIn(account); expect((await facts(account.id)).sessions).toHaveLength(1);
 });
 it('冻结先持顾客锁，登录真实等待后拒绝，不产生新会话', async () => {
-  const account = await customer(); const gate = barrier(); let pid = 0;
+  const account = await customer(); const gate = barrier(); const verified = barrier(); let pid = 0;
+  // 等真实bcrypt完成后再观察数据库锁，不把机器负载造成的验密耗时算进550ms锁观察窗口。
+  passwords.afterVerified = async () => { verified.signal(); await verified.hold; };
   const blocker = peer.$transaction(async tx => {
     await tx.$queryRaw`SELECT id FROM customer WHERE id=${account.id}::uuid FOR UPDATE`;
     await tx.customer.update({ where: { id: account.id }, data: { status: 'LOGIN_FROZEN', tokenVersion: 1 } });
     pid = (await tx.$queryRaw<{ pid: number }[]>`SELECT pg_backend_pid() AS pid`)[0]!.pid; gate.signal(); await gate.hold;
   }); let pending: Promise<Response> | undefined;
   try {
-    await gate.ready; pending = login({ phone: account.phone, password }); await waitForBlocker(pid); gate.release(); await blocker; await error(await pending, 401, 'ACCOUNT_UNAVAILABLE');
+    await gate.ready; pending = login({ phone: account.phone, password });
+    await Promise.race([verified.ready, pending.then(() => { throw new Error('未进入真实验密完成屏障'); })]);
+    verified.release(); await waitForBlocker(pid); gate.release(); await blocker; await error(await pending, 401, 'ACCOUNT_UNAVAILABLE');
     expect((await facts(account.id)).sessions).toEqual([]); expect((await facts(account.id)).customer.lastLoginAt).toBeNull();
-  } finally { gate.release(); await Promise.allSettled([blocker, ...(pending ? [pending] : [])]); }
+  } finally { verified.release(); gate.release(); await Promise.allSettled([blocker, ...(pending ? [pending] : [])]); passwords.afterVerified = undefined; }
 });
 it('登录先持顾客锁，冻结实际等待，登录可先成功但随后冻结撤销该会话', async () => {
   const account = await customer(); const gate = barrier(); let pid = 0;

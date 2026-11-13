@@ -1,0 +1,8 @@
+# 本次验收只使用独立镜像标签，不改变原有开发镜像。
+services:
+  api:
+    image: self-ecom-m003-acceptance-b9dc5cb4-api:local
+  admin-web:
+    image: self-ecom-m003-acceptance-b9dc5cb4-admin:local
+  store-web:
+    image: self-ecom-m003-acceptance-b9dc5cb4-store:local

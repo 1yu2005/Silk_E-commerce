@@ -8,4 +8,5 @@ const client = createCustomerClient({ baseURL: import.meta.env.VITE_API_BASE_URL
 export const api = client.api;
 export const auth = client.auth;
 export const session = client.session;
+export const files = client.files;
 export const customerAuth = new CustomerAuthController(client);

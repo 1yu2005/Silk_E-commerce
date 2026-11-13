@@ -1,0 +1,48 @@
+{
+  "files": {
+    ".env": "cc5a781b920301b562b83488122d9060c840a6803fa3203375dcd94e5b434b66",
+    "apps/api/package.json": "dbf0ae57011ee76991a62ee42921ffb7dde7ce8476d6f96a2118b3083b587618",
+    "pnpm-lock.yaml": "1b7364d3463b48ec43bf0325a5ecfc0d7228afcf43f2fcd9a99e8ee7bde94f40",
+    "apps/api/prisma/migrations/0001_bootstrap/migration.sql": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3",
+    "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a",
+    "docs/openapi/openapi.json": "90dc58652d4862efed8e50464b62459e199a33681a35becc27cfe7e62b23d4c4"
+  },
+  "developmentDatabase": {
+    "_prisma_migrations": {
+      "rows": 2,
+      "sha256": "2f6f1b25aea565f4a4dc027ba48e454111c3e75f5ca629e1d50ed53c5052dd64"
+    },
+    "employee": {
+      "rows": 2,
+      "sha256": "ef2323d092954b8772c2caef684d2830c720989b1665b830d51c7c207567752a"
+    },
+    "customer": {
+      "rows": 1,
+      "sha256": "69632955f5a82e7c966b8caa177e91b27a83c39f054a576cfc2ab20744d03e59"
+    },
+    "auth_session": {
+      "rows": 8,
+      "sha256": "0b31f4325b8fcde5307093be8568f62bbc89b5c5006e0b866cbc4a061de19a92"
+    },
+    "permission_definition": {
+      "rows": 52,
+      "sha256": "ac098e7d57e30c71faf06de2577b955c0eb25eaed6fc8d1c18a711260d8110f7"
+    },
+    "role_permission": {
+      "rows": 89,
+      "sha256": "a913424b7724d14de800de41d916b13eacbe393576ee183b5919e620e8c68230"
+    },
+    "employee_extra_permission": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "audit_log": {
+      "rows": 10,
+      "sha256": "3a86508ac2425107b4ae43c787787017499c46e343b1e112bd44c591694ed4e4"
+    },
+    "system_guard": {
+      "rows": 1,
+      "sha256": "015754fe8e942496a313de638c06f7eacccdb4259d3699fd47682e9436a63b5f"
+    }
+  }
+}

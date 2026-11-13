@@ -1,0 +1,71 @@
+{
+  "date": "2026-11-13",
+  "scope": "板块3步骤1：数据结构、增量迁移及数据库验证",
+  "status": "passed_for_step01",
+  "moduleStatus": "development_in_progress",
+  "previousCheck": {
+    "originalPassed": false,
+    "explanation": "首次收尾未满足开发库全表摘要不变；原始记录不覆盖，数据库测试通过。",
+    "path": "result.json",
+    "preserved": true,
+    "sha256": "a3c95b0fb9d552888af39174ec5c01474c89b9a0cff5657b88b6bbb885cc9225"
+  },
+  "developmentDatabase": {
+    "schema": "0002_auth_employee_permission_audit",
+    "assessment": "用户已确认期间人工后台登录，观察变化与该活动一致；不据此声称全表数据未变。",
+    "allTableSnapshotsUnchanged": false,
+    "applied0003": false,
+    "migrationRecordsUnchanged": true,
+    "otherCheckedTablesUnchanged": true,
+    "userConfirmation": "是，我刚才登录过",
+    "observedChanges": [
+      "auth_session由8条增至9条",
+      "employee仍2条，内容摘要变化"
+    ],
+    "restoredOrDeletedUserData": false
+  },
+  "protectedFiles": {
+    ".env": {
+      "unchanged": true
+    },
+    "apps/api/package.json": {
+      "unchanged": true
+    },
+    "pnpm-lock.yaml": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0001_bootstrap/migration.sql": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql": {
+      "unchanged": true
+    },
+    "docs/openapi/openapi.json": {
+      "unchanged": true
+    }
+  },
+  "unit": {
+    "passed": 277,
+    "files": 15,
+    "log": "unit.txt"
+  },
+  "integration": {
+    "passed": 887,
+    "files": 22,
+    "newTests": 80,
+    "log": "integration-final.txt"
+  },
+  "migrationChecksumsMatchTestedSources": true,
+  "schemaDriftExitCode": 0,
+  "remainingMigrationTestDatabasesAtInitialCloseout": [],
+  "initialEvidenceSecretScan": {
+    "files": 9,
+    "matches": []
+  },
+  "gitDiffCheckExitCode": 0,
+  "stagedFiles": [],
+  "committed": false,
+  "dockerDeploymentThisStep": "not_executed",
+  "sourceSnapshot": "source-sha256.json",
+  "nextStep": "事务审计、状态历史与沟通基础服务；收到用户新的“执行”后实施。"
+}

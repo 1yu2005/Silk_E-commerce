@@ -1,0 +1,6 @@
+{
+  "exitCode": 1,
+  "stdout": "",
+  "stderr": "node:os:306\r\n    throw new ERR_SYSTEM_ERROR(ctx);\r\n          ^\r\n\r\nSystemError [ERR_SYSTEM_ERROR]: A system error occurred: uv_os_get_passwd returned ENOMEM (not enough memory)\r\n    at Object.userInfo (node:os:306:11)\r\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/node_modules/.pnpm/tsx@4.23.15/node_modules/tsx/dist/temporary-directory-Du7LpLp9.mjs:1:659\r\n    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)\r\n    at async node:internal/modules/esm/loader:643:26\r\n    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {\r\n  code: 'ERR_SYSTEM_ERROR',\r\n  info: {\r\n    errno: -4057,\r\n    code: 'ENOMEM',\r\n    message: 'not enough memory',\r\n    syscall: 'uv_os_get_passwd'\r\n  },\r\n  errno: [Getter/Setter],\r\n  syscall: [Getter/Setter]\r\n}\r\n\r\nNode.js v24.18.0\r\n",
+  "spawnErrorCode": null
+}

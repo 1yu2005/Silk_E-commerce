@@ -8,7 +8,7 @@ import type { RequestWithId } from './http/request-context.js';
 export function createOpenApiDocument(app: INestApplication) {
   return SwaggerModule.createDocument(app, new DocumentBuilder()
     .setTitle('自营电商 API')
-    .setDescription('M0 工程基础与员工认证接口。成功响应为 {data, requestId}，错误响应为 {code, message, details?, requestId}。Authorize输入token本体。')
+    .setDescription('工程健康、员工与顾客认证管理、受控图片及顾客头像接口。成功响应为 {data, requestId}，图片内容为二进制；错误响应为 {code, message, details?, requestId}。Authorize输入token本体；私有图片须Bearer，不向URL添加token。')
     .setVersion('1.0.0')
     .addServer('/')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' }, 'bearerAuth')

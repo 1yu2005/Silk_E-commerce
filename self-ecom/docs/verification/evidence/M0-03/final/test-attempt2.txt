@@ -1,0 +1,354 @@
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/contract-tools, @shop/shared, @shop/store-web, @shop/ui
+   • Running test in 8 packages
+   • Remote caching disabled
+
+@shop/shared:test: cache bypass, force executing edfc9285e6e69327
+@shop/shared:build: cache hit, replaying logs b03cb2de00d8a494
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/api:test: cache bypass, force executing 8847d57323745bbc
+@shop/api-client:test: cache bypass, force executing aa6835454b26cf0f
+@shop/api-client:build: cache hit, replaying logs 387fac6c2b4b7239
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/ui:build: cache hit, replaying logs 72ba89931925d548
+@shop/ui:build: $ tsc -p tsconfig.json
+@shop/store-web:test: cache bypass, force executing 1a8167a7b1a06aa4
+@shop/admin-web:test: cache bypass, force executing 034dec9e25d12de8
+@shop/shared:test: $ tsc -p tsconfig.json && node --test test/*.test.mjs
+@shop/api:test: $ vitest run
+@shop/api-client:test: $ tsc -p tsconfig.json && node --test test/*.test.mjs
+@shop/store-web:test: $ node --test test/*.test.mjs
+@shop/admin-web:test: $ node --test test/*.test.mjs
+@shop/api:test: 
+@shop/api:test:  RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+@shop/api:test: 
+@shop/store-web:test: ✔ 匿名不请求本人，快照稳定且可取消订阅 (9.9976ms)
+@shop/store-web:test: ✔ 只持久化顾客域最小凭证，不保存手机号资料或密码 (2.3216ms)
+@shop/store-web:test: ✔ 恢复确认前不展示旧资料，强制重读会立即隐藏旧身份 (0.8051ms)
+@shop/store-web:test: ✔ StrictMode清理再启动及并发重读只请求一次 (0.7942ms)
+@shop/store-web:test: ✔ 交易受限顾客仍可恢复本人资料 (1.3149ms)
+@shop/store-web:test: ✔ 本人500保留凭证、清资料并允许手动重试 (2.8089ms)
+@shop/store-web:test: ✔ 未知异常使用固定提示，不带原始配置 (0.9413ms)
+@shop/store-web:test: ✔ 当前401清身份且迟到旧本人不能恢复 (0.9928ms)
+@shop/store-web:test: ✔ 到期等号清本地资料和凭证 (0.7786ms)
+@shop/store-web:test: ✔ 旧本人成功或异常迟到都不覆盖新登录 (1.1577ms)
+@shop/store-web:test: ✔ 迟到旧注销不能清除新登录页面身份 (0.953ms)
+@shop/store-web:test: ✔ 注销等待期间焦点重读不能重新显示旧身份 (0.5439ms)
+@shop/store-web:test: ✔ 403只提示并保留会话，不请求员工权限或自动重试 (0.3784ms)
+@shop/store-web:test: ✔ 公开登录401不创建会话或查询本人 (1.289ms)
+@shop/store-web:test: ✔ 登录成功保存顾客会话并从本人接口恢复 (0.3021ms)
+@shop/store-web:test: ✔ 注册成功只提示去登录，不创建会话或请求本人 (0.4878ms)
+@shop/store-web:test: ✔ 注册409报告调用方，不伪装成功或自动登录 (0.4349ms)
+@shop/store-web:test: ✔ 注册成功迟于新登录，不清资料或产生跳登录指示 (0.4214ms)
+@shop/store-web:test: ✔ 主动清会话后，旧注册响应不再触发成功导航 (0.3072ms)
+@shop/store-web:test: ✔ 注销成功和网络失败均清本地，失败明确服务器未确认 (0.8025ms)
+@shop/store-web:test: ✔ 停止订阅不再自动请求，重启仍能恢复最新会话 (0.5186ms)
+@shop/store-web:test: ✔ 手机号边界与服务端一致，允许首尾空格，不接受国际前缀或非文本 (0.4807ms)
+@shop/store-web:test: ✔ 可选昵称按Unicode字符计数，空白和超长拒绝 (0.5116ms)
+@shop/store-web:test: ✔ 注册正文只含公开字段，保留密码原文并省略未填昵称 (0.3166ms)
+@shop/store-web:test: ✔ 编辑昵称必须填写，按Unicode计数且不改变注册可省略规则 (0.2502ms)
+@shop/store-web:test: ✔ 昵称仅发送trim后的白名单字段，成功立即更新本人且不更换会话 (0.6069ms)
+@shop/store-web:test: ✔ 昵称失败不伪造成功、不重试或清合法会话 (1.1629ms)
+@shop/store-web:test: ✔ 昵称保存后迟到的旧本人成功或失败均不能覆盖结果 (1.0226ms)
+@shop/store-web:test: ✔ 旧昵称成功迟于新登录，不覆盖新顾客资料或成功提示 (1.2274ms)
+@shop/store-web:test: ✔ 注销等待中或当前401后，旧昵称响应不能恢复身份 (1.0741ms)
+@shop/store-web:test: ✔ 改密只发旧新密码原文，成功清资料及本地凭证并提示重新登录 (0.8425ms)
+@shop/store-web:test: ✔ 旧密码401清本域后保留安全错误和请求编号，重新登录时清提示 (0.6379ms)
+@shop/store-web:test: ✔ 改密400、403、500或网络失败不假报成功或自动重试 (0.8603ms)
+@shop/store-web:test: ✔ 改密成功或401迟于新登录，均不清新会话或插入旧提示 (0.6934ms)
+@shop/store-web:test: ✔ 主动注销后迟到改密成功，不覆盖注销提示 (0.4396ms)
+@shop/store-web:test: ✔ 焦点后台复核保持同会话页面，显式强制恢复与换会话仍隐藏旧身份 (0.3653ms)
+@shop/store-web:test: ✔ 头像设置/移除更新资料，迟到的昵称和本人查询不覆盖新头像 (0.7436ms)
+@shop/shared:test: ✔ 对象键排序、数组保序、中文和空值稳定，重复对象引用合法 (4.2655ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：number/[object Number] (2.1973ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：number/[object Number] (0.537ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：number/[object Number] (0.3209ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：number/[object Number] (0.3216ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：bigint/[object BigInt] (0.2762ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：undefined/[object Undefined] (0.4009ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：function/[object Function] (0.1915ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Date] (0.2404ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Set] (0.3546ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Array] (0.8998ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Array] (0.4923ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Object] (0.6473ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Object] (0.5591ms)
+@shop/shared:test: ✔ 非法规范输入被拒绝：object/[object Object] (3.597ms)
+@shop/shared:test: ✔ 拒绝循环、访问器、symbol、额外数组属性与超深/超大输入 (11.9911ms)
+@shop/shared:test: ✔ 集合拒绝规范重复，返回稳定新数组并保留元素；稀疏数组拒绝 (2.6942ms)
+@shop/shared:test: ✔ 幂等键16/128边界合法，拒绝空白、中文、换行、过短和超长 (0.8057ms)
+@shop/shared:test: ✔ 分页默认20、最大100，巨大页码为空而不发生乘法溢出 (0.7205ms)
+@shop/admin-web:test: ✔ 匿名不查询本人；快照稳定，订阅可取消 (14.0377ms)
+@shop/admin-web:test: ✔ 恢复必须先本人再权限；在确认完成前不展示身份和菜单 (1.6203ms)
+@shop/admin-web:test: ✔ StrictMode清理再启动和同时重读共用一组请求 (0.9011ms)
+@shop/admin-web:test: ✔ 强制改密只查本人，不查询被禁止的权限接口 (0.6387ms)
+@shop/admin-web:test: ✔ 权限响应的最新岗位用于显示，权限不落入持久化存储 (1.5553ms)
+@shop/admin-web:test: ✔ 恢复500保留凭证，清空资料权限，可手动重试 (1.3023ms)
+@shop/admin-web:test: ✔ 未知恢复异常使用固定提示，不暴露原异常 (0.7878ms)
+@shop/admin-web:test: ✔ 401清除身份与权限，并丢弃在途本人响应 (0.9215ms)
+@shop/admin-web:test: ✔ 到期后由会话检查立即清除身份和权限 (0.644ms)
+@shop/admin-web:test: ✔ 新登录保存后，迟到旧本人响应不能恢复旧身份 (1.0642ms)
+@shop/admin-web:test: ✔ 新登录保存后，迟到旧权限及旧异常不能覆盖新身份 (1.237ms)
+@shop/admin-web:test: ✔ 并发403只触发一组本人/权限读取，不重放原动作 (0.5292ms)
+@shop/admin-web:test: ✔ 权限刷新本身403只失败一次，不循环请求或注销 (0.6008ms)
+@shop/admin-web:test: ✔ PASSWORD_CHANGE_REQUIRED立即清权限，迟到刷新不恢复业务状态 (0.5283ms)
+@shop/admin-web:test: ✔ 匿名收到403不会发起请求 (0.2314ms)
+@shop/admin-web:test: ✔ 登录保存后恢复本人，登录密码不持久化 (0.4606ms)
+@shop/admin-web:test: ✔ 公开登录失败留在匿名状态，不查询资料 (1.4565ms)
+@shop/admin-web:test: ✔ 改密成功清本地并提示重新登录 (1.2087ms)
+@shop/admin-web:test: ✔ 改密403保留当前会话，报告调用方 (1.6793ms)
+@shop/admin-web:test: ✔ 注销成功或网络失败都清本地，不保留旧身份 (1.6662ms)
+@shop/admin-web:test: ✔ 注销请求未完成时，焦点恢复不能重新展示正在退出的身份 (1.2508ms)
+@shop/admin-web:test: ✔ 迟到旧注销或改密不清除新登录的页面身份 (0.8637ms)
+@shop/admin-web:test: ✔ 清理订阅后会话变化不再请求；重新启动可恢复 (0.3655ms)
+@shop/admin-web:test: ✔ 页面复用服务端密码边界，不截断、不trim密码 (7.4355ms)
+@shop/shared:test: ℹ tests 19
+@shop/store-web:test: ℹ tests 37
+@shop/shared:test: ℹ suites 0
+@shop/shared:test: ℹ pass 19
+@shop/shared:test: ℹ fail 0
+@shop/shared:test: ℹ cancelled 0
+@shop/shared:test: ℹ skipped 0
+@shop/shared:test: ℹ todo 0
+@shop/shared:test: ℹ duration_ms 673.593
+@shop/store-web:test: ℹ suites 0
+@shop/store-web:test: ℹ pass 37
+@shop/store-web:test: ℹ fail 0
+@shop/store-web:test: ℹ cancelled 0
+@shop/store-web:test: ℹ skipped 0
+@shop/store-web:test: ℹ todo 0
+@shop/store-web:test: ℹ duration_ms 1293.603
+@shop/admin-web:test: ✔ 创建入口按有效权限判断，查看权限不能冒充创建资格 (1.7224ms)
+@shop/admin-web:test: ✔ 账号大小写与空白规范化，长度和字符规则与接口一致 (0.8221ms)
+@shop/admin-web:test: ✔ 显示名必填且按Unicode码点校验40字符，保留中间空白 (0.587ms)
+@shop/admin-web:test: ✔ 创建原因必填，trim后最多500个Unicode字符 (0.51ms)
+@shop/admin-web:test: ✔ 岗位仅允许固定三种，不能以对象继承属性绕过校验 (0.4007ms)
+@shop/admin-web:test: ✔ 规范化只处理文本，初始密码保留原文，确认和内部字段不发API (1.9207ms)
+@shop/admin-web:test: ✔ 初始密码复用共享字符和字节规则，不trim或截断 (0.6889ms)
+@shop/admin-web:test: ✔ 管理入口逐项依据有效权限而非岗位名称 (2.8574ms)
+@shop/admin-web:test: ✔ 管理原因trim并按Unicode码点校验，不截断emoji (1.0575ms)
+@shop/admin-web:test: ✔ 新增操作递归补齐、排序去重，默认码不存额外且不修改输入 (2.7432ms)
+@shop/admin-web:test: ✔ 撤销旧依赖优先级联，另一新增操作不能补回 (0.8652ms)
+@shop/admin-web:test: ✔ 完整旧集合无变化、清空、默认权限不能撤销 (0.7346ms)
+@shop/admin-web:test: ✔ 管理员目标、未知码、管理员专属码和旧缺依赖拒绝预览 (1.064ms)
+@shop/admin-web:test: ✔ 目录重复、未知依赖、循环、模板缺依赖或管理员码禁止保存 (0.9713ms)
+@shop/admin-web:test: ✔ 当前写成功仅一次提交与缓存回调，当前错误原样传递 (4.9093ms)
+@shop/admin-web:test: ✔ 旧登录迟到成功与失败不能失效新缓存或刷新身份，即使token相同 (1.1608ms)
+@shop/admin-web:test: ✔ 未登录不发命令，退出后在途成功不执行回调 (0.7663ms)
+@shop/admin-web:test: ✔ 匿名不发员工查询，快照稳定只读且订阅可取消 (12.3479ms)
+@shop/admin-web:test: ✔ StrictMode重挂载和同参数在途读取只发一次，完成后重进会刷新 (1.9279ms)
+@shop/admin-web:test: ✔ 筛选切换立即隐藏旧资料、取消旧请求且迟到结果不能覆盖 (2.6179ms)
+@shop/admin-web:test: ✔ 401清会话时立即清员工资料，旧在途成功不能恢复 (1.0223ms)
+@shop/admin-web:test: ✔ 新登录切换清查询，旧会话成功或错误均不写入新身份 (1.1956ms)
+@shop/admin-web:test: ✔ 403在权限刷新重挂载后不循环，手动重试才发下一次 (0.9674ms)
+@shop/admin-web:test: ✔ 404、500和未知错误不保留旧资料，未知错误不含原始秘密 (1.4731ms)
+@shop/admin-web:test: ✔ 员工资料和查询条件不写入会话存储，销毁取消在途读取 (0.7083ms)
+@shop/admin-web:test: ✔ 地址栏默认值、Unicode关键词和枚举与查询规则一致 (3.081ms)
+@shop/admin-web:test: ✔ 非法分页、重复/未知字段、超长关键词和岗位状态不发给API (2.0855ms)
+@shop/admin-web:test: ✔ 查询序列化保留筛选和页码，UUID仅形状校验且菜单依据有效权限 (2.2919ms)
+@shop/admin-web:test: ✔ 写入失效后活跃查询重读，旧在途响应不能恢复旧资料 (1.7123ms)
+@shop/admin-web:test: ✔ 失效只作用指定员工；离开页面仅清缓存不暗中发请求 (0.4322ms)
+@shop/admin-web:test: ℹ tests 54
+@shop/admin-web:test: ℹ suites 0
+@shop/admin-web:test: ℹ pass 54
+@shop/admin-web:test: ℹ fail 0
+@shop/admin-web:test: ℹ cancelled 0
+@shop/admin-web:test: ℹ skipped 0
+@shop/admin-web:test: ℹ todo 0
+@shop/admin-web:test: ℹ duration_ms 1239.7927
+@shop/api:test:  ✓ test/environment.spec.ts (33 tests) 59ms
+@shop/api:test:  ✓ test/login-rate-limiter.spec.ts (7 tests) 43ms
+@shop/api:test:  ✓ test/database-safety.spec.ts (10 tests) 54ms
+@shop/api:test:  ✓ test/jwt-configuration.spec.ts (20 tests) 44ms
+@shop/api:test:  ✓ test/command-fingerprint.spec.ts (7 tests) 39ms
+@shop/api:test:  ✓ test/auth-transaction.spec.ts (7 tests) 19ms
+@shop/api:test:  ✓ test/logging.spec.ts (3 tests) 369ms
+@shop/api-client:test: ✔ 创建员工只发送五个字段，保留密码原文，返回公开包裹且不切换管理员会话 (8.1469ms)
+@shop/api-client:test: ✔ 创建账号冲突409保留管理员登录，传递固定错误码与请求编号 (3.758ms)
+@shop/api-client:test: ✔ 创建员工真实HTTP使用POST、JSON白名单和本域Bearer (87.3073ms)
+@shop/api-client:test: ✔ 员工列表仅发送查询白名单，返回包裹并携带本域凭证及取消信号 (2.2252ms)
+@shop/api-client:test: ✔ 员工详情UUID路径规范化，拒绝路径注入且不越登录域 (2.5679ms)
+@shop/api-client:test: ✔ 员工详情404保持合法会话并暴露安全错误与请求编号 (1.8634ms)
+@shop/api-client:test: ✔ 员工查询真实HTTP正确发送分页、文字关键词、详情路径与Bearer (17.8857ms)
+@shop/api-client:test: ✔ 两客户端读取各自凭证，不使用全局Axios或调用方的Authorization (4.0461ms)
+@shop/api-client:test: ✔ 公开登录、注册及健康检查不携带已登录token，注册不自动登录 (3.0097ms)
+@shop/api-client:test: ✔ 员工客户端拒绝其他登录域，未发送HTTP (1.55ms)
+@shop/api-client:test: ✔ 顾客客户端拒绝其他登录域，未发送HTTP (1.0312ms)
+@shop/api-client:test: ✔ 拒绝非本域或含歧义的请求路径 https://other.invalid/store/me (0.7196ms)
+@shop/api-client:test: ✔ 拒绝非本域或含歧义的请求路径 //other.invalid/store/me (1.0301ms)
+@shop/api-client:test: ✔ 拒绝非本域或含歧义的请求路径 /store/../admin/me (0.776ms)
+@shop/api-client:test: ✔ 拒绝非本域或含歧义的请求路径 /store/%2e%2e/admin/me (3.5573ms)
+@shop/api-client:test: ✔ 拒绝非本域或含歧义的请求路径 /store/%2f/admin/me (0.9079ms)
+@shop/api-client:test: ✔ 拒绝非本域或含歧义的请求路径 \other.invalid/store/me (0.566ms)
+@shop/api-client:test: ✔ 不能通过单次请求baseURL覆盖把凭证发往其它服务器 (0.7747ms)
+@shop/api-client:test: ✔ 当前401清理本域会话并通知一次，另一登录域保持 (1.5173ms)
+@shop/api-client:test: ✔ 公开登录401保留现有会话，不触发退出通知 (1.1968ms)
+@shop/api-client:test: ✔ 403 FORBIDDEN保留会话并通知，不自动刷新或重试请求 (0.9265ms)
+@shop/api-client:test: ✔ 403 PASSWORD_CHANGE_REQUIRED保留会话并通知，不自动刷新或重试请求 (0.7862ms)
+@shop/api-client:test: ✔ 迟到的旧401不影响新登录，即使token字符串相同 (0.9657ms)
+@shop/api-client:test: ✔ 迟到的旧403不影响新登录，即使token字符串相同 (0.6671ms)
+@shop/api-client:test: ✔ 多个在途401只清理并通知一次 (1.2081ms)
+@shop/api-client:test: ✔ 400保留会话，不自动重试，保留服务端requestId (1.1038ms)
+@shop/api-client:test: ✔ 409保留会话，不自动重试，保留服务端requestId (0.8636ms)
+@shop/api-client:test: ✔ 429保留会话，不自动重试，保留服务端requestId (0.6592ms)
+@shop/api-client:test: ✔ 500保留会话，不自动重试，保留服务端requestId (0.618ms)
+@shop/api-client:test: ✔ ECONNABORTED使用固定网络错误且保留会话 (0.8152ms)
+@shop/api-client:test: ✔ ETIMEDOUT使用固定网络错误且保留会话 (0.592ms)
+@shop/api-client:test: ✔ ERR_NETWORK使用固定网络错误且保留会话 (0.5987ms)
+@shop/api-client:test: ✔ ERR_CANCELED使用固定网络错误且保留会话 (0.6079ms)
+@shop/api-client:test: ✔ 非API响应和非Axios异常不向页面暴露原始内容 (1.4678ms)
+@shop/api-client:test: ✔ 登录保存所属域凭证，me/权限/顾客资料更新返回HTTP包裹并使用正确方法 (2.7237ms)
+@shop/api-client:test: ✔ createEmployeeClient改密成功清会话并要求重新登录 (1.2575ms)
+@shop/api-client:test: ✔ createCustomerClient改密成功清会话并要求重新登录 (0.6692ms)
+@shop/api-client:test: ✔ 改密403保留会话，当前旧密码401按统一策略清会话 (1.6092ms)
+@shop/api-client:test: ✔ 注销成功均清本地会话，失败仍传给调用方 (0.6292ms)
+@shop/api-client:test: ✔ 注销网络失败均清本地会话，失败仍传给调用方 (0.7674ms)
+@shop/api-client:test: ✔ 注销401均清本地会话，失败仍传给调用方 (0.8875ms)
+@shop/api-client:test: ✔ 迟到的注销/改密成功不清理新登录会话 (1.2181ms)
+@shop/api-client:test: ✔ 并发登录仅保存最新尝试，注销后迟到的登录不恢复会话 (1.314ms)
+@shop/api-client:test: ✔ 旧会话401先到时，正在进行的最新登录仍能保存新凭证 (0.8174ms)
+@shop/api-client:test: ✔ 显式清理会话后，之前尚未完成的登录不能恢复凭证 (0.3549ms)
+@shop/api-client:test: ✔ 凭证过期后下一请求不发送token，当前失败触发未登录处理 (0.5386ms)
+@shop/api-client:test: ✔ 真实Axios HTTP发送验证：两域独立Bearer、公开请求无凭证、401/403及注销 (52.8168ms)
+@shop/api-client:test: ✔ 保留原无认证Axios工厂供普通传输使用 (0.9136ms)
+@shop/api:test:  ✓ test/permissions.spec.ts (32 tests) 150ms
+@shop/api:test:  ✓ test/audit-records.spec.ts (15 tests) 30ms
+@shop/api:test:  ✓ test/initial-admin-config.spec.ts (13 tests) 8ms
+@shop/api-client:test: ✔ EmployeeLoginInput声明的字段及必填性与导出OpenAPI一致 (4.0181ms)
+@shop/api-client:test: ✔ CustomerLoginInput声明的字段及必填性与导出OpenAPI一致 (0.6188ms)
+@shop/api-client:test: ✔ CustomerRegisterInput声明的字段及必填性与导出OpenAPI一致 (1.9965ms)
+@shop/api-client:test: ✔ CustomerProfileInput声明的字段及必填性与导出OpenAPI一致 (0.6272ms)
+@shop/api-client:test: ✔ ChangePasswordInput声明的字段及必填性与导出OpenAPI一致 (0.3768ms)
+@shop/api-client:test: ✔ EmployeeProfile声明的字段及必填性与导出OpenAPI一致 (0.3251ms)
+@shop/api-client:test: ✔ CustomerProfile声明的字段及必填性与导出OpenAPI一致 (0.2457ms)
+@shop/api-client:test: ✔ EmployeeLoginData声明的字段及必填性与导出OpenAPI一致 (0.6018ms)
+@shop/api-client:test: ✔ CustomerLoginData声明的字段及必填性与导出OpenAPI一致 (0.4683ms)
+@shop/api-client:test: ✔ CustomerRegisterData声明的字段及必填性与导出OpenAPI一致 (0.5535ms)
+@shop/api-client:test: ✔ EmployeePermissions声明的字段及必填性与导出OpenAPI一致 (0.5039ms)
+@shop/api-client:test: ✔ ChangePasswordData声明的字段及必填性与导出OpenAPI一致 (0.639ms)
+@shop/api-client:test: ✔ LogoutData声明的字段及必填性与导出OpenAPI一致 (0.3417ms)
+@shop/api-client:test: ✔ EmployeeListItem声明的字段及必填性与导出OpenAPI一致 (0.4013ms)
+@shop/api-client:test: ✔ EmployeeListData声明的字段及必填性与导出OpenAPI一致 (4.2723ms)
+@shop/api-client:test: ✔ EmployeeDetail声明的字段及必填性与导出OpenAPI一致 (0.5612ms)
+@shop/api-client:test: ✔ EmployeeListQuery声明的字段及必填性与导出OpenAPI一致 (0.1964ms)
+@shop/api-client:test: ✔ EmployeeCreateInput声明的字段及必填性与导出OpenAPI一致 (0.1903ms)
+@shop/api-client:test: ✔ EmployeeCreateData声明的字段及必填性与导出OpenAPI一致 (0.2784ms)
+@shop/api-client:test: ✔ EmployeeProfileInput声明的字段及必填性与导出OpenAPI一致 (0.3267ms)
+@shop/api-client:test: ✔ EmployeeProfileData声明的字段及必填性与导出OpenAPI一致 (0.1807ms)
+@shop/api-client:test: ✔ EmployeeCommandInput声明的字段及必填性与导出OpenAPI一致 (0.1852ms)
+@shop/api-client:test: ✔ EmployeeStatusData声明的字段及必填性与导出OpenAPI一致 (0.1475ms)
+@shop/api-client:test: ✔ EmployeePasswordResetInput声明的字段及必填性与导出OpenAPI一致 (0.1997ms)
+@shop/api-client:test: ✔ EmployeePasswordResetData声明的字段及必填性与导出OpenAPI一致 (0.1464ms)
+@shop/api-client:test: ✔ EmployeeRoleInput声明的字段及必填性与导出OpenAPI一致 (0.2008ms)
+@shop/api-client:test: ✔ EmployeeRoleData声明的字段及必填性与导出OpenAPI一致 (0.1114ms)
+@shop/api-client:test: ✔ EmployeeExtraPermissionsInput声明的字段及必填性与导出OpenAPI一致 (0.2025ms)
+@shop/api-client:test: ✔ EmployeeExtraPermissionsData声明的字段及必填性与导出OpenAPI一致 (0.2156ms)
+@shop/api-client:test: ✔ PermissionCatalog声明的字段及必填性与导出OpenAPI一致 (0.1534ms)
+@shop/api-client:test: ✔ PermissionDefinition声明的字段及必填性与导出OpenAPI一致 (0.3889ms)
+@shop/api-client:test: ✔ FileMetadata声明的字段及必填性与导出OpenAPI一致 (0.1684ms)
+@shop/api-client:test: ✔ CustomerAvatarData声明的字段及必填性与导出OpenAPI一致 (0.1684ms)
+@shop/api-client:test: ✔ CustomerAvatarData声明的字段及必填性与导出OpenAPI一致 (0.1136ms)
+@shop/api-client:test: ✔ 岗位、可用顾客状态及固定成功标记与API枚举一致 (2.9813ms)
+@shop/api-client:test: ✔ 员工查询枚举、可空登录时间及分页元素与导出OpenAPI一致 (11.2868ms)
+@shop/api-client:test: ✔ 头像声明为string|null，设置和移除成功响应均明确声明该结构 (0.8993ms)
+@shop/api:test:  ✓ test/files.spec.ts (21 tests) 466ms
+@shop/api-client:test: ✔ updateProfile发送正确路径方法、白名单、版本和原始密码；不切换会话 (12.4062ms)
+@shop/api-client:test: ✔ updateProfile拒绝路径穿越，不能把管理操作发到其他目标 (1.1497ms)
+@shop/api-client:test: ✔ enable发送正确路径方法、白名单、版本和原始密码；不切换会话 (1.379ms)
+@shop/api-client:test: ✔ enable拒绝路径穿越，不能把管理操作发到其他目标 (0.394ms)
+@shop/api-client:test: ✔ disable发送正确路径方法、白名单、版本和原始密码；不切换会话 (0.7491ms)
+@shop/api-client:test: ✔ disable拒绝路径穿越，不能把管理操作发到其他目标 (0.4713ms)
+@shop/api-client:test: ✔ resetPassword发送正确路径方法、白名单、版本和原始密码；不切换会话 (0.7307ms)
+@shop/api-client:test: ✔ resetPassword拒绝路径穿越，不能把管理操作发到其他目标 (0.3565ms)
+@shop/api-client:test: ✔ changeRole发送正确路径方法、白名单、版本和原始密码；不切换会话 (1.0409ms)
+@shop/api-client:test: ✔ changeRole拒绝路径穿越，不能把管理操作发到其他目标 (0.4886ms)
+@shop/api-client:test: ✔ setExtraPermissions发送正确路径方法、白名单、版本和原始密码；不切换会话 (1.0056ms)
+@shop/api-client:test: ✔ setExtraPermissions拒绝路径穿越，不能把管理操作发到其他目标 (0.5418ms)
+@shop/api-client:test: ✔ 权限目录GET支持取消，仅员工客户端暴露管理方法 (1.901ms)
+@shop/api-client:test: ✔ 版本冲突及最后管理员保护保留登录并传递错误码，不重放管理请求 (3.8142ms)
+@shop/api-client:test: ✔ createCustomerClient受限文件上传与私有Blob带本域凭证，URL无token (20.6397ms)
+@shop/api-client:test: ✔ createEmployeeClient受限文件上传与私有Blob带本域凭证，URL无token (5.0762ms)
+@shop/api-client:test: ✔ Blob JSON 401保留错误码/编号，只有401清当前会话 (2.8642ms)
+@shop/api-client:test: ✔ Blob JSON 403保留错误码/编号，只有401清当前会话 (1.7771ms)
+@shop/api-client:test: ✔ Blob JSON 404保留错误码/编号，只有401清当前会话 (1.4575ms)
+@shop/api-client:test: ✔ Blob JSON 413保留错误码/编号，只有401清当前会话 (1.3217ms)
+@shop/api-client:test: ✔ Blob JSON 429保留错误码/编号，只有401清当前会话 (1.1105ms)
+@shop/api-client:test: ✔ 200 JSON不能被当成图片，头像PUT只发fileId，DELETE无业务体 (2.2408ms)
+@shop/api-client:test: ✔ 生成JSON调用器复用员工Bearer，只发契约内的查询；不接收覆盖url/header (9.2374ms)
+@shop/api-client:test: ✔ 顾客不能借生成调用器调用员工域；非法UUID不能注入路径 (4.528ms)
+@shop/api-client:test: ✔ 生成JSON失败仍清当前会话并保留安全requestId，不自动重试 (2.3623ms)
+@shop/api-client:test: ✔ 员工与顾客使用独立键，仅保存最小凭证，刷新可分别恢复 (4.1944ms)
+@shop/api-client:test: ✔ 恢复损坏JSON时丢弃本域记录，不影响另一登录域 (0.4227ms)
+@shop/api-client:test: ✔ 恢复其他登录域时丢弃本域记录，不影响另一登录域 (0.4737ms)
+@shop/api-client:test: ✔ 恢复缺字段时丢弃本域记录，不影响另一登录域 (0.2428ms)
+@shop/api-client:test: ✔ 恢复无效日期时丢弃本域记录，不影响另一登录域 (0.2753ms)
+@shop/api-client:test: ✔ 恢复到期边界时丢弃本域记录，不影响另一登录域 (0.2898ms)
+@shop/api-client:test: ✔ 恢复含换行token时丢弃本域记录，不影响另一登录域 (0.3876ms)
+@shop/api-client:test: ✔ 恢复null时丢弃本域记录，不影响另一登录域 (0.2257ms)
+@shop/api-client:test: ✔ 恢复数组时丢弃本域记录，不影响另一登录域 (0.2419ms)
+@shop/api-client:test: ✔ 凭证到期等号时清除内存及持久化，读取快照稳定且订阅可取消 (0.6456ms)
+@shop/api-client:test: ✔ 相同token重新保存也切换修订号，旧请求不能清除新会话 (0.3706ms)
+@shop/api-client:test: ✔ 存储被禁止时仍可使用和清除内存；订阅者异常不妨碍清理 (0.6729ms)
+@shop/api-client:test: ✔ 写存储失败后清掉旧记录，继续使用新内存凭证 (1.0203ms)
+@shop/api-client:test: ✔ 无效登录凭证不覆盖现有会话，不持久化非法Authorization (1.0173ms)
+@shop/api-client:test: ✔ 订阅者在登录通知中清理会话时，不把已清理凭证重新写回存储 (0.2403ms)
+@shop/api-client:test: ℹ tests 125
+@shop/api-client:test: ℹ suites 0
+@shop/api-client:test: ℹ pass 125
+@shop/api-client:test: ℹ fail 0
+@shop/api-client:test: ℹ cancelled 0
+@shop/api-client:test: ℹ skipped 0
+@shop/api-client:test: ℹ todo 0
+@shop/api-client:test: ℹ duration_ms 2193.3381
+@shop/api:test:  ✓ test/jwt-token.spec.ts (51 tests) 575ms
+@shop/api:test:    ✓ 独立JWT模块正确注入服务，密钥缺失时模块构建失败 527ms
+@shop/api:test:  ✓ test/auth-session.spec.ts (2 tests) 522ms
+@shop/api:test:    ✓ 会话模块独立导出两个服务，不需连接数据库 517ms
+@shop/api:test:  ✓ test/password.spec.ts (23 tests) 3271ms
+@shop/api:test:    ✓ 真实bcrypt使用cost12和随机盐，正确密码通过、错误密码失败 1240ms
+@shop/api:test:    ✓ 同前64字节但末尾不同的合法72字节密码不能匹配 618ms
+@shop/api:test:    ✓ 哈希与验证保留首尾空格，不把trim后的密码当作原密码 1168ms
+@shop/api:test:  ✓ test/auth-guard.spec.ts (24 tests) 1594ms
+@shop/api:test: {"level":30,"time":1794545236198,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"dd89166b-bd8b-4886-925d-febc01758c61","res":{"statusCode":200},"responseTime":8,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236218,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"62e26697-30e2-44c7-bec1-e33899813100","res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+@shop/api:test: {"level":50,"time":1794545236240,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"0b4a6a20-7365-49a7-8d0f-9585cc9251fb","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":3,"msg":"request failed"}
+@shop/api:test: {"level":30,"time":1794545236246,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3b285c97-80a4-4968-9b98-39b5fe45e1fe","res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+@shop/api:test: {"level":40,"time":1794545236276,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/guard-public"},"requestId":"2900feab-f32e-4f72-ad2a-3036889de332","res":{"statusCode":404},"responseTime":3,"msg":"request completed"}
+@shop/api:test: {"level":40,"time":1794545236284,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/store/me"},"requestId":"31f6997d-7290-463f-99ce-4c9e51447ed7","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":40,"time":1794545236292,"pid":57764,"hostname":"YHY","req":{"method":"POST","path":"/api/v1/auth/logout"},"requestId":"bab72188-709e-4dfc-8fc4-f794e5d64130","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":40,"time":1794545236296,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/admin/me"},"requestId":"0915a786-1bc6-4f41-98d5-2fc959020dd1","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":40,"time":1794545236300,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"e86f530f-61ab-4ce5-8a07-f8f3131e2ae6","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236321,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"a22c8d48-8413-4a01-bc03-6c4229e433db","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236323,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"c399a0c9-c9ee-4db1-bb22-f59804a9cfc9","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236325,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"ad3bfb66-610f-4c65-9e43-782f5e702536","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236327,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"9dc733c0-8fe6-4d54-bb1a-dbb92d5adce6","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236329,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6543d3a6-d4b6-4180-8d73-27500a6fa310","res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236330,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"edf9c092-a6a1-42bd-b02b-d02e0a9e603c","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236331,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"18f89e7d-a340-4ab9-b610-1799841d17b3","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236334,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"616236db-347a-4be2-8613-efa01a95737c","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236335,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"fbb4e301-ceb0-4040-92e2-da3b70b59f91","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236336,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"da5c2886-58eb-4a44-97be-1294ced45608","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236343,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"f0eac887-b310-4933-9792-4ff356c1fffc","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test: {"level":50,"time":1794545236360,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"cfc8ed48-acc9-4e26-932c-e543b0d8ad2b","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+@shop/api:test: {"level":50,"time":1794545236376,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"1bb5dd99-d730-4e7e-adc2-bfd8544f70e6","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+@shop/api:test: {"level":30,"time":1794545236393,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"1bc891fe-e813-4735-8907-8c366f88c0ae","res":{"statusCode":200},"responseTime":4,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236405,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"4171c9fd-ebf2-46f8-8dde-0c65d00f494e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236421,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"0faf47ed-10d7-4ef9-b62a-3e3543b7a292","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+@shop/api:test: {"level":30,"time":1794545236435,"pid":57764,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3ca1f17c-f188-413a-abd8-df224a921e1a","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+@shop/api:test:  ✓ test/bootstrap.spec.ts (17 tests) 810ms
+@shop/api:test:  ✓ test/swagger.spec.ts (2 tests) 828ms
+@shop/api:test:    ✓ serves native Swagger documents only when enabled=true 747ms
+@shop/api:test:  ✓ test/validation.spec.ts (34 tests) 1054ms
+@shop/api:test: 
+@shop/api:test:  Test Files  18 passed (18)
+@shop/api:test:       Tests  321 passed (321)
+@shop/api:test:    Start at  12:47:09
+@shop/api:test:    Duration  7.68s (import 64%, tests 19%, transform 15%, worker 1%)
+@shop/api:test: 
+
+ Tasks:    8 successful, 8 total
+Cached:    3 cached, 8 total
+  Time:    9.577s 
+
+$ turbo run test

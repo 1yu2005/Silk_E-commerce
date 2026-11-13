@@ -11,6 +11,7 @@
     "test": "node --test test/*.test.mjs"
   },
   "dependencies": {
+    "@shop/ui": "workspace:*",
     "@shop/api-client": "workspace:*",
     "antd": "6.7.0",
     "react": "19.3.1",

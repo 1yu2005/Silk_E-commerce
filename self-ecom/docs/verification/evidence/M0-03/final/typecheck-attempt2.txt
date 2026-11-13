@@ -1,0 +1,30 @@
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/contract-tools, @shop/shared, @shop/store-web, @shop/ui
+   • Running typecheck in 8 packages
+   • Remote caching disabled
+
+@shop/shared:typecheck: cache miss, executing bf1b9a66d26694a8
+@shop/shared:build: cache hit, replaying logs b03cb2de00d8a494
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/api:typecheck: cache miss, executing 25bdf86194093440
+@shop/api-client:typecheck: cache miss, executing 72a6fdf14d7e9993
+@shop/api-client:build: cache hit, replaying logs 387fac6c2b4b7239
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/ui:typecheck: cache miss, executing 0609569acf34a563
+@shop/ui:build: cache hit, replaying logs 72ba89931925d548
+@shop/ui:build: $ tsc -p tsconfig.json
+@shop/admin-web:typecheck: cache miss, executing 575f7d5f854187b9
+@shop/store-web:typecheck: cache miss, executing d8a6ddbeb785106b
+@shop/shared:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/api:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/api-client:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/ui:typecheck: $ tsc -p tsconfig.json --noEmit
+@shop/admin-web:typecheck: $ tsc --noEmit
+@shop/store-web:typecheck: $ tsc --noEmit
+
+ Tasks:    9 successful, 9 total
+Cached:    3 cached, 9 total
+  Time:    9.23s 
+
+$ turbo run typecheck

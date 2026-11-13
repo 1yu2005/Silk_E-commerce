@@ -1,0 +1,112 @@
+{
+  "date": "2026-11-13",
+  "node": "v24.18.0",
+  "files": {
+    ".env": {
+      "unchanged": true
+    },
+    "apps/api/package.json": {
+      "unchanged": true
+    },
+    "pnpm-lock.yaml": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0001_bootstrap/migration.sql": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql": {
+      "unchanged": true
+    },
+    "docs/openapi/openapi.json": {
+      "unchanged": true
+    }
+  },
+  "developmentDatabase": {
+    "_prisma_migrations": {
+      "rows": 2,
+      "sha256": "2f6f1b25aea565f4a4dc027ba48e454111c3e75f5ca629e1d50ed53c5052dd64",
+      "unchanged": true
+    },
+    "employee": {
+      "rows": 2,
+      "sha256": "25abf7ff4bec7845bfe5313231b6fd3451dcacb7a6733461a91b2f670818e53d",
+      "unchanged": false
+    },
+    "customer": {
+      "rows": 1,
+      "sha256": "69632955f5a82e7c966b8caa177e91b27a83c39f054a576cfc2ab20744d03e59",
+      "unchanged": true
+    },
+    "auth_session": {
+      "rows": 9,
+      "sha256": "a4e63acf970587230fa16b20f70a50f9a241295ac116a6ff2645d30efbd70c17",
+      "unchanged": false
+    },
+    "permission_definition": {
+      "rows": 52,
+      "sha256": "ac098e7d57e30c71faf06de2577b955c0eb25eaed6fc8d1c18a711260d8110f7",
+      "unchanged": true
+    },
+    "role_permission": {
+      "rows": 89,
+      "sha256": "a913424b7724d14de800de41d916b13eacbe393576ee183b5919e620e8c68230",
+      "unchanged": true
+    },
+    "employee_extra_permission": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "unchanged": true
+    },
+    "audit_log": {
+      "rows": 10,
+      "sha256": "3a86508ac2425107b4ae43c787787017499c46e343b1e112bd44c591694ed4e4",
+      "unchanged": true
+    },
+    "system_guard": {
+      "rows": 1,
+      "sha256": "015754fe8e942496a313de638c06f7eacccdb4259d3699fd47682e9436a63b5f",
+      "unchanged": true
+    }
+  },
+  "testMigrations": [
+    {
+      "migration_name": "0001_bootstrap",
+      "checksum": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3",
+      "applied": true,
+      "rolled_back": false,
+      "checksumMatchesSource": true
+    },
+    {
+      "migration_name": "0002_auth_employee_permission_audit",
+      "checksum": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a",
+      "applied": true,
+      "rolled_back": false,
+      "checksumMatchesSource": true
+    },
+    {
+      "migration_name": "0003_files_communication_history",
+      "checksum": "bae9e336b648ed6dac9c6ca4bb17024ec1268fe4a3d002a0c1d45bb2ec5d1978",
+      "applied": true,
+      "rolled_back": false,
+      "checksumMatchesSource": true
+    }
+  ],
+  "remainingFilesMigrationDatabases": [],
+  "prismaValidationExitCode": 0,
+  "schemaDriftExitCode": 0,
+  "evidenceSecretScan": {
+    "files": 9,
+    "matches": []
+  },
+  "unit": {
+    "files": 15,
+    "passed": 277
+  },
+  "integration": {
+    "files": 22,
+    "passed": 887,
+    "newTests": 80
+  },
+  "scope": "板块3步骤1数据模型与迁移，未实现文件或头像API",
+  "passed": false
+}

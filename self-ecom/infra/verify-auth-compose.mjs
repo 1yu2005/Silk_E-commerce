@@ -1,4 +1,4 @@
-// 文件作用：在随机独立的四服务环境中验收板块2，保留脱敏证据后仅清理本次创建的容器和卷。
+// 文件作用：在随机独立四服务中回归认证；--files追加板块3真实文件/Swagger/持久化验收，精确清理本轮资源。
 /* global document, innerWidth */
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
@@ -8,11 +8,16 @@ import net from 'node:net';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseEnv } from 'node:util';
+import { readdirSync, writeFileSync } from 'node:fs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const output = path.join(root, 'output/playwright/final-acceptance/docker');
+const filesMode = process.argv.includes('--files');
+const outputArgument = process.argv.find(arg => arg.startsWith('--output='))?.slice(9);
+const output = path.resolve(root, outputArgument ?? (filesMode ? 'output/playwright/M0-03-final/docker' : 'output/playwright/final-acceptance/docker'));
 await mkdir(output, { recursive: true });
-const project = `self-ecom-m002-acceptance-${randomUUID().slice(0, 8)}`;
+const project = `self-ecom-${filesMode ? 'm003' : 'm002'}-acceptance-${randomUUID().slice(0, 8)}`;
+const imagePrefix = process.argv.find(arg => arg.startsWith('--reuse-images-from='))?.slice(20) ?? project;
+assert.match(imagePrefix, /^self-ecom-m00[23]-acceptance-[0-9a-f]{8}$/);
 const docker = process.env.DOCKER_EXECUTABLE ?? 'docker';
 const configured = parseEnv(await readFile(path.join(root, '.env'), 'utf8'));
 const secret = randomBytes(48).toString('hex'); const dbPassword = randomBytes(24).toString('hex');
@@ -35,9 +40,10 @@ const [apiPort, adminPort, storePort, dbPort] = [...selected];
 const env = { ...process.env, POSTGRES_DB: 'acceptance_dev', POSTGRES_USER: 'acceptance', POSTGRES_PASSWORD: dbPassword,
   JWT_SECRET: secret, JWT_TTL_SECONDS: '7200', API_HOST_PORT: apiPort, ADMIN_HOST_PORT: adminPort, STORE_HOST_PORT: storePort,
   DB_HOST_PORT: dbPort, COMPOSE_CORS_ORIGINS: `http://localhost:${adminPort},http://localhost:${storePort}`,
-  SWAGGER_ENABLED: 'true', LOG_LEVEL: 'info', INIT_ADMIN_USERNAME: 'acceptance_admin', INIT_ADMIN_PASSWORD: initialPassword };
+  SWAGGER_ENABLED: 'true', LOG_LEVEL: 'info', INIT_ADMIN_USERNAME: 'acceptance_admin', INIT_ADMIN_PASSWORD: initialPassword,
+  ...(filesMode ? { FILE_UPLOADS_PER_MINUTE: '100' } : {}) };
 const override = path.join(output, 'compose.override.yaml');
-await writeFile(override, `# 本次验收只使用独立镜像标签，不改变原有开发镜像。\nservices:\n  api:\n    image: ${project}-api:local\n  admin-web:\n    image: ${project}-admin:local\n  store-web:\n    image: ${project}-store:local\n`);
+await writeFile(override, `# 本次验收只使用独立镜像标签，不改变原有开发镜像。\nservices:\n  api:\n    image: ${imagePrefix}-api:local\n  admin-web:\n    image: ${imagePrefix}-admin:local\n  store-web:\n    image: ${imagePrefix}-store:local\n`);
 const base = ['compose', '--project-name', project, '--env-file', path.join(root, '.env'), '-f', path.join(root, 'infra/compose.yaml'), '-f', override];
 const checks = []; const requests = []; const commands = []; const pageErrors = []; let browser; let owned = false; let failure;
 function run(args, label, { variables = env, allowFailure = false, input } = {}) {
@@ -45,6 +51,7 @@ function run(args, label, { variables = env, allowFailure = false, input } = {})
   const text = (result.stdout ?? '') + (result.stderr ?? '');
   commands.push({ label, status: result.status });
   if (result.error || (!allowFailure && result.status !== 0)) {
+    writeFileSync(path.join(output, 'command-failure.log'), redact(text));
     console.error(redact(text).slice(-9000)); throw new Error(`Docker步骤失败：${label}`);
   }
   return { ...result, text };
@@ -81,9 +88,14 @@ try {
   const invalid = compose(['config', '--quiet'], '缺少JWT密钥必须失败', { variables: { ...env, JWT_SECRET: '' }, allowFailure: true });
   assert.notEqual(invalid.status, 0); assert.match(invalid.text, /JWT_SECRET/);
   compose(['config', '--quiet'], '校验Compose配置');
-  console.log(JSON.stringify({ checkpoint: '构建三个应用镜像', status: 'running', project }));
-  const built = compose(['build'], '构建三个应用镜像'); await writeFile(path.join(output, 'build.log'), redact(built.text));
-  passed('Compose强制JWT密钥，三个应用使用独立标签构建成功');
+  if (imagePrefix === project) {
+    console.log(JSON.stringify({ checkpoint: '构建三个应用镜像', status: 'running', project }));
+    const built = compose(['build'], '构建三个应用镜像'); await writeFile(path.join(output, 'build.log'), redact(built.text));
+    passed('Compose强制JWT密钥，三个应用使用独立标签构建成功');
+  } else {
+    for (const name of ['api', 'admin', 'store']) run(['image', 'inspect', `${imagePrefix}-${name}:local`], '确认本轮已构建镜像存在');
+    passed('复用本轮首次已构建镜像；仅验收脚本/测试变更，业务源码无变更');
+  }
   owned = true;
   compose(['up', '-d', '--wait', '--wait-timeout', '90', 'db'], '从空数据卷启动数据库');
   compose(['run', '--rm', '--no-deps', 'api', 'pnpm', 'db:migrate:deploy'], '空库执行全部迁移');
@@ -171,6 +183,9 @@ try {
 
   const { chromium } = await import(process.env.PLAYWRIGHT_MODULE_PATH ? pathToFileURL(process.env.PLAYWRIGHT_MODULE_PATH).href : 'playwright');
   browser = await chromium.launch({ headless: true, ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE } : {}) });
+  const files = filesMode ? await (await import('./verify-files-http.mjs')).verifyFiles({ origin, storeOrigin,
+    token: survivingCustomer.accessToken, adminToken: otherAdmin.accessToken, browser, call, passed, requests, output,
+    secrets, compose, env, login, staffUsername: username, resetPassword }) : null;
   const adminPage = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const storePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   for (const page of [adminPage, storePage]) page.on('pageerror', error => pageErrors.push(error.name));
@@ -194,12 +209,15 @@ try {
   compose(['up', '-d', '--no-deps', '--force-recreate', '--wait', '--wait-timeout', '90', 'api'], '重建API验证卷与会话持久化'); await ready();
   const probe = compose(['exec', '-T', 'api', 'node', '-e', "process.stdout.write(require('node:fs').readFileSync('/app/storage/uploads/acceptance-probe.txt','utf8'))"], '读取上传卷探针');
   assert.equal(probe.stdout, 'acceptance-persistence');
+  if (files) await files.verifyPersistence();
   await call(storeOrigin, '/store/me', 'GET', undefined, survivingCustomer.accessToken);
   assert.equal((await fetch(`${storeOrigin}/uploads/acceptance-probe.txt`)).status, 404);
   passed('数据库/会话在重启后持久化，API重建保留上传卷且Nginx仍禁止直读');
 
   env.JWT_TTL_SECONDS = '3';
+  if (files) { env.FILE_STAGED_QUOTA = '1'; env.FILE_UPLOADS_PER_MINUTE = '2'; }
   compose(['up', '-d', '--no-deps', '--force-recreate', '--wait', '--wait-timeout', '90', 'api'], '以三秒JWT期限重建独立API'); await ready();
+  if (files) await files.verifyLimits();
   const shortAdmin = await login(env.INIT_ADMIN_USERNAME, adminPassword); const shortCustomer = await customerLogin(phone, changedCustomerPassword);
   await call(origin, '/admin/me', 'GET', undefined, shortAdmin.accessToken);
   await call(storeOrigin, '/store/me', 'GET', undefined, shortCustomer.accessToken);
@@ -212,8 +230,9 @@ try {
   const user = compose(['exec', '-T', 'api', 'id', '-u'], '检查API非root用户').stdout.trim(); assert.equal(user, '1000');
   compose(['exec', '-T', 'api', 'node', '-e', "const f=require('node:fs');if(f.existsSync('/app/.env')||f.existsSync('/app/output'))process.exit(1)"], '镜像未包含.env或验收证据');
   const migrationCount = compose(['exec', '-T', 'db', 'psql', '-U', env.POSTGRES_USER, '-d', env.POSTGRES_DB, '-Atc', 'SELECT count(*) FROM "_prisma_migrations" WHERE finished_at IS NOT NULL AND rolled_back_at IS NULL'], '查询成功迁移数量');
-  assert.equal(migrationCount.stdout.trim(), '2');
-  for (const imageName of [`${project}-api:local`, `${project}-admin:local`, `${project}-store:local`]) {
+  const expectedMigrations = readdirSync(path.join(root, 'apps/api/prisma/migrations'), { withFileTypes: true }).filter(entry => entry.isDirectory()).length;
+  assert.equal(migrationCount.stdout.trim(), String(expectedMigrations));
+  for (const imageName of [`${imagePrefix}-api:local`, `${imagePrefix}-admin:local`, `${imagePrefix}-store:local`]) {
     const imageEnv = run(['image', 'inspect', '--format', '{{json .Config.Env}}', imageName], '检查镜像配置未固化秘密').stdout;
     assert.ok(!secrets.some(value => imageEnv.includes(value)));
   }
@@ -226,7 +245,7 @@ try {
   const logs = compose(['logs', '--no-color', 'api'], '读取脱敏日志').text;
   assert.ok(!secrets.some(value => logs.includes(value)), 'API日志不包含密码、密钥、连接串或token');
   await writeFile(path.join(output, 'runtime.log'), redact(logs));
-  passed('两条迁移、非root运行、镜像/前端产物/运行日志秘密扫描');
+  passed(`${expectedMigrations}条迁移、非root运行、镜像/前端产物/运行日志秘密扫描`);
 } catch (error) {
   failure = redact(error instanceof Error ? error.stack : String(error)); console.error(failure);
 } finally {
@@ -248,7 +267,7 @@ try {
     }
     originalResourcesPreserved = true;
   } catch (error) { failure = failure ?? redact(error instanceof Error ? error.stack : String(error)); }
-  const report = { timestamp: new Date().toISOString(), status: failure ? 'failed' : 'passed', project,
+  const report = { timestamp: new Date().toISOString(), status: failure ? 'failed' : 'passed', project, imagePrefix,
     ports: { api: apiPort, admin: adminPort, store: storePort, database: dbPort }, checks, requests, commands, pageErrors,
     cleaned, originalResourcesPreserved, ...(failure ? { failure } : {}) };
   await writeFile(path.join(output, 'result.json'), JSON.stringify(report, null, 2) + '\n');

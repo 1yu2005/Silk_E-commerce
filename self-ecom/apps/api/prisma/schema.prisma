@@ -1,3 +1,4 @@
+// 作用：定义账号权限、审计及文件、沟通和状态历史的数据模型；补充数据库约束随迁移交付。
 generator client {
   provider = "prisma-client-js"
 }
@@ -53,6 +54,10 @@ model Employee {
   extraPermissions   EmployeeExtraPermission[] @relation("PermissionOwner")
   grantedPermissions EmployeeExtraPermission[] @relation("PermissionGrantor")
   audits             AuditLog[]
+  uploadedFiles      FileAsset[]               @relation("EmployeeFileUploader")
+  fileReferences     FileReference[]           @relation("EmployeeFileCreator")
+  communications     Communication[]
+  stateHistory       BusinessStateHistory[]    @relation("EmployeeStateActor")
 
   @@index([status, role])
   @@index([createdAt, id])
@@ -60,19 +65,25 @@ model Employee {
 }
 
 model Customer {
-  id           String         @id @default(uuid()) @db.Uuid
-  phone        String         @unique @db.VarChar(11)
-  passwordHash String         @map("password_hash")
-  nickname     String         @db.VarChar(40)
-  status       CustomerStatus @default(NORMAL)
-  tokenVersion Int            @default(0) @map("token_version")
-  lastLoginAt  DateTime?      @map("last_login_at") @db.Timestamptz(3)
-  createdAt    DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt    DateTime       @updatedAt @map("updated_at") @db.Timestamptz(3)
-  sessions     AuthSession[]
-  audits       AuditLog[]
+  id             String                 @id @default(uuid()) @db.Uuid
+  phone          String                 @unique @db.VarChar(11)
+  passwordHash   String                 @map("password_hash")
+  nickname       String                 @db.VarChar(40)
+  status         CustomerStatus         @default(NORMAL)
+  tokenVersion   Int                    @default(0) @map("token_version")
+  lastLoginAt    DateTime?              @map("last_login_at") @db.Timestamptz(3)
+  createdAt      DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt      DateTime               @updatedAt @map("updated_at") @db.Timestamptz(3)
+  sessions       AuthSession[]
+  audits         AuditLog[]
+  avatarAssetId  String?                @map("avatar_asset_id") @db.Uuid
+  avatarAsset    FileAsset?             @relation("CurrentCustomerAvatar", fields: [avatarAssetId], references: [id], onDelete: Restrict)
+  uploadedFiles  FileAsset[]            @relation("CustomerFileUploader")
+  fileReferences FileReference[]        @relation("CustomerFileCreator")
+  stateHistory   BusinessStateHistory[] @relation("CustomerStateActor")
 
   @@index([status, createdAt, id])
+  @@index([avatarAssetId])
   @@map("customer")
 }
 
@@ -160,4 +171,170 @@ model SystemGuard {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
 
   @@map("system_guard")
+}
+
+// 文件用途、生命周期和引用范围均由服务端控制，不接受客户端任意改写。
+enum FilePurpose {
+  CUSTOMER_AVATAR
+  PRODUCT_IMAGE
+  AFTER_SALE_EVIDENCE
+  INVENTORY_EVIDENCE
+  FULFILLMENT_EVIDENCE
+  INSPECTION_EVIDENCE
+  COMMUNICATION_EVIDENCE
+}
+
+enum FileAssetState {
+  STAGED
+  RETAINED
+  PURGE_PENDING
+  PURGED
+}
+
+enum FileVisibility {
+  PRIVATE
+  PUBLIC
+}
+
+enum FileOwnerType {
+  CUSTOMER_AVATAR
+  PRODUCT
+  AFTER_SALE_MATERIAL
+  INVENTORY_ADJUSTMENT
+  INVENTORY_SOURCE
+  FULFILLMENT_CHECK
+  RETURN_RECEIPT
+  RETURN_INSPECTION
+  COMMUNICATION
+  OFFLINE_CASE
+}
+
+enum FileAudience {
+  PUBLIC
+  CUSTOMER_VISIBLE
+  INTERNAL
+}
+
+enum CommunicationScopeType {
+  ORDER
+  AFTER_SALE
+}
+
+enum CommunicationChannel {
+  PHONE
+  EXTERNAL_MESSAGE
+  IN_PERSON
+  OTHER
+}
+
+enum BusinessAggregateType {
+  ORDER
+  FULFILLMENT
+  AFTER_SALE
+}
+
+// 只保存受控存储的元数据；真实图片解码、路径检查和用途授权由文件服务负责。
+model FileAsset {
+  id                 String          @id @default(uuid()) @db.Uuid
+  uploaderType       SubjectType     @map("uploader_type")
+  uploaderEmployeeId String?         @map("uploader_employee_id") @db.Uuid
+  uploaderCustomerId String?         @map("uploader_customer_id") @db.Uuid
+  purpose            FilePurpose
+  state              FileAssetState  @default(STAGED)
+  visibility         FileVisibility  @default(PRIVATE)
+  storageKey         String          @unique @map("storage_key") @db.VarChar(255)
+  originalName       String          @map("original_name") @db.VarChar(200)
+  mimeType           String          @map("mime_type") @db.VarChar(32)
+  byteSize           Int             @map("byte_size")
+  width              Int
+  height             Int
+  sha256             String          @db.Char(64)
+  expiresAt          DateTime?       @map("expires_at") @db.Timestamptz(3)
+  createdAt          DateTime        @default(now()) @map("created_at") @db.Timestamptz(3)
+  purgeStartedAt     DateTime?       @map("purge_started_at") @db.Timestamptz(3)
+  purgedAt           DateTime?       @map("purged_at") @db.Timestamptz(3)
+  version            Int             @default(0)
+  uploaderEmployee   Employee?       @relation("EmployeeFileUploader", fields: [uploaderEmployeeId], references: [id], onDelete: Restrict)
+  uploaderCustomer   Customer?       @relation("CustomerFileUploader", fields: [uploaderCustomerId], references: [id], onDelete: Restrict)
+  references         FileReference[]
+  currentAvatars     Customer[]      @relation("CurrentCustomerAvatar")
+
+  @@index([state, expiresAt, id])
+  @@index([uploaderCustomerId, state])
+  @@index([uploaderEmployeeId, state])
+  @@map("file_asset")
+}
+
+// ownerId是白名单业务类型的逻辑关联；绑定服务仍须在同事务验证真实业务及权限。
+model FileReference {
+  id                  String        @id @default(uuid()) @db.Uuid
+  fileAssetId         String        @map("file_asset_id") @db.Uuid
+  ownerType           FileOwnerType @map("owner_type")
+  ownerId             String        @map("owner_id") @db.Uuid
+  slot                String        @db.VarChar(50)
+  audience            FileAudience
+  createdByType       SubjectType   @map("created_by_type")
+  createdByEmployeeId String?       @map("created_by_employee_id") @db.Uuid
+  createdByCustomerId String?       @map("created_by_customer_id") @db.Uuid
+  createdAt           DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  fileAsset           FileAsset     @relation(fields: [fileAssetId], references: [id], onDelete: Restrict)
+  createdByEmployee   Employee?     @relation("EmployeeFileCreator", fields: [createdByEmployeeId], references: [id], onDelete: Restrict)
+  createdByCustomer   Customer?     @relation("CustomerFileCreator", fields: [createdByCustomerId], references: [id], onDelete: Restrict)
+
+  @@unique([fileAssetId, ownerType, ownerId, slot], map: "file_reference_asset_owner_slot_key")
+  @@index([ownerType, ownerId])
+  @@index([createdByEmployeeId])
+  @@index([createdByCustomerId])
+  @@map("file_reference")
+}
+
+// 沟通只追加；更正引用旧记录，公开说明与内部结果分开，业务模块建立前不开HTTP入口。
+model Communication {
+  id               String                 @id @default(uuid()) @db.Uuid
+  scopeType        CommunicationScopeType @map("scope_type")
+  scopeId          String                 @map("scope_id") @db.Uuid
+  authorEmployeeId String                 @map("author_employee_id") @db.Uuid
+  channel          CommunicationChannel
+  occurredAt       DateTime               @map("occurred_at") @db.Timestamptz(3)
+  result           String
+  nextStep         String?                @map("next_step") @db.VarChar(1000)
+  publicText       String?                @map("public_text") @db.VarChar(2000)
+  correctsId       String?                @map("corrects_id") @db.Uuid
+  correctionReason String?                @map("correction_reason") @db.VarChar(500)
+  requestId        String                 @map("request_id") @db.VarChar(64)
+  createdAt        DateTime               @default(now()) @map("created_at") @db.Timestamptz(3)
+  authorEmployee   Employee               @relation(fields: [authorEmployeeId], references: [id], onDelete: Restrict)
+  corrects         Communication?         @relation("CommunicationCorrection", fields: [correctsId], references: [id], onDelete: Restrict)
+  corrections      Communication[]        @relation("CommunicationCorrection")
+
+  @@index([scopeType, scopeId, createdAt, id])
+  @@index([authorEmployeeId, createdAt])
+  @@index([correctsId])
+  @@map("communication")
+}
+
+// 不同状态维度分别追加历史；动作键去重不替代领域状态机、库存流水或支付事实。
+model BusinessStateHistory {
+  id              String                @id @default(uuid()) @db.Uuid
+  aggregateType   BusinessAggregateType @map("aggregate_type")
+  aggregateId     String                @map("aggregate_id") @db.Uuid
+  dimension       String                @db.VarChar(50)
+  commandKey      String                @map("command_key") @db.VarChar(150)
+  fromState       String?               @map("from_state") @db.VarChar(80)
+  toState         String                @map("to_state") @db.VarChar(80)
+  actorType       AuditActorType        @map("actor_type")
+  actorEmployeeId String?               @map("actor_employee_id") @db.Uuid
+  actorCustomerId String?               @map("actor_customer_id") @db.Uuid
+  reason          String?               @db.VarChar(500)
+  publicText      String?               @map("public_text") @db.VarChar(2000)
+  requestId       String                @map("request_id") @db.VarChar(64)
+  createdAt       DateTime              @default(now()) @map("created_at") @db.Timestamptz(3)
+  actorEmployee   Employee?             @relation("EmployeeStateActor", fields: [actorEmployeeId], references: [id], onDelete: Restrict)
+  actorCustomer   Customer?             @relation("CustomerStateActor", fields: [actorCustomerId], references: [id], onDelete: Restrict)
+
+  @@unique([aggregateType, aggregateId, dimension, commandKey], map: "business_state_history_command_key")
+  @@index([aggregateType, aggregateId, createdAt, id], map: "business_state_history_aggregate_time_idx")
+  @@index([actorEmployeeId])
+  @@index([actorCustomerId])
+  @@map("business_state_history")
 }

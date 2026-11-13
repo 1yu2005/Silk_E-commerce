@@ -1,0 +1,21 @@
+/** 文件作用：供生成调用器复用原Axios认证传输，只接收契约参数，禁止覆盖baseURL、认证头或方法。 */
+import type { AxiosInstance } from 'axios';
+import { ApiClientError } from './api-error.js';
+interface Descriptor { method: string; path: string; pathParameters: { name: string; format?: string }[]; queryKeys: string[] }
+interface Input { path?: object; query?: object; body?: unknown; signal?: AbortSignal }
+export async function requestJson<T>(api: AxiosInstance, descriptor: Descriptor, input: Input): Promise<T> {
+  let url = descriptor.path;
+  const params = input.path as Record<string, unknown> | undefined;
+  for (const parameter of descriptor.pathParameters) {
+    const value = params?.[parameter.name];
+    if (typeof value !== 'string' || !value || /[\\/?#%]/.test(value)
+      || parameter.format === 'uuid' && !/^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(value)) {
+      throw new ApiClientError('CLIENT_REQUEST_TARGET_INVALID', '请求路径参数不合法');
+    }
+    url = url.replace(`{${parameter.name}}`, encodeURIComponent(parameter.format === 'uuid' ? value.toLowerCase() : value));
+  }
+  const query = input.query as Record<string, unknown> | undefined;
+  const response = await api.request<T>({ method: descriptor.method, url, data: input.body, signal: input.signal,
+    params: query ? Object.fromEntries(descriptor.queryKeys.filter(key => query[key] !== undefined).map(key => [key, query[key]])) : undefined });
+  return response.data;
+}

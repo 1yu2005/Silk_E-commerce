@@ -2,17 +2,18 @@
 import { Transform } from 'class-transformer';
 import { IsInt, Max, Min } from 'class-validator';
 import { strictInteger } from './dto-transforms.js';
+import { PAGINATION } from '@shop/shared';
 
 export class PaginationDto {
   @Transform(({ value }: { value: unknown }) => strictInteger(value))
   @IsInt()
   @Min(1)
   @Max(Number.MAX_SAFE_INTEGER)
-  page = 1;
+  page = PAGINATION.page;
 
   @Transform(({ value }: { value: unknown }) => strictInteger(value))
   @IsInt()
   @Min(1)
-  @Max(100)
-  pageSize = 20;
+  @Max(PAGINATION.maxPageSize)
+  pageSize = PAGINATION.pageSize;
 }

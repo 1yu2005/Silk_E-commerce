@@ -1,0 +1,264 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/files.integration.ts (27 tests | 12 failed) 1124ms
+   × 上传返回安全元数据、最小审计，STAGED私有且二进制不被JSON包装 65ms
+   × 匿名、其他顾客及随机ID元数据/内容统一404 21ms
+   × HTTP拒绝large并清理临时文件 34ms
+   × 绑定本人后才匿名公开，重复绑定不重复引用；无通用绑定HTTP路由 30ms
+   × 绑定拒绝他人图片、错误用途、过期及未知业务 30ms
+   × 审计故障回滚上传元数据及审计，并补偿最终磁盘文件 38ms
+   × 有权但磁盘丢失503，无权仍404 25ms
+   × 清理只处理过期无引用文件，磁盘失败保留PURGE_PENDING且可重试 29ms
+   × 两个并发上传竞争最后一个配额，数据库主体锁保证只有一个201 33ms
+   × 每主体限流返回Retry-After，另一主体仍可上传 24ms
+   × 沟通附件与记录/审计同事务，公开投影只含顾客可见附件，绑定后不凭上传人放行 22ms
+   × 沟通附件审计失败后记录、引用与文件状态全部回滚 23ms
+
+ Test Files  1 failed | 2 passed (3)
+      Tests  12 failed | 86 passed (98)
+   Start at  11:34:08
+   Duration  7.65s (tests 51%, import 41%, transform 7%)
+
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/files.integration.ts > 上传返回安全元数据、最小审计，STAGED私有且二进制不被JSON包装
+AssertionError: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ test/files.integration.ts:104:70
+    102|
+    103| it('上传返回安全元数据、最小审计，STAGED私有且二进制不被JSON包装', async () => {
+    104|   const { response, json } = await upload(); expect(response.status).t…
+       |                                                                      ^
+    105|   expect(data).toMatchObject({ state: 'STAGED', visibility: 'PRIVATE',…
+    106|   for (const field of ['storageKey', 'sha256', 'uploaderCustomerId', '…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  test/files.integration.ts > 匿名、其他顾客及随机ID元数据/内容统一404
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"0d002f7a-b4be-4f18-b4eb-62b4ed1bab7e"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:118:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+ FAIL  test/files.integration.ts > HTTP拒绝large并清理临时文件
+AssertionError: expected 400 to be 413 // Object.is equality
+
+- Expected
++ Received
+
+- 413
++ 400
+
+ ❯ test/files.integration.ts:150:34
+    148|   ['large', Buffer.alloc(5242881), 413]] as const)('HTTP拒绝%s并清理临时文件', …
+    149|   const before = await prisma.fileAsset.count(); const result = await …
+    150|   expect(result.response.status).toBe(status); expect(await prisma.fil…
+       |                                  ^
+    151|   expect(await readdir(join(directory, 'tmp'))).toEqual([]);
+    152| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/12]⎯
+
+ FAIL  test/files.integration.ts > 绑定本人后才匿名公开，重复绑定不重复引用；无通用绑定HTTP路由
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"8addec46-df8f-4424-b87d-3da449100ad0"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:154:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/12]⎯
+
+ FAIL  test/files.integration.ts > 绑定拒绝他人图片、错误用途、过期及未知业务
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"5d169b37-2336-449e-b216-41019b38efb5"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:161:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/12]⎯
+
+ FAIL  test/files.integration.ts > 审计故障回滚上传元数据及审计，并补偿最终磁盘文件
+AssertionError: expected 400 to be 500 // Object.is equality
+
+- Expected
++ Received
+
+- 500
++ 400
+
+ ❯ test/files.integration.ts:170:50
+    168|   const before = await prisma.fileAsset.count(); const objects = await…
+    169|   const spy = vi.spyOn(app.get(AuditService), 'appendAudit').mockImple…
+    170|   try { expect((await upload()).response.status).toBe(500); } finally …
+       |                                                  ^
+    171|   expect(await prisma.fileAsset.count()).toBe(before); expect(await re…
+    172| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/12]⎯
+
+ FAIL  test/files.integration.ts > 有权但磁盘丢失503，无权仍404
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"79ef78ea-f218-417e-9d6c-f6124bf79ab6"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:174:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/12]⎯
+
+ FAIL  test/files.integration.ts > 清理只处理过期无引用文件，磁盘失败保留PURGE_PENDING且可重试
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"e54679f9-12a8-413c-998a-fe9794b67344"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:179:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/12]⎯
+
+ FAIL  test/files.integration.ts > 两个并发上传竞争最后一个配额，数据库主体锁保证只有一个201
+AssertionError: expected [ 400, 400 ] to deeply equal [ 201, 429 ]
+
+- Expected
++ Received
+
+  [
+-   201,
+-   429,
++   400,
++   400,
+  ]
+
+ ❯ test/files.integration.ts:189:131
+    187| it('两个并发上传竞争最后一个配额，数据库主体锁保证只有一个201', async () => {
+    188|   const account = await actor('CUSTOMER'); config.stagedQuota = 1;
+    189|   try { const results = await Promise.all([upload(account), upload(acc…
+       |                                                                                                                                   ^
+    190|   finally { config.stagedQuota = 100; }
+    191|   expect(await prisma.fileAsset.count({ where: { uploaderCustomerId: a…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/12]⎯
+
+ FAIL  test/files.integration.ts > 每主体限流返回Retry-After，另一主体仍可上传
+AssertionError: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ test/files.integration.ts:195:57
+    193| it('每主体限流返回Retry-After，另一主体仍可上传', async () => {
+    194|   const account = await actor('CUSTOMER'); config.uploadsPerMinute = 1;
+    195|   try { expect((await upload(account)).response.status).toBe(201); con…
+       |                                                         ^
+    196|     expect(denied.response.status).toBe(429); expect(Number(denied.res…
+    197|     expect((await upload(await actor('CUSTOMER'))).response.status).to…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/12]⎯
+
+ FAIL  test/files.integration.ts > 沟通附件与记录/审计同事务，公开投影只含顾客可见附件，绑定后不凭上传人放行
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"191225c4-6bed-4004-8d72-c5196a8f5ba6"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:201:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/12]⎯
+
+ FAIL  test/files.integration.ts > 沟通附件审计失败后记录、引用与文件状态全部回滚
+AssertionError: {"code":"FILE_INVALID_UPLOAD","message":"请先提交purpose，再提交一个非空file，不得包含其它字段","requestId":"a512f76e-0d48-4cb4-82fc-a421f3735e4b"}: expected 400 to be 201 // Object.is equality
+
+- Expected
++ Received
+
+- 201
++ 400
+
+ ❯ created test/files.integration.ts:90:115
+     88| }
+     89| async function created(access = customer, purpose: FilePurpose = 'CUST…
+     90|   const result = await upload(access, form(purpose)); expect(result.re…
+       |                                                                                                                   ^
+     91| }
+     92| function get(id: string, access?: FileAccess, suffix = '/content') {
+ ❯ test/files.integration.ts:213:14
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/12]⎯
+

@@ -1,0 +1,134 @@
+{
+  "recordedAt": "2026-11-13T03:03:27.072Z",
+  "protectedFiles": {
+    ".env": {
+      "unchanged": true
+    },
+    "apps/api/package.json": {
+      "unchanged": true
+    },
+    "pnpm-lock.yaml": {
+      "unchanged": true
+    },
+    "apps/api/prisma/schema.prisma": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0001_bootstrap/migration.sql": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql": {
+      "unchanged": true
+    },
+    "apps/api/prisma/migrations/0003_files_communication_history/migration.sql": {
+      "unchanged": true
+    },
+    "docs/openapi/openapi.json": {
+      "unchanged": true
+    }
+  },
+  "tables": {
+    "_prisma_migrations": {
+      "beforeRows": 3,
+      "rows": 3,
+      "sha256": "f74716184ca64bd7fb9bfccf3331d060a698016ce0c95d2fd57c89ddbd5566ad",
+      "unchanged": true
+    },
+    "employee": {
+      "beforeRows": 2,
+      "rows": 2,
+      "sha256": "d3d27948e7ac66079e993c7c90bb528d6f8897a8b8a186d2c0d8007a805a09da",
+      "unchanged": false
+    },
+    "customer": {
+      "beforeRows": 2,
+      "rows": 2,
+      "sha256": "216c3ac3a20aa59d9ba4af249e241220a97603217eded0477348810ba7267694",
+      "unchanged": false
+    },
+    "auth_session": {
+      "beforeRows": 13,
+      "rows": 16,
+      "sha256": "0314b8e3ab0e016d2667d4307207d171590e194135a5a324abb0024b802382aa",
+      "unchanged": false
+    },
+    "permission_definition": {
+      "beforeRows": 52,
+      "rows": 52,
+      "sha256": "eb0375d7c0b7299ecdb2a774a3f701412bd9938176dd66a008901666cf754b69",
+      "unchanged": true
+    },
+    "role_permission": {
+      "beforeRows": 89,
+      "rows": 89,
+      "sha256": "7dc8c82344089887ae5313a657223c2e3fe40ea706b605f63479c2115e74714f",
+      "unchanged": true
+    },
+    "employee_extra_permission": {
+      "beforeRows": 0,
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "unchanged": true
+    },
+    "audit_log": {
+      "beforeRows": 14,
+      "rows": 14,
+      "sha256": "9258022d65011bbd12dc81a75014ce1ff922b6c4e7b6abb7969baa277267822a",
+      "unchanged": true
+    },
+    "system_guard": {
+      "beforeRows": 1,
+      "rows": 1,
+      "sha256": "57d97b8d87f37d52360841ef920ab9756b17a71000f79c9ec53aa9723b4e33b0",
+      "unchanged": true
+    },
+    "file_asset": {
+      "beforeRows": 0,
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "unchanged": true
+    },
+    "file_reference": {
+      "beforeRows": 0,
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "unchanged": true
+    },
+    "communication": {
+      "beforeRows": 0,
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "unchanged": true
+    },
+    "business_state_history": {
+      "beforeRows": 0,
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "unchanged": true
+    }
+  },
+  "migrations": [
+    {
+      "migration_name": "0001_bootstrap",
+      "checksum": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3"
+    },
+    {
+      "migration_name": "0002_auth_employee_permission_audit",
+      "checksum": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a"
+    },
+    {
+      "migration_name": "0003_files_communication_history",
+      "checksum": "bae9e336b648ed6dac9c6ca4bb17024ec1268fe4a3d002a0c1d45bb2ec5d1978"
+    }
+  ],
+  "changedTables": [
+    "employee",
+    "customer",
+    "auth_session"
+  ],
+  "knownNormalActivity": "已使用用户提供的两个顾客及Iris账号执行3次真实登录，保留登录时间和新增会话；不声称开发库全表摘要不变。",
+  "otherTableSnapshotsUnchanged": true,
+  "accountRowCountsUnchanged": true,
+  "sessionRowIncrease": 3,
+  "allProtectedFilesUnchanged": true,
+  "migrationChecksumsMatchSource": true
+}

@@ -7,6 +7,7 @@ import { useCustomerAuth } from '../auth/use-customer-auth';
 import { AuthError } from '../auth/AuthError';
 import { nicknameIssue } from '../auth/form-rules';
 import { customerAuth } from '../services/api';
+import { AvatarEditor } from './AvatarEditor';
 
 function NicknameEditor({ nickname, onClose }: { nickname: string; onClose: () => void }) {
   const [submitting, setSubmitting] = useState(false);
@@ -35,7 +36,7 @@ export function AccountPage() {
   const { customer } = useCustomerAuth();
   const [editing, setEditing] = useState(false);
   if (!customer) return null;
-  return <section className="account-panel"><h1>我的账号</h1><p className="muted">头像暂未设置</p>
+  return <section className="account-panel"><h1>我的账号</h1><AvatarEditor avatarUrl={customer.avatarUrl} />
     <Descriptions bordered column={1} items={[
       { key: 'phone', label: '手机号', children: customer.phone },
       { key: 'nickname', label: '昵称', children: customer.nickname },

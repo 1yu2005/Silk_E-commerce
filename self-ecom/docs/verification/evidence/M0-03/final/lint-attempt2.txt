@@ -1,0 +1,32 @@
+
+   • turbo 2.11.10
+   • Packages in scope: @shop/admin-web, @shop/api, @shop/api-client, @shop/config, @shop/contract-tools, @shop/shared, @shop/store-web, @shop/ui
+   • Running lint in 8 packages
+   • Remote caching disabled
+
+@shop/shared:lint: cache miss, executing a56187079ec79574
+@shop/shared:build: cache miss, executing b03cb2de00d8a494
+@shop/config:lint: cache miss, executing 308abea493356d92
+@shop/shared:lint: $ eslint src test
+@shop/shared:build: $ tsc -p tsconfig.json
+@shop/config:lint: $ eslint .
+@shop/api:lint: cache miss, executing f9b1fac228c44f54
+@shop/api-client:build: cache miss, executing 387fac6c2b4b7239
+@shop/api-client:lint: cache miss, executing a969fcfbf2df1e31
+@shop/api:lint: $ eslint src test scripts prisma.config.ts
+@shop/api-client:build: $ tsc -p tsconfig.json
+@shop/api-client:lint: $ eslint src test
+@shop/ui:lint: cache miss, executing db634a9b8fe04623
+@shop/ui:build: cache miss, executing 72ba89931925d548
+@shop/ui:lint: $ eslint src
+@shop/ui:build: $ tsc -p tsconfig.json
+@shop/admin-web:lint: cache miss, executing 3266626c21e42459
+@shop/store-web:lint: cache miss, executing cec4a7992a903f41
+@shop/admin-web:lint: $ eslint src test vite.config.ts
+@shop/store-web:lint: $ eslint src test vite.config.ts
+
+ Tasks:    10 successful, 10 total
+Cached:    0 cached, 10 total
+  Time:    15.373s 
+
+$ turbo run lint

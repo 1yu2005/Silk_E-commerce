@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-11-13T04:38:08.523Z",
+  "results": [
+    {
+      "name": "drift",
+      "exitCode": 0
+    },
+    {
+      "name": "generated-check",
+      "exitCode": 0
+    },
+    {
+      "name": "lint-final",
+      "exitCode": 0
+    }
+  ],
+  "workflowYamlParsed": true,
+  "githubRunExecuted": false,
+  "protection": [
+    {
+      "path": ".env",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/schema.prisma",
+      "unchanged": true
+    },
+    {
+      "path": "apps/api/prisma/migrations/0003_files_communication_history/migration.sql",
+      "unchanged": true
+    }
+  ],
+  "legacyMigrationsUnchangedFromHead": true,
+  "fixturesWithKnownMarkersRemaining": {
+    "customers": 0,
+    "employees": 0
+  },
+  "browserFixtureCleaned": true,
+  "secretMatches": [],
+  "developmentDatabaseWritten": false
+}

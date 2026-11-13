@@ -5,7 +5,7 @@ type Schema = NonNullable<NonNullable<OpenAPIObject['components']>['schemas']>[s
 export const customerSummarySchema: Schema = { type: 'object', additionalProperties: false,
   required: ['id', 'phone', 'nickname', 'avatarUrl', 'status', 'createdAt'], properties: {
     id: { type: 'string', format: 'uuid' }, phone: { type: 'string' }, nickname: { type: 'string' },
-    avatarUrl: { type: 'string', nullable: true, enum: [null], description: '本板块固定null，文件头像在板块3接入' },
+    avatarUrl: { type: 'string', nullable: true, description: '无头像时null；否则为/api/v1/files/{id}/content受控公开图片地址' },
     status: { type: 'string', enum: ['NORMAL', 'TRADE_RESTRICTED'] }, createdAt: { type: 'string', format: 'date-time' },
   } };
 export const customerLoginBodySchema: Schema = { type: 'object', additionalProperties: false, required: ['phone', 'password'], properties: {

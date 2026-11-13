@@ -1,4 +1,4 @@
-// 作用：组装工程基础模块及板块2的认证、员工管理、权限目录和审计依赖。
+// 作用：组装工程基础、认证员工权限及公共记录模块，未接入业务的记录端口不开放HTTP路由。
 import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module.js';
 import { ConfigModule } from './config/config.module.js';
@@ -19,10 +19,12 @@ import { EmployeeRoleModule } from './employees/employee-role.module.js';
 import { EmployeeExtraPermissionModule } from './employees/employee-extra-permission.module.js';
 import { CustomerRegisterModule } from './auth/customer-register.module.js';
 import { CustomerAuthModule } from './auth/customer-auth.module.js';
+import { RecordsModule } from './records/records.module.js';
+import { FilesModule } from './files/files.module.js';
 
 @Module({ imports: [ConfigModule, LoggerModule.forRootAsync({
   imports: [ConfigModule],
   inject: [APP_CONFIG],
   useFactory: (config: EnvironmentConfig) => ({ pinoHttp: httpLogOptions(config) }),
-}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule] })
+}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule] })
 export class AppModule {}

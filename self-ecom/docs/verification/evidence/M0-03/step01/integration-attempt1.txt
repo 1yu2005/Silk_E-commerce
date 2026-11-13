@@ -1,0 +1,647 @@
+独立测试库已就绪，未重置或清理任何数据库
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "shop_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0003_files_communication_history`
+
+┌─────────────────────────────────────────────────────────┐
+│  Update available 7.10.1 -> 8.0.0-rc.33                 │
+│                                                         │
+│  This is a major update - please follow the guide at    │
+│  https://pris.ly/d/major-version-upgrade                │
+│                                                         │
+│  Run the following to update                            │
+│    npm i --save-dev prisma@latest                       │
+│    npm i @prisma/client@latest                          │
+└─────────────────────────────────────────────────────────┘
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "admin_seed_62b525de98834de79398c8b1632e36d2_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "employee_status_1dc40f2ab71d4f308dd89bc2d981128e_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "employee_role_ef747f53f2e34ca3b8e7cbd46953198c_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ ❯ test/files-schema.integration.ts (75 tests | 75 failed) 192ms
+   × 合法image/jpeg和5MiB、4000万像素边界可保存 9ms
+   × 合法image/png和5MiB、4000万像素边界可保存 2ms
+   × 合法image/webp和5MiB、4000万像素边界可保存 2ms
+   × 无上传人由文件CHECK拒绝 2ms
+   × 上传类型与主体不匹配由文件CHECK拒绝 2ms
+   × STAGED缺到期时间由文件CHECK拒绝 2ms
+   × STAGED提前公开由文件CHECK拒绝 2ms
+   × RETAINED保留到期时间由文件CHECK拒绝 2ms
+   × STAGED含清理标记由文件CHECK拒绝 2ms
+   × 清理中缺开始时间由文件CHECK拒绝 3ms
+   × 未到期便开始清理由文件CHECK拒绝 2ms
+   × 已清理缺完成时间由文件CHECK拒绝 2ms
+   × 清理完成早于开始由文件CHECK拒绝 2ms
+   × 到期不晚于创建由文件CHECK拒绝 2ms
+   × 零字节由文件CHECK拒绝 2ms
+   × 负字节由文件CHECK拒绝 2ms
+   × 超过5MiB由文件CHECK拒绝 2ms
+   × 零宽度由文件CHECK拒绝 2ms
+   × 负高度由文件CHECK拒绝 2ms
+   × 宽度超10000由文件CHECK拒绝 2ms
+   × 高度超10000由文件CHECK拒绝 2ms
+   × 像素乘积超限由文件CHECK拒绝 2ms
+   × 大整数尺寸不溢出由文件CHECK拒绝 2ms
+   × 不允许的MIME由文件CHECK拒绝 2ms
+   × 非法摘要由文件CHECK拒绝 2ms
+   × 空存储键由文件CHECK拒绝 2ms
+   × 负版本由文件CHECK拒绝 2ms
+   × 双上传主体被拒绝，员工与顾客上传人均有真实外键 2ms
+   × CUSTOMER上传人不存在时外键拒绝 2ms
+   × EMPLOYEE上传人不存在时外键拒绝 2ms
+   × AFTER_SALE_EVIDENCE不能变为公开文件 2ms
+   × INVENTORY_EVIDENCE不能变为公开文件 2ms
+   × FULFILLMENT_EVIDENCE不能变为公开文件 2ms
+   × INSPECTION_EVIDENCE不能变为公开文件 2ms
+   × COMMUNICATION_EVIDENCE不能变为公开文件 2ms
+   × CUSTOMER_AVATAR已保留图允许公开元数据状态 2ms
+   × PRODUCT_IMAGE已保留图允许公开元数据状态 2ms
+   × PURGE_PENDING合法清理时间可以保存 2ms
+   × PURGED合法清理时间可以保存 2ms
+   × 存储键唯一，摘要不唯一，不跨用户自动合并图片 2ms
+   × 未知用途和未知owner类型不能入库 3ms
+   × 缺绑定人由引用CHECK拒绝 3ms
+   × 绑定人类型不符由引用CHECK拒绝 2ms
+   × 空槽位由引用CHECK拒绝 2ms
+   × 私有业务标为公开引用由引用CHECK拒绝 2ms
+   × 绑定人双主体被拒绝 2ms
+   × 引用的file_asset_id不存在时外键拒绝 2ms
+   × 引用的created_by_customer_id不存在时外键拒绝 3ms
+   × 相同文件、业务和槽位唯一，历史引用阻止删除文件 3ms
+   × 头像初始为空、外键拒绝不存在文件并保护当前文件 3ms
+   × 到仓与验收有独立owner类型，员工上传人与绑定人外键可用 2ms
+   × 空内部结果由沟通CHECK拒绝 2ms
+   × 内部结果超4000字符由沟通CHECK拒绝 3ms
+   × 没有更正对象却填原因由沟通CHECK拒绝 2ms
+   × 有更正对象却缺原因由沟通CHECK拒绝 2ms
+   × 有更正对象但原因空白由沟通CHECK拒绝 2ms
+   × 沟通时间超过录入后5分钟由沟通CHECK拒绝 2ms
+   × 空requestId由沟通CHECK拒绝 2ms
+   × 更正对象不能指向自身 2ms
+   × 沟通的author_employee_id必须真实存在 2ms
+   × 沟通的corrects_id必须真实存在 2ms
+   × 公开与内部说明独立，边界内容及追加更正可保存，旧记录禁止级联删除 2ms
+   × 员工历史缺主体由历史CHECK拒绝 2ms
+   × 顾客历史缺主体由历史CHECK拒绝 2ms
+   × 空维度由历史CHECK拒绝 2ms
+   × 空命令键由历史CHECK拒绝 2ms
+   × 空目标状态由历史CHECK拒绝 2ms
+   × 非空来源状态为空白由历史CHECK拒绝 2ms
+   × 历史缺追踪号由历史CHECK拒绝 2ms
+   × SYSTEM历史主体可保存，错误组合拒绝 2ms
+   × EMPLOYEE历史主体可保存，错误组合拒绝 2ms
+   × CUSTOMER历史主体可保存，错误组合拒绝 2ms
+   × EMPLOYEE历史主体外键拒绝不存在账号 2ms
+   × CUSTOMER历史主体外键拒绝不存在账号 2ms
+   × 同业务同维度命令键唯一，不同业务或维度可以独立记历史 2ms
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-m003-migrations-ZtuiUh\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_1753cbdd29414943bd40e91f1e23fe35_test", schema "public" at "localhost:15432"
+
+2 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_ba8bdc3824cb4654b24c76b05a9efa97_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_1753cbdd29414943bd40e91f1e23fe35_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_1753cbdd29414943bd40e91f1e23fe35_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+{"level":30,"time":1794534716876,"pid":44612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6a369269-376f-4e66-a2bb-5614cf521969","res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+{"level":30,"time":1794534716888,"pid":44612,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"f4911fd7-09a5-48a9-bfc2-7c4b7aec948d","res":{"statusCode":200},"responseTime":3,"msg":"request completed"}
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 75 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/files-schema.integration.ts > 合法image/jpeg和5MiB、4000万像素边界可保存
+ FAIL  test/files-schema.integration.ts > 合法image/png和5MiB、4000万像素边界可保存
+ FAIL  test/files-schema.integration.ts > 合法image/webp和5MiB、4000万像素边界可保存
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:54:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 无上传人由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 上传类型与主体不匹配由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > STAGED缺到期时间由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > STAGED提前公开由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > RETAINED保留到期时间由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > STAGED含清理标记由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 清理中缺开始时间由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 未到期便开始清理由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 已清理缺完成时间由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 清理完成早于开始由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 到期不晚于创建由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 零字节由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 负字节由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 超过5MiB由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 零宽度由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 负高度由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 宽度超10000由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 高度超10000由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 像素乘积超限由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 大整数尺寸不溢出由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 不允许的MIME由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 非法摘要由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 空存储键由文件CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 负版本由文件CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:89:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 双上传主体被拒绝，员工与顾客上传人均有真实外键
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:95:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/75]⎯
+
+ FAIL  test/files-schema.integration.ts > CUSTOMER上传人不存在时外键拒绝
+ FAIL  test/files-schema.integration.ts > EMPLOYEE上传人不存在时外键拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:101:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/75]⎯
+
+ FAIL  test/files-schema.integration.ts > AFTER_SALE_EVIDENCE不能变为公开文件
+ FAIL  test/files-schema.integration.ts > INVENTORY_EVIDENCE不能变为公开文件
+ FAIL  test/files-schema.integration.ts > FULFILLMENT_EVIDENCE不能变为公开文件
+ FAIL  test/files-schema.integration.ts > INSPECTION_EVIDENCE不能变为公开文件
+ FAIL  test/files-schema.integration.ts > COMMUNICATION_EVIDENCE不能变为公开文件
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:109:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/75]⎯
+
+ FAIL  test/files-schema.integration.ts > CUSTOMER_AVATAR已保留图允许公开元数据状态
+ FAIL  test/files-schema.integration.ts > PRODUCT_IMAGE已保留图允许公开元数据状态
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:115:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/75]⎯
+
+ FAIL  test/files-schema.integration.ts > PURGE_PENDING合法清理时间可以保存
+ FAIL  test/files-schema.integration.ts > PURGED合法清理时间可以保存
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:120:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 存储键唯一，摘要不唯一，不跨用户自动合并图片
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:126:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 未知用途和未知owner类型不能入库
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:134:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 缺绑定人由引用CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 绑定人类型不符由引用CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 空槽位由引用CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 私有业务标为公开引用由引用CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:151:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 绑定人双主体被拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:157:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 引用的file_asset_id不存在时外键拒绝
+ FAIL  test/files-schema.integration.ts > 引用的created_by_customer_id不存在时外键拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:164:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 相同文件、业务和槽位唯一，历史引用阻止删除文件
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:171:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 头像初始为空、外键拒绝不存在文件并保护当前文件
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:184:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 到仓与验收有独立owner类型，员工上传人与绑定人外键可用
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:197:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 空内部结果由沟通CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 内部结果超4000字符由沟通CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 没有更正对象却填原因由沟通CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 有更正对象却缺原因由沟通CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 有更正对象但原因空白由沟通CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 沟通时间超过录入后5分钟由沟通CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 空requestId由沟通CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:219:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 更正对象不能指向自身
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:224:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 沟通的author_employee_id必须真实存在
+ FAIL  test/files-schema.integration.ts > 沟通的corrects_id必须真实存在
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:231:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 公开与内部说明独立，边界内容及追加更正可保存，旧记录禁止级联删除
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:238:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 员工历史缺主体由历史CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 顾客历史缺主体由历史CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 空维度由历史CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 空命令键由历史CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 空目标状态由历史CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 非空来源状态为空白由历史CHECK拒绝
+ FAIL  test/files-schema.integration.ts > 历史缺追踪号由历史CHECK拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:262:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/75]⎯
+
+ FAIL  test/files-schema.integration.ts > SYSTEM历史主体可保存，错误组合拒绝
+ FAIL  test/files-schema.integration.ts > EMPLOYEE历史主体可保存，错误组合拒绝
+ FAIL  test/files-schema.integration.ts > CUSTOMER历史主体可保存，错误组合拒绝
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:267:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/75]⎯
+
+ FAIL  test/files-schema.integration.ts > EMPLOYEE历史主体外键拒绝不存在账号
+ FAIL  test/files-schema.integration.ts > CUSTOMER历史主体外键拒绝不存在账号
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:276:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/75]⎯
+
+ FAIL  test/files-schema.integration.ts > 同业务同维度命令键唯一，不同业务或维度可以独立记历史
+error: new row for relation "employee" violates check constraint "employee_lifecycle_valid"
+ ❯ ../../node_modules/.pnpm/pg@8.23.1/node_modules/pg/lib/client.js:694:17
+ ❯ insert test/files-schema.integration.ts:18:3
+     16| async function insert(table: FixtureTable, row: Row) {
+     17|   const columns = Object.keys(row);
+     18|   await client.query(`INSERT INTO "${table}" (${columns.map(column => …
+       |   ^
+     19|     VALUES (${columns.map((_, index) => `$${index + 1}`).join(',')})`,…
+     20| }
+ ❯ transaction test/files-schema.integration.ts:25:5
+ ❯ test/files-schema.integration.ts:283:3
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/75]⎯
+
+
+ Test Files  1 failed | 21 passed (22)
+      Tests  75 failed | 812 passed (887)
+   Start at  09:47:53
+   Duration  248.15s (tests 91%, import 8%, transform 1%)
+
+数据库集成测试失败

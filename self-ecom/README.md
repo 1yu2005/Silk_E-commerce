@@ -1,12 +1,24 @@
 # 自营电商系统
 
-一家自营店铺的后台管理站、顾客站和统一API。
+面向自营服装店铺的后台管理站、顾客站和统一API。后续商品与SKU按款式、颜色、尺码组织。
 
 ## 当前进度
 
-板块1（工程、数据库与四服务骨架）和板块2（登录、员工与权限）已验收。当前支持员工认证与管理、岗位及个人授权、顾客注册登录和本人资料维护，两端均适配电脑和手机。商品、库存、订单、发货等业务留待后续板块。
+板块1～3已按本期范围验收。当前支持员工认证与管理、岗位及个人授权、顾客注册登录和本人资料/头像维护，以及受控图片、公共记录与接口契约基础；两端均适配电脑和手机。商品、库存、订单、发货等业务留待后续板块。
 
 功能和技术说明见[板块2开发完成说明](项目文档/开发进度文档/开发完成说明/板块2_开发完成说明.md)，历史整体验收及后续初始化调整见[验收记录](docs/verification/M0-02.md#initial-admin-defaults)，整体安排见[开发进度总览](项目文档/开发进度总览.md)。
+
+板块3于2026-11-13完成收尾：556项普通测试通过；988项数据库用例首轮987通过、1项并发测试观察时序失败，修正测试屏障后受影响58项通过，未重复全套。独立四服务15组、133次HTTP请求通过，真实公开/私有图片跨重建保留，Swagger授权上传/头像绑定/读取通过。功能、表、5个新增接口和后续接入点见[板块3完成说明](项目文档/开发进度文档/开发完成说明/板块3_开发完成说明.md)，逐项结果及失败记录见[本期验收](docs/verification/M0-03.md#module3-final-acceptance)。商品/订单/售后解析器仍默认拒绝，GitHub CI尚未运行。
+
+开发库保留用于查看效果的服装演示数据，后续网络图片经文件模块受控存储；回滚/并发验证继续用隔离测试库。现有账号保留，新增演示员工/顾客在板块完成说明汇总，现有密码不写入仓库。
+
+开发时每个小任务只运行相关测试，板块收尾再做全量与四服务验收；具体协作规则见[开发进度总览](项目文档/开发进度总览.md)。下一步为板块4配置、期限与任务内核，须另行确认范围。
+
+图片接口：`POST /api/v1/files`、`GET /api/v1/files/{id}`、`GET /api/v1/files/{id}/content`。本机Swagger在`http://localhost:3000/api/docs`，先登录并Authorize；multipart先放purpose、再放一个file。支持JPEG/PNG/WebP、单图5MiB、宽高各10000及总像素4000万以内，不支持动画；服务端实际解码重编码，不按扩展名放行。未绑定图片仅本人可读，24小时到期；业务绑定只供后端事务调用，不提供任意业务ID绑定接口。
+
+头像入口：顾客站“我的账号”，登录后选图、等待上传预览，再点“保存头像”。`PUT /api/v1/store/me/avatar`只接收本人头像fileId，`DELETE`清当前头像；登录、本人查询和昵称修改均返回真实avatarUrl。保存失败可用原上传结果重试。头像公开展示，更换或移除会保留历史图片及旧公开链接，请勿上传私人凭证。`@shop/ui`提供公共上传、错误提示及私有Blob预览，两端分别使用自己的认证客户端；后台真实业务附件页面待对应板块接入。
+
+文件默认存于`storage/uploads`，不通过静态目录公开；部署沿用API上传卷。默认每主体20次/分钟、最多100张未绑定图片，清理每300秒一批；可用`.env.example`中的`FILE_*`调整，无须覆盖真实`.env`。过期STAGED与无元数据孤儿可清理，已绑定及历史引用保留；孤儿采用48小时保守窗口。两个站点的6MiB请求体、代理JSON 413和私有缓存已在独立Docker环境验证；代理requestId为32位十六进制，API为UUID。原运行容器未被此次验收更新。
 
 ## 环境与目录
 
@@ -23,6 +35,8 @@ self-ecom/
 ├─ packages/
 │  ├─ shared/        共用类型和校验规则
 │  ├─ api-client/    前端请求和会话工具
+│  ├─ contract-tools/ 固定版本的OpenAPI开发生成工具
+│  ├─ ui/            公共图片上传、私有预览与错误提示
 │  └─ config/        TypeScript和代码检查配置
 ├─ infra/            Docker、Nginx和部署验证脚本
 ├─ docs/             技术设计、OpenAPI和验收证据
@@ -165,10 +179,17 @@ API和数据库脚本读取根`.env`，进程环境变量优先，不支持`${..
 | `pnpm db:seed:admin` | 空员工库创建首管理员 |
 | `pnpm db:test:prepare` | 校验隔离后准备测试库，不重置已有库 |
 | `pnpm test:integration` | 校验隔离、准备测试库、应用测试库迁移并运行集成测试 |
+| `pnpm openapi:export` | 编译当前API并稳定导出docs/openapi/openapi.json，不连接数据库 |
+| `pnpm api-client:generate` | 从导出契约生成packages/api-client/src/generated的类型与JSON调用器 |
+| `pnpm contracts:check` | 检查源码、OpenAPI和生成产物是否一致，有差异非零退出，不自动改写契约 |
 
 权限和管理员seed也提供`:test`后缀命令，写入`TEST_DATABASE_URL`指定的库，要求已应用迁移。创建测试库需要数据库账号具有相应权限。
 
-当前迁移为`0001_bootstrap`和`0002_auth_employee_permission_audit`。应用启动不自动迁移；已应用的迁移不要原地修改，后续变更新增迁移。普通`pnpm test`不连接开发库。
+接口变更后依次运行`pnpm openapi:export`、`pnpm api-client:generate`和`pnpm contracts:check`，连同契约与生成文件一起审阅。JSON调用器复用现有Axios认证、双域隔离及错误处理；文件上传/二进制仍使用手写FormData/Blob薄封装。生成器固定openapi-typescript7.13.0，其TypeScript5.9.3放在独立工具工作区；工程保持TypeScript6.0.3。首次准备仍先安装依赖并生成Prisma客户端。
+
+GitHub工作流位于实际仓库根目录的`.github/workflows/self-ecom-contracts.yml`（本项目上级目录），仅对self-ecom相关变更执行契约检查及相关测试；本机验证通过不代表GitHub已运行。公共指纹只处理已验证、白名单业务载荷，区分图片顺序与集合；不会自动给请求添加幂等键，也不提供订单幂等结果重放，后续订单板块须在业务事务接入。
+
+仓库迁移为`0001_bootstrap`、`0002_auth_employee_permission_audit`、`0003_files_communication_history`。2026-11-13按用户确认将本机开发库补齐到0003，修复新客户端查询头像字段时的顾客登录异常，旧账号和会话保留。生成新Prisma客户端后，启动本机API前须用`pnpm db:migrate:status`确认开发库版本；有待应用迁移时先按已确认步骤执行`pnpm db:migrate:deploy`。健康检查通过不能代替业务结构校验。应用启动不自动迁移；已应用的迁移不要原地修改，后续变更新增迁移。普通`pnpm test`不连接开发库；本次证据见[M0-03本机修复](docs/verification/M0-03.md#本机顾客登录修复步骤1补充2026-11-13)。
 
 ## 四服务容器启动
 
@@ -230,6 +251,8 @@ docker compose --env-file .env -f infra/compose.yaml stop
 
 板块2已通过独立四服务验收，原开发库和旧运行容器未被该轮验收迁移或替换。隔离复验入口为`node infra/verify-auth-compose.mjs`，需Docker及已有Playwright/Chromium；可用`DOCKER_EXECUTABLE`、`PLAYWRIGHT_MODULE_PATH`和`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定工具路径。执行范围及证据见[验收记录](docs/verification/M0-02.md#module2-final-acceptance)。
 
+板块3复验使用`node infra/verify-auth-compose.mjs --files`，默认从当前源码冻结安装并构建三个应用，使用随机项目、端口、凭据和独立空卷，结束时只清理本次项目。包含认证、真实文件、Swagger自动化、代理限制与重建持久化。需要可用Docker及Playwright/Chromium，证据写入`output/playwright/M0-03-final/docker`；用`--output=新目录`保留此前证据。当前日常开发仍用本机模式，旧容器healthy不代表最新功能已部署。
+
 ## 工程检查与接口文档
 
 ```powershell
@@ -239,9 +262,11 @@ pnpm test
 pnpm test:integration
 pnpm build
 pnpm openapi:export
+pnpm api-client:generate
+pnpm contracts:check
 ```
 
-OpenAPI导出到`docs/openapi/openapi.json`，需要有效环境配置（包括JWT），不连接数据库或启动服务。Swagger开关修改后需重启API；原始契约入口为`/api/docs-json`。浏览器复验所需环境、六组脚本和历史结果见[板块2验收记录](docs/verification/M0-02.md#module2-final-acceptance)。
+OpenAPI导出到`docs/openapi/openapi.json`，导出脚本使用虚构配置，不连接数据库或启动服务；客户端随后从该文档生成。`contracts:check`只比较源码、文档与生成产物，发现漂移退出非零；`node scripts/test-contract-drift.mjs`验证检查确实能拒绝漂移。Swagger开关修改后需重启API；原始契约入口为`/api/docs-json`。浏览器复验所需环境和历史结果见[板块2验收记录](docs/verification/M0-02.md#module2-final-acceptance)。
 
 四服务启动后，可在已有Node环境下执行`node infra/verify-compose.mjs`做基础检查；这是额外验证步骤，不是启动必需命令。
 
@@ -252,5 +277,6 @@ OpenAPI导出到`docs/openapi/openapi.json`，需要有效环境配置（包括J
 - [开发进度总览](项目文档/开发进度总览.md)：当前状态、后续计划和协作规则。
 - [通俗功能说明](项目文档/自营电商项目功能说明_通俗版.md) / [需求文档v2.0](项目文档/自营电商项目需求文档_v2.0.md)：项目业务和规则。
 - [板块1完成说明](项目文档/开发进度文档/开发完成说明/板块1_开发完成说明.md) / [板块2完成说明](项目文档/开发进度文档/开发完成说明/板块2_开发完成说明.md)：已完成功能、架构和关键技术。
+- [板块3完成说明](项目文档/开发进度文档/开发完成说明/板块3_开发完成说明.md) / [设计](docs/design/M0-03.md) / [验收](docs/verification/M0-03.md#module3-final-acceptance)：图片、头像、审计记录及公共契约，含真实部署证据与后续边界。
 - [板块1设计](docs/design/M0-01.md) / [板块2设计](docs/design/M0-02.md)：技术方案和分步实施记录。
 - [板块1验收](docs/verification/M0-01.md) / [板块2验收](docs/verification/M0-02.md#module2-final-acceptance)：验证结果、复验方法和适用边界。

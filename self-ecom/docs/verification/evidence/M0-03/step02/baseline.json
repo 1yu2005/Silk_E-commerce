@@ -1,0 +1,67 @@
+{
+  "recordedAt": "2026-11-13T02:39:23.924Z",
+  "files": {
+    ".env": "cc5a781b920301b562b83488122d9060c840a6803fa3203375dcd94e5b434b66",
+    "apps/api/package.json": "dbf0ae57011ee76991a62ee42921ffb7dde7ce8476d6f96a2118b3083b587618",
+    "pnpm-lock.yaml": "1b7364d3463b48ec43bf0325a5ecfc0d7228afcf43f2fcd9a99e8ee7bde94f40",
+    "apps/api/prisma/schema.prisma": "e3ca940d5aba634ff538871248bca775e8e9bf2867502712aa1b13616b226358",
+    "apps/api/prisma/migrations/0001_bootstrap/migration.sql": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3",
+    "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a",
+    "apps/api/prisma/migrations/0003_files_communication_history/migration.sql": "bae9e336b648ed6dac9c6ca4bb17024ec1268fe4a3d002a0c1d45bb2ec5d1978",
+    "docs/openapi/openapi.json": "90dc58652d4862efed8e50464b62459e199a33681a35becc27cfe7e62b23d4c4"
+  },
+  "tables": {
+    "_prisma_migrations": {
+      "rows": 3,
+      "sha256": "f74716184ca64bd7fb9bfccf3331d060a698016ce0c95d2fd57c89ddbd5566ad"
+    },
+    "employee": {
+      "rows": 2,
+      "sha256": "718110a9f98431920ca19de1c7453d8bdb57aaae9018dff2aaf180425754a9bb"
+    },
+    "customer": {
+      "rows": 2,
+      "sha256": "b2330059805ef3bd00eb13341ed48d5a864c49be9c408ac74465d1a7dfd2933b"
+    },
+    "auth_session": {
+      "rows": 13,
+      "sha256": "48e93f45c89546a5e36e9ccf1ffcd7de7721e58b07e3dffb64b205e94742baea"
+    },
+    "permission_definition": {
+      "rows": 52,
+      "sha256": "eb0375d7c0b7299ecdb2a774a3f701412bd9938176dd66a008901666cf754b69"
+    },
+    "role_permission": {
+      "rows": 89,
+      "sha256": "7dc8c82344089887ae5313a657223c2e3fe40ea706b605f63479c2115e74714f"
+    },
+    "employee_extra_permission": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "audit_log": {
+      "rows": 14,
+      "sha256": "9258022d65011bbd12dc81a75014ce1ff922b6c4e7b6abb7969baa277267822a"
+    },
+    "system_guard": {
+      "rows": 1,
+      "sha256": "57d97b8d87f37d52360841ef920ab9756b17a71000f79c9ec53aa9723b4e33b0"
+    },
+    "file_asset": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "file_reference": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "communication": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "business_state_history": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  }
+}

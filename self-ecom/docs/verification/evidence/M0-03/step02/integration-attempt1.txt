@@ -1,0 +1,170 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Datasource "db": PostgreSQL database "files_migration_ca96855615ef408f8eec96981b25097d_test", schema "public" at "localhost:15432"
+
+2 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "files_migration_cc2e01ef60d5407f8a43666e69d3bf4c_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "files_migration_ca96855615ef408f8eec96981b25097d_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "files_migration_ca96855615ef408f8eec96981b25097d_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+Datasource "db": PostgreSQL database "employee_status_7118561f9545452da5d6502cdc96721d_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "employee_role_4ed4badaa21840abbb6f08dfbee29c61_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Datasource "db": PostgreSQL database "admin_seed_bf4c61dcb37a41f39bb1db88fbe25255_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/initial-admin-seed.integration.ts
+独立测试库已就绪，未重置或清理任何数据库
+
+ ❯ test/initial-admin-seed.integration.ts (12 tests | 1 failed) 9989ms
+   × 测试CLI首次及重复执行均成功，输出不含密码、哈希或连接串 203ms
+{"level":30,"time":1794538601500,"pid":32836,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"547ceab8-374a-4510-b6e6-a1af16607d4a","res":{"statusCode":200},"responseTime":4,"msg":"request completed"}
+{"level":30,"time":1794538601510,"pid":32836,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"deaa8402-dfe2-4131-a317-6b2f7507dc7b","res":{"statusCode":200},"responseTime":3,"msg":"request completed"}
+
+ Test Files  1 failed | 22 passed (23)
+      Tests  1 failed | 942 passed (943)
+   Start at  10:52:41
+   Duration  244.90s (tests 91%, import 9%)
+
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-m003-migrations-96pRCY\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/initial-admin-seed.integration.ts > 测试CLI首次及重复执行均成功，输出不含密码、哈希或连接串
+AssertionError: expected 1 to be +0 // Object.is equality
+
+- Expected
++ Received
+
+- 0
++ 1
+
+ ❯ test/initial-admin-seed.integration.ts:239:24
+    237|   });
+    238|   const first = run(); const second = run();
+    239|   expect(first.status).toBe(0); expect(second.status).toBe(0);
+       |                        ^
+    240|   expect(JSON.parse(first.stdout)).toMatchObject({ target: 'test', cre…
+    241|   expect(JSON.parse(second.stdout)).toMatchObject({ target: 'test', cr…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+

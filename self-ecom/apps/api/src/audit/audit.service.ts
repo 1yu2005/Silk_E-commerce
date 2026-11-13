@@ -14,6 +14,10 @@ const policies = {
   'customer.register': { target: 'Customer', fields: ['status'], reason: false },
   'customer.profile.update': { target: 'Customer', fields: ['nickname'], reason: false },
   'customer.password.change': { target: 'Customer', fields: ['passwordChanged'], reason: false },
+  'customer.avatar.change': { target: 'Customer', fields: ['avatarAssetId'], reason: false },
+  'file.upload': { target: 'FileAsset', fields: ['purpose', 'mimeType', 'byteSize', 'width', 'height', 'sha256', 'state'], reason: false },
+  'communication.append': { target: 'Communication', fields: ['scopeType', 'scopeId', 'channel', 'hasPublicText'], reason: false },
+  'communication.correct': { target: 'Communication', fields: ['scopeType', 'scopeId', 'channel', 'hasPublicText', 'correctsId'], reason: true },
   'auth.logout': { target: 'AuthSession', fields: ['loggedOut'], reason: false },
 } as const;
 
@@ -59,6 +63,18 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
     else if (field === 'username') valid = typeof item === 'string' && /^[a-z][a-z0-9_]{3,31}$/.test(item);
     else if (field === 'displayName' || field === 'nickname') valid = typeof item === 'string'
       && item.trim().length > 0 && [...item].length <= 40;
+    else if (field === 'avatarAssetId') valid = item === null || (typeof item === 'string' && uuid.test(item));
+    else if (field === 'scopeId' || field === 'correctsId') valid = typeof item === 'string' && uuid.test(item);
+    else if (field === 'hasPublicText') valid = typeof item === 'boolean';
+    else if (field === 'scopeType') valid = item === 'ORDER' || item === 'AFTER_SALE';
+    else if (field === 'channel') valid = typeof item === 'string' && ['PHONE', 'EXTERNAL_MESSAGE', 'IN_PERSON', 'OTHER'].includes(item);
+    else if (field === 'purpose') valid = typeof item === 'string' && ['CUSTOMER_AVATAR', 'PRODUCT_IMAGE', 'AFTER_SALE_EVIDENCE',
+      'INVENTORY_EVIDENCE', 'FULFILLMENT_EVIDENCE', 'INSPECTION_EVIDENCE', 'COMMUNICATION_EVIDENCE'].includes(item);
+    else if (field === 'mimeType') valid = typeof item === 'string' && ['image/jpeg', 'image/png', 'image/webp'].includes(item);
+    else if (field === 'byteSize') valid = Number.isInteger(item) && (item as number) >= 1 && (item as number) <= 5242880;
+    else if (field === 'width' || field === 'height') valid = Number.isInteger(item) && (item as number) >= 1 && (item as number) <= 10000;
+    else if (field === 'sha256') valid = typeof item === 'string' && /^[0-9a-f]{64}$/.test(item);
+    else if (field === 'state') valid = item === 'STAGED';
     if (!valid) invalid();
     result[field] = item as Prisma.InputJsonValue;
   }
@@ -81,6 +97,7 @@ export class AuditService {
     if (actor.type === 'SYSTEM' && payload.action !== 'employee.create') invalid();
     if (payload.action.startsWith('employee.') && actor.type === 'CUSTOMER') invalid();
     if (payload.action.startsWith('customer.') && actor.type !== 'CUSTOMER') invalid();
+    if (payload.action.startsWith('communication.') && actor.type !== 'EMPLOYEE') invalid();
     const reason = payload.reason?.trim();
     if ((policy.reason && !reason) || (reason !== undefined && [...reason].length > 500)) invalid();
     const beforeData = snapshot(payload.before, policy.fields);

@@ -1,0 +1,67 @@
+{
+  "phase": "before",
+  "recordedAt": "2026-11-13T02:19:26.727Z",
+  "tables": {
+    "employee": {
+      "rows": 2,
+      "sha256": "a43e8909ce4e41f40736f72b6fdb14deb46eef34ff2aef1bc99a5d7467adbb41"
+    },
+    "customer": {
+      "rows": 2,
+      "sha256": "e46c6851de897e0884bb600234ef00679e04ddb39b394ce2fb1c0bc8520b0f2b"
+    },
+    "auth_session": {
+      "rows": 11,
+      "sha256": "784b31cd5de7f479bbf0e9d25e07114ec1609cb800a5f8ecc43feeeb0b6d3b66"
+    },
+    "permission_definition": {
+      "rows": 52,
+      "sha256": "eb0375d7c0b7299ecdb2a774a3f701412bd9938176dd66a008901666cf754b69"
+    },
+    "role_permission": {
+      "rows": 89,
+      "sha256": "7dc8c82344089887ae5313a657223c2e3fe40ea706b605f63479c2115e74714f"
+    },
+    "employee_extra_permission": {
+      "rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "audit_log": {
+      "rows": 12,
+      "sha256": "dff0c9827eb2b6a160379e473acfb579b20a92405bd22db5d42916bd63899f57"
+    },
+    "system_guard": {
+      "rows": 1,
+      "sha256": "57d97b8d87f37d52360841ef920ab9756b17a71000f79c9ec53aa9723b4e33b0"
+    }
+  },
+  "files": {
+    ".env": "cc5a781b920301b562b83488122d9060c840a6803fa3203375dcd94e5b434b66",
+    "apps/api/package.json": "dbf0ae57011ee76991a62ee42921ffb7dde7ce8476d6f96a2118b3083b587618",
+    "pnpm-lock.yaml": "1b7364d3463b48ec43bf0325a5ecfc0d7228afcf43f2fcd9a99e8ee7bde94f40",
+    "apps/api/prisma/schema.prisma": "e3ca940d5aba634ff538871248bca775e8e9bf2867502712aa1b13616b226358",
+    "apps/api/prisma/migrations/0001_bootstrap/migration.sql": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3",
+    "apps/api/prisma/migrations/0002_auth_employee_permission_audit/migration.sql": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a",
+    "apps/api/prisma/migrations/0003_files_communication_history/migration.sql": "bae9e336b648ed6dac9c6ca4bb17024ec1268fe4a3d002a0c1d45bb2ec5d1978",
+    "docs/openapi/openapi.json": "90dc58652d4862efed8e50464b62459e199a33681a35becc27cfe7e62b23d4c4"
+  },
+  "migrations": [
+    {
+      "migration_name": "0001_bootstrap",
+      "checksum": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3",
+      "finished_at": "2026-11-11T06:27:04.918Z",
+      "rolled_back_at": null
+    },
+    {
+      "migration_name": "0002_auth_employee_permission_audit",
+      "checksum": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a",
+      "finished_at": "2026-11-12T10:03:36.987Z",
+      "rolled_back_at": null
+    }
+  ],
+  "avatarColumnExists": false,
+  "avatarRead": {
+    "status": "failed",
+    "code": "P2022"
+  }
+}

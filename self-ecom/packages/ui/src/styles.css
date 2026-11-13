@@ -1,0 +1,13 @@
+/* 文件作用：公共图片选择、私有预览及错误展示样式，两端共用并支持窄屏。 */
+.image-uploader { margin: 16px 0; }
+.file-label { display: block; font-weight: 600; margin-bottom: 8px; }
+.image-uploader input { max-width: 100%; }
+.file-hint { color: #536a79; font-size: 13px; line-height: 1.8; }
+.file-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.file-list li { border: 1px solid #dce5e9; border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px; max-width: 100%; box-sizing: border-box; }
+.file-name, .file-request-id { overflow-wrap: anywhere; font-size: 12px; }
+.private-image { width: 112px; height: 112px; object-fit: contain; background: #f3f6f8; border-radius: 4px; }
+.file-error { color: #a12920; font-size: 13px; max-width: 100%; overflow-wrap: anywhere; }
+.file-error p { font-size: inherit; margin: 4px 0; }
+.image-uploader button { padding: 5px 10px; background: #fff; border: 1px solid #bdcbd3; border-radius: 4px; color: #243746; cursor: pointer; }
+.image-uploader button:disabled { cursor: default; opacity: .55; }

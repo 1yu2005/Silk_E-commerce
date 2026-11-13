@@ -35,13 +35,16 @@ it('connects through the real Prisma PostgreSQL adapter to the isolated PostgreS
   await expect(prisma.ping()).resolves.toBeUndefined();
 });
 
-it('has applied bootstrap and authentication migrations', async () => {
+it('已应用工程、认证和文件基础迁移，并保留完整业务表', async () => {
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
-  expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit'].map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
+  expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history']
+    .map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
-  expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations', 'audit_log', 'auth_session', 'customer', 'employee', 'employee_extra_permission', 'permission_definition', 'role_permission', 'system_guard']);
+  expect(tables.map(row => row.tablename)).toEqual(['_prisma_migrations', 'audit_log', 'auth_session', 'business_state_history',
+    'communication', 'customer', 'employee', 'employee_extra_permission', 'file_asset', 'file_reference',
+    'permission_definition', 'role_permission', 'system_guard']);
 });
 
 it('keeps liveness working with the real database module installed', async () => {
