@@ -36,6 +36,14 @@ enum AuditActorType {
   SYSTEM
 }
 
+enum AuditBusinessType {
+  ORDER
+  AFTER_SALE
+  REFUND
+  INVENTORY_ADJUSTMENT
+  OFFLINE_CASE
+}
+
 model Employee {
   id                    String                    @id @default(uuid()) @db.Uuid
   username              String                    @unique @db.VarChar(32)
@@ -169,12 +177,31 @@ model AuditLog {
   createdAt       DateTime       @default(now()) @map("created_at") @db.Timestamptz(3)
   actorEmployee   Employee?      @relation(fields: [actorEmployeeId], references: [id], onDelete: Restrict)
   actorCustomer   Customer?      @relation(fields: [actorCustomerId], references: [id], onDelete: Restrict)
+  businessReferences AuditBusinessReference[]
 
+  @@index([createdAt(sort: Desc), id(sort: Desc)], map: "audit_log_created_id_idx")
+  @@index([actorType, actorEmployeeId, createdAt(sort: Desc), id(sort: Desc)], map: "audit_log_actor_employee_created_id_idx")
+  @@index([actorCustomerId, createdAt(sort: Desc), id(sort: Desc)], map: "audit_log_customer_created_id_idx")
   @@index([targetType, targetId, createdAt])
   @@index([actorEmployeeId, createdAt])
   @@index([action, createdAt])
   @@index([requestId])
   @@map("audit_log")
+}
+
+// 只追加的查询投影；业务对象由解析器核实，不冒充通用业务外键。
+model AuditBusinessReference {
+  auditLogId String @map("audit_log_id") @db.Uuid
+  businessType AuditBusinessType @map("business_type")
+  businessId String @map("business_id") @db.VarChar(100)
+  businessNo String? @map("business_no") @db.VarChar(100)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  auditLog AuditLog @relation(fields: [auditLogId], references: [id], onDelete: Restrict)
+
+  @@id([auditLogId, businessType, businessId])
+  @@index([businessType, businessNo, auditLogId], map: "audit_business_reference_number_idx")
+  @@index([businessType, businessId, auditLogId], map: "audit_business_reference_object_idx")
+  @@map("audit_business_reference")
 }
 
 // 所有影响可用管理员集合的命令先锁定固定行，再锁员工主体。
@@ -1124,6 +1151,8 @@ model Order {
 
   @@index([customerId, createdAt, id])
   @@index([status, paymentDeadline, id])
+  @@index([createdAt, id], map: "order_created_id_idx")
+  @@index([customerId, status, id], map: "order_customer_status_id_idx")
   @@index([paymentBlocked, status])
   @@map("order")
 }

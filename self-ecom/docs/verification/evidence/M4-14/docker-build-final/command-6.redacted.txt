@@ -1,0 +1,119 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.20kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from web.Dockerfile
+#2 transferring dockerfile: 818B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#3 ...
+
+#4 [internal] load metadata for docker.io/library/node:24.18.0-bookworm-slim
+#4 DONE 10.8s
+
+#3 [internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#3 DONE 10.8s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 498B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [runtime 1/3] FROM docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#7 resolve docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284 0.1s done
+#7 DONE 0.1s
+
+#8 [build 1/6] FROM docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d
+#8 resolve docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d 0.1s done
+#8 DONE 0.1s
+
+#6 [internal] load build context
+#6 transferring context: 44.99kB 0.0s done
+#6 DONE 0.1s
+
+#9 [build 2/6] RUN npm install --global pnpm@11.25.0
+#9 CACHED
+
+#10 [build 3/6] WORKDIR /app
+#10 CACHED
+
+#11 [build 4/6] COPY . .
+#11 CACHED
+
+#12 [build 5/6] RUN pnpm install --frozen-lockfile
+#12 CACHED
+
+#13 [build 6/6] RUN case "store-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/store-web..." build     && cp -a "apps/store-web/dist" /site
+#13 0.568 Scope: 4 of 9 workspace projects
+#13 0.594 $ tsc -p tsconfig.json
+#13 1.096 $ tsc -p tsconfig.json
+#13 2.456 $ tsc -p tsconfig.json
+#13 3.297 $ tsc --noEmit && vite build
+#13 5.979 vite v8.3.8 building client environment for production...
+#13 5.989 transforming...
+#13 6.215 ✓ 1606 modules transformed.
+#13 6.417 rendering chunks...
+#13 6.512 computing gzip size...
+#13 6.521 dist/index.html                                    0.77 kB │ gzip:   0.39 kB
+#13 6.521 dist/assets/index-W8fsaKgz.css                    19.28 kB │ gzip:   4.99 kB
+#13 6.521 dist/assets/useCSSVarCls-D5LDH8FE.js               0.03 kB │ gzip:   0.05 kB
+#13 6.521 dist/assets/model-KdblDANG.js                      0.15 kB │ gzip:   0.15 kB
+#13 6.521 dist/assets/useLocale-BvT6UO6r.js                  0.37 kB │ gzip:   0.26 kB
+#13 6.521 dist/assets/colors-02jDC4Md.js                     0.46 kB │ gzip:   0.31 kB
+#13 6.521 dist/assets/form-rules-GvzMaJpV.js                 0.51 kB │ gzip:   0.38 kB
+#13 6.521 dist/assets/rolldown-runtime-XKyaHtl9.js           0.72 kB │ gzip:   0.42 kB
+#13 6.521 dist/assets/PublicOfflineCases-BYc5fZBp.js         0.87 kB │ gzip:   0.63 kB
+#13 6.521 dist/assets/use-store-data-Ap4pR2QI.js             1.14 kB │ gzip:   0.57 kB
+#13 6.521 dist/assets/ExclamationCircleFilled-DUciUd9k.js    1.52 kB │ gzip:   0.70 kB
+#13 6.521 dist/assets/LoginPage-RwUs6PEc.js                  1.60 kB │ gzip:   0.85 kB
+#13 6.521 dist/assets/StoreQueryState-CswmURh6.js            1.77 kB │ gzip:   1.05 kB
+#13 6.521 dist/assets/ChangePasswordPage-4KL2gizd.js         2.23 kB │ gzip:   1.17 kB
+#13 6.521 dist/assets/RegisterPage-CMfZ4o4I.js               2.40 kB │ gzip:   1.22 kB
+#13 6.521 dist/assets/empty-D2TcMgdz.js                      4.80 kB │ gzip:   2.09 kB
+#13 6.521 dist/assets/AddressPage-DN2dMjl4.js                5.01 kB │ gzip:   2.17 kB
+#13 6.521 dist/assets/ProductDetailPage-BdmQXjJ2.js          5.15 kB │ gzip:   2.30 kB
+#13 6.521 dist/assets/CartPage-CdwnQdSz.js                   5.54 kB │ gzip:   2.53 kB
+#13 6.521 dist/assets/HomePage-CX8SW-bN.js                   5.84 kB │ gzip:   2.56 kB
+#13 6.521 dist/assets/CheckoutPage-BkLXi8rb.js               6.55 kB │ gzip:   2.99 kB
+#13 6.521 dist/assets/OrderPage-DEywM4Wl.js                  8.82 kB │ gzip:   3.58 kB
+#13 6.521 dist/assets/tag-CMutcI4e.js                        9.86 kB │ gzip:   3.89 kB
+#13 6.521 dist/assets/dist-CCblc7OH.js                      10.36 kB │ gzip:   4.46 kB
+#13 6.521 dist/assets/AfterSalePage-Dr2anIoy.js             13.74 kB │ gzip:   5.06 kB
+#13 6.521 dist/assets/AccountPage-TCzC-RhN.js               20.92 kB │ gzip:   7.99 kB
+#13 6.521 dist/assets/style-DIFX1qPw.js                     21.02 kB │ gzip:   6.14 kB
+#13 6.521 dist/assets/statusUtils-CisvJsh7.js               25.64 kB │ gzip:  10.01 kB
+#13 6.521 dist/assets/NotFoundPage-CNuONL7_.js              34.80 kB │ gzip:  11.07 kB
+#13 6.521 dist/assets/input-CLcUKM3Z.js                     77.31 kB │ gzip:  27.05 kB
+#13 6.521 dist/assets/api-DjHt8yKD.js                      102.24 kB │ gzip:  30.43 kB
+#13 6.521 dist/assets/pagination-DoKz5NET.js               106.97 kB │ gzip:  34.49 kB
+#13 6.521 dist/assets/index-DQAnE3dg.js                    150.50 kB │ gzip:  51.28 kB
+#13 6.521 dist/assets/jsx-runtime-DA9OIYCX.js              377.12 kB │ gzip: 123.44 kB
+#13 6.521
+#13 6.560 ✓ built in 580ms
+#13 DONE 6.7s
+
+#14 [runtime 2/3] COPY infra/nginx.conf /etc/nginx/conf.d/default.conf
+#14 CACHED
+
+#15 [runtime 3/3] COPY --from=build /site /usr/share/nginx/html
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.2s done
+#16 exporting manifest sha256:534f8be66bed074707f4dbb49fde2fd0aa58c299bc575106bd9a4417cbbc1f2d 0.0s done
+#16 exporting config sha256:2046a3c64f9b44d75d80b7b7f4e767b870b221bc2441ed0b530b9e14c52799aa 0.0s done
+#16 exporting attestation manifest sha256:896f0b9490e60effebd726a476134e3e15c2e9edc74c9f46001911757a9d9e81 0.0s done
+#16 exporting manifest list sha256:efc4d10b963aa645d9c23d84f0ac60aef7960e7fb72a64e0e24fe4e7d38b6395 0.0s done
+#16 naming to docker.io/library/self-ecom-m414-acceptance-14a1b2c3-store:local
+#16 naming to docker.io/library/self-ecom-m414-acceptance-14a1b2c3-store:local done
+#16 unpacking to docker.io/library/self-ecom-m414-acceptance-14a1b2c3-store:local 0.0s done
+#16 DONE 0.4s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.1s
+ Image self-ecom-m414-acceptance-14a1b2c3-store:local Building
+ Image self-ecom-m414-acceptance-14a1b2c3-store:local Built

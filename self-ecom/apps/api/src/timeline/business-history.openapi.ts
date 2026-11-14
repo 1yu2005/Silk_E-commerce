@@ -1,0 +1,11 @@
+// 作用：员工历史的字段白名单与只读分页契约；不复用带写锁语义的命令说明。
+import { applyDecorators, Header } from '@nestjs/common';
+import { ApiBadRequestResponse, ApiBearerAuth, ApiForbiddenResponse, ApiNotFoundResponse, ApiOkResponse, ApiOperation, ApiQuery, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { authErrorSchema } from '../auth/employee-auth.openapi.js';
+import { object,paged,text,uuid,nullable,integer } from '../customers/customer.openapi.js';
+import { date } from '../orders/order.openapi.js';
+import { historyKinds } from './business-history.dto.js';
+export { idParam,listQuery } from '../customers/customer.openapi.js';
+const row=object({id:uuid,kind:{type:'string',enum:[...historyKinds]},source:{type:'string',enum:['BUSINESS_STATE_HISTORY','TIMER_PAUSE','TIMER_RESUME','TASK_HISTORY','DEADLINE_EVENT','COMMUNICATION','PAYMENT','REFUND_ATTEMPT','INVENTORY_ACTION','INVENTORY_LEDGER','HANDOVER_ATTEMPT','HANDOVER_VERIFICATION','RETURN_RECEIPT','INSPECTION_REVISION','FINAL_INSPECTION','RETURN_PHYSICAL_EVENT','CUSTODY_EVENT','OFFLINE_CASE_EVENT','PROXY_EXECUTION']},recordedAt:date,occurredAt:date,summary:text(4000,0),internalNote:nullable(text(2000,0)),action:nullable(text(80,0)),beforeStatus:nullable(text(80,0)),afterStatus:nullable(text(80,0)),taskId:nullable(uuid),taskStage:nullable(text(40)),deadlineAt:nullable(date),newDueAt:nullable(date),amountCents:nullable(integer(100000000)),correctsId:nullable(uuid)});
+export const kindQuery=()=>ApiQuery({name:'kind',required:false,schema:{type:'string',enum:[...historyKinds]}});
+export function endpoint(operationId:string){return applyDecorators(Header('Cache-Control','no-store'),ApiBearerAuth('bearerAuth'),ApiOperation({operationId,summary:'授权真实业务时间线',description:'当前权限先裁剪真实来源和字段，再于同一短REPEATABLE READ快照count及SQL分页；recordedAt倒序、kind正序、id倒序。occurredAt保留实际时间；GET不取得业务写锁且不写入交易、库存、任务。'}),ApiOkResponse({schema:object({data:paged(row),requestId:uuid})}),ApiBadRequestResponse({schema:authErrorSchema(['VALIDATION_FAILED'])}),ApiUnauthorizedResponse({schema:authErrorSchema(['TOKEN_INVALID','TOKEN_EXPIRED','TOKEN_SUBJECT_MISMATCH','SESSION_REVOKED','ACCOUNT_UNAVAILABLE'])}),ApiForbiddenResponse({schema:authErrorSchema(['FORBIDDEN','PASSWORD_CHANGE_REQUIRED'])}),ApiNotFoundResponse({schema:authErrorSchema(['ORDER_NOT_FOUND','AFTER_SALE_NOT_FOUND'])}));}

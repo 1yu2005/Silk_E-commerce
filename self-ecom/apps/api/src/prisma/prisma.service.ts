@@ -4,13 +4,17 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '@prisma/client';
 import type { EnvironmentConfig } from '../config/environment.js';
 
+// 10万订单/100并发基线表明10连接产生显著排队；20仍为PostgreSQL默认100连接保留维护空间。
+export const DATABASE_POOL_MAX = 20;
+
 export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
   private pendingPing: Promise<void> | undefined;
 
   constructor(config: EnvironmentConfig) {
-    super({ adapter: new PrismaPg({
+    // 错误边界保留固定code/meta；避免每次成功查询也捕获未公开的源码调用位置。
+    super({ errorFormat: 'minimal', adapter: new PrismaPg({
       connectionString: config.databaseUrl,
-      max: 10,
+      max: DATABASE_POOL_MAX,
       connectionTimeoutMillis: 750,
       idleTimeoutMillis: 10_000,
       statement_timeout: 750,

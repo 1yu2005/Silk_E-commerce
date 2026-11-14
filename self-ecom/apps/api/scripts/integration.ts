@@ -12,14 +12,15 @@ async function main() {
   // 尝试连接管理数据库之前，先完成校验。
   const safe = assertSafeTestDatabase(env.DATABASE_URL, env.TEST_DATABASE_URL);
   const all = readdirSync(resolve(__dirname, '../test')).filter(n => n.endsWith('.integration.ts')).map(n => 'test/' + n);
-  const requested = process.argv.slice(2), files = requested.length ? requested : all;
+  // 压力测试需要预构建API且独占资源，只由明确入口/名单触发；普通DB回归不隐含启动压力。
+  const requested = process.argv.slice(2), files = requested.length ? requested : all.filter(file => file !== 'test/reporting-performance.integration.ts');
   if (files.some(f => !all.includes(f))) throw new Error('仅允许运行仓库中的明确集成测试文件');
   const adminUrl = new URL(safe.testUrl); adminUrl.pathname = '/postgres';
   const admin = new Client({ connectionString: adminUrl.toString(), connectionTimeoutMillis: 3000 });
   let failed = false; await admin.connect();
   try { for (const file of files) {
     // 保留前置板块既定独占库白名单；订单套件使用本板块白名单。
-    const name = (file.includes('/coordination-') ? 'm313_' : file.includes('/settlement') ? 'm312_' : file.includes('/after-sales') ? 'm311_' : file.includes('/fulfillment') ? 'm210_' : file.includes('/orders') ? 'm108_' : 'm105_') + randomUUID().replaceAll('-', '') + '_test';
+    const name = (/\/(reporting-|audit-query|business-history)/.test(file) ? 'm414_' : file.includes('/coordination-') ? 'm313_' : file.includes('/settlement') ? 'm312_' : file.includes('/after-sales') ? 'm311_' : file.includes('/fulfillment') ? 'm210_' : file.includes('/orders') ? 'm108_' : 'm105_') + randomUUID().replaceAll('-', '') + '_test';
     const testUrl = new URL(safe.testUrl); testUrl.pathname = '/' + name;
     const variables = { ...env, NODE_ENV: 'test', FULL_VERIFICATION_KIND:'integration', DATABASE_URL: testUrl.toString(), DEVELOPMENT_DATABASE_URL: safe.developmentUrl };
     let created = false;

@@ -8529,9 +8529,29 @@
     },
     "/api/v1/admin/after-sales/{id}/history": {
       "get": {
-        "description": "金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。",
+        "description": "当前权限先裁剪真实来源和字段，再于同一短REPEATABLE READ快照count及SQL分页；recordedAt倒序、kind正序、id倒序。occurredAt保留实际时间；GET不取得业务写锁且不写入交易、库存、任务。",
         "operationId": "getAdminAfterSaleHistory",
         "parameters": [
+          {
+            "in": "query",
+            "name": "kind",
+            "required": false,
+            "schema": {
+              "enum": [
+                "STATE_CHANGE",
+                "TASK_CHANGE",
+                "DEADLINE_EVENT",
+                "COMMUNICATION",
+                "PAYMENT",
+                "REFUND_ATTEMPT",
+                "INVENTORY_ACTION",
+                "HANDOVER",
+                "INSPECTION",
+                "OFFLINE_EVENT"
+              ],
+              "type": "string"
+            }
+          },
           {
             "in": "query",
             "name": "page",
@@ -8576,36 +8596,136 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
-                              "createdAt": {
+                              "action": {
+                                "maxLength": 80,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "afterStatus": {
+                                "maxLength": 80,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "amountCents": {
+                                "maximum": 100000000,
+                                "minimum": 0,
+                                "nullable": true,
+                                "type": "integer"
+                              },
+                              "beforeStatus": {
+                                "maxLength": 80,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "correctsId": {
+                                "format": "uuid",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "deadlineAt": {
                                 "format": "date-time",
+                                "nullable": true,
                                 "type": "string"
                               },
                               "id": {
                                 "format": "uuid",
                                 "type": "string"
                               },
-                              "kind": {
-                                "maxLength": 20,
-                                "minLength": 1,
-                                "type": "string"
-                              },
-                              "reason": {
+                              "internalNote": {
                                 "maxLength": 2000,
-                                "minLength": 1,
+                                "minLength": 0,
                                 "nullable": true,
                                 "type": "string"
                               },
-                              "text": {
-                                "maxLength": 2000,
+                              "kind": {
+                                "enum": [
+                                  "STATE_CHANGE",
+                                  "TASK_CHANGE",
+                                  "DEADLINE_EVENT",
+                                  "COMMUNICATION",
+                                  "PAYMENT",
+                                  "REFUND_ATTEMPT",
+                                  "INVENTORY_ACTION",
+                                  "HANDOVER",
+                                  "INSPECTION",
+                                  "OFFLINE_EVENT"
+                                ],
+                                "type": "string"
+                              },
+                              "newDueAt": {
+                                "format": "date-time",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "occurredAt": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "recordedAt": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "source": {
+                                "enum": [
+                                  "BUSINESS_STATE_HISTORY",
+                                  "TIMER_PAUSE",
+                                  "TIMER_RESUME",
+                                  "TASK_HISTORY",
+                                  "DEADLINE_EVENT",
+                                  "COMMUNICATION",
+                                  "PAYMENT",
+                                  "REFUND_ATTEMPT",
+                                  "INVENTORY_ACTION",
+                                  "INVENTORY_LEDGER",
+                                  "HANDOVER_ATTEMPT",
+                                  "HANDOVER_VERIFICATION",
+                                  "RETURN_RECEIPT",
+                                  "INSPECTION_REVISION",
+                                  "FINAL_INSPECTION",
+                                  "RETURN_PHYSICAL_EVENT",
+                                  "CUSTODY_EVENT",
+                                  "OFFLINE_CASE_EVENT",
+                                  "PROXY_EXECUTION"
+                                ],
+                                "type": "string"
+                              },
+                              "summary": {
+                                "maxLength": 4000,
+                                "minLength": 0,
+                                "type": "string"
+                              },
+                              "taskId": {
+                                "format": "uuid",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "taskStage": {
+                                "maxLength": 40,
                                 "minLength": 1,
+                                "nullable": true,
                                 "type": "string"
                               }
                             },
                             "required": [
                               "id",
                               "kind",
-                              "text",
-                              "createdAt"
+                              "source",
+                              "recordedAt",
+                              "occurredAt",
+                              "summary",
+                              "internalNote",
+                              "action",
+                              "beforeStatus",
+                              "afterStatus",
+                              "taskId",
+                              "taskStage",
+                              "deadlineAt",
+                              "newDueAt",
+                              "amountCents",
+                              "correctsId"
                             ],
                             "type": "object"
                           },
@@ -8657,8 +8777,7 @@
                   "properties": {
                     "code": {
                       "enum": [
-                        "VALIDATION_FAILED",
-                        "FILE_NOT_BINDABLE"
+                        "VALIDATION_FAILED"
                       ],
                       "type": "string"
                     },
@@ -8703,8 +8822,10 @@
                     "code": {
                       "enum": [
                         "TOKEN_INVALID",
-                        "ACCOUNT_UNAVAILABLE",
-                        "SESSION_REVOKED"
+                        "TOKEN_EXPIRED",
+                        "TOKEN_SUBJECT_MISMATCH",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
                       ],
                       "type": "string"
                     },
@@ -8793,77 +8914,8 @@
                   "properties": {
                     "code": {
                       "enum": [
-                        "AFTER_SALE_NOT_FOUND",
                         "ORDER_NOT_FOUND",
-                        "FILE_NOT_FOUND"
-                      ],
-                      "type": "string"
-                    },
-                    "details": {
-                      "items": {
-                        "properties": {
-                          "field": {
-                            "type": "string"
-                          },
-                          "message": {
-                            "type": "string"
-                          }
-                        },
-                        "type": "object"
-                      },
-                      "type": "array"
-                    },
-                    "message": {
-                      "type": "string"
-                    },
-                    "requestId": {
-                      "format": "uuid",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "code",
-                    "message",
-                    "requestId"
-                  ],
-                  "type": "object"
-                }
-              }
-            },
-            "description": ""
-          },
-          "409": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "properties": {
-                    "code": {
-                      "enum": [
-                        "AFTER_SALE_ALREADY_ACTIVE",
-                        "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE",
-                        "AFTER_SALE_WINDOW_EXPIRED",
-                        "AFTER_SALE_TYPE_NOT_ALLOWED",
-                        "AFTER_SALE_ACTION_NOT_ALLOWED",
-                        "AFTER_SALE_CLOSE_FORBIDDEN",
-                        "AFTER_SALE_CLOSE_FACTS_REQUIRED",
-                        "RETURN_ADDRESS_NOT_CONFIGURED",
-                        "RETURN_VERIFICATION_STALE",
-                        "RETURN_IN_TRANSIT",
-                        "COMMAND_PAYLOAD_CONFLICT",
-                        "VERSION_CONFLICT",
-                        "TASK_NOT_ASSIGNEE",
-                        "HANDOVER_VERIFICATION_REQUIRED",
-                        "PHYSICAL_CHECK_STALE",
-                        "PHYSICAL_CHECK_INCOMPLETE",
-                        "INSPECTION_INCOMPLETE",
-                        "INSPECTION_QUANTITY_MISMATCH",
-                        "EXCEPTION_APPROVAL_STALE",
-                        "EXCEPTION_APPROVAL_REQUIRED",
-                        "REFUND_PRECONDITION_FAILED",
-                        "REFUND_ALREADY_SUCCEEDED",
-                        "FINAL_INSPECTION_ALREADY_EXISTS",
-                        "RECEIPT_SOURCE_CONFLICT",
-                        "RECEIPT_ALREADY_RECORDED"
+                        "AFTER_SALE_NOT_FOUND"
                       ],
                       "type": "string"
                     },
@@ -8906,9 +8958,9 @@
             "bearerAuth": []
           }
         ],
-        "summary": "售后任务期限及决定时间线",
+        "summary": "授权真实业务时间线",
         "tags": [
-          "AfterSales"
+          "BusinessHistory"
         ]
       }
     },
@@ -15350,6 +15402,1604 @@
         ]
       }
     },
+    "/api/v1/admin/audit-logs": {
+      "get": {
+        "description": "默认最近7个北京日期到本次asOf，from包含/to不含且不读未来事实。显式时间须带时区，范围最多366天，page×pageSize≤10000。仅精确白名单筛选，按createdAt/id倒序；count/items同一REPEATABLE READ只读快照，业务号用存在性引用避免重复。未知动作仅安全元数据；自由文本原因、显示名与任意历史payload不会返回。业务号只覆盖已建立确定引用的历史，不推断缺失关系。",
+        "operationId": "listAuditLogs",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "format": "date-time",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "requestId",
+            "required": false,
+            "schema": {
+              "maxLength": 64,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "businessNo",
+            "required": false,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "businessType",
+            "required": false,
+            "schema": {
+              "enum": [
+                "ORDER",
+                "AFTER_SALE",
+                "REFUND",
+                "INVENTORY_ADJUSTMENT",
+                "OFFLINE_CASE"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "targetId",
+            "required": false,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "targetType",
+            "required": false,
+            "schema": {
+              "enum": [
+                "Coordination",
+                "AfterSale",
+                "Order",
+                "StockIncident",
+                "Customer",
+                "Address",
+                "CartItem",
+                "InventoryAction",
+                "InventorySource",
+                "InventoryAdjustment",
+                "InventoryBalance",
+                "InventoryPurchaseBlock",
+                "Category",
+                "Product",
+                "Employee",
+                "FileAsset",
+                "Communication",
+                "AuthSession",
+                "StoreSettingVersion",
+                "Task"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "action",
+            "required": false,
+            "schema": {
+              "enum": [
+                "coordination.change",
+                "after-sale.change",
+                "order.after-sale.pause",
+                "order.fulfillment",
+                "order.receipt",
+                "order.create",
+                "order.pay",
+                "order.close",
+                "stock.incident",
+                "customer.status.change",
+                "address.change",
+                "cart.change",
+                "inventory.action",
+                "inventory.source",
+                "inventory.adjustment",
+                "inventory.threshold",
+                "inventory.block",
+                "category.change",
+                "product.change",
+                "employee.create",
+                "employee.profile.update",
+                "employee.disable",
+                "employee.enable",
+                "employee.password.reset",
+                "employee.role.change",
+                "employee.permission.replace",
+                "employee.password.change",
+                "customer.register",
+                "customer.profile.update",
+                "customer.password.change",
+                "customer.avatar.change",
+                "file.upload",
+                "communication.append",
+                "communication.correct",
+                "auth.logout",
+                "store.setting.update",
+                "task.create",
+                "task.stage.complete",
+                "task.stage.cancel",
+                "task.overdue.record",
+                "task.claim",
+                "task.release",
+                "task.transfer",
+                "task.qualification.lost",
+                "task.deadline.extend",
+                "task.receipt-start.correct",
+                "task.stage.suspend",
+                "task.stage.resume",
+                "task.source.add",
+                "task.source.resolve",
+                "task.source.cancel",
+                "order.timer.block.add",
+                "order.timer.block.release",
+                "order.timer.handover.record",
+                "order.timer.finish"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "actorCustomerId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "actorEmployeeId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "actorType",
+            "required": false,
+            "schema": {
+              "enum": [
+                "EMPLOYEE",
+                "CUSTOMER",
+                "SYSTEM"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "maximum": 10000,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "asOf": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "coverageNotice": {
+                          "type": "string"
+                        },
+                        "from": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "items": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "action": {
+                                "type": "string"
+                              },
+                              "actionLabel": {
+                                "type": "string"
+                              },
+                              "actor": {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "employee": {
+                                    "anyOf": [
+                                      {
+                                        "additionalProperties": false,
+                                        "properties": {
+                                          "disabled": {
+                                            "type": "boolean"
+                                          },
+                                          "displayName": {
+                                            "type": "string"
+                                          },
+                                          "id": {
+                                            "format": "uuid",
+                                            "type": "string"
+                                          },
+                                          "username": {
+                                            "anyOf": [
+                                              {
+                                                "type": "string"
+                                              },
+                                              {
+                                                "type": "null"
+                                              }
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "username",
+                                          "displayName",
+                                          "disabled"
+                                        ],
+                                        "type": "object"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "id": {
+                                    "anyOf": [
+                                      {
+                                        "format": "uuid",
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "null"
+                                      }
+                                    ]
+                                  },
+                                  "type": {
+                                    "enum": [
+                                      "EMPLOYEE",
+                                      "CUSTOMER",
+                                      "SYSTEM"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "type",
+                                  "id",
+                                  "employee"
+                                ],
+                                "type": "object"
+                              },
+                              "businessReferences": {
+                                "items": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "businessId": {
+                                      "anyOf": [
+                                        {
+                                          "format": "uuid",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "businessNo": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "businessType": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "businessType",
+                                    "businessId",
+                                    "businessNo"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "changes": {
+                                "items": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "after": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "integer"
+                                        },
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "items": {
+                                            "type": "string"
+                                          },
+                                          "type": "array"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "before": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "integer"
+                                        },
+                                        {
+                                          "type": "boolean"
+                                        },
+                                        {
+                                          "items": {
+                                            "type": "string"
+                                          },
+                                          "type": "array"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    },
+                                    "field": {
+                                      "type": "string"
+                                    },
+                                    "label": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "field",
+                                    "label",
+                                    "before",
+                                    "after"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
+                              },
+                              "createdAt": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "detailNotice": {
+                                "type": "string"
+                              },
+                              "detailsAvailable": {
+                                "type": "boolean"
+                              },
+                              "hasReason": {
+                                "type": "boolean"
+                              },
+                              "id": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "reason": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "requestId": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "targetId": {
+                                "anyOf": [
+                                  {
+                                    "format": "uuid",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "targetType": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "actor",
+                              "action",
+                              "actionLabel",
+                              "detailsAvailable",
+                              "detailNotice",
+                              "hasReason",
+                              "reason",
+                              "changes",
+                              "targetType",
+                              "targetId",
+                              "requestId",
+                              "createdAt",
+                              "businessReferences"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "page": {
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "maximum": 100,
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "timeZone": {
+                          "enum": [
+                            "Asia/Shanghai"
+                          ],
+                          "type": "string"
+                        },
+                        "to": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "total": {
+                          "minimum": 0,
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "total",
+                        "page",
+                        "pageSize",
+                        "asOf",
+                        "timeZone",
+                        "from",
+                        "to",
+                        "coverageNotice"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED",
+                        "QUERY_RANGE_TOO_LARGE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "分页检索全店安全审计",
+        "tags": [
+          "Audit"
+        ]
+      }
+    },
+    "/api/v1/admin/audit-logs/filter-options": {
+      "get": {
+        "description": "仅管理员audit.read。员工候选包含停用员工，只返回受控工作账号、稳定编号及停用标记；显示名为安全工作标识，不返回自由显示名或员工权限/电话。",
+        "operationId": "getAuditFilterOptions",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "actorKeyword",
+            "required": false,
+            "schema": {
+              "maxLength": 50,
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "actions": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "label": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value",
+                              "label"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "actorTypes": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "businessTypes": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
+                        "employeeLimit": {
+                          "maximum": 100,
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "employees": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "disabled": {
+                                "type": "boolean"
+                              },
+                              "displayName": {
+                                "type": "string"
+                              },
+                              "id": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "username": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "username",
+                              "displayName",
+                              "disabled"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "identityNotice": {
+                          "type": "string"
+                        },
+                        "targetTypes": {
+                          "items": {
+                            "type": "string"
+                          },
+                          "type": "array"
+                        }
+                      },
+                      "required": [
+                        "actorTypes",
+                        "actions",
+                        "targetTypes",
+                        "businessTypes",
+                        "employees",
+                        "employeeLimit",
+                        "identityNotice"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED",
+                        "QUERY_RANGE_TOO_LARGE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "查询审计筛选选项",
+        "tags": [
+          "Audit"
+        ]
+      }
+    },
+    "/api/v1/admin/audit-logs/{id}": {
+      "get": {
+        "description": "仅audit.read；已知动作按字段和值白名单展示必要差异，未知动作只给安全元数据和提示。不提供原始JSON/文件路径/令牌或编辑删除接口；附件仍经原业务授权。",
+        "operationId": "getAuditLog",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "action": {
+                          "type": "string"
+                        },
+                        "actionLabel": {
+                          "type": "string"
+                        },
+                        "actor": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "employee": {
+                              "anyOf": [
+                                {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "disabled": {
+                                      "type": "boolean"
+                                    },
+                                    "displayName": {
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "format": "uuid",
+                                      "type": "string"
+                                    },
+                                    "username": {
+                                      "anyOf": [
+                                        {
+                                          "type": "string"
+                                        },
+                                        {
+                                          "type": "null"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "username",
+                                    "displayName",
+                                    "disabled"
+                                  ],
+                                  "type": "object"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "id": {
+                              "anyOf": [
+                                {
+                                  "format": "uuid",
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "null"
+                                }
+                              ]
+                            },
+                            "type": {
+                              "enum": [
+                                "EMPLOYEE",
+                                "CUSTOMER",
+                                "SYSTEM"
+                              ],
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "id",
+                            "employee"
+                          ],
+                          "type": "object"
+                        },
+                        "asOf": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "businessReferences": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "businessId": {
+                                "anyOf": [
+                                  {
+                                    "format": "uuid",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "businessNo": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "businessType": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "businessType",
+                              "businessId",
+                              "businessNo"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "changes": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "after": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "integer"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "type": "array"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "before": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "integer"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "type": "array"
+                                  },
+                                  {
+                                    "type": "null"
+                                  }
+                                ]
+                              },
+                              "field": {
+                                "type": "string"
+                              },
+                              "label": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "field",
+                              "label",
+                              "before",
+                              "after"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "createdAt": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "detailNotice": {
+                          "type": "string"
+                        },
+                        "detailsAvailable": {
+                          "type": "boolean"
+                        },
+                        "hasReason": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        },
+                        "reason": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "requestId": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "targetId": {
+                          "anyOf": [
+                            {
+                              "format": "uuid",
+                              "type": "string"
+                            },
+                            {
+                              "type": "null"
+                            }
+                          ]
+                        },
+                        "targetType": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "actor",
+                        "action",
+                        "actionLabel",
+                        "detailsAvailable",
+                        "detailNotice",
+                        "hasReason",
+                        "reason",
+                        "changes",
+                        "targetType",
+                        "targetId",
+                        "requestId",
+                        "createdAt",
+                        "businessReferences",
+                        "asOf"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED",
+                        "QUERY_RANGE_TOO_LARGE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "AUDIT_LOG_NOT_FOUND"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "查询一条安全审计详情",
+        "tags": [
+          "Audit"
+        ]
+      }
+    },
     "/api/v1/admin/auth/change-password": {
       "post": {
         "description": "强制改密员工可访问。验证旧密码，新密码须不同；成功后撤销本人全部会话并要求重新登录，不返回新token。密码、会话和审计在同一事务提交。",
@@ -20732,6 +22382,47 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "consumption": {
+                                "additionalProperties": false,
+                                "properties": {
+                                  "amountCents": {
+                                    "nullable": true,
+                                    "pattern": "^(0|[1-9][0-9]*)$",
+                                    "type": "string"
+                                  },
+                                  "asOf": {
+                                    "format": "date-time",
+                                    "type": "string"
+                                  },
+                                  "availability": {
+                                    "enum": [
+                                      "NOT_READY",
+                                      "AVAILABLE"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  "currency": {
+                                    "enum": [
+                                      "CNY"
+                                    ],
+                                    "type": "string"
+                                  },
+                                  "definitionVersion": {
+                                    "enum": [
+                                      "completed-unrefunded-v1"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "availability",
+                                  "amountCents",
+                                  "currency",
+                                  "asOf",
+                                  "definitionVersion"
+                                ],
+                                "type": "object"
+                              },
                               "createdAt": {
                                 "format": "date-time",
                                 "type": "string"
@@ -20776,7 +22467,8 @@
                               "statusVersion",
                               "createdAt",
                               "lastLoginAt",
-                              "phoneMasked"
+                              "phoneMasked",
+                              "consumption"
                             ],
                             "type": "object"
                           },
@@ -24452,6 +26144,1262 @@
         "summary": "查询顾客状态历史",
         "tags": [
           "Customers"
+        ]
+      }
+    },
+    "/api/v1/admin/dashboard/hot-products": {
+      "get": {
+        "description": "只读真实成功Payment/Refund事件；北京日期半开窗口。同响应使用短只读快照，累计数字以十进制字符串返回。线下金额不计交易，跨请求不保证同快照。",
+        "operationId": "getDashboardHotProducts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 30,
+              "enum": [
+                30
+              ],
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 10,
+              "maximum": 20,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "asOf": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "days": {
+                          "enum": [
+                            30
+                          ],
+                          "type": "integer"
+                        },
+                        "definitionVersion": {
+                          "enum": [
+                            "DASHBOARD_V1"
+                          ],
+                          "type": "string"
+                        },
+                        "firstDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "from": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "items": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "archived": {
+                                "type": "boolean"
+                              },
+                              "name": {
+                                "maxLength": 120,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "paidQuantity": {
+                                "pattern": "^(0|[1-9][0-9]*)$",
+                                "type": "string"
+                              },
+                              "productCode": {
+                                "maxLength": 64,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "productId": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "status": {
+                                "maxLength": 30,
+                                "minLength": 1,
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "productId",
+                              "productCode",
+                              "name",
+                              "status",
+                              "archived",
+                              "paidQuantity"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 20,
+                          "type": "array"
+                        },
+                        "lastDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "timeZone": {
+                          "enum": [
+                            "Asia/Shanghai"
+                          ],
+                          "type": "string"
+                        },
+                        "to": {
+                          "format": "date-time",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "asOf",
+                        "timeZone",
+                        "definitionVersion",
+                        "from",
+                        "to",
+                        "firstDate",
+                        "lastDate",
+                        "days",
+                        "items"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "近30天SPU支付件数，退款不倒扣",
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    },
+    "/api/v1/admin/dashboard/low-stock": {
+      "get": {
+        "description": "只读真实成功Payment/Refund事件；北京日期半开窗口。同响应使用短只读快照，累计数字以十进制字符串返回。线下金额不计交易，跨请求不保证同快照。",
+        "operationId": "getDashboardLowStock",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "maximum": 9007199254740991,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "asOf": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "definitionVersion": {
+                          "enum": [
+                            "DASHBOARD_V1"
+                          ],
+                          "type": "string"
+                        },
+                        "firstDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "from": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "items": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "available": {
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                              },
+                              "productArchived": {
+                                "type": "boolean"
+                              },
+                              "productCode": {
+                                "maxLength": 64,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "productId": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "productName": {
+                                "maxLength": 120,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "productStatus": {
+                                "maxLength": 30,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "skuCode": {
+                                "maxLength": 64,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "skuEnabled": {
+                                "type": "boolean"
+                              },
+                              "skuId": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "skuRetired": {
+                                "type": "boolean"
+                              },
+                              "warningThreshold": {
+                                "maximum": 2147483647,
+                                "minimum": 0,
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "skuId",
+                              "skuCode",
+                              "productId",
+                              "productCode",
+                              "productName",
+                              "available",
+                              "warningThreshold",
+                              "skuEnabled",
+                              "skuRetired",
+                              "productStatus",
+                              "productArchived"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 100,
+                          "type": "array"
+                        },
+                        "lastDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "page": {
+                          "maximum": 9007199254740991,
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "maximum": 100,
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "timeZone": {
+                          "enum": [
+                            "Asia/Shanghai"
+                          ],
+                          "type": "string"
+                        },
+                        "to": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "total": {
+                          "maximum": 9007199254740991,
+                          "minimum": 0,
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "asOf",
+                        "timeZone",
+                        "definitionVersion",
+                        "from",
+                        "to",
+                        "firstDate",
+                        "lastDate",
+                        "items",
+                        "total",
+                        "page",
+                        "pageSize"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "全余额账户预警摘要，含等号，不含R或成本",
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    },
+    "/api/v1/admin/dashboard/overview": {
+      "get": {
+        "description": "只读真实成功Payment/Refund事件；北京日期半开窗口。同响应使用短只读快照，累计数字以十进制字符串返回。线下金额不计交易，跨请求不保证同快照。",
+        "operationId": "getDashboardOverview",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "asOf": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "current": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "afterSalePausedOrderCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "failedRefundCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "lowStockSkuCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "pendingReviewAfterSaleCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "waitingShipmentOrderCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "waitingShipmentOrderCount",
+                            "afterSalePausedOrderCount",
+                            "pendingReviewAfterSaleCount",
+                            "failedRefundCount",
+                            "lowStockSkuCount"
+                          ],
+                          "type": "object"
+                        },
+                        "definitionVersion": {
+                          "enum": [
+                            "DASHBOARD_V1"
+                          ],
+                          "type": "string"
+                        },
+                        "firstDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "from": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "lastDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "timeZone": {
+                          "enum": [
+                            "Asia/Shanghai"
+                          ],
+                          "type": "string"
+                        },
+                        "to": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "today": {
+                          "additionalProperties": false,
+                          "properties": {
+                            "createdOrderCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "netReceiptsCents": {
+                              "pattern": "^-?(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "newCustomerCount": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "paidAmountCents": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            },
+                            "refundAmountCents": {
+                              "pattern": "^(0|[1-9][0-9]*)$",
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "createdOrderCount",
+                            "newCustomerCount",
+                            "paidAmountCents",
+                            "refundAmountCents",
+                            "netReceiptsCents"
+                          ],
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "asOf",
+                        "timeZone",
+                        "definitionVersion",
+                        "from",
+                        "to",
+                        "firstDate",
+                        "lastDate",
+                        "today",
+                        "current"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "今日经营事件与当前业务数量",
+        "tags": [
+          "Dashboard"
+        ]
+      }
+    },
+    "/api/v1/admin/dashboard/trends": {
+      "get": {
+        "description": "只读真实成功Payment/Refund事件；北京日期半开窗口。同响应使用短只读快照，累计数字以十进制字符串返回。线下金额不计交易，跨请求不保证同快照。",
+        "operationId": "getDashboardTrends",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "days",
+            "required": false,
+            "schema": {
+              "default": 7,
+              "enum": [
+                7,
+                30
+              ],
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "asOf": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "days": {
+                          "enum": [
+                            7,
+                            30
+                          ],
+                          "type": "integer"
+                        },
+                        "definitionVersion": {
+                          "enum": [
+                            "DASHBOARD_V1"
+                          ],
+                          "type": "string"
+                        },
+                        "firstDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "from": {
+                          "format": "date-time",
+                          "type": "string"
+                        },
+                        "items": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "createdOrderCount": {
+                                "pattern": "^(0|[1-9][0-9]*)$",
+                                "type": "string"
+                              },
+                              "date": {
+                                "maxLength": 10,
+                                "minLength": 1,
+                                "type": "string"
+                              },
+                              "netReceiptsCents": {
+                                "pattern": "^-?(0|[1-9][0-9]*)$",
+                                "type": "string"
+                              },
+                              "newCustomerCount": {
+                                "pattern": "^(0|[1-9][0-9]*)$",
+                                "type": "string"
+                              },
+                              "paidAmountCents": {
+                                "pattern": "^(0|[1-9][0-9]*)$",
+                                "type": "string"
+                              },
+                              "refundAmountCents": {
+                                "pattern": "^(0|[1-9][0-9]*)$",
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "date",
+                              "createdOrderCount",
+                              "newCustomerCount",
+                              "paidAmountCents",
+                              "refundAmountCents",
+                              "netReceiptsCents"
+                            ],
+                            "type": "object"
+                          },
+                          "maxItems": 30,
+                          "type": "array"
+                        },
+                        "lastDate": {
+                          "maxLength": 10,
+                          "minLength": 1,
+                          "type": "string"
+                        },
+                        "timeZone": {
+                          "enum": [
+                            "Asia/Shanghai"
+                          ],
+                          "type": "string"
+                        },
+                        "to": {
+                          "format": "date-time",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "asOf",
+                        "timeZone",
+                        "definitionVersion",
+                        "from",
+                        "to",
+                        "firstDate",
+                        "lastDate",
+                        "days",
+                        "items"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "北京日期7/30天逐日趋势",
+        "tags": [
+          "Dashboard"
         ]
       }
     },
@@ -66099,6 +69047,443 @@
         "summary": "运单拼写更正，未决交运冻结，不代表重发",
         "tags": [
           "Fulfillment"
+        ]
+      }
+    },
+    "/api/v1/admin/orders/{id}/history": {
+      "get": {
+        "description": "当前权限先裁剪真实来源和字段，再于同一短REPEATABLE READ快照count及SQL分页；recordedAt倒序、kind正序、id倒序。occurredAt保留实际时间；GET不取得业务写锁且不写入交易、库存、任务。",
+        "operationId": "getAdminOrderHistory",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "kind",
+            "required": false,
+            "schema": {
+              "enum": [
+                "STATE_CHANGE",
+                "TASK_CHANGE",
+                "DEADLINE_EVENT",
+                "COMMUNICATION",
+                "PAYMENT",
+                "REFUND_ATTEMPT",
+                "INVENTORY_ACTION",
+                "HANDOVER",
+                "INSPECTION",
+                "OFFLINE_EVENT"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "maximum": 9007199254740991,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": {
+              "maximum": 100,
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "items": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "action": {
+                                "maxLength": 80,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "afterStatus": {
+                                "maxLength": 80,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "amountCents": {
+                                "maximum": 100000000,
+                                "minimum": 0,
+                                "nullable": true,
+                                "type": "integer"
+                              },
+                              "beforeStatus": {
+                                "maxLength": 80,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "correctsId": {
+                                "format": "uuid",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "deadlineAt": {
+                                "format": "date-time",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "id": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "internalNote": {
+                                "maxLength": 2000,
+                                "minLength": 0,
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "kind": {
+                                "enum": [
+                                  "STATE_CHANGE",
+                                  "TASK_CHANGE",
+                                  "DEADLINE_EVENT",
+                                  "COMMUNICATION",
+                                  "PAYMENT",
+                                  "REFUND_ATTEMPT",
+                                  "INVENTORY_ACTION",
+                                  "HANDOVER",
+                                  "INSPECTION",
+                                  "OFFLINE_EVENT"
+                                ],
+                                "type": "string"
+                              },
+                              "newDueAt": {
+                                "format": "date-time",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "occurredAt": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "recordedAt": {
+                                "format": "date-time",
+                                "type": "string"
+                              },
+                              "source": {
+                                "enum": [
+                                  "BUSINESS_STATE_HISTORY",
+                                  "TIMER_PAUSE",
+                                  "TIMER_RESUME",
+                                  "TASK_HISTORY",
+                                  "DEADLINE_EVENT",
+                                  "COMMUNICATION",
+                                  "PAYMENT",
+                                  "REFUND_ATTEMPT",
+                                  "INVENTORY_ACTION",
+                                  "INVENTORY_LEDGER",
+                                  "HANDOVER_ATTEMPT",
+                                  "HANDOVER_VERIFICATION",
+                                  "RETURN_RECEIPT",
+                                  "INSPECTION_REVISION",
+                                  "FINAL_INSPECTION",
+                                  "RETURN_PHYSICAL_EVENT",
+                                  "CUSTODY_EVENT",
+                                  "OFFLINE_CASE_EVENT",
+                                  "PROXY_EXECUTION"
+                                ],
+                                "type": "string"
+                              },
+                              "summary": {
+                                "maxLength": 4000,
+                                "minLength": 0,
+                                "type": "string"
+                              },
+                              "taskId": {
+                                "format": "uuid",
+                                "nullable": true,
+                                "type": "string"
+                              },
+                              "taskStage": {
+                                "maxLength": 40,
+                                "minLength": 1,
+                                "nullable": true,
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "kind",
+                              "source",
+                              "recordedAt",
+                              "occurredAt",
+                              "summary",
+                              "internalNote",
+                              "action",
+                              "beforeStatus",
+                              "afterStatus",
+                              "taskId",
+                              "taskStage",
+                              "deadlineAt",
+                              "newDueAt",
+                              "amountCents",
+                              "correctsId"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
+                        "page": {
+                          "maximum": 9007199254740991,
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "pageSize": {
+                          "maximum": 100,
+                          "minimum": 1,
+                          "type": "integer"
+                        },
+                        "total": {
+                          "maximum": 9007199254740991,
+                          "minimum": 0,
+                          "type": "integer"
+                        }
+                      },
+                      "required": [
+                        "items",
+                        "total",
+                        "page",
+                        "pageSize"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "TOKEN_SUBJECT_MISMATCH",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "ORDER_NOT_FOUND",
+                        "AFTER_SALE_NOT_FOUND"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "授权真实业务时间线",
+        "tags": [
+          "BusinessHistory"
         ]
       }
     },

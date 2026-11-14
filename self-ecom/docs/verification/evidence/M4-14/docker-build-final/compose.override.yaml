@@ -1,0 +1,7 @@
+services:
+  api:
+    image: self-ecom-m414-acceptance-14a1b2c3-api:local
+  admin-web:
+    image: self-ecom-m414-acceptance-14a1b2c3-admin:local
+  store-web:
+    image: self-ecom-m414-acceptance-14a1b2c3-store:local

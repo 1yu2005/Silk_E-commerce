@@ -1,0 +1,4 @@
+src/audit/data.ts(10,107): error TS2322: Type 'AuditSearch' is not assignable to type '{ action?: "task.transfer" | "employee.create" | "coordination.change" | "after-sale.change" | "order.after-sale.pause" | "order.fulfillment" | "order.receipt" | "order.create" | ... 47 more ... | undefined; ... 11 more ...; to?: string | undefined; }'.
+  Types of property 'action' are incompatible.
+    Type 'string | undefined' is not assignable to type '"task.transfer" | "employee.create" | "coordination.change" | "after-sale.change" | "order.after-sale.pause" | "order.fulfillment" | "order.receipt" | "order.create" | "order.pay" | ... 46 more ... | undefined'.
+      Type 'string' is not assignable to type '"task.transfer" | "employee.create" | "coordination.change" | "after-sale.change" | "order.after-sale.pause" | "order.fulfillment" | "order.receipt" | "order.create" | "order.pay" | ... 46 more ... | undefined'.

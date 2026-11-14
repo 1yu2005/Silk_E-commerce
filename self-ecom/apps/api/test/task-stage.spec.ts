@@ -51,7 +51,7 @@ it('生产注册表无默认业务和锁处理器，缺失/重复/无效注册�
   expect(() => adapters.registerLocker('CUSTOMER', async () => {})).toThrow();
 });
 function auditFixture(action: AuditPayload['action'] = 'task.create') {
-  const create = vi.fn().mockResolvedValue({}); const tx = { auditLog: { create } } as unknown as Prisma.TransactionClient;
+  const create = vi.fn().mockResolvedValue({}); const tx = { auditLog: { create },task:{findMany:vi.fn().mockResolvedValue([])} } as unknown as Prisma.TransactionClient;
   const payload: AuditPayload = { actor: { type: 'SYSTEM' }, action, targetId: randomUUID(), requestId: randomUUID(), reason: '隔离阶段进入',
     after: { businessType: 'ORDER', businessId: randomUUID(), stage: 'SHIPMENT_PROCESS', round: 1, taskStatus: 'OPEN', dueAt: null, settingsVersionId: null } };
   return { create, tx, payload, service: new AuditService() };

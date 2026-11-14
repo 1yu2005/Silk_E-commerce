@@ -1,0 +1,34 @@
+{
+  "recordedAt": "2026-11-14T18:23:24.218Z",
+  "evidence": {
+    "counts": {
+      "20": 8,
+      "100": 8
+    },
+    "statements": {
+      "20": [
+        "BEGIN",
+        "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ",
+        "\n      SELECT s.subject_type AS \"subjectType\", s.employee_id AS \"employeeId\", s.customer_id AS \"customerId\",\n        s.token_version AS \"tokenVersion\", s.expires_at AS \"expiresAt\", s.revoked_at AS \"revokedAt\", e.id AS \"accountId\", e.token_version AS \"accountTokenVersion\", e.status, e.role, e.username, e.display_name AS \"displayName\",\n          e.must_change_password AS \"mustChangePassword\", e.permission_version AS \"permissionVersion\",\n          ARRAY(SELECT p.permission_code FROM employee_extra_permission p\n            WHERE p.employee_id=e.id ORDER BY p.permission_code) AS \"extraPermissions\"\n      FROM auth_session s LEFT JOIN employee e ON e.id=s.employee_id WHERE s.id=$1::uuid",
+        "SELECT COUNT(*) AS \"_count$_all\" FROM (SELECT \"public\".\"customer\".\"id\" FROM \"public\".\"customer\" WHERE \"public\".\"customer\".\"nickname\" ILIKE ('%' || $1 || '%') OFFSET $2) AS \"sub\"",
+        "SELECT \"public\".\"customer\".\"id\", \"public\".\"customer\".\"phone\", \"public\".\"customer\".\"nickname\", \"public\".\"customer\".\"status\"::text, \"public\".\"customer\".\"status_version\", \"public\".\"customer\".\"created_at\", \"public\".\"customer\".\"last_login_at\", \"public\".\"customer\".\"avatar_asset_id\" FROM \"public\".\"customer\" WHERE \"public\".\"customer\".\"nickname\" ILIKE ('%' || $1 || '%') ORDER BY \"public\".\"customer\".\"created_at\" DESC, \"public\".\"customer\".\"id\" ASC LIMIT $2 OFFSET $3",
+        "SELECT to_regclass('public.order_item') IS NOT NULL AS installed",
+        "SELECT o.customer_id AS id,COALESCE(SUM(p.amount_cents::bigint),0)::text AS amount FROM \"order\" o JOIN payment p ON p.order_id=o.id AND p.status='SUCCEEDED' WHERE o.customer_id=ANY($1::uuid[]) AND o.status='COMPLETED' AND NOT EXISTS(SELECT 1 FROM refund r WHERE r.order_id=o.id AND r.status='SUCCEEDED') GROUP BY o.customer_id",
+        "COMMIT"
+      ],
+      "100": [
+        "BEGIN",
+        "SET TRANSACTION ISOLATION LEVEL REPEATABLE READ",
+        "\n      SELECT s.subject_type AS \"subjectType\", s.employee_id AS \"employeeId\", s.customer_id AS \"customerId\",\n        s.token_version AS \"tokenVersion\", s.expires_at AS \"expiresAt\", s.revoked_at AS \"revokedAt\", e.id AS \"accountId\", e.token_version AS \"accountTokenVersion\", e.status, e.role, e.username, e.display_name AS \"displayName\",\n          e.must_change_password AS \"mustChangePassword\", e.permission_version AS \"permissionVersion\",\n          ARRAY(SELECT p.permission_code FROM employee_extra_permission p\n            WHERE p.employee_id=e.id ORDER BY p.permission_code) AS \"extraPermissions\"\n      FROM auth_session s LEFT JOIN employee e ON e.id=s.employee_id WHERE s.id=$1::uuid",
+        "SELECT COUNT(*) AS \"_count$_all\" FROM (SELECT \"public\".\"customer\".\"id\" FROM \"public\".\"customer\" WHERE \"public\".\"customer\".\"nickname\" ILIKE ('%' || $1 || '%') OFFSET $2) AS \"sub\"",
+        "SELECT \"public\".\"customer\".\"id\", \"public\".\"customer\".\"phone\", \"public\".\"customer\".\"nickname\", \"public\".\"customer\".\"status\"::text, \"public\".\"customer\".\"status_version\", \"public\".\"customer\".\"created_at\", \"public\".\"customer\".\"last_login_at\", \"public\".\"customer\".\"avatar_asset_id\" FROM \"public\".\"customer\" WHERE \"public\".\"customer\".\"nickname\" ILIKE ('%' || $1 || '%') ORDER BY \"public\".\"customer\".\"created_at\" DESC, \"public\".\"customer\".\"id\" ASC LIMIT $2 OFFSET $3",
+        "SELECT to_regclass('public.order_item') IS NOT NULL AS installed",
+        "SELECT o.customer_id AS id,COALESCE(SUM(p.amount_cents::bigint),0)::text AS amount FROM \"order\" o JOIN payment p ON p.order_id=o.id AND p.status='SUCCEEDED' WHERE o.customer_id=ANY($1::uuid[]) AND o.status='COMPLETED' AND NOT EXISTS(SELECT 1 FROM refund r WHERE r.order_id=o.id AND r.status='SUCCEEDED') GROUP BY o.customer_id",
+        "COMMIT"
+      ]
+    },
+    "rows20": 20,
+    "rows100": 100,
+    "total": 123
+  }
+}

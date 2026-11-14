@@ -1,0 +1,35 @@
+{
+  "recordedAt": "2026-11-14T18:23:24.511Z",
+  "evidence": {
+    "results": [
+      {
+        "path": "/admin/customers?nickname=%E6%B6%88%E8%B4%B9%E6%89%B9%E9%87%8F_1bce0a82",
+        "status": 503,
+        "error": {
+          "code": "CUSTOMER_CONSUMPTION_UNAVAILABLE",
+          "message": "消费统计暂不可用",
+          "requestId": "67bc2a12-c6ad-4865-82e8-be3889b3da32"
+        }
+      },
+      {
+        "path": "/admin/customers/9d08f7bd-431e-48f1-8fdc-7fe2ce70f215",
+        "status": 503,
+        "error": {
+          "code": "CUSTOMER_CONSUMPTION_UNAVAILABLE",
+          "message": "消费统计暂不可用",
+          "requestId": "af1f6fda-cafb-4eed-8bac-6ef9a4150880"
+        }
+      },
+      {
+        "path": "/admin/customers/9d08f7bd-431e-48f1-8fdc-7fe2ce70f215/consumption",
+        "status": 503,
+        "error": {
+          "code": "CUSTOMER_CONSUMPTION_UNAVAILABLE",
+          "message": "消费统计暂不可用",
+          "requestId": "7827e07b-e5d1-4087-8dee-c3c90d6e08df"
+        }
+      }
+    ],
+    "recovered": true
+  }
+}

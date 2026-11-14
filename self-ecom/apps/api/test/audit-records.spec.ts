@@ -6,7 +6,7 @@ import { AuditService, type AuditPayload } from '../src/audit/audit.service.js';
 
 function fixture() {
   const create = vi.fn().mockResolvedValue({});
-  const tx = { auditLog: { create } } as unknown as Prisma.TransactionClient;
+  const tx = { auditLog: { create }, communication:{findMany:vi.fn().mockResolvedValue([])} } as unknown as Prisma.TransactionClient;
   const payload: AuditPayload = { actor: { type: 'EMPLOYEE', id: randomUUID() }, action: 'communication.append',
     targetId: randomUUID(), requestId: randomUUID(), after: { scopeType: 'ORDER', scopeId: randomUUID(), channel: 'PHONE', hasPublicText: false } };
   return { create, tx, payload, audit: new AuditService() };

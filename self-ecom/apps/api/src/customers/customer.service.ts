@@ -26,7 +26,8 @@ export class CustomerService {
     ...((q.registeredFrom||q.registeredTo)?{createdAt:{...(q.registeredFrom?{gte:new Date(q.registeredFrom)}:{}),...(q.registeredTo?{lte:new Date(q.registeredTo)}:{})}}:{})};
    const total=await tx.customer.count({where});const skip=BigInt(q.page-1)*BigInt(q.pageSize);
    const items=skip>=BigInt(total)?[]:await tx.customer.findMany({where,select,orderBy:[{createdAt:'desc'},{id:'asc'}],skip:Number(skip),take:q.pageSize});
-   return {items:items.map(r=>({id:r.id,nickname:r.nickname,status:r.status,statusVersion:r.statusVersion,createdAt:r.createdAt,lastLoginAt:r.lastLoginAt,phoneMasked:r.phone.slice(0,3)+'****'+r.phone.slice(-4)})),total,page:q.page,pageSize:q.pageSize};
+   const consumed=await this.consumption.readMany(tx,items.map(r=>r.id));
+   return {items:items.map(r=>({id:r.id,nickname:r.nickname,status:r.status,statusVersion:r.statusVersion,createdAt:r.createdAt,lastLoginAt:r.lastLoginAt,phoneMasked:r.phone.slice(0,3)+'****'+r.phone.slice(-4),consumption:consumed.get(r.id)!})),total,page:q.page,pageSize:q.pageSize};
   },readOptions);
  }
  private async exists(tx:Prisma.TransactionClient,id:string){if(!await tx.customer.count({where:{id}}))throw new CustomerError('CUSTOMER_NOT_FOUND');}

@@ -29,7 +29,7 @@ it('扫描错误只记录固定摘要，异常中的连接串/密码/令牌及�
   expect(scanFailure(new TaskError('BUSINESS_MODULE_NOT_READY')).errorCode).toBe('BUSINESS_MODULE_NOT_READY');
 });
 it.each(['task.stage.suspend', 'task.stage.resume', 'task.source.add', 'order.timer.block.add'] as const)('新受限审计动作%s允许SYSTEM，禁止夹带敏感字段', async action => {
-  const create = vi.fn(); const tx = { auditLog: { create } } as unknown as Prisma.TransactionClient;
+  const create = vi.fn(); const tx = { auditLog: { create },task:{findMany:vi.fn().mockResolvedValue([])},order:{findMany:vi.fn().mockResolvedValue([])} } as unknown as Prisma.TransactionClient;
   const payload = { action, actor: { type: 'SYSTEM' as const }, targetId: randomUUID(), requestId: randomUUID(), reason: '隔离内核审计' };
   await new AuditService().appendAudit(tx, payload); expect(create).toHaveBeenCalledOnce();
   await expect(new AuditService().appendAudit(tx, { ...payload, after: { password: 'forbidden' } })).rejects.toThrow();

@@ -29,10 +29,13 @@ import { CustomersModule } from './customers/customers.module.js';
 import { OrdersModule } from './orders/orders.module.js';
 import { AfterSalesModule } from './after-sales/after-sales.module.js';
 import { CoordinationModule } from './coordination/coordination.module.js';
+import { ReportingModule } from './reporting/reporting.module.js';
+import { AuditQueryModule } from './audit-query/audit-query.module.js';
+import { BusinessHistoryModule } from './timeline/business-history.module.js';
 
 @Module({ imports: [ConfigModule, LoggerModule.forRootAsync({
   imports: [ConfigModule],
   inject: [APP_CONFIG],
   useFactory: (config: EnvironmentConfig) => ({ pinoHttp: httpLogOptions(config) }),
-}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule, CatalogModule, InventoryModule, CustomersModule, OrdersModule, AfterSalesModule, CoordinationModule] })
+}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule, CatalogModule, InventoryModule, CustomersModule, OrdersModule, AfterSalesModule, CoordinationModule, ReportingModule, AuditQueryModule, BusinessHistoryModule] })
 export class AppModule {}

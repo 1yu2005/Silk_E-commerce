@@ -1,0 +1,43 @@
+{
+  "recordedAt": "2026-11-14T19:02:34.094Z",
+  "evidence": {
+    "counts": {
+      "low20": 6,
+      "low100": 6,
+      "trend7": 5,
+      "trend30": 5
+    },
+    "statements": {
+      "low20": [
+        "BEGIN",
+        "SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ",
+        "\n      SELECT s.subject_type AS \"subjectType\", s.employee_id AS \"employeeId\", s.customer_id AS \"customerId\",\n        s.token_version AS \"tokenVersion\", s.expires_at AS \"expiresAt\", s.revoked_at AS \"revokedAt\", e.id AS \"accountId\", e.token_version AS \"accountTokenVersion\", e.status, e.role, e.username, e.display_name AS \"displayName\",\n          e.must_change_password AS \"mustChangePassword\", e.permission_version AS \"permissionVersion\",\n          ARRAY(SELECT p.permission_code FROM employee_extra_permission p\n            WHERE p.employee_id=e.id ORDER BY p.permission_code) AS \"extraPermissions\"\n      FROM auth_session s LEFT JOIN employee e ON e.id=s.employee_id WHERE s.id=$1::uuid",
+        "SELECT count(*)::text total FROM inventory_balance WHERE available<=warning_threshold",
+        "\n   SELECT b.sku_id AS \"skuId\",s.code AS \"skuCode\",p.id AS \"productId\",p.product_code AS \"productCode\",p.name AS \"productName\",\n    b.available,b.warning_threshold AS \"warningThreshold\",s.enabled AS \"skuEnabled\",(s.retired_at IS NOT NULL) AS \"skuRetired\",p.status AS \"productStatus\",(p.archived_at IS NOT NULL) AS \"productArchived\"\n   FROM inventory_balance b JOIN sku s ON s.id=b.sku_id JOIN product p ON p.id=s.product_id\n   WHERE b.available<=b.warning_threshold ORDER BY b.available ASC,b.sku_id ASC LIMIT $1 OFFSET $2",
+        "COMMIT"
+      ],
+      "low100": [
+        "BEGIN",
+        "SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ",
+        "\n      SELECT s.subject_type AS \"subjectType\", s.employee_id AS \"employeeId\", s.customer_id AS \"customerId\",\n        s.token_version AS \"tokenVersion\", s.expires_at AS \"expiresAt\", s.revoked_at AS \"revokedAt\", e.id AS \"accountId\", e.token_version AS \"accountTokenVersion\", e.status, e.role, e.username, e.display_name AS \"displayName\",\n          e.must_change_password AS \"mustChangePassword\", e.permission_version AS \"permissionVersion\",\n          ARRAY(SELECT p.permission_code FROM employee_extra_permission p\n            WHERE p.employee_id=e.id ORDER BY p.permission_code) AS \"extraPermissions\"\n      FROM auth_session s LEFT JOIN employee e ON e.id=s.employee_id WHERE s.id=$1::uuid",
+        "SELECT count(*)::text total FROM inventory_balance WHERE available<=warning_threshold",
+        "\n   SELECT b.sku_id AS \"skuId\",s.code AS \"skuCode\",p.id AS \"productId\",p.product_code AS \"productCode\",p.name AS \"productName\",\n    b.available,b.warning_threshold AS \"warningThreshold\",s.enabled AS \"skuEnabled\",(s.retired_at IS NOT NULL) AS \"skuRetired\",p.status AS \"productStatus\",(p.archived_at IS NOT NULL) AS \"productArchived\"\n   FROM inventory_balance b JOIN sku s ON s.id=b.sku_id JOIN product p ON p.id=s.product_id\n   WHERE b.available<=b.warning_threshold ORDER BY b.available ASC,b.sku_id ASC LIMIT $1 OFFSET $2",
+        "COMMIT"
+      ],
+      "trend7": [
+        "BEGIN",
+        "SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ",
+        "\n      SELECT s.subject_type AS \"subjectType\", s.employee_id AS \"employeeId\", s.customer_id AS \"customerId\",\n        s.token_version AS \"tokenVersion\", s.expires_at AS \"expiresAt\", s.revoked_at AS \"revokedAt\", e.id AS \"accountId\", e.token_version AS \"accountTokenVersion\", e.status, e.role, e.username, e.display_name AS \"displayName\",\n          e.must_change_password AS \"mustChangePassword\", e.permission_version AS \"permissionVersion\",\n          ARRAY(SELECT p.permission_code FROM employee_extra_permission p\n            WHERE p.employee_id=e.id ORDER BY p.permission_code) AS \"extraPermissions\"\n      FROM auth_session s LEFT JOIN employee e ON e.id=s.employee_id WHERE s.id=$1::uuid",
+        "WITH dates AS (\n   SELECT generate_series($1::date,$2::date,interval '1 day')::date AS d\n  ),p AS (SELECT (paid_at AT TIME ZONE 'Asia/Shanghai')::date d,sum(amount_cents::bigint) n FROM payment\n   WHERE status='SUCCEEDED' AND paid_at>=$3 AND paid_at<$4 GROUP BY 1),\n  f AS (SELECT (succeeded_at AT TIME ZONE 'Asia/Shanghai')::date d,sum(amount_cents::bigint) n FROM refund\n   WHERE status='SUCCEEDED' AND succeeded_at>=$5 AND succeeded_at<$6 GROUP BY 1),\n  o AS (SELECT (created_at AT TIME ZONE 'Asia/Shanghai')::date d,count(*) n FROM \"order\" WHERE created_at>=$7 AND created_at<$8 GROUP BY 1),\n  c AS (SELECT (created_at AT TIME ZONE 'Asia/Shanghai')::date d,count(*) n FROM customer WHERE created_at>=$9 AND created_at<$10 GROUP BY 1)\n  SELECT dates.d::text date,COALESCE(o.n,0)::text AS \"createdOrderCount\",COALESCE(c.n,0)::text AS \"newCustomerCount\",\n   COALESCE(p.n,0)::text AS \"paidAmountCents\",COALESCE(f.n,0)::text AS \"refundAmountCents\",(COALESCE(p.n,0)-COALESCE(f.n,0))::text AS \"netReceiptsCents\"\n  FROM dates LEFT JOIN p USING(d) LEFT JOIN f USING(d) LEFT JOIN o USING(d) LEFT JOIN c USING(d) ORDER BY dates.d",
+        "COMMIT"
+      ],
+      "trend30": [
+        "BEGIN",
+        "SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ",
+        "\n      SELECT s.subject_type AS \"subjectType\", s.employee_id AS \"employeeId\", s.customer_id AS \"customerId\",\n        s.token_version AS \"tokenVersion\", s.expires_at AS \"expiresAt\", s.revoked_at AS \"revokedAt\", e.id AS \"accountId\", e.token_version AS \"accountTokenVersion\", e.status, e.role, e.username, e.display_name AS \"displayName\",\n          e.must_change_password AS \"mustChangePassword\", e.permission_version AS \"permissionVersion\",\n          ARRAY(SELECT p.permission_code FROM employee_extra_permission p\n            WHERE p.employee_id=e.id ORDER BY p.permission_code) AS \"extraPermissions\"\n      FROM auth_session s LEFT JOIN employee e ON e.id=s.employee_id WHERE s.id=$1::uuid",
+        "WITH dates AS (\n   SELECT generate_series($1::date,$2::date,interval '1 day')::date AS d\n  ),p AS (SELECT (paid_at AT TIME ZONE 'Asia/Shanghai')::date d,sum(amount_cents::bigint) n FROM payment\n   WHERE status='SUCCEEDED' AND paid_at>=$3 AND paid_at<$4 GROUP BY 1),\n  f AS (SELECT (succeeded_at AT TIME ZONE 'Asia/Shanghai')::date d,sum(amount_cents::bigint) n FROM refund\n   WHERE status='SUCCEEDED' AND succeeded_at>=$5 AND succeeded_at<$6 GROUP BY 1),\n  o AS (SELECT (created_at AT TIME ZONE 'Asia/Shanghai')::date d,count(*) n FROM \"order\" WHERE created_at>=$7 AND created_at<$8 GROUP BY 1),\n  c AS (SELECT (created_at AT TIME ZONE 'Asia/Shanghai')::date d,count(*) n FROM customer WHERE created_at>=$9 AND created_at<$10 GROUP BY 1)\n  SELECT dates.d::text date,COALESCE(o.n,0)::text AS \"createdOrderCount\",COALESCE(c.n,0)::text AS \"newCustomerCount\",\n   COALESCE(p.n,0)::text AS \"paidAmountCents\",COALESCE(f.n,0)::text AS \"refundAmountCents\",(COALESCE(p.n,0)-COALESCE(f.n,0))::text AS \"netReceiptsCents\"\n  FROM dates LEFT JOIN p USING(d) LEFT JOIN f USING(d) LEFT JOIN o USING(d) LEFT JOIN c USING(d) ORDER BY dates.d",
+        "COMMIT"
+      ]
+    }
+  }
+}

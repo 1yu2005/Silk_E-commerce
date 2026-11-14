@@ -1,0 +1,22 @@
+{
+  "startedAt": "2026-11-14T18:06:12.912Z",
+  "endedAt": "2026-11-14T18:06:15.634Z",
+  "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\api",
+  "command": [
+    "node",
+    "node_modules/eslint/bin/eslint.js",
+    "src/audit/audit-business-reference.ts",
+    "src/audit/audit-reference-backfill.ts",
+    "src/audit/audit.service.ts",
+    "src/prisma/prisma.service.ts",
+    "src/reporting/reporting.service.ts",
+    "scripts/backfill-audit-references.ts",
+    "test/reporting-audit-references.integration.ts",
+    "test/reporting-migration.integration.ts",
+    "test/reporting-performance.integration.ts",
+    "test/reporting-boundaries.integration.ts",
+    "test/fixtures/reporting-performance.ts",
+    "test/fixtures/reporting-performance-probe.mjs"
+  ],
+  "exitCode": 0
+}

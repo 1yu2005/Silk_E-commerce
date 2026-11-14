@@ -9,5 +9,6 @@ import {CustomerConsumptionService} from './customer-consumption.service.js';
 import {AddressService} from './address.service.js';
 import {CartService} from './cart.service.js';
 import {CustomerController,AddressController,CartController} from './customer.controller.js';
-@Module({imports:[AuthGuardModule,AuditModule],controllers:[CustomerController,AddressController,CartController],providers:[CustomerStatusEffects,CustomerAccessService,CustomerService,CustomerConsumptionService,AddressService,CartService],exports:[CustomerStatusEffects,CartService,CustomerConsumptionService,CustomerAccessService]})
+import {TimeModule} from '../common/time/time.module.js';
+@Module({imports:[AuthGuardModule,AuditModule,TimeModule],controllers:[CustomerController,AddressController,CartController],providers:[CustomerStatusEffects,CustomerAccessService,CustomerService,CustomerConsumptionService,AddressService,CartService],exports:[CustomerStatusEffects,CartService,CustomerConsumptionService,CustomerAccessService]})
 export class CustomersModule{}

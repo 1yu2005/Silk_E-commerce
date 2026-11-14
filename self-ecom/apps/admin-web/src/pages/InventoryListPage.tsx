@@ -1,17 +1,23 @@
 // 作用：库存余额/低库存、来源、登记与流水列表共用既有会话隔离查询和显式筛选。
 import { useState } from 'react';
-import { Button,Tag } from 'antd';
-import { Link } from 'react-router-dom';
+import { Alert,Button,Tag } from 'antd';
+import { Link,useSearchParams } from 'react-router-dom';
 import { inventoryQueries } from '../services/api';
 import { useEmployeeQuery } from '../employees/use-employee-query';
 import { useEmployeeAuth } from '../auth/use-employee-auth';
 import { InventoryNav,InventoryPager,InventoryState } from '../inventory/InventoryCommon';
 import { inventoryStatuses,inventoryTypes,signed,time,type BalanceQuery,type SourceQuery,type AdjustmentQuery,type LedgerQuery } from '../inventory/model';
+import { parseListLink } from '../routing/list-link';
 export function InventoryListPage(){
- const [q,setQ]=useState<BalanceQuery>({page:1,pageSize:20});const query=useEmployeeQuery(inventoryQueries.balances,JSON.stringify(q),q);const reload=()=>void inventoryQueries.balances.invalidate();
+ const [params,setParams]=useSearchParams(),search=params.toString(),parsed=parseListLink(search,{lowStock:['true','false']});
+ if(!parsed.filters)return <section className="catalog-panel"><h1>库存余额与预警</h1><Alert type="error" title={parsed.issue}/><Button onClick={()=>setParams(new URLSearchParams())}>重置筛选</Button></section>;
+ return <InventoryBalances key={search} initial={{page:1,pageSize:20,...(parsed.filters.lowStock?{lowStock:parsed.filters.lowStock as BalanceQuery['lowStock']}:{})}}/>;
+}
+function InventoryBalances({initial}:{initial:BalanceQuery}){
+ const [q,setQ]=useState<BalanceQuery>(initial);const query=useEmployeeQuery(inventoryQueries.balances,JSON.stringify(q),q);const reload=()=>void inventoryQueries.balances.invalidate();
  return <section className="catalog-panel"><h1>库存余额与预警</h1><InventoryNav/><p>A 是可分给新订单的数量，R 是未付款订单占用。它们不包含已付款备货。</p>
  <form className="catalog-batch" onSubmit={e=>{e.preventDefault();const f=new FormData(e.currentTarget);setQ({page:1,pageSize:20,keyword:String(f.get('keyword'))||undefined,lowStock:(String(f.get('lowStock'))||undefined) as BalanceQuery['lowStock'],purchaseBlocked:(String(f.get('purchaseBlocked'))||undefined) as BalanceQuery['purchaseBlocked']});}}>
- <label>商品 / SKU<input name="keyword" placeholder="搜索服装名称或SKU"/></label><label>库存预警<select name="lowStock"><option value="">全部</option><option value="true">低库存（A≤预警线）</option><option value="false">高于预警线</option></select></label><label>新购状态<select name="purchaseBlocked"><option value="">全部</option><option value="true">暂停新购</option><option value="false">未暂停</option></select></label><Button htmlType="submit">筛选</Button><Button onClick={reload}>刷新</Button></form>
+ <label>商品 / SKU<input name="keyword" placeholder="搜索服装名称或SKU"/></label><label>库存预警<select name="lowStock" defaultValue={initial?.lowStock??''}><option value="">全部</option><option value="true">低库存（A≤预警线）</option><option value="false">高于预警线</option></select></label><label>新购状态<select name="purchaseBlocked"><option value="">全部</option><option value="true">暂停新购</option><option value="false">未暂停</option></select></label><Button htmlType="submit">筛选</Button><Button onClick={reload}>刷新</Button></form>
  {query.status==='ready'&&query.data?<><p>当前筛选合计：可用 {query.data.availableTotal}，待付款占用 {query.data.reservedTotal}。</p><div className="catalog-table-wrap"><table className="catalog-table"><thead><tr><th>服装与款式</th><th>SKU</th><th>可用 A</th><th>占用 R</th><th>预警线</th><th>状态</th><th>查看</th></tr></thead><tbody>{query.data.items.map(r=><tr key={r.skuId}><td>{r.productName}<small>{r.choices.join(' / ')}</small></td><td>{r.code}</td><td>{r.available}</td><td>{r.reserved}</td><td>{r.warningThreshold}</td><td>{r.lowStock?<Tag color="gold">低库存</Tag>:null}{r.purchaseBlocked?<Tag color="red">暂停新购</Tag>:null}</td><td><Link to={'/inventory/skus/'+r.skuId}>账户详情</Link></td></tr>)}</tbody></table>{!query.data.total?<p>没有符合筛选的库存账户。</p>:null}</div><InventoryPager page={q.page??1} total={query.data.total} onPage={page=>setQ({...q,page})}/></>:<InventoryState error={query.error} reload={reload}/>}</section>;
 }
 export function InventorySourcesPage(){

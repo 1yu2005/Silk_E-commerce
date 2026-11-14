@@ -1,0 +1,744 @@
+{
+  "startedAt": "2026-11-14T19:24:20.743Z",
+  "source": "docs/verification/evidence/M3-13/local-demo",
+  "origins": [
+    "http://localhost:8080",
+    "http://localhost:8081"
+  ],
+  "newMembers": 0,
+  "newOrders": 0,
+  "permissionChanges": 0,
+  "passwordChanges": 0,
+  "requests": [
+    {
+      "source": "http",
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "dc1bb94e-fbc8-48b3-8ae5-6e5411bcf9da"
+    },
+    {
+      "source": "http",
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "f80bfe88-298e-4019-92f4-a0d401818061"
+    },
+    {
+      "source": "http",
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "b83c4e84-b877-473f-adf7-29e14359af52"
+    },
+    {
+      "source": "http",
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "c0b61a17-fe6e-40c7-bf51-46b726ab4cb2"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "44fc4a5e-e8fc-4671-bd6f-11aadcc81f38"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "0e34d5c5-5b6d-405f-9ead-2e906991f794"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "3ca6e3f1-37dc-42c0-983c-1e4a5470375a"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "ce0eb6d3-658f-4352-b7cc-0591b41b1cd2"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/offline-cases/230d4606-da89-455b-893b-799b6256d1d5",
+      "status": 200,
+      "requestId": "65037dd0-382d-4f78-aeb4-1b985b2fb3cf"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/me/permissions",
+      "status": 200,
+      "requestId": "cc15266b-dd24-40d9-9341-025d01a67d88"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/employees?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "38b34bfe-a5b5-42ab-8f4f-03de882507c3"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df",
+      "status": 200,
+      "requestId": "c5aec0fa-d5d2-4450-abde-c65e16703060"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0",
+      "status": 200,
+      "requestId": "68c3a644-288c-4700-bb13-4f601200842d"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "54c01e2f-ff7f-4e34-a0c8-a7c30834924f"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/dashboard/overview",
+      "status": 200,
+      "requestId": "ab71b863-c124-49ce-8a50-b4404c09ae98"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/dashboard/trends?days=7",
+      "status": 200,
+      "requestId": "609ce244-20dd-4c0c-8302-a7e81e581806"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/dashboard/trends?days=30",
+      "status": 200,
+      "requestId": "6fbedf0c-4b2d-4d9b-afe1-0886217462b1"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/dashboard/hot-products?days=30&limit=10",
+      "status": 200,
+      "requestId": "0969677f-d947-443e-a977-fe74c39cbf25"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "818ac9ff-f143-4fa8-887a-f4e601147c29"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "a1368584-a0c4-4139-be76-7f968d6125c1"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "abe7da80-c159-4220-821d-df53e11af37a"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "bd5f0eca-421b-4db7-9205-3b635790c863"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "d4c9f2c6-d896-480c-996f-ca2e2027f996"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/overview",
+      "status": 200,
+      "requestId": "0f5d73bb-9eea-4eb7-91ab-4bf53f91b0f9"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/trends?days=7",
+      "status": 200,
+      "requestId": "11fdd611-1496-4f1d-9b36-e8e4e19c8cd3"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/hot-products?days=30&limit=10",
+      "status": 200,
+      "requestId": "9d0c2c53-1f70-4181-b9d6-528f6b928ba7"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/low-stock?page=1&pageSize=10",
+      "status": 200,
+      "requestId": "3fe6c838-e836-4c52-b2c7-55af03216a51"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/trends?days=30",
+      "status": 200,
+      "requestId": "86d45fb1-2c02-4542-8d61-40d9608c6d27"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "7d53c8d4-9428-4b68-afa6-271a3617be55"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "03a2af1e-b7c4-4cce-8584-790697481d00"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/audit-logs/filter-options?limit=100",
+      "status": 200,
+      "requestId": "03a73632-3305-423e-8a93-b2ec2665f80e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/audit-logs?businessNo=OMWGMJQVV2AB919194225&businessType=ORDER&pageSize=100&page=1",
+      "status": 200,
+      "requestId": "d71b8aaf-e004-441c-9d34-d42152fe39dc"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/audit-logs?businessNo=OMWGMJQVV2AB919194225&businessType=ORDER&action=order.pay&pageSize=100&page=1",
+      "status": 200,
+      "requestId": "016846c9-911e-4819-a288-1e1bac184682"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/audit-logs/d8027f71-6faa-40f8-9e1b-3794c8ca37c0",
+      "status": 200,
+      "requestId": "7b893dfb-bf25-4d8c-9565-1b4583372598"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/audit-logs?businessType=OFFLINE_CASE&businessNo=OCMWGMW5N7280B8A7C331948&pageSize=100",
+      "status": 200,
+      "requestId": "0829eff9-cd79-498e-9f0c-f714bf622840"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "7b3918c2-5fe0-4b86-a1a9-ef0f58f92105"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "b27d103a-b989-4933-a983-a22a7813e708"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/43262e27-191d-4cee-a067-85592ec799df",
+      "status": 200,
+      "requestId": "9d47afd3-92ed-45e9-9f7d-be661fe8b2c8"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications?scopeId=43262e27-191d-4cee-a067-85592ec799df&scopeType=ORDER&page=1&pageSize=20",
+      "status": 200,
+      "requestId": "aea92cf8-d635-4667-a88d-a846c949ae4f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/43262e27-191d-4cee-a067-85592ec799df/fulfillment",
+      "status": 200,
+      "requestId": "7edf339a-ef97-49ca-bb2c-aded1754554e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/43262e27-191d-4cee-a067-85592ec799df/history?page=1&pageSize=20",
+      "status": 200,
+      "requestId": "b5ff6264-30c6-407c-989d-b5b09a646083"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/43262e27-191d-4cee-a067-85592ec799df/history?kind=PAYMENT&page=1&pageSize=20",
+      "status": 200,
+      "requestId": "28061792-99c0-47e7-9f1b-13b8809efb2c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "0ce31251-56b9-4c37-ac65-23a2c40d2079"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "59e4d109-66c3-4dcd-9678-295a814f0040"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications?scopeId=1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0&scopeType=AFTER_SALE&page=1&pageSize=100",
+      "status": 200,
+      "requestId": "0a7d3312-69e2-4893-a3f7-7ff368832160"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0",
+      "status": 200,
+      "requestId": "06c8de9e-1377-4581-8560-2109b8237717"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/settlement",
+      "status": 200,
+      "requestId": "c8512a3f-594c-413c-8d29-0b95fdeaa5a5"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/employees?status=ACTIVE&pageSize=100&page=1",
+      "status": 200,
+      "requestId": "adc64124-23f7-4414-a7b6-e99dcd0cb853"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/disputes",
+      "status": 200,
+      "requestId": "79145791-e51c-4ff1-8375-1fecd681b87d"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/orders/43262e27-191d-4cee-a067-85592ec799df",
+      "status": 200,
+      "requestId": "a048ae6c-6464-4f77-92d5-08511e49446a"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/history?page=1&pageSize=20",
+      "status": 200,
+      "requestId": "175ed830-f2c3-40f8-ab91-97d06d994422"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/history?kind=REFUND_ATTEMPT&page=1&pageSize=20",
+      "status": 200,
+      "requestId": "a22d08be-06c3-4ca7-904c-d29ec9312f71"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "ca4a4dbe-e748-40c1-bc6b-324090f3f559"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "b6e47ba7-292f-4911-aa80-2f7aaf6a7deb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574",
+      "status": 200,
+      "requestId": "2fcec6b6-8097-40a5-8df9-8bb8d10851dc"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "beee6527-573b-4835-aadb-93996362cd14"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/addresses",
+      "status": 200,
+      "requestId": "ebee3f56-1ffb-4d51-9c39-39fee409646c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/status-history?page=1&pageSize=10",
+      "status": 200,
+      "requestId": "70727610-2cad-47ad-81ad-552b27094e71"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "6f5361d5-1ca3-4eb1-bd5a-7617b4d5b112"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "ed4f95f4-2ff1-478e-a229-a2e66810e25c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "535e0955-f25f-4c91-b6a2-f35a81a6bffb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "e2d55812-e0ed-44e7-9174-15b558ecd187"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "3c84f95a-0f80-4e39-8b21-91747e87dcf0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/overview",
+      "status": 200,
+      "requestId": "0393adfa-58d4-45a7-8f2b-aacfa8352ff0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/trends?days=7",
+      "status": 200,
+      "requestId": "360af1aa-afe8-4158-b1f5-08b08b8ad90e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/hot-products?days=30&limit=10",
+      "status": 200,
+      "requestId": "aeebf991-86a8-41aa-b4ee-a2288d1e920a"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/dashboard/low-stock?page=1&pageSize=10",
+      "status": 200,
+      "requestId": "cae86294-42e1-4c61-80ba-110f51e7737e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "7f50ae84-ee16-4f39-82b0-a232d55f2bb4"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "d3235544-d647-4b01-8cf7-452f9a6ba15c"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "121d634d-68cb-4ca3-8e16-992c5cb1b687"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "2cef08e1-3ba1-438e-9041-210a9b7064ba"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "d86a7f10-9241-43af-9117-7643fa33c156"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "c5894186-0ec0-42b7-9824-5949b33ea90c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "4ee34b58-7ee7-4b63-a034-951d03268eeb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "1f507f46-b6e9-4144-9de9-b84d29fef7a8"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "c68e0997-6342-4730-9947-6609795e1c7f"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/audit-logs",
+      "status": 403,
+      "requestId": "7b4a0172-26af-49ba-b738-4330a72e30ba"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/audit-logs",
+      "status": 403,
+      "requestId": "0dea20dc-092f-4cc7-b043-d0203e896a09"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/dashboard/overview",
+      "status": 403,
+      "requestId": "55f19d75-16c2-403f-966b-8bb9c59721dd"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/audit-logs",
+      "status": 401,
+      "requestId": "f641f761-0745-4a22-9eb5-6b673cb40981"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "6ec2bcbd-6879-4c64-b72e-264d10963cb6"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 200,
+      "requestId": "1d137f4e-bb07-4ddb-837a-c494c3c7f281"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "8221af3a-6de4-4246-b5f8-7f42be20e9fc"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "0f754d31-5875-4e20-b226-f67a37247e9e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "48e570d2-f518-43e5-9cf6-bb6d45277042"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/history?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "a2cfc9bf-ad72-4ba3-8f83-6800a758adb0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/communications?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "511cce18-121c-4586-b7ba-faaaffe48bc6"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0/settlement",
+      "status": 200,
+      "requestId": "e65f05f2-fef5-40b0-a83d-87ec0eb8975b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0",
+      "status": 200,
+      "requestId": "88ca0052-4c2d-441b-86fb-7fcd88f04f44"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/me/permissions",
+      "status": 200,
+      "requestId": "2dc3ed33-7a7f-436e-a5a8-8670f91dcf99"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/employees?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "0dad757d-aea5-459c-a15c-6a9d7952c1b3"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "e2721413-5727-4a4d-9038-bbc382f6abb3"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/after-sales/1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0",
+      "status": 200,
+      "requestId": "a8f546a7-cdff-492d-9a28-0a1c4ca15ba4"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df",
+      "status": 200,
+      "requestId": "5131cc3d-2853-428e-b435-c9b59014a5c4"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/offline-cases/230d4606-da89-455b-893b-799b6256d1d5",
+      "status": 200,
+      "requestId": "7438cae7-7981-420c-9f6c-96e826b79d36"
+    },
+    {
+      "source": "http",
+      "method": "GET",
+      "path": "/admin/dashboard/overview",
+      "status": 200,
+      "requestId": "5435c9aa-e12b-49e4-8486-2bec705f135e"
+    }
+  ],
+  "checks": [
+    "沿用13原订单/售后/独立线下号，原订单号检索支付及后续安全审计，线下号确定引用可检索",
+    "真实7→30日期与精确表、热销、净消费、订单支付/售后退款timeline、仓储及顾客手机截图",
+    "客服/仓储审计403、客服看板403、顾客员工域401；页面错误0",
+    "除现有账号登录外全为GET，原业务记录/成员/权限摘要和统计保持"
+  ],
+  "pageErrors": [],
+  "screenshots": [
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-dashboard-desktop-7days.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-dashboard-desktop-30days.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-audit-original-order-number.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-audit-safe-payment-detail.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-order-payment-history.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-after-sale-refund-history.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-customer-consumption.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-warehouse-dashboard-mobile.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-warehouse-audit-denied-mobile.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-support-audit-denied.png",
+    "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M4-14\\local-demo\\screenshots\\local-customer-refunded-mobile.png"
+  ],
+  "fixture": {
+    "meaning": "复用板块13已存在的开发演示，仅展示现有记录；无新增常用成员/交易/授权",
+    "orderId": "43262e27-191d-4cee-a067-85592ec799df",
+    "orderNo": "OMWGMJQVV2AB919194225",
+    "afterSaleId": "1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0",
+    "afterSaleNo": "ASMWGMW1T327E020C067D948",
+    "offlineCaseId": "230d4606-da89-455b-893b-799b6256d1d5",
+    "offlineCaseNo": "OCMWGMW5N7280B8A7C331948",
+    "customerId": "4a747851-50ae-484c-84f6-cf6f7070b574",
+    "auditId": "d8027f71-6faa-40f8-9e1b-3794c8ca37c0"
+  },
+  "observed": {
+    "overview": {
+      "today": {
+        "createdOrderCount": "1",
+        "newCustomerCount": "0",
+        "paidAmountCents": "10700",
+        "refundAmountCents": "10700",
+        "netReceiptsCents": "0"
+      },
+      "current": {
+        "waitingShipmentOrderCount": "2",
+        "afterSalePausedOrderCount": "1",
+        "pendingReviewAfterSaleCount": "0",
+        "failedRefundCount": "0",
+        "lowStockSkuCount": "3"
+      }
+    },
+    "trendDays": [
+      7,
+      30
+    ],
+    "hotProductCount": 2,
+    "consumptionAmountCents": "10700"
+  },
+  "status": "passed",
+  "endedAt": "2026-11-14T19:24:32.123Z",
+  "cleaned": false
+}

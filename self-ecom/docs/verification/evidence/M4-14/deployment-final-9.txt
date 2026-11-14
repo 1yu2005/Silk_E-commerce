@@ -1,0 +1,19 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+17 migrations found in prisma/migrations
+
+Applying migration `0017_reporting_audit_query_indexes`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0017_reporting_audit_query_indexes/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-575f53e16e0c Creating
+ Container self-ecom-api-run-575f53e16e0c Created
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

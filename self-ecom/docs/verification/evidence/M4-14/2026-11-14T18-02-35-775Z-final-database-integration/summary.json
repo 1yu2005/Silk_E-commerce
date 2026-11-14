@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "source": "docs/verification/evidence/M4-14/2026-11-14T18-02-35-775Z-final-database-integration/output.log",
+  "recordedAt": "2026-11-14T18:30:25.638Z",
+  "suites": 58,
+  "passed": 1726,
+  "failed": 7,
+  "total": 1733,
+  "failures": [
+    {
+      "file": "test/after-sales.integration.ts",
+      "test": "0013旧账号库存订单支付快照无损升级当前0016，重复deploy幂等"
+    },
+    {
+      "file": "test/coordination-migration.integration.ts",
+      "test": "0015旧订单支付售后实收任务附件和审计逐列保留；0016约束建立且重复deploy不更改资料"
+    },
+    {
+      "file": "test/database.integration.ts",
+      "test": "已应用工程、认证、文件及设置任务基础迁移，并保留完整业务表"
+    },
+    {
+      "file": "test/files-migration.integration.ts",
+      "test": "PostgreSQL16空库通过十五条正式迁移，文件表为空且订单基础表已建立"
+    },
+    {
+      "file": "test/orders-migration.integration.ts",
+      "test": "0001～0016全新部署成功，真实订单与支付表和外键存在"
+    },
+    {
+      "file": "test/settlement.integration.ts",
+      "test": "0014旧账号库存订单支付快照无损升级0016，重复deploy幂等"
+    },
+    {
+      "file": "test/tasks-migration.integration.ts",
+      "test": "空库通过十六条正式迁移，仅Head有未配置行，订单基础表已建立"
+    }
+  ],
+  "status": "failed",
+  "classification": "7条旧迁移链断言仍固定0016/16；需补精确0017链后完整定向复验，不将本轮exit1写为通过"
+}

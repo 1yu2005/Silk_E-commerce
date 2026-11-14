@@ -1,0 +1,292 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.20kB 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from web.Dockerfile
+#2 transferring dockerfile: 818B 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#3 ...
+
+#4 [internal] load metadata for docker.io/library/node:24.18.0-bookworm-slim
+#4 ...
+
+#3 [internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#3 DONE 11.8s
+
+#4 [internal] load metadata for docker.io/library/node:24.18.0-bookworm-slim
+#4 DONE 12.1s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 498B done
+#5 DONE 0.1s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [runtime 1/3] FROM docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#7 resolve docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284 0.0s done
+#7 DONE 0.0s
+
+#8 [build 1/6] FROM docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d
+#8 resolve docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d 0.0s done
+#8 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 828.45kB 0.2s done
+#6 DONE 0.6s
+
+#9 [build 2/6] RUN npm install --global pnpm@11.25.0
+#9 CACHED
+
+#10 [build 3/6] WORKDIR /app
+#10 CACHED
+
+#11 [build 4/6] COPY . .
+#11 DONE 0.7s
+
+#12 [build 5/6] RUN pnpm install --frozen-lockfile
+#12 1.736 Scope: all 9 workspace projects
+#12 1.898 ? Verifying lockfile against supply-chain policies (715 entries)...
+#12 1.907 Lockfile is up to date, resolution step is skipped
+#12 2.068 Progress: resolved 1, reused 0, downloaded 0, added 0
+#12 2.160 Packages: +635
+#12 2.160 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#12 3.069 Progress: resolved 635, reused 0, downloaded 0, added 0
+#12 22.35 [WARN] Request took 20420ms: https://registry.npmjs.org/@cacheable%2Fmemory
+#12 22.37 [WARN] Request took 20439ms: https://registry.npmjs.org/@borewit%2Ftext-codec
+#12 22.38 [WARN] Request took 20464ms: https://registry.npmjs.org/@babel%2Fhelper-globals
+#12 22.39 [WARN] Request took 20463ms: https://registry.npmjs.org/@colors%2Fcolors
+#12 22.40 [WARN] Request took 20488ms: https://registry.npmjs.org/@ant-design%2Fcssinjs-utils
+#12 22.40 [WARN] Request took 20472ms: https://registry.npmjs.org/@esbuild%2Faix-ppc64
+#12 22.41 [WARN] Request took 20479ms: https://registry.npmjs.org/@cacheable%2Futils
+#12 22.41 [WARN] Request took 20478ms: https://registry.npmjs.org/@emotion%2Fhash
+#12 22.41 [WARN] Request took 20485ms: https://registry.npmjs.org/@electric-sql%2Fpglite-tools
+#12 22.42 [WARN] Request took 20492ms: https://registry.npmjs.org/@electric-sql%2Fpglite-socket
+#12 22.43 [WARN] Request took 20497ms: https://registry.npmjs.org/@emotion%2Funitless
+#12 22.44 [WARN] Request took 20516ms: https://registry.npmjs.org/@babel%2Fhelper-string-parser
+#12 22.45 [WARN] Request took 20522ms: https://registry.npmjs.org/@babel%2Fhelper-validator-option
+#12 22.45 [WARN] Request took 20517ms: https://registry.npmjs.org/@emnapi%2Fruntime
+#12 22.45 [WARN] Request took 20519ms: https://registry.npmjs.org/@electric-sql%2Fpglite
+#12 22.45 [WARN] Request took 20541ms: https://registry.npmjs.org/@ant-design%2Fcolors
+#12 22.48 [WARN] Request took 20557ms: https://registry.npmjs.org/@babel%2Fhelper-validator-identifier
+#12 22.51 [WARN] Request took 20582ms: https://registry.npmjs.org/@babel%2Fplugin-transform-react-jsx-self
+#12 22.51 [WARN] Request took 20586ms: https://registry.npmjs.org/@babel%2Fhelper-plugin-utils
+#12 22.51 [WARN] Request took 20588ms: https://registry.npmjs.org/@babel%2Fplugin-transform-react-jsx-source
+#12 22.53 [WARN] Request took 20606ms: https://registry.npmjs.org/@babel%2Fhelper-module-imports
+#12 22.53 [WARN] Request took 20611ms: https://registry.npmjs.org/@babel%2Fcode-frame
+#12 22.54 [WARN] Request took 20603ms: https://registry.npmjs.org/@esbuild%2Fandroid-x64
+#12 22.54 [WARN] Request took 20606ms: https://registry.npmjs.org/@esbuild%2Flinux-arm64
+#12 22.55 [WARN] Request took 20623ms: https://registry.npmjs.org/@babel%2Ftemplate
+#12 22.56 [WARN] Request took 20629ms: https://registry.npmjs.org/@esbuild%2Fandroid-arm64
+#12 22.56 [WARN] Request took 20624ms: https://registry.npmjs.org/@esbuild%2Fopenharmony-arm64
+#12 22.57 [WARN] Request took 20634ms: https://registry.npmjs.org/@esbuild%2Ffreebsd-x64
+#12 22.57 [WARN] Request took 20631ms: https://registry.npmjs.org/@esbuild%2Fopenbsd-arm64
+#12 22.58 [WARN] Request took 20643ms: https://registry.npmjs.org/@esbuild%2Fdarwin-arm64
+#12 22.58 [WARN] Request took 20665ms: https://registry.npmjs.org/@ant-design%2Ffast-color
+#12 22.58 [WARN] Request took 20641ms: https://registry.npmjs.org/@esbuild%2Fnetbsd-arm64
+#12 22.58 [WARN] Request took 20648ms: https://registry.npmjs.org/@esbuild%2Ffreebsd-arm64
+#12 22.60 [WARN] Request took 20664ms: https://registry.npmjs.org/@esbuild%2Fandroid-arm
+#12 22.60 [WARN] Request took 20666ms: https://registry.npmjs.org/@esbuild%2Fdarwin-x64
+#12 22.68 Progress: resolved 635, reused 0, downloaded 1, added 0
+#12 22.69 [WARN] Request took 20771ms: https://registry.npmjs.org/@babel%2Fhelper-compilation-targets
+#12 22.69 Packages are hard linked from the content-addressable store to the virtual store.
+#12 22.69   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#12 22.69   Virtual store is at:             node_modules/.pnpm
+#12 22.70 [WARN] Request took 20777ms: https://registry.npmjs.org/@babel%2Fcompat-data
+#12 22.72 [WARN] Request took 20803ms: https://registry.npmjs.org/@ant-design%2Ficons-svg
+#12 22.75 [WARN] Request took 20824ms: https://registry.npmjs.org/@babel%2Fhelper-module-transforms
+#12 22.79 [WARN] Request took 20871ms: https://registry.npmjs.org/@ant-design%2Freact-slick
+#12 22.79 [WARN] Request took 20854ms: https://registry.npmjs.org/@esbuild%2Fopenbsd-x64
+#12 22.80 [WARN] Request took 20876ms: https://registry.npmjs.org/@babel%2Fhelpers
+#12 22.82 [WARN] Request took 20880ms: https://registry.npmjs.org/@esbuild%2Flinux-ia32
+#12 22.84 [WARN] Request took 20907ms: https://registry.npmjs.org/@esbuild%2Flinux-ppc64
+#12 22.85 [WARN] Request took 20910ms: https://registry.npmjs.org/@esbuild%2Flinux-mips64el
+#12 22.85 [WARN] Request took 20916ms: https://registry.npmjs.org/@esbuild%2Flinux-arm
+#12 22.86 [WARN] Request took 20930ms: https://registry.npmjs.org/@babel%2Fruntime
+#12 22.86 [WARN] Request took 20919ms: https://registry.npmjs.org/@esbuild%2Fnetbsd-x64
+#12 22.88 [WARN] Request took 20936ms: https://registry.npmjs.org/@esbuild%2Flinux-x64
+#12 22.88 [WARN] Request took 20940ms: https://registry.npmjs.org/@esbuild%2Flinux-riscv64
+#12 22.89 [WARN] Request took 20965ms: https://registry.npmjs.org/@babel%2Ftypes
+#12 22.89 [WARN] Request took 20973ms: https://registry.npmjs.org/@babel%2Fgenerator
+#12 22.91 [WARN] Request took 20979ms: https://registry.npmjs.org/@babel%2Ftraverse
+#12 22.92 [WARN] Request took 20981ms: https://registry.npmjs.org/@esbuild%2Fsunos-x64
+#12 22.97 [WARN] Request took 21042ms: https://registry.npmjs.org/@babel%2Fparser
+#12 22.99 [WARN] Request took 21036ms: https://registry.npmjs.org/@esbuild%2Flinux-loong64
+#12 23.00 [WARN] Request took 21079ms: https://registry.npmjs.org/@babel%2Fcore
+#12 23.11 [WARN] Request took 21174ms: https://registry.npmjs.org/@esbuild%2Flinux-s390x
+#12 23.14 [WARN] Request took 21231ms: https://registry.npmjs.org/@ant-design%2Fcssinjs
+#12 23.16 [WARN] Request took 21244ms: https://registry.npmjs.org/@ant-design%2Ficons
+#12 23.21 [WARN] Request took 21303ms: https://registry.npmjs.org/@angular-devkit%2Fschematics-cli
+#12 23.25 [WARN] Request took 21343ms: https://registry.npmjs.org/@angular-devkit%2Fcore
+#12 23.32 [WARN] Request took 21410ms: https://registry.npmjs.org/@angular-devkit%2Fschematics
+#12 23.38 [WARN] Request took 21633ms: https://registry.npmjs.org/pnpm
+#12 23.38
+#12 23.38    ╭──────────────────────────────────────────────────────────────────────╮
+#12 23.38    │                                                                      │
+#12 23.38    │                 Update available! 11.25.0 → 12.18.0.                 │
+#12 23.38    │                 Changelog: https://pnpm.io/v/12.18.0                 │
+#12 23.38    │   To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -   │
+#12 23.38    │                                                                      │
+#12 23.38    ╰──────────────────────────────────────────────────────────────────────╯
+#12 23.38
+#12 23.68 Progress: resolved 635, reused 0, downloaded 89, added 89
+#12 24.68 Progress: resolved 635, reused 0, downloaded 169, added 169
+#12 25.68 Progress: resolved 635, reused 0, downloaded 232, added 232
+#12 26.70 Progress: resolved 635, reused 0, downloaded 295, added 295
+#12 27.70 Progress: resolved 635, reused 0, downloaded 337, added 336
+#12 29.11 Progress: resolved 635, reused 0, downloaded 382, added 380
+#12 30.11 Progress: resolved 635, reused 0, downloaded 469, added 469
+#12 31.12 Progress: resolved 635, reused 0, downloaded 545, added 541
+#12 32.12 Progress: resolved 635, reused 0, downloaded 611, added 611
+#12 33.14 Progress: resolved 635, reused 0, downloaded 625, added 624
+#12 34.15 Progress: resolved 635, reused 0, downloaded 629, added 629
+#12 34.74 [WARN] Request took 11057ms: https://registry.npmjs.org/@prisma%2Ffetch-engine
+#12 35.15 Progress: resolved 635, reused 0, downloaded 632, added 631
+#12 35.41 [WARN] Request took 11825ms: https://registry.npmjs.org/@prisma%2Fdebug
+#12 36.15 Progress: resolved 635, reused 0, downloaded 632, added 632
+#12 36.73 [WARN] Request took 10086ms: https://registry.npmjs.org/@typescript-eslint%2Feslint-plugin
+#12 36.82 [WARN] Request took 10142ms: https://registry.npmjs.org/@typescript-eslint%2Ftypes
+#12 36.97 [WARN] Request took 10309ms: https://registry.npmjs.org/@typescript-eslint%2Fparser
+#12 37.15 Progress: resolved 635, reused 0, downloaded 634, added 634
+#12 37.25 [WARN] Request took 10520ms: https://registry.npmjs.org/@typescript-eslint%2Ftypescript-estree
+#12 38.02 [WARN] Request took 14432ms: https://registry.npmjs.org/@prisma%2Fclient
+#12 39.89 Progress: resolved 635, reused 0, downloaded 635, added 634
+#12 39.90 Progress: resolved 635, reused 0, downloaded 635, added 635, done
+#12 41.10 ✓ Lockfile passes supply-chain policies (715 entries in 39.1s)
+#12 41.10 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#12 41.23 .../bcrypt@6.0.0/node_modules/bcrypt install$ node-gyp-build
+#12 41.32 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#12 41.46 .../bcrypt@6.0.0/node_modules/bcrypt install: Done
+#12 41.47 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#12 41.53 .../node_modules/@prisma/engines postinstall: prisma:warn Prisma failed to detect the libssl/openssl version to use, and may not work as expected. Defaulting to "openssl-1.1.x".
+#12 41.53 .../node_modules/@prisma/engines postinstall: Please manually install OpenSSL via `apt-get update -y && apt-get install -y openssl` and try installing Prisma again. If you're running Prisma on Docker, add this command to your Dockerfile, or switch to an image that already has OpenSSL installed.
+#12 88.87 .../node_modules/@prisma/engines postinstall: Done
+#12 89.24 .../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#12 89.44 .../node_modules/prisma preinstall: Done
+#12 90.36
+#12 90.36 devDependencies:
+#12 90.36 + @eslint/js 10.0.1
+#12 90.36 + @types/node 24.19.2
+#12 90.36 + eslint 10.14.0
+#12 90.36 + eslint-plugin-react-hooks 7.1.1
+#12 90.36 + eslint-plugin-react-refresh 0.5.7
+#12 90.36 + globals 17.14.0
+#12 90.36 + turbo 2.11.10
+#12 90.36 + typescript 6.0.3
+#12 90.36 + typescript-eslint 8.72.2
+#12 90.36
+#12 90.62 Done in 1m 29.8s using pnpm v11.25.0
+#12 DONE 91.6s
+
+#13 [build 6/6] RUN case "admin-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/admin-web..." build     && cp -a "apps/admin-web/dist" /site
+#13 5.684 Scope: 4 of 9 workspace projects
+#13 5.715 $ tsc -p tsconfig.json
+#13 6.537 $ tsc -p tsconfig.json
+#13 8.592 $ tsc -p tsconfig.json
+#13 9.491 $ tsc --noEmit && vite build
+#13 16.30 vite v8.3.8 building client environment for production...
+#13 16.31 transforming...
+#13 18.33 ✓ 1669 modules transformed.
+#13 18.67 rendering chunks...
+#13 18.84 computing gzip size...
+#13 18.85 dist/index.html                                    0.84 kB │ gzip:   0.41 kB
+#13 18.85 dist/assets/index-CRVvNqBF.css                    20.41 kB │ gzip:   4.83 kB
+#13 18.85 dist/assets/useCSSVarCls-D5LDH8FE.js               0.03 kB │ gzip:   0.05 kB
+#13 18.85 dist/assets/use-inventory-command-S_uKI7zv.js      0.10 kB │ gzip:   0.12 kB
+#13 18.85 dist/assets/model-Dn4iib1f.js                      0.27 kB │ gzip:   0.27 kB
+#13 18.85 dist/assets/model-DlbK5gTt.js                      0.32 kB │ gzip:   0.29 kB
+#13 18.85 dist/assets/use-employee-query-D-B1cKOO.js         0.32 kB │ gzip:   0.25 kB
+#13 18.85 dist/assets/useLocale-CewHFI9v.js                  0.40 kB │ gzip:   0.27 kB
+#13 18.85 dist/assets/CatalogCommandScope-Jjr3Q9aa.js        0.41 kB │ gzip:   0.28 kB
+#13 18.85 dist/assets/colors-BtvQbVpS.js                     0.45 kB │ gzip:   0.30 kB
+#13 18.85 dist/assets/SettingsQueryState-B_2qjCN5.js         0.46 kB │ gzip:   0.32 kB
+#13 18.85 dist/assets/TaskQueryState-UPg8nzHz.js             0.46 kB │ gzip:   0.31 kB
+#13 18.85 dist/assets/list-link-DOOsZUrw.js                  0.58 kB │ gzip:   0.42 kB
+#13 18.85 dist/assets/model-C5RjK7uN.js                      0.59 kB │ gzip:   0.43 kB
+#13 18.85 dist/assets/QueryState-DT-1NT0r.js                 0.63 kB │ gzip:   0.41 kB
+#13 18.85 dist/assets/rolldown-runtime-XKyaHtl9.js           0.72 kB │ gzip:   0.42 kB
+#13 18.85 dist/assets/HomePage-CrT-9ntZ.js                   0.73 kB │ gzip:   0.50 kB
+#13 18.85 dist/assets/dispute-data-CXNBF1rR.js               0.78 kB │ gzip:   0.59 kB
+#13 18.85 dist/assets/data-RU3QrtaS.js                       0.99 kB │ gzip:   0.56 kB
+#13 18.85 dist/assets/offline-data-DwVhF4Cc.js               1.04 kB │ gzip:   0.75 kB
+#13 18.85 dist/assets/InventoryInputs-Cy1eVEdi.js            1.40 kB │ gzip:   0.80 kB
+#13 18.85 dist/assets/LeftOutlined-3P0KbrhM.js               1.40 kB │ gzip:   0.67 kB
+#13 18.85 dist/assets/CatalogFeedback-D7ibkOl4.js            1.40 kB │ gzip:   0.87 kB
+#13 18.85 dist/assets/useCoordinationCommand-Cenc3YSt.js     1.53 kB │ gzip:   0.83 kB
+#13 18.85 dist/assets/LoginPage-CmpL8ML2.js                  1.66 kB │ gzip:   0.95 kB
+#13 18.85 dist/assets/InventoryCommon-CaUcFo0Y.js            1.82 kB │ gzip:   0.97 kB
+#13 18.85 dist/assets/SettingsHistoryPage-D33nVxd3.js        2.17 kB │ gzip:   1.16 kB
+#13 18.85 dist/assets/ChangePasswordPage-BUrLKtw0.js         2.19 kB │ gzip:   1.17 kB
+#13 18.85 dist/assets/InventoryBalancePage-CcmLRXbW.js       2.64 kB │ gzip:   1.41 kB
+#13 18.85 dist/assets/model-Bi6Utxhp.js                      3.10 kB │ gzip:   1.82 kB
+#13 18.85 dist/assets/SettingsVersionPage-DsFsgrOp.js        3.50 kB │ gzip:   1.25 kB
+#13 18.85 dist/assets/EmployeeListPage-yTLY2n7N.js           3.97 kB │ gzip:   1.87 kB
+#13 18.85 dist/assets/EmployeeCreatePage-B5OD54y9.js         4.30 kB │ gzip:   2.06 kB
+#13 18.85 dist/assets/CustomerListPage-CbXR1XIH.js           4.34 kB │ gzip:   2.03 kB
+#13 18.85 dist/assets/OrderListPage-TOM6PaZR.js              4.53 kB │ gzip:   1.80 kB
+#13 18.85 dist/assets/CategoryPage-BkqwTUmp.js               4.83 kB │ gzip:   1.91 kB
+#13 18.85 dist/assets/empty-xiPlQP62.js                      4.84 kB │ gzip:   2.10 kB
+#13 18.85 dist/assets/TaskListPage-C5ys5ST-.js               6.52 kB │ gzip:   2.55 kB
+#13 18.85 dist/assets/CustomerDetailPage-BWsFa0j8.js         6.80 kB │ gzip:   2.90 kB
+#13 18.85 dist/assets/ProductListPage-C2QUiUEu.js            7.22 kB │ gzip:   3.08 kB
+#13 18.85 dist/assets/StoreSettingsPage-4fusVCeU.js          7.82 kB │ gzip:   3.19 kB
+#13 18.85 dist/assets/checkbox-Bt2i03jY.js                   7.86 kB │ gzip:   3.25 kB
+#13 18.85 dist/assets/descriptions-B2Xue60V.js               7.91 kB │ gzip:   2.82 kB
+#13 18.85 dist/assets/jsx-runtime-C3cWAN_r.js                8.24 kB │ gzip:   3.11 kB
+#13 18.85 dist/assets/CustodyPage-BJfQ3L8V.js                8.82 kB │ gzip:   3.61 kB
+#13 18.85 dist/assets/HistoryTimeline-nuuEnJh4.js            8.85 kB │ gzip:   3.82 kB
+#13 18.85 dist/assets/InventorySourcePage-G65X-eKY.js        9.13 kB │ gzip:   3.03 kB
+#13 18.85 dist/assets/tag-DifKNT7P.js                        9.88 kB │ gzip:   3.90 kB
+#13 18.85 dist/assets/dist-BceNLtf5.js                      10.35 kB │ gzip:   4.46 kB
+#13 18.85 dist/assets/InventoryListPage-DvPxtm6N.js         11.78 kB │ gzip:   3.09 kB
+#13 18.85 dist/assets/StockIncidentPage-B1n4uNN2.js         11.88 kB │ gzip:   3.98 kB
+#13 18.85 dist/assets/EmployeeDetailPage-CrfesEfd.js        12.48 kB │ gzip:   4.80 kB
+#13 18.85 dist/assets/InventoryAdjustmentPage-B5iVmIiG.js   13.44 kB │ gzip:   4.39 kB
+#13 18.85 dist/assets/AuditPage-BLOaHwnF.js                 15.95 kB │ gzip:   6.12 kB
+#13 18.85 dist/assets/DashboardPage-C5N-uHjs.js             19.48 kB │ gzip:   7.28 kB
+#13 18.85 dist/assets/OfflineCasePage-HdONVF1E.js           19.54 kB │ gzip:   6.20 kB
+#13 18.85 dist/assets/ProductEditPage-uAUWd8ML.js           20.76 kB │ gzip:   6.51 kB
+#13 18.85 dist/assets/style-BXu0OtpM.js                     21.12 kB │ gzip:   6.19 kB
+#13 18.85 dist/assets/statusUtils-BnsLe5aC.js               25.79 kB │ gzip:  10.05 kB
+#13 18.85 dist/assets/pagination-Bqt0EX7O.js                26.36 kB │ gzip:   7.83 kB
+#13 18.85 dist/assets/OrderDetailPage-AABohCct.js           29.11 kB │ gzip:   9.13 kB
+#13 18.85 dist/assets/CoordinationPage-B-DLx0Pf.js          32.04 kB │ gzip:   9.69 kB
+#13 18.85 dist/assets/NotFoundPage-CNVO10N_.js              34.79 kB │ gzip:  11.06 kB
+#13 18.85 dist/assets/TaskDetailPage-brfdr6MF.js            35.93 kB │ gzip:  13.48 kB
+#13 18.85 dist/assets/Input-BIT9h05w.js                     36.56 kB │ gzip:  12.70 kB
+#13 18.85 dist/assets/management-CpyNKd9i.js                39.08 kB │ gzip:  13.41 kB
+#13 18.85 dist/assets/input-CnyvQ5u-.js                     41.46 kB │ gzip:  15.57 kB
+#13 18.85 dist/assets/AfterSalePage-Bu_1E8gh.js             47.83 kB │ gzip:  13.27 kB
+#13 18.85 dist/assets/select-DduzSv3y.js                    81.14 kB │ gzip:  27.83 kB
+#13 18.85 dist/assets/api-DfVkPm6m.js                      105.52 kB │ gzip:  30.86 kB
+#13 18.85 dist/assets/index-ecMbTUiy.js                    166.55 kB │ gzip:  55.43 kB
+#13 18.85 dist/assets/table-InmkLEdy.js                    212.83 kB │ gzip:  65.55 kB
+#13 18.85 dist/assets/button-CjHfM-ZI.js                   373.22 kB │ gzip: 122.16 kB
+#13 18.85
+#13 18.89 ✓ built in 2.59s
+#13 DONE 19.1s
+
+#14 [runtime 2/3] COPY infra/nginx.conf /etc/nginx/conf.d/default.conf
+#14 CACHED
+
+#15 [runtime 3/3] COPY --from=build /site /usr/share/nginx/html
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers
+#16 exporting layers 0.2s done
+#16 exporting manifest sha256:1173479260618a3194b124d3aada0f22552731f993a22ff25e50b42dc79cb03e 0.0s done
+#16 exporting config sha256:64d6e8cd419d67e0a616803a7e5107640aa4159f4806fdcc9dea2f2709f087a1 0.0s done
+#16 exporting attestation manifest sha256:c651c20acfaf07bb9d7ad0017b7ba1ee2ae2987e19c5d023a7f1c1394b491e39 0.0s done
+#16 exporting manifest list sha256:6b8abe8eacf5e198e2c13e407e771a09a341c99f66b31cbf917ac43bd54cae1b 0.0s done
+#16 naming to docker.io/library/self-ecom-m414-acceptance-14a1b2c3-admin:local
+#16 naming to docker.io/library/self-ecom-m414-acceptance-14a1b2c3-admin:local done
+#16 unpacking to docker.io/library/self-ecom-m414-acceptance-14a1b2c3-admin:local 0.1s done
+#16 DONE 0.5s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.1s
+ Image self-ecom-m414-acceptance-14a1b2c3-admin:local Building
+ Image self-ecom-m414-acceptance-14a1b2c3-admin:local Built

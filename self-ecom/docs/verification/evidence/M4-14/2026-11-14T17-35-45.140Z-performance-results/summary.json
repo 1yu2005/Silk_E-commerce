@@ -1,0 +1,238 @@
+{
+  "kind": "module14-short-baseline",
+  "environment": {
+    "date": "2026-11-14T17:35:45.151Z",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "node": "v24.18.0",
+    "cpu": "AMD Ryzen 9 8940HX with Radeon Graphics        ",
+    "cpuCount": 32,
+    "memoryBytes": 16425455616,
+    "postgres": "PostgreSQL 16.6 (Debian 16.6-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit",
+    "databaseSettings": [
+      {
+        "name": "effective_cache_size",
+        "setting": "524288",
+        "unit": "8kB"
+      },
+      {
+        "name": "jit",
+        "setting": "on",
+        "unit": null
+      },
+      {
+        "name": "max_connections",
+        "setting": "100",
+        "unit": null
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "setting": "2",
+        "unit": null
+      },
+      {
+        "name": "shared_buffers",
+        "setting": "16384",
+        "unit": "8kB"
+      },
+      {
+        "name": "work_mem",
+        "setting": "4096",
+        "unit": "kB"
+      }
+    ],
+    "apiPoolMax": 10,
+    "apiStatementTimeoutMs": 750
+  },
+  "dataset": {
+    "orders": 100000,
+    "customers": 1000,
+    "products": 1000,
+    "skus": 1000,
+    "payments": 95000,
+    "refunds": 10000,
+    "succeededRefunds": 5000,
+    "failedRefunds": 5000,
+    "audits": 100000,
+    "references": 100000,
+    "extraHistory": 200,
+    "distribution": [
+      {
+        "status": "COMPLETED",
+        "count": 75000
+      },
+      {
+        "status": "REFUNDED",
+        "count": 5000
+      },
+      {
+        "status": "SHIPPED",
+        "count": 5000
+      },
+      {
+        "status": "WAIT_PAYMENT",
+        "count": 5000
+      },
+      {
+        "status": "WAIT_SHIPMENT",
+        "count": 10000
+      }
+    ]
+  },
+  "seedMs": 21788.89009999999,
+  "concurrency": 100,
+  "maxActive": 100,
+  "warmupSeconds": 10,
+  "measurementSeconds": 30,
+  "elapsedIncludingDrainSeconds": 41.414109900000014,
+  "statuses": {
+    "200": 5572,
+    "500": 24
+  },
+  "errors": {
+    "audit:500": 3,
+    "history:500": 4,
+    "overview:500": 4,
+    "hotProducts:500": 3,
+    "trends30:500": 2,
+    "lowStock:500": 1,
+    "customers:500": 2,
+    "consumption:500": 2,
+    "auditBusinessNo:500": 3
+  },
+  "metrics": [
+    {
+      "name": "overview",
+      "path": "/admin/dashboard/overview",
+      "listTargetMs": null,
+      "samples": 624,
+      "p50Ms": 537.9,
+      "p95Ms": 894.92,
+      "p99Ms": 951.21,
+      "maxMs": 1006.28
+    },
+    {
+      "name": "trends30",
+      "path": "/admin/dashboard/trends?days=30",
+      "listTargetMs": null,
+      "samples": 624,
+      "p50Ms": 566.22,
+      "p95Ms": 996.39,
+      "p99Ms": 1110.01,
+      "maxMs": 1326.34
+    },
+    {
+      "name": "hotProducts",
+      "path": "/admin/dashboard/hot-products?limit=10",
+      "listTargetMs": 500,
+      "samples": 621,
+      "p50Ms": 550.22,
+      "p95Ms": 929.96,
+      "p99Ms": 1014.2,
+      "maxMs": 1113.91
+    },
+    {
+      "name": "lowStock",
+      "path": "/admin/dashboard/low-stock?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 620,
+      "p50Ms": 481.56,
+      "p95Ms": 808.05,
+      "p99Ms": 874.53,
+      "maxMs": 988.19
+    },
+    {
+      "name": "customers",
+      "path": "/admin/customers?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 622,
+      "p50Ms": 522.11,
+      "p95Ms": 860.57,
+      "p99Ms": 928.33,
+      "maxMs": 1018.46
+    },
+    {
+      "name": "consumption",
+      "path": "/admin/customers/53a760ab-4e53-46c8-809a-e46a6154cd77/consumption",
+      "listTargetMs": null,
+      "samples": 621,
+      "p50Ms": 492.88,
+      "p95Ms": 809.92,
+      "p99Ms": 887.57,
+      "maxMs": 995.2
+    },
+    {
+      "name": "audit",
+      "path": "/admin/audit-logs?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 621,
+      "p50Ms": 494.21,
+      "p95Ms": 829.53,
+      "p99Ms": 904,
+      "maxMs": 1010.75
+    },
+    {
+      "name": "auditBusinessNo",
+      "path": "/admin/audit-logs?businessType=ORDER&businessNo=PERF-O-2&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 621,
+      "p50Ms": 496.75,
+      "p95Ms": 820.56,
+      "p99Ms": 885.69,
+      "maxMs": 965.23
+    },
+    {
+      "name": "history",
+      "path": "/admin/orders/8ccb72fe-3b8c-4a70-8bbc-4f95f250d325/history?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 622,
+      "p50Ms": 510.33,
+      "p95Ms": 845.5,
+      "p99Ms": 917.85,
+      "maxMs": 1011.14
+    }
+  ],
+  "sqlBudgets": {
+    "customers": {
+      "page20": 9,
+      "page100": 9
+    },
+    "audit": {
+      "page20": 9,
+      "page100": 9
+    },
+    "history": {
+      "page20": 9,
+      "page100": 9
+    }
+  },
+  "lockWait": {
+    "sampleCount": 41,
+    "maxWaitingConnections": 0
+  },
+  "originalFacts": {
+    "orders": "100000",
+    "payments": "95000",
+    "paid_cents": "950000000",
+    "refunds": "10000",
+    "refund_cents": "50000000",
+    "audits": "100001",
+    "refs": "100000",
+    "tasks": "10000",
+    "ledgers": "0"
+  },
+  "afterFacts": {
+    "orders": "100000",
+    "payments": "95000",
+    "paid_cents": "950000000",
+    "refunds": "10000",
+    "refund_cents": "50000000",
+    "audits": "100001",
+    "refs": "100000",
+    "tasks": "10000",
+    "ledgers": "0"
+  },
+  "readOnlyFactsUnchanged": true,
+  "allListsWithin500ms": false,
+  "limitation": "本轮14短基线；不替代15的2分钟预热、5分钟测量、三轮及完整系统写并发/恢复验收"
+}

@@ -32,7 +32,7 @@ it.each(['SYSTEM', 'CUSTOMER'] as const)('延期审计拒绝%s冒名，SYSTEM旧
   expect(create).not.toHaveBeenCalled();
 });
 it('延期审计只保存截止和状态/版本，原因必填，不接收完整领域状态或凭证', async () => {
-  const create = vi.fn().mockResolvedValue({}); const tx = { auditLog: { create } } as unknown as Prisma.TransactionClient;
+  const create = vi.fn().mockResolvedValue({}); const tx = { auditLog: { create },task:{findMany:vi.fn().mockResolvedValue([])} } as unknown as Prisma.TransactionClient;
   const payload = { actor: { type: 'EMPLOYEE' as const, id: randomUUID() }, action: 'task.deadline.extend' as const, targetId: randomUUID(), requestId: randomUUID(), reason: '延期核实',
     before: { dueAt: null, taskStatus: 'OPEN', round: 1, taskVersion: 0 }, after: { dueAt: '2026-11-20T02:00:00.000Z', taskStatus: 'OPEN', round: 1, taskVersion: 1 } };
   await new AuditService().appendAudit(tx, payload); expect(create).toHaveBeenCalledOnce();

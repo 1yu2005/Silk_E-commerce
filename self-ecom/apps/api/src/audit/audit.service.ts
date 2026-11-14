@@ -1,6 +1,8 @@
 // 作用：校验操作者、动作与差异字段白名单并追加最小审计，禁止保存密码和令牌。
 import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
+import { randomUUID } from 'node:crypto';
+import { appendAuditBusinessReferences } from './audit-business-reference.js';
 
 const policies = {
   'coordination.change': {target:'Coordination',fields:['orderId','businessId','businessType','coordinationAction','coordinationStatus','coordinationVersion','sourceId','proxyContextId'],reason:true},
@@ -204,7 +206,9 @@ export class AuditService {
     if ((policy.reason && !reason) || (reason !== undefined && [...reason].length > 500)) invalid();
     const beforeData = snapshot(payload.before, policy.fields);
     const afterData = snapshot(payload.after, policy.fields);
+    const auditLogId=randomUUID();
     await tx.auditLog.create({ data: {
+      id:auditLogId,
       actorType: actor.type as AuditActorType,
       actorEmployeeId: actor.type === 'EMPLOYEE' ? actor.id : null,
       actorCustomerId: actor.type === 'CUSTOMER' ? actor.id : null,
@@ -216,5 +220,6 @@ export class AuditService {
       beforeData,
       afterData,
     } });
+    await appendAuditBusinessReferences(tx,[{id:auditLogId,targetType:policy.target,targetId:payload.targetId,action:payload.action,afterData:payload.after}]);
   }
 }

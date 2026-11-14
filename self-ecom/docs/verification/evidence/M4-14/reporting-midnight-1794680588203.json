@@ -1,0 +1,113 @@
+{
+  "recordedAt": "2026-11-14T18:23:08.203Z",
+  "evidence": {
+    "payments": [
+      {
+        "orderId": "b9ff7c09-3160-4fd2-bca7-f59e2e3db442",
+        "amountCents": 20600,
+        "paidAt": "2026-11-15T15:59:59.999Z"
+      },
+      {
+        "orderId": "e1c21a84-af02-43b5-a279-3bb59673384a",
+        "amountCents": 20600,
+        "paidAt": "2026-11-15T16:00:00.000Z"
+      },
+      {
+        "orderId": "13e22771-fed5-46a5-9580-cd2ce5bd1244",
+        "amountCents": 20600,
+        "paidAt": "2026-11-16T16:00:00.000Z"
+      }
+    ],
+    "atBoundary": {
+      "today": {
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      "current": {
+        "waitingShipmentOrderCount": "3",
+        "afterSalePausedOrderCount": "0",
+        "pendingReviewAfterSaleCount": "0",
+        "failedRefundCount": "0",
+        "lowStockSkuCount": "3"
+      },
+      "asOf": "2026-11-15T16:00:00.000Z",
+      "timeZone": "Asia/Shanghai",
+      "definitionVersion": "DASHBOARD_V1",
+      "from": "2026-11-15T16:00:00.000Z",
+      "to": "2026-11-15T16:00:00.000Z",
+      "firstDate": "2026-11-16",
+      "lastDate": "2026-11-16"
+    },
+    "trend": {
+      "days": 7,
+      "items": [
+        {
+          "date": "2026-11-11",
+          "createdOrderCount": "0",
+          "newCustomerCount": "0",
+          "paidAmountCents": "0",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "0"
+        },
+        {
+          "date": "2026-11-12",
+          "createdOrderCount": "0",
+          "newCustomerCount": "0",
+          "paidAmountCents": "0",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "0"
+        },
+        {
+          "date": "2026-11-13",
+          "createdOrderCount": "0",
+          "newCustomerCount": "0",
+          "paidAmountCents": "0",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "0"
+        },
+        {
+          "date": "2026-11-14",
+          "createdOrderCount": "0",
+          "newCustomerCount": "0",
+          "paidAmountCents": "0",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "0"
+        },
+        {
+          "date": "2026-11-15",
+          "createdOrderCount": "1",
+          "newCustomerCount": "3",
+          "paidAmountCents": "20600",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "20600"
+        },
+        {
+          "date": "2026-11-16",
+          "createdOrderCount": "1",
+          "newCustomerCount": "0",
+          "paidAmountCents": "20600",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "20600"
+        },
+        {
+          "date": "2026-11-17",
+          "createdOrderCount": "1",
+          "newCustomerCount": "0",
+          "paidAmountCents": "20600",
+          "refundAmountCents": "0",
+          "netReceiptsCents": "20600"
+        }
+      ],
+      "asOf": "2026-11-16T16:00:00.001Z",
+      "timeZone": "Asia/Shanghai",
+      "definitionVersion": "DASHBOARD_V1",
+      "from": "2026-11-10T16:00:00.000Z",
+      "to": "2026-11-16T16:00:00.001Z",
+      "firstDate": "2026-11-11",
+      "lastDate": "2026-11-17"
+    }
+  }
+}

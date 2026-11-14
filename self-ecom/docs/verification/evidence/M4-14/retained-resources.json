@@ -1,0 +1,138 @@
+{
+  "at": "2026-11-14T19:27:19.861Z",
+  "status": "passed",
+  "action": "stop-only-no-deletion",
+  "containers": [
+    {
+      "id": "0e8d8e69c97cfcd7af3ad0ee486697c042cb672bd6f43bd178d187033c7c2dfd",
+      "name": "/self-ecom-m414-acceptance-5c874365-admin-web-1",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": true,
+      "image": "sha256:6b8abe8eacf5e198e2c13e407e771a09a341c99f66b31cbf917ac43bd54cae1b",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "a61e434006693a216f7ac6238d465bfdeecfa96b81496adc2d7ae2597729eeba",
+      "name": "/self-ecom-m414-acceptance-5c874365-store-web-1",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": true,
+      "image": "sha256:efc4d10b963aa645d9c23d84f0ac60aef7960e7fb72a64e0e24fe4e7d38b6395",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "69c7fe2fe0cbbe973c21d6ecad41247e6bbe041b70f0a2c569d9e27fc061e69e",
+      "name": "/self-ecom-m414-acceptance-5c874365-api-1",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": true,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "6c43350d9d27ba09ead948d0889627a8943996061f3118137a45784aee51a774",
+      "name": "/self-ecom-m414-acceptance-5c874365-api-run-381a398a07fa",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": false,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "00369de0abd5e7fe41b593a01443ae9a98796a3f413c0e56aea1ef850dc919d4",
+      "name": "/self-ecom-m414-acceptance-5c874365-api-run-4b5bc91b126c",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": false,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "4677b791345665984865bab8778a83b36630dd8e1d43734222521cacc30445b2",
+      "name": "/self-ecom-m414-acceptance-5c874365-api-run-a7d967cc5caf",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": false,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "03cc893d46a0349f3cfe3395c13ec77b9259863aae6664dbc19a05262d2516b4",
+      "name": "/self-ecom-m414-acceptance-5c874365-db-1",
+      "project": "self-ecom-m414-acceptance-5c874365",
+      "wasRunning": true,
+      "image": "sha256:557fea37a744d5f4c8faab304b0a90858b53ab119735a88c131fd19dab802f36",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "a50a12b9858c2d21543766fc7a181c0d1311638f684cfefb325cb13973886f45",
+      "name": "/self-ecom-m414-acceptance-c0854f09-api-1",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": true,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "72dea9a98ae3a0e7ea4fd581c20bced9fc7eda596cfdefea62befeba5e20bd4b",
+      "name": "/self-ecom-m414-acceptance-c0854f09-admin-web-1",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": true,
+      "image": "sha256:6b8abe8eacf5e198e2c13e407e771a09a341c99f66b31cbf917ac43bd54cae1b",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "267e26df7686a568dfd8b6433843d0dcb9346a2726e638e03a140d5c3a07af0a",
+      "name": "/self-ecom-m414-acceptance-c0854f09-store-web-1",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": true,
+      "image": "sha256:efc4d10b963aa645d9c23d84f0ac60aef7960e7fb72a64e0e24fe4e7d38b6395",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "df7841901192de59d53d0807b5f537e00bc8ecf4f310de26a1e834d2afdc5971",
+      "name": "/self-ecom-m414-acceptance-c0854f09-api-run-174e9db9c4b9",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": false,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "c3f8df29405cc80e6458a6484d5a810fc4d765bf4e73909234cff7d544ac9d1f",
+      "name": "/self-ecom-m414-acceptance-c0854f09-api-run-1df222f34af4",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": false,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "acf58b60b56bf5df6cb00fe55e923ef363a8e6625efc03012dfb68597d9e8342",
+      "name": "/self-ecom-m414-acceptance-c0854f09-api-run-1cdef0657d54",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": false,
+      "image": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3",
+      "retained": true,
+      "running": false
+    },
+    {
+      "id": "85c2c19c90d9b4358c9f5ffcb97e4c48807393f2da6d6365d4828c826e41d53b",
+      "name": "/self-ecom-m414-acceptance-c0854f09-db-1",
+      "project": "self-ecom-m414-acceptance-c0854f09",
+      "wasRunning": true,
+      "image": "sha256:557fea37a744d5f4c8faab304b0a90858b53ab119735a88c131fd19dab802f36",
+      "retained": true,
+      "running": false
+    }
+  ],
+  "stopped": 8,
+  "retainedCount": 14,
+  "filesDeleted": 0,
+  "volumesDeleted": 0,
+  "commonEnvironmentPreserved": true
+}

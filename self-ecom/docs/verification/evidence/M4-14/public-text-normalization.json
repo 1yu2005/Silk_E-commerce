@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "at": "2026-11-14T19:42:56.491Z",
+  "scope": "docs/verification/evidence/M4-14",
+  "reason": "Docker原生文本包含尾空白；仅规范LF、行尾空格/Tab和末尾换行，命令与结果事实保持",
+  "originalBytesRetainedPrivately": true,
+  "files": [
+    {
+      "path": "deployment-final-10.txt",
+      "sourceSha256": "c27b84bfc328f897764a02809fb27987567ab89ff78c842599a8f3b6f32e5461",
+      "publicSha256": "40a03c46c2e0efa87c92526493f38aa415ab4607e2fb77596cc4b2a230b8d72e",
+      "sourceBytes": 511,
+      "publicBytes": 509
+    },
+    {
+      "path": "deployment-final-11.txt",
+      "sourceSha256": "1b8505b8e5fdd9b32f94bd6ba344d81948398de3c76bc1cc8087e67dc780a1f6",
+      "publicSha256": "a40efd06735b18881f3bab1d03fed7c5a4b5dcd70c0e92708a3aa7a4ca6bd78f",
+      "sourceBytes": 1169,
+      "publicBytes": 1147
+    },
+    {
+      "path": "deployment-final-9.txt",
+      "sourceSha256": "4206b89e100fac502e30167e2322496fc8822315d4dd465d14e54d8f6930bcc2",
+      "publicSha256": "10f3c64d20c8f1999284c6ff49a31290567874bd7924e191585393bb28fab631",
+      "sourceBytes": 592,
+      "publicBytes": 590
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-10.redacted.txt",
+      "sourceSha256": "7e2d04ccba3a94378129e01a6aad428ced643ca2fc5c4e12eec21d681771c913",
+      "publicSha256": "af03c3054573e304a7bbc284677733c49e6f7df9c59eb939dd1cad1c94d3c2da",
+      "sourceBytes": 772,
+      "publicBytes": 770
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-11.redacted.txt",
+      "sourceSha256": "5cf0fd5e9bf11ad3f20aa5b4bd75531c0512095060861407fca26f3424990126",
+      "publicSha256": "c739376b76f51cb627dbdf083304dcd6e1c5d3d430af9b7354d14747cf829649",
+      "sourceBytes": 2120,
+      "publicBytes": 2093
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-12.redacted.txt",
+      "sourceSha256": "2f7b0a78d84459f0b44bc88e578df7ab949f7f372b1637288adf8993996686d2",
+      "publicSha256": "7ddd6156e9d86d7d4529b1c2c5e321ba4e88a3c632541ed7b7c3eb2373225149",
+      "sourceBytes": 248,
+      "publicBytes": 244
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-13.redacted.txt",
+      "sourceSha256": "26a87060538b83f0da365394f06833df5c9473785104020cac6b6e25c4ecccbb",
+      "publicSha256": "1b97cc285d1b9db668b4f2e516d0daa631772471cee3332cc0b2a30f9094cea2",
+      "sourceBytes": 1529,
+      "publicBytes": 1511
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-14.redacted.txt",
+      "sourceSha256": "38f81487fdea361dd28f767cc7aeec6e42d2d25a1d0cf5498c2a865b734de25f",
+      "publicSha256": "901cf15ac12e3eafa21ad500b2e3557b619e3c1ce0d444cd4d08b314f7f96f47",
+      "sourceBytes": 770,
+      "publicBytes": 764
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-7.redacted.txt",
+      "sourceSha256": "7c1f4a2780aa465328480559756850fe9d8802908456b22d6df1d33fb5d85699",
+      "publicSha256": "d6b42b42ebad3da1d4b96cb8b4ec19893d108e597c3c3dbdde66b6547879738f",
+      "sourceBytes": 850,
+      "publicBytes": 836
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-8.redacted.txt",
+      "sourceSha256": "073144e541a805426042097fb12862cf3f5a4e34bc8e41fe78e7d0d63b591a9d",
+      "publicSha256": "2d1b71ce9aec9ae19be65ab28e6504a9988bde50d186bde67ae0ececa7f9cc80",
+      "sourceBytes": 2896,
+      "publicBytes": 2890
+    },
+    {
+      "path": "docker-acceptance-final-retry1/command-9.redacted.txt",
+      "sourceSha256": "c2f7b4fb21706221446d12ee859f0bb986845bd632f233f7c89ab5ed68645b52",
+      "publicSha256": "3ac2dff2c9cccec91358446d4115da8e470c0aecb899f2d1d0649f6743b370a4",
+      "sourceBytes": 586,
+      "publicBytes": 584
+    },
+    {
+      "path": "docker-acceptance-final/command-10.redacted.txt",
+      "sourceSha256": "06c16073468cb52f42cfe7796d0df1b96bbd3aaddb8338c1a00ca1d190919c56",
+      "publicSha256": "8a80aba62d4946e05e6ca67f855a6770edc205a3a2736364493692e6486c9dd3",
+      "sourceBytes": 772,
+      "publicBytes": 770
+    },
+    {
+      "path": "docker-acceptance-final/command-11.redacted.txt",
+      "sourceSha256": "6423c2c4a3486fd939d822feefb3b4ac39a4a4fd18f95520abd78ba8cdfe2546",
+      "publicSha256": "2088bc230a6bbbe27d675283a898f832827fde9e527b354419c48129b6657b14",
+      "sourceBytes": 2120,
+      "publicBytes": 2093
+    },
+    {
+      "path": "docker-acceptance-final/command-7.redacted.txt",
+      "sourceSha256": "3e307dc3aad12ca467e972a1b69d56c9967011a3918ddde358cc9022545af6fb",
+      "publicSha256": "7eecda3ac22fd0c0c6310d7c2fb257fdea20de6c5cf2878ca2bf2bafc6631676",
+      "sourceBytes": 850,
+      "publicBytes": 836
+    },
+    {
+      "path": "docker-acceptance-final/command-8.redacted.txt",
+      "sourceSha256": "8751b164314a9b2f221ccba8abc8bd86c78c65567449879fb8529314c0341770",
+      "publicSha256": "051e11eeef525d9d54657e24a1a66ec563f7ea72711f6d84921eeba8eb65d958",
+      "sourceBytes": 2896,
+      "publicBytes": 2890
+    },
+    {
+      "path": "docker-acceptance-final/command-9.redacted.txt",
+      "sourceSha256": "f38c20cc8bd011a55313a3732e7dcccd6a2e5cffa422de5121f9b21a25afe13e",
+      "publicSha256": "10b88d317b9ebe7c5a7f8c627b8700aad9ebacd0fa52981980cbdcffd0192258",
+      "sourceBytes": 586,
+      "publicBytes": 584
+    },
+    {
+      "path": "docker-build-final/command-2.redacted.txt",
+      "sourceSha256": "a05bd2baaf08754d95a23ddcbbb6a8d469c80701cae5b725b56049bf32a5edd0",
+      "publicSha256": "872a22ec4c7e450b46a66aaf19118693ffe38647a9074f78206194b0df6c3623",
+      "sourceBytes": 9531,
+      "publicBytes": 9520
+    },
+    {
+      "path": "docker-build-final/command-4.redacted.txt",
+      "sourceSha256": "85c66ec4c1a48ab0b32c5ff5c53fdfe8e25dff6588c11dea28609f77a6a5a99b",
+      "publicSha256": "76e1f644e09c33d137c597afcbca17f4c65153e6093d45ec15d14123081a12d1",
+      "sourceBytes": 20469,
+      "publicBytes": 20462
+    },
+    {
+      "path": "docker-build-final/command-6.redacted.txt",
+      "sourceSha256": "7082c924b717e08376de58087378adfff47352ef6500449592ca6f0b8d9b6636",
+      "publicSha256": "3e64aa1cac2940841efd9aa40246344144ce223d573d2cfad9d8880e20f53cb4",
+      "sourceBytes": 6207,
+      "publicBytes": 6204
+    }
+  ]
+}

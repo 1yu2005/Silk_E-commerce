@@ -1,0 +1,232 @@
+{
+  "startedAt": "2026-11-14T19:03:19.977Z",
+  "imagePrefix": "self-ecom-m414-acceptance-14a1b2c3",
+  "commands": [
+    {
+      "label": "只读原容器清单",
+      "command": [
+        "docker",
+        "ps",
+        "-aq"
+      ],
+      "startedAt": "2026-11-14T19:03:19.978Z",
+      "endedAt": "2026-11-14T19:03:20.727Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-0.redacted.txt"
+    },
+    {
+      "label": "只读原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "17a9f54924b3",
+        "9f141636593f",
+        "b5273cac3276",
+        "52fd69fa5728",
+        "cc162c3d7d5f",
+        "734c750d6099",
+        "58095d7d6828",
+        "6b3332cc4d3d",
+        "144d1146f6b9",
+        "a70c19667407",
+        "9d01c836265f",
+        "9762fa10fdab",
+        "de7ad129f6f7",
+        "9d6bfdff93b1",
+        "92c5f67d0eb4",
+        "d29fab767152",
+        "74c5672cb619",
+        "1167a77617be",
+        "86c8dad9f0ec",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T19:03:20.727Z",
+      "endedAt": "2026-11-14T19:03:21.064Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-1.redacted.txt"
+    },
+    {
+      "label": "顺序构建 api",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m414-acceptance-14a1b2c3",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\compose.override.yaml",
+        "build",
+        "api"
+      ],
+      "startedAt": "2026-11-14T19:03:21.064Z",
+      "endedAt": "2026-11-14T19:10:38.701Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-2.redacted.txt"
+    },
+    {
+      "label": "冻结构建镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m414-acceptance-14a1b2c3-api:local"
+      ],
+      "startedAt": "2026-11-14T19:10:38.703Z",
+      "endedAt": "2026-11-14T19:10:39.243Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-3.redacted.txt"
+    },
+    {
+      "label": "顺序构建 admin-web",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m414-acceptance-14a1b2c3",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\compose.override.yaml",
+        "build",
+        "admin-web"
+      ],
+      "startedAt": "2026-11-14T19:10:39.244Z",
+      "endedAt": "2026-11-14T19:12:58.239Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-4.redacted.txt"
+    },
+    {
+      "label": "冻结构建镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m414-acceptance-14a1b2c3-admin:local"
+      ],
+      "startedAt": "2026-11-14T19:12:58.241Z",
+      "endedAt": "2026-11-14T19:12:58.454Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-5.redacted.txt"
+    },
+    {
+      "label": "顺序构建 store-web",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m414-acceptance-14a1b2c3",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\compose.override.yaml",
+        "build",
+        "store-web"
+      ],
+      "startedAt": "2026-11-14T19:12:58.454Z",
+      "endedAt": "2026-11-14T19:13:26.115Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-6.redacted.txt"
+    },
+    {
+      "label": "冻结构建镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m414-acceptance-14a1b2c3-store:local"
+      ],
+      "startedAt": "2026-11-14T19:13:26.116Z",
+      "endedAt": "2026-11-14T19:13:26.331Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-7.redacted.txt"
+    },
+    {
+      "label": "只读原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "17a9f54924b3",
+        "9f141636593f",
+        "b5273cac3276",
+        "52fd69fa5728",
+        "cc162c3d7d5f",
+        "734c750d6099",
+        "58095d7d6828",
+        "6b3332cc4d3d",
+        "144d1146f6b9",
+        "a70c19667407",
+        "9d01c836265f",
+        "9762fa10fdab",
+        "de7ad129f6f7",
+        "9d6bfdff93b1",
+        "92c5f67d0eb4",
+        "d29fab767152",
+        "74c5672cb619",
+        "1167a77617be",
+        "86c8dad9f0ec",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T19:13:26.332Z",
+      "endedAt": "2026-11-14T19:13:27.771Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\docker-build-final\\command-8.redacted.txt"
+    }
+  ],
+  "images": [
+    {
+      "service": "api",
+      "name": "self-ecom-m414-acceptance-14a1b2c3-api:local",
+      "id": "sha256:17a5b3c05ed673f7602659e285c273c734581d6d1cdf09f333c004342e8dfea3"
+    },
+    {
+      "service": "admin-web",
+      "name": "self-ecom-m414-acceptance-14a1b2c3-admin:local",
+      "id": "sha256:6b8abe8eacf5e198e2c13e407e771a09a341c99f66b31cbf917ac43bd54cae1b"
+    },
+    {
+      "service": "store-web",
+      "name": "self-ecom-m414-acceptance-14a1b2c3-store:local",
+      "id": "sha256:efc4d10b963aa645d9c23d84f0ac60aef7960e7fb72a64e0e24fe4e7d38b6395"
+    }
+  ],
+  "originalResourcesPreserved": true,
+  "status": "built",
+  "endedAt": "2026-11-14T19:13:27.771Z"
+}

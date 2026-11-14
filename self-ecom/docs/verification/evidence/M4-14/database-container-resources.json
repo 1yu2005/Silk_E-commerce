@@ -1,0 +1,15 @@
+{
+  "recordedAt": "2026-11-14T17:56:58Z",
+  "source": "docker inspect self-ecom-db-1 (read-only, privileged host invocation)",
+  "container": "self-ecom-db-1",
+  "startedAt": "2026-11-12T10:13:54.461500349Z",
+  "hostConfig": {
+    "CpuPeriod": 0,
+    "CpuQuota": 0,
+    "NanoCpus": 0,
+    "Memory": 0,
+    "MemorySwap": 0
+  },
+  "interpretation": "容器没有显式配置CPU或内存限制；此结果不表示Docker Desktop全局资源无限制。",
+  "retention": "未修改或重启数据库容器。"
+}

@@ -1,0 +1,103 @@
+{
+  "kind": "query-plan-diagnostic-only",
+  "environment": {
+    "date": "2026-11-14T18:01:21.981Z",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "node": "v24.18.0",
+    "cpu": "AMD Ryzen 9 8940HX with Radeon Graphics",
+    "cpuCount": 32,
+    "memoryBytes": 16425455616,
+    "postgres": "PostgreSQL 16.6 (Debian 16.6-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit",
+    "databaseSettings": [
+      {
+        "name": "effective_cache_size",
+        "setting": "524288",
+        "unit": "8kB"
+      },
+      {
+        "name": "jit",
+        "setting": "on",
+        "unit": null
+      },
+      {
+        "name": "max_connections",
+        "setting": "100",
+        "unit": null
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "setting": "2",
+        "unit": null
+      },
+      {
+        "name": "shared_buffers",
+        "setting": "16384",
+        "unit": "8kB"
+      },
+      {
+        "name": "work_mem",
+        "setting": "4096",
+        "unit": "kB"
+      }
+    ],
+    "apiPoolMax": 20,
+    "apiStatementTimeoutMs": 750,
+    "compiledSourceHashes": {
+      "reporting/reporting.service.js": "6d0ee3b989842c02facc5f8c1eabe3868298c19592d73ac4d4ef28de2668574c",
+      "audit-query/audit-query.service.js": "07b72f0d678056caa6117c6a6281d303a972c9e726fc985838c4bf08f15e13a2",
+      "timeline/business-history.service.js": "d3676fae7a46dc6ef1e0900948ff345301166dc96f795f6af05e8e46b2fd2c77",
+      "prisma/prisma.service.js": "b12e595e373297f3cc401a59c166b1a0b4cb7bdcea11dd1206fa52fa56aa5375"
+    }
+  },
+  "dataset": {
+    "orders": 100000,
+    "customers": 1000,
+    "products": 1000,
+    "skus": 1000,
+    "payments": 95000,
+    "refunds": 10000,
+    "succeededRefunds": 5000,
+    "failedRefunds": 5000,
+    "audits": 100000,
+    "references": 100000,
+    "extraHistory": 200,
+    "distribution": [
+      {
+        "status": "COMPLETED",
+        "count": 75000
+      },
+      {
+        "status": "REFUNDED",
+        "count": 5000
+      },
+      {
+        "status": "SHIPPED",
+        "count": 5000
+      },
+      {
+        "status": "WAIT_PAYMENT",
+        "count": 5000
+      },
+      {
+        "status": "WAIT_SHIPMENT",
+        "count": 10000
+      }
+    ]
+  },
+  "sqlBudgets": {
+    "customers": {
+      "page20": 9,
+      "page100": 9
+    },
+    "audit": {
+      "page20": 10,
+      "page100": 10
+    },
+    "history": {
+      "page20": 9,
+      "page100": 9
+    }
+  },
+  "performanceThresholdVerified": false
+}

@@ -138,7 +138,7 @@ export class FulfillmentService {
   await s.tx.handoverAttempt.update({where:{id:attempt.id},data:{status:'HANDED_OVER',resolvedAt:now,resolvedById:a.subjectId,actualHandoverAt:actual,procedureViolation:+actual<+attempt.startedAt,resolutionReason:b.reason,version:{increment:1}}});
   await s.tx.shipment.update({where:{id:attempt.shipmentId},data:{status:'CONFIRMED',confirmedAttemptId:attempt.id,confirmedById:a.subjectId,actualHandoverAt:actual,version:{increment:1},updatedAt:now}});
   if(verified)await this.timer.releaseBlock(c,o.id,{sourceType:'HANDOVER_UNCERTAIN',sourceId:attempt.id},{commandKey:'resolve:'+b.commandKey,reason:b.reason});
-  const setting=await this.settings.requireCurrent(s.tx);await s.tx.order.update({where:{id:o.id},data:{autoReceiptDays:setting.autoReceiptDays,receiptSettingVersionId:setting.id}});
+  const setting=await this.settings.requireCurrent(s.tx);await s.tx.order.update({where:{id:o.id},data:{autoReceiptDays:setting.autoReceiptDays,receiptSettingVersionId:setting.id,updatedAt:now}});
   await this.timer.recordActualHandover(c,o.id,actual,{commandKey:'handover:'+b.commandKey,reason:b.reason});await this.physicalChanges.notify(s.tx,o.id,s.requestId);
   await s.tx.order.update({where:{id:o.id},data:{version:{increment:1},updatedAt:now}});
   await this.history.appendStateHistory(s.tx,taskAuditActor(a),{aggregateType:'ORDER',aggregateId:o.id,dimension:'status',fromState:'WAIT_SHIPMENT',toState:'SHIPPED',commandKey:b.commandKey,reason:b.reason,requestId:s.requestId,publicText:'包裹已实际交运，可查看运单'});

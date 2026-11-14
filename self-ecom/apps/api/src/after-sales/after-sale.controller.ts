@@ -37,8 +37,6 @@ export class AdminAfterSalesController{
  list(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Query() q:D.AfterSaleQueryDto){return this.queries.list(context(a,r),q,true);}
  @Get(':id') @O.idParam() @O.endpoint('getAdminAfterSale','按客服或仓储权限裁剪详情',O.detail)
  detail(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto){return this.queries.detail(context(a,r),p.id);}
- @Get(':id/history') @O.idParam() @O.listQuery() @O.endpoint('getAdminAfterSaleHistory','售后任务期限及决定时间线',O.history)
- history(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Query() q:PaginationDto){return this.queries.history(context(a,r),p.id,q);}
  @Post(':id/review') @HttpCode(200) @EmployeeAccess('after-sale.review') @O.idParam() @O.endpoint('reviewAfterSale','当前审核经办提交明确决定',O.result,O.reviewBody)
  review(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Body() b:D.ReviewDto){return this.service.review(context(a,r),p.id,b);}
  @Post(':id/return-verifications') @HttpCode(200) @EmployeeAccess('after-sale.return.follow') @O.idParam() @O.endpoint('verifyAfterSaleReturn','记录寄出核实，不登记实收到仓',O.result,O.verificationBody)

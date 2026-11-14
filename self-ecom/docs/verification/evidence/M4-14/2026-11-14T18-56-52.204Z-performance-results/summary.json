@@ -1,0 +1,359 @@
+{
+  "kind": "module14-short-baseline",
+  "apiExecution": "compiled-api-separate-node-process",
+  "environment": {
+    "date": "2026-11-14T18:56:52.217Z",
+    "platform": "win32",
+    "release": "10.0.26300",
+    "node": "v24.18.0",
+    "cpu": "AMD Ryzen 9 8940HX with Radeon Graphics",
+    "cpuCount": 32,
+    "memoryBytes": 16425455616,
+    "postgres": "PostgreSQL 16.6 (Debian 16.6-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit",
+    "databaseSettings": [
+      {
+        "name": "effective_cache_size",
+        "setting": "524288",
+        "unit": "8kB"
+      },
+      {
+        "name": "jit",
+        "setting": "on",
+        "unit": null
+      },
+      {
+        "name": "max_connections",
+        "setting": "100",
+        "unit": null
+      },
+      {
+        "name": "max_parallel_workers_per_gather",
+        "setting": "2",
+        "unit": null
+      },
+      {
+        "name": "shared_buffers",
+        "setting": "16384",
+        "unit": "8kB"
+      },
+      {
+        "name": "work_mem",
+        "setting": "4096",
+        "unit": "kB"
+      }
+    ],
+    "apiPoolMax": 20,
+    "apiStatementTimeoutMs": 750,
+    "compiledSourceHashes": {
+      "reporting/reporting.service.js": "bf89180f9dbef2c414cb208a1e36a8bc170d2bfd147ab8e525f0e5bca4732d4c",
+      "audit-query/audit-query.service.js": "07b72f0d678056caa6117c6a6281d303a972c9e726fc985838c4bf08f15e13a2",
+      "timeline/business-history.service.js": "0e8a4c97559dbe71c4e79334339c1fab39a0de07b8183e636965eddb9dcdf684",
+      "prisma/prisma.service.js": "1bab602a28e38633de161c74b4e1aea7a5f62559d05999e4e75634549d0f3649"
+    }
+  },
+  "dataset": {
+    "orders": 100000,
+    "customers": 1000,
+    "products": 1000,
+    "skus": 1000,
+    "payments": 95000,
+    "refunds": 10000,
+    "succeededRefunds": 5000,
+    "failedRefunds": 5000,
+    "audits": 100000,
+    "references": 100000,
+    "extraHistory": 200,
+    "distribution": [
+      {
+        "status": "COMPLETED",
+        "count": 75000
+      },
+      {
+        "status": "REFUNDED",
+        "count": 5000
+      },
+      {
+        "status": "SHIPPED",
+        "count": 5000
+      },
+      {
+        "status": "WAIT_PAYMENT",
+        "count": 5000
+      },
+      {
+        "status": "WAIT_SHIPMENT",
+        "count": 10000
+      }
+    ]
+  },
+  "seedMs": 21668,
+  "concurrency": 100,
+  "maxActive": 100,
+  "warmupSeconds": 10,
+  "measurementSeconds": 30,
+  "measurementElapsedIncludingDrainSeconds": 30.231546199999997,
+  "elapsedIncludingDrainSeconds": 40.552370599999996,
+  "requestsPerSecond": 299.3892518802098,
+  "statuses": {
+    "200": 9051
+  },
+  "errors": {},
+  "metrics": [
+    {
+      "name": "overview",
+      "path": "/admin/dashboard/overview",
+      "listTargetMs": null,
+      "samples": 1007,
+      "p50Ms": 331.69,
+      "p95Ms": 474.42,
+      "p99Ms": 522.09,
+      "maxMs": 554.03
+    },
+    {
+      "name": "trends30",
+      "path": "/admin/dashboard/trends?days=30",
+      "listTargetMs": null,
+      "samples": 1005,
+      "p50Ms": 361.35,
+      "p95Ms": 519.97,
+      "p99Ms": 597.21,
+      "maxMs": 670.74
+    },
+    {
+      "name": "hotProducts",
+      "path": "/admin/dashboard/hot-products?limit=10",
+      "listTargetMs": 500,
+      "samples": 1008,
+      "p50Ms": 344.99,
+      "p95Ms": 487.76,
+      "p99Ms": 552.78,
+      "maxMs": 581.81
+    },
+    {
+      "name": "lowStock",
+      "path": "/admin/dashboard/low-stock?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 1007,
+      "p50Ms": 292.86,
+      "p95Ms": 409.04,
+      "p99Ms": 447.35,
+      "maxMs": 493.63
+    },
+    {
+      "name": "customers",
+      "path": "/admin/customers?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 1008,
+      "p50Ms": 325.2,
+      "p95Ms": 449.51,
+      "p99Ms": 494.63,
+      "maxMs": 536.03
+    },
+    {
+      "name": "consumption",
+      "path": "/admin/customers/30f40a9c-18be-4979-8cf5-e98542e372dc/consumption",
+      "listTargetMs": null,
+      "samples": 1005,
+      "p50Ms": 298.34,
+      "p95Ms": 421.65,
+      "p99Ms": 457.9,
+      "maxMs": 488.6
+    },
+    {
+      "name": "audit",
+      "path": "/admin/audit-logs?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 1003,
+      "p50Ms": 309,
+      "p95Ms": 436.07,
+      "p99Ms": 468.64,
+      "maxMs": 516.81
+    },
+    {
+      "name": "auditBusinessNo",
+      "path": "/admin/audit-logs?businessType=ORDER&businessNo=PERF-O-2&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 1006,
+      "p50Ms": 306.53,
+      "p95Ms": 427.85,
+      "p99Ms": 464.03,
+      "maxMs": 502.73
+    },
+    {
+      "name": "history",
+      "path": "/admin/orders/8ccb72fe-3b8c-4a70-8bbc-4f95f250d325/history?page=1&pageSize=20",
+      "listTargetMs": 500,
+      "samples": 1002,
+      "p50Ms": 315.27,
+      "p95Ms": 442.06,
+      "p99Ms": 485.75,
+      "maxMs": 521.86
+    }
+  ],
+  "sqlBudgets": {
+    "customers": {
+      "page20": 9,
+      "page100": 9
+    },
+    "audit": {
+      "page20": 10,
+      "page100": 10
+    },
+    "history": {
+      "page20": 9,
+      "page100": 9
+    }
+  },
+  "databaseProbe": {
+    "type": "performance-probe-stopped",
+    "poolAcquire": {
+      "count": 18102,
+      "p50Ms": 122.42,
+      "p95Ms": 185.08,
+      "p99Ms": 243.09,
+      "maxMs": 319.75
+    },
+    "queries": {
+      "AUTH": {
+        "count": 18102,
+        "p50Ms": 4.72,
+        "p95Ms": 7.98,
+        "p99Ms": 11.94,
+        "maxMs": 25.5
+      },
+      "TRANSACTION": {
+        "count": 30164,
+        "p50Ms": 4.41,
+        "p95Ms": 7.56,
+        "p99Ms": 11.24,
+        "maxMs": 22.62
+      },
+      "OTHER": {
+        "count": 7039,
+        "p50Ms": 4.56,
+        "p95Ms": 7.73,
+        "p99Ms": 11.32,
+        "maxMs": 21.56
+      },
+      "LOW_STOCK": {
+        "count": 3021,
+        "p50Ms": 6.12,
+        "p95Ms": 63.24,
+        "p99Ms": 79.81,
+        "maxMs": 109.22
+      },
+      "AUDIT": {
+        "count": 6027,
+        "p50Ms": 6.1,
+        "p95Ms": 12.52,
+        "p99Ms": 16.08,
+        "maxMs": 25.99
+      },
+      "PRODUCT_QUANTITY": {
+        "count": 3021,
+        "p50Ms": 5.25,
+        "p95Ms": 82.37,
+        "p99Ms": 105.98,
+        "maxMs": 144.94
+      },
+      "CONSUMPTION": {
+        "count": 2013,
+        "p50Ms": 15.54,
+        "p95Ms": 40.56,
+        "p99Ms": 50.35,
+        "maxMs": 65.91
+      },
+      "HISTORY": {
+        "count": 2004,
+        "p50Ms": 11.22,
+        "p95Ms": 18.23,
+        "p99Ms": 23.42,
+        "maxMs": 31.41
+      },
+      "TRENDS": {
+        "count": 1005,
+        "p50Ms": 80.12,
+        "p95Ms": 136.58,
+        "p99Ms": 164.11,
+        "maxMs": 230.06
+      }
+    },
+    "errors": {},
+    "maxWaiting": 79,
+    "maxCapacity": 20,
+    "apiResources": {
+      "elapsedMs": 30232.443199999994,
+      "cpuMicroseconds": {
+        "user": 26938000,
+        "system": 7657000
+      },
+      "cpuOneCorePercent": 114.43005043006251,
+      "eventLoopUtilization": {
+        "idle": 45.126300000000015,
+        "active": 30188.39110026474,
+        "utilization": 0.998507408205186
+      },
+      "eventLoopDelayMs": {
+        "p50": 21.348351,
+        "p95": 24.985599,
+        "p99": 28.016639,
+        "max": 31.375359
+      },
+      "rssPeakBytes": 563011584,
+      "rssEndBytes": 561917952,
+      "heapUsedEndBytes": 137784560,
+      "memorySamples": 62,
+      "samplingIntervalMs": 500
+    }
+  },
+  "lockWait": {
+    "sampleCount": 40,
+    "maxWaitingConnections": 0
+  },
+  "databaseActivity": {
+    "sampleCount": 40,
+    "samplingIntervalMs": 1000,
+    "maxActiveClientConnections": 14,
+    "maxParallelWorkers": 7,
+    "waitSamples": {
+      "client backend:active:CPU_OR_RUNNABLE": 303,
+      "client backend:idle:Client": 152,
+      "client backend:idle in transaction:Client": 367,
+      "client backend:idle in transaction:CPU_OR_RUNNABLE": 5,
+      "parallel worker:null:CPU_OR_RUNNABLE": 72,
+      "client backend:active:IPC": 17,
+      "parallel worker:active:CPU_OR_RUNNABLE": 42,
+      "client backend:active:IO": 2,
+      "autovacuum worker:active:CPU_OR_RUNNABLE": 1,
+      "autovacuum worker:active:Timeout": 2,
+      "parallel worker:active:IPC": 1,
+      "client backend:active:Client": 1
+    },
+    "limitation": "pg_stat_activity的无等待事件表示CPU执行或可运行，不等于已测得CPU使用率"
+  },
+  "originalFacts": {
+    "orders": "100000",
+    "payments": "95000",
+    "paid_cents": "950000000",
+    "refunds": "10000",
+    "refund_cents": "50000000",
+    "audits": "100001",
+    "refs": "100000",
+    "tasks": "10000",
+    "ledgers": "0"
+  },
+  "afterFacts": {
+    "orders": "100000",
+    "payments": "95000",
+    "paid_cents": "950000000",
+    "refunds": "10000",
+    "refund_cents": "50000000",
+    "audits": "100001",
+    "refs": "100000",
+    "tasks": "10000",
+    "ledgers": "0"
+  },
+  "readOnlyFactsUnchanged": true,
+  "allListsWithin500ms": true,
+  "limitation": "本轮14短基线；不替代15的2分钟预热、5分钟测量、三轮及完整系统写并发/恢复验收"
+}

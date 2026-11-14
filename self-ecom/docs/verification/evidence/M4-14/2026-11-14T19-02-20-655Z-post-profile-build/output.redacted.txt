@@ -1,0 +1,130 @@
+{"check":"build","cwd":"packages/shared","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"build","cwd":"packages/api-client","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"build","cwd":"packages/ui","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"build","cwd":"apps/api","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.build.json"],"exitCode":0}
+{"check":"build","cwd":"apps/admin-web","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json","--noEmit"],"exitCode":0}
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 1669 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                    0.84 kB │ gzip:   0.41 kB
+dist/assets/index-CRVvNqBF.css                    20.41 kB │ gzip:   4.83 kB
+dist/assets/useCSSVarCls-D5LDH8FE.js               0.03 kB │ gzip:   0.05 kB
+dist/assets/use-inventory-command-S_uKI7zv.js      0.10 kB │ gzip:   0.12 kB
+dist/assets/model-Dn4iib1f.js                      0.27 kB │ gzip:   0.27 kB
+dist/assets/model-DlbK5gTt.js                      0.32 kB │ gzip:   0.29 kB
+dist/assets/use-employee-query-D-B1cKOO.js         0.32 kB │ gzip:   0.25 kB
+dist/assets/useLocale-CewHFI9v.js                  0.40 kB │ gzip:   0.27 kB
+dist/assets/CatalogCommandScope-Jjr3Q9aa.js        0.41 kB │ gzip:   0.28 kB
+dist/assets/colors-BtvQbVpS.js                     0.45 kB │ gzip:   0.30 kB
+dist/assets/SettingsQueryState-B_2qjCN5.js         0.46 kB │ gzip:   0.32 kB
+dist/assets/TaskQueryState-UPg8nzHz.js             0.46 kB │ gzip:   0.31 kB
+dist/assets/list-link-DOOsZUrw.js                  0.58 kB │ gzip:   0.42 kB
+dist/assets/model-C5RjK7uN.js                      0.59 kB │ gzip:   0.43 kB
+dist/assets/QueryState-DT-1NT0r.js                 0.63 kB │ gzip:   0.41 kB
+dist/assets/rolldown-runtime-XKyaHtl9.js           0.72 kB │ gzip:   0.42 kB
+dist/assets/HomePage-CrT-9ntZ.js                   0.73 kB │ gzip:   0.50 kB
+dist/assets/dispute-data-CXNBF1rR.js               0.78 kB │ gzip:   0.59 kB
+dist/assets/data-RU3QrtaS.js                       0.99 kB │ gzip:   0.56 kB
+dist/assets/offline-data-DwVhF4Cc.js               1.04 kB │ gzip:   0.75 kB
+dist/assets/InventoryInputs-Cy1eVEdi.js            1.40 kB │ gzip:   0.80 kB
+dist/assets/LeftOutlined-3P0KbrhM.js               1.40 kB │ gzip:   0.67 kB
+dist/assets/CatalogFeedback-D7ibkOl4.js            1.40 kB │ gzip:   0.87 kB
+dist/assets/useCoordinationCommand-Cenc3YSt.js     1.53 kB │ gzip:   0.83 kB
+dist/assets/LoginPage-CmpL8ML2.js                  1.66 kB │ gzip:   0.95 kB
+dist/assets/InventoryCommon-CaUcFo0Y.js            1.82 kB │ gzip:   0.97 kB
+dist/assets/SettingsHistoryPage-D33nVxd3.js        2.17 kB │ gzip:   1.16 kB
+dist/assets/ChangePasswordPage-BUrLKtw0.js         2.19 kB │ gzip:   1.17 kB
+dist/assets/InventoryBalancePage-CcmLRXbW.js       2.64 kB │ gzip:   1.41 kB
+dist/assets/model-Bi6Utxhp.js                      3.10 kB │ gzip:   1.82 kB
+dist/assets/SettingsVersionPage-DsFsgrOp.js        3.50 kB │ gzip:   1.25 kB
+dist/assets/EmployeeListPage-yTLY2n7N.js           3.97 kB │ gzip:   1.87 kB
+dist/assets/EmployeeCreatePage-B5OD54y9.js         4.30 kB │ gzip:   2.06 kB
+dist/assets/CustomerListPage-CbXR1XIH.js           4.34 kB │ gzip:   2.03 kB
+dist/assets/OrderListPage-TOM6PaZR.js              4.53 kB │ gzip:   1.80 kB
+dist/assets/CategoryPage-BkqwTUmp.js               4.83 kB │ gzip:   1.91 kB
+dist/assets/empty-xiPlQP62.js                      4.84 kB │ gzip:   2.10 kB
+dist/assets/TaskListPage-C5ys5ST-.js               6.52 kB │ gzip:   2.55 kB
+dist/assets/CustomerDetailPage-BWsFa0j8.js         6.80 kB │ gzip:   2.90 kB
+dist/assets/ProductListPage-C2QUiUEu.js            7.22 kB │ gzip:   3.08 kB
+dist/assets/StoreSettingsPage-4fusVCeU.js          7.82 kB │ gzip:   3.19 kB
+dist/assets/checkbox-Bt2i03jY.js                   7.86 kB │ gzip:   3.25 kB
+dist/assets/descriptions-B2Xue60V.js               7.91 kB │ gzip:   2.82 kB
+dist/assets/jsx-runtime-C3cWAN_r.js                8.24 kB │ gzip:   3.11 kB
+dist/assets/CustodyPage-BJfQ3L8V.js                8.82 kB │ gzip:   3.61 kB
+dist/assets/HistoryTimeline-nuuEnJh4.js            8.85 kB │ gzip:   3.82 kB
+dist/assets/InventorySourcePage-G65X-eKY.js        9.13 kB │ gzip:   3.03 kB
+dist/assets/tag-DifKNT7P.js                        9.88 kB │ gzip:   3.90 kB
+dist/assets/dist-BceNLtf5.js                      10.35 kB │ gzip:   4.46 kB
+dist/assets/InventoryListPage-DvPxtm6N.js         11.78 kB │ gzip:   3.09 kB
+dist/assets/StockIncidentPage-B1n4uNN2.js         11.88 kB │ gzip:   3.98 kB
+dist/assets/EmployeeDetailPage-CrfesEfd.js        12.48 kB │ gzip:   4.80 kB
+dist/assets/InventoryAdjustmentPage-B5iVmIiG.js   13.44 kB │ gzip:   4.39 kB
+dist/assets/AuditPage-BLOaHwnF.js                 15.95 kB │ gzip:   6.12 kB
+dist/assets/DashboardPage-C5N-uHjs.js             19.48 kB │ gzip:   7.28 kB
+dist/assets/OfflineCasePage-HdONVF1E.js           19.54 kB │ gzip:   6.20 kB
+dist/assets/ProductEditPage-uAUWd8ML.js           20.76 kB │ gzip:   6.51 kB
+dist/assets/style-BXu0OtpM.js                     21.12 kB │ gzip:   6.19 kB
+dist/assets/statusUtils-BnsLe5aC.js               25.79 kB │ gzip:  10.05 kB
+dist/assets/pagination-Bqt0EX7O.js                26.36 kB │ gzip:   7.83 kB
+dist/assets/OrderDetailPage-AABohCct.js           29.11 kB │ gzip:   9.13 kB
+dist/assets/CoordinationPage-B-DLx0Pf.js          32.04 kB │ gzip:   9.69 kB
+dist/assets/NotFoundPage-CNVO10N_.js              34.79 kB │ gzip:  11.06 kB
+dist/assets/TaskDetailPage-brfdr6MF.js            35.93 kB │ gzip:  13.48 kB
+dist/assets/Input-BIT9h05w.js                     36.56 kB │ gzip:  12.70 kB
+dist/assets/management-CpyNKd9i.js                39.08 kB │ gzip:  13.41 kB
+dist/assets/input-CnyvQ5u-.js                     41.46 kB │ gzip:  15.57 kB
+dist/assets/AfterSalePage-Bu_1E8gh.js             47.83 kB │ gzip:  13.27 kB
+dist/assets/select-DduzSv3y.js                    81.14 kB │ gzip:  27.83 kB
+dist/assets/api-DfVkPm6m.js                      105.52 kB │ gzip:  30.86 kB
+dist/assets/index-ecMbTUiy.js                    166.55 kB │ gzip:  55.43 kB
+dist/assets/table-InmkLEdy.js                    212.83 kB │ gzip:  65.55 kB
+dist/assets/button-CjHfM-ZI.js                   373.22 kB │ gzip: 122.16 kB
+
+✓ built in 561ms
+{"check":"build","cwd":"apps/admin-web","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\node_modules\\vite\\bin\\vite.js","build"],"exitCode":0}
+{"check":"build","cwd":"apps/store-web","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json","--noEmit"],"exitCode":0}
+vite v8.3.8 building client environment for production...
+transforming...
+✓ 1606 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                                    0.77 kB │ gzip:   0.39 kB
+dist/assets/index-W8fsaKgz.css                    19.28 kB │ gzip:   4.99 kB
+dist/assets/useCSSVarCls-D5LDH8FE.js               0.03 kB │ gzip:   0.05 kB
+dist/assets/model-KdblDANG.js                      0.15 kB │ gzip:   0.15 kB
+dist/assets/useLocale-BvT6UO6r.js                  0.37 kB │ gzip:   0.26 kB
+dist/assets/colors-02jDC4Md.js                     0.46 kB │ gzip:   0.31 kB
+dist/assets/form-rules-GvzMaJpV.js                 0.51 kB │ gzip:   0.38 kB
+dist/assets/rolldown-runtime-XKyaHtl9.js           0.72 kB │ gzip:   0.42 kB
+dist/assets/PublicOfflineCases-BYc5fZBp.js         0.87 kB │ gzip:   0.63 kB
+dist/assets/use-store-data-Ap4pR2QI.js             1.14 kB │ gzip:   0.57 kB
+dist/assets/ExclamationCircleFilled-DUciUd9k.js    1.52 kB │ gzip:   0.70 kB
+dist/assets/LoginPage-RwUs6PEc.js                  1.60 kB │ gzip:   0.85 kB
+dist/assets/StoreQueryState-CswmURh6.js            1.77 kB │ gzip:   1.05 kB
+dist/assets/ChangePasswordPage-4KL2gizd.js         2.23 kB │ gzip:   1.17 kB
+dist/assets/RegisterPage-CMfZ4o4I.js               2.40 kB │ gzip:   1.22 kB
+dist/assets/empty-D2TcMgdz.js                      4.80 kB │ gzip:   2.09 kB
+dist/assets/AddressPage-DN2dMjl4.js                5.01 kB │ gzip:   2.17 kB
+dist/assets/ProductDetailPage-BdmQXjJ2.js          5.15 kB │ gzip:   2.30 kB
+dist/assets/CartPage-CdwnQdSz.js                   5.54 kB │ gzip:   2.53 kB
+dist/assets/HomePage-CX8SW-bN.js                   5.84 kB │ gzip:   2.56 kB
+dist/assets/CheckoutPage-BkLXi8rb.js               6.55 kB │ gzip:   2.99 kB
+dist/assets/OrderPage-DEywM4Wl.js                  8.82 kB │ gzip:   3.58 kB
+dist/assets/tag-CMutcI4e.js                        9.86 kB │ gzip:   3.89 kB
+dist/assets/dist-CCblc7OH.js                      10.36 kB │ gzip:   4.46 kB
+dist/assets/AfterSalePage-Dr2anIoy.js             13.74 kB │ gzip:   5.06 kB
+dist/assets/AccountPage-TCzC-RhN.js               20.92 kB │ gzip:   7.99 kB
+dist/assets/style-DIFX1qPw.js                     21.02 kB │ gzip:   6.14 kB
+dist/assets/statusUtils-CisvJsh7.js               25.64 kB │ gzip:  10.01 kB
+dist/assets/NotFoundPage-CNuONL7_.js              34.80 kB │ gzip:  11.07 kB
+dist/assets/input-CLcUKM3Z.js                     77.31 kB │ gzip:  27.05 kB
+dist/assets/api-DjHt8yKD.js                      102.24 kB │ gzip:  30.43 kB
+dist/assets/pagination-DoKz5NET.js               106.97 kB │ gzip:  34.49 kB
+dist/assets/index-DQAnE3dg.js                    150.50 kB │ gzip:  51.28 kB
+dist/assets/jsx-runtime-DA9OIYCX.js              377.12 kB │ gzip: 123.44 kB
+
+✓ built in 270ms
+{"check":"build","cwd":"apps/store-web","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\node_modules\\vite\\bin\\vite.js","build"],"exitCode":0}
+{"kind":"build","status":"passed","root":"D:\\实习\\实习生全栈学习笔记\\self-ecom"}

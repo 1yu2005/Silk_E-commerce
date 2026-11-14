@@ -16,6 +16,11 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
     { path: '/change-password', lazy: async () => ({ Component: (await import('../pages/ChangePasswordPage')).ChangePasswordPage }) },
   ] },
   { element: <RequireEmployee />, children: [
+    {element:<CatalogGuard permission="dashboard.read"/>,children:[{path:'/dashboard',lazy:async()=>({Component:(await import('../pages/DashboardPage')).DashboardPage})}]},
+    {element:<CatalogGuard permission="audit.read"/>,children:[
+      {path:'/audit-logs',lazy:async()=>({Component:(await import('../pages/AuditPage')).AuditPage})},
+      {path:'/audit-logs/:id',lazy:async()=>({Component:(await import('../pages/AuditPage')).AuditDetailPage})},
+    ]},
     {path:'/offline-cases',lazy:async()=>({Component:(await import('../pages/OfflineCasePage')).OfflineCaseListPage})},
     {path:'/offline-cases/new',lazy:async()=>({Component:(await import('../pages/OfflineCasePage')).OfflineCaseListPage})},
     {path:'/offline-cases/:id',lazy:async()=>({Component:(await import('../pages/OfflineCasePage')).OfflineCasePage})},

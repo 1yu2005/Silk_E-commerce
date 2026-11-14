@@ -12,6 +12,8 @@ export function AppLayout() {
   return <Layout className="app-layout">
     <header className="site-header"><span className="brand">自营店铺管理</span><nav aria-label="主导航">
       {state.status === 'ready' ? <><Link to="/">首页</Link><Link to="/tasks">任务工作台</Link><Link to="/change-password">修改密码</Link></> : null}
+      {state.status==='ready'&&state.permissions?.effectivePermissions.includes('dashboard.read')?<Link to="/dashboard">经营看板</Link>:null}
+      {state.status==='ready'&&state.permissions?.effectivePermissions.includes('audit.read')?<Link to="/audit-logs">操作审计</Link>:null}
       {state.status === 'ready' && canReadEmployees(state.permissions) ? <Link to="/employees">员工管理</Link> : null}
       {state.status === 'ready' && canManageSettings(state.permissions) ? <Link to="/settings">全店设置</Link> : null}
       {state.status==='ready'&&state.permissions?.effectivePermissions.includes('category.read')?<Link to="/categories">分类</Link>:null}

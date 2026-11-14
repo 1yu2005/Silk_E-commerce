@@ -89,6 +89,8 @@ export class OrderAdapters implements OnModuleInit {
    this.files.register({ownerType,async aggregate(tx,t){const row=await find(tx,t.ownerId);if(!row)throw new FileError('FILE_NOT_FOUND');return 'ORDER:'+row.orderId;},async authorize(tx,a,t,mode){const row=await find(tx,t.ownerId);if(!row||a.subjectType!=='EMPLOYEE'||a.mustChangePassword||!orderReader(a)||t.audience!=='INTERNAL'||t.slot!=='evidence')throw new FileError('FILE_NOT_FOUND');if(mode==='BIND'&&!['shipment.handover','shipment.exception.manage','shipment.history.correct','shipment.tracking.correct','shipment.customer-confirm'].some(p=>a.effectivePermissions.includes(p)))throw new FileError('FILE_NOT_BINDABLE');}});
   }
   this.skus.register({domain:'order',async referenced(tx,ids){return (await tx.orderItem.count({where:{skuId:{in:ids}}}))>0;}});
-  this.consumption.register({async read(tx,id){const [r]=await tx.$queryRaw<{amount:string}[]>`SELECT COALESCE(SUM(payable_cents),0)::text AS amount FROM "order" WHERE customer_id=${id}::uuid AND status='COMPLETED'`;return r!.amount;}});
+  this.consumption.register({async read(tx,id){const [r]=await tx.$queryRaw<{amount:string}[]>`SELECT COALESCE(SUM(p.amount_cents::bigint),0)::text AS amount FROM "order" o JOIN payment p ON p.order_id=o.id AND p.status='SUCCEEDED' WHERE o.customer_id=${id}::uuid AND o.status='COMPLETED' AND NOT EXISTS(SELECT 1 FROM refund r WHERE r.order_id=o.id AND r.status='SUCCEEDED')`;return r!.amount;},
+   async readMany(tx,ids){const rows=await tx.$queryRaw<{id:string;amount:string}[]>`SELECT o.customer_id AS id,COALESCE(SUM(p.amount_cents::bigint),0)::text AS amount FROM "order" o JOIN payment p ON p.order_id=o.id AND p.status='SUCCEEDED' WHERE o.customer_id=ANY(${[...ids]}::uuid[]) AND o.status='COMPLETED' AND NOT EXISTS(SELECT 1 FROM refund r WHERE r.order_id=o.id AND r.status='SUCCEEDED') GROUP BY o.customer_id`;return new Map(rows.map(r=>[r.id,r.amount]));}
+  });
  }
 }

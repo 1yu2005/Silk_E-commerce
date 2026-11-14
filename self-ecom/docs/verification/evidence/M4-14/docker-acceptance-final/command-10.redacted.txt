@@ -1,0 +1,5 @@
+{"status":"initialized","target":"configured","created":true,"employeeId":"5a142538-53d5-4ac7-87f8-2ccf4e0a5997","requestId":"f800a96d-a06d-4ed6-80e3-2e3e32a18c6d","catalog":{"version":"M0-02.permissions.v1","permissions":52,"rolePermissions":89}}
+time="2026-11-15T03:15:01+08:00" level=warning msg="Found orphan containers (self-ecom-m414-acceptance-5c874365-api-run-4b5bc91b126c, self-ecom-m414-acceptance-5c874365-api-run-a7d967cc5caf) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+ Container self-ecom-m414-acceptance-5c874365-api-run-381a398a07fa Creating
+ Container self-ecom-m414-acceptance-5c874365-api-run-381a398a07fa Created
+$ tsx scripts/seed-admin.ts

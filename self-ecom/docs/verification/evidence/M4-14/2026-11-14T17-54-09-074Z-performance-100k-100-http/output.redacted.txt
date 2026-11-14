@@ -1,0 +1,90 @@
+Datasource "db": PostgreSQL database "m414_3fcee1f3abaa4b719a1c050b63c46336_test", schema "public" at "localhost:15432"
+
+17 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+Applying migration `0015_return_inspections_physical_checks_refunds`
+Applying migration `0016_exception_coordination`
+Applying migration `0017_reporting_audit_query_indexes`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+  └─ 0015_return_inspections_physical_checks_refunds/
+    └─ migration.sql
+  └─ 0016_exception_coordination/
+    └─ migration.sql
+  └─ 0017_reporting_audit_query_indexes/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+stdout | test/reporting-performance.integration.ts > IT08：10万订单、100并发HTTP、10秒预热/30秒测量，SQL预算与真实ANALYZE BUFFERS计划
+{"performanceEvidence":"D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M4-14\\2026-11-14T17-54-53.235Z-performance-results","kind":"module14-short-baseline","apiExecution":"compiled-api-separate-node-process","environment":{"date":"2026-11-14T17:54:53.252Z","platform":"win32","release":"10.0.26300","node":"v24.18.0","cpu":"AMD Ryzen 9 8940HX with Radeon Graphics","cpuCount":32,"memoryBytes":16425455616,"postgres":"PostgreSQL 16.6 (Debian 16.6-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit","databaseSettings":[{"name":"effective_cache_size","setting":"524288","unit":"8kB"},{"name":"jit","setting":"on","unit":null},{"name":"max_connections","setting":"100","unit":null},{"name":"max_parallel_workers_per_gather","setting":"2","unit":null},{"name":"shared_buffers","setting":"16384","unit":"8kB"},{"name":"work_mem","setting":"4096","unit":"kB"}],"apiPoolMax":20,"apiStatementTimeoutMs":750,"compiledSourceHashes":{"reporting/reporting.service.js":"6d0ee3b989842c02facc5f8c1eabe3868298c19592d73ac4d4ef28de2668574c","audit-query/audit-query.service.js":"07b72f0d678056caa6117c6a6281d303a972c9e726fc985838c4bf08f15e13a2","timeline/business-history.service.js":"d3676fae7a46dc6ef1e0900948ff345301166dc96f795f6af05e8e46b2fd2c77","prisma/prisma.service.js":"b12e595e373297f3cc401a59c166b1a0b4cb7bdcea11dd1206fa52fa56aa5375"}},"dataset":{"orders":100000,"customers":1000,"products":1000,"skus":1000,"payments":95000,"refunds":10000,"succeededRefunds":5000,"failedRefunds":5000,"audits":100000,"references":100000,"extraHistory":200,"distribution":[{"status":"COMPLETED","count":75000},{"status":"REFUNDED","count":5000},{"status":"SHIPPED","count":5000},{"status":"WAIT_PAYMENT","count":5000},{"status":"WAIT_SHIPMENT","count":10000}]},"seedMs":30296,"concurrency":100,"maxActive":100,"warmupSeconds":10,"measurementSeconds":30,"measurementElapsedIncludingDrainSeconds":30.340239499999996,"elapsedIncludingDrainSeconds":40.7184041,"requestsPerSecond":298.5474125871683,"statuses":{"200":9058},"errors":{},"metrics":[{"name":"overview","path":"/admin/dashboard/overview","listTargetMs":null,"samples":1007,"p50Ms":324.01,"p95Ms":484.14,"p99Ms":515.3,"maxMs":549.19},{"name":"trends30","path":"/admin/dashboard/trends?days=30","listTargetMs":null,"samples":1009,"p50Ms":336.09,"p95Ms":537.58,"p99Ms":569.33,"maxMs":606.83},{"name":"hotProducts","path":"/admin/dashboard/hot-products?limit=10","listTargetMs":500,"samples":1009,"p50Ms":343.49,"p95Ms":505.53,"p99Ms":541.63,"maxMs":561.74},{"name":"lowStock","path":"/admin/dashboard/low-stock?page=1&pageSize=20","listTargetMs":500,"samples":1006,"p50Ms":296.89,"p95Ms":421.63,"p99Ms":453.1,"maxMs":490.37},{"name":"customers","path":"/admin/customers?page=1&pageSize=20","listTargetMs":500,"samples":1006,"p50Ms":319.07,"p95Ms":461.57,"p99Ms":489.31,"maxMs":512.45},{"name":"consumption","path":"/admin/customers/30f40a9c-18be-4979-8cf5-e98542e372dc/consumption","listTargetMs":null,"samples":1005,"p50Ms":297.15,"p95Ms":424.63,"p99Ms":449.59,"maxMs":484.06},{"name":"audit","path":"/admin/audit-logs?page=1&pageSize=20","listTargetMs":500,"samples":1004,"p50Ms":309.36,"p95Ms":432.83,"p99Ms":472.88,"maxMs":521.1},{"name":"auditBusinessNo","path":"/admin/audit-logs?businessType=ORDER&businessNo=PERF-O-2&pageSize=20","listTargetMs":500,"samples":1006,"p50Ms":304.27,"p95Ms":428.76,"p99Ms":460.01,"maxMs":516.42},{"name":"history","path":"/admin/orders/8ccb72fe-3b8c-4a70-8bbc-4f95f250d325/history?page=1&pageSize=20","listTargetMs":500,"samples":1006,"p50Ms":314.12,"p95Ms":446.68,"p99Ms":477.01,"maxMs":520.36}],"sqlBudgets":{"customers":{"page20":9,"page100":9},"audit":{"page20":10,"page100":10},"history":{"page20":9,"page100":9}},"databaseProbe":{"type":"performance-probe-stopped","poolAcquire":{"count":18116,"p50Ms":120.61,"p95Ms":189.84,"p99Ms":251.27,"maxMs":338.75},"queries":{"AUTH":{"count":18116,"p50Ms":4.91,"p95Ms":8.11,"p99Ms":12.15,"maxMs":79.46},"TRANSACTION":{"count":34221,"p50Ms":4.64,"p95Ms":7.57,"p99Ms":11.21,"maxMs":78.09},"OTHER":{"count":7040,"p50Ms":4.74,"p95Ms":7.9,"p99Ms":11.38,"maxMs":19.84},"LOW_STOCK":{"count":3019,"p50Ms":6.19,"p95Ms":59.16,"p99Ms":77.82,"maxMs":92.93},"AUDIT":{"count":6030,"p50Ms":6.06,"p95Ms":12.58,"p99Ms":16.15,"maxMs":41.98},"PRODUCT_QUANTITY":{"count":3020,"p50Ms":5.43,"p95Ms":81.9,"p99Ms":105.76,"maxMs":163.96},"CONSUMPTION":{"count":2011,"p50Ms":14.76,"p95Ms":39.74,"p99Ms":52.29,"maxMs":63.05},"HISTORY":{"count":2012,"p50Ms":10.6,"p95Ms":18,"p99Ms":21.98,"maxMs":31.85},"TRENDS":{"count":1009,"p50Ms":47.91,"p95Ms":134.56,"p99Ms":153.62,"maxMs":169.76}},"errors":{},"maxWaiting":79,"maxCapacity":20},"lockWait":{"sampleCount":40,"maxWaitingConnections":0},"originalFacts":{"orders":"100000","payments":"95000","paid_cents":"950000000","refunds":"10000","refund_cents":"50000000","audits":"100001","refs":"100000","tasks":"10000","ledgers":"0"},"afterFacts":{"orders":"100000","payments":"95000","paid_cents":"950000000","refunds":"10000","refund_cents":"50000000","audits":"100001","refs":"100000","tasks":"10000","ledgers":"0"},"readOnlyFactsUnchanged":true,"allListsWithin500ms":false,"limitation":"本轮14短基线；不替代15的2分钟预热、5分钟测量、三轮及完整系统写并发/恢复验收"}
+
+ ❯ test/reporting-performance.integration.ts (1 test | 1 failed) 76791ms
+   × IT08：10万订单、100并发HTTP、10秒预热/30秒测量，SQL预算与真实ANALYZE BUFFERS计划 75610ms
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  01:54:18
+   Duration  79.72s (tests 97%, import 3%, transform 1%)
+
+{"suite":"test/reporting-performance.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/reporting-performance.integration.ts > IT08：10万订单、100并发HTTP、10秒预热/30秒测量，SQL预算与真实ANALYZE BUFFERS计划
+AssertionError: hotProducts p95: expected 505.53 to be less than or equal to 500
+ ❯ test/reporting-performance.integration.ts:103:186
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+数据库集成测试存在失败，本轮独占资源已按归属清理

@@ -1,0 +1,54 @@
+{
+  "recordedAt": "2026-11-14T17:37:49.472Z",
+  "evidence": {
+    "tracked": [
+      {
+        "customerId": "44e39fa1-d9de-4aad-a1fa-a6ada511cb43",
+        "orderId": "bc2aded7-6426-4e45-a070-32bc2e04fc74",
+        "amount": "20600"
+      },
+      {
+        "customerId": "9d8b4396-fb3b-40af-9102-a435a8e402f2",
+        "orderId": "b7f0b4c9-6f68-400c-992a-b5f289052a93",
+        "amount": "20600"
+      },
+      {
+        "customerId": "1d4b75ad-8ac9-437e-8639-74b0124558c5",
+        "orderId": "dca3acd7-07e6-4981-b326-db6a89169920",
+        "amount": "0"
+      }
+    ],
+    "items": [
+      {
+        "customerId": "1d4b75ad-8ac9-437e-8639-74b0124558c5",
+        "consumption": {
+          "currency": "CNY",
+          "asOf": "2026-11-14T17:37:49.420Z",
+          "definitionVersion": "completed-unrefunded-v1",
+          "availability": "AVAILABLE",
+          "amountCents": "0"
+        }
+      },
+      {
+        "customerId": "9d8b4396-fb3b-40af-9102-a435a8e402f2",
+        "consumption": {
+          "currency": "CNY",
+          "asOf": "2026-11-14T17:37:49.420Z",
+          "definitionVersion": "completed-unrefunded-v1",
+          "availability": "AVAILABLE",
+          "amountCents": "20600"
+        }
+      },
+      {
+        "customerId": "44e39fa1-d9de-4aad-a1fa-a6ada511cb43",
+        "consumption": {
+          "currency": "CNY",
+          "asOf": "2026-11-14T17:37:49.420Z",
+          "definitionVersion": "completed-unrefunded-v1",
+          "availability": "AVAILABLE",
+          "amountCents": "20600"
+        }
+      }
+    ]
+  }
+}

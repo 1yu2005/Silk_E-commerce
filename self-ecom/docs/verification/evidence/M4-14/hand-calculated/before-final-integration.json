@@ -1,0 +1,435 @@
+{
+  "asOf": "2026-11-15T04:00:00.000Z",
+  "definitionVersion": "DASHBOARD_V1",
+  "registrationDateFixture": true,
+  "transactionFactsFromDomainCommands": true,
+  "orders": [
+    {
+      "orderId": "be4526fe-9c0a-49ce-85f6-536b2d58f8d4",
+      "customerId": "78bce7ff-d97e-4ac0-ba66-5e95cda9e63b"
+    },
+    {
+      "orderId": "52a31019-c523-4073-a3d1-95451d6a942a",
+      "customerId": "78bce7ff-d97e-4ac0-ba66-5e95cda9e63b"
+    },
+    {
+      "orderId": "90291d48-dc50-4355-bcd5-ffc4856975bf",
+      "customerId": "78bce7ff-d97e-4ac0-ba66-5e95cda9e63b"
+    },
+    {
+      "orderId": "80e83a66-1993-4216-a7e2-c7c72887aa35",
+      "customerId": "68dc45fe-1608-49fd-905e-9b3049c05aca"
+    },
+    {
+      "orderId": "d7a928c5-4ca3-4687-baf1-8057a43bf2f4",
+      "customerId": "7762324b-7e92-426c-b771-474788f5f13d"
+    },
+    {
+      "orderId": "cb87ff35-7de3-40dc-b772-8f509cab66ba",
+      "customerId": "7762324b-7e92-426c-b771-474788f5f13d"
+    }
+  ],
+  "pendingAfterSaleId": "c3c772ce-b0ce-4c74-bc17-8012d5268333",
+  "products": [
+    "3f4d1595-873b-4c74-8643-352f6665795e",
+    "6e7f6e72-f3e8-47d1-ace8-2d20c14649c6"
+  ],
+  "stockAccounts": [
+    "3cd29f93-27d6-477d-9ac7-627dd7aee2ae",
+    "10a67d9b-bcde-4af7-ba31-83b6b8994317"
+  ],
+  "overview": {
+    "today": {
+      "createdOrderCount": "3",
+      "newCustomerCount": "1",
+      "paidAmountCents": "20000",
+      "refundAmountCents": "30000",
+      "netReceiptsCents": "-10000"
+    },
+    "current": {
+      "waitingShipmentOrderCount": "0",
+      "afterSalePausedOrderCount": "1",
+      "pendingReviewAfterSaleCount": "1",
+      "failedRefundCount": "0",
+      "lowStockSkuCount": "1"
+    },
+    "asOf": "2026-11-15T04:00:00.000Z",
+    "timeZone": "Asia/Shanghai",
+    "definitionVersion": "DASHBOARD_V1",
+    "from": "2026-11-14T16:00:00.000Z",
+    "to": "2026-11-15T04:00:00.000Z",
+    "firstDate": "2026-11-15",
+    "lastDate": "2026-11-15"
+  },
+  "seven": {
+    "days": 7,
+    "items": [
+      {
+        "date": "2026-11-09",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-10",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-11",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-12",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-13",
+        "createdOrderCount": "1",
+        "newCustomerCount": "0",
+        "paidAmountCents": "20000",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "20000"
+      },
+      {
+        "date": "2026-11-14",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-15",
+        "createdOrderCount": "3",
+        "newCustomerCount": "1",
+        "paidAmountCents": "20000",
+        "refundAmountCents": "30000",
+        "netReceiptsCents": "-10000"
+      }
+    ],
+    "asOf": "2026-11-15T04:00:00.000Z",
+    "timeZone": "Asia/Shanghai",
+    "definitionVersion": "DASHBOARD_V1",
+    "from": "2026-11-08T16:00:00.000Z",
+    "to": "2026-11-15T04:00:00.000Z",
+    "firstDate": "2026-11-09",
+    "lastDate": "2026-11-15"
+  },
+  "thirty": {
+    "days": 30,
+    "items": [
+      {
+        "date": "2026-10-17",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-18",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-19",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-20",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-21",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-22",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-23",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-24",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-25",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-26",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-27",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-28",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-29",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-30",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-10-31",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-01",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-02",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-03",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-04",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-05",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-06",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-07",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-08",
+        "createdOrderCount": "1",
+        "newCustomerCount": "0",
+        "paidAmountCents": "10000",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "10000"
+      },
+      {
+        "date": "2026-11-09",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-10",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-11",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-12",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-13",
+        "createdOrderCount": "1",
+        "newCustomerCount": "0",
+        "paidAmountCents": "20000",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "20000"
+      },
+      {
+        "date": "2026-11-14",
+        "createdOrderCount": "0",
+        "newCustomerCount": "0",
+        "paidAmountCents": "0",
+        "refundAmountCents": "0",
+        "netReceiptsCents": "0"
+      },
+      {
+        "date": "2026-11-15",
+        "createdOrderCount": "3",
+        "newCustomerCount": "1",
+        "paidAmountCents": "20000",
+        "refundAmountCents": "30000",
+        "netReceiptsCents": "-10000"
+      }
+    ],
+    "asOf": "2026-11-15T04:00:00.000Z",
+    "timeZone": "Asia/Shanghai",
+    "definitionVersion": "DASHBOARD_V1",
+    "from": "2026-10-16T16:00:00.000Z",
+    "to": "2026-11-15T04:00:00.000Z",
+    "firstDate": "2026-10-17",
+    "lastDate": "2026-11-15"
+  },
+  "hot": {
+    "days": 30,
+    "items": [
+      {
+        "productId": "3f4d1595-873b-4c74-8643-352f6665795e",
+        "productCode": "M14-60c7a109-a357-4512-a20a-04a0c6b9e80e",
+        "name": "手算款式P1",
+        "status": "ON_SALE",
+        "archived": false,
+        "paidQuantity": "3"
+      },
+      {
+        "productId": "6e7f6e72-f3e8-47d1-ace8-2d20c14649c6",
+        "productCode": "M14-61f0dae6-3c17-4f8e-83bf-bc243bc2c2d6",
+        "name": "手算款式P2",
+        "status": "ON_SALE",
+        "archived": false,
+        "paidQuantity": "3"
+      }
+    ],
+    "asOf": "2026-11-15T04:00:00.000Z",
+    "timeZone": "Asia/Shanghai",
+    "definitionVersion": "DASHBOARD_V1",
+    "from": "2026-10-16T16:00:00.000Z",
+    "to": "2026-11-15T04:00:00.000Z",
+    "firstDate": "2026-10-17",
+    "lastDate": "2026-11-15"
+  },
+  "consumption": [
+    {
+      "currency": "CNY",
+      "asOf": "2026-11-15T04:00:00.000Z",
+      "definitionVersion": "completed-unrefunded-v1",
+      "availability": "AVAILABLE",
+      "amountCents": "15000"
+    },
+    {
+      "currency": "CNY",
+      "asOf": "2026-11-15T04:00:00.000Z",
+      "definitionVersion": "completed-unrefunded-v1",
+      "availability": "AVAILABLE",
+      "amountCents": "7000"
+    },
+    {
+      "currency": "CNY",
+      "asOf": "2026-11-15T04:00:00.000Z",
+      "definitionVersion": "completed-unrefunded-v1",
+      "availability": "AVAILABLE",
+      "amountCents": "0"
+    }
+  ]
+}
