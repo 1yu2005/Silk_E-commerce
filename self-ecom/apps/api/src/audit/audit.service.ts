@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'coordination.change': {target:'Coordination',fields:['orderId','businessId','businessType','coordinationAction','coordinationStatus','coordinationVersion','sourceId','proxyContextId'],reason:true},
   'after-sale.change': {target:'AfterSale',fields:['afterSaleAction','afterSaleStatus','afterSaleVersion','orderId'],reason:true},
   'order.after-sale.pause': {target:'Order',fields:['orderStatus','orderVersion','fulfillmentAction','fulfillmentStage','sourceId'],reason:true},
   'order.fulfillment': { target: 'Order', fields: ['orderStatus','orderVersion','fulfillmentAction','fulfillmentStage','sourceId'], reason: true },
@@ -91,7 +92,11 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
   for (const [field, item] of Object.entries(value)) {
     if (!fields.includes(field)) invalid();
     let valid = false;
-    if(field==='afterSaleAction') valid=typeof item==='string'&&/^[a-z-]{1,60}$/.test(item);
+    if(field==='coordinationAction') valid=typeof item==='string'&&/^[a-z.-]{1,60}$/.test(item);
+    else if(field==='coordinationStatus') valid=typeof item==='string'&&['OPEN','HANDED_OFF','RESOLVED','CANCELLED','IN_PROGRESS','WAIT_EXTERNAL','CLOSED','VERIFIED','CONSUMED','INVALIDATED','DECIDED','WITHDRAWN','PLANNED','COMPLETED','EXCEPTION'].includes(item);
+    else if(field==='coordinationVersion') valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=2147483647;
+    else if(field==='proxyContextId') valid=typeof item==='string'&&uuid.test(item);
+    else if(field==='afterSaleAction') valid=typeof item==='string'&&/^[a-z-]{1,60}$/.test(item);
     else if(field==='afterSaleStatus') valid=typeof item==='string'&&['PENDING_REVIEW','WAIT_SUPPLEMENT','WAIT_FULFILLMENT_CHECK','WAIT_REFUND','WAIT_RETURN','WAIT_RECEIPT','WAIT_INSPECTION','INSPECTION_EXCEPTION','FINAL_INSPECTION','REFUNDING','REFUND_FAILED','REJECTED','WITHDRAWN','CLOSED','SUCCEEDED'].includes(item);
     else if(field==='afterSaleVersion') valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=2147483647;
     else if(field==='orderId') valid=typeof item==='string'&&uuid.test(item);
@@ -151,7 +156,7 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
     else if (field === 'businessId') valid = typeof item === 'string' && uuid.test(item);
     else if (field === 'stage') valid = typeof item === 'string' && Object.hasOwn(TaskStage, item);
     else if (field === 'taskStatus') valid = typeof item === 'string' && Object.hasOwn(TaskStatus, item);
-    else if (field === 'sourceType') valid = typeof item === 'string' && ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST', 'RETURN_PARCEL'].includes(item);
+    else if (field === 'sourceType') valid = typeof item === 'string' && ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST', 'RETURN_PARCEL','PROXY_CONTEXT','DISPUTE_REQUEST'].includes(item);
     else if (field === 'sourceId') valid = typeof item === 'string' && uuid.test(item);
     else if (field === 'sourceStatus') valid = typeof item === 'string' && ['ACTIVE', 'RESOLVED', 'CANCELLED'].includes(item);
     else if (field === 'timerState') valid = typeof item === 'string' && ['UNSHIPPED', 'HANDOVER_UNKNOWN', 'SHIPPED', 'COMPLETED', 'REFUNDED'].includes(item);
@@ -181,7 +186,8 @@ export class AuditService {
     if (!actor || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(actor.type)) invalid();
     if (actor.type !== 'SYSTEM' && !uuid.test(actor.id)) invalid();
     // 系统只允许初始化及已明确实现的任务动作，不能冒用系统绕过员工管理主体约束。
-    if (actor.type === 'SYSTEM' && !['after-sale.change','order.fulfillment','order.receipt','order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
+    const systemProxyInvalidation=payload.action==='coordination.change'&&payload.after?.coordinationAction==='proxy-context-invalidated';
+    if (actor.type === 'SYSTEM' && !systemProxyInvalidation && !['after-sale.change','order.fulfillment','order.receipt','order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
       'task.stage.suspend', 'task.stage.resume', 'task.source.add', 'task.source.resolve', 'task.source.cancel',
       'order.timer.block.add', 'order.timer.block.release', 'order.timer.handover.record', 'order.timer.finish'].includes(payload.action)) invalid();
     if (['task.claim', 'task.release', 'task.transfer', 'task.qualification.lost', 'task.deadline.extend'].includes(payload.action) && actor.type !== 'EMPLOYEE') invalid();

@@ -1,0 +1,491 @@
+{
+  "at": "2026-11-14T16:27:51.205Z",
+  "status": "passed",
+  "method": "49套全量首轮＋受影响完整套件定向复验＋新增套件；未再次全量重跑",
+  "suites": 51,
+  "tests": 1665,
+  "failed": 0,
+  "skipped": 0,
+  "runs": [
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "exitCode": 1,
+      "suites": 49,
+      "startedAt": "2026-11-14T15:26:44.328Z",
+      "endedAt": "2026-11-14T15:52:17.889Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-51-08-692Z-address-path-fixed-recheck",
+      "exitCode": 0,
+      "suites": 1,
+      "startedAt": "2026-11-14T15:51:08.694Z",
+      "endedAt": "2026-11-14T15:51:31.856Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T16-23-50-234Z-stopped-refund-new-application-combination",
+      "exitCode": 0,
+      "suites": 1,
+      "startedAt": "2026-11-14T16:23:50.239Z",
+      "endedAt": "2026-11-14T16:24:41.649Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T16-12-08-787Z-coordination-refunded-tracking-final",
+      "exitCode": 0,
+      "suites": 1,
+      "startedAt": "2026-11-14T16:12:08.789Z",
+      "endedAt": "2026-11-14T16:12:35.002Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-35-07-099Z-migration-upgrade-third",
+      "exitCode": 0,
+      "suites": 1,
+      "startedAt": "2026-11-14T15:35:07.101Z",
+      "endedAt": "2026-11-14T15:35:50.654Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-56-48-188Z-migrations-regression-fixed",
+      "exitCode": 0,
+      "suites": 2,
+      "startedAt": "2026-11-14T15:56:48.189Z",
+      "endedAt": "2026-11-14T15:57:36.722Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-55-32-517Z-settlement-refund-dispute-final",
+      "exitCode": 0,
+      "suites": 1,
+      "startedAt": "2026-11-14T15:55:32.520Z",
+      "endedAt": "2026-11-14T15:57:06.412Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-38-618Z-auth-role-concurrency-isolated",
+      "exitCode": 0,
+      "suites": 2,
+      "startedAt": "2026-11-14T15:57:38.619Z",
+      "endedAt": "2026-11-14T15:58:44.335Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-39-312Z-task-fixture-coordination-regression",
+      "exitCode": 0,
+      "suites": 5,
+      "startedAt": "2026-11-14T15:57:39.314Z",
+      "endedAt": "2026-11-14T16:00:19.686Z"
+    },
+    {
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T16-24-11-860Z-proxy-amount-quantity-final",
+      "exitCode": 0,
+      "suites": 1,
+      "startedAt": "2026-11-14T16:24:11.862Z",
+      "endedAt": "2026-11-14T16:24:41.092Z"
+    }
+  ],
+  "items": [
+    {
+      "suite": "test/after-sales.integration.ts",
+      "passed": 42,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/audit.integration.ts",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/auth-guard.integration.ts",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/auth-schema.integration.ts",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/auth-session.integration.ts",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/catalog-migration.integration.ts",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/catalog.integration.ts",
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-address.integration.ts",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-51-08-692Z-address-path-fixed-recheck",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-disputes.integration.ts",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T16-23-50-234Z-stopped-refund-new-application-combination",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-handoffs.integration.ts",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T16-12-08-787Z-coordination-refunded-tracking-final",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-migration.integration.ts",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-35-07-099Z-migration-upgrade-third",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-offline.integration.ts",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-auth.integration.ts",
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-38-618Z-auth-role-concurrency-isolated",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-avatar.integration.ts",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-profile-password.integration.ts",
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-register.integration.ts",
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customers-migration.integration.ts",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customers.integration.ts",
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/database.integration.ts",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-auth.integration.ts",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-create.integration.ts",
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-extra-permission.integration.ts",
+      "passed": 89,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-password-reset.integration.ts",
+      "passed": 61,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-password.integration.ts",
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-profile.integration.ts",
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-query.integration.ts",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-role.integration.ts",
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-38-618Z-auth-role-concurrency-isolated",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-status.integration.ts",
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/files-migration.integration.ts",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/files-schema.integration.ts",
+      "passed": 75,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/files.integration.ts",
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/fulfillment.integration.ts",
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/initial-admin-seed.integration.ts",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/inventory-fact-guards-migration.integration.ts",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/inventory-migration.integration.ts",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/inventory.integration.ts",
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/logout.integration.ts",
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/orders-migration.integration.ts",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-56-48-188Z-migrations-regression-fixed",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/orders.integration.ts",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/permission-seed.integration.ts",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/proxy.integration.ts",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T16-24-11-860Z-proxy-amount-quantity-final",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/records.integration.ts",
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/settings.integration.ts",
+      "passed": 66,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/settlement.integration.ts",
+      "passed": 28,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-55-32-517Z-settlement-refund-dispute-final",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-access.integration.ts",
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-39-312Z-task-fixture-coordination-regression",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-deadline.integration.ts",
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-39-312Z-task-fixture-coordination-regression",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-entry.integration.ts",
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-39-312Z-task-fixture-coordination-regression",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-kernel.integration.ts",
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-39-312Z-task-fixture-coordination-regression",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-reassign.integration.ts",
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-57-39-312Z-task-fixture-coordination-regression",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/tasks-migration.integration.ts",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-56-48-188Z-migrations-regression-fixed",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/tasks-schema.integration.ts",
+      "passed": 92,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "docs/verification/evidence/M3-13/2026-11-14T15-26-44-326Z-integration-all-first",
+      "ownedDatabaseRemoved": true
+    }
+  ]
+}

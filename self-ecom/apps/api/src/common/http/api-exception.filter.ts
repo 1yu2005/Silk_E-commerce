@@ -16,6 +16,10 @@ import { CustomerError } from '../../customers/customer.errors.js';
 import { OrderError } from '../../orders/order.errors.js';
 import {SettlementError} from '../../after-sales/settlement.rules.js';
 import {AfterSaleError} from '../../after-sales/after-sale.rules.js';
+import {CoordinationError} from '../../coordination/coordination.rules.js';
+import {OfflineCaseError} from '../../coordination/offline-case.rules.js';
+import {ProxyError} from '../../coordination/proxy.rules.js';
+import {DisputeError} from '../../coordination/dispute.rules.js';
 import {RecordInputError,BusinessModuleNotReadyError} from '../../records/record-support.js';
 
 const errors: Record<number, { code: string; message: string }> = {
@@ -42,7 +46,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
 
     const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
       ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError || exception instanceof InventoryError || exception instanceof CustomerError || exception instanceof OrderError || exception instanceof RecordInputError || exception instanceof BusinessModuleNotReadyError ? exception : undefined);
-    const domainError = exception instanceof AfterSaleError || exception instanceof SettlementError ? exception : knownError;
+    const domainError = exception instanceof AfterSaleError || exception instanceof SettlementError || exception instanceof CoordinationError || exception instanceof OfflineCaseError || exception instanceof ProxyError || exception instanceof DisputeError ? exception : knownError;
     const status = domainError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
     const error = domainError ? { code: domainError.code, message: domainError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };

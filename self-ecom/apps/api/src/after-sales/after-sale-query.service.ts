@@ -1,3 +1,4 @@
+import {publicOfflineForOrder} from '../coordination/offline-case.public.js';
 // 作用：顾客、客服与仓储分别投影；私有图仍通过真实文件归属授权，不暴露存储路径。
 import {Inject,Injectable} from '@nestjs/common';
 import type {Prisma,Task} from '@prisma/client';
@@ -35,7 +36,7 @@ export class AfterSaleQueries{
   const assigned=(stage:string,p:string)=>{const t=active(stage);return actor.subjectType==='EMPLOYEE'&&actor.effectivePermissions.includes(p)&&!!t&&t.status==='CLAIMED'&&t.assigneeId===actor.subjectId&&isTaskEligible(actor,t);};
   const approved=decisions.some(d=>['APPROVE_REFUND_ONLY','APPROVE_RETURN','REJECT','NO_RETURN_REFUND_CONFIRM'].includes(d.kind));
   const handed=service?await tx.handoverAttempt.findFirst({where:{orderId:a.orderId,status:'HANDED_OVER'},select:{id:true}}):null;
-  return {latestHandoverAttemptId:handed?.id??null,id:a.id,number:a.number,orderId:a.orderId,orderNo:o.number,orderStatus:o.status,type:a.type,status:a.status,reasonCode:customer||service?a.reasonCode:null,applicationDescription:customer||service?a.applicationDescription:null,amountCents:customer||service?a.requestedRefundAmount:null,version:a.version,createdAt:a.createdAt,approvedAt:a.approvedAt,closedAt:a.closedAt,afterSaleDeadline:o.afterSaleDeadline,currentMaterialVersionId:customer||service?a.currentMaterialVersionId:null,
+  return {offlineCases:customer?await publicOfflineForOrder(tx,o.id,o.customerId):[],latestHandoverAttemptId:handed?.id??null,id:a.id,number:a.number,orderId:a.orderId,orderNo:o.number,orderStatus:o.status,type:a.type,status:a.status,reasonCode:customer||service?a.reasonCode:null,applicationDescription:customer||service?a.applicationDescription:null,amountCents:customer||service?a.requestedRefundAmount:null,version:a.version,createdAt:a.createdAt,approvedAt:a.approvedAt,closedAt:a.closedAt,afterSaleDeadline:o.afterSaleDeadline,currentMaterialVersionId:customer||service?a.currentMaterialVersionId:null,
    materialVersions:materials.map(m=>({id:m.id,versionNo:m.versionNo,description:m.description,createdAt:m.createdAt,evidence:images(m.id)})),
    supplementRequests:requests.map(r=>({id:r.id,requestNo:r.requestNo,requirement:r.requirement,publicExplanation:r.publicExplanation,requestedAt:r.requestedAt,dueAt:r.dueAt,respondedAt:r.respondedAt,respondedMaterialVersionId:r.respondedMaterialVersionId,closedAt:r.closedAt})),
    decisions:decisions.map(d=>({id:d.id,kind:d.kind,fromStatus:d.fromStatus,toStatus:d.toStatus,publicExplanation:d.publicExplanation,createdAt:d.createdAt,...(service?{internalNote:d.internalNote,actorEmployeeId:d.actorEmployeeId}: {})})),

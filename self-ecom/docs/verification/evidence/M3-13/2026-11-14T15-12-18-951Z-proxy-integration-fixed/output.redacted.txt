@@ -1,0 +1,192 @@
+Datasource "db": PostgreSQL database "m105_daf7651c75694432987f30a36ceae5b0_test", schema "public" at "localhost:15432"
+
+16 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+Applying migration `0015_return_inspections_physical_checks_refunds`
+Applying migration `0016_exception_coordination`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+  └─ 0015_return_inspections_physical_checks_refunds/
+    └─ migration.sql
+  └─ 0016_exception_coordination/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/proxy.integration.ts (10 tests | 7 failed) 7715ms
+   × 核实只建立OPEN来源，未领取不可代录；真实员工申请且不自动批准，旧顾客会话失效 865ms
+   × 原键在已消费、过期和解冻后仍恢复同结果；异体/新键不能再用已消费核实 598ms
+   × 同键并发最多一次售后与消费，限流请求沿原键恢复，不产生重复任务轮次 1797ms
+   × 过期只消费本来源，多个核实共享一个有效任务；重复补扫不造新轮或关闭售后 472ms
+   × 尚未领单的核实也随员工停用失效，原凭证不能重放敏感资料 387ms
+   × 真实补充原材料不另造申请、审核新轮；代理不要求客服先领取审核跟进任务 730ms
+   × 代录末端故障整事务回滚，核实/文件/Task/售后不留半成品，原键可重试 630ms
+
+ Test Files  1 failed (1)
+      Tests  7 failed | 3 passed (10)
+   Start at  23:12:29
+   Duration  10.04s (tests 78%, import 16%, transform 6%)
+
+{"suite":"test/proxy.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+(node:12492) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/proxy.integration.ts > 核实只建立OPEN来源，未领取不可代录；真实员工申请且不自动批准，旧顾客会话失效
+ FAIL  test/proxy.integration.ts > 原键在已消费、过期和解冻后仍恢复同结果；异体/新键不能再用已消费核实
+Error: 审计载荷不符合动作白名单
+ ❯ invalid src/audit/audit.service.ts:84:9
+     82| function invalid(): never {
+     83|   // 不附带输入值，避免校验失败时通过异常泄漏秘密。
+     84|   throw new Error('审计载荷不符合动作白名单');
+       |         ^
+     85| }
+     86|
+ ❯ snapshot src/audit/audit.service.ts:170:17
+ ❯ ControlledAudit.appendAudit src/audit/audit.service.ts:205:23
+ ❯ ControlledAudit.appendAudit test/proxy.integration.ts:39:139
+ ❯ ProxyInputService.auditChange src/coordination/proxy-input.service.ts:34:108
+ ❯ src/coordination/proxy-input.service.ts:67:136
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:70:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  test/proxy.integration.ts > 同键并发最多一次售后与消费，限流请求沿原键恢复，不产生重复任务轮次
+AssertionError: expected Error: 审计载荷不符合动作白名单 to match object { code: 'REQUEST_IN_PROGRESS' }
+
+- Expected
++ Received
+
+- {
+-   "code": "REQUEST_IN_PROGRESS",
++ Error {
++   "message": "审计载荷不符合动作白名单",
+  }
+
+ ❯ test/proxy.integration.ts:66:309
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  test/proxy.integration.ts > 过期只消费本来源，多个核实共享一个有效任务；重复补扫不造新轮或关闭售后
+Error: 审计载荷不符合动作白名单
+ ❯ invalid src/audit/audit.service.ts:84:9
+     82| function invalid(): never {
+     83|   // 不附带输入值，避免校验失败时通过异常泄漏秘密。
+     84|   throw new Error('审计载荷不符合动作白名单');
+       |         ^
+     85| }
+     86|
+ ❯ ControlledAudit.appendAudit src/audit/audit.service.ts:191:140
+ ❯ ControlledAudit.appendAudit test/proxy.integration.ts:39:139
+ ❯ ProxyInputService.auditChange src/coordination/proxy-input.service.ts:34:108
+ ❯ ProxyInputService.invalidateOrderInContext src/coordination/proxy-input.service.ts:78:433
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:70:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:39:74
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  test/proxy.integration.ts > 尚未领单的核实也随员工停用失效，原凭证不能重放敏感资料
+AssertionError: expected SessionAuthenticationError: 登录会话已撤销 { code: '…' } to match object { code: 'ACCOUNT_UNAVAILABLE' }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "ACCOUNT_UNAVAILABLE",
++ SessionAuthenticationError {
++   "code": "SESSION_REVOKED",
+  }
+
+ ❯ test/proxy.integration.ts:75:607
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  test/proxy.integration.ts > 真实补充原材料不另造申请、审核新轮；代理不要求客服先领取审核跟进任务
+TaskError: 当前不是该任务经办人
+ ❯ assertActor src/tasks/task-lifecycle.service.ts:55:98
+     53|         if (input.action !== 'COMPLETED' || actor.subjectType !== 'EMP…
+     54|         if (!isTaskEligible(actor, task)) throw new AccessDeniedError(…
+     55|         if (!replay && (task.status !== 'CLAIMED' || task.assigneeId !…
+       |                                                                                                  ^
+     56|       };
+     57|       assertActor(scope.actor);
+ ❯ src/tasks/task-lifecycle.service.ts:57:7
+ ❯ AfterSaleService.finish src/after-sales/after-sale.service.ts:55:110
+ ❯ AfterSaleService.supplementInContext src/after-sales/after-sale.service.ts:106:648
+ ❯ src/coordination/proxy-input.service.ts:65:17
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:70:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:39:74
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  test/proxy.integration.ts > 代录末端故障整事务回滚，核实/文件/Task/售后不留半成品，原键可重试
+AssertionError: expected [Function] to throw error including '本轮代录事务末端故障' but got '审计载荷不符合动作白名单'
+
+Expected: "本轮代录事务末端故障"
+Received: "审计载荷不符合动作白名单"
+
+ ❯ test/proxy.integration.ts:81:203
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+数据库集成测试存在失败，本轮独占资源已按归属清理

@@ -1,0 +1,16 @@
+{"check":"typecheck","cwd":"packages/shared","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"typecheck","cwd":"packages/api-client","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"typecheck","cwd":"packages/ui","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"typecheck","cwd":"packages/shared","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json","--noEmit"],"exitCode":0}
+{"check":"typecheck","cwd":"packages/api-client","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json","--noEmit"],"exitCode":0}
+{"check":"typecheck","cwd":"packages/ui","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json","--noEmit"],"exitCode":0}
+test/coordination-disputes.integration.ts(62,174): error TS18048: 'first' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,244): error TS18048: 'second' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,402): error TS18048: 'second' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,483): error TS18048: 'second' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,559): error TS18048: 'first' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,605): error TS18048: 'first' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,708): error TS18048: 'second' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,918): error TS18048: 'second' is possibly 'undefined'.
+test/coordination-disputes.integration.ts(62,1041): error TS18048: 'first' is possibly 'undefined'.
+{"check":"typecheck","cwd":"apps/api","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json","--noEmit"],"exitCode":2}

@@ -1,0 +1,107 @@
+{
+  "startedAt": "2026-11-14T16:36:20.771Z",
+  "resumed": true,
+  "newMembers": 0,
+  "runId": "5bbef3f0-be68-4735-a716-59cb7c30dc92",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "75110fd9-8196-4f0b-bd7a-7021f38484d4"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "0ef9b15d-277c-44ba-962c-d36717a01a52"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "dd378184-a39d-4b0f-b5c8-f9fc2519e27c"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "c8dfcb10-6e55-4f68-8116-efc5495d3a7e"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "b058a28e-318a-4528-b6d4-38dd0177db37"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "b5d0d684-e5a8-461c-bab7-74f3750cf037"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df",
+      "status": 200,
+      "requestId": "61d61bea-f4e1-4994-b443-4159067c58fd"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "4e964d5f-a5fe-4b94-84b7-ab9144639cb2"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df/coordination",
+      "status": 200,
+      "requestId": "3b7e6cc6-2067-46a5-b7cc-2e0e234bb4e7"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df/address-requests",
+      "status": 200,
+      "requestId": "e0aafc8a-4c69-4654-aa45-743b4bd797ac",
+      "browser": true
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df/coordination",
+      "status": 200,
+      "requestId": "b42f6752-a69d-4267-9ac8-2410f9d741d0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/b081f69b-6bdc-472c-bf13-63f4005e08bf/claim",
+      "status": 200,
+      "requestId": "68648eae-9b08-46a2-8245-b38850c0a552",
+      "browser": true
+    },
+    {
+      "method": "POST",
+      "path": "/admin/address-requests/49b87b55-fa19-45f0-9da0-b693577cd013/physical-verifications",
+      "status": 200,
+      "requestId": "7ca1829f-8163-4bce-9877-984bc8cba844",
+      "browser": true
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df/coordination",
+      "status": 200,
+      "requestId": "55548307-a81f-442d-9bf1-2013139ff343"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/d8fa5528-c08c-4e4c-9696-fb387bfc5256/claim",
+      "status": 200,
+      "requestId": "01d8e6d3-12e9-4415-b90d-bbc417d645a8",
+      "browser": true
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "status": "failed",
+  "failure": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form').filter({ has: getByRole('heading', { name: '按真实事实选择路线', exact: true }) }).getByLabel('售后申请说明', { exact: true })\u001b[22m\n\n    at D:\\实习\\实习生全栈学习笔记\\self-ecom\\infra\\verify-coordination-local.mjs:118:603",
+  "endedAt": "2026-11-14T16:36:56.451Z"
+}

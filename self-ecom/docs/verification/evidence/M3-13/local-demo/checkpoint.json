@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "runId": "5bbef3f0-be68-4735-a716-59cb7c30dc92",
+  "startedAt": "2026-11-14T16:32:55.564Z",
+  "commands": {
+    "pay": {
+      "pathname": "/store/orders/43262e27-191d-4cee-a067-85592ec799df/pay",
+      "body": {},
+      "headers": {}
+    }
+  },
+  "origin": "http://localhost:8080",
+  "storeOrigin": "http://localhost:8081",
+  "customerId": "4a747851-50ae-484c-84f6-cf6f7070b574",
+  "skuId": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+  "addressId": "f954e46d-2ce7-4546-84aa-30c7c5dd0541",
+  "baseline": {
+    "cartHash": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "addressHash": "ace44af3db7435fd53a5b25fa989422664e5f5e2156b1ad757ab619aa250de7d",
+    "available": 10,
+    "reserved": 0,
+    "consumption": "10700"
+  },
+  "orderKey": "184724f4-9d99-4269-ae5c-d9d9525cad50",
+  "cartAttempt": true,
+  "cartItemId": "d0408339-6829-4ef4-97e6-67687b9da125",
+  "orderRequest": {
+    "addressId": "f954e46d-2ce7-4546-84aa-30c7c5dd0541",
+    "items": [
+      {
+        "cartItemId": "d0408339-6829-4ef4-97e6-67687b9da125",
+        "skuId": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+        "quantity": 1
+      }
+    ],
+    "quoteId": "8df9178d-5695-4416-b6e9-cbc5822a8660"
+  },
+  "orderId": "43262e27-191d-4cee-a067-85592ec799df",
+  "cartConsumed": true,
+  "orderNo": "OMWGMJQVV2AB919194225",
+  "orderAddressHash": "47380805047b32d28528c5e2f4f51cbbe20989cfdb9d396cdf1a3ab578dd08cd",
+  "communicationAttempt": true,
+  "communicationId": "058b1d39-3874-4d41-9f97-d5f4186aed58",
+  "pending": null,
+  "addressRequestId": "49b87b55-fa19-45f0-9da0-b693577cd013",
+  "addressVerificationId": "8e2f9635-e518-4978-8cb3-4355be906239",
+  "afterSaleId": "1deb5c23-3f77-48e9-9fa6-d3f53fa6cda0",
+  "refundId": "28f58614-1116-4ee1-880c-2c53a8a81520",
+  "refundNo": "RFMWGMW4WW8D14C1275D3B48",
+  "offlineCaseId": "230d4606-da89-455b-893b-799b6256d1d5",
+  "completed": true
+}

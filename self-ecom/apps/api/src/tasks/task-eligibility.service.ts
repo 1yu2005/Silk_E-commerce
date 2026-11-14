@@ -1,5 +1,5 @@
 // 作用：在员工变更原事务中先合并全部业务锁，再同步回池失去资格的已领任务；失败整体回滚。
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, Optional } from '@nestjs/common';
 import type { Prisma, Task } from '@prisma/client';
 import { AuditService } from '../audit/audit.service.js';
 import { AccessDeniedError } from '../auth/access-denied.error.js';
@@ -9,6 +9,7 @@ import { Clock } from '../common/time/clock.js';
 import { hasTaskPermissions, TaskAccessService } from './task-access.service.js';
 import { businessKey, TaskBusinessAdapters } from './task-business-adapters.js';
 import { TaskError } from './task.errors.js';
+import {TaskIdentityEffects} from './task-identity-effects.js';
 import { TaskLockService } from './task-lock.service.js';
 
 export interface EmployeeTaskChange {
@@ -24,20 +25,23 @@ export class TaskEligibilityService {
   private readonly contexts = new WeakMap<TaskEligibilityContext, Prepared>();
   constructor(@Inject(TaskLockService) private readonly locks: TaskLockService, @Inject(TaskBusinessAdapters) private readonly adapters: TaskBusinessAdapters,
     @Inject(TaskAccessService) private readonly access: TaskAccessService, @Inject(AuditService) private readonly audit: AuditService,
-    @Inject(Clock) private readonly clock: Clock) {}
+    @Inject(Clock) private readonly clock: Clock,@Optional() @Inject(TaskIdentityEffects) private readonly identityEffects:TaskIdentityEffects=new TaskIdentityEffects()) {}
 
   /** 调用前已锁操作者/目标员工，且尚未写员工；目标锁阻止新的领取或转入，不能另补员工锁。 */
   async prepare(tx: Prisma.TransactionClient, employeeId: string, newEffective: readonly string[], change: EmployeeTaskChange): Promise<TaskEligibilityContext> {
     requireSessionTransaction(tx); employeeId = checkedId(employeeId); checkedId(change.requestId);
     const candidates = await tx.task.findMany({ where: { assigneeId: employeeId, status: 'CLAIMED' }, orderBy: { id: 'asc' } });
     const lost = candidates.filter(task => !hasTaskPermissions(newEffective, task));
-    const refs = [...new Map(lost.map(task => [businessKey(task), task])).values()];
+    const effectRefs=await this.identityEffects.references(tx,employeeId,newEffective,change);
+    const refs = [...new Map([...lost,...effectRefs].map(task => [businessKey(task), task])).values()];
+    const effectTasks=effectRefs.length?await tx.task.findMany({where:{OR:effectRefs.map(ref=>({...ref,stage:'PROXY_INPUT' as const})),status:{in:['OPEN','CLAIMED','SUSPENDED']}},orderBy:{id:'asc'}}):[];
+    const lockedTasks=[...new Map([...lost,...effectTasks].map(t=>[t.id,t])).values()].sort((a,b)=>a.id<b.id?-1:1);
     if (refs.length) await this.locks.acquireBusiness(tx, refs);
     // 必须先锁完全部Cursor，再锁全部Task；不能逐任务完整取锁后再倒退到下一业务。
-    for (const id of [...new Set(lost.map(task => task.cursorId))].sort()) {
+    for (const id of [...new Set(lockedTasks.map(task => task.cursorId))].sort()) {
       await tx.$queryRaw`SELECT id FROM task_stage_cursor WHERE id=${id}::uuid FOR UPDATE`;
     }
-    for (const task of lost) await tx.$queryRaw`SELECT id FROM task WHERE id=${task.id}::uuid FOR UPDATE`;
+    for (const task of lockedTasks) await tx.$queryRaw`SELECT id FROM task WHERE id=${task.id}::uuid FOR UPDATE`;
     const confirmed = await tx.task.findMany({ where: { assigneeId: employeeId, status: 'CLAIMED' }, orderBy: { id: 'asc' } });
     if (signature(candidates) !== signature(confirmed)) throw new TaskError('TASK_LOCK_PLAN_CHANGED');
     // 等待业务锁后再次确认操作者；放在员工写入前，合法自降权/停用才不会被自己的新状态误拒绝。
@@ -69,5 +73,6 @@ export class TaskEligibilityService {
         before: { taskStatus: 'CLAIMED', assigneeId: employeeId, round: task.round, taskVersion: task.version, reassignNeeded: task.reassignNeeded },
         after: { taskStatus: 'OPEN', assigneeId: null, round: task.round, taskVersion: updated.version, reassignNeeded: true } });
     }
+    await this.identityEffects.apply(tx,employeeId,newEffective,change);
   }
 }

@@ -16,10 +16,15 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
     { path: '/change-password', lazy: async () => ({ Component: (await import('../pages/ChangePasswordPage')).ChangePasswordPage }) },
   ] },
   { element: <RequireEmployee />, children: [
+    {path:'/offline-cases',lazy:async()=>({Component:(await import('../pages/OfflineCasePage')).OfflineCaseListPage})},
+    {path:'/offline-cases/new',lazy:async()=>({Component:(await import('../pages/OfflineCasePage')).OfflineCaseListPage})},
+    {path:'/offline-cases/:id',lazy:async()=>({Component:(await import('../pages/OfflineCasePage')).OfflineCasePage})},
+    {path:'/custody/:id',lazy:async()=>({Component:(await import('../pages/CustodyPage')).CustodyPage})},
     {path:'/after-sales',lazy:async()=>({Component:(await import('../pages/AfterSalePage')).AfterSaleListPage})},
     {path:'/after-sales/:id',lazy:async()=>({Component:(await import('../pages/AfterSalePage')).AfterSalePage})},
     {element:<OrdersGuard/>,children:[
       {path:'/orders',lazy:async()=>({Component:(await import('../pages/OrderListPage')).OrderListPage})},
+      {path:'/orders/:id/coordination',lazy:async()=>({Component:(await import('../pages/CoordinationPage')).CoordinationPage})},
       {path:'/orders/:id',lazy:async()=>({Component:(await import('../pages/OrderDetailPage')).OrderDetailPage})},
     ]},
     {element:<CatalogGuard permission="inventory.order-exception.manage"/>,children:[

@@ -12,6 +12,8 @@ import {AfterSaleService} from './after-sale.service.js';
 import {ownedSale,serviceReader,inspectionReader,salePermission} from './after-sale.access.js';
 import {activeAfterSale,terminalStatuses} from './after-sale.rules.js';
 import {settlementStageActive,settlementStartedAt,settlementTransition,afterSaleSources} from './settlement-task-policy.js';
+import {Clock} from '../common/time/clock.js';
+import {assertProxyContext} from '../coordination/proxy.rules.js';
 import {SkuReferences} from '../catalog/sku-reference.service.js';
 export async function afterSaleSkuReferenced(tx:Prisma.TransactionClient,skuIds:string[]){
  const items=await tx.orderItem.findMany({where:{skuId:{in:skuIds}},select:{orderId:true}});
@@ -19,8 +21,9 @@ export async function afterSaleSkuReferenced(tx:Prisma.TransactionClient,skuIds:
 }
 @Injectable()
 export class AfterSaleAdapters implements OnModuleInit{
- constructor(@Inject(TaskBusinessAdapters)private readonly tasks:TaskBusinessAdapters,@Inject(FileBusinessAdapters)private readonly files:FileBusinessAdapters,@Inject(BusinessRecordAdapters)private readonly records:BusinessRecordAdapters,@Inject(FulfillmentAfterSales)private readonly fulfillment:FulfillmentAfterSales,@Inject(AfterSaleService)private readonly service:AfterSaleService,@Inject(SkuReferences)private readonly skus:SkuReferences){}
+ constructor(@Inject(TaskBusinessAdapters)private readonly tasks:TaskBusinessAdapters,@Inject(FileBusinessAdapters)private readonly files:FileBusinessAdapters,@Inject(BusinessRecordAdapters)private readonly records:BusinessRecordAdapters,@Inject(FulfillmentAfterSales)private readonly fulfillment:FulfillmentAfterSales,@Inject(AfterSaleService)private readonly service:AfterSaleService,@Inject(SkuReferences)private readonly skus:SkuReferences,@Inject(Clock)private readonly clock:Clock){}
  onModuleInit(){
+  const clock=this.clock;
   this.skus.register({domain:'after-sale',referenced:afterSaleSkuReferenced});
   const authorize=async(tx:Prisma.TransactionClient,id:string,a:TaskCommandActor)=>{await ownedSale(tx,id,a);};
   const stageActive=settlementStageActive;
@@ -55,7 +58,13 @@ export class AfterSaleAdapters implements OnModuleInit{
   this.records.registerStateHistory({aggregateType:'AFTER_SALE',async lockAndValidate(tx,a,t){const s=await tx.afterSale.findUnique({where:{id:t.aggregateId}});if(!s||t.dimension!=='status'||s.status!==t.toState||a.type==='CUSTOMER'&&a.id!==s.customerId)throw new TaskError('TASK_ENTRY_BLOCKED');}});
   for(const ownerType of ['AFTER_SALE_MATERIAL','AFTER_SALE_RETURN_LOGISTICS','AFTER_SALE_RETURN_VERIFICATION'] as const){
    const find=async(tx:Prisma.TransactionClient,id:string)=>{if(ownerType==='AFTER_SALE_MATERIAL')return (await tx.afterSaleMaterialVersion.findUnique({where:{id}}))?.afterSaleId;if(ownerType==='AFTER_SALE_RETURN_VERIFICATION')return (await tx.returnDispatchVerification.findUnique({where:{id}}))?.afterSaleId;const r=await tx.returnLogisticsRevision.findUnique({where:{id}});return r?(await tx.returnParcel.findUnique({where:{id:r.parcelId}}))?.afterSaleId:undefined;};
-   this.files.register({ownerType,async aggregate(tx,t){const id=await find(tx,t.ownerId);if(!id)throw new FileError('FILE_NOT_FOUND');return 'AFTER_SALE:'+id;},async authorize(tx,a,t,mode){const id=await find(tx,t.ownerId);if(!id)throw new FileError('FILE_NOT_FOUND');let s;try{s=await ownedSale(tx,id,a);}catch{throw new FileError('FILE_NOT_FOUND');}const internal=ownerType==='AFTER_SALE_RETURN_VERIFICATION';if(internal?(!serviceReader(a)||t.audience!=='INTERNAL'):t.audience!=='CUSTOMER_VISIBLE')throw new FileError('FILE_NOT_FOUND');if(!internal&&a.subjectType==='EMPLOYEE'&&!serviceReader(a)&&!(ownerType==='AFTER_SALE_RETURN_LOGISTICS'&&inspectionReader(a)))throw new FileError('FILE_NOT_FOUND');if(t.slot!=='evidence')throw new FileError('FILE_NOT_FOUND');if(mode==='BIND'){if(terminalStatuses.includes(s.status))throw new FileError('FILE_NOT_BINDABLE');if(internal){salePermission(a,'after-sale.return.follow');const task=await tx.task.findFirst({where:{businessType:'AFTER_SALE',businessId:s.id,stage:'RETURN_FOLLOW',status:'CLAIMED',assigneeId:a.subjectId}});if(!task)throw new FileError('FILE_NOT_BINDABLE');}else if(a.subjectType!=='CUSTOMER')throw new FileError('FILE_NOT_BINDABLE');}}});
+   this.files.register({ownerType,async aggregate(tx,t){const id=await find(tx,t.ownerId);if(!id)throw new FileError('FILE_NOT_FOUND');return 'AFTER_SALE:'+id;},async authorize(tx,a,t,mode){const id=await find(tx,t.ownerId);if(!id)throw new FileError('FILE_NOT_FOUND');let s;try{s=await ownedSale(tx,id,a);}catch{throw new FileError('FILE_NOT_FOUND');}const internal=ownerType==='AFTER_SALE_RETURN_VERIFICATION';if(internal?(!serviceReader(a)||t.audience!=='INTERNAL'):t.audience!=='CUSTOMER_VISIBLE')throw new FileError('FILE_NOT_FOUND');if(!internal&&a.subjectType==='EMPLOYEE'&&!serviceReader(a)&&!(ownerType==='AFTER_SALE_RETURN_LOGISTICS'&&inspectionReader(a)))throw new FileError('FILE_NOT_FOUND');if(t.slot!=='evidence')throw new FileError('FILE_NOT_FOUND');if(mode==='BIND'){if(terminalStatuses.includes(s.status))throw new FileError('FILE_NOT_BINDABLE');if(internal){salePermission(a,'after-sale.return.follow');const task=await tx.task.findFirst({where:{businessType:'AFTER_SALE',businessId:s.id,stage:'RETURN_FOLLOW',status:'CLAIMED',assigneeId:a.subjectId}});if(!task)throw new FileError('FILE_NOT_BINDABLE');}else if(a.subjectType==='EMPLOYEE'){
+    const row=ownerType==='AFTER_SALE_MATERIAL'?await tx.afterSaleMaterialVersion.findUnique({where:{id:t.ownerId}}):await tx.returnLogisticsRevision.findUnique({where:{id:t.ownerId}});
+    const employeeId=row&&('submittedByEmployeeId' in row?row.submittedByEmployeeId:row.actorEmployeeId);
+    if(!row||employeeId!==a.subjectId||row.representedCustomerId!==s.customerId)throw new FileError('FILE_NOT_BINDABLE');
+    if(row.proxyContextId){const context=await tx.proxyContext.findUnique({where:{id:row.proxyContextId}});if(!context)throw new FileError('FILE_NOT_BINDABLE');await assertProxyContext(tx,a,context.id,ownerType==='AFTER_SALE_RETURN_LOGISTICS'?'RETURN_LOGISTICS':context.action==='SUPPLEMENT'?'SUPPLEMENT':'APPLY_AFTER_SALE',s.orderId,clock.now(),context.action==='APPLY_AFTER_SALE'?undefined:s.id);}
+    else {if(ownerType!=='AFTER_SALE_MATERIAL'||!['after-sale.review','order.service.read','communication.service.write'].every(p=>a.effectivePermissions.includes(p))||!await tx.task.count({where:{businessType:'ORDER',businessId:s.orderId,stage:'CUSTOMER_CONTACT',status:'CLAIMED',assigneeId:a.subjectId}}))throw new FileError('FILE_NOT_BINDABLE');}
+   }else if(a.subjectType!=='CUSTOMER')throw new FileError('FILE_NOT_BINDABLE');}}});
   }
  }
 }

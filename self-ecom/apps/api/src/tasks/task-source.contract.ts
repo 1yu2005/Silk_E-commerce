@@ -1,7 +1,7 @@
 // 作用：冻结同阶段多来源的事务仓储契约；真实表随订单板块迁移，当前没有生产默认仓储。
 import type { Prisma, Task } from '@prisma/client';
 import type { TaskCommandActor } from './task-business-adapters.js';
-export const TASK_SOURCE_TYPES = ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST', 'RETURN_PARCEL'] as const;
+export const TASK_SOURCE_TYPES = ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST', 'RETURN_PARCEL', 'PROXY_CONTEXT', 'DISPUTE_REQUEST'] as const;
 export type TaskSourceType = typeof TASK_SOURCE_TYPES[number];
 export interface TaskSourceReference { readonly sourceType: TaskSourceType; readonly sourceId: string }
 export interface TaskSourceMetadata {

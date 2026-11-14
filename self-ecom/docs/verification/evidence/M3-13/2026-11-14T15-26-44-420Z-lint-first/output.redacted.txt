@@ -1,0 +1,15 @@
+{"check":"lint","cwd":"packages/shared","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"lint","cwd":"packages/api-client","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"lint","cwd":"packages/ui","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"lint","cwd":"packages/config","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js","."],"exitCode":0}
+{"check":"lint","cwd":"packages/shared","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js","src","test"],"exitCode":0}
+{"check":"lint","cwd":"packages/api-client","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js","src","test"],"exitCode":0}
+{"check":"lint","cwd":"packages/ui","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js","src"],"exitCode":0}
+{"check":"lint","cwd":"apps/api","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js","src","test","scripts","prisma.config.ts"],"exitCode":0}
+
+D:\实习\实习生全栈学习笔记\self-ecom\apps\admin-web\src\coordination\DisputePanel.tsx
+  44:98  error  Unexpected constant nullishness on the left-hand side of a `??` expression  no-constant-binary-expression
+
+✖ 1 problem (1 error, 0 warnings)
+
+{"check":"lint","cwd":"apps/admin-web","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js","src","test","vite.config.ts"],"exitCode":1}

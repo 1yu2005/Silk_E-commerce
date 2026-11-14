@@ -1,0 +1,19 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+16 migrations found in prisma/migrations
+
+Applying migration `0016_exception_coordination`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0016_exception_coordination/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-4b706f995078 Creating
+ Container self-ecom-api-run-4b706f995078 Created
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

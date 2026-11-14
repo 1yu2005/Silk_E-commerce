@@ -1,0 +1,173 @@
+{
+  "startedAt": "2026-11-14T15:34:44.576Z",
+  "project": "self-ecom-m313-acceptance-88459108",
+  "imagePrefix": "self-ecom-m313-acceptance-88459108",
+  "checks": [],
+  "requests": [],
+  "commands": [
+    {
+      "label": "原容器清单",
+      "command": [
+        "docker",
+        "ps",
+        "-aq"
+      ],
+      "startedAt": "2026-11-14T15:34:44.577Z",
+      "endedAt": "2026-11-14T15:34:45.531Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-0.log"
+    },
+    {
+      "label": "原卷清单",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T15:34:45.531Z",
+      "endedAt": "2026-11-14T15:34:45.762Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-1.log"
+    },
+    {
+      "label": "原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "5ee1597a1f58",
+        "e418a6f26617",
+        "88a67a64cbf8",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T15:34:45.762Z",
+      "endedAt": "2026-11-14T15:34:46.049Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-2.log"
+    },
+    {
+      "label": "本轮独占Compose配置",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-88459108",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\compose.override.yaml",
+        "config",
+        "--quiet"
+      ],
+      "startedAt": "2026-11-14T15:34:46.049Z",
+      "endedAt": "2026-11-14T15:34:46.473Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-3.log"
+    },
+    {
+      "label": "顺序真实构建 api",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-88459108",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\compose.override.yaml",
+        "build",
+        "api"
+      ],
+      "startedAt": "2026-11-14T15:34:46.473Z",
+      "endedAt": "2026-11-14T15:39:30.234Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-4.log"
+    },
+    {
+      "label": "顺序真实构建 admin-web",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-88459108",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\compose.override.yaml",
+        "build",
+        "admin-web"
+      ],
+      "startedAt": "2026-11-14T15:39:30.242Z",
+      "endedAt": "2026-11-14T15:40:47.787Z",
+      "exitCode": 1,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-5.log"
+    },
+    {
+      "label": "原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "5ee1597a1f58",
+        "e418a6f26617",
+        "88a67a64cbf8",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T15:40:47.861Z",
+      "endedAt": "2026-11-14T15:40:48.615Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-6.log"
+    },
+    {
+      "label": "复核原卷",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T15:40:48.617Z",
+      "endedAt": "2026-11-14T15:40:48.938Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-sequential\\command-7.log"
+    }
+  ],
+  "acceptedImages": [],
+  "pageErrors": [],
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: 顺序真实构建 admin-web xit 1 ;; esac \\\n\n  11 | >>>     && pnpm --filter \"@shop/$WEB_APP...\" build \\\n\n  12 | >>>     && cp -a \"apps/$WEB_APP/dist\" /site\n\n  13 |     \n\n--------------------\n\nfailed to solve: process \"/bin/sh -c case \\\"$WEB_APP\\\" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter \\\"@shop/$WEB_APP...\\\" build     && cp -a \\\"apps/$WEB_APP/dist\\\" /site\" did not complete successfully: exit code: 2\n\n\n\nView build details: docker-desktop://dashboard/build/default/default/ipnx9n8q1xfdgwmc1ftrqbge2\n\n\n\n1 !== 0\n\n    at run (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-coordination-compose.mjs:22:493)\n    at compose (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-coordination-compose.mjs:23:29)\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-coordination-compose.mjs:29:111\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "originalResourcesPreserved": true,
+  "cleaned": false,
+  "endedAt": "2026-11-14T15:40:48.941Z"
+}

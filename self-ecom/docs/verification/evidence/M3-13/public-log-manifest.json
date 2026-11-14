@@ -1,0 +1,1387 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-14T16:59:35.064Z",
+  "scope": "docs/verification/evidence/M3-13",
+  "redactions": [
+    "known-config-and-private-json-secrets",
+    "database-url",
+    "jwt",
+    "bearer",
+    "password-hash",
+    "generated-password",
+    "quoted-secret",
+    "secret-assignment"
+  ],
+  "normalization": {
+    "lineEndings": "LF",
+    "trailingSpacesAndTabs": "removed",
+    "terminalNewline": "one-for-nonempty-text",
+    "emptyFiles": "remain-empty",
+    "logFacts": "unchanged"
+  },
+  "sourceLogsRemainLocal": true,
+  "logs": [
+    {
+      "sourceLog": "2026-11-14T15-07-35-066Z-api-types-initial/output.log",
+      "publicText": "2026-11-14T15-07-35-066Z-api-types-initial/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-07-42-941Z-contracts-initial/output.log",
+      "publicText": "2026-11-14T15-07-42-941Z-contracts-initial/output.redacted.txt",
+      "sourceSha256": "9620b16c28c39a62504c344bd569e5f2fdcea54fd65bacd494bc0108bda19d1e",
+      "publicSha256": "6b8bfa17ce0bc32991e3f4c83868e1121f934226b76db5c1c301e1a350f72d50",
+      "publicBytes": 582,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-09-23-532Z-openapi-generate/output.log",
+      "publicText": "2026-11-14T15-09-23-532Z-openapi-generate/output.redacted.txt",
+      "sourceSha256": "70523650cb7acbab52e45bb0a188184aa295e06d8fe157a91d719afe4ae71049",
+      "publicSha256": "70523650cb7acbab52e45bb0a188184aa295e06d8fe157a91d719afe4ae71049",
+      "publicBytes": 61,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-09-32-727Z-client-generate/output.log",
+      "publicText": "2026-11-14T15-09-32-727Z-client-generate/output.redacted.txt",
+      "sourceSha256": "a77fffa3b68e5907511e7ec77d2322b5abba6e0bfcebf6389b301059a9fe5037",
+      "publicSha256": "a77fffa3b68e5907511e7ec77d2322b5abba6e0bfcebf6389b301059a9fe5037",
+      "publicBytes": 76,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-10-19-383Z-offline-integration/output.log",
+      "publicText": "2026-11-14T15-10-19-383Z-offline-integration/output.redacted.txt",
+      "sourceSha256": "42f4b45a8c296fdad299acab743d8a9fac4c5342fd1a0f0bb2e549a24a940fcb",
+      "publicSha256": "5b38010d36f4736adcc4a30f3639687a766a71ec77573a21a2f4952394b964c1",
+      "publicBytes": 1805,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-10-30-691Z-proxy-integration-first/output.log",
+      "publicText": "2026-11-14T15-10-30-691Z-proxy-integration-first/output.redacted.txt",
+      "sourceSha256": "3c4f4e07070a6b11e37703a4999a4fe4353ea4007a1f6917c3728058365fb45b",
+      "publicSha256": "80d631aab34d089c6c6cd1f4405059838f216b862263278940698f3f6807493c",
+      "publicBytes": 1790,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-10-50-883Z-proxy-integration-elevated/output.log",
+      "publicText": "2026-11-14T15-10-50-883Z-proxy-integration-elevated/output.redacted.txt",
+      "sourceSha256": "636853f2fd519d119cc126a54eda48543e827a94ccc138d637d9e3e808d77696",
+      "publicSha256": "435be3d01870bd687f7fc7ad86717caa952c4cfb91c522d51f6159fe176a951e",
+      "publicBytes": 15302,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-10-54-357Z-offline-integration-env-fixed/output.log",
+      "publicText": "2026-11-14T15-10-54-357Z-offline-integration-env-fixed/output.redacted.txt",
+      "sourceSha256": "9ce907b6d81c996e01644958c10bbbfdbdaae6c6e19b1c30b4a28afeb834cce8",
+      "publicSha256": "9ce907b6d81c996e01644958c10bbbfdbdaae6c6e19b1c30b4a28afeb834cce8",
+      "publicBytes": 4136,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-12-18-951Z-proxy-integration-fixed/output.log",
+      "publicText": "2026-11-14T15-12-18-951Z-proxy-integration-fixed/output.redacted.txt",
+      "sourceSha256": "5d7ae05e72552ec01d17408184e3280136485dc58aeea5bac6107b3b6ffb1ba7",
+      "publicSha256": "5d7ae05e72552ec01d17408184e3280136485dc58aeea5bac6107b3b6ffb1ba7",
+      "publicBytes": 9412,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-12-19-456Z-offline-integration-protocol-fixed/output.log",
+      "publicText": "2026-11-14T15-12-19-456Z-offline-integration-protocol-fixed/output.redacted.txt",
+      "sourceSha256": "ef7de35e103ea77f08213ea85118b9888f1f92f8e4fb8f93d9226f39518ccab5",
+      "publicSha256": "ef7de35e103ea77f08213ea85118b9888f1f92f8e4fb8f93d9226f39518ccab5",
+      "publicBytes": 2947,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-13-23-346Z-disputes-first/output.log",
+      "publicText": "2026-11-14T15-13-23-346Z-disputes-first/output.redacted.txt",
+      "sourceSha256": "f63db799a6e35d6fe3d05531e94d8d645ce409c772f89f01e00bc88167312cfb",
+      "publicSha256": "d969327b1f2f675a54626a7737e9ecc6a95905df0b426e4b8c779f2608dc9b2c",
+      "publicBytes": 15878,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-14-39-421Z-disputes-second/output.log",
+      "publicText": "2026-11-14T15-14-39-421Z-disputes-second/output.redacted.txt",
+      "sourceSha256": "d5e21ea6b297413f9ff101f08120f589906119ca96b966a6427cb2f75c205214",
+      "publicSha256": "d5e21ea6b297413f9ff101f08120f589906119ca96b966a6427cb2f75c205214",
+      "publicBytes": 2948,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-17-24-923Z-proxy-integration-third/output.log",
+      "publicText": "2026-11-14T15-17-24-923Z-proxy-integration-third/output.redacted.txt",
+      "sourceSha256": "727253cdc5bb1c0fcdab78c473b203801585cdebc19e76d028c214903db95b7a",
+      "publicSha256": "727253cdc5bb1c0fcdab78c473b203801585cdebc19e76d028c214903db95b7a",
+      "publicBytes": 2932,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-20-07-069Z-address-first/output.log",
+      "publicText": "2026-11-14T15-20-07-069Z-address-first/output.redacted.txt",
+      "sourceSha256": "bb1418a4f4681bdf1fd5ce80249976d7c70fe162ca4c4babb75611ab668fb730",
+      "publicSha256": "bb1418a4f4681bdf1fd5ce80249976d7c70fe162ca4c4babb75611ab668fb730",
+      "publicBytes": 4913,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-20-32-134Z-disputes-hardened/output.log",
+      "publicText": "2026-11-14T15-20-32-134Z-disputes-hardened/output.redacted.txt",
+      "sourceSha256": "b3d32ff9cecb8ffe76c2c6617c21b78e8ac7d2a2d731afa6c868ff7ad74ef62d",
+      "publicSha256": "b3d32ff9cecb8ffe76c2c6617c21b78e8ac7d2a2d731afa6c868ff7ad74ef62d",
+      "publicBytes": 2947,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-21-35-581Z-address-second/output.log",
+      "publicText": "2026-11-14T15-21-35-581Z-address-second/output.redacted.txt",
+      "sourceSha256": "640b3c868953082a91e6990b73b67f6a206e2c2f27da4ce99d1e46479f66e204",
+      "publicSha256": "640b3c868953082a91e6990b73b67f6a206e2c2f27da4ce99d1e46479f66e204",
+      "publicBytes": 2947,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-22-44-126Z-offline-public-pending-integration/output.log",
+      "publicText": "2026-11-14T15-22-44-126Z-offline-public-pending-integration/output.redacted.txt",
+      "sourceSha256": "3f6524278c90727f50414fc69e6e039c011b7a8aba8c9d5c6897f105ef7942ff",
+      "publicSha256": "3f6524278c90727f50414fc69e6e039c011b7a8aba8c9d5c6897f105ef7942ff",
+      "publicBytes": 2947,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-23-32-740Z-offline-final-unit/output.log",
+      "publicText": "2026-11-14T15-23-32-740Z-offline-final-unit/output.redacted.txt",
+      "sourceSha256": "ccda6f214c968a261ec7eed328e729005e2ee832a2417d27ef6c1ea121f708a7",
+      "publicSha256": "9489905adc893e884ae0921880283fe0b8eef1a936cc8c98c54e119b37fa4d84",
+      "publicBytes": 214,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-24-22-224Z-openapi-final-shape/output.log",
+      "publicText": "2026-11-14T15-24-22-224Z-openapi-final-shape/output.redacted.txt",
+      "sourceSha256": "3ab55a4236145d82c7d566d6d1591648979318f1c7f0ca7bcbb3bf22d64d3e66",
+      "publicSha256": "3ab55a4236145d82c7d566d6d1591648979318f1c7f0ca7bcbb3bf22d64d3e66",
+      "publicBytes": 61,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-24-40-102Z-client-final-shape/output.log",
+      "publicText": "2026-11-14T15-24-40-102Z-client-final-shape/output.redacted.txt",
+      "sourceSha256": "c9d02af9643841872302caf056ffb3a21651ebf297c114e6078d4fe0b2e9ac4f",
+      "publicSha256": "c9d02af9643841872302caf056ffb3a21651ebf297c114e6078d4fe0b2e9ac4f",
+      "publicBytes": 76,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-25-06-424Z-unit-first/output.log",
+      "publicText": "2026-11-14T15-25-06-424Z-unit-first/output.redacted.txt",
+      "sourceSha256": "0aec4c7403fc2cf8ea32e5adb6066df73af691022bdb94bda2e396616b211f84",
+      "publicSha256": "f777bde8d5014952f7fd6e749e6032c636868739a83d8880f7960757bfc48260",
+      "publicBytes": 36829,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-25-07-105Z-typecheck-first/output.log",
+      "publicText": "2026-11-14T15-25-07-105Z-typecheck-first/output.redacted.txt",
+      "sourceSha256": "71571749758c720859cd6ef0847a3116cb30afb5a961709323d32f76b28ef267",
+      "publicSha256": "2562b79f0e3e7ec63a8701c234411095771a66b5916b368ef5ca6600001d83c5",
+      "publicBytes": 6280,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-26-07-814Z-proxy-integration-expanded/output.log",
+      "publicText": "2026-11-14T15-26-07-814Z-proxy-integration-expanded/output.redacted.txt",
+      "sourceSha256": "c217a2fa34acd367e0341229555515723c064852b158774db3ddb8ae3acdf5ed",
+      "publicSha256": "c217a2fa34acd367e0341229555515723c064852b158774db3ddb8ae3acdf5ed",
+      "publicBytes": 2934,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-26-44-326Z-integration-all-first/output.log",
+      "publicText": "2026-11-14T15-26-44-326Z-integration-all-first/output.redacted.txt",
+      "sourceSha256": "d3a2f26192188f44d38d57deeae0c7fcd841928e08c514cf9d86e40c1aac1b29",
+      "publicSha256": "d3a2f26192188f44d38d57deeae0c7fcd841928e08c514cf9d86e40c1aac1b29",
+      "publicBytes": 199624,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-26-44-420Z-lint-first/output.log",
+      "publicText": "2026-11-14T15-26-44-420Z-lint-first/output.redacted.txt",
+      "sourceSha256": "0ffc0a43fabee429cfd013c8bb30aacc61e21614beb61141cdcea3c194526b35",
+      "publicSha256": "0ffc0a43fabee429cfd013c8bb30aacc61e21614beb61141cdcea3c194526b35",
+      "publicBytes": 1891,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-26-44-537Z-swagger-recheck/output.log",
+      "publicText": "2026-11-14T15-26-44-537Z-swagger-recheck/output.redacted.txt",
+      "sourceSha256": "a61e0a463d48dceb02389840c580256fddef949ae3fd771174daa08e612adec8",
+      "publicSha256": "db6030d348b4b72c48bc22b94db76e15e4cfba643651a12b5ef3830117c7afd2",
+      "publicBytes": 205,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-28-36-092Z-typecheck-second/output.log",
+      "publicText": "2026-11-14T15-28-36-092Z-typecheck-second/output.redacted.txt",
+      "sourceSha256": "09cb22d0e2c94c4b85ffc1bd75bba584d2cb2c0e99227c6b07d9e39a48930348",
+      "publicSha256": "09cb22d0e2c94c4b85ffc1bd75bba584d2cb2c0e99227c6b07d9e39a48930348",
+      "publicBytes": 1848,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-28-41-411Z-offline-public-api-typecheck/output.log",
+      "publicText": "2026-11-14T15-28-41-411Z-offline-public-api-typecheck/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-29-25-432Z-lint-second/output.log",
+      "publicText": "2026-11-14T15-29-25-432Z-lint-second/output.redacted.txt",
+      "sourceSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicBytes": 1920,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-29-25-669Z-build-first/output.log",
+      "publicText": "2026-11-14T15-29-25-669Z-build-first/output.redacted.txt",
+      "sourceSha256": "66b9b28812cffb98d7902d51b2c0e7ecd7bb14e8f21c05c5f26509958f53e21e",
+      "publicSha256": "66b9b28812cffb98d7902d51b2c0e7ecd7bb14e8f21c05c5f26509958f53e21e",
+      "publicBytes": 9980,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-29-54-086Z-coordination-infra-lint/output.log",
+      "publicText": "2026-11-14T15-29-54-086Z-coordination-infra-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-30-37-527Z-address-extended/output.log",
+      "publicText": "2026-11-14T15-30-37-527Z-address-extended/output.redacted.txt",
+      "sourceSha256": "c02c2ffc5317ae7c292985cd9a922e478b72211f409f60f2d281ddea3d655388",
+      "publicSha256": "7526997efe0d61a3ffd19ecd413f9c2c02e37328fa07248065b95facbe3d647f",
+      "publicBytes": 4768,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-30-58-448Z-contracts-second/output.log",
+      "publicText": "2026-11-14T15-30-58-448Z-contracts-second/output.redacted.txt",
+      "sourceSha256": "9164e077577be2c6ae31a92ca01b81c964d5fc3005a6effa87560f957bba14ad",
+      "publicSha256": "9164e077577be2c6ae31a92ca01b81c964d5fc3005a6effa87560f957bba14ad",
+      "publicBytes": 133,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-31-46-832Z-coordination-handoffs-first/output.log",
+      "publicText": "2026-11-14T15-31-46-832Z-coordination-handoffs-first/output.redacted.txt",
+      "sourceSha256": "38dd325fc04106eeee6a4bdf49d72ff2f5eee1024490d78d0de9d0c826be714e",
+      "publicSha256": "38dd325fc04106eeee6a4bdf49d72ff2f5eee1024490d78d0de9d0c826be714e",
+      "publicBytes": 2948,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-31-46-832Z-migration-upgrade/output.log",
+      "publicText": "2026-11-14T15-31-46-832Z-migration-upgrade/output.redacted.txt",
+      "sourceSha256": "75e34324fac11fcbd1a1dceebb5d98275655e94ae323468d73c5d14097937a7d",
+      "publicSha256": "75e34324fac11fcbd1a1dceebb5d98275655e94ae323468d73c5d14097937a7d",
+      "publicBytes": 6102,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-32-31-273Z-coordination-infra-final-lint/output.log",
+      "publicText": "2026-11-14T15-32-31-273Z-coordination-infra-final-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-32-37-046Z-address-extended-fixture-fixed/output.log",
+      "publicText": "2026-11-14T15-32-37-046Z-address-extended-fixture-fixed/output.redacted.txt",
+      "sourceSha256": "2d09dc8b9dbbc488ba103ceecbd754f217568e637ab10ddea1e6c37ff984e794",
+      "publicSha256": "2d09dc8b9dbbc488ba103ceecbd754f217568e637ab10ddea1e6c37ff984e794",
+      "publicBytes": 2949,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-33-53-974Z-disputes-current-facts/output.log",
+      "publicText": "2026-11-14T15-33-53-974Z-disputes-current-facts/output.redacted.txt",
+      "sourceSha256": "650642248bf54f91dceb2803292cbee9045104bc05abea6b4e6955d67060590c",
+      "publicSha256": "650642248bf54f91dceb2803292cbee9045104bc05abea6b4e6955d67060590c",
+      "publicBytes": 2947,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-33-55-539Z-migration-upgrade-second/output.log",
+      "publicText": "2026-11-14T15-33-55-539Z-migration-upgrade-second/output.redacted.txt",
+      "sourceSha256": "32d6f33142499ce55935671ed8d26b6c9ac9b604f0fb063fb96a8ae0c388e37c",
+      "publicSha256": "32d6f33142499ce55935671ed8d26b6c9ac9b604f0fb063fb96a8ae0c388e37c",
+      "publicBytes": 6157,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-35-07-099Z-migration-upgrade-third/output.log",
+      "publicText": "2026-11-14T15-35-07-099Z-migration-upgrade-third/output.redacted.txt",
+      "sourceSha256": "60ed30aa63dfc49de7eea7005692092375d38437b848a0aed02986d2a44f60c4",
+      "publicSha256": "60ed30aa63dfc49de7eea7005692092375d38437b848a0aed02986d2a44f60c4",
+      "publicBytes": 5795,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-35-22-322Z-coordination-handoffs-race/output.log",
+      "publicText": "2026-11-14T15-35-22-322Z-coordination-handoffs-race/output.redacted.txt",
+      "sourceSha256": "67591ab57ccb5df6b4bafc7b628f6ddaf8789880dee5503b00c9217b6274e317",
+      "publicSha256": "67591ab57ccb5df6b4bafc7b628f6ddaf8789880dee5503b00c9217b6274e317",
+      "publicBytes": 4494,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-35-55-011Z-openapi-six-facts/output.log",
+      "publicText": "2026-11-14T15-35-55-011Z-openapi-six-facts/output.redacted.txt",
+      "sourceSha256": "3ab55a4236145d82c7d566d6d1591648979318f1c7f0ca7bcbb3bf22d64d3e66",
+      "publicSha256": "3ab55a4236145d82c7d566d6d1591648979318f1c7f0ca7bcbb3bf22d64d3e66",
+      "publicBytes": 61,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-36-25-803Z-client-six-facts/output.log",
+      "publicText": "2026-11-14T15-36-25-803Z-client-six-facts/output.redacted.txt",
+      "sourceSha256": "c9d02af9643841872302caf056ffb3a21651ebf297c114e6078d4fe0b2e9ac4f",
+      "publicSha256": "c9d02af9643841872302caf056ffb3a21651ebf297c114e6078d4fe0b2e9ac4f",
+      "publicBytes": 76,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-36-59-509Z-lint-six-facts/output.log",
+      "publicText": "2026-11-14T15-36-59-509Z-lint-six-facts/output.redacted.txt",
+      "sourceSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicBytes": 1920,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-36-59-591Z-types-six-facts/output.log",
+      "publicText": "2026-11-14T15-36-59-591Z-types-six-facts/output.redacted.txt",
+      "sourceSha256": "09cb22d0e2c94c4b85ffc1bd75bba584d2cb2c0e99227c6b07d9e39a48930348",
+      "publicSha256": "09cb22d0e2c94c4b85ffc1bd75bba584d2cb2c0e99227c6b07d9e39a48930348",
+      "publicBytes": 1848,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-37-18-086Z-disputes-transit/output.log",
+      "publicText": "2026-11-14T15-37-18-086Z-disputes-transit/output.redacted.txt",
+      "sourceSha256": "f99d86c43722c8c48fbf13277d146fda3e6702b8eac1571fca930ae5ced97fee",
+      "publicSha256": "f99d86c43722c8c48fbf13277d146fda3e6702b8eac1571fca930ae5ced97fee",
+      "publicBytes": 2949,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-37-24-259Z-coordination-handoffs-race-fixed/output.log",
+      "publicText": "2026-11-14T15-37-24-259Z-coordination-handoffs-race-fixed/output.redacted.txt",
+      "sourceSha256": "49debaa1345af51dc8efa9b7fb0b0982452f361f4c7738f0eee95db8634e55bf",
+      "publicSha256": "49debaa1345af51dc8efa9b7fb0b0982452f361f4c7738f0eee95db8634e55bf",
+      "publicBytes": 2947,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-39-28-209Z-openapi-custody-evidence/output.log",
+      "publicText": "2026-11-14T15-39-28-209Z-openapi-custody-evidence/output.redacted.txt",
+      "sourceSha256": "3ab55a4236145d82c7d566d6d1591648979318f1c7f0ca7bcbb3bf22d64d3e66",
+      "publicSha256": "3ab55a4236145d82c7d566d6d1591648979318f1c7f0ca7bcbb3bf22d64d3e66",
+      "publicBytes": 61,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-40-01-176Z-client-custody-evidence/output.log",
+      "publicText": "2026-11-14T15-40-01-176Z-client-custody-evidence/output.redacted.txt",
+      "sourceSha256": "c9d02af9643841872302caf056ffb3a21651ebf297c114e6078d4fe0b2e9ac4f",
+      "publicSha256": "c9d02af9643841872302caf056ffb3a21651ebf297c114e6078d4fe0b2e9ac4f",
+      "publicBytes": 76,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-40-54-383Z-final-production-build/output.log",
+      "publicText": "2026-11-14T15-40-54-383Z-final-production-build/output.redacted.txt",
+      "sourceSha256": "cadc5221af56dbe5d05bca8f8b43add2949fb49363a20969fbf76ff0bab92b54",
+      "publicSha256": "cadc5221af56dbe5d05bca8f8b43add2949fb49363a20969fbf76ff0bab92b54",
+      "publicBytes": 9980,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-41-03-585Z-disputes-final/output.log",
+      "publicText": "2026-11-14T15-41-03-585Z-disputes-final/output.redacted.txt",
+      "sourceSha256": "7f732e0ad0b611be7acf1060da7838ae06396af35fc55b11352a6ca4f90dec91",
+      "publicSha256": "7f732e0ad0b611be7acf1060da7838ae06396af35fc55b11352a6ca4f90dec91",
+      "publicBytes": 7611,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-43-18-150Z-coordination-infra-sequential-lint/output.log",
+      "publicText": "2026-11-14T15-43-18-150Z-coordination-infra-sequential-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-43-21-541Z-final-unit/output.log",
+      "publicText": "2026-11-14T15-43-21-541Z-final-unit/output.redacted.txt",
+      "sourceSha256": "2b614a11dbec79a4f5f4abaa15fa313741cb337004943e16abd35ea6e25efacd",
+      "publicSha256": "2b614a11dbec79a4f5f4abaa15fa313741cb337004943e16abd35ea6e25efacd",
+      "publicBytes": 32718,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-45-17-176Z-contracts-final/output.log",
+      "publicText": "2026-11-14T15-45-17-176Z-contracts-final/output.redacted.txt",
+      "sourceSha256": "9164e077577be2c6ae31a92ca01b81c964d5fc3005a6effa87560f957bba14ad",
+      "publicSha256": "9164e077577be2c6ae31a92ca01b81c964d5fc3005a6effa87560f957bba14ad",
+      "publicBytes": 133,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-46-16-591Z-address-path-terminal/output.log",
+      "publicText": "2026-11-14T15-46-16-591Z-address-path-terminal/output.redacted.txt",
+      "sourceSha256": "21ecc80a699a8bed5564080462a236d1533c3451ae251b0ed87c140a4a421afc",
+      "publicSha256": "21ecc80a699a8bed5564080462a236d1533c3451ae251b0ed87c140a4a421afc",
+      "publicBytes": 3901,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-46-56-313Z-offline-route-typecheck/output.log",
+      "publicText": "2026-11-14T15-46-56-313Z-offline-route-typecheck/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-46-58-007Z-offline-route-lint/output.log",
+      "publicText": "2026-11-14T15-46-58-007Z-offline-route-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-47-50-559Z-disputes-final-fixed/output.log",
+      "publicText": "2026-11-14T15-47-50-559Z-disputes-final-fixed/output.redacted.txt",
+      "sourceSha256": "bffb6e5b2a74320403d39a02e683d4d1954c79819a716fa839b4ba195171b688",
+      "publicSha256": "bffb6e5b2a74320403d39a02e683d4d1954c79819a716fa839b4ba195171b688",
+      "publicBytes": 2949,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-50-46-467Z-address-path-fixed/output.log",
+      "publicText": "2026-11-14T15-50-46-467Z-address-path-fixed/output.redacted.txt",
+      "sourceSha256": "c88e4e0571abf727a24fc34ab70b64f92085c498c34beb42127ab33d07b75186",
+      "publicSha256": "c88e4e0571abf727a24fc34ab70b64f92085c498c34beb42127ab33d07b75186",
+      "publicBytes": 52,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-51-08-692Z-address-path-fixed-recheck/output.log",
+      "publicText": "2026-11-14T15-51-08-692Z-address-path-fixed-recheck/output.redacted.txt",
+      "sourceSha256": "a31ccc153f0386701bb3a6c5eac8ca6204420237f082d4fd0627772077c27d1a",
+      "publicSha256": "a31ccc153f0386701bb3a6c5eac8ca6204420237f082d4fd0627772077c27d1a",
+      "publicBytes": 2949,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-51-29-855Z-settlement-refund-dispute-regression/output.log",
+      "publicText": "2026-11-14T15-51-29-855Z-settlement-refund-dispute-regression/output.redacted.txt",
+      "sourceSha256": "f35fdcaf85409a80adf0c11f937730de26ed7e8513ae69c303c538999f56f764",
+      "publicSha256": "f35fdcaf85409a80adf0c11f937730de26ed7e8513ae69c303c538999f56f764",
+      "publicBytes": 6662,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-51-56-369Z-custody-cross-arrangement-red/output.log",
+      "publicText": "2026-11-14T15-51-56-369Z-custody-cross-arrangement-red/output.redacted.txt",
+      "sourceSha256": "7f1efe4bd0f275d1eadb3aabe833d615cf45d77a57a50e1aa7c232326769b3d4",
+      "publicSha256": "7f1efe4bd0f275d1eadb3aabe833d615cf45d77a57a50e1aa7c232326769b3d4",
+      "publicBytes": 3897,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-53-05-228Z-custody-cross-arrangement-fixed/output.log",
+      "publicText": "2026-11-14T15-53-05-228Z-custody-cross-arrangement-fixed/output.redacted.txt",
+      "sourceSha256": "6b96d351812080b36c10d5c30e952b91e5d80dd8a0cc5341c3d50e5fb1e8cd14",
+      "publicSha256": "6b96d351812080b36c10d5c30e952b91e5d80dd8a0cc5341c3d50e5fb1e8cd14",
+      "publicBytes": 2949,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-53-15-224Z-lint-path-fixed/output.log",
+      "publicText": "2026-11-14T15-53-15-224Z-lint-path-fixed/output.redacted.txt",
+      "sourceSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicBytes": 1920,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-53-16-496Z-types-path-fixed/output.log",
+      "publicText": "2026-11-14T15-53-16-496Z-types-path-fixed/output.redacted.txt",
+      "sourceSha256": "2103d1e21f4a8df38732be893fe7ae0377483e0aace0a0c787db3ceacdb073e9",
+      "publicSha256": "d57642db05cf318274ab5493ca33b5c7be9f2e11e272e26aace95d1cfc4f05c4",
+      "publicBytes": 2250,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-54-01-923Z-coordination-infra-browser-lint/output.log",
+      "publicText": "2026-11-14T15-54-01-923Z-coordination-infra-browser-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-55-14-620Z-types-final-test-fix/output.log",
+      "publicText": "2026-11-14T15-55-14-620Z-types-final-test-fix/output.redacted.txt",
+      "sourceSha256": "09cb22d0e2c94c4b85ffc1bd75bba584d2cb2c0e99227c6b07d9e39a48930348",
+      "publicSha256": "09cb22d0e2c94c4b85ffc1bd75bba584d2cb2c0e99227c6b07d9e39a48930348",
+      "publicBytes": 1848,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-55-32-517Z-settlement-refund-dispute-final/output.log",
+      "publicText": "2026-11-14T15-55-32-517Z-settlement-refund-dispute-final/output.redacted.txt",
+      "sourceSha256": "501350dc378b659273ea24a3326a5adbeeea840e1827bd1d19819f771c9aaf5b",
+      "publicSha256": "501350dc378b659273ea24a3326a5adbeeea840e1827bd1d19819f771c9aaf5b",
+      "publicBytes": 6057,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-56-48-188Z-migrations-regression-fixed/output.log",
+      "publicText": "2026-11-14T15-56-48-188Z-migrations-regression-fixed/output.redacted.txt",
+      "sourceSha256": "4e2aff73c14ad752e9d2cf484441d0a0d7f7ae3e8ce985d8fda605e50021d6d4",
+      "publicSha256": "4e2aff73c14ad752e9d2cf484441d0a0d7f7ae3e8ce985d8fda605e50021d6d4",
+      "publicBytes": 11112,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-57-38-618Z-auth-role-concurrency-isolated/output.log",
+      "publicText": "2026-11-14T15-57-38-618Z-auth-role-concurrency-isolated/output.redacted.txt",
+      "sourceSha256": "29be3583d74fa68ddbd05a6bbc58cf48691d20daa60dc19df900d339c5105e24",
+      "publicSha256": "29be3583d74fa68ddbd05a6bbc58cf48691d20daa60dc19df900d339c5105e24",
+      "publicBytes": 7681,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T15-57-39-312Z-task-fixture-coordination-regression/output.log",
+      "publicText": "2026-11-14T15-57-39-312Z-task-fixture-coordination-regression/output.redacted.txt",
+      "sourceSha256": "ea726a625ad63093edd50fbd12f5e4a1a6b68451418f7b0f98be889f92d4a38e",
+      "publicSha256": "ea726a625ad63093edd50fbd12f5e4a1a6b68451418f7b0f98be889f92d4a38e",
+      "publicBytes": 25136,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-00-07-867Z-build-production-frozen/output.log",
+      "publicText": "2026-11-14T16-00-07-867Z-build-production-frozen/output.redacted.txt",
+      "sourceSha256": "82f2102d5341d0c9e50f60a9abc214cd98355b8d0b4cdbcff2d1494c5d2dd475",
+      "publicSha256": "82f2102d5341d0c9e50f60a9abc214cd98355b8d0b4cdbcff2d1494c5d2dd475",
+      "publicBytes": 9980,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-00-09-074Z-unit-production-frozen/output.log",
+      "publicText": "2026-11-14T16-00-09-074Z-unit-production-frozen/output.redacted.txt",
+      "sourceSha256": "0fe56518b889401fc8fb6cde329497e46f158ee9bd3248a423f7bb8f8eedbffc",
+      "publicSha256": "0fe56518b889401fc8fb6cde329497e46f158ee9bd3248a423f7bb8f8eedbffc",
+      "publicBytes": 32733,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-12-08-787Z-coordination-refunded-tracking-final/output.log",
+      "publicText": "2026-11-14T16-12-08-787Z-coordination-refunded-tracking-final/output.redacted.txt",
+      "sourceSha256": "77bf72d1b67522853f4ae2478dcd573e63202d284beb2fb5b169bf3ed73ef42d",
+      "publicSha256": "77bf72d1b67522853f4ae2478dcd573e63202d284beb2fb5b169bf3ed73ef42d",
+      "publicBytes": 2948,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-14-27-076Z-lint-integration-fixtures-final/output.log",
+      "publicText": "2026-11-14T16-14-27-076Z-lint-integration-fixtures-final/output.redacted.txt",
+      "sourceSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicSha256": "8d46b6edc7d9bd2f9193399b4d851f018685d63bf3595b9a7fce84cbbd51c90a",
+      "publicBytes": 1920,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-16-22-346Z-coordination-admin-final-lint/output.log",
+      "publicText": "2026-11-14T16-16-22-346Z-coordination-admin-final-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-16-22-555Z-coordination-browser-infra-lint/output.log",
+      "publicText": "2026-11-14T16-16-22-555Z-coordination-browser-infra-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-16-23-258Z-coordination-admin-final-typecheck/output.log",
+      "publicText": "2026-11-14T16-16-23-258Z-coordination-admin-final-typecheck/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-21-17-066Z-coordination-browser-final-lint/output.log",
+      "publicText": "2026-11-14T16-21-17-066Z-coordination-browser-final-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-21-36-516Z-dispute-browser-selector-lint/output.log",
+      "publicText": "2026-11-14T16-21-36-516Z-dispute-browser-selector-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-23-50-234Z-stopped-refund-new-application-combination/output.log",
+      "publicText": "2026-11-14T16-23-50-234Z-stopped-refund-new-application-combination/output.redacted.txt",
+      "sourceSha256": "7ce157b929bfb5b809347bb5719d21799aaa56070dbaf0a8283243adb8ddf6bd",
+      "publicSha256": "7ce157b929bfb5b809347bb5719d21799aaa56070dbaf0a8283243adb8ddf6bd",
+      "publicBytes": 2949,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-24-11-860Z-proxy-amount-quantity-final/output.log",
+      "publicText": "2026-11-14T16-24-11-860Z-proxy-amount-quantity-final/output.redacted.txt",
+      "sourceSha256": "158c913c7243835ebcc4d69b27d006f8f2bde5f67f212993d43e4f018ba05c25",
+      "publicSha256": "158c913c7243835ebcc4d69b27d006f8f2bde5f67f212993d43e4f018ba05c25",
+      "publicBytes": 2933,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "2026-11-14T16-28-03-882Z-coordination-ui-final-helpers-lint/output.log",
+      "publicText": "2026-11-14T16-28-03-882Z-coordination-ui-final-helpers-lint/output.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-admin-ui-final/command-0.log",
+      "publicText": "docker-admin-ui-final/command-0.redacted.txt",
+      "sourceSha256": "807278daf06fd51459d05fdb222567792c4049c8e909ada2fce246a25ccf06b6",
+      "publicSha256": "807278daf06fd51459d05fdb222567792c4049c8e909ada2fce246a25ccf06b6",
+      "publicBytes": 234,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-admin-ui-final/command-1.log",
+      "publicText": "docker-admin-ui-final/command-1.redacted.txt",
+      "sourceSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicBytes": 1818,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-admin-ui-final/command-2.log",
+      "publicText": "docker-admin-ui-final/command-2.redacted.txt",
+      "sourceSha256": "4964f3b8fcc6e6d68d2079ed32928fbb41ee2a1e7d03a598a8b411239883b77d",
+      "publicSha256": "6a732e6f127913e5e0b9e3f2e15daa914436eba2285256a3cecbec31e7aab7a9",
+      "publicBytes": 20799,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-admin-ui-final/command-3.log",
+      "publicText": "docker-admin-ui-final/command-3.redacted.txt",
+      "sourceSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-admin-ui-final/command-4.log",
+      "publicText": "docker-admin-ui-final/command-4.redacted.txt",
+      "sourceSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicBytes": 1818,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-0.log",
+      "publicText": "docker-browser-complete/command-0.redacted.txt",
+      "sourceSha256": "6612efdb11b2c90e09adb94e1c4a5515f50e93e9f0c3e58c53260e5d03372b1c",
+      "publicSha256": "6612efdb11b2c90e09adb94e1c4a5515f50e93e9f0c3e58c53260e5d03372b1c",
+      "publicBytes": 338,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-1.log",
+      "publicText": "docker-browser-complete/command-1.redacted.txt",
+      "sourceSha256": "a81020f2abd55c2b1fdd5d60089036219dd561464a19c75185bb5ce4a683ea11",
+      "publicSha256": "a81020f2abd55c2b1fdd5d60089036219dd561464a19c75185bb5ce4a683ea11",
+      "publicBytes": 796,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-10.log",
+      "publicText": "docker-browser-complete/command-10.redacted.txt",
+      "sourceSha256": "9af9d050dc3a7c31cdf6009b535c75bab78118077909bb099616e5b48cdf6f73",
+      "publicSha256": "e5b12e660a87a1efd77bbff47900b664304778bab64b8516b23121accefd0dd2",
+      "publicBytes": 427,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-11.log",
+      "publicText": "docker-browser-complete/command-11.redacted.txt",
+      "sourceSha256": "6abf327ba1b0f37af96679dc56d35b1c1c78e2f6505f19cf6cfcc2187ea6f615",
+      "publicSha256": "52a2be7b5d5df350fe2d769136e6373774ed76185fbc2c7ea1af500affa352f5",
+      "publicBytes": 1693,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-12.log",
+      "publicText": "docker-browser-complete/command-12.redacted.txt",
+      "sourceSha256": "e3e72d4c63c18d4d6904d91caf13e29cd70192603cb34a6467da16fdb7a4f7ea",
+      "publicSha256": "500b83e13e46d333cc76dae30855541611416432fe341f194e72e7d2738df4f4",
+      "publicBytes": 244,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-13.log",
+      "publicText": "docker-browser-complete/command-13.redacted.txt",
+      "sourceSha256": "78bde3607ab408a385e8073f39c958aaff1907dcaf9e2eb1a0d684ad66217010",
+      "publicSha256": "139f071698cb9f77ec011a9d8ba4983b61cf7c6e4d4aeceae2c6e8aa25f5611b",
+      "publicBytes": 1111,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-14.log",
+      "publicText": "docker-browser-complete/command-14.redacted.txt",
+      "sourceSha256": "4a741881e0254b992c08129cf509b1fb0d847dd7b3cf31391ba6301ce5462bc6",
+      "publicSha256": "1bd71640b4cbfaf9c6194bf22aa73b85c975509d6f8df494e66625210a98cc5f",
+      "publicBytes": 364,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-15.log",
+      "publicText": "docker-browser-complete/command-15.redacted.txt",
+      "sourceSha256": "79e0ab4f20cde8ecc7a10ebd7d46f956f58ef8c5b94639f8e5639b876fbfc593",
+      "publicSha256": "79e0ab4f20cde8ecc7a10ebd7d46f956f58ef8c5b94639f8e5639b876fbfc593",
+      "publicBytes": 2625,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-16.log",
+      "publicText": "docker-browser-complete/command-16.redacted.txt",
+      "sourceSha256": "862b7fc730c17b1cc68a678d8eb814b837123411de8655e67e514974cf355946",
+      "publicSha256": "862b7fc730c17b1cc68a678d8eb814b837123411de8655e67e514974cf355946",
+      "publicBytes": 882,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-2.log",
+      "publicText": "docker-browser-complete/command-2.redacted.txt",
+      "sourceSha256": "79e0ab4f20cde8ecc7a10ebd7d46f956f58ef8c5b94639f8e5639b876fbfc593",
+      "publicSha256": "79e0ab4f20cde8ecc7a10ebd7d46f956f58ef8c5b94639f8e5639b876fbfc593",
+      "publicBytes": 2625,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-3.log",
+      "publicText": "docker-browser-complete/command-3.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-4.log",
+      "publicText": "docker-browser-complete/command-4.redacted.txt",
+      "sourceSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-5.log",
+      "publicText": "docker-browser-complete/command-5.redacted.txt",
+      "sourceSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-6.log",
+      "publicText": "docker-browser-complete/command-6.redacted.txt",
+      "sourceSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-7.log",
+      "publicText": "docker-browser-complete/command-7.redacted.txt",
+      "sourceSha256": "a4d0f02fa569aed5a4b681230e34a69d460b458753fb91799f3ba81473015b53",
+      "publicSha256": "41ff87a45f8b7e4847f431f19e507607fb7dfb6f825a6876242f60c442cf7b33",
+      "publicBytes": 836,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-8.log",
+      "publicText": "docker-browser-complete/command-8.redacted.txt",
+      "sourceSha256": "d999291107cc3c76fa4fa66b15f3963533a2a2633d5e0d643a2c1b370d5926e6",
+      "publicSha256": "753e6500ed2c6aaa7113510782551074d6854de0547b1aab75b21e4f177f6beb",
+      "publicBytes": 2764,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-complete/command-9.log",
+      "publicText": "docker-browser-complete/command-9.redacted.txt",
+      "sourceSha256": "aa9963f1c90d0152648731eecf7f31d6107e8dc2ece46daaa0f27104d235f966",
+      "publicSha256": "5f5abba650fb56393f1e4249d8b3f49ac125873848a6db5a8807dbe2a602551a",
+      "publicBytes": 298,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-0.log",
+      "publicText": "docker-browser-final/command-0.redacted.txt",
+      "sourceSha256": "807278daf06fd51459d05fdb222567792c4049c8e909ada2fce246a25ccf06b6",
+      "publicSha256": "807278daf06fd51459d05fdb222567792c4049c8e909ada2fce246a25ccf06b6",
+      "publicBytes": 234,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-1.log",
+      "publicText": "docker-browser-final/command-1.redacted.txt",
+      "sourceSha256": "3de90ffb9e2382d1559109ccd83bd402d4eed2e1f288eb2c0a5e0b4f6f443aeb",
+      "publicSha256": "3de90ffb9e2382d1559109ccd83bd402d4eed2e1f288eb2c0a5e0b4f6f443aeb",
+      "publicBytes": 624,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-10.log",
+      "publicText": "docker-browser-final/command-10.redacted.txt",
+      "sourceSha256": "55153f37e21819bf5be045780b9d174e1df40ea0f7d953c285e252f7b429bc41",
+      "publicSha256": "a5b241834dd0278a4fe27660151ec0f18adfc8400128a07d516591689657cc9c",
+      "publicBytes": 427,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-11.log",
+      "publicText": "docker-browser-final/command-11.redacted.txt",
+      "sourceSha256": "b2356dc9df3680a34427a28e108cd9be774c3488e91441e11c17df650e88ba48",
+      "publicSha256": "ca0b702a65e052cf094a7de5e91bbbe92e845fc3602ce0c7d56d1bc44ad8da53",
+      "publicBytes": 1693,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-12.log",
+      "publicText": "docker-browser-final/command-12.redacted.txt",
+      "sourceSha256": "0da305673724e4fa860be15b518464f0c50e17be600f5928784cd78d6d6af04d",
+      "publicSha256": "0da305673724e4fa860be15b518464f0c50e17be600f5928784cd78d6d6af04d",
+      "publicBytes": 28637,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-13.log",
+      "publicText": "docker-browser-final/command-13.redacted.txt",
+      "sourceSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicBytes": 1818,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-14.log",
+      "publicText": "docker-browser-final/command-14.redacted.txt",
+      "sourceSha256": "b1bab425c9c0089dda444facded5b8ee3716c1c046bd790671255b7fa8774bb9",
+      "publicSha256": "b1bab425c9c0089dda444facded5b8ee3716c1c046bd790671255b7fa8774bb9",
+      "publicBytes": 710,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-2.log",
+      "publicText": "docker-browser-final/command-2.redacted.txt",
+      "sourceSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicSha256": "5cb33f909e7e22880c56e45841c96d231782844805108b98abd596361b240f0f",
+      "publicBytes": 1818,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-3.log",
+      "publicText": "docker-browser-final/command-3.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-4.log",
+      "publicText": "docker-browser-final/command-4.redacted.txt",
+      "sourceSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-5.log",
+      "publicText": "docker-browser-final/command-5.redacted.txt",
+      "sourceSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-6.log",
+      "publicText": "docker-browser-final/command-6.redacted.txt",
+      "sourceSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-7.log",
+      "publicText": "docker-browser-final/command-7.redacted.txt",
+      "sourceSha256": "53eeb7dd97930f81088043a963defc368ea1ed44c4ec69adf3412a6875b8cfc2",
+      "publicSha256": "23f8e13d9cb44f4722ab87996a99409d95796beb20ddaabe28bbb04e9a39eeb2",
+      "publicBytes": 836,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-8.log",
+      "publicText": "docker-browser-final/command-8.redacted.txt",
+      "sourceSha256": "5afce973cf671137076011d8930efb555af2cddeb988317c574bc49daa056f1b",
+      "publicSha256": "55b1a84db8f4a06d7f75bd7daf2fcb6f2ed9da7b4b7dd4a8baaa028fadc24c8f",
+      "publicBytes": 2764,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-final/command-9.log",
+      "publicText": "docker-browser-final/command-9.redacted.txt",
+      "sourceSha256": "65cb8f966221ec17008deb79bbe21d423be1b9622a5c3c3be343cae64baac67b",
+      "publicSha256": "ec767d9542ac9da9477daf3a550605cc6f41ebdfb5f1aadbc33f7e6c13a6e0ca",
+      "publicBytes": 298,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-0.log",
+      "publicText": "docker-browser-selector-fixed/command-0.redacted.txt",
+      "sourceSha256": "a232e17e45bd52c114d60474f32abf208523d9dcce2803c4d5493220a6b9773a",
+      "publicSha256": "a232e17e45bd52c114d60474f32abf208523d9dcce2803c4d5493220a6b9773a",
+      "publicBytes": 286,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-1.log",
+      "publicText": "docker-browser-selector-fixed/command-1.redacted.txt",
+      "sourceSha256": "b1bab425c9c0089dda444facded5b8ee3716c1c046bd790671255b7fa8774bb9",
+      "publicSha256": "b1bab425c9c0089dda444facded5b8ee3716c1c046bd790671255b7fa8774bb9",
+      "publicBytes": 710,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-10.log",
+      "publicText": "docker-browser-selector-fixed/command-10.redacted.txt",
+      "sourceSha256": "593e0200fec0ed16f3937fce3a336f44bcf4d7c74d0d54ff8f67dd40f5749158",
+      "publicSha256": "b5e8e985c490db0ae20dceb12a14016e4727e96567285f8081d98cdb68254c63",
+      "publicBytes": 427,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-11.log",
+      "publicText": "docker-browser-selector-fixed/command-11.redacted.txt",
+      "sourceSha256": "522c2b4138ffece393aa862b64e2750651ee23665f27bcb18835539aeb280b01",
+      "publicSha256": "628a25613a44545e52a209a2a1dc3b1d1c98a878bc4004daa2673e3168968ecf",
+      "publicBytes": 1693,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-12.log",
+      "publicText": "docker-browser-selector-fixed/command-12.redacted.txt",
+      "sourceSha256": "681524ed6edab3b0f0293adac61f62a388f76d261f20316f350695a883aff95f",
+      "publicSha256": "681524ed6edab3b0f0293adac61f62a388f76d261f20316f350695a883aff95f",
+      "publicBytes": 28628,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-13.log",
+      "publicText": "docker-browser-selector-fixed/command-13.redacted.txt",
+      "sourceSha256": "7a5c4d2fddbf2f687840bdf7e3a4c0a1ec5664c10d42a15ca5eb75dc83cfc92e",
+      "publicSha256": "7a5c4d2fddbf2f687840bdf7e3a4c0a1ec5664c10d42a15ca5eb75dc83cfc92e",
+      "publicBytes": 2221,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-14.log",
+      "publicText": "docker-browser-selector-fixed/command-14.redacted.txt",
+      "sourceSha256": "a81020f2abd55c2b1fdd5d60089036219dd561464a19c75185bb5ce4a683ea11",
+      "publicSha256": "a81020f2abd55c2b1fdd5d60089036219dd561464a19c75185bb5ce4a683ea11",
+      "publicBytes": 796,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-2.log",
+      "publicText": "docker-browser-selector-fixed/command-2.redacted.txt",
+      "sourceSha256": "7a5c4d2fddbf2f687840bdf7e3a4c0a1ec5664c10d42a15ca5eb75dc83cfc92e",
+      "publicSha256": "7a5c4d2fddbf2f687840bdf7e3a4c0a1ec5664c10d42a15ca5eb75dc83cfc92e",
+      "publicBytes": 2221,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-3.log",
+      "publicText": "docker-browser-selector-fixed/command-3.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-4.log",
+      "publicText": "docker-browser-selector-fixed/command-4.redacted.txt",
+      "sourceSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-5.log",
+      "publicText": "docker-browser-selector-fixed/command-5.redacted.txt",
+      "sourceSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicSha256": "4ff6ad5b885c12c136f9e03fda8ae7d881f2998002c863bf9dad2f655665c585",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-6.log",
+      "publicText": "docker-browser-selector-fixed/command-6.redacted.txt",
+      "sourceSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-7.log",
+      "publicText": "docker-browser-selector-fixed/command-7.redacted.txt",
+      "sourceSha256": "ee1404d64925a3ca869d1f3bcffdc99c961d11551ac642e9c4a259bda5c72572",
+      "publicSha256": "9ad5d14a80fb327420a99e3a0cbb994f8ea5bdd8c9d4e5f41e66ccb0faf4fb33",
+      "publicBytes": 836,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-8.log",
+      "publicText": "docker-browser-selector-fixed/command-8.redacted.txt",
+      "sourceSha256": "74254dfe694c5b29151385a01e445d0949b97e60ccb8ba3f1fc3c3344040e4cd",
+      "publicSha256": "10609679cd342a03d7e6bcb6d9b57ee71603db0232bfc74cb8fe26f2b4bb48c4",
+      "publicBytes": 2764,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-browser-selector-fixed/command-9.log",
+      "publicText": "docker-browser-selector-fixed/command-9.redacted.txt",
+      "sourceSha256": "6289c28c7807cc58b6b49e0b4930c7e2a1a406ac73f9a5d1f076aaab9d40710e",
+      "publicSha256": "cfd8e7126dc3407cbde22eed9da7f0117c6f51fa4849ddf914dbb4c41fc93787",
+      "publicBytes": 298,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-0.log",
+      "publicText": "docker-final/command-0.redacted.txt",
+      "sourceSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicBytes": 182,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-1.log",
+      "publicText": "docker-final/command-1.redacted.txt",
+      "sourceSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicBytes": 538,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-10.log",
+      "publicText": "docker-final/command-10.redacted.txt",
+      "sourceSha256": "73d919efa8b2d6d76029c11b4f817135f154ec54227d1d4267cb8a7cc56d9811",
+      "publicSha256": "1a8642cbd71e9711e10d384bba98551db0680caa362b338f8038466e3abe5024",
+      "publicBytes": 298,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-11.log",
+      "publicText": "docker-final/command-11.redacted.txt",
+      "sourceSha256": "bad2043268215e5bdd9bf6c71d2d659a80c0634c818d02efba10e7a8bcc5a7b1",
+      "publicSha256": "6680b547d2ab173613e709d1f6da06541f4b43e0bc31f755834a68113f4123fd",
+      "publicBytes": 427,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-12.log",
+      "publicText": "docker-final/command-12.redacted.txt",
+      "sourceSha256": "477f02d89c340a15edcb6a555ae7d9102b3029e8c0a0cb5a7698f56eda4fa1d2",
+      "publicSha256": "36509087a066c11fce704cfbb642af89b2fa44da088d21ba5d42867b326ef0bc",
+      "publicBytes": 1693,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-13.log",
+      "publicText": "docker-final/command-13.redacted.txt",
+      "sourceSha256": "50197807920ce74632fd9fd225b3b4d75278cd08d43f7b7b953eb917df9a248b",
+      "publicSha256": "50197807920ce74632fd9fd225b3b4d75278cd08d43f7b7b953eb917df9a248b",
+      "publicBytes": 20793,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-14.log",
+      "publicText": "docker-final/command-14.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-15.log",
+      "publicText": "docker-final/command-15.redacted.txt",
+      "sourceSha256": "3de90ffb9e2382d1559109ccd83bd402d4eed2e1f288eb2c0a5e0b4f6f443aeb",
+      "publicSha256": "3de90ffb9e2382d1559109ccd83bd402d4eed2e1f288eb2c0a5e0b4f6f443aeb",
+      "publicBytes": 624,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-2.log",
+      "publicText": "docker-final/command-2.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-3.log",
+      "publicText": "docker-final/command-3.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-4.log",
+      "publicText": "docker-final/command-4.redacted.txt",
+      "sourceSha256": "3de444feb1c8420e9a6b8e9889556961035f82deb1e7f72b273a57d1fd4d92ea",
+      "publicSha256": "6fca1b4cff6779ea55ea9188436e6a01738a9f473f6741d069f8fdd2a249aeaa",
+      "publicBytes": 9420,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-5.log",
+      "publicText": "docker-final/command-5.redacted.txt",
+      "sourceSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicSha256": "f1d2f7924ced95cf94d37c29649f51de438c8eec1e10c037537d84f1f811ee10",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-6.log",
+      "publicText": "docker-final/command-6.redacted.txt",
+      "sourceSha256": "285303901e150dfced9e4e8750ae2dd14af61f3b028f6153ee991a50d3c87a94",
+      "publicSha256": "285303901e150dfced9e4e8750ae2dd14af61f3b028f6153ee991a50d3c87a94",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-7.log",
+      "publicText": "docker-final/command-7.redacted.txt",
+      "sourceSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-8.log",
+      "publicText": "docker-final/command-8.redacted.txt",
+      "sourceSha256": "7012b86c98310cbdc2ba86879f34172bc67b9ea19046ba197742509f83f4615a",
+      "publicSha256": "61474202d6fc9e71f684854568be55d2f86eb0ae8e668281c622f6e6357f80e1",
+      "publicBytes": 836,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-final/command-9.log",
+      "publicText": "docker-final/command-9.redacted.txt",
+      "sourceSha256": "49c784f996d7c43c034a6f7d16a8027d7561b253dd8b0a5d958287da7658626b",
+      "publicSha256": "562f69da42aa95995ad42e73c53cc6e4812e062390676a17ff218ff481d66a0f",
+      "publicBytes": 2764,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-0.log",
+      "publicText": "docker-frontends/command-0.redacted.txt",
+      "sourceSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicBytes": 182,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-1.log",
+      "publicText": "docker-frontends/command-1.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-2.log",
+      "publicText": "docker-frontends/command-2.redacted.txt",
+      "sourceSha256": "28eeed449976019bf618c004fd88147cb073b4fd789547254ffbee00286c79d4",
+      "publicSha256": "740ee58009f118d81ed0c5106fe9968c34858abe8226e2eaf70cce6e8554ed20",
+      "publicBytes": 12090,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-3.log",
+      "publicText": "docker-frontends/command-3.redacted.txt",
+      "sourceSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicSha256": "f11bcea51e0510bc61d40e40cd23757751f8bbdd49c8efe9026daa77cdcdc6b2",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-4.log",
+      "publicText": "docker-frontends/command-4.redacted.txt",
+      "sourceSha256": "96cfc5084ce117e9dfb1ed1e1d120ca9a8c14e4ffb08eae275ae828b511d5280",
+      "publicSha256": "bed50db3e3550270ee43240d4977499c860a33acec7120e3e7742b5f86df4261",
+      "publicBytes": 9422,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-5.log",
+      "publicText": "docker-frontends/command-5.redacted.txt",
+      "sourceSha256": "285303901e150dfced9e4e8750ae2dd14af61f3b028f6153ee991a50d3c87a94",
+      "publicSha256": "285303901e150dfced9e4e8750ae2dd14af61f3b028f6153ee991a50d3c87a94",
+      "publicBytes": 72,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-frontends/command-6.log",
+      "publicText": "docker-frontends/command-6.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-initial/command-0.log",
+      "publicText": "docker-initial/command-0.redacted.txt",
+      "sourceSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicBytes": 182,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-initial/command-1.log",
+      "publicText": "docker-initial/command-1.redacted.txt",
+      "sourceSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicBytes": 538,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-initial/command-2.log",
+      "publicText": "docker-initial/command-2.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-initial/command-3.log",
+      "publicText": "docker-initial/command-3.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-0.log",
+      "publicText": "docker-sequential/command-0.redacted.txt",
+      "sourceSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicSha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "publicBytes": 182,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-1.log",
+      "publicText": "docker-sequential/command-1.redacted.txt",
+      "sourceSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicBytes": 538,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-2.log",
+      "publicText": "docker-sequential/command-2.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-3.log",
+      "publicText": "docker-sequential/command-3.redacted.txt",
+      "sourceSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "publicBytes": 0,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-4.log",
+      "publicText": "docker-sequential/command-4.redacted.txt",
+      "sourceSha256": "9646dbd276dc08609f8852e2647ed59f30cd90261408ffe20448ea6e7fb6a36c",
+      "publicSha256": "c6e7da049753c0862d2b1ff74e5f4445f52cc186a41d0a498a5da601f8fef113",
+      "publicBytes": 10013,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-5.log",
+      "publicText": "docker-sequential/command-5.redacted.txt",
+      "sourceSha256": "a19c9f66640b5f5fd50edabaa5205cd452e35141fb91fbbafc4465c3960c8ec7",
+      "publicSha256": "0548ec39bd2c01456ba92a18b9bd9a2042c9ae7f5024132d3c3656a7823106ec",
+      "publicBytes": 9838,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-6.log",
+      "publicText": "docker-sequential/command-6.redacted.txt",
+      "sourceSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicSha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "publicBytes": 1414,
+      "secretScan": "passed"
+    },
+    {
+      "sourceLog": "docker-sequential/command-7.log",
+      "publicText": "docker-sequential/command-7.redacted.txt",
+      "sourceSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicSha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "publicBytes": 538,
+      "secretScan": "passed"
+    }
+  ],
+  "logCount": 170,
+  "publicSecretScan": "passed"
+}

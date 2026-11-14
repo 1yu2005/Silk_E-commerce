@@ -1,0 +1,51 @@
+{
+  "checkedAt": "2026-11-14T16:00:33.985Z",
+  "mode": "read-only; no SQL or connection data retained",
+  "ranges": [
+    {
+      "label": "customer-auth-failure",
+      "start": "2026-11-14T15:30:55Z",
+      "end": "2026-11-14T15:32:00Z",
+      "counts": {
+        "check-constraint": 1
+      },
+      "events": [
+        {
+          "time": "2026-11-14 15:30:56.977 UTC",
+          "backendPid": "368751",
+          "category": "check-constraint"
+        }
+      ]
+    },
+    {
+      "label": "employee-role-failure",
+      "start": "2026-11-14T15:39:25Z",
+      "end": "2026-11-14T15:40:12Z",
+      "counts": {
+        "statement-timeout": 1
+      },
+      "events": [
+        {
+          "time": "2026-11-14 15:39:58.700 UTC",
+          "backendPid": "370516",
+          "category": "statement-timeout"
+        }
+      ]
+    },
+    {
+      "label": "isolated-passing-recheck",
+      "start": "2026-11-14T15:57:38Z",
+      "end": "2026-11-14T15:58:45Z",
+      "counts": {
+        "other-database-error": 1
+      },
+      "events": [
+        {
+          "time": "2026-11-14 15:58:03.125 UTC",
+          "backendPid": "374228",
+          "category": "other-database-error"
+        }
+      ]
+    }
+  ]
+}

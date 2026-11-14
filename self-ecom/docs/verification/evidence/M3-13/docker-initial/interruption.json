@@ -1,0 +1,8 @@
+{
+  "exitCode": 1,
+  "endedAt": "2026-11-14T15:34:36.9139398Z",
+  "reason": "并行三镜像构建期间PowerShell只读命令长时间无响应；经root协调中断本轮拥有的构建session，随后命令响应恢复；未启动本轮数据库及应用，未清理旧容器或卷",
+  "stage": "三个生产镜像真实构建",
+  "originalResourcesMutated": false,
+  "status": "interrupted"
+}

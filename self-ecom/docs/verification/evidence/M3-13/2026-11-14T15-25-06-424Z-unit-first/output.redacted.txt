@@ -1,0 +1,452 @@
+{"check":"test","cwd":"packages/shared","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"test","cwd":"packages/api-client","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+{"check":"test","cwd":"packages/ui","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc","-p","tsconfig.json"],"exitCode":0}
+✔ 对象键排序、数组保序、中文和空值稳定，重复对象引用合法 (1.3074ms)
+✔ 非法规范输入被拒绝：number/[object Number] (1.4071ms)
+✔ 非法规范输入被拒绝：number/[object Number] (0.0837ms)
+✔ 非法规范输入被拒绝：number/[object Number] (0.0621ms)
+✔ 非法规范输入被拒绝：number/[object Number] (0.2704ms)
+✔ 非法规范输入被拒绝：bigint/[object BigInt] (0.0834ms)
+✔ 非法规范输入被拒绝：undefined/[object Undefined] (0.0659ms)
+✔ 非法规范输入被拒绝：function/[object Function] (0.0534ms)
+✔ 非法规范输入被拒绝：object/[object Date] (0.1072ms)
+✔ 非法规范输入被拒绝：object/[object Set] (0.159ms)
+✔ 非法规范输入被拒绝：object/[object Array] (0.1208ms)
+✔ 非法规范输入被拒绝：object/[object Array] (0.0823ms)
+✔ 非法规范输入被拒绝：object/[object Object] (0.0616ms)
+✔ 非法规范输入被拒绝：object/[object Object] (0.0548ms)
+✔ 非法规范输入被拒绝：object/[object Object] (0.0714ms)
+✔ 拒绝循环、访问器、symbol、额外数组属性与超深/超大输入 (3.0927ms)
+✔ 集合拒绝规范重复，返回稳定新数组并保留元素；稀疏数组拒绝 (0.6037ms)
+✔ 幂等键16/128边界合法，拒绝空白、中文、换行、过短和超长 (0.2299ms)
+✔ 分页默认20、最大100，巨大页码为空而不发生乘法溢出 (0.212ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 150.2244
+{"check":"test","cwd":"packages/shared","command":["node","--test","test/command-contract.test.mjs"],"exitCode":0}
+✔ 创建员工只发送五个字段，保留密码原文，返回公开包裹且不切换管理员会话 (9.7948ms)
+✔ 创建账号冲突409保留管理员登录，传递固定错误码与请求编号 (3.0389ms)
+✔ 创建员工真实HTTP使用POST、JSON白名单和本域Bearer (66.9303ms)
+✔ 员工列表仅发送查询白名单，返回包裹并携带本域凭证及取消信号 (1.2426ms)
+✔ 员工详情UUID路径规范化，拒绝路径注入且不越登录域 (1.2758ms)
+✔ 员工详情404保持合法会话并暴露安全错误与请求编号 (1.0469ms)
+✔ 员工查询真实HTTP正确发送分页、文字关键词、详情路径与Bearer (13.0721ms)
+✔ 两客户端读取各自凭证，不使用全局Axios或调用方的Authorization (1.9362ms)
+✔ 公开登录、注册及健康检查不携带已登录token，注册不自动登录 (1.1422ms)
+✔ 员工客户端拒绝其他登录域，未发送HTTP (0.7812ms)
+✔ 顾客客户端拒绝其他登录域，未发送HTTP (0.3224ms)
+✔ 拒绝非本域或含歧义的请求路径 https://other.invalid/store/me (0.3857ms)
+✔ 拒绝非本域或含歧义的请求路径 //other.invalid/store/me (0.2973ms)
+✔ 拒绝非本域或含歧义的请求路径 /store/../admin/me (0.3043ms)
+✔ 拒绝非本域或含歧义的请求路径 /store/%2e%2e/admin/me (0.2805ms)
+✔ 拒绝非本域或含歧义的请求路径 /store/%2f/admin/me (0.3287ms)
+✔ 拒绝非本域或含歧义的请求路径 \other.invalid/store/me (0.281ms)
+✔ 不能通过单次请求baseURL覆盖把凭证发往其它服务器 (0.3246ms)
+✔ 当前401清理本域会话并通知一次，另一登录域保持 (0.573ms)
+✔ 公开登录401保留现有会话，不触发退出通知 (0.5284ms)
+✔ 403 FORBIDDEN保留会话并通知，不自动刷新或重试请求 (0.4855ms)
+✔ 403 PASSWORD_CHANGE_REQUIRED保留会话并通知，不自动刷新或重试请求 (0.6739ms)
+✔ 迟到的旧401不影响新登录，即使token字符串相同 (0.5681ms)
+✔ 迟到的旧403不影响新登录，即使token字符串相同 (0.4206ms)
+✔ 多个在途401只清理并通知一次 (0.7586ms)
+✔ 400保留会话，不自动重试，保留服务端requestId (0.6397ms)
+✔ 409保留会话，不自动重试，保留服务端requestId (0.5164ms)
+✔ 429保留会话，不自动重试，保留服务端requestId (0.3473ms)
+✔ 500保留会话，不自动重试，保留服务端requestId (0.4523ms)
+✔ ECONNABORTED使用固定网络错误且保留会话 (0.7405ms)
+✔ ETIMEDOUT使用固定网络错误且保留会话 (0.4827ms)
+✔ ERR_NETWORK使用固定网络错误且保留会话 (0.4769ms)
+✔ ERR_CANCELED使用固定网络错误且保留会话 (0.5844ms)
+✔ 非API响应和非Axios异常不向页面暴露原始内容 (0.8771ms)
+✔ 登录保存所属域凭证，me/权限/顾客资料更新返回HTTP包裹并使用正确方法 (1.4137ms)
+✔ createEmployeeClient改密成功清会话并要求重新登录 (0.4545ms)
+✔ createCustomerClient改密成功清会话并要求重新登录 (0.3291ms)
+✔ 改密403保留会话，当前旧密码401按统一策略清会话 (0.6342ms)
+✔ 注销成功均清本地会话，失败仍传给调用方 (0.3585ms)
+✔ 注销网络失败均清本地会话，失败仍传给调用方 (0.3373ms)
+✔ 注销401均清本地会话，失败仍传给调用方 (0.3632ms)
+✔ 迟到的注销/改密成功不清理新登录会话 (0.6475ms)
+✔ 并发登录仅保存最新尝试，注销后迟到的登录不恢复会话 (0.8538ms)
+✔ 旧会话401先到时，正在进行的最新登录仍能保存新凭证 (0.6433ms)
+✔ 显式清理会话后，之前尚未完成的登录不能恢复凭证 (0.3118ms)
+✔ 凭证过期后下一请求不发送token，当前失败触发未登录处理 (0.4439ms)
+✔ 真实Axios HTTP发送验证：两域独立Bearer、公开请求无凭证、401/403及注销 (28.0794ms)
+✔ 保留原无认证Axios工厂供普通传输使用 (0.5155ms)
+✔ EmployeeLoginInput声明的字段及必填性与导出OpenAPI一致 (3.4956ms)
+✔ CustomerLoginInput声明的字段及必填性与导出OpenAPI一致 (0.2916ms)
+✔ CustomerRegisterInput声明的字段及必填性与导出OpenAPI一致 (1.0282ms)
+✔ CustomerProfileInput声明的字段及必填性与导出OpenAPI一致 (0.1807ms)
+✔ ChangePasswordInput声明的字段及必填性与导出OpenAPI一致 (0.1352ms)
+✔ EmployeeProfile声明的字段及必填性与导出OpenAPI一致 (0.1766ms)
+✔ CustomerProfile声明的字段及必填性与导出OpenAPI一致 (0.1278ms)
+✔ EmployeeLoginData声明的字段及必填性与导出OpenAPI一致 (0.3148ms)
+✔ CustomerLoginData声明的字段及必填性与导出OpenAPI一致 (0.2262ms)
+✔ CustomerRegisterData声明的字段及必填性与导出OpenAPI一致 (0.1849ms)
+✔ EmployeePermissions声明的字段及必填性与导出OpenAPI一致 (0.1359ms)
+✔ ChangePasswordData声明的字段及必填性与导出OpenAPI一致 (0.1902ms)
+✔ LogoutData声明的字段及必填性与导出OpenAPI一致 (0.093ms)
+✔ EmployeeListItem声明的字段及必填性与导出OpenAPI一致 (0.1171ms)
+✔ EmployeeListData声明的字段及必填性与导出OpenAPI一致 (1.3614ms)
+✔ EmployeeDetail声明的字段及必填性与导出OpenAPI一致 (0.1776ms)
+✔ EmployeeListQuery声明的字段及必填性与导出OpenAPI一致 (0.0823ms)
+✔ EmployeeCreateInput声明的字段及必填性与导出OpenAPI一致 (0.0967ms)
+✔ EmployeeCreateData声明的字段及必填性与导出OpenAPI一致 (0.0732ms)
+✔ EmployeeProfileInput声明的字段及必填性与导出OpenAPI一致 (0.1708ms)
+✔ EmployeeProfileData声明的字段及必填性与导出OpenAPI一致 (0.0745ms)
+✔ EmployeeCommandInput声明的字段及必填性与导出OpenAPI一致 (0.0489ms)
+✔ EmployeeStatusData声明的字段及必填性与导出OpenAPI一致 (0.1071ms)
+✔ EmployeePasswordResetInput声明的字段及必填性与导出OpenAPI一致 (0.1063ms)
+✔ EmployeePasswordResetData声明的字段及必填性与导出OpenAPI一致 (0.0784ms)
+✔ EmployeeRoleInput声明的字段及必填性与导出OpenAPI一致 (0.0915ms)
+✔ EmployeeRoleData声明的字段及必填性与导出OpenAPI一致 (0.0715ms)
+✔ EmployeeExtraPermissionsInput声明的字段及必填性与导出OpenAPI一致 (0.1442ms)
+✔ EmployeeExtraPermissionsData声明的字段及必填性与导出OpenAPI一致 (0.1676ms)
+✔ PermissionCatalog声明的字段及必填性与导出OpenAPI一致 (0.0898ms)
+✔ PermissionDefinition声明的字段及必填性与导出OpenAPI一致 (0.0807ms)
+✔ FileMetadata声明的字段及必填性与导出OpenAPI一致 (0.0707ms)
+✔ CustomerAvatarData声明的字段及必填性与导出OpenAPI一致 (0.0702ms)
+✔ CustomerAvatarData声明的字段及必填性与导出OpenAPI一致 (0.0679ms)
+✔ 岗位、可用顾客状态及固定成功标记与API枚举一致 (1.5607ms)
+✔ 员工查询枚举、可空登录时间及分页元素与导出OpenAPI一致 (6.294ms)
+✔ 头像声明为string|null，设置和移除成功响应均明确声明该结构 (0.245ms)
+✔ updateProfile发送正确路径方法、白名单、版本和原始密码；不切换会话 (10.7771ms)
+✔ updateProfile拒绝路径穿越，不能把管理操作发到其他目标 (1.1106ms)
+✔ enable发送正确路径方法、白名单、版本和原始密码；不切换会话 (1.784ms)
+✔ enable拒绝路径穿越，不能把管理操作发到其他目标 (0.6473ms)
+✔ disable发送正确路径方法、白名单、版本和原始密码；不切换会话 (0.9361ms)
+✔ disable拒绝路径穿越，不能把管理操作发到其他目标 (0.694ms)
+✔ resetPassword发送正确路径方法、白名单、版本和原始密码；不切换会话 (0.8751ms)
+✔ resetPassword拒绝路径穿越，不能把管理操作发到其他目标 (0.264ms)
+✔ changeRole发送正确路径方法、白名单、版本和原始密码；不切换会话 (1.2331ms)
+✔ changeRole拒绝路径穿越，不能把管理操作发到其他目标 (0.6295ms)
+✔ setExtraPermissions发送正确路径方法、白名单、版本和原始密码；不切换会话 (1.1342ms)
+✔ setExtraPermissions拒绝路径穿越，不能把管理操作发到其他目标 (0.4659ms)
+✔ 权限目录GET支持取消，仅员工客户端暴露管理方法 (1.3257ms)
+✔ 版本冲突及最后管理员保护保留登录并传递错误码，不重放管理请求 (2.8624ms)
+✔ createCustomerClient受限文件上传与私有Blob带本域凭证，URL无token (16.8551ms)
+✔ createEmployeeClient受限文件上传与私有Blob带本域凭证，URL无token (2.9843ms)
+✔ Blob JSON 401保留错误码/编号，只有401清当前会话 (1.9773ms)
+✔ Blob JSON 403保留错误码/编号，只有401清当前会话 (1.3935ms)
+✔ Blob JSON 404保留错误码/编号，只有401清当前会话 (1.2981ms)
+✔ Blob JSON 413保留错误码/编号，只有401清当前会话 (1.1993ms)
+✔ Blob JSON 429保留错误码/编号，只有401清当前会话 (1.0153ms)
+✔ 200 JSON不能被当成图片，头像PUT只发fileId，DELETE无业务体 (1.6764ms)
+✔ 生成JSON调用器复用员工Bearer，只发契约内的查询；不接收覆盖url/header (8.3705ms)
+✔ 顾客不能借生成调用器调用员工域；非法UUID不能注入路径 (4.2161ms)
+✔ 生成JSON失败仍清当前会话并保留安全requestId，不自动重试 (2.0774ms)
+✔ 员工与顾客使用独立键，仅保存最小凭证，刷新可分别恢复 (2.7411ms)
+✔ 恢复损坏JSON时丢弃本域记录，不影响另一登录域 (0.4518ms)
+✔ 恢复其他登录域时丢弃本域记录，不影响另一登录域 (0.1521ms)
+✔ 恢复缺字段时丢弃本域记录，不影响另一登录域 (0.1225ms)
+✔ 恢复无效日期时丢弃本域记录，不影响另一登录域 (0.1518ms)
+✔ 恢复到期边界时丢弃本域记录，不影响另一登录域 (0.083ms)
+✔ 恢复含换行token时丢弃本域记录，不影响另一登录域 (0.1594ms)
+✔ 恢复null时丢弃本域记录，不影响另一登录域 (0.1412ms)
+✔ 恢复数组时丢弃本域记录，不影响另一登录域 (0.1818ms)
+✔ 凭证到期等号时清除内存及持久化，读取快照稳定且订阅可取消 (0.602ms)
+✔ 相同token重新保存也切换修订号，旧请求不能清除新会话 (0.3281ms)
+✔ 存储被禁止时仍可使用和清除内存；订阅者异常不妨碍清理 (0.3906ms)
+✔ 写存储失败后清掉旧记录，继续使用新内存凭证 (0.427ms)
+✔ 无效登录凭证不覆盖现有会话，不持久化非法Authorization (0.9775ms)
+✔ 订阅者在登录通知中清理会话时，不把已清理凭证重新写回存储 (0.2354ms)
+✔ 管理员设置读写及历史使用原Bearer，分页仅发送声明字段 (11.509ms)
+✔ 员工读取公开联系方式不发送Bearer (1.5531ms)
+✔ 顾客读取公开联系方式不发送Bearer (1.2805ms)
+✔ 设置409只返回冲突和requestId，不清会话、不重试 (2.1313ms)
+✔ 公开联系方式失败不触发认证失效或清除会话；顾客仍不能访问管理员设置 (1.4998ms)
+✔ 八个任务生成调用器使用已有Bearer与声明参数，不接受越过路由的ID (13.591ms)
+✔ 顾客客户端不能请求员工任务，409保留员工会话且不自动重发 (2.9255ms)
+✔ 延期409保留requestId和会话，不自动重发；顾客不能借调用器请求延期 (1.5388ms)
+ℹ tests 133
+ℹ suites 0
+ℹ pass 133
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 909.9688
+{"check":"test","cwd":"packages/api-client","command":["node","--test","test/auth-client.test.mjs","test/contracts.test.mjs","test/employee-management.test.mjs","test/files-client.test.mjs","test/generated-client.test.mjs","test/session.test.mjs","test/settings-client.test.mjs","test/tasks-client.test.mjs"],"exitCode":0}
+✔ 匿名不查询本人；快照稳定，订阅可取消 (2.9678ms)
+✔ 恢复必须先本人再权限；在确认完成前不展示身份和菜单 (0.3508ms)
+✔ StrictMode清理再启动和同时重读共用一组请求 (0.1999ms)
+✔ 强制改密只查本人，不查询被禁止的权限接口 (0.1448ms)
+✔ 权限响应的最新岗位用于显示，权限不落入持久化存储 (0.4444ms)
+✔ 恢复500保留凭证，清空资料权限，可手动重试 (0.2726ms)
+✔ 未知恢复异常使用固定提示，不暴露原异常 (0.2307ms)
+✔ 401清除身份与权限，并丢弃在途本人响应 (0.3166ms)
+✔ 到期后由会话检查立即清除身份和权限 (0.1886ms)
+✔ 新登录保存后，迟到旧本人响应不能恢复旧身份 (0.3497ms)
+✔ 新登录保存后，迟到旧权限及旧异常不能覆盖新身份 (1.169ms)
+✔ 并发403只触发一组本人/权限读取，不重放原动作 (0.1554ms)
+✔ 权限刷新本身403只失败一次，不循环请求或注销 (0.1815ms)
+✔ PASSWORD_CHANGE_REQUIRED立即清权限，迟到刷新不恢复业务状态 (0.1405ms)
+✔ 匿名收到403不会发起请求 (0.0611ms)
+✔ 登录保存后恢复本人，登录密码不持久化 (0.1619ms)
+✔ 公开登录失败留在匿名状态，不查询资料 (0.3691ms)
+✔ 改密成功清本地并提示重新登录 (0.2566ms)
+✔ 改密403保留当前会话，报告调用方 (0.2854ms)
+✔ 注销成功或网络失败都清本地，不保留旧身份 (0.4458ms)
+✔ 注销请求未完成时，焦点恢复不能重新展示正在退出的身份 (0.1969ms)
+✔ 迟到旧注销或改密不清除新登录的页面身份 (0.2656ms)
+✔ 清理订阅后会话变化不再请求；重新启动可恢复 (0.1134ms)
+✔ 页面复用服务端密码边界，不截断、不trim密码 (0.2014ms)
+✔ 创建入口按有效权限判断，查看权限不能冒充创建资格 (0.6898ms)
+✔ 账号大小写与空白规范化，长度和字符规则与接口一致 (0.2456ms)
+✔ 显示名必填且按Unicode码点校验40字符，保留中间空白 (0.1922ms)
+✔ 创建原因必填，trim后最多500个Unicode字符 (0.1559ms)
+✔ 岗位仅允许固定三种，不能以对象继承属性绕过校验 (0.1501ms)
+✔ 规范化只处理文本，初始密码保留原文，确认和内部字段不发API (0.565ms)
+✔ 初始密码复用共享字符和字节规则，不trim或截断 (0.2229ms)
+✔ 管理入口逐项依据有效权限而非岗位名称 (0.6264ms)
+✔ 管理原因trim并按Unicode码点校验，不截断emoji (0.1266ms)
+✔ 新增操作递归补齐、排序去重，默认码不存额外且不修改输入 (1.4491ms)
+✔ 撤销旧依赖优先级联，另一新增操作不能补回 (0.2281ms)
+✔ 完整旧集合无变化、清空、默认权限不能撤销 (0.2293ms)
+✔ 管理员目标、未知码、管理员专属码和旧缺依赖拒绝预览 (0.3009ms)
+✔ 目录重复、未知依赖、循环、模板缺依赖或管理员码禁止保存 (0.4083ms)
+✔ 当前写成功仅一次提交与缓存回调，当前错误原样传递 (2.9779ms)
+✔ 旧登录迟到成功与失败不能失效新缓存或刷新身份，即使token相同 (0.4224ms)
+✔ 未登录不发命令，退出后在途成功不执行回调 (0.3004ms)
+✔ 匿名不发员工查询，快照稳定只读且订阅可取消 (2.6256ms)
+✔ StrictMode重挂载和同参数在途读取只发一次，完成后重进会刷新 (0.2718ms)
+✔ 筛选切换立即隐藏旧资料、取消旧请求且迟到结果不能覆盖 (0.5738ms)
+✔ 401清会话时立即清员工资料，旧在途成功不能恢复 (0.5964ms)
+✔ 新登录切换清查询，旧会话成功或错误均不写入新身份 (0.6966ms)
+✔ 403在权限刷新重挂载后不循环，手动重试才发下一次 (0.4448ms)
+✔ 404、500和未知错误不保留旧资料，未知错误不含原始秘密 (0.7241ms)
+✔ 员工资料和查询条件不写入会话存储，销毁取消在途读取 (0.3193ms)
+✔ 地址栏默认值、Unicode关键词和枚举与查询规则一致 (0.8913ms)
+✔ 非法分页、重复/未知字段、超长关键词和岗位状态不发给API (0.4372ms)
+✔ 查询序列化保留筛选和页码，UUID仅形状校验且菜单依据有效权限 (0.4405ms)
+✔ 写入失效后活跃查询重读，旧在途响应不能恢复旧资料 (0.3354ms)
+✔ 失效只作用指定员工；离开页面仅清缓存不暗中发请求 (0.1251ms)
+✔ 售后同键刷新保留表单依赖数据，换键/错误/换会话立即清除 (0.2765ms)
+✔ 金额按十进制精确换算，0和最大金额均可往返 (0.9408ms)
+✔ 金额不接受符号、指数、额外小数位、逗号、空值或越界，不四舍五入 (0.4397ms)
+✔ 八项期限的单位和上限固定，拒绝0、小数、指数及越界 (0.6862ms)
+✔ 未配置只有建议金额和期限，电话地址原因保持空白；不修改输入快照 (1.4286ms)
+✔ 请求只发送契约字段，关闭包邮仍发送门槛，空服务时间清除，原因不复用 (0.3091ms)
+✔ 文本按Unicode码点验证，电话规范化前后长度和字符限制与接口一致 (0.3842ms)
+✔ 菜单只按有效设置权限开放，显示时间固定北京时间 (0.296ms)
+✔ 默认本人任务，筛选往返保留false、页码、业务编号，不修改输入 (2.1046ms)
+✔ 未知、重复、空白、指数、小数、越界、非法枚举和UUID不请求服务器 (0.3402ms)
+✔ 管理员待安排要求真实管理员岗位与有效转交权限同时满足 (0.16ms)
+✔ 北京时间明确转UTC，跨年/闰日/秒不依赖宿主时区，拒绝日历进位 (1.9945ms)
+✔ 业务链接只接受后端应用内安全详情路径 (0.2118ms)
+✔ 同一事件循环连续提交只发一次，成功只调用一次刷新 (0.5451ms)
+✔ 任务错误404保留原错误并阻止再次发写请求 (0.2676ms)
+✔ 任务错误409保留原错误并阻止再次发写请求 (0.1218ms)
+✔ 任务错误500保留原错误并阻止再次发写请求 (0.1136ms)
+✔ 任务错误网络失败保留原错误并阻止再次发写请求 (0.1589ms)
+✔ 400业务输入错误允许修正后手动提交，不自动重试 (0.2321ms)
+✔ 切换登录后丢弃在途成功，不会刷新新用户页面 (0.1724ms)
+✔ 切换登录后丢弃在途错误，不会刷新新用户页面 (0.1417ms)
+✔ 未登录或已销毁不提交，销毁后的在途结果无回调 (0.2278ms)
+ℹ tests 76
+ℹ suites 0
+ℹ pass 76
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 565.4979
+{"check":"test","cwd":"apps/admin-web","command":["node","--test","test/auth-controller.test.mjs","test/employee-create.test.mjs","test/employee-management.test.mjs","test/employee-query.test.mjs","test/settings.test.mjs","test/tasks.test.mjs"],"exitCode":0}
+✔ 匿名不请求本人，快照稳定且可取消订阅 (2.6081ms)
+✔ 只持久化顾客域最小凭证，不保存手机号资料或密码 (0.6278ms)
+✔ 恢复确认前不展示旧资料，强制重读会立即隐藏旧身份 (0.2494ms)
+✔ StrictMode清理再启动及并发重读只请求一次 (0.1777ms)
+✔ 交易受限顾客仍可恢复本人资料 (0.1684ms)
+✔ 本人500保留凭证、清资料并允许手动重试 (0.2725ms)
+✔ 未知异常使用固定提示，不带原始配置 (0.1869ms)
+✔ 当前401清身份且迟到旧本人不能恢复 (0.2677ms)
+✔ 到期等号清本地资料和凭证 (0.7826ms)
+✔ 旧本人成功或异常迟到都不覆盖新登录 (0.4456ms)
+✔ 迟到旧注销不能清除新登录页面身份 (0.3061ms)
+✔ 注销等待期间焦点重读不能重新显示旧身份 (0.131ms)
+✔ 403只提示并保留会话，不请求员工权限或自动重试 (0.0999ms)
+✔ 公开登录401不创建会话或查询本人 (0.3807ms)
+✔ 登录成功保存顾客会话并从本人接口恢复 (0.132ms)
+✔ 注册成功只提示去登录，不创建会话或请求本人 (0.2529ms)
+✔ 注册409报告调用方，不伪装成功或自动登录 (0.1432ms)
+✔ 注册成功迟于新登录，不清资料或产生跳登录指示 (0.1788ms)
+✔ 主动清会话后，旧注册响应不再触发成功导航 (0.1268ms)
+✔ 注销成功和网络失败均清本地，失败明确服务器未确认 (0.2749ms)
+✔ 停止订阅不再自动请求，重启仍能恢复最新会话 (0.1973ms)
+✔ 手机号边界与服务端一致，允许首尾空格，不接受国际前缀或非文本 (0.1762ms)
+✔ 可选昵称按Unicode字符计数，空白和超长拒绝 (0.1178ms)
+✔ 注册正文只含公开字段，保留密码原文并省略未填昵称 (0.1125ms)
+✔ 编辑昵称必须填写，按Unicode计数且不改变注册可省略规则 (0.0828ms)
+✔ 昵称仅发送trim后的白名单字段，成功立即更新本人且不更换会话 (0.1972ms)
+✔ 昵称失败不伪造成功、不重试或清合法会话 (0.3133ms)
+✔ 昵称保存后迟到的旧本人成功或失败均不能覆盖结果 (0.3209ms)
+✔ 旧昵称成功迟于新登录，不覆盖新顾客资料或成功提示 (0.1575ms)
+✔ 注销等待中或当前401后，旧昵称响应不能恢复身份 (0.2484ms)
+✔ 改密只发旧新密码原文，成功清资料及本地凭证并提示重新登录 (0.2589ms)
+✔ 旧密码401清本域后保留安全错误和请求编号，重新登录时清提示 (0.1994ms)
+✔ 改密400、403、500或网络失败不假报成功或自动重试 (0.2804ms)
+✔ 改密成功或401迟于新登录，均不清新会话或插入旧提示 (0.2388ms)
+✔ 主动注销后迟到改密成功，不覆盖注销提示 (0.1501ms)
+✔ 焦点后台复核保持同会话页面，显式强制恢复与换会话仍隐藏旧身份 (0.1306ms)
+✔ 头像设置/移除更新资料，迟到的昵称和本人查询不覆盖新头像 (0.2464ms)
+✔ 有效购买确认保留原键与原载荷，换人不恢复 (1.2866ms)
+✔ 浏览器拒绝读取和删除存储时返回空确认 (0.191ms)
+✔ 浏览器访问sessionStorage属性即失败时仍可显示结算页面 (0.1014ms)
+✔ 损坏载荷清理失败也不能让恢复过程抛错 (0.1202ms)
+ℹ tests 41
+ℹ suites 0
+ℹ pass 41
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 388.2799
+{"check":"test","cwd":"apps/store-web","command":["node","--test","test/auth-controller.test.mjs","test/purchase-confirmation.test.mjs"],"exitCode":0}
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+{"level":30,"time":1794669918029,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"d156a733-9fc2-4e33-be3e-99037a45c716","res":{"statusCode":200},"responseTime":7,"msg":"request completed"}
+{"level":30,"time":1794669918044,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"c99cead9-df68-4ab6-8237-0e69301adfc1","res":{"statusCode":200},"responseTime":2,"msg":"request completed"}
+{"level":50,"time":1794669918062,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"5054f3b3-25d0-4c20-976d-17b3266a7cbc","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+{"level":30,"time":1794669918075,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"36c5f73a-9520-41ef-9826-47946d98b06d","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794669918113,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/guard-public"},"requestId":"d7cadc08-9689-430a-8686-81bab988260b","res":{"statusCode":404},"responseTime":4,"msg":"request completed"}
+{"level":40,"time":1794669918126,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/store/me"},"requestId":"a5136b66-9ee0-4014-8d0d-a54e3f18687e","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794669918143,"pid":75728,"hostname":"YHY","req":{"method":"POST","path":"/api/v1/auth/logout"},"requestId":"4fc23a1f-4b1d-442c-8748-6482821ff090","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794669918160,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/admin/me"},"requestId":"3b1c3e50-79e9-4fd8-8394-af62d84c45e5","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794669918163,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"da49f3f9-157d-49d7-8032-46e8fa26b1d3","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794669918173,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"413e20ee-5cbf-4d5f-a5ae-e814bc292b5a","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794669918174,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"c1fe03b5-7960-4170-bbc1-c8628babe37e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794669918175,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"5f59fd02-d1d8-4fc2-8d12-94175c86eb3f","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918175,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"8115ca15-30a7-43ce-8441-a6ab1c6ed301","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918176,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"1e12756d-cd4e-4e21-bc68-4398f854f71c","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794669918177,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6eef63e1-ff72-405b-bcc4-b3e00b2b5d7e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794669918177,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"be622a1e-a87c-40ee-8d7f-a416bc67f954","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918178,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"03bd02cb-dea7-4c44-9639-c77cf4a6db37","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918178,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"a34d6ed4-e96c-45da-bc1f-5d370daa9a07","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918179,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"62f0f723-ccc9-4cc5-ae71-bb0575fd4354","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918193,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"2161931d-3c83-4a78-8493-594cb2cf827b","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":50,"time":1794669918209,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"41765f0c-d4f7-4b65-9871-43f2d8a3ba3c","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":50,"time":1794669918226,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"c5b5d6fe-5cd3-471b-9f44-52419d54c339","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":30,"time":1794669918244,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"04f0f994-86dc-4142-aaf7-6b41e96f1b78","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794669918258,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"46327b52-6611-480d-935e-6d467e7efcf4","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918263,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"14235324-81fd-4d05-82ca-1a7152fbbd39","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794669918279,"pid":75728,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3a84d3a7-b92e-4635-b230-7bc1ca88af2b","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+ ❯ test/swagger.spec.ts (2 tests | 1 failed) 841ms
+   × serves native Swagger documents only when enabled=true 714ms
+
+ Test Files  1 failed | 27 passed (28)
+      Tests  1 failed | 517 passed (518)
+   Start at  23:25:12
+   Duration  6.22s (import 68%, tests 19%, transform 11%, worker 2%, setup 1%)
+
+{"check":"test","cwd":"apps/api","command":["node","D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\api\\node_modules\\vitest\\vitest.mjs","run","--config","test/verification/retained.config.mts"],"exitCode":1}
+(node:43788) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:3824) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:49892) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/swagger.spec.ts > serves native Swagger documents only when enabled=true
+AssertionError: expected [ …(179) ] to deeply equal [ '/api/v1/admin/after-sales', …(150) ]
+
+- Expected
++ Received
+
+@@ -1,10 +1,19 @@
+  [
++   "/api/v1/admin/address-requests/{id}/continue-original",
++   "/api/v1/admin/address-requests/{id}/handoff-after-sale",
++   "/api/v1/admin/address-requests/{id}/handoff-offline",
++   "/api/v1/admin/address-requests/{id}/physical-verifications",
++   "/api/v1/admin/address-requests/{id}/resolve-cancel-reorder",
+    "/api/v1/admin/after-sales",
+    "/api/v1/admin/after-sales/{id}",
+    "/api/v1/admin/after-sales/{id}/close",
++   "/api/v1/admin/after-sales/{id}/close-decision",
+    "/api/v1/admin/after-sales/{id}/confirm-no-return-refund",
++   "/api/v1/admin/after-sales/{id}/dispute-followups",
++   "/api/v1/admin/after-sales/{id}/dispute-requests",
++   "/api/v1/admin/after-sales/{id}/disputes",
+    "/api/v1/admin/after-sales/{id}/exception-final-inspection",
+    "/api/v1/admin/after-sales/{id}/exception-refund-approvals",
+    "/api/v1/admin/after-sales/{id}/exception-refund-requests",
+    "/api/v1/admin/after-sales/{id}/final-inspection",
+    "/api/v1/admin/after-sales/{id}/history",
+@@ -25,15 +34,19 @@
+    "/api/v1/admin/categories",
+    "/api/v1/admin/categories/tree",
+    "/api/v1/admin/categories/{id}",
+    "/api/v1/admin/categories/{id}/move",
+    "/api/v1/admin/communications",
++   "/api/v1/admin/custody-arrangements/{id}",
++   "/api/v1/admin/custody-arrangements/{id}/correction-followups",
++   "/api/v1/admin/custody-arrangements/{id}/events",
+    "/api/v1/admin/customers",
+    "/api/v1/admin/customers/{id}",
+    "/api/v1/admin/customers/{id}/addresses",
+    "/api/v1/admin/customers/{id}/consumption",
+    "/api/v1/admin/customers/{id}/freeze-login",
++   "/api/v1/admin/customers/{id}/proxy-contexts",
+    "/api/v1/admin/customers/{id}/restore",
+    "/api/v1/admin/customers/{id}/restrict-trade",
+    "/api/v1/admin/customers/{id}/status-history",
+    "/api/v1/admin/employees",
+    "/api/v1/admin/employees/{id}",
+@@ -65,13 +78,23 @@
+    "/api/v1/admin/inventory/stock-incidents/{id}/verify",
+    "/api/v1/admin/inventory/{skuId}",
+    "/api/v1/admin/inventory/{skuId}/warning-threshold",
+    "/api/v1/admin/me",
+    "/api/v1/admin/me/permissions",
++   "/api/v1/admin/offline-cases",
++   "/api/v1/admin/offline-cases/{id}",
++   "/api/v1/admin/offline-cases/{id}/begin",
++   "/api/v1/admin/offline-cases/{id}/close",
++   "/api/v1/admin/offline-cases/{id}/events",
++   "/api/v1/admin/offline-cases/{id}/resolve",
+    "/api/v1/admin/orders",
+    "/api/v1/admin/orders/{id}",
++   "/api/v1/admin/orders/{id}/address-requests",
++   "/api/v1/admin/orders/{id}/after-sales/from-exception",
+    "/api/v1/admin/orders/{id}/close-unpaid",
++   "/api/v1/admin/orders/{id}/coordination",
++   "/api/v1/admin/orders/{id}/coordination-followups",
+    "/api/v1/admin/orders/{id}/fulfillment",
+    "/api/v1/admin/orders/{id}/fulfillment/claim",
+    "/api/v1/admin/orders/{id}/fulfillment/confirm-handover",
+    "/api/v1/admin/orders/{id}/fulfillment/declare-uncertain",
+    "/api/v1/admin/orders/{id}/fulfillment/exceptions",
+@@ -99,10 +122,15 @@
+    "/api/v1/admin/products/{id}/sku-scheme",
+    "/api/v1/admin/products/{id}/skus/batch-fill",
+    "/api/v1/admin/products/{id}/skus/{skuId}",
+    "/api/v1/admin/products/{id}/skus/{skuId}/set-enabled",
+    "/api/v1/admin/products/{id}/unpublish",
++   "/api/v1/admin/proxy-contexts/{id}",
++   "/api/v1/admin/proxy-contexts/{id}/after-sales",
++   "/api/v1/admin/proxy-contexts/{id}/offline-results",
++   "/api/v1/admin/proxy-contexts/{id}/return-logistics",
++   "/api/v1/admin/proxy-contexts/{id}/supplements",
+    "/api/v1/admin/settings",
+    "/api/v1/admin/settings/versions",
+    "/api/v1/admin/settings/versions/{id}",
+    "/api/v1/admin/tasks",
+    "/api/v1/admin/tasks/summary",
+
+ ❯ test/swagger.spec.ts:36:47
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯

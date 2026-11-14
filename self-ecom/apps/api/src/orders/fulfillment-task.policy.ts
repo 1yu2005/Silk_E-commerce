@@ -9,12 +9,16 @@ import {AuditService} from '../audit/audit.service.js';
 import {StateHistoryService} from '../records/state-history.service.js';
 import {FulfillmentAfterSales} from './fulfillment-after-sales.js';
 import {checkWholeOrder,pendingHandover,shipmentBlocked,validPacking} from './fulfillment.rules.js';
+import {Clock} from '../common/time/clock.js';
 @Injectable()
 export class FulfillmentTaskPolicy {
- constructor(@Inject(OrderPhysicalChanges)private readonly physicalChanges:OrderPhysicalChanges,@Inject(FulfillmentAfterSales)private readonly afterSales:FulfillmentAfterSales,@Inject(StateHistoryService)private readonly history:StateHistoryService,@Inject(AuditService)private readonly audit:AuditService){}
+ constructor(@Inject(OrderPhysicalChanges)private readonly physicalChanges:OrderPhysicalChanges,@Inject(FulfillmentAfterSales)private readonly afterSales:FulfillmentAfterSales,@Inject(StateHistoryService)private readonly history:StateHistoryService,@Inject(AuditService)private readonly audit:AuditService,@Inject(Clock)private readonly clock:Clock){}
  async active(tx:Prisma.TransactionClient,t:Task){const o=await tx.order.findUniqueOrThrow({where:{id:t.businessId}});
   if(t.stage==='SHIPMENT_PROCESS'){
    if(o.status!=='WAIT_SHIPMENT'||await pendingHandover(tx,o.id)||await shipmentBlocked(tx,o.id)||await this.afterSales.hasActive(tx,o.id))throw new TaskError('TASK_ENTRY_BLOCKED');
+  }else if(t.stage==='PROXY_INPUT'){
+   const customer=await tx.customer.findUniqueOrThrow({where:{id:o.customerId}}),sources=await tx.taskBusinessSource.findMany({where:{taskId:t.id,status:'ACTIVE',sourceType:'PROXY_CONTEXT'},select:{sourceId:true}});
+   if(customer.status!=='LOGIN_FROZEN'||!await tx.proxyContext.count({where:{id:{in:sources.map(s=>s.sourceId)},orderId:o.id,status:'VERIFIED',customerStatusVersion:customer.statusVersion,expiresAt:{gt:this.clock.now()}}}))throw new TaskError('TASK_ENTRY_BLOCKED');
   }else if(!await tx.taskBusinessSource.count({where:{taskId:t.id,status:'ACTIVE'}}))throw new TaskError('TASK_ENTRY_BLOCKED');return o;
  }
  async release(tx:Prisma.TransactionClient,a:TaskEmployee,t:Task){const o=await this.active(tx,t);if(t.stage==='SHIPMENT_PROCESS'){const p=await validPacking(tx,o);if(!p||p.checkedById!==a.subjectId||+p.createdAt<+t.updatedAt)throw new TaskError('TASK_ENTRY_BLOCKED');}}

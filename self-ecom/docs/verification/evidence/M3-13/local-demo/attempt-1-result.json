@@ -1,0 +1,115 @@
+{
+  "startedAt": "2026-11-14T16:32:55.648Z",
+  "resumed": false,
+  "newMembers": 0,
+  "runId": "5bbef3f0-be68-4735-a716-59cb7c30dc92",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "6459a7aa-8cda-4da0-9869-7d6ec0c0336e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "8cffd6b2-8974-47d0-9645-c4576fad25ba"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "aa099370-96ce-4359-837a-14a135a73f06"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "98f9ae6a-ef88-4d84-bd04-3f5a53b5321d"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "6f7bea9e-35d9-4c3b-804e-0970cf6479b8"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "ce60518e-98a0-4ae7-849a-0f7f90daa4d3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "73b82dfb-4b09-4aae-b836-eb543951fcc3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "5cfb29b4-bbb3-4439-aa5f-77b9759f976f"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "c80f4594-2e04-46f0-a789-f3bd258450b6"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "f5128ea0-e803-4ec3-85b8-bd995f958eb8"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "17b7bb44-6499-4f20-ae23-502ac052cc91"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df",
+      "status": 200,
+      "requestId": "b1ff8e30-d2d5-4d42-b10e-f552bd5f9cc6"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/43262e27-191d-4cee-a067-85592ec799df/pay",
+      "status": 200,
+      "requestId": "821a8aec-f4a1-47df-a227-de21500e0cfa"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "f45d1424-1fbc-40d3-a569-632ef2d248bc"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/communications?scopeType=ORDER&scopeId=43262e27-191d-4cee-a067-85592ec799df&page=1&pageSize=100",
+      "status": 200,
+      "requestId": "07247c5c-4123-43b1-9090-9bfa0111e277"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/communications",
+      "status": 201,
+      "requestId": "b1c421f2-8981-4b78-a7bf-fd7a0c0a8bb3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/43262e27-191d-4cee-a067-85592ec799df/coordination",
+      "status": 200,
+      "requestId": "721d0f53-c99c-4b52-a735-b61edde244fd"
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "status": "failed",
+  "failure": "locator.selectOption: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('form').filter({ has: getByRole('heading', { name: '登记改址诉求', exact: true }) }).getByLabel('本订单实际沟通', { exact: true })\u001b[22m\n\n    at D:\\实习\\实习生全栈学习笔记\\self-ecom\\infra\\verify-coordination-local.mjs:114:209",
+  "endedAt": "2026-11-14T16:33:29.872Z"
+}

@@ -13,6 +13,7 @@ import {BusinessRecordAdapters} from '../records/business-record-adapters.js';
 import {RecordInputError} from '../records/record-support.js';
 import {orderReader,ownedOrder,requireOrderPermission} from './order-access.service.js';
 import {OrderError} from './order.errors.js';
+import {Clock} from '../common/time/clock.js';
 import {FulfillmentTaskPolicy} from './fulfillment-task.policy.js';
 import {FulfillmentAfterSales} from './fulfillment-after-sales.js';
 import {sourceBelongs,pendingHandover,shipmentBlocked} from './fulfillment.rules.js';
@@ -21,10 +22,10 @@ const sourceRow=(r:TaskBusinessSource):TaskSourceRecord=>({...r,sourceType:r.sou
 export class OrderAdapters implements OnModuleInit {
  constructor(@Inject(TaskBusinessAdapters)private readonly tasks:TaskBusinessAdapters,@Inject(FileBusinessAdapters)private readonly files:FileBusinessAdapters,
  @Inject(SkuReferences)private readonly skus:SkuReferences,@Inject(CustomerConsumptionService)private readonly consumption:CustomerConsumptionService,@Inject(BusinessRecordAdapters)private readonly records:BusinessRecordAdapters,
- @Inject(FulfillmentTaskPolicy)private readonly policy:FulfillmentTaskPolicy,@Inject(FulfillmentAfterSales)private readonly afterSales:FulfillmentAfterSales){}
+ @Inject(FulfillmentTaskPolicy)private readonly policy:FulfillmentTaskPolicy,@Inject(FulfillmentAfterSales)private readonly afterSales:FulfillmentAfterSales,@Inject(Clock)private readonly clock:Clock){}
  onModuleInit(){
   const authorize=async(tx:Prisma.TransactionClient,id:string,a:TaskCommandActor)=>{await ownedOrder(tx,id,a);if(a.subjectType==='EMPLOYEE'&&!orderReader(a)&&!a.effectivePermissions.includes('inventory.order-exception.manage'))throw new TaskError('TASK_ENTRY_BLOCKED');};
-  const policy=this.policy,afterSales=this.afterSales;
+  const policy=this.policy,afterSales=this.afterSales,clock=this.clock;
   const active=(tx:Prisma.TransactionClient,t:Task)=>policy.active(tx,t);
   this.tasks.registerLocker('ORDER',async(tx,id)=>{await tx.$queryRaw`SELECT id FROM "order" WHERE id=${id}::uuid FOR UPDATE`;});
   this.tasks.registerBusiness('ORDER',{
@@ -35,6 +36,8 @@ export class OrderAdapters implements OnModuleInit {
    async resolveEntry(tx,e,a,current){await authorize(tx,e.businessId,a);const o=await tx.order.findUniqueOrThrow({where:{id:e.businessId}});if(current)throw new TaskError('TASK_STAGE_ACTIVE');
     if(e.stage==='SHIPMENT_PROCESS'){const suspendedReentry=o.shipmentReclaimRequired&&e.entryKey.startsWith('after-sale-resume:');if(o.status!=='WAIT_SHIPMENT'||!o.paidAt||await pendingHandover(tx,o.id)||!suspendedReentry&&await shipmentBlocked(tx,o.id)||await afterSales.hasActive(tx,o.id))throw new TaskError('TASK_ENTRY_BLOCKED');return {startedAt:e.entryKey.startsWith('payment:')?o.paidAt:o.updatedAt};}
     if(e.stage==='HANDOVER_VERIFY'){const p=await pendingHandover(tx,o.id);if(p?.status!=='UNCERTAIN')throw new TaskError('TASK_ENTRY_BLOCKED');return {startedAt:o.updatedAt};}
+    if(e.stage==='PROXY_INPUT'){const contexts=await tx.proxyContext.findMany({where:{orderId:o.id,status:'VERIFIED',expiresAt:{gt:clock.now()}},orderBy:{createdAt:'asc'}});const customer=await tx.customer.findUniqueOrThrow({where:{id:o.customerId}});const valid=contexts.find(p=>customer.status==='LOGIN_FROZEN'&&p.customerStatusVersion===customer.statusVersion);if(!valid)throw new TaskError('TASK_ENTRY_BLOCKED');return {startedAt:valid.verifiedAt};}
+    if(['PHYSICAL_VERIFY','CUSTOMER_CONTACT'].includes(e.stage)){const request=await tx.addressRequest.findFirst({where:{orderId:o.id,status:'OPEN'},orderBy:{createdAt:'asc'}});if(request)return {startedAt:request.createdAt};}
     if(['SHIPMENT_EXCEPTION_VERIFY','CUSTOMER_CONTACT'].includes(e.stage)){const exception=await tx.shipmentException.findFirst({where:{orderId:o.id,status:'OPEN'},orderBy:{createdAt:'asc'}});if(exception)return {startedAt:exception.createdAt};}
     if(!['STOCK_EXCEPTION_VERIFY','PHYSICAL_VERIFY','ADMIN_STOCK_REVIEW','CUSTOMER_CONTACT'].includes(e.stage))throw new TaskError('TASK_ENTRY_BLOCKED');
     if(e.stage==='PHYSICAL_VERIFY'){const startedAt=await afterSales.physicalCheckStartedAt(tx,o.id);if(startedAt)return {startedAt};}
@@ -67,7 +70,11 @@ export class OrderAdapters implements OnModuleInit {
    async listActive(tx,t){return (await tx.taskBusinessSource.findMany({where:{taskId:t.id,status:'ACTIVE'},orderBy:{id:'asc'}})).map(sourceRow);},
    async add(tx,t,s,m){const r=await tx.taskBusinessSource.create({data:{taskId:t.id,...s,addCommandKey:m.commandKey,addReason:m.reason,addActorKey:taskActorKey(m.actor),createdAt:m.now}});
     await tx.taskBusinessSourceHistory.create({data:{sourceRecordId:r.id,action:'ACTIVE',commandKey:m.commandKey,actorKey:taskActorKey(m.actor),reason:m.reason,requestId:m.requestId,createdAt:m.now}});return sourceRow(r);},
-   async reactivate(tx,t,s,m){if(t.stage!=='PHYSICAL_VERIFY'||s.sourceType!=='AFTER_SALE'||!await tx.afterSale.count({where:{id:s.sourceId,orderId:t.businessId,status:'WAIT_FULFILLMENT_CHECK'}}))throw new TaskError('TASK_SOURCE_CONFLICT');const r=await tx.taskBusinessSource.update({where:{taskId_sourceType_sourceId:{taskId:t.id,...s}},data:{status:'ACTIVE',endedAt:null,addCommandKey:m.commandKey,addReason:m.reason,addActorKey:taskActorKey(m.actor),resolutionCommandKey:null,resolutionReason:null,resolutionActorKey:null,resolutionOutcome:null}});await tx.taskBusinessSourceHistory.create({data:{sourceRecordId:r.id,action:'ACTIVE',commandKey:m.commandKey,actorKey:taskActorKey(m.actor),reason:m.reason,requestId:m.requestId,createdAt:m.now}});return sourceRow(r);},
+   async reactivate(tx,t,s,m){
+    const physical=t.stage==='PHYSICAL_VERIFY'&&s.sourceType==='AFTER_SALE'&&await tx.afterSale.count({where:{id:s.sourceId,orderId:t.businessId,status:'WAIT_FULFILLMENT_CHECK'}})>0;
+    const contact=t.stage==='CUSTOMER_CONTACT'&&(s.sourceType==='ADDRESS_REQUEST'?await tx.addressRequest.count({where:{id:s.sourceId,orderId:t.businessId,status:'OPEN'}})>0:s.sourceType==='SHIPMENT_EXCEPTION'?await tx.shipmentException.count({where:{id:s.sourceId,orderId:t.businessId,status:'OPEN'}})>0:s.sourceType==='STOCK_EXCEPTION'?await tx.stockIncidentItem.count({where:{incidentId:s.sourceId,orderItem:{orderId:t.businessId},incident:{status:'OPEN'}}})>0:false);
+    if(!physical&&!contact)throw new TaskError('TASK_SOURCE_CONFLICT');
+    const r=await tx.taskBusinessSource.update({where:{taskId_sourceType_sourceId:{taskId:t.id,...s}},data:{status:'ACTIVE',endedAt:null,addCommandKey:m.commandKey,addReason:m.reason,addActorKey:taskActorKey(m.actor),resolutionCommandKey:null,resolutionReason:null,resolutionActorKey:null,resolutionOutcome:null}});await tx.taskBusinessSourceHistory.create({data:{sourceRecordId:r.id,action:'ACTIVE',commandKey:m.commandKey,actorKey:taskActorKey(m.actor),reason:m.reason,requestId:m.requestId,createdAt:m.now}});return sourceRow(r);},
    async finish(tx,t,s,status,m){const r=await tx.taskBusinessSource.update({where:{taskId_sourceType_sourceId:{taskId:t.id,sourceType:s.sourceType,sourceId:s.sourceId}},data:{status,endedAt:m.now,resolutionCommandKey:m.commandKey,resolutionReason:m.reason,resolutionActorKey:taskActorKey(m.actor),resolutionOutcome:m.outcome}});
     await tx.taskBusinessSourceHistory.create({data:{sourceRecordId:r.id,action:status,commandKey:m.commandKey,actorKey:taskActorKey(m.actor),reason:m.reason,requestId:m.requestId,createdAt:m.now}});return sourceRow(r);}
   });

@@ -1,0 +1,181 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 612B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from api.Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 1.80kB 0.0s done
+#2 DONE 0.2s
+
+#3 [internal] load metadata for docker.io/library/node:24.18.0-bookworm-slim
+#3 DONE 1.9s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 498B 0.0s done
+#4 DONE 0.1s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [base 1/3] FROM docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d
+#6 resolve docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d 0.1s done
+#6 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 87.67kB 0.3s done
+#5 DONE 0.9s
+
+#7 [base 2/3] RUN --mount=type=cache,target=/var/lib/apt/lists apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates     && npm install --global pnpm@11.25.0
+#7 CACHED
+
+#8 [base 3/3] WORKDIR /app
+#8 CACHED
+
+#9 [build 1/6] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+#9 CACHED
+
+#10 [build 2/6] COPY apps ./apps
+#10 DONE 1.2s
+
+#11 [build 3/6] COPY packages ./packages
+#11 DONE 0.3s
+
+#12 [build 4/6] RUN pnpm install --frozen-lockfile
+#12 3.672 Scope: all 9 workspace projects
+#12 3.888 ? Verifying lockfile against supply-chain policies (715 entries)...
+#12 3.901 Lockfile is up to date, resolution step is skipped
+#12 4.059 Progress: resolved 1, reused 0, downloaded 0, added 0
+#12 4.162 Packages: +635
+#12 4.162 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#12 5.063 Progress: resolved 635, reused 0, downloaded 0, added 0
+#12 5.794
+#12 5.794    ╭──────────────────────────────────────────────────────────────────────╮
+#12 5.794    │                                                                      │
+#12 5.794    │                 Update available! 11.25.0 → 12.18.0.                 │
+#12 5.794    │                 Changelog: https://pnpm.io/v/12.18.0                 │
+#12 5.794    │   To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -   │
+#12 5.794    │                                                                      │
+#12 5.794    ╰──────────────────────────────────────────────────────────────────────╯
+#12 5.794
+#12 7.860 Progress: resolved 635, reused 0, downloaded 1, added 0
+#12 7.872 Packages are hard linked from the content-addressable store to the virtual store.
+#12 7.872   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#12 7.872   Virtual store is at:             node_modules/.pnpm
+#12 8.922 Progress: resolved 635, reused 0, downloaded 76, added 70
+#12 9.952 Progress: resolved 635, reused 0, downloaded 170, added 167
+#12 10.96 Progress: resolved 635, reused 0, downloaded 222, added 218
+#12 12.05 Progress: resolved 635, reused 0, downloaded 298, added 297
+#12 13.04 Progress: resolved 635, reused 0, downloaded 379, added 377
+#12 14.01 [WARN] Tarball download average speed 19 KiB/s (size 24 KiB) is below 50 KiB/s: https://registry.npmjs.org/@visx/scale/-/scale-4.0.1-alpha.0.tgz (GET)
+#12 14.10 Progress: resolved 635, reused 0, downloaded 418, added 418
+#12 15.16 Progress: resolved 635, reused 0, downloaded 511, added 505
+#12 16.27 Progress: resolved 635, reused 0, downloaded 607, added 604
+#12 17.43 Progress: resolved 635, reused 0, downloaded 627, added 627
+#12 18.43 Progress: resolved 635, reused 0, downloaded 628, added 628
+#12 19.32 [WARN] Request took 10146ms: https://registry.npmjs.org/@prisma%2Ffetch-engine
+#12 19.62 Progress: resolved 635, reused 0, downloaded 631, added 629
+#12 20.62 Progress: resolved 635, reused 0, downloaded 631, added 631
+#12 21.63 Progress: resolved 635, reused 0, downloaded 632, added 632
+#12 24.17 [WARN] Request took 15096ms: https://registry.npmjs.org/@prisma%2Fclient
+#12 27.20 Progress: resolved 635, reused 0, downloaded 633, added 632
+#12 28.20 Progress: resolved 635, reused 0, downloaded 634, added 634
+#12 34.17 ✓ Lockfile passes supply-chain policies (715 entries in 30.2s)
+#12 36.37 Progress: resolved 635, reused 0, downloaded 635, added 634
+#12 36.39 Progress: resolved 635, reused 0, downloaded 635, added 635, done
+#12 37.75 .../bcrypt@6.0.0/node_modules/bcrypt install$ node-gyp-build
+#12 37.94 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#12 37.94 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#12 38.91 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#12 38.92 .../bcrypt@6.0.0/node_modules/bcrypt install: Done
+#12 42.78 .../node_modules/@prisma/engines postinstall: Done
+#12 43.67 .../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#12 43.93 .../node_modules/prisma preinstall: Done
+#12 45.18
+#12 45.18 devDependencies:
+#12 45.18 + @eslint/js 10.0.1
+#12 45.18 + @types/node 24.19.2
+#12 45.18 + eslint 10.14.0
+#12 45.18 + eslint-plugin-react-hooks 7.1.1
+#12 45.18 + eslint-plugin-react-refresh 0.5.7
+#12 45.18 + globals 17.14.0
+#12 45.18 + turbo 2.11.10
+#12 45.18 + typescript 6.0.3
+#12 45.18 + typescript-eslint 8.72.2
+#12 45.18
+#12 45.61 Done in 43.3s using pnpm v11.25.0
+#12 DONE 46.6s
+
+#13 [build 5/6] RUN DATABASE_URL=[REDACTED_DATABASE_URL] pnpm --filter @shop/api db:generate
+#13 6.564 $ tsx scripts/database.ts generate
+#13 9.372 Loaded Prisma config from prisma.config.ts.
+#13 9.372
+#13 9.923 Prisma schema loaded from prisma/schema.prisma.
+#13 12.23
+#13 12.23 ✔ Generated Prisma Client (v7.10.1) to ./../../node_modules/.pnpm/@prisma+client@7.10.1_prisma@7.10.1_@types+node@24.19.2_@types+react-dom@19.3.0_@types+_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client in 1.82s
+#13 12.23
+#13 12.23 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#13 12.23
+#13 12.23
+#13 DONE 12.5s
+
+#14 [build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#14 1.825 $ tsc -p tsconfig.json
+#14 3.233 $ tsc -p tsconfig.build.json
+#14 18.89 [WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+#14 19.13 Packages are copied from the content-addressable store to the virtual store.
+#14 19.13   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#14 19.13   Virtual store is at:             ../runtime/node_modules/.pnpm
+#14 19.13 ✓ Lockfile passes supply-chain policies (verified 44s ago)
+#14 19.17 Progress: resolved 1, reused 0, downloaded 0, added 0
+#14 20.17 Progress: resolved 40, reused 0, downloaded 0, added 0
+#14 27.26 Progress: resolved 41, reused 0, downloaded 0, added 0
+#14 28.49 Progress: resolved 45, reused 0, downloaded 0, added 0
+#14 29.50 Progress: resolved 46, reused 0, downloaded 0, added 0
+#14 33.68 Progress: resolved 47, reused 0, downloaded 0, added 0
+#14 35.59 Progress: resolved 48, reused 0, downloaded 0, added 0
+#14 36.61 Progress: resolved 240, reused 0, downloaded 0, added 0
+#14 37.61 Progress: resolved 248, reused 0, downloaded 0, added 0
+#14 38.61 Progress: resolved 249, reused 0, downloaded 0, added 0
+#14 41.34 Progress: resolved 250, reused 0, downloaded 0, added 0
+#14 42.34 Progress: resolved 268, reused 0, downloaded 0, added 0
+#14 43.34 Progress: resolved 499, reused 0, downloaded 0, added 0
+#14 44.33 Progress: resolved 515, reused 0, downloaded 0, added 0
+#14 45.33 Progress: resolved 516, reused 0, downloaded 0, added 0
+#14 48.13 Progress: resolved 517, reused 0, downloaded 0, added 0
+#14 49.13 Progress: resolved 533, reused 0, downloaded 0, added 0
+#14 50.50 Progress: resolved 542, reused 0, downloaded 0, added 0
+#14 51.50 Progress: resolved 703, reused 0, downloaded 0, added 0
+#14 52.50 Progress: resolved 718, reused 0, downloaded 0, added 0
+#14 53.04 Progress: resolved 718, reused 0, downloaded 0, added 0, done
+#14 53.18 .                                        | +293 +++++++++++++++++++++++++++++
+#14 117.4 .../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#14 117.4 .../bcrypt@6.0.0/node_modules/bcrypt install$ node-gyp-build
+#14 118.2 .../node_modules/prisma preinstall: Done
+#14 118.2 .../bcrypt@6.0.0/node_modules/bcrypt install: Done
+#14 DONE 124.9s
+
+#8 [base 3/3] WORKDIR /app
+#8 CACHED
+
+#15 [runtime 1/2] COPY --from=build --chown=node:node /runtime /app
+#15 DONE 15.0s
+
+#16 [runtime 2/2] RUN mkdir -p /app/storage/uploads && chown -R node:node /app/storage
+#16 DONE 2.8s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 16.7s done
+#17 exporting manifest sha256:685f2b6fda0031f1fd4dc0ba5c3e697c688a1d0568d117f4285480edaa8d9ca1 0.0s done
+#17 exporting config sha256:1f012446e33ed664107c9faa49eb9fab0d5326bc13d9a1573ceef17bf8eefae8 0.0s done
+#17 exporting attestation manifest sha256:29dbb62be13d3332f78ac08a2aedfef40ca7a8263065dc1b9b1f7873335d217e 0.0s done
+#17 exporting manifest list sha256:62ab49aa307c229bceb895066bf3e841059fd7cd5cfa0a32aaa4863d4d60dfe1 0.0s done
+#17 naming to docker.io/library/self-ecom-m313-acceptance-88459108-api:local 0.0s done
+#17 unpacking to docker.io/library/self-ecom-m313-acceptance-88459108-api:local
+#17 unpacking to docker.io/library/self-ecom-m313-acceptance-88459108-api:local 9.0s done
+#17 DONE 26.0s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.2s
+ Image self-ecom-m313-acceptance-88459108-api:local Building
+ Image self-ecom-m313-acceptance-88459108-api:local Built

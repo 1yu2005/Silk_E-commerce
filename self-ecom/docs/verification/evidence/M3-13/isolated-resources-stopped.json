@@ -1,0 +1,906 @@
+{
+  "startedAt": "2026-11-14T16:40:17.956Z",
+  "action": "stop-only",
+  "sourceRecords": [
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-final\\result.json",
+      "sha256": "2cf8e46bd9bc279677db61ed120715226ae6195837b2c13e6780f7929ca7bb8c",
+      "project": "self-ecom-m313-acceptance-47fd45c7",
+      "status": "failed",
+      "volumes": [
+        "self-ecom-m313-acceptance-47fd45c7_db_data",
+        "self-ecom-m313-acceptance-47fd45c7_uploads"
+      ]
+    },
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-browser-final\\result.json",
+      "sha256": "eebce764614155b8d722ec9d2a4ba50681d81346cdeee142fc6d311393e6501d",
+      "project": "self-ecom-m313-acceptance-c3355220",
+      "status": "failed",
+      "volumes": [
+        "self-ecom-m313-acceptance-c3355220_db_data",
+        "self-ecom-m313-acceptance-c3355220_uploads"
+      ]
+    },
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-browser-selector-fixed\\result.json",
+      "sha256": "fc67750e081e39749a26f556e44c17fc1a0822663b31954454a946b7ea50002c",
+      "project": "self-ecom-m313-acceptance-af8fa38a",
+      "status": "failed",
+      "volumes": [
+        "self-ecom-m313-acceptance-af8fa38a_db_data",
+        "self-ecom-m313-acceptance-af8fa38a_uploads"
+      ]
+    },
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-browser-complete\\result.json",
+      "sha256": "bd40b702e8d772ebebb7a096e0e903b8576594bb56277653cd336b600897e069",
+      "project": "self-ecom-m313-acceptance-e867b1de",
+      "status": "passed",
+      "volumes": [
+        "self-ecom-m313-acceptance-e867b1de_db_data",
+        "self-ecom-m313-acceptance-e867b1de_uploads"
+      ]
+    }
+  ],
+  "originalRecords": [
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-final\\command-0.log",
+      "sha256": "c8ae20d7f650f9ba3e38210852d3194144d4bf9dc830d13a6270b9e95b890b9a",
+      "lines": 14
+    },
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-final\\command-1.log",
+      "sha256": "f8b739737b4147bd6f6d2565ea861cf09d4f840d8b92c9eadde1ee53371ba798",
+      "lines": 14
+    },
+    {
+      "file": "docs\\verification\\evidence\\M3-13\\docker-final\\command-2.log",
+      "sha256": "1e0f7421367eee803b90ad0c802087e205841a6a48484873698094b793cf7c4c",
+      "lines": 14
+    }
+  ],
+  "commands": [
+    {
+      "label": "只读容器ID",
+      "command": [
+        "docker",
+        "ps",
+        "-aq",
+        "--no-trunc"
+      ],
+      "startedAt": "2026-11-14T16:40:17.965Z",
+      "endedAt": "2026-11-14T16:40:18.528Z",
+      "exitCode": 0
+    },
+    {
+      "label": "只读容器标签及状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"id\":{{json .Id}},\"name\":{{json .Name}},\"project\":{{json (index .Config.Labels \"com.docker.compose.project\")}},\"service\":{{json (index .Config.Labels \"com.docker.compose.service\")}},\"running\":{{json .State.Running}},\"startedAt\":{{json .State.StartedAt}},\"finishedAt\":{{json .State.FinishedAt}}}",
+        "17a9f54924b3e56bf687795fbe580153f874c6c90a3ce6b23733afeb000b913c",
+        "9f141636593f4ad5b69da63d334a264096a8d17466be974d1a3be88f4c56d115",
+        "b5273cac32765c37d2849745436cf0bb99bebd6788ab044bc742400d0f1de8da",
+        "52fd69fa5728c9a66267e107bfd5e19cbef4b8948848aed4404aac8bf8b7cf32",
+        "cc162c3d7d5fe66823e4986371df43019d88907282569964e616b49b87e20bbd",
+        "734c750d6099fff55cd4dcc7f2726a642287b6a0485c0736a54050e3c1ef70a3",
+        "58095d7d6828eb74e4ec863d13d923af7362b495251954fcde9822c8368b8395",
+        "6b3332cc4d3d23a4a2b06f84e0549b44d3fafa3d0a9aad78d639bebcab21a8c0",
+        "144d1146f6b977137cc8b80b2c2832a30a01f9d393e2ba525bab857c440faee2",
+        "a70c19667407649745f366e79cf9e63f6ca08c1be0af6422edc7c81ce941e891",
+        "9d01c836265f5d73b65e3312b6947c4526d0568499198e2e94851cf4fb20a480",
+        "9762fa10fdaba057520b63e7605b98e6bad90890f301baf9dbd26f27836d6b7f",
+        "de7ad129f6f774470fa09a473de9d4252e498932dac21cbec5899b98c6c2f0d8",
+        "9d6bfdff93b1ae65e608fa086a87f38639d77631ef2e925172b930bf1c6f7ea2",
+        "92c5f67d0eb4395d76e303d178791aa8c6f2ba71013002ad730fd1b53b01446c",
+        "d29fab76715282033654ad936da1184a1cb2acbb2fb6573884e80723203f9484",
+        "74c5672cb619029e0adf1ce45da3260590b0a553734bf784cc8f822cf9d39714",
+        "1167a77617be8685f7181a15a50264acfa801f5f59d5bc9144a59a9bb976b7a2",
+        "86c8dad9f0ec5f49c754c9e179da322fbf47b06b4bee5d5cdae72f8662db6d83",
+        "6329b5e18fa8d5050859b1cc65549c7d30fb1d8c863d4f03b4ca2b47bbc5dc77",
+        "7739b45ac7a228ba80a5001935907049df05d99f15b2d5c35083842317e18575",
+        "244279cd4439a69411be28eeb37acece322e69cdc339b4a778c758f8dfa9efd9",
+        "8144d1966c521aff765b4cf5f8bd5f1c2c908796edb7e9fb886def6dabeefa73",
+        "ee27a28b9b480bdfe564bb85198703b7c39c37d90de0c323a195d1cfd2f08c9a",
+        "2e1b71365c314aed697be6252173608a4b3c4d3a0ef5c05a5ca58060e5de0ce5",
+        "455c4edaf6a08a4213ecc7eca3f0901652fd8a0e7041e130271b0b071eda2633",
+        "4234fa49116971675f5d8cdb9651159344c3ae949f15902bd18d40f71e109717",
+        "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+        "273b12bc024bb2fc31ddf1c2c419cf45ab758651c972c37f9bc64c92b35a1858",
+        "8e406ea0b990c0ca6b55852c0cbf93606337a060c351ebf199d12f5cf18bc979"
+      ],
+      "startedAt": "2026-11-14T16:40:18.528Z",
+      "endedAt": "2026-11-14T16:40:18.835Z",
+      "exitCode": 0
+    },
+    {
+      "label": "只读卷名称",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T16:40:18.843Z",
+      "endedAt": "2026-11-14T16:40:18.974Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-47fd45c7_db_data"
+      ],
+      "startedAt": "2026-11-14T16:40:18.976Z",
+      "endedAt": "2026-11-14T16:40:19.101Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-47fd45c7_uploads"
+      ],
+      "startedAt": "2026-11-14T16:40:19.101Z",
+      "endedAt": "2026-11-14T16:40:19.217Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-c3355220_db_data"
+      ],
+      "startedAt": "2026-11-14T16:40:19.217Z",
+      "endedAt": "2026-11-14T16:40:19.329Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-c3355220_uploads"
+      ],
+      "startedAt": "2026-11-14T16:40:19.329Z",
+      "endedAt": "2026-11-14T16:40:19.451Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-af8fa38a_db_data"
+      ],
+      "startedAt": "2026-11-14T16:40:19.451Z",
+      "endedAt": "2026-11-14T16:40:19.619Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-af8fa38a_uploads"
+      ],
+      "startedAt": "2026-11-14T16:40:19.619Z",
+      "endedAt": "2026-11-14T16:40:19.756Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-e867b1de_db_data"
+      ],
+      "startedAt": "2026-11-14T16:40:19.756Z",
+      "endedAt": "2026-11-14T16:40:19.873Z",
+      "exitCode": 0
+    },
+    {
+      "label": "核对独占卷标签",
+      "command": [
+        "docker",
+        "volume",
+        "inspect",
+        "--format",
+        "{\"name\":{{json .Name}},\"project\":{{json (index .Labels \"com.docker.compose.project\")}}}",
+        "self-ecom-m313-acceptance-e867b1de_uploads"
+      ],
+      "startedAt": "2026-11-14T16:40:19.873Z",
+      "endedAt": "2026-11-14T16:40:19.985Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-47fd45c7-api-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "1167a77617be8685f7181a15a50264acfa801f5f59d5bc9144a59a9bb976b7a2"
+      ],
+      "startedAt": "2026-11-14T16:40:19.985Z",
+      "endedAt": "2026-11-14T16:40:20.932Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-47fd45c7-admin-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "74c5672cb619029e0adf1ce45da3260590b0a553734bf784cc8f822cf9d39714"
+      ],
+      "startedAt": "2026-11-14T16:40:20.933Z",
+      "endedAt": "2026-11-14T16:40:21.644Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-47fd45c7-db-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "86c8dad9f0ec5f49c754c9e179da322fbf47b06b4bee5d5cdae72f8662db6d83"
+      ],
+      "startedAt": "2026-11-14T16:40:21.645Z",
+      "endedAt": "2026-11-14T16:40:22.255Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-47fd45c7-store-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "d29fab76715282033654ad936da1184a1cb2acbb2fb6573884e80723203f9484"
+      ],
+      "startedAt": "2026-11-14T16:40:22.255Z",
+      "endedAt": "2026-11-14T16:40:22.942Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-c3355220-db-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "92c5f67d0eb4395d76e303d178791aa8c6f2ba71013002ad730fd1b53b01446c"
+      ],
+      "startedAt": "2026-11-14T16:40:22.943Z",
+      "endedAt": "2026-11-14T16:40:23.612Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-c3355220-store-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "9762fa10fdaba057520b63e7605b98e6bad90890f301baf9dbd26f27836d6b7f"
+      ],
+      "startedAt": "2026-11-14T16:40:23.613Z",
+      "endedAt": "2026-11-14T16:40:24.321Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-c3355220-api-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "9d6bfdff93b1ae65e608fa086a87f38639d77631ef2e925172b930bf1c6f7ea2"
+      ],
+      "startedAt": "2026-11-14T16:40:24.321Z",
+      "endedAt": "2026-11-14T16:40:25.282Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-c3355220-admin-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "de7ad129f6f774470fa09a473de9d4252e498932dac21cbec5899b98c6c2f0d8"
+      ],
+      "startedAt": "2026-11-14T16:40:25.282Z",
+      "endedAt": "2026-11-14T16:40:26.025Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-af8fa38a-store-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "144d1146f6b977137cc8b80b2c2832a30a01f9d393e2ba525bab857c440faee2"
+      ],
+      "startedAt": "2026-11-14T16:40:26.026Z",
+      "endedAt": "2026-11-14T16:40:26.704Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-af8fa38a-admin-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "6b3332cc4d3d23a4a2b06f84e0549b44d3fafa3d0a9aad78d639bebcab21a8c0"
+      ],
+      "startedAt": "2026-11-14T16:40:26.704Z",
+      "endedAt": "2026-11-14T16:40:27.456Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-af8fa38a-db-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "9d01c836265f5d73b65e3312b6947c4526d0568499198e2e94851cf4fb20a480"
+      ],
+      "startedAt": "2026-11-14T16:40:27.457Z",
+      "endedAt": "2026-11-14T16:40:28.051Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-af8fa38a-api-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "a70c19667407649745f366e79cf9e63f6ca08c1be0af6422edc7c81ce941e891"
+      ],
+      "startedAt": "2026-11-14T16:40:28.051Z",
+      "endedAt": "2026-11-14T16:40:28.841Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-e867b1de-api-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "52fd69fa5728c9a66267e107bfd5e19cbef4b8948848aed4404aac8bf8b7cf32"
+      ],
+      "startedAt": "2026-11-14T16:40:28.842Z",
+      "endedAt": "2026-11-14T16:40:29.681Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-e867b1de-db-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "58095d7d6828eb74e4ec863d13d923af7362b495251954fcde9822c8368b8395"
+      ],
+      "startedAt": "2026-11-14T16:40:29.682Z",
+      "endedAt": "2026-11-14T16:40:30.349Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-e867b1de-admin-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "734c750d6099fff55cd4dcc7f2726a642287b6a0485c0736a54050e3c1ef70a3"
+      ],
+      "startedAt": "2026-11-14T16:40:30.349Z",
+      "endedAt": "2026-11-14T16:40:31.011Z",
+      "exitCode": 0
+    },
+    {
+      "label": "停止明确独占容器 /self-ecom-m313-acceptance-e867b1de-store-web-1",
+      "command": [
+        "docker",
+        "stop",
+        "--time",
+        "20",
+        "cc162c3d7d5fe66823e4986371df43019d88907282569964e616b49b87e20bbd"
+      ],
+      "startedAt": "2026-11-14T16:40:31.012Z",
+      "endedAt": "2026-11-14T16:40:31.715Z",
+      "exitCode": 0
+    },
+    {
+      "label": "只读容器ID",
+      "command": [
+        "docker",
+        "ps",
+        "-aq",
+        "--no-trunc"
+      ],
+      "startedAt": "2026-11-14T16:40:31.715Z",
+      "endedAt": "2026-11-14T16:40:32.164Z",
+      "exitCode": 0
+    },
+    {
+      "label": "只读容器标签及状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"id\":{{json .Id}},\"name\":{{json .Name}},\"project\":{{json (index .Config.Labels \"com.docker.compose.project\")}},\"service\":{{json (index .Config.Labels \"com.docker.compose.service\")}},\"running\":{{json .State.Running}},\"startedAt\":{{json .State.StartedAt}},\"finishedAt\":{{json .State.FinishedAt}}}",
+        "17a9f54924b3e56bf687795fbe580153f874c6c90a3ce6b23733afeb000b913c",
+        "9f141636593f4ad5b69da63d334a264096a8d17466be974d1a3be88f4c56d115",
+        "b5273cac32765c37d2849745436cf0bb99bebd6788ab044bc742400d0f1de8da",
+        "52fd69fa5728c9a66267e107bfd5e19cbef4b8948848aed4404aac8bf8b7cf32",
+        "cc162c3d7d5fe66823e4986371df43019d88907282569964e616b49b87e20bbd",
+        "734c750d6099fff55cd4dcc7f2726a642287b6a0485c0736a54050e3c1ef70a3",
+        "58095d7d6828eb74e4ec863d13d923af7362b495251954fcde9822c8368b8395",
+        "6b3332cc4d3d23a4a2b06f84e0549b44d3fafa3d0a9aad78d639bebcab21a8c0",
+        "144d1146f6b977137cc8b80b2c2832a30a01f9d393e2ba525bab857c440faee2",
+        "a70c19667407649745f366e79cf9e63f6ca08c1be0af6422edc7c81ce941e891",
+        "9d01c836265f5d73b65e3312b6947c4526d0568499198e2e94851cf4fb20a480",
+        "9762fa10fdaba057520b63e7605b98e6bad90890f301baf9dbd26f27836d6b7f",
+        "de7ad129f6f774470fa09a473de9d4252e498932dac21cbec5899b98c6c2f0d8",
+        "9d6bfdff93b1ae65e608fa086a87f38639d77631ef2e925172b930bf1c6f7ea2",
+        "92c5f67d0eb4395d76e303d178791aa8c6f2ba71013002ad730fd1b53b01446c",
+        "d29fab76715282033654ad936da1184a1cb2acbb2fb6573884e80723203f9484",
+        "74c5672cb619029e0adf1ce45da3260590b0a553734bf784cc8f822cf9d39714",
+        "1167a77617be8685f7181a15a50264acfa801f5f59d5bc9144a59a9bb976b7a2",
+        "86c8dad9f0ec5f49c754c9e179da322fbf47b06b4bee5d5cdae72f8662db6d83",
+        "6329b5e18fa8d5050859b1cc65549c7d30fb1d8c863d4f03b4ca2b47bbc5dc77",
+        "7739b45ac7a228ba80a5001935907049df05d99f15b2d5c35083842317e18575",
+        "244279cd4439a69411be28eeb37acece322e69cdc339b4a778c758f8dfa9efd9",
+        "8144d1966c521aff765b4cf5f8bd5f1c2c908796edb7e9fb886def6dabeefa73",
+        "ee27a28b9b480bdfe564bb85198703b7c39c37d90de0c323a195d1cfd2f08c9a",
+        "2e1b71365c314aed697be6252173608a4b3c4d3a0ef5c05a5ca58060e5de0ce5",
+        "455c4edaf6a08a4213ecc7eca3f0901652fd8a0e7041e130271b0b071eda2633",
+        "4234fa49116971675f5d8cdb9651159344c3ae949f15902bd18d40f71e109717",
+        "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+        "273b12bc024bb2fc31ddf1c2c419cf45ab758651c972c37f9bc64c92b35a1858",
+        "8e406ea0b990c0ca6b55852c0cbf93606337a060c351ebf199d12f5cf18bc979"
+      ],
+      "startedAt": "2026-11-14T16:40:32.164Z",
+      "endedAt": "2026-11-14T16:40:32.426Z",
+      "exitCode": 0
+    },
+    {
+      "label": "只读卷名称",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T16:40:32.426Z",
+      "endedAt": "2026-11-14T16:40:32.549Z",
+      "exitCode": 0
+    }
+  ],
+  "containers": [
+    {
+      "id": "1167a77617be8685f7181a15a50264acfa801f5f59d5bc9144a59a9bb976b7a2",
+      "name": "/self-ecom-m313-acceptance-47fd45c7-api-1",
+      "project": "self-ecom-m313-acceptance-47fd45c7",
+      "service": "api",
+      "running": true,
+      "startedAt": "2026-11-14T16:05:07.020530107Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "1167a77617be8685f7181a15a50264acfa801f5f59d5bc9144a59a9bb976b7a2",
+        "name": "/self-ecom-m313-acceptance-47fd45c7-api-1",
+        "project": "self-ecom-m313-acceptance-47fd45c7",
+        "service": "api",
+        "running": false,
+        "startedAt": "2026-11-14T16:05:07.020530107Z",
+        "finishedAt": "2026-11-14T16:40:20.366491966Z"
+      }
+    },
+    {
+      "id": "74c5672cb619029e0adf1ce45da3260590b0a553734bf784cc8f822cf9d39714",
+      "name": "/self-ecom-m313-acceptance-47fd45c7-admin-web-1",
+      "project": "self-ecom-m313-acceptance-47fd45c7",
+      "service": "admin-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:05:13.093928647Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "74c5672cb619029e0adf1ce45da3260590b0a553734bf784cc8f822cf9d39714",
+        "name": "/self-ecom-m313-acceptance-47fd45c7-admin-web-1",
+        "project": "self-ecom-m313-acceptance-47fd45c7",
+        "service": "admin-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:05:13.093928647Z",
+        "finishedAt": "2026-11-14T16:40:21.221025018Z"
+      }
+    },
+    {
+      "id": "86c8dad9f0ec5f49c754c9e179da322fbf47b06b4bee5d5cdae72f8662db6d83",
+      "name": "/self-ecom-m313-acceptance-47fd45c7-db-1",
+      "project": "self-ecom-m313-acceptance-47fd45c7",
+      "service": "db",
+      "running": true,
+      "startedAt": "2026-11-14T16:04:46.677034066Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "86c8dad9f0ec5f49c754c9e179da322fbf47b06b4bee5d5cdae72f8662db6d83",
+        "name": "/self-ecom-m313-acceptance-47fd45c7-db-1",
+        "project": "self-ecom-m313-acceptance-47fd45c7",
+        "service": "db",
+        "running": false,
+        "startedAt": "2026-11-14T16:04:46.677034066Z",
+        "finishedAt": "2026-11-14T16:40:21.80530192Z"
+      }
+    },
+    {
+      "id": "d29fab76715282033654ad936da1184a1cb2acbb2fb6573884e80723203f9484",
+      "name": "/self-ecom-m313-acceptance-47fd45c7-store-web-1",
+      "project": "self-ecom-m313-acceptance-47fd45c7",
+      "service": "store-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:05:12.819163181Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "d29fab76715282033654ad936da1184a1cb2acbb2fb6573884e80723203f9484",
+        "name": "/self-ecom-m313-acceptance-47fd45c7-store-web-1",
+        "project": "self-ecom-m313-acceptance-47fd45c7",
+        "service": "store-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:05:12.819163181Z",
+        "finishedAt": "2026-11-14T16:40:22.536715085Z"
+      }
+    },
+    {
+      "id": "92c5f67d0eb4395d76e303d178791aa8c6f2ba71013002ad730fd1b53b01446c",
+      "name": "/self-ecom-m313-acceptance-c3355220-db-1",
+      "project": "self-ecom-m313-acceptance-c3355220",
+      "service": "db",
+      "running": true,
+      "startedAt": "2026-11-14T16:20:18.205978336Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "92c5f67d0eb4395d76e303d178791aa8c6f2ba71013002ad730fd1b53b01446c",
+        "name": "/self-ecom-m313-acceptance-c3355220-db-1",
+        "project": "self-ecom-m313-acceptance-c3355220",
+        "service": "db",
+        "running": false,
+        "startedAt": "2026-11-14T16:20:18.205978336Z",
+        "finishedAt": "2026-11-14T16:40:23.112549357Z"
+      }
+    },
+    {
+      "id": "9762fa10fdaba057520b63e7605b98e6bad90890f301baf9dbd26f27836d6b7f",
+      "name": "/self-ecom-m313-acceptance-c3355220-store-web-1",
+      "project": "self-ecom-m313-acceptance-c3355220",
+      "service": "store-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:20:45.65005662Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "9762fa10fdaba057520b63e7605b98e6bad90890f301baf9dbd26f27836d6b7f",
+        "name": "/self-ecom-m313-acceptance-c3355220-store-web-1",
+        "project": "self-ecom-m313-acceptance-c3355220",
+        "service": "store-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:20:45.65005662Z",
+        "finishedAt": "2026-11-14T16:40:23.887923476Z"
+      }
+    },
+    {
+      "id": "9d6bfdff93b1ae65e608fa086a87f38639d77631ef2e925172b930bf1c6f7ea2",
+      "name": "/self-ecom-m313-acceptance-c3355220-api-1",
+      "project": "self-ecom-m313-acceptance-c3355220",
+      "service": "api",
+      "running": true,
+      "startedAt": "2026-11-14T16:20:39.510072619Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "9d6bfdff93b1ae65e608fa086a87f38639d77631ef2e925172b930bf1c6f7ea2",
+        "name": "/self-ecom-m313-acceptance-c3355220-api-1",
+        "project": "self-ecom-m313-acceptance-c3355220",
+        "service": "api",
+        "running": false,
+        "startedAt": "2026-11-14T16:20:39.510072619Z",
+        "finishedAt": "2026-11-14T16:40:24.680139022Z"
+      }
+    },
+    {
+      "id": "de7ad129f6f774470fa09a473de9d4252e498932dac21cbec5899b98c6c2f0d8",
+      "name": "/self-ecom-m313-acceptance-c3355220-admin-web-1",
+      "project": "self-ecom-m313-acceptance-c3355220",
+      "service": "admin-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:20:45.290736574Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "de7ad129f6f774470fa09a473de9d4252e498932dac21cbec5899b98c6c2f0d8",
+        "name": "/self-ecom-m313-acceptance-c3355220-admin-web-1",
+        "project": "self-ecom-m313-acceptance-c3355220",
+        "service": "admin-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:20:45.290736574Z",
+        "finishedAt": "2026-11-14T16:40:25.562377578Z"
+      }
+    },
+    {
+      "id": "144d1146f6b977137cc8b80b2c2832a30a01f9d393e2ba525bab857c440faee2",
+      "name": "/self-ecom-m313-acceptance-af8fa38a-store-web-1",
+      "project": "self-ecom-m313-acceptance-af8fa38a",
+      "service": "store-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:22:38.032563052Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "144d1146f6b977137cc8b80b2c2832a30a01f9d393e2ba525bab857c440faee2",
+        "name": "/self-ecom-m313-acceptance-af8fa38a-store-web-1",
+        "project": "self-ecom-m313-acceptance-af8fa38a",
+        "service": "store-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:22:38.032563052Z",
+        "finishedAt": "2026-11-14T16:40:26.280174376Z"
+      }
+    },
+    {
+      "id": "6b3332cc4d3d23a4a2b06f84e0549b44d3fafa3d0a9aad78d639bebcab21a8c0",
+      "name": "/self-ecom-m313-acceptance-af8fa38a-admin-web-1",
+      "project": "self-ecom-m313-acceptance-af8fa38a",
+      "service": "admin-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:22:37.710445156Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "6b3332cc4d3d23a4a2b06f84e0549b44d3fafa3d0a9aad78d639bebcab21a8c0",
+        "name": "/self-ecom-m313-acceptance-af8fa38a-admin-web-1",
+        "project": "self-ecom-m313-acceptance-af8fa38a",
+        "service": "admin-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:22:37.710445156Z",
+        "finishedAt": "2026-11-14T16:40:26.979804517Z"
+      }
+    },
+    {
+      "id": "9d01c836265f5d73b65e3312b6947c4526d0568499198e2e94851cf4fb20a480",
+      "name": "/self-ecom-m313-acceptance-af8fa38a-db-1",
+      "project": "self-ecom-m313-acceptance-af8fa38a",
+      "service": "db",
+      "running": true,
+      "startedAt": "2026-11-14T16:22:09.215911005Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "9d01c836265f5d73b65e3312b6947c4526d0568499198e2e94851cf4fb20a480",
+        "name": "/self-ecom-m313-acceptance-af8fa38a-db-1",
+        "project": "self-ecom-m313-acceptance-af8fa38a",
+        "service": "db",
+        "running": false,
+        "startedAt": "2026-11-14T16:22:09.215911005Z",
+        "finishedAt": "2026-11-14T16:40:27.638254574Z"
+      }
+    },
+    {
+      "id": "a70c19667407649745f366e79cf9e63f6ca08c1be0af6422edc7c81ce941e891",
+      "name": "/self-ecom-m313-acceptance-af8fa38a-api-1",
+      "project": "self-ecom-m313-acceptance-af8fa38a",
+      "service": "api",
+      "running": true,
+      "startedAt": "2026-11-14T16:22:31.251182747Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "a70c19667407649745f366e79cf9e63f6ca08c1be0af6422edc7c81ce941e891",
+        "name": "/self-ecom-m313-acceptance-af8fa38a-api-1",
+        "project": "self-ecom-m313-acceptance-af8fa38a",
+        "service": "api",
+        "running": false,
+        "startedAt": "2026-11-14T16:22:31.251182747Z",
+        "finishedAt": "2026-11-14T16:40:28.407137613Z"
+      }
+    },
+    {
+      "id": "52fd69fa5728c9a66267e107bfd5e19cbef4b8948848aed4404aac8bf8b7cf32",
+      "name": "/self-ecom-m313-acceptance-e867b1de-api-1",
+      "project": "self-ecom-m313-acceptance-e867b1de",
+      "service": "api",
+      "running": true,
+      "startedAt": "2026-11-14T16:28:25.664412808Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "52fd69fa5728c9a66267e107bfd5e19cbef4b8948848aed4404aac8bf8b7cf32",
+        "name": "/self-ecom-m313-acceptance-e867b1de-api-1",
+        "project": "self-ecom-m313-acceptance-e867b1de",
+        "service": "api",
+        "running": false,
+        "startedAt": "2026-11-14T16:28:25.664412808Z",
+        "finishedAt": "2026-11-14T16:40:29.095746841Z"
+      }
+    },
+    {
+      "id": "58095d7d6828eb74e4ec863d13d923af7362b495251954fcde9822c8368b8395",
+      "name": "/self-ecom-m313-acceptance-e867b1de-db-1",
+      "project": "self-ecom-m313-acceptance-e867b1de",
+      "service": "db",
+      "running": true,
+      "startedAt": "2026-11-14T16:28:17.793981556Z",
+      "finishedAt": "2026-11-14T16:28:16.825397988Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "58095d7d6828eb74e4ec863d13d923af7362b495251954fcde9822c8368b8395",
+        "name": "/self-ecom-m313-acceptance-e867b1de-db-1",
+        "project": "self-ecom-m313-acceptance-e867b1de",
+        "service": "db",
+        "running": false,
+        "startedAt": "2026-11-14T16:28:17.793981556Z",
+        "finishedAt": "2026-11-14T16:40:29.896159148Z"
+      }
+    },
+    {
+      "id": "734c750d6099fff55cd4dcc7f2726a642287b6a0485c0736a54050e3c1ef70a3",
+      "name": "/self-ecom-m313-acceptance-e867b1de-admin-web-1",
+      "project": "self-ecom-m313-acceptance-e867b1de",
+      "service": "admin-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:27:47.223781527Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "734c750d6099fff55cd4dcc7f2726a642287b6a0485c0736a54050e3c1ef70a3",
+        "name": "/self-ecom-m313-acceptance-e867b1de-admin-web-1",
+        "project": "self-ecom-m313-acceptance-e867b1de",
+        "service": "admin-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:27:47.223781527Z",
+        "finishedAt": "2026-11-14T16:40:30.585078951Z"
+      }
+    },
+    {
+      "id": "cc162c3d7d5fe66823e4986371df43019d88907282569964e616b49b87e20bbd",
+      "name": "/self-ecom-m313-acceptance-e867b1de-store-web-1",
+      "project": "self-ecom-m313-acceptance-e867b1de",
+      "service": "store-web",
+      "running": true,
+      "startedAt": "2026-11-14T16:27:47.522283011Z",
+      "finishedAt": "0001-01-01T00:00:00Z",
+      "stopExitCode": 0,
+      "wasAlreadyStopped": false,
+      "after": {
+        "id": "cc162c3d7d5fe66823e4986371df43019d88907282569964e616b49b87e20bbd",
+        "name": "/self-ecom-m313-acceptance-e867b1de-store-web-1",
+        "project": "self-ecom-m313-acceptance-e867b1de",
+        "service": "store-web",
+        "running": false,
+        "startedAt": "2026-11-14T16:27:47.522283011Z",
+        "finishedAt": "2026-11-14T16:40:31.272416964Z"
+      }
+    }
+  ],
+  "volumes": [
+    {
+      "name": "self-ecom-m313-acceptance-47fd45c7_db_data",
+      "project": "self-ecom-m313-acceptance-47fd45c7"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-47fd45c7_uploads",
+      "project": "self-ecom-m313-acceptance-47fd45c7"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-c3355220_db_data",
+      "project": "self-ecom-m313-acceptance-c3355220"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-c3355220_uploads",
+      "project": "self-ecom-m313-acceptance-c3355220"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-af8fa38a_db_data",
+      "project": "self-ecom-m313-acceptance-af8fa38a"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-af8fa38a_uploads",
+      "project": "self-ecom-m313-acceptance-af8fa38a"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-e867b1de_db_data",
+      "project": "self-ecom-m313-acceptance-e867b1de"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-e867b1de_uploads",
+      "project": "self-ecom-m313-acceptance-e867b1de"
+    }
+  ],
+  "removed": false,
+  "preflight": {
+    "projects": 4,
+    "containers": 16,
+    "volumes": 8,
+    "protectedContainers": 14,
+    "protectedVolumes": 14
+  },
+  "profiles": [
+    {
+      "path": "output\\playwright\\M3-13\\docker-final\\profile",
+      "retained": true
+    },
+    {
+      "path": "output\\playwright\\M3-13\\docker-browser-final\\profile",
+      "retained": true
+    },
+    {
+      "path": "output\\playwright\\M3-13\\docker-browser-selector-fixed\\profile",
+      "retained": true
+    },
+    {
+      "path": "output\\playwright\\M3-13\\docker-browser-complete\\profile",
+      "retained": true
+    }
+  ],
+  "originalContainersUnchanged": true,
+  "allVolumesRetained": true,
+  "retainedVolumeCount": 8,
+  "status": "stopped",
+  "endedAt": "2026-11-14T16:40:32.554Z"
+}

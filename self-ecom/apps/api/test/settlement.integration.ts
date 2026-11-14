@@ -151,7 +151,7 @@ it('真实已交运仅退款不回补，完成后全退保留完成/支付历史
 });
 
 
-it('0014旧账号库存订单支付快照无损升级0015，重复deploy幂等',async()=>{
+it('0014旧账号库存订单支付快照无损升级0016，重复deploy幂等',async()=>{
  const name='m312_upgrade_'+randomUUID().replaceAll('-','')+'_test',url=new URL(process.env.DATABASE_URL!);url.pathname='/'+name;const adminUrl=new URL(url);adminUrl.pathname='/postgres';
  const connection=new Client({connectionString:adminUrl.toString()}),old=new Client({connectionString:url.toString()}),scratch=mkdtempSync(join(tmpdir(),'self-ecom-m312-upgrade-')),migrations=join(scratch,'migrations');mkdirSync(migrations);
  const root=resolve('prisma/migrations');for(const item of readdirSync(root).filter(n=>/^\d+_/.test(n)&&n<'0015_')){mkdirSync(join(migrations,item));copyFileSync(join(root,item,'migration.sql'),join(migrations,item,'migration.sql'));}copyFileSync(join(root,'migration_lock.toml'),join(migrations,'migration_lock.toml'));
@@ -161,7 +161,7 @@ it('0014旧账号库存订单支付快照无损升级0015，重复deploy幂等',
   const selections:[string,string,unknown[]][]=[['employee','',[]],['customer','WHERE id=$1',[f.c.actor.subjectId]],['store_setting_version','',[]],['product','WHERE id=$1',[sku.productId]],['sku','WHERE id=$1',[sku.id]],['inventory_balance','WHERE sku_id=$1',[sku.id]],['address','WHERE id=$1',[order.sourceAddressId]],['checkout_quote','WHERE id=$1',[order.quoteId]],['checkout_quote_item','WHERE quote_id=$1',[order.quoteId]],['order','WHERE id=$1',[f.id]],['order_item','WHERE order_id=$1',[f.id]],['payment','WHERE order_id=$1',[f.id]]];
   for(const [table,where,params]of selections){const rows=await db.$queryRawUnsafe<{row:unknown}[]>(`SELECT to_jsonb(t) AS row FROM "${table}" t ${where}`, ...params);for(const {row}of rows)await old.query(`INSERT INTO "${table}" SELECT * FROM jsonb_populate_record(NULL::"${table}",$1::jsonb)`,[JSON.stringify(row)]);}
   const snapshot=async()=>{const values:Record<string,unknown>={};for(const [table]of selections)values[table]=(await old.query(`SELECT to_jsonb(t) - 'shipment_reclaim_required' AS row FROM "${table}" t ORDER BY to_jsonb(t)::text`)).rows;return values;};const before=await snapshot();
-  runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);expect((await old.query('SELECT shipment_reclaim_required FROM "order"')).rows).toEqual([{shipment_reclaim_required:false}]);expect((await old.query('SELECT count(*)::int AS n FROM _prisma_migrations WHERE finished_at IS NOT NULL')).rows[0].n).toBe(15);
+  runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);expect((await old.query('SELECT shipment_reclaim_required FROM "order"')).rows).toEqual([{shipment_reclaim_required:false}]);expect((await old.query('SELECT count(*)::int AS n FROM _prisma_migrations WHERE finished_at IS NOT NULL')).rows[0].n).toBe(16);
   runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);
  }finally{if(connected)await old.end();if(created)await connection.query(`DROP DATABASE "${name}"`);await connection.end();console.log('保留本轮升级临时目录：'+scratch);}
 },90000);

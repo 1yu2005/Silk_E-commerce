@@ -1,0 +1,24 @@
+// 作用：争议与物品事件的严格契约，保留原售后命令结果壳。
+import {object,array,integer,text,uuid,nullable,bool} from '../customers/customer.openapi.js';
+import {date} from '../orders/order.openapi.js';
+import {result as saleResult} from '../after-sales/after-sale.openapi.js';
+export {endpoint,idParam} from '../after-sales/after-sale.openapi.js';
+const version=integer(2147483646),base={commandKey:uuid,expectedAfterSaleVersion:version,expectedOrderVersion:version,reason:text(500)},physical={expectedPhysicalVersion:version,expectedReturnPhysicalVersion:version},files={...array(uuid,5),uniqueItems:true};
+export const followupBody=object(base);
+export const requestBody=object({...base,...physical,kind:{type:'string',enum:['CLOSE_WITH_CUSTODY','STOP_UNSHIPPED_REFUND','OTHER_DISPUTE']},communicationId:uuid,expectedTaskVersion:version,proposal:text(2000),publicExplanation:text(1000)});
+const planFields={orderItemId:uuid,returnReceiptId:uuid,unmatchedItemId:uuid,description:text(1000),quantity:integer(),disposition:{type:'string' as const,enum:['KEEP_IN_CUSTODY','RETURN_TO_CUSTOMER','IN_TRANSIT_UNRECEIVED','NO_GOODS']},custodianEmployeeId:uuid,location:text(200,0),plannedAction:text(1000),nextFollowAt:date};
+export const plan=object(planFields,['description','quantity','disposition','location','plannedAction']);
+const closeFields={...base,...physical,disputeRequestId:uuid,decision:{type:'string' as const,enum:['CLOSE_BEFORE_FINAL_INSPECTION','STOP_UNSHIPPED_REFUND']},expectedTaskVersion:version,physicalCheckId:uuid,approvalId:uuid,custodyItems:array(plan,300),publicExplanation:text(1000),evidenceSummary:text(2000),evidenceFileIds:files};
+export const closeBody=object(closeFields,Object.keys(closeFields).filter(k=>!['physicalCheckId','approvalId'].includes(k)));
+export const result={...saleResult,properties:{...('properties'in saleResult?saleResult.properties:{}),taskId:uuid,disputeRequestId:uuid,disputeDecisionId:uuid,offlineCaseId:uuid}};
+const request=object({id:uuid,afterSaleId:uuid,kind:text(40),basedAfterSaleVersion:integer(),basedOrderPhysicalVersion:nullable(integer()),basedReturnPhysicalVersion:nullable(integer()),communicationId:uuid,proposal:text(2000),publicExplanation:text(1000),createdById:uuid,createdAt:date,status:text(20)});
+const decision=object({id:uuid,requestId:uuid,afterSaleId:uuid,decision:text(50),fromStatus:text(40),reason:text(500),publicExplanation:text(1000),evidenceSummary:text(2000),decidedById:uuid,decidedAt:date,checkedPhysicalVersion:integer(),checkedReturnPhysicalVersion:integer(),relatedCheckId:nullable(uuid),approvalId:nullable(uuid),commandKey:uuid,requestIdTrace:text(64)});
+export const arrangement=object({id:uuid,disputeDecisionId:uuid,afterSaleId:uuid,orderItemId:nullable(uuid),returnReceiptId:nullable(uuid),unmatchedItemId:nullable(uuid),description:text(1000),quantity:integer(),disposition:text(40),custodianEmployeeId:nullable(uuid),location:text(200,0),plannedAction:text(1000),nextFollowAt:nullable(date),status:text(20),followOfflineCaseId:nullable(uuid),version:integer(),createdAt:date});
+export const detail=object({requests:array(request),decisions:array(decision),arrangements:array(arrangement)});
+const eventFields={commandKey:uuid,expectedArrangementVersion:version,expectedTaskVersion:version,kind:{type:'string' as const,enum:['HANDOVER','RETURN_DISPATCH','RECEIPT_CONFIRMED','LOCATION_CHANGED','EXCEPTION','CORRECTION']},occurredAt:date,quantity:integer(),carrier:text(60),tracking:text(100),location:text(200),correctsEventId:uuid,evidenceNote:text(2000),publicText:text(1000),reason:text(500),evidenceFileIds:files};
+export const eventBody=object(eventFields,Object.keys(eventFields).filter(k=>!['carrier','tracking','location','correctsEventId','publicText'].includes(k)));
+const event=object({evidenceFileIds:array(uuid,5),id:uuid,arrangementId:uuid,kind:text(30),occurredAt:date,quantity:integer(),carrier:nullable(text(60)),tracking:nullable(text(100)),location:nullable(text(200)),actorEmployeeId:uuid,evidenceNote:text(2000),publicText:nullable(text(1000)),correctsEventId:nullable(uuid),commandKey:uuid,requestId:text(64),createdAt:date});
+export const custodyDetail={...arrangement,properties:{...('properties'in arrangement?arrangement.properties:{}),orderId:uuid,events:array(event),tasks:array(object({id:uuid,stage:text(40),round:integer(),status:text(20),version:integer(),assigneeId:nullable(uuid),dueAt:nullable(date),canClaim:bool}))},required:[...('required'in arrangement?arrangement.required??[]:[]),'orderId','events','tasks']};
+export const eventResult=object({arrangementId:uuid,eventId:uuid,version:integer(),replayed:bool});
+export const correctionBody=object({commandKey:uuid,expectedArrangementVersion:version,reason:text(500)});
+export const correctionResult=object({arrangementId:uuid,taskId:uuid,replayed:bool});

@@ -30,6 +30,10 @@ export function uploadedBy(asset: Pick<FileAsset, 'uploaderType' | 'uploaderCust
     ? asset.uploaderCustomerId : asset.uploaderEmployeeId) === actor.subjectId;
 }
 export const ownerPolicies: Record<FileOwnerType, { purpose: FilePurpose; slots: readonly string[]; max: number; public: boolean }> = {
+  PROXY_VERIFICATION: {purpose:'COMMUNICATION_EVIDENCE',slots:['evidence'],max:5,public:false},
+  DISPUTE_DECISION: {purpose:'COMMUNICATION_EVIDENCE',slots:['evidence'],max:5,public:false},
+  CUSTODY_EVENT: {purpose:'INSPECTION_EVIDENCE',slots:['evidence'],max:5,public:false},
+  OFFLINE_CASE_EVENT: {purpose:'COMMUNICATION_EVIDENCE',slots:['evidence'],max:5,public:false},
   ORDER_ITEM: { purpose: 'PRODUCT_IMAGE', slots: ['snapshot'], max: 1, public: true },
   STOCK_INCIDENT: { purpose: 'INVENTORY_EVIDENCE', slots: ['evidence'], max: 5, public: false },
   HANDOVER_VERIFICATION: { purpose: 'FULFILLMENT_EVIDENCE', slots: ['evidence'], max: 5, public: false },

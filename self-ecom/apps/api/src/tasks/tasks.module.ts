@@ -12,6 +12,7 @@ import { TaskAccessService } from './task-access.service.js';
 import { TaskQueryService } from './task-query.service.js';
 import { TaskCommandService } from './task-command.service.js';
 import { TasksController } from './tasks.controller.js';
+import {TaskIdentityEffects} from './task-identity-effects.js';
 import { TaskEligibilityService } from './task-eligibility.service.js';
 import { TaskDeadlineService } from './task-deadline.service.js';
 import { TaskDeadlineEventsService } from './task-deadline-events.service.js';
@@ -21,7 +22,7 @@ import { OrderTimerRepositories, OrderTimerService } from './order-timer.service
 import { TaskOverdueScanService } from './task-overdue-scan.service.js';
 import { TaskSchedulerService } from './task-scheduler.service.js';
 @Module({ imports: [AuthGuardModule, AuditModule, TimeModule, StoreSettingsModule, PermissionModule], controllers: [TasksController],
-  providers: [TaskBusinessAdapters, TaskLockService, TaskEntryService, TaskAccessService, TaskQueryService, TaskCommandService, TaskEligibilityService,
+  providers: [TaskIdentityEffects,TaskBusinessAdapters, TaskLockService, TaskEntryService, TaskAccessService, TaskQueryService, TaskCommandService, TaskEligibilityService,
     TaskDeadlineService, TaskDeadlineEventsService, TaskLifecycleService, TaskSourceService, OrderTimerRepositories, OrderTimerService, TaskOverdueScanService, TaskSchedulerService],
-  exports: [TaskBusinessAdapters, TaskEntryService, TaskCommandService, TaskEligibilityService, TaskLifecycleService, TaskSourceService, TaskDeadlineEventsService, OrderTimerRepositories, OrderTimerService, TaskOverdueScanService] })
+  exports: [TaskIdentityEffects,TaskBusinessAdapters, TaskEntryService, TaskCommandService, TaskEligibilityService, TaskLifecycleService, TaskSourceService, TaskDeadlineEventsService, OrderTimerRepositories, OrderTimerService, TaskOverdueScanService] })
 export class TasksModule {}

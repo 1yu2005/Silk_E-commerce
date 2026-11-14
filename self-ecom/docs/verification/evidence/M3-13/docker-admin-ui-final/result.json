@@ -1,0 +1,126 @@
+{
+  "startedAt": "2026-11-14T16:16:50.243Z",
+  "imagePrefix": "self-ecom-m313-acceptance-88459108",
+  "commands": [
+    {
+      "label": "只读原容器清单",
+      "command": [
+        "docker",
+        "ps",
+        "-aq"
+      ],
+      "startedAt": "2026-11-14T16:16:50.245Z",
+      "endedAt": "2026-11-14T16:16:50.675Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-admin-ui-final\\command-0.log"
+    },
+    {
+      "label": "只读原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "d29fab767152",
+        "74c5672cb619",
+        "1167a77617be",
+        "86c8dad9f0ec",
+        "5ee1597a1f58",
+        "e418a6f26617",
+        "88a67a64cbf8",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T16:16:50.675Z",
+      "endedAt": "2026-11-14T16:16:50.931Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-admin-ui-final\\command-1.log"
+    },
+    {
+      "label": "顺序构建 admin-web",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-88459108",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-admin-ui-final\\compose.override.yaml",
+        "build",
+        "admin-web"
+      ],
+      "startedAt": "2026-11-14T16:16:50.931Z",
+      "endedAt": "2026-11-14T16:19:28.915Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-admin-ui-final\\command-2.log"
+    },
+    {
+      "label": "冻结构建镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m313-acceptance-88459108-admin:local"
+      ],
+      "startedAt": "2026-11-14T16:19:28.919Z",
+      "endedAt": "2026-11-14T16:19:29.154Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-admin-ui-final\\command-3.log"
+    },
+    {
+      "label": "只读原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "d29fab767152",
+        "74c5672cb619",
+        "1167a77617be",
+        "86c8dad9f0ec",
+        "5ee1597a1f58",
+        "e418a6f26617",
+        "88a67a64cbf8",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T16:19:29.155Z",
+      "endedAt": "2026-11-14T16:19:29.586Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-admin-ui-final\\command-4.log"
+    }
+  ],
+  "images": [
+    {
+      "service": "admin-web",
+      "name": "self-ecom-m313-acceptance-88459108-admin:local",
+      "id": "sha256:bf86cdddf0c5b70b8f3cc95e5f972007ac3973e9801608887ad428701463ca6c"
+    }
+  ],
+  "originalResourcesPreserved": true,
+  "status": "built",
+  "endedAt": "2026-11-14T16:19:29.586Z"
+}

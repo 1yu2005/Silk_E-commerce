@@ -1,0 +1,251 @@
+Datasource "db": PostgreSQL database "m105_4b1a291cf3a245848d238fc906fb4883_test", schema "public" at "localhost:15432"
+
+16 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+Applying migration `0015_return_inspections_physical_checks_refunds`
+Applying migration `0016_exception_coordination`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+  └─ 0015_return_inspections_physical_checks_refunds/
+    └─ migration.sql
+  └─ 0016_exception_coordination/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/proxy.integration.ts (10 tests | 9 failed) 6611ms
+   × 核实只建立OPEN来源，未领取不可代录；真实员工申请且不自动批准，旧顾客会话失效 738ms
+   × 原键在已消费、过期和解冻后仍恢复同结果；异体/新键不能再用已消费核实 556ms
+   × 上下文不跨员工/订单/动作；普通仓储无身份核实权限 405ms
+   × 同键并发最多一次售后与消费，限流请求沿原键恢复，不产生重复任务轮次 492ms
+   × 过期只消费本来源，多个核实共享一个有效任务；重复补扫不造新轮或关闭售后 523ms
+   × 解冻/再冻结即时失效未消费核实，已成功事实保持；同状态幂等不误失效 596ms
+   × 尚未领单的核实也随员工停用失效，原凭证不能重放敏感资料 380ms
+   × 真实补充原材料不另造申请、审核新轮；代理不要求客服先领取审核跟进任务 735ms
+   × 代录末端故障整事务回滚，核实/文件/Task/售后不留半成品，原键可重试 505ms
+
+ Test Files  1 failed (1)
+      Tests  9 failed | 1 passed (10)
+   Start at  23:11:01
+   Duration  10.17s (tests 66%, import 20%, transform 14%)
+
+{"suite":"test/proxy.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+(node:34516) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/proxy.integration.ts > 核实只建立OPEN来源，未领取不可代录；真实员工申请且不自动批准，旧顾客会话失效
+AssertionError: expected ContractError: 命令载荷不符合规范 { …(2) } to match object { code: 'TASK_NOT_ASSIGNEE' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "TASK_NOT_ASSIGNEE",
++ ContractError {
++   "code": "COMMAND_PAYLOAD_INVALID",
+  }
+
+ ❯ test/proxy.integration.ts:56:308
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/9]⎯
+
+ FAIL  test/proxy.integration.ts > 原键在已消费、过期和解冻后仍恢复同结果；异体/新键不能再用已消费核实
+ContractError: 命令载荷不符合规范
+ ❯ namespace src/common/command-fingerprint.ts:14:62
+     12|     || !/^[a-z][a-z0-9.-]{0,99}$/.test(input.command) || !Number.isSaf…
+     13|     || !['CUSTOMER', 'EMPLOYEE', 'SYSTEM'].includes(input.actor.type)
+     14|     || !/^[A-Za-z0-9_-]{1,128}$/.test(input.actor.id)) throw new Contr…
+       |                                                              ^
+     15|   return { command: input.command, version: input.version, actor: { ty…
+     16| }
+ ❯ commandFingerprint src/common/command-fingerprint.ts:19:57
+ ❯ ProxyInputService.fingerprint src/coordination/proxy-input.service.ts:33:76
+ ❯ ProxyInputService.executeInTransaction src/coordination/proxy-input.service.ts:60:343
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:39:74
+ ❯ test/proxy.integration.ts:59:134
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/9]⎯
+
+ FAIL  test/proxy.integration.ts > 上下文不跨员工/订单/动作；普通仓储无身份核实权限
+AssertionError: expected ContractError: 命令载荷不符合规范 { …(2) } to match object { code: 'PROXY_CONTEXT_MISMATCH' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "PROXY_CONTEXT_MISMATCH",
++ ContractError {
++   "code": "COMMAND_PAYLOAD_INVALID",
+  }
+
+ ❯ test/proxy.integration.ts:62:242
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/9]⎯
+
+ FAIL  test/proxy.integration.ts > 同键并发最多一次售后与消费，限流请求沿原键恢复，不产生重复任务轮次
+AssertionError: expected ContractError: 命令载荷不符合规范 { …(2) } to match object { code: 'REQUEST_IN_PROGRESS' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "REQUEST_IN_PROGRESS",
++ ContractError {
++   "code": "COMMAND_PAYLOAD_INVALID",
+  }
+
+ ❯ test/proxy.integration.ts:66:309
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/9]⎯
+
+ FAIL  test/proxy.integration.ts > 过期只消费本来源，多个核实共享一个有效任务；重复补扫不造新轮或关闭售后
+AssertionError: expected ContractError: 命令载荷不符合规范 { …(2) } to match object { code: 'PROXY_CONTEXT_EXPIRED' }
+(2 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "PROXY_CONTEXT_EXPIRED",
++ ContractError {
++   "code": "COMMAND_PAYLOAD_INVALID",
+  }
+
+ ❯ test/proxy.integration.ts:69:347
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/9]⎯
+
+ FAIL  test/proxy.integration.ts > 解冻/再冻结即时失效未消费核实，已成功事实保持；同状态幂等不误失效
+PrismaClientKnownRequestError:
+Invalid `db.task.findFirstOrThrow()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/proxy.integration.ts:50:84
+
+  47 async function communication(orderId:string,actor=support){return db.$transaction(tx=>app.get(CommunicationService).appendCommunication(tx,{identity:actor.actor,token:[REDACTED],{scopeType:'ORDER',scopeId:orderId,channel:'PHONE',occurredAt:new Date(),result:'本轮线下回拨并交叉核对原订单，顾客明确提出本次指定售后输入',publicText:'已收到本次售后诉求',requestId:randomUUID()}));}
+  48 async function context(f:Awaited<ReturnType<typeof paid>>,extra:Partial<D.CreateProxyContextDto>={},actor=support){const o=await db.order.findUniqueOrThrow({where:{id:f.id}}),c=await db.customer.findUniqueOrThrow({where:{id:f.c.actor.subjectId}}),comm=await communication(f.id,actor);return proxy().create(actor,c.id,{orderId:f.id,action:'APPLY_AFTER_SALE',method:'PHONE_CALLBACK',verificationSummary:'本轮线下真实核实过程摘要，不保存密码或证件',sourceCommunicationId:comm.id,expectedCustomerStatusVersion:c.statusVersion,expectedOrderVersion:o.version,commandKey:randomUUID(),reason:'本轮顾客明确本次输入',...extra});}
+  49 async function claim(orderId:string,actor=support){const t=await db.task.findFirstOrThrow({where:{businessType:'ORDER',businessId:orderId,stage:'PROXY_INPUT',status:{in:['OPEN','CLAIMED']}}});if(t.status==='OPEN')await app.get(TaskCommandService).claim(actor.actor,actor.token,t.id,{expectedVersion:t.version},randomUUID());return db.task.findUniqueOrThrow({where:{id:t.id}});}
+→ 50 async function applyBody(f:Awaited<ReturnType<typeof paid>>){const t=await db.task.findFirstOrThrow(
+An operation failed because it depends on one or more records that were required but not found. No record was found for a query.
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ applyBody test/proxy.integration.ts:50:70
+
+ ❯ test/proxy.integration.ts:72:560
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/9]⎯
+
+ FAIL  test/proxy.integration.ts > 尚未领单的核实也随员工停用失效，原凭证不能重放敏感资料
+PrismaClientKnownRequestError:
+Invalid `tx.proxyContext.findMany()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/src/coordination/proxy-input.service.ts:85:1106
+
+  82  this.employeeEffects.register({references:async(tx,id,permissions,change)=>change.permission!=='employee.role.change'&&['customer.frozen.proxy','customer.read','after-sale.service.read'].every(p=>permissions.includes(p))?[]:(await tx.proxyContext.findMany({where:{verifiedById:id,status:'VERIFIED'},distinct:['orderId'],select:{orderId:true}})).map(p=>orderRef(p.orderId)),invalidate:(tx,id,permissions,change)=>change.permission!=='employee.role.change'&&['customer.frozen.proxy','customer.read','after-sale.service.read'].every(p=>permissions.includes(p))?Promise.resolve():this.invalidateEmployeeLocked(tx,id,change.requestId)});
+  83  this.files.register({ownerType:'PROXY_VERIFICATION',async aggregate(tx,t){const p=await tx.proxyContext.findUnique({where:{id:t.ownerId}});if(!p)throw new FileError('FILE_NOT_FOUND');return 'ORDER:'+p.orderId;},async authorize(tx,a,t,mode){const actor=proxyPermission(a),p=await tx.proxyContext.findUnique({where:{id:t.ownerId}});if(!p||p.verifiedById!==actor.subjectId&&actor.role!=='SUPER_ADMIN'||t.audience!=='INTERNAL'||t.slot!=='evidence'||mode==='BIND'&&p.status!=='VERIFIED')throw new FileError('FILE_NOT_FOUND');}});
+  84 }
+→ 85 private async invalidateEmployeeLocked(tx:Prisma.TransactionClient,id:string,requestId:string){const ps=await tx.proxyContext.findMany(
+Database error. Code: `23514`. Message: `new row for relation "task" violates check constraint "task_closed_status_valid"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ ProxyInputService.invalidateEmployeeLocked src/coordination/proxy-input.service.ts:85:1092
+
+ ❯ TaskIdentityEffects.apply src/tasks/task-identity-effects.ts:15:142
+ ❯ TaskEligibilityService.apply src/tasks/task-eligibility.service.ts:76:5
+ ❯ src/employees/employee-status.service.ts:63:7
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/9]⎯
+
+ FAIL  test/proxy.integration.ts > 真实补充原材料不另造申请、审核新轮；代理不要求客服先领取审核跟进任务
+ContractError: 命令载荷不符合规范
+ ❯ namespace src/common/command-fingerprint.ts:14:62
+     12|     || !/^[a-z][a-z0-9.-]{0,99}$/.test(input.command) || !Number.isSaf…
+     13|     || !['CUSTOMER', 'EMPLOYEE', 'SYSTEM'].includes(input.actor.type)
+     14|     || !/^[A-Za-z0-9_-]{1,128}$/.test(input.actor.id)) throw new Contr…
+       |                                                              ^
+     15|   return { command: input.command, version: input.version, actor: { ty…
+     16| }
+ ❯ commandFingerprint src/common/command-fingerprint.ts:19:57
+ ❯ ProxyInputService.fingerprint src/coordination/proxy-input.service.ts:33:76
+ ❯ ProxyInputService.executeInTransaction src/coordination/proxy-input.service.ts:60:343
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:39:74
+ ❯ test/proxy.integration.ts:78:723
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/9]⎯
+
+ FAIL  test/proxy.integration.ts > 代录末端故障整事务回滚，核实/文件/Task/售后不留半成品，原键可重试
+AssertionError: expected [Function] to throw error including '本轮代录事务末端故障' but got '命令载荷不符合规范'
+
+Expected: "本轮代录事务末端故障"
+Received: "命令载荷不符合规范"
+
+ ❯ test/proxy.integration.ts:81:203
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/9]⎯
+
+数据库集成测试存在失败，本轮独占资源已按归属清理

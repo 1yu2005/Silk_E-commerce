@@ -1,0 +1,1485 @@
+{
+  "at": "2026-11-14T14:56:12.765Z",
+  "phase": "predeploy",
+  "tables": {
+    "address": {
+      "columns": [
+        "city",
+        "created_at",
+        "customer_id",
+        "detail",
+        "district",
+        "id",
+        "is_default",
+        "phone",
+        "province",
+        "receiver",
+        "version"
+      ],
+      "count": 1,
+      "sha256": "7df49eef32f2a6beafe2c75d41bb355ee2a0ad8a39ae77e7c67b01314de46334"
+    },
+    "after_sale": {
+      "columns": [
+        "active_unshipped_check_id",
+        "application_description",
+        "approved_at",
+        "closed_at",
+        "created_at",
+        "current_material_version_id",
+        "customer_id",
+        "final_inspection_id",
+        "id",
+        "last_public_explanation",
+        "number",
+        "order_id",
+        "payment_id",
+        "reason_code",
+        "refund_id",
+        "requested_refund_amount",
+        "responsibility_note",
+        "return_address_snapshot",
+        "return_due_at",
+        "return_freight_responsibility",
+        "return_physical_version",
+        "return_rule_snapshot",
+        "return_setting_version_id",
+        "status",
+        "type",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "36213fd02e699bc001d1fe5822d129162d977ff97a180bc374bfdf4765c47e07"
+    },
+    "after_sale_command_result": {
+      "columns": [
+        "action",
+        "after_sale_id",
+        "command_key",
+        "created_at",
+        "customer_id",
+        "fingerprint",
+        "id",
+        "order_id",
+        "result_reference"
+      ],
+      "count": 10,
+      "sha256": "db3064931140d71ad4897e4765de4ee685f499ee5ccbac9bf8bb96869fb90b04"
+    },
+    "after_sale_decision": {
+      "columns": [
+        "actor_customer_id",
+        "actor_employee_id",
+        "after_sale_id",
+        "based_material_version_id",
+        "communication_id",
+        "created_at",
+        "from_status",
+        "id",
+        "internal_note",
+        "kind",
+        "public_explanation",
+        "reason",
+        "related_dispatch_verification_id",
+        "related_handover_attempt_id",
+        "request_id",
+        "to_status"
+      ],
+      "count": 3,
+      "sha256": "816c508af3e78bed9637b6069966405f7d04a057fddc4906bfd7d842e1d0e77d"
+    },
+    "after_sale_material_version": {
+      "columns": [
+        "after_sale_id",
+        "created_at",
+        "description",
+        "id",
+        "submitted_by_customer_id",
+        "submitted_by_employee_id",
+        "version_no"
+      ],
+      "count": 3,
+      "sha256": "228f0bec23140f32dcc8935b22bc5ed79bd3f2a649663abe698e8d127624f9b6"
+    },
+    "after_sale_supplement_request": {
+      "columns": [
+        "after_sale_id",
+        "based_material_version_id",
+        "closed_at",
+        "due_at",
+        "follow_task_id",
+        "id",
+        "public_explanation",
+        "request_no",
+        "requested_at",
+        "requested_by_id",
+        "requirement",
+        "responded_at",
+        "responded_material_version_id",
+        "rule_snapshot",
+        "setting_version_id"
+      ],
+      "count": 1,
+      "sha256": "658a5cf083d754e090f7c61777dd360d7d8492cc60e1db44d59e94f9e46f9a68"
+    },
+    "audit_log": {
+      "columns": [
+        "action",
+        "actor_customer_id",
+        "actor_employee_id",
+        "actor_type",
+        "after_data",
+        "before_data",
+        "created_at",
+        "id",
+        "reason",
+        "request_id",
+        "target_id",
+        "target_type"
+      ],
+      "count": 153,
+      "sha256": "594880980b8bdf5cf8b63df7dad14a4678ccb80517bab40221bce97397517541"
+    },
+    "business_state_history": {
+      "columns": [
+        "actor_customer_id",
+        "actor_employee_id",
+        "actor_type",
+        "aggregate_id",
+        "aggregate_type",
+        "command_key",
+        "created_at",
+        "dimension",
+        "from_state",
+        "id",
+        "public_text",
+        "reason",
+        "request_id",
+        "to_state"
+      ],
+      "count": 38,
+      "sha256": "6df4d0eda78f31aca66e8547003e57e6ff16e97feda8576e6b2d5632ee50b177"
+    },
+    "cart_item": {
+      "columns": [
+        "created_at",
+        "customer_id",
+        "id",
+        "quantity",
+        "selected",
+        "sku_id",
+        "version"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "category": {
+      "columns": [
+        "created_at",
+        "deleted_at",
+        "depth",
+        "icon_key",
+        "id",
+        "name",
+        "name_key",
+        "parent_id",
+        "path_ids",
+        "sort_order",
+        "version"
+      ],
+      "count": 4,
+      "sha256": "b3b19970a9af5ba5c25124671250b86771725d0163714c500656aec3503f1b04"
+    },
+    "checkout_quote": {
+      "columns": [
+        "address_id_snapshot",
+        "address_snapshot",
+        "address_version",
+        "created_at",
+        "customer_id",
+        "expires_at",
+        "goods_amount_cents",
+        "id",
+        "payable_cents",
+        "pricing_rule_snapshot",
+        "setting_version_id",
+        "shipping_fee_cents"
+      ],
+      "count": 6,
+      "sha256": "24f2b7cba15c7bd35d6d952f9e4da26b250ae4a9e2cfd21d0ccc3c97815e8158"
+    },
+    "checkout_quote_item": {
+      "columns": [
+        "cart_item_id_snapshot",
+        "id",
+        "line_amount_cents",
+        "quantity",
+        "quote_id",
+        "sku_id",
+        "unit_price_cents"
+      ],
+      "count": 6,
+      "sha256": "1a299c1945808fa02784931abe3b327be01f76be6a48ca22f51e54f4a807822d"
+    },
+    "communication": {
+      "columns": [
+        "author_employee_id",
+        "channel",
+        "correction_reason",
+        "corrects_id",
+        "created_at",
+        "id",
+        "next_step",
+        "occurred_at",
+        "public_text",
+        "request_id",
+        "result",
+        "scope_id",
+        "scope_type"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "customer": {
+      "columns": [
+        "avatar_asset_id",
+        "created_at",
+        "id",
+        "nickname",
+        "password_hash",
+        "phone",
+        "status",
+        "status_version",
+        "token_version"
+      ],
+      "count": 3,
+      "sha256": "4dd152a0d153d6845c7ecbe2268335e7758e1cc6ecd9e5227c9b5cdd4ec36d15"
+    },
+    "customer_status_history": {
+      "columns": [
+        "actor_employee_id",
+        "created_at",
+        "customer_id",
+        "from_status",
+        "from_version",
+        "id",
+        "reason",
+        "request_id",
+        "to_status",
+        "to_version"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "deadline_event": {
+      "columns": [
+        "actor_employee_id",
+        "actor_type",
+        "command_key",
+        "deadline_at",
+        "detected_at",
+        "event_type",
+        "id",
+        "new_due_at",
+        "occurred_at",
+        "reason",
+        "request_id",
+        "task_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "employee": {
+      "columns": [
+        "created_at",
+        "display_name",
+        "id",
+        "must_change_password",
+        "password_hash",
+        "permission_version",
+        "role",
+        "status",
+        "token_version",
+        "username",
+        "version"
+      ],
+      "count": 3,
+      "sha256": "597443124097fb2e41428b7b0f951651bf406b6ccc552190220c8983b25c1dae"
+    },
+    "employee_extra_permission": {
+      "columns": [
+        "employee_id",
+        "granted_at",
+        "granted_by_id",
+        "permission_code"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "exception_refund_approval": {
+      "columns": [
+        "after_sale_id",
+        "approval_no",
+        "approved_at",
+        "approved_by_id",
+        "based_return_physical_version",
+        "based_revision_refs",
+        "id",
+        "invalidated_at",
+        "invalidation_reason",
+        "public_explanation",
+        "reason",
+        "responsibility_note"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "file_asset": {
+      "columns": [
+        "byte_size",
+        "created_at",
+        "expires_at",
+        "height",
+        "id",
+        "mime_type",
+        "original_name",
+        "purge_started_at",
+        "purged_at",
+        "purpose",
+        "sha256",
+        "state",
+        "storage_key",
+        "uploader_customer_id",
+        "uploader_employee_id",
+        "uploader_type",
+        "version",
+        "visibility",
+        "width"
+      ],
+      "count": 3,
+      "sha256": "c67d0e95445f9b6e8b141b60f2d87826c87d7be0ae49c8664a6cc3ae279ceb65"
+    },
+    "file_reference": {
+      "columns": [
+        "audience",
+        "created_at",
+        "created_by_customer_id",
+        "created_by_employee_id",
+        "created_by_type",
+        "file_asset_id",
+        "id",
+        "owner_id",
+        "owner_type",
+        "slot"
+      ],
+      "count": 8,
+      "sha256": "faef10eb58405c9f46a86ed67fc5ef72ee933ce537b846cbcd212094fbc138ed"
+    },
+    "final_inspection": {
+      "columns": [
+        "after_sale_id",
+        "approval_id",
+        "command_key",
+        "confirmed_at",
+        "confirmed_by_id",
+        "id",
+        "inventory_action_id",
+        "mode",
+        "request_id",
+        "return_physical_version",
+        "source_revision_refs"
+      ],
+      "count": 1,
+      "sha256": "04446d733f14f7dc7a2087daabcaad73c5f38cf9d927113d2c87df02b14d4fb4"
+    },
+    "final_inspection_item": {
+      "columns": [
+        "final_inspection_id",
+        "id",
+        "missing_qty",
+        "order_item_id",
+        "purchased_qty",
+        "received_qty",
+        "sellable_qty",
+        "unsellable_qty"
+      ],
+      "count": 1,
+      "sha256": "fbc4a421639bf1349108423c186c64b0f58961b746a54efe80800cf080d3d3fd"
+    },
+    "fulfillment": {
+      "columns": [
+        "created_at",
+        "current_packing_check_id",
+        "id",
+        "order_id",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "c65d1a9740a4932a28c5f64cfab5d188caea0786760fe7f015770bbde308b297"
+    },
+    "fulfillment_command_result": {
+      "columns": [
+        "action",
+        "command_key",
+        "created_at",
+        "fingerprint",
+        "id",
+        "order_id",
+        "result"
+      ],
+      "count": 8,
+      "sha256": "79da9f69dd8f5c223391a3f490ddd6ff773c818c2a8a7a65c90cf10c0b2ca0a7"
+    },
+    "handover_attempt": {
+      "columns": [
+        "actual_handover_at",
+        "attempt_no",
+        "carrier_snapshot",
+        "fingerprint",
+        "id",
+        "order_id",
+        "packing_check_id",
+        "physical_version",
+        "procedure_violation",
+        "resolution_reason",
+        "resolved_at",
+        "resolved_by_id",
+        "shipment_id",
+        "start_command_key",
+        "started_at",
+        "started_by_id",
+        "status",
+        "tracking_snapshot",
+        "uncertain_after",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "930fe8bec46f1892f70000f8ae09eaf4835cc7c852d75a8633d0a7c2ad1cf8fb"
+    },
+    "handover_verification": {
+      "columns": [
+        "actor_employee_id",
+        "actual_handover_at",
+        "attempt_id",
+        "checked_items",
+        "command_key",
+        "conclusion",
+        "created_at",
+        "evidence_note",
+        "fingerprint",
+        "goods_location",
+        "id",
+        "order_id",
+        "physical_version",
+        "reason",
+        "request_id"
+      ],
+      "count": 2,
+      "sha256": "4caa50571abd8e9fab8e14876cd78b8b87927ff5f5c14791fd520836371011b3"
+    },
+    "idempotency_record": {
+      "columns": [
+        "action_code",
+        "completed_at",
+        "created_at",
+        "customer_id",
+        "fingerprint",
+        "id",
+        "key",
+        "result_order_id",
+        "status"
+      ],
+      "count": 5,
+      "sha256": "5e4407910e7206e8a0e7c47ae9ac6a9ddaebdd2e93cf9fb57601d0b794bf8a84"
+    },
+    "initial_inventory_draft": {
+      "columns": [
+        "adjustment_id",
+        "conversion_key",
+        "created_at",
+        "created_by_id",
+        "id",
+        "product_id",
+        "status",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "5f2716e18f961d6bff895add324341da8811cc2521fef625cac4cc17ad4d79af"
+    },
+    "initial_inventory_draft_line": {
+      "columns": [
+        "draft_id",
+        "quantity",
+        "sku_id"
+      ],
+      "count": 8,
+      "sha256": "497eebd4acd50eb5e82a4bbc7037ba789d5b97d8b5982a790ba4dad36cc50479"
+    },
+    "inventory_action": {
+      "columns": [
+        "action_key",
+        "action_type",
+        "actor_customer_id",
+        "actor_employee_id",
+        "actor_type",
+        "adjustment_id",
+        "business_id",
+        "business_type",
+        "created_at",
+        "id",
+        "request_fingerprint",
+        "request_id",
+        "result_summary"
+      ],
+      "count": 13,
+      "sha256": "7b120b213a4018d443bf6bf305ac5b77e8a8880dc400be871e254e3e8d91acca"
+    },
+    "inventory_adjustment": {
+      "columns": [
+        "check_reason_code",
+        "check_required",
+        "conversion_fingerprint",
+        "conversion_key",
+        "conversion_snapshot",
+        "created_at",
+        "created_by_id",
+        "evidence_note",
+        "id",
+        "number",
+        "posted_at",
+        "posted_by_id",
+        "reason",
+        "status",
+        "type",
+        "version",
+        "voided_at",
+        "voided_by_id"
+      ],
+      "count": 2,
+      "sha256": "b2d736becbd4c3b7ba7c1171428c80a3199a0cbbbaafb52cb4e57d5403da7635"
+    },
+    "inventory_adjustment_line": {
+      "columns": [
+        "adjustment_id",
+        "batch_key",
+        "id",
+        "quantity",
+        "root_line_id",
+        "signed_delta_a",
+        "sku_id",
+        "source_line_id",
+        "type"
+      ],
+      "count": 8,
+      "sha256": "946a234551b193f5e19afd2c1c63ac1721320933fec63b9b06d0531d2cf79744"
+    },
+    "inventory_balance": {
+      "columns": [
+        "available",
+        "created_at",
+        "purchase_blocked",
+        "reserved",
+        "sku_id",
+        "version",
+        "warning_threshold"
+      ],
+      "count": 10,
+      "sha256": "df4cc91c51eab697822add446a06dac8ea0295725621206b2d2f174d5f170117"
+    },
+    "inventory_ledger": {
+      "columns": [
+        "action_id",
+        "actor_customer_id",
+        "actor_employee_id",
+        "actor_type",
+        "after_a",
+        "after_r",
+        "before_a",
+        "before_r",
+        "business_id",
+        "business_number",
+        "business_type",
+        "created_at",
+        "delta_a",
+        "delta_r",
+        "event_type",
+        "id",
+        "quantity_damaged",
+        "quantity_released",
+        "reason",
+        "request_id",
+        "root_adjustment_line_id",
+        "sequence",
+        "sku_id",
+        "source_line_id"
+      ],
+      "count": 19,
+      "sha256": "2dbaa3216d1962340912810a590fd7c9869bd1012fc01d71fedbec3344db042f"
+    },
+    "inventory_purchase_block": {
+      "columns": [
+        "active",
+        "created_at",
+        "created_by_employee_id",
+        "id",
+        "reason_code",
+        "released_at",
+        "sku_id",
+        "source_id",
+        "source_type",
+        "version"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "inventory_receipt_batch": {
+      "columns": [
+        "batch_key",
+        "created_at",
+        "id",
+        "root_adjustment_line_id",
+        "source_line_id"
+      ],
+      "count": 8,
+      "sha256": "4d697efed4eaed75fbf993587769e77c9279234bc0c4f5f858bf05211a74606d"
+    },
+    "inventory_source": {
+      "columns": [
+        "created_at",
+        "created_by_id",
+        "id",
+        "namespace",
+        "normalized_reference",
+        "note",
+        "reference",
+        "source_type",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "1f944214ca6ab992b6ca18bbc18a41d92a19cc3c12209007b67924c601e9515e"
+    },
+    "inventory_source_line": {
+      "columns": [
+        "created_at",
+        "id",
+        "line_key",
+        "net_posted_quantity",
+        "sku_id",
+        "source_id",
+        "verified_quantity",
+        "version"
+      ],
+      "count": 8,
+      "sha256": "5770c5bfd4c636d0152bf756b5d615b5421be994fa6e90bedae5aa89a32ed71d"
+    },
+    "order": {
+      "columns": [
+        "actual_handover_at",
+        "after_sale_deadline",
+        "after_sale_rule_snapshot",
+        "auto_receipt_base_due_at",
+        "auto_receipt_days",
+        "auto_receipt_due_at",
+        "city",
+        "close_reason",
+        "close_reason_code",
+        "closed_at",
+        "closed_by_id",
+        "closed_by_type",
+        "completed_at",
+        "completion_setting_version_id",
+        "created_at",
+        "customer_id",
+        "detail",
+        "district",
+        "fulfillment_stage",
+        "goods_amount_cents",
+        "id",
+        "number",
+        "paid_at",
+        "payable_cents",
+        "payment_blocked",
+        "payment_deadline",
+        "payment_rule_snapshot",
+        "phone",
+        "province",
+        "quote_id",
+        "receipt_rule_snapshot",
+        "receipt_setting_version_id",
+        "receipt_source",
+        "receiver",
+        "release_blocked",
+        "setting_version_id",
+        "shipping_fee_cents",
+        "shipping_rule_snapshot",
+        "source_address_id",
+        "status",
+        "stock_physical_version",
+        "timer_version",
+        "version"
+      ],
+      "count": 5,
+      "sha256": "01bcf85a617a6f84b623a0c9ab1849317158da3d44c575f63ccf4c3d6a7ee974"
+    },
+    "order_block": {
+      "columns": [
+        "active",
+        "blocks_receipt",
+        "blocks_shipment",
+        "created_at",
+        "id",
+        "order_id",
+        "release_command_key",
+        "released_at",
+        "source_after_sale_id",
+        "source_id",
+        "source_type",
+        "type",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "6d192ec819dac28dcf651a2466823e967054defa688eb026966e08b989068e7b"
+    },
+    "order_item": {
+      "columns": [
+        "damage_unknown",
+        "damaged_reserved_quantity",
+        "id",
+        "image_asset_id",
+        "line_amount_cents",
+        "order_id",
+        "physical_version",
+        "product_code_snapshot",
+        "product_id",
+        "product_name_snapshot",
+        "quantity",
+        "sku_code_snapshot",
+        "sku_id",
+        "spec_snapshot",
+        "unit_cost_cents",
+        "unit_price_cents"
+      ],
+      "count": 5,
+      "sha256": "4588568f3e0cbaa99868ae629930784118c925319443d4094b7ceb1eb45bd99f"
+    },
+    "order_timer_receipt": {
+      "columns": [
+        "id",
+        "key",
+        "order_id",
+        "signature"
+      ],
+      "count": 7,
+      "sha256": "39974d46b50e25d656b6e0f0d59d7a7cf1c1d4c6e4eaf8faed54f4e75c7a723f"
+    },
+    "packing_check": {
+      "columns": [
+        "checked_by_id",
+        "checked_items",
+        "checked_physical_version",
+        "command_key",
+        "created_at",
+        "fulfillment_id",
+        "goods_location",
+        "id",
+        "order_id"
+      ],
+      "count": 2,
+      "sha256": "2cbc0bea81a631a476224bdb8fc0a9f89810e8a735823ba54a82847cbc2734cf"
+    },
+    "payment": {
+      "columns": [
+        "actor_customer_id",
+        "amount_cents",
+        "currency",
+        "id",
+        "method",
+        "number",
+        "order_id",
+        "paid_at",
+        "request_id",
+        "status"
+      ],
+      "count": 4,
+      "sha256": "096c477fb8c631367d5100f111cc96b32b9b67318c5c3ff942f6a3cb0d57f6d0"
+    },
+    "permission_definition": {
+      "columns": [
+        "admin_only",
+        "code",
+        "dependencies",
+        "description",
+        "name"
+      ],
+      "count": 52,
+      "sha256": "098ba91b706eaee03177c343da0214b6f5aedacdbb124cd2c08007fd511e09fc"
+    },
+    "physical_check_item_incident": {
+      "columns": [
+        "id",
+        "incident_item_id",
+        "item_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "product": {
+      "columns": [
+        "archived_at",
+        "brand",
+        "category_id",
+        "created_at",
+        "created_by_id",
+        "description",
+        "id",
+        "name",
+        "paid_sales_count",
+        "product_code",
+        "status",
+        "updated_by_id",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "d8d45423b00a0d3c9d7db866f736d040f089b9c9b80129877c4c83f1cdd199e8"
+    },
+    "product_image": {
+      "columns": [
+        "asset_id",
+        "created_at",
+        "id",
+        "product_id",
+        "slot",
+        "sort_order"
+      ],
+      "count": 2,
+      "sha256": "0c847c22012744bd33c5a65c6edbabad2668d0a02b94474fadfa3f3ccc098d73"
+    },
+    "product_spec_dimension": {
+      "columns": [
+        "created_at",
+        "id",
+        "name",
+        "name_key",
+        "product_id",
+        "retired_at",
+        "sort_order"
+      ],
+      "count": 4,
+      "sha256": "58fc02976376dd3aed6c0f3e2b9e99c3297e4dbd3728d893e259f8cba764e6eb"
+    },
+    "product_spec_value": {
+      "columns": [
+        "created_at",
+        "dimension_id",
+        "id",
+        "name",
+        "name_key",
+        "retired_at",
+        "sort_order"
+      ],
+      "count": 8,
+      "sha256": "75ae6128782f9a4287084b64a7f50c2752ba0d5c31eb0f6625183c1455b602be"
+    },
+    "refund": {
+      "columns": [
+        "after_sale_id",
+        "amount_cents",
+        "channel",
+        "created_at",
+        "currency",
+        "id",
+        "order_id",
+        "payment_id",
+        "refund_no",
+        "status",
+        "succeeded_at",
+        "successful_attempt_id",
+        "version"
+      ],
+      "count": 1,
+      "sha256": "97a0fb03681d812cd1d929fad7eaed57bfde993f63321289aca7a20e83473ecc"
+    },
+    "refund_attempt": {
+      "columns": [
+        "actor_employee_id",
+        "attempt_no",
+        "command_key",
+        "failure_code",
+        "final_inspection_id",
+        "fingerprint",
+        "finished_at",
+        "id",
+        "outcome",
+        "physical_check_id",
+        "public_explanation",
+        "refund_id",
+        "request_id",
+        "started_at",
+        "task_id"
+      ],
+      "count": 1,
+      "sha256": "deddd0fd16f553b2803d63d9e7f3cf8ba34f8d5c85845298cea65e2c71155911"
+    },
+    "refund_precondition_rejection": {
+      "columns": [
+        "after_sale_id",
+        "code",
+        "command_key",
+        "created_at",
+        "fingerprint",
+        "id",
+        "public_result"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "return_dispatch_verification": {
+      "columns": [
+        "actor_employee_id",
+        "after_sale_id",
+        "based_after_sale_version",
+        "based_logistics_revision_id",
+        "based_physical_version",
+        "channel",
+        "contact_result",
+        "created_at",
+        "id",
+        "next_step",
+        "outcome",
+        "parcel_id",
+        "public_explanation",
+        "source_description",
+        "verified_at"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "return_inspection_line": {
+      "columns": [
+        "condition_note",
+        "id",
+        "matched_received_qty",
+        "order_item_id",
+        "revision_id",
+        "sellable_qty",
+        "unsellable_qty"
+      ],
+      "count": 1,
+      "sha256": "cc75fd57e51e1fcde62dab466bee1f79ca1ecc6a34a119e97c267571cf7a67e1"
+    },
+    "return_inspection_revision": {
+      "columns": [
+        "actor_employee_id",
+        "based_receipt_physical_version",
+        "based_return_physical_version",
+        "created_at",
+        "id",
+        "inspection_complete",
+        "reason",
+        "receipt_id",
+        "revision_no"
+      ],
+      "count": 1,
+      "sha256": "73e6f98e28082f7caf0ef2fc4bb6165318c67c25b95ae401d09336f01878b472"
+    },
+    "return_logistics_revision": {
+      "columns": [
+        "actor_customer_id",
+        "actor_employee_id",
+        "actual_dispatched_at",
+        "carrier_name",
+        "created_at",
+        "description",
+        "dispatch_declaration",
+        "id",
+        "parcel_id",
+        "revision_no",
+        "tracking_number",
+        "unapproved_dispatch"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "return_parcel": {
+      "columns": [
+        "after_sale_id",
+        "batch_no",
+        "created_at",
+        "current_revision_id",
+        "id",
+        "origin",
+        "reshipment_request_id",
+        "source_namespace",
+        "source_reference_normalized"
+      ],
+      "count": 1,
+      "sha256": "fc9c752796e4a3a75b1fffa907fc93bc6ee087cfe3f0934dc2268b33f74fde42"
+    },
+    "return_physical_event": {
+      "columns": [
+        "actor_employee_id",
+        "after_sale_id",
+        "command_key",
+        "created_at",
+        "goods_location",
+        "id",
+        "kind",
+        "reason",
+        "receipt_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "return_receipt": {
+      "columns": [
+        "after_sale_id",
+        "current_inspection_revision_id",
+        "goods_location",
+        "id",
+        "parcel_id",
+        "physical_version",
+        "received_at",
+        "received_by_id",
+        "recorded_at",
+        "source_note",
+        "version"
+      ],
+      "count": 1,
+      "sha256": "4cd440c47513c82ed930833a1b7f499bcbebe2ef9ad437ddddda969c2dc1c540"
+    },
+    "return_reshipment_request": {
+      "columns": [
+        "after_sale_id",
+        "communication_id",
+        "created_at",
+        "created_by_id",
+        "due_at",
+        "id",
+        "missing_items",
+        "public_explanation",
+        "reason",
+        "return_address_snapshot",
+        "round",
+        "rule_snapshot",
+        "setting_version_id",
+        "status"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "return_unmatched_item": {
+      "columns": [
+        "custody_location",
+        "description",
+        "disposition_note",
+        "id",
+        "kind",
+        "quantity",
+        "revision_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "role_permission": {
+      "columns": [
+        "permission_code",
+        "role"
+      ],
+      "count": 89,
+      "sha256": "337a896ea9cf2e7844b53d85e896d098e13fce320e770edc7c35dd64147a768d"
+    },
+    "shipment": {
+      "columns": [
+        "actual_handover_at",
+        "carrier_name",
+        "confirmed_attempt_id",
+        "confirmed_by_id",
+        "created_at",
+        "id",
+        "order_id",
+        "prepared_by_id",
+        "status",
+        "tracking_number",
+        "version"
+      ],
+      "count": 2,
+      "sha256": "a967ef399f2578ee210b2f2f6c9bfddc472b3d684842797b12f3402590650ca5"
+    },
+    "shipment_exception": {
+      "columns": [
+        "created_at",
+        "created_by_id",
+        "current_verified_physical_version",
+        "evidence_note",
+        "fingerprint",
+        "goods_location",
+        "id",
+        "incident_key",
+        "order_id",
+        "order_item_ids",
+        "physical_version_at_open",
+        "reason",
+        "resolved_at",
+        "status",
+        "stock_incident_id",
+        "type",
+        "version"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "shipment_exception_decision": {
+      "columns": [
+        "actor_employee_id",
+        "command_key",
+        "created_at",
+        "description",
+        "exception_id",
+        "id",
+        "kind",
+        "physical_version",
+        "request_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "shipment_tracking_revision": {
+      "columns": [
+        "actor_employee_id",
+        "command_key",
+        "created_at",
+        "evidence_note",
+        "id",
+        "is_historical_correction",
+        "new_carrier",
+        "new_tracking",
+        "old_carrier",
+        "old_tracking",
+        "order_id",
+        "reason",
+        "request_id",
+        "shipment_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "sku": {
+      "columns": [
+        "code",
+        "combination_signature",
+        "cost_cents",
+        "created_at",
+        "enabled",
+        "id",
+        "price_cents",
+        "product_id",
+        "retired_at"
+      ],
+      "count": 10,
+      "sha256": "83a6eb0c85f1e010b87ea02f519025170e63bbe075b993bf4d93dc861e0ba12a"
+    },
+    "sku_spec_choice": {
+      "columns": [
+        "dimension_id",
+        "sku_id",
+        "value_id"
+      ],
+      "count": 16,
+      "sha256": "69d1eca1ef3c1862f8449d2c21d5a5e824068c46331a10d921bc7de3ab3b6560"
+    },
+    "stock_incident": {
+      "columns": [
+        "created_at",
+        "created_by_id",
+        "evidence_note",
+        "fingerprint",
+        "id",
+        "incident_key",
+        "reason",
+        "resolved_at",
+        "sku_id",
+        "status",
+        "version"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "stock_incident_command": {
+      "columns": [
+        "action",
+        "command_key",
+        "created_at",
+        "fingerprint",
+        "id",
+        "incident_id",
+        "result"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "stock_incident_history": {
+      "columns": [
+        "action",
+        "actor_id",
+        "actor_type",
+        "after",
+        "before",
+        "command_key",
+        "created_at",
+        "id",
+        "incident_id",
+        "incident_item_id",
+        "reason",
+        "request_id"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "stock_incident_item": {
+      "columns": [
+        "allocation_type",
+        "conclusion",
+        "damaged_quantity",
+        "id",
+        "incident_id",
+        "order_item_id",
+        "quantity_affected",
+        "verification_state",
+        "verified_at",
+        "verified_by_id",
+        "version"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "stock_replenishment": {
+      "columns": [
+        "actor_employee_id",
+        "command_key",
+        "created_at",
+        "fingerprint",
+        "goods_location",
+        "id",
+        "incident_item_id",
+        "inventory_action_id",
+        "order_item_id",
+        "quantity",
+        "reason"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "store_setting_head": {
+      "columns": [
+        "current_version_id",
+        "id",
+        "version"
+      ],
+      "count": 1,
+      "sha256": "a03861efc0dc6f7c6dbe853005088b5c57503fd3b8ba9f4a924687e5757e29e9"
+    },
+    "store_setting_version": {
+      "columns": [
+        "after_sale_window_days",
+        "auto_receipt_days",
+        "created_at",
+        "created_by_employee_id",
+        "free_shipping_enabled",
+        "free_shipping_threshold_cents",
+        "id",
+        "inspection_workdays",
+        "payment_minutes",
+        "reason",
+        "refund_workdays",
+        "return_city",
+        "return_detail",
+        "return_district",
+        "return_phone",
+        "return_province",
+        "return_receiver",
+        "return_ship_days",
+        "review_workdays",
+        "service_hours",
+        "service_phone",
+        "shipping_fee_cents",
+        "supplement_days",
+        "version_number"
+      ],
+      "count": 1,
+      "sha256": "6cec843e7251ba75ed6fc2d592d43fbf95aa835d7bafe06a57819c6a05b3b407"
+    },
+    "system_guard": {
+      "columns": [
+        "created_at",
+        "key"
+      ],
+      "count": 2,
+      "sha256": "0624164daccb50b2cf3b69b087d634079d683c0e21d182d8e9fbcdf184f797ac"
+    },
+    "task": {
+      "columns": [
+        "assignee_id",
+        "business_id",
+        "business_type",
+        "closed_at",
+        "created_at",
+        "cursor_id",
+        "due_at",
+        "entry_key",
+        "ever_overdue",
+        "first_overdue_at",
+        "id",
+        "original_due_at",
+        "reassign_needed",
+        "required_permissions",
+        "round",
+        "rule_snapshot",
+        "settings_version_id",
+        "stage",
+        "started_at",
+        "status",
+        "version"
+      ],
+      "count": 15,
+      "sha256": "efa4b9f180efc105fa67e2f6636a0a2da31dabcc2688cf987fe3f766e65be126"
+    },
+    "task_business_source": {
+      "columns": [
+        "add_actor_key",
+        "add_command_key",
+        "add_reason",
+        "created_at",
+        "ended_at",
+        "id",
+        "resolution_actor_key",
+        "resolution_command_key",
+        "resolution_outcome",
+        "resolution_reason",
+        "source_id",
+        "source_type",
+        "status",
+        "task_id"
+      ],
+      "count": 2,
+      "sha256": "1266efe91f112be125a0dc68c01257eff6d4cc9e6ea28dd2b5152108852dd861"
+    },
+    "task_business_source_history": {
+      "columns": [
+        "action",
+        "actor_key",
+        "command_key",
+        "created_at",
+        "id",
+        "reason",
+        "request_id",
+        "source_record_id"
+      ],
+      "count": 3,
+      "sha256": "2d51f13b3e87c64c80a8231a5c5c0b060f58f6ab4c74a6aab57f279b5d6fa897"
+    },
+    "task_history": {
+      "columns": [
+        "action",
+        "actor_employee_id",
+        "actor_type",
+        "after_status",
+        "before_status",
+        "command_key",
+        "created_at",
+        "from_assignee_id",
+        "id",
+        "reason",
+        "request_id",
+        "task_id",
+        "to_assignee_id"
+      ],
+      "count": 38,
+      "sha256": "218fbdafe58bea1b08a91a38b59478e912e6d78de0f1ca953c70daee39ba097d"
+    },
+    "task_stage_cursor": {
+      "columns": [
+        "business_id",
+        "business_type",
+        "created_at",
+        "id",
+        "last_round",
+        "stage"
+      ],
+      "count": 14,
+      "sha256": "2334a2694c9ff816d3d155a7d572f2b151cf5972cc9459c603b2a6448586b2da"
+    },
+    "timer_pause": {
+      "columns": [
+        "base_due_at",
+        "cycle_no",
+        "end_reason",
+        "id",
+        "new_due_at",
+        "order_id",
+        "paused_at",
+        "remaining_ms",
+        "resumed_at",
+        "status"
+      ],
+      "count": 1,
+      "sha256": "561cfec04547d834073857a553a4b60f5277ed2c990595e6bc286fdb91acb36e"
+    },
+    "timer_pause_block": {
+      "columns": [
+        "block_id",
+        "created_at",
+        "id",
+        "pause_id"
+      ],
+      "count": 1,
+      "sha256": "360a170d93b53a06763736bc6b30375cf9aa1b89114d760acd96a4a266c8210c"
+    },
+    "unshipped_physical_check": {
+      "columns": [
+        "after_sale_id",
+        "check_no",
+        "checked_at",
+        "checked_by_id",
+        "command_key",
+        "consumed_refund_id",
+        "goods_location",
+        "id",
+        "invalidated_at",
+        "invalidation_reason",
+        "order_id",
+        "physical_version",
+        "request_id",
+        "status",
+        "stopped_at"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    "unshipped_physical_check_item": {
+      "columns": [
+        "check_id",
+        "damaged_qty",
+        "id",
+        "order_item_id",
+        "purchased_qty",
+        "sellable_qty"
+      ],
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  },
+  "uploads": [
+    {
+      "path": "/app/storage/uploads/objects/3982ed89-bb87-4a59-9c55-005e7887fe7a.jpg",
+      "sha256": "96b3580cafdcf819d0734c735c1dfdbc959faa86f537ac6500070a2689e45787"
+    },
+    {
+      "path": "/app/storage/uploads/objects/3a8e6852-fcfc-42e0-96f0-dbfd3dccd797.jpg",
+      "sha256": "9d781095576f3b235fbbe9fb2fd537e9c99b3bc0677a7647b540839478396f36"
+    },
+    {
+      "path": "/app/storage/uploads/objects/8ab11b2d-16fd-4b99-ada2-585014951051.jpg",
+      "sha256": "36184766e7cf0ebb1cc8916a0bc2d203c8d023a9f3d283eb796b9370c4df9fbc"
+    }
+  ]
+}

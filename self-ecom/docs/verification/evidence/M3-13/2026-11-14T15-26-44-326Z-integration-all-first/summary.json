@@ -1,0 +1,336 @@
+{
+  "startedAt": "2026-11-14T15:26:44.328Z",
+  "endedAt": "2026-11-14T15:52:17.889Z",
+  "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\api",
+  "command": [
+    "node",
+    "apps/api/node_modules/tsx/dist/cli.mjs",
+    "scripts/integration.ts"
+  ],
+  "exitCode": 1,
+  "suiteCount": 49,
+  "passedSuites": 39,
+  "failedSuites": 10,
+  "passedTests": 1422,
+  "failedTests": 5,
+  "skippedTests": 220,
+  "classification": {
+    "migrationCountFixture": [
+      "test/orders-migration.integration.ts",
+      "test/settlement.integration.ts",
+      "test/tasks-migration.integration.ts"
+    ],
+    "taskLockerFixture": [
+      "test/task-access.integration.ts",
+      "test/task-deadline.integration.ts",
+      "test/task-entry.integration.ts",
+      "test/task-kernel.integration.ts",
+      "test/task-reassign.integration.ts"
+    ],
+    "concurrencyFailures": [
+      "test/customer-auth.integration.ts",
+      "test/employee-role.integration.ts"
+    ]
+  },
+  "suites": [
+    {
+      "suite": "test/after-sales.integration.ts",
+      "passed": 42,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/audit.integration.ts",
+      "passed": 15,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/auth-guard.integration.ts",
+      "passed": 36,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/auth-schema.integration.ts",
+      "passed": 24,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/auth-session.integration.ts",
+      "passed": 36,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/catalog-migration.integration.ts",
+      "passed": 1,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/catalog.integration.ts",
+      "passed": 20,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-address.integration.ts",
+      "passed": 7,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-disputes.integration.ts",
+      "passed": 8,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/coordination-offline.integration.ts",
+      "passed": 9,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-auth.integration.ts",
+      "failed": 1,
+      "passed": 57,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-avatar.integration.ts",
+      "passed": 8,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-profile-password.integration.ts",
+      "passed": 74,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customer-register.integration.ts",
+      "passed": 60,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customers-migration.integration.ts",
+      "passed": 1,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/customers.integration.ts",
+      "passed": 47,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/database.integration.ts",
+      "passed": 6,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-auth.integration.ts",
+      "passed": 30,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-create.integration.ts",
+      "passed": 49,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-extra-permission.integration.ts",
+      "passed": 89,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-password-reset.integration.ts",
+      "passed": 61,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-password.integration.ts",
+      "passed": 27,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-profile.integration.ts",
+      "passed": 48,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-query.integration.ts",
+      "passed": 30,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-role.integration.ts",
+      "failed": 1,
+      "passed": 63,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/employee-status.integration.ts",
+      "passed": 49,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/files-migration.integration.ts",
+      "passed": 5,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/files-schema.integration.ts",
+      "passed": 75,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/files.integration.ts",
+      "passed": 39,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/fulfillment.integration.ts",
+      "passed": 34,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/initial-admin-seed.integration.ts",
+      "passed": 12,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/inventory-fact-guards-migration.integration.ts",
+      "passed": 1,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/inventory-migration.integration.ts",
+      "passed": 1,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/inventory.integration.ts",
+      "passed": 25,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/logout.integration.ts",
+      "passed": 32,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/orders-migration.integration.ts",
+      "failed": 1,
+      "passed": 1,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/orders.integration.ts",
+      "passed": 30,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/permission-seed.integration.ts",
+      "passed": 7,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/proxy.integration.ts",
+      "passed": 14,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/records.integration.ts",
+      "passed": 58,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/settings.integration.ts",
+      "passed": 66,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/settlement.integration.ts",
+      "failed": 1,
+      "passed": 27,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-access.integration.ts",
+      "skipped": 38,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-deadline.integration.ts",
+      "skipped": 57,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-entry.integration.ts",
+      "skipped": 34,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-kernel.integration.ts",
+      "skipped": 47,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/task-reassign.integration.ts",
+      "skipped": 44,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/tasks-migration.integration.ts",
+      "failed": 1,
+      "passed": 6,
+      "fileSummary": "1 failed (1)",
+      "ownedDatabaseRemoved": true
+    },
+    {
+      "suite": "test/tasks-schema.integration.ts",
+      "passed": 92,
+      "fileSummary": "1 passed (1)",
+      "ownedDatabaseRemoved": true
+    }
+  ]
+}

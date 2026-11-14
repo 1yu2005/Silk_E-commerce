@@ -1,0 +1,166 @@
+Datasource "db": PostgreSQL database "m313_0ffdf0c953ef49da8f231fbe9c409b3e_test", schema "public" at "localhost:15432"
+
+16 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+Applying migration `0015_return_inspections_physical_checks_refunds`
+Applying migration `0016_exception_coordination`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+  └─ 0015_return_inspections_physical_checks_refunds/
+    └─ migration.sql
+  └─ 0016_exception_coordination/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/coordination-disputes.integration.ts (6 tests | 4 failed) 10443ms
+   × 部分实收争议受限结案不回补，保管/寄还与客服任务独立持续，真实签收后才能完结工单 1565ms
+   × 当前实收去向必须完整且不能超量，旧实物版本拒绝并不消费争议或任务 1167ms
+   × 管理员决定的审计故障回滚决定、关闭、安排、线下工单与任务，原键可重新执行 1346ms
+   × 客服必须显式领跟进，管理员必须领争议；HTTP拒绝越权、force及未知字段 1362ms
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 2 passed (6)
+   Start at  23:13:32
+   Duration  13.13s (tests 81%, import 15%, transform 5%)
+
+{"suite":"test/coordination-disputes.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+(node:36352) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/coordination-disputes.integration.ts > 部分实收争议受限结案不回补，保管/寄还与客服任务独立持续，真实签收后才能完结工单
+PrismaClientKnownRequestError:
+Invalid `db.task.findFirstOrThrow()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/coordination-fixtures.ts:52:217
+
+  49 export async function employee(role:'SUPER_ADMIN'|'MERCH_WAREHOUSE'|'CUSTOMER_SERVICE'){const e=await fixture.db.employee.create({data:{username:'m13_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'隔离员工',role,passwordHash:[REDACTED],mustChangePassword:[REDACTED];return session('EMPLOYEE',e.id);}
+  50 export async function customer(){const c=await fixture.db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'隔离顾客',passwordHash:[REDACTED];return session('CUSTOMER',c.id);}
+  51 export async function paid(){const {db,app,admin}=fixture,c=await customer(),p=await db.product.create({data:{productCode:'M13-'+randomUUID(),name:'隔离服装',status:'ON_SALE',createdById:admin.actor.subjectId,updatedById:admin.actor.subjectId}}),sku=await db.sku.create({data:{code:('M13-'+randomUUID()).toUpperCase(),productId:p.id,combinationSignature:'DEFAULT',priceCents:9900,costCents:4000,balance:{create:{available:10}}}}),a=await app.get(AddressService).create(c,address),cart=await app.get(CartService).add(c,{skuId:sku.id,quantity:2});const input={addressId:a.address.id,items:[{cartItemId:cart.item.id,skuId:sku.id,quantity:2}]},orders=app.get(OrderService),quote=await orders.preview(c,input),order=await orders.create(c,{...input,quoteId:quote.quoteId},randomUUID());await app.get(OrderCommands).pay(c,order.orderId);return {id:order.orderId,c,sku};}
+→ 52 export async function claim(id:string,stage:TaskStage='SHIPMENT_PROCESS',actor=fixture.warehouse,businessType:'ORDER'|'AFTER_SALE'|'CUSTODY_ARRANGEMENT'|'OFFLINE_CASE'='ORDER'){const {db,app}=fixture,t=await db.task.findFirstOrThrow(
+An operation failed because it depends on one or more records that were required but not found. No record was found for a query.
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ claim test/coordination-fixtures.ts:52:203
+
+ ❯ request test/coordination-disputes.integration.ts:18:128
+ ❯ test/coordination-disputes.integration.ts:22:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/coordination-disputes.integration.ts > 当前实收去向必须完整且不能超量，旧实物版本拒绝并不消费争议或任务
+PrismaClientKnownRequestError:
+Invalid `db.task.findFirstOrThrow()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/coordination-fixtures.ts:52:217
+
+  49 export async function employee(role:'SUPER_ADMIN'|'MERCH_WAREHOUSE'|'CUSTOMER_SERVICE'){const e=await fixture.db.employee.create({data:{username:'m13_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'隔离员工',role,passwordHash:[REDACTED],mustChangePassword:[REDACTED];return session('EMPLOYEE',e.id);}
+  50 export async function customer(){const c=await fixture.db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'隔离顾客',passwordHash:[REDACTED];return session('CUSTOMER',c.id);}
+  51 export async function paid(){const {db,app,admin}=fixture,c=await customer(),p=await db.product.create({data:{productCode:'M13-'+randomUUID(),name:'隔离服装',status:'ON_SALE',createdById:admin.actor.subjectId,updatedById:admin.actor.subjectId}}),sku=await db.sku.create({data:{code:('M13-'+randomUUID()).toUpperCase(),productId:p.id,combinationSignature:'DEFAULT',priceCents:9900,costCents:4000,balance:{create:{available:10}}}}),a=await app.get(AddressService).create(c,address),cart=await app.get(CartService).add(c,{skuId:sku.id,quantity:2});const input={addressId:a.address.id,items:[{cartItemId:cart.item.id,skuId:sku.id,quantity:2}]},orders=app.get(OrderService),quote=await orders.preview(c,input),order=await orders.create(c,{...input,quoteId:quote.quoteId},randomUUID());await app.get(OrderCommands).pay(c,order.orderId);return {id:order.orderId,c,sku};}
+→ 52 export async function claim(id:string,stage:TaskStage='SHIPMENT_PROCESS',actor=fixture.warehouse,businessType:'ORDER'|'AFTER_SALE'|'CUSTODY_ARRANGEMENT'|'OFFLINE_CASE'='ORDER'){const {db,app}=fixture,t=await db.task.findFirstOrThrow(
+An operation failed because it depends on one or more records that were required but not found. No record was found for a query.
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ claim test/coordination-fixtures.ts:52:203
+
+ ❯ request test/coordination-disputes.integration.ts:18:128
+ ❯ test/coordination-disputes.integration.ts:29:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/coordination-disputes.integration.ts > 管理员决定的审计故障回滚决定、关闭、安排、线下工单与任务，原键可重新执行
+PrismaClientKnownRequestError:
+Invalid `db.task.findFirstOrThrow()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/coordination-fixtures.ts:52:217
+
+  49 export async function employee(role:'SUPER_ADMIN'|'MERCH_WAREHOUSE'|'CUSTOMER_SERVICE'){const e=await fixture.db.employee.create({data:{username:'m13_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'隔离员工',role,passwordHash:[REDACTED],mustChangePassword:[REDACTED];return session('EMPLOYEE',e.id);}
+  50 export async function customer(){const c=await fixture.db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'隔离顾客',passwordHash:[REDACTED];return session('CUSTOMER',c.id);}
+  51 export async function paid(){const {db,app,admin}=fixture,c=await customer(),p=await db.product.create({data:{productCode:'M13-'+randomUUID(),name:'隔离服装',status:'ON_SALE',createdById:admin.actor.subjectId,updatedById:admin.actor.subjectId}}),sku=await db.sku.create({data:{code:('M13-'+randomUUID()).toUpperCase(),productId:p.id,combinationSignature:'DEFAULT',priceCents:9900,costCents:4000,balance:{create:{available:10}}}}),a=await app.get(AddressService).create(c,address),cart=await app.get(CartService).add(c,{skuId:sku.id,quantity:2});const input={addressId:a.address.id,items:[{cartItemId:cart.item.id,skuId:sku.id,quantity:2}]},orders=app.get(OrderService),quote=await orders.preview(c,input),order=await orders.create(c,{...input,quoteId:quote.quoteId},randomUUID());await app.get(OrderCommands).pay(c,order.orderId);return {id:order.orderId,c,sku};}
+→ 52 export async function claim(id:string,stage:TaskStage='SHIPMENT_PROCESS',actor=fixture.warehouse,businessType:'ORDER'|'AFTER_SALE'|'CUSTODY_ARRANGEMENT'|'OFFLINE_CASE'='ORDER'){const {db,app}=fixture,t=await db.task.findFirstOrThrow(
+An operation failed because it depends on one or more records that were required but not found. No record was found for a query.
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ claim test/coordination-fixtures.ts:52:203
+
+ ❯ request test/coordination-disputes.integration.ts:18:128
+ ❯ test/coordination-disputes.integration.ts:39:29
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+ FAIL  test/coordination-disputes.integration.ts > 客服必须显式领跟进，管理员必须领争议；HTTP拒绝越权、force及未知字段
+PrismaClientKnownRequestError:
+Invalid `db.task.findFirstOrThrow()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/coordination-fixtures.ts:52:217
+
+  49 export async function employee(role:'SUPER_ADMIN'|'MERCH_WAREHOUSE'|'CUSTOMER_SERVICE'){const e=await fixture.db.employee.create({data:{username:'m13_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'隔离员工',role,passwordHash:[REDACTED],mustChangePassword:[REDACTED];return session('EMPLOYEE',e.id);}
+  50 export async function customer(){const c=await fixture.db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'隔离顾客',passwordHash:[REDACTED];return session('CUSTOMER',c.id);}
+  51 export async function paid(){const {db,app,admin}=fixture,c=await customer(),p=await db.product.create({data:{productCode:'M13-'+randomUUID(),name:'隔离服装',status:'ON_SALE',createdById:admin.actor.subjectId,updatedById:admin.actor.subjectId}}),sku=await db.sku.create({data:{code:('M13-'+randomUUID()).toUpperCase(),productId:p.id,combinationSignature:'DEFAULT',priceCents:9900,costCents:4000,balance:{create:{available:10}}}}),a=await app.get(AddressService).create(c,address),cart=await app.get(CartService).add(c,{skuId:sku.id,quantity:2});const input={addressId:a.address.id,items:[{cartItemId:cart.item.id,skuId:sku.id,quantity:2}]},orders=app.get(OrderService),quote=await orders.preview(c,input),order=await orders.create(c,{...input,quoteId:quote.quoteId},randomUUID());await app.get(OrderCommands).pay(c,order.orderId);return {id:order.orderId,c,sku};}
+→ 52 export async function claim(id:string,stage:TaskStage='SHIPMENT_PROCESS',actor=fixture.warehouse,businessType:'ORDER'|'AFTER_SALE'|'CUSTODY_ARRANGEMENT'|'OFFLINE_CASE'='ORDER'){const {db,app}=fixture,t=await db.task.findFirstOrThrow(
+An operation failed because it depends on one or more records that were required but not found. No record was found for a query.
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ claim test/coordination-fixtures.ts:52:203
+
+ ❯ request test/coordination-disputes.integration.ts:18:128
+ ❯ test/coordination-disputes.integration.ts:42:283
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯
+
+数据库集成测试存在失败，本轮独占资源已按归属清理

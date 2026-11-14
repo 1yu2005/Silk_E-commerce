@@ -10,6 +10,8 @@ export async function shipmentBlocked(tx:Prisma.TransactionClient,id:string){ret
 export async function pendingHandover(tx:Prisma.TransactionClient,id:string){return tx.handoverAttempt.findFirst({where:{orderId:id,status:{in:['IN_PROGRESS','UNCERTAIN']}},orderBy:{attemptNo:'desc'}});}
 export async function validPacking(tx:Prisma.TransactionClient,o:Order){const f=await tx.fulfillment.findUnique({where:{orderId:o.id}});const p=f?.currentPackingCheckId?await tx.packingCheck.findUnique({where:{id:f.currentPackingCheckId}}):null;return p&&p.orderId===o.id&&p.checkedPhysicalVersion===o.stockPhysicalVersion?p:null;}
 export async function sourceBelongs(tx:Prisma.TransactionClient,id:string,type:string,sourceId:string){
+ if(type==='ADDRESS_REQUEST')return !!await tx.addressRequest.count({where:{id:sourceId,orderId:id}});
+ if(type==='PROXY_CONTEXT')return !!await tx.proxyContext.count({where:{id:sourceId,orderId:id}});
  if(type==='STOCK_EXCEPTION')return !!await tx.stockIncidentItem.count({where:{incidentId:sourceId,orderItem:{orderId:id}}});
  if(type==='SHIPMENT_EXCEPTION')return !!await tx.shipmentException.count({where:{id:sourceId,orderId:id}});
  if(type==='HANDOVER_UNCERTAIN')return !!await tx.handoverAttempt.count({where:{id:sourceId,orderId:id}});

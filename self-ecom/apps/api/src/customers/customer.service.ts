@@ -1,5 +1,5 @@
 // 作用：后台仅按customer.read投影顾客资料；管理员状态变更、会话撤销和历史审计同事务。
-import {Inject,Injectable} from '@nestjs/common';
+import {Inject,Injectable,Optional} from '@nestjs/common';
 import type {CustomerStatus,Prisma} from '@prisma/client';
 import {PrismaService} from '../prisma/prisma.service.js';
 import {AuditService} from '../audit/audit.service.js';
@@ -9,6 +9,8 @@ import {CustomerAccessService,type CustomerContext} from './customer-access.serv
 import {CustomerConsumptionService} from './customer-consumption.service.js';
 import {CustomerError} from './customer.errors.js';
 import type {CustomerQueryDto,CustomerStatusDto} from './customer.dto.js';
+import {CustomerStatusEffects} from './customer-status-effects.js';
+import {TaskError} from '../tasks/task.errors.js';
 import type {PaginationDto} from '../common/http/pagination.dto.js';
 const select={id:true,phone:true,nickname:true,status:true,statusVersion:true,createdAt:true,lastLoginAt:true,avatarAssetId:true} satisfies Prisma.CustomerSelect;
 const readOptions={isolationLevel:'RepeatableRead' as const};
@@ -16,7 +18,7 @@ const readOptions={isolationLevel:'RepeatableRead' as const};
 export class CustomerService {
  constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(CustomerAccessService)private readonly access:CustomerAccessService,
  @Inject(AuditService)private readonly audit:AuditService,@Inject(AuthSessionService)private readonly sessions:AuthSessionService,
- @Inject(CustomerConsumptionService)private readonly consumption:CustomerConsumptionService){}
+ @Inject(CustomerConsumptionService)private readonly consumption:CustomerConsumptionService,@Optional() @Inject(CustomerStatusEffects)private readonly statusEffects:CustomerStatusEffects=new CustomerStatusEffects()){}
  async list(ctx:CustomerContext,q:CustomerQueryDto){
   if(q.registeredFrom&&q.registeredTo&&new Date(q.registeredFrom)>new Date(q.registeredTo))throw new CustomerError('VALIDATION_FAILED');
   return this.db.$transaction(async tx=>{await this.access.employee(tx,ctx,'customer.read');
@@ -32,7 +34,7 @@ export class CustomerService {
  addresses(ctx:CustomerContext,id:string){return this.db.$transaction(async tx=>{await this.access.employee(tx,ctx,'customer.read');await this.exists(tx,id);const items=await tx.address.findMany({where:{customerId:id},orderBy:[{isDefault:'desc'},{createdAt:'asc'},{id:'asc'}]});return {items};},readOptions);}
  history(ctx:CustomerContext,id:string,q:PaginationDto){return this.db.$transaction(async tx=>{await this.access.employee(tx,ctx,'customer.read');await this.exists(tx,id);const total=await tx.customerStatusHistory.count({where:{customerId:id}});const skip=BigInt(q.page-1)*BigInt(q.pageSize);const items=skip>=BigInt(total)?[]:await tx.customerStatusHistory.findMany({where:{customerId:id},orderBy:[{toVersion:'desc'},{id:'asc'}],skip:Number(skip),take:q.pageSize});return {items,total,page:q.page,pageSize:q.pageSize};},readOptions);}
  consumed(ctx:CustomerContext,id:string){return this.db.$transaction(async tx=>{await this.access.employee(tx,ctx,'customer.read');await this.exists(tx,id);return this.consumption.read(tx,id);},readOptions);}
- change(ctx:CustomerContext,id:string,status:CustomerStatus,input:CustomerStatusDto){return runAuthTransaction(this.db,async tx=>{
+ change(ctx:CustomerContext,id:string,status:CustomerStatus,input:CustomerStatusDto){return runAuthTransaction(this.db,async tx=>this.statusEffects.run(tx,ctx,id,async()=>{
   const actor=await this.access.employee(tx,ctx,'customer.status.manage',true);
   await tx.$queryRaw`SELECT id FROM customer WHERE id=${id}::uuid FOR UPDATE`;
   const before=await tx.customer.findUnique({where:{id},select:{status:true,statusVersion:true,tokenVersion:true}});if(!before)throw new CustomerError('CUSTOMER_NOT_FOUND');
@@ -45,5 +47,5 @@ export class CustomerService {
   await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:actor.subjectId},action:'customer.status.change',targetId:id,requestId:ctx.requestId,reason:input.reason,
    before:{status:before.status,customerStatusVersion:before.statusVersion},after:{status,customerStatusVersion:result.statusVersion}});
   return {...result,changed:true};
- });}
+ }),e=>e instanceof TaskError&&e.code==='TASK_LOCK_PLAN_CHANGED');}
 }

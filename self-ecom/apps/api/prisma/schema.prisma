@@ -227,6 +227,10 @@ enum FileOwnerType {
   RETURN_INSPECTION
   COMMUNICATION
   OFFLINE_CASE
+  PROXY_VERIFICATION
+  DISPUTE_DECISION
+  CUSTODY_EVENT
+  OFFLINE_CASE_EVENT
 }
 
 enum FileAudience {
@@ -1170,6 +1174,7 @@ model OrderBlock {
   type              String    @db.VarChar(40)
   sourceType        String    @map("source_type") @db.VarChar(40)
   sourceId          String    @map("source_id") @db.Uuid
+  sourceAddressRequestId String? @unique @map("source_address_request_id") @db.Uuid
   sourceAfterSaleId String?   @unique @map("source_after_sale_id") @db.Uuid
   active            Boolean   @default(true)
   blocksShipment    Boolean   @default(true) @map("blocks_shipment")
@@ -1509,6 +1514,9 @@ model TimerPauseBlock {
 
 // 售后各真实FK、跨单归属及追加事实守卫由0014的SQL约束维护；不使用逻辑UUID冒充归属。
 model AfterSale {
+ proxyContextId String? @map("proxy_context_id") @db.Uuid
+ representedCustomerId String? @map("represented_customer_id") @db.Uuid
+ submittedByEmployeeId String? @map("submitted_by_employee_id") @db.Uuid
  returnPhysicalVersion Int @default(0) @map("return_physical_version")
  finalInspectionId String? @unique @map("final_inspection_id") @db.Uuid
  activeUnshippedCheckId String? @map("active_unshipped_check_id") @db.Uuid
@@ -1543,6 +1551,8 @@ model AfterSale {
  @@map("after_sale")
 }
 model AfterSaleMaterialVersion {
+ proxyContextId String? @map("proxy_context_id") @db.Uuid
+ representedCustomerId String? @map("represented_customer_id") @db.Uuid
  id String @id @default(uuid()) @db.Uuid
  afterSaleId String @map("after_sale_id") @db.Uuid
  versionNo Int @map("version_no")
@@ -1574,6 +1584,7 @@ model AfterSaleSupplementRequest {
  @@map("after_sale_supplement_request")
 }
 model AfterSaleDecision {
+ disputeDecisionId String? @unique @map("dispute_decision_id") @db.Uuid
  id String @id @default(uuid()) @db.Uuid
  afterSaleId String @map("after_sale_id") @db.Uuid
  kind String @db.VarChar(40)
@@ -1608,6 +1619,8 @@ model ReturnParcel {
  @@map("return_parcel")
 }
 model ReturnLogisticsRevision {
+ proxyContextId String? @map("proxy_context_id") @db.Uuid
+ representedCustomerId String? @map("represented_customer_id") @db.Uuid
  id String @id @default(uuid()) @db.Uuid
  parcelId String @map("parcel_id") @db.Uuid
  revisionNo Int @map("revision_no")
@@ -1862,4 +1875,235 @@ model ReturnPhysicalEvent {
  commandKey String @map("command_key") @db.Uuid
  @@unique([afterSaleId,commandKey])
  @@map("return_physical_event")
+}
+
+// 板块13：实际业务FK与CHECK随0016增量迁移交付，所有事件只追加。
+model AddressRequest {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ customerId String @map("customer_id") @db.Uuid
+ status String @default("OPEN") @db.VarChar(20)
+ reason String @db.VarChar(500)
+ communicationId String @map("communication_id") @db.Uuid
+ proposedAddressSnapshot Json? @map("proposed_address_snapshot")
+ physicalVersionAtOpen Int @map("physical_version_at_open")
+ version Int @default(0)
+ handoffAfterSaleId String? @map("handoff_after_sale_id") @db.Uuid
+ handoffOfflineCaseId String? @map("handoff_offline_case_id") @db.Uuid
+ resolutionKind String? @map("resolution_kind") @db.VarChar(30)
+ createdById String @map("created_by_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ resolvedAt DateTime? @map("resolved_at") @db.Timestamptz(3)
+ @@index([orderId,status])
+ @@map("address_request")
+}
+model AddressRequestEvent {
+ id String @id @default(uuid()) @db.Uuid
+ requestId String @map("request_id") @db.Uuid
+ kind String @db.VarChar(40)
+ beforeData Json? @map("before_data")
+ afterData Json? @map("after_data")
+ reason String @db.VarChar(500)
+ communicationId String? @map("communication_id") @db.Uuid
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@index([requestId,createdAt,id])
+ @@map("address_request_event")
+}
+model ProxyContext {
+ id String @id @default(uuid()) @db.Uuid
+ customerId String @map("customer_id") @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ afterSaleId String? @map("after_sale_id") @db.Uuid
+ parcelId String? @map("parcel_id") @db.Uuid
+ supplementRequestId String? @map("supplement_request_id") @db.Uuid
+ offlineCaseId String? @map("offline_case_id") @db.Uuid
+ action String @db.VarChar(30)
+ customerStatusVersion Int @map("customer_status_version")
+ verifiedById String @map("verified_by_id") @db.Uuid
+ verifiedAt DateTime @map("verified_at") @db.Timestamptz(3)
+ method String @db.VarChar(40)
+ verificationSummary String @map("verification_summary") @db.VarChar(2000)
+ sourceCommunicationId String @map("source_communication_id") @db.Uuid
+ expiresAt DateTime @map("expires_at") @db.Timestamptz(3)
+ status String @default("VERIFIED") @db.VarChar(20)
+ invalidatedReason String? @map("invalidated_reason") @db.VarChar(500)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@index([customerId,orderId,status,expiresAt])
+ @@unique([id,orderId])
+ @@map("proxy_context")
+}
+model ProxyExecution {
+ id String @id @default(uuid()) @db.Uuid
+ proxyContextId String @unique @map("proxy_context_id") @db.Uuid
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ customerId String @map("customer_id") @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ action String @db.VarChar(30)
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.Char(64)
+ resultAfterSaleId String? @map("result_after_sale_id") @db.Uuid
+ materialVersionId String? @map("material_version_id") @db.Uuid
+ parcelRevisionId String? @map("parcel_revision_id") @db.Uuid
+ offlineEventId String? @map("offline_event_id") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([actorEmployeeId,orderId,action,commandKey])
+ @@map("proxy_execution")
+}
+model DisputeRequest {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ kind String @db.VarChar(40)
+ basedAfterSaleVersion Int @map("based_after_sale_version")
+ basedOrderPhysicalVersion Int? @map("based_order_physical_version")
+ basedReturnPhysicalVersion Int? @map("based_return_physical_version")
+ communicationId String @map("communication_id") @db.Uuid
+ proposal String @db.VarChar(2000)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ createdById String @map("created_by_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ status String @default("OPEN") @db.VarChar(20)
+ @@index([afterSaleId,createdAt,id])
+ @@map("dispute_request")
+}
+model DisputeDecision {
+ id String @id @default(uuid()) @db.Uuid
+ requestId String @unique @map("request_id") @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ decision String @db.VarChar(50)
+ fromStatus String @map("from_status") @db.VarChar(40)
+ reason String @db.VarChar(500)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ evidenceSummary String @map("evidence_summary") @db.VarChar(2000)
+ decidedById String @map("decided_by_id") @db.Uuid
+ decidedAt DateTime @map("decided_at") @db.Timestamptz(3)
+ checkedPhysicalVersion Int @map("checked_physical_version")
+ checkedReturnPhysicalVersion Int @map("checked_return_physical_version")
+ relatedCheckId String? @map("related_check_id") @db.Uuid
+ approvalId String? @map("approval_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ requestIdTrace String @map("request_id_trace") @db.VarChar(64)
+ @@index([afterSaleId,decidedAt])
+ @@map("dispute_decision")
+}
+model CustodyArrangement {
+ id String @id @default(uuid()) @db.Uuid
+ disputeDecisionId String @map("dispute_decision_id") @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ orderItemId String? @map("order_item_id") @db.Uuid
+ returnReceiptId String? @map("return_receipt_id") @db.Uuid
+ unmatchedItemId String? @map("unmatched_item_id") @db.Uuid
+ description String @db.VarChar(1000)
+ quantity Int
+ disposition String @db.VarChar(40)
+ custodianEmployeeId String? @map("custodian_employee_id") @db.Uuid
+ location String @db.VarChar(200)
+ plannedAction String @map("planned_action") @db.VarChar(1000)
+ nextFollowAt DateTime? @map("next_follow_at") @db.Timestamptz(3)
+ status String @default("PLANNED") @db.VarChar(20)
+ followOfflineCaseId String? @map("follow_offline_case_id") @db.Uuid
+ version Int @default(0)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@index([status,nextFollowAt])
+ @@index([afterSaleId,createdAt,id])
+ @@map("custody_arrangement")
+}
+model CustodyEvent {
+ id String @id @default(uuid()) @db.Uuid
+ arrangementId String @map("arrangement_id") @db.Uuid
+ kind String @db.VarChar(30)
+ occurredAt DateTime @map("occurred_at") @db.Timestamptz(3)
+ quantity Int
+ carrier String? @db.VarChar(60)
+ tracking String? @db.VarChar(100)
+ location String? @db.VarChar(200)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ evidenceNote String @map("evidence_note") @db.VarChar(2000)
+ publicText String? @map("public_text") @db.VarChar(1000)
+ correctsEventId String? @map("corrects_event_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([arrangementId,commandKey])
+ @@index([arrangementId,createdAt,id])
+ @@map("custody_event")
+}
+model OfflineCase {
+ adminRequestEventId String? @map("admin_request_event_id") @db.Uuid
+ adminDecisionEventId String? @map("admin_decision_event_id") @db.Uuid
+ id String @id @default(uuid()) @db.Uuid
+ caseNo String @unique @map("case_no") @db.VarChar(40)
+ customerId String @map("customer_id") @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ afterSaleId String? @map("after_sale_id") @db.Uuid
+ addressRequestId String? @map("address_request_id") @db.Uuid
+ disputeDecisionId String? @map("dispute_decision_id") @db.Uuid
+ type String @db.VarChar(40)
+ status String @default("OPEN") @db.VarChar(20)
+ subject String @db.VarChar(100)
+ description String @db.VarChar(2000)
+ publicSummary String @map("public_summary") @db.VarChar(1000)
+ version Int @default(0)
+ nextFollowAt DateTime? @map("next_follow_at") @db.Timestamptz(3)
+ createdById String @map("created_by_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ resolvedAt DateTime? @map("resolved_at") @db.Timestamptz(3)
+ closedAt DateTime? @map("closed_at") @db.Timestamptz(3)
+ @@index([status,createdAt,id])
+ @@index([orderId,createdAt,id])
+ @@unique([id,orderId])
+ @@map("offline_case")
+}
+model OfflineCaseEvent {
+ adminDecision String? @map("admin_decision") @db.VarChar(20)
+ basedAdminRequestEventId String? @map("based_admin_request_event_id") @db.Uuid
+ id String @id @default(uuid()) @db.Uuid
+ offlineCaseId String @map("offline_case_id") @db.Uuid
+ kind String @db.VarChar(30)
+ occurredAt DateTime @map("occurred_at") @db.Timestamptz(3)
+ channel String @db.VarChar(30)
+ result String @db.VarChar(2000)
+ nextStep String? @map("next_step") @db.VarChar(1000)
+ nextFollowAt DateTime? @map("next_follow_at") @db.Timestamptz(3)
+ publicText String? @map("public_text") @db.VarChar(1000)
+ reportedAmountCents Int? @map("reported_amount_cents")
+ externalPaymentAt DateTime? @map("external_payment_at") @db.Timestamptz(3)
+ externalVerification String? @map("external_verification") @db.VarChar(20)
+ carrier String? @db.VarChar(60)
+ tracking String? @db.VarChar(100)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ proxyContextId String? @map("proxy_context_id") @db.Uuid
+ representedCustomerId String? @map("represented_customer_id") @db.Uuid
+ correctsEventId String? @map("corrects_event_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([offlineCaseId,commandKey])
+ @@index([offlineCaseId,createdAt,id])
+ @@map("offline_case_event")
+}
+model CoordinationCommandResult {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ action String @db.VarChar(50)
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.Char(64)
+ resultType String @map("result_type") @db.VarChar(50)
+ resultId String @map("result_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([orderId,action,commandKey])
+ @@map("coordination_command_result")
+}
+model CoordinationHandoff {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ sourceType String @map("source_type") @db.VarChar(40)
+ sourceId String @map("source_id") @db.Uuid
+ semanticApplyKey String @map("semantic_apply_key") @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([sourceType,sourceId,semanticApplyKey])
+ @@index([orderId,createdAt])
+ @@map("coordination_handoff")
 }

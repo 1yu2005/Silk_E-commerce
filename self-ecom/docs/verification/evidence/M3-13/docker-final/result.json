@@ -1,0 +1,570 @@
+{
+  "startedAt": "2026-11-14T16:00:34.016Z",
+  "project": "self-ecom-m313-acceptance-47fd45c7",
+  "imagePrefix": "self-ecom-m313-acceptance-88459108",
+  "checks": [
+    "真实正式链路：独占岗位成员改初始密码，商品/图片→来源→领取→库存正式入账50件→上架→顾客购买付款"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "b3a2f942-30be-4bdd-85bf-ffe19f0d8f10"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "05f44269-7b84-4dec-affe-39dc56f2f2bc"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "8bc5a510-b3f0-4e9c-9f74-c3d0cbfcdf3a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees",
+      "status": 201,
+      "requestId": "7dfc2886-8c96-4821-951e-3af622619945"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "ab28a0e0-5efe-4fee-825a-90bf0ca16384"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "666665c1-79fd-4d02-b8a0-648fbec9628f"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "9159e1a6-f0f5-461c-adbc-5166c85d9fba"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees",
+      "status": 201,
+      "requestId": "64b2cfc3-2382-402f-a2e4-fa3c09f6e203"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "8c77163f-3593-45f7-9386-eef789efc3a7"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "2210f665-fde2-466d-a3f4-9931c3f6f3d0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "aed25701-3590-47bc-882f-24db75026fa0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "f4e1e529-04dc-4a2a-9b6a-4fe1dc1a0ef4"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "13391b45-a658-477b-a4bc-347a13bf377c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/786aebec-7cb0-4f8c-a6ae-1df710defe74/skus/batch-fill",
+      "status": 200,
+      "requestId": "64487b73-d97f-40b6-8c79-b41e2e6ce542"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/786aebec-7cb0-4f8c-a6ae-1df710defe74/images",
+      "status": 200,
+      "requestId": "c7299460-cac1-4d5d-a366-157de9b84e7b"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "546c22f6-4525-42a4-8d13-ab2496723e58"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "9d6c6c62-95c1-4a7b-b51c-b1edebe1ec31"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/ae03587c-8169-4177-9cdb-174f523e537a/claim",
+      "status": 200,
+      "requestId": "8e9129c5-7046-49a1-93bd-997882f51321"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/ae03587c-8169-4177-9cdb-174f523e537a/post",
+      "status": 200,
+      "requestId": "23665323-a8e9-41bb-8f99-1f7437e827c8"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/786aebec-7cb0-4f8c-a6ae-1df710defe74/publish",
+      "status": 200,
+      "requestId": "ae6d4e68-a4c5-40ab-8cc4-293dae97ed62"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/register",
+      "status": 201,
+      "requestId": "f1901d70-597a-4835-b90e-49f49e7c8744"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "a84f296d-c49a-4ef9-9628-016f9c7b3eb3"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "e3771a92-df81-4c4d-a857-c682e24372a3"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "a6d78e21-662e-476b-827d-65d366a6dd58"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "7d3ede86-cc88-422a-90e4-668f30323cf2"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "39797955-e2c5-4caf-a53f-022c37167361"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "c2dd3f1f-bbae-4229-a93c-954fd7ff546e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/3225cbf3-8c49-42b9-9804-479fdcf0982f/pay",
+      "status": 200,
+      "requestId": "e80068a7-a83a-42d7-a71b-91e7cb238ff0"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/3225cbf3-8c49-42b9-9804-479fdcf0982f",
+      "status": 200,
+      "requestId": "b7759893-23f7-4f0d-b71b-760c7ba7ded1"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/9f69a48e-d49e-47df-af26-44f0caf6fede",
+      "status": 200,
+      "requestId": "8efceaca-64fa-49ec-9818-0f5520b8af15"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/communications",
+      "status": 201,
+      "requestId": "87b275f7-f630-4133-97e4-85106f3b7375"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/3225cbf3-8c49-42b9-9804-479fdcf0982f/coordination",
+      "status": 200,
+      "requestId": "3a69bf44-cafe-496b-94e5-617da508dac3"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/3225cbf3-8c49-42b9-9804-479fdcf0982f/address-requests",
+      "status": 400,
+      "requestId": "b2f980d5-0be1-4da9-9a3c-0ef5499cbb74"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原容器清单",
+      "command": [
+        "docker",
+        "ps",
+        "-aq"
+      ],
+      "startedAt": "2026-11-14T16:00:34.017Z",
+      "endedAt": "2026-11-14T16:00:34.459Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-0.log"
+    },
+    {
+      "label": "原卷清单",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T16:00:34.459Z",
+      "endedAt": "2026-11-14T16:00:34.589Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-1.log"
+    },
+    {
+      "label": "原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "5ee1597a1f58",
+        "e418a6f26617",
+        "88a67a64cbf8",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T16:00:34.589Z",
+      "endedAt": "2026-11-14T16:00:34.800Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-2.log"
+    },
+    {
+      "label": "本轮独占Compose配置",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "config",
+        "--quiet"
+      ],
+      "startedAt": "2026-11-14T16:00:34.800Z",
+      "endedAt": "2026-11-14T16:00:35.147Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-3.log"
+    },
+    {
+      "label": "最新生产镜像真实构建 api",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "build",
+        "api"
+      ],
+      "startedAt": "2026-11-14T16:00:35.148Z",
+      "endedAt": "2026-11-14T16:04:44.606Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-4.log"
+    },
+    {
+      "label": "冻结生产镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m313-acceptance-88459108-api:local"
+      ],
+      "startedAt": "2026-11-14T16:04:44.614Z",
+      "endedAt": "2026-11-14T16:04:45.002Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-5.log"
+    },
+    {
+      "label": "冻结生产镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m313-acceptance-88459108-admin:local"
+      ],
+      "startedAt": "2026-11-14T16:04:45.002Z",
+      "endedAt": "2026-11-14T16:04:45.286Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-6.log"
+    },
+    {
+      "label": "冻结生产镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m313-acceptance-88459108-store:local"
+      ],
+      "startedAt": "2026-11-14T16:04:45.287Z",
+      "endedAt": "2026-11-14T16:04:45.507Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-7.log"
+    },
+    {
+      "label": "启动本轮独占数据库",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "up",
+        "-d",
+        "--wait",
+        "--wait-timeout",
+        "90",
+        "db"
+      ],
+      "startedAt": "2026-11-14T16:04:45.508Z",
+      "endedAt": "2026-11-14T16:04:52.950Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-8.log"
+    },
+    {
+      "label": "空库应用全部增量迁移",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "api",
+        "pnpm",
+        "db:migrate:deploy"
+      ],
+      "startedAt": "2026-11-14T16:04:52.951Z",
+      "endedAt": "2026-11-14T16:05:00.007Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-9.log"
+    },
+    {
+      "label": "独占权限目录初始化",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "api",
+        "pnpm",
+        "db:seed:permissions"
+      ],
+      "startedAt": "2026-11-14T16:05:00.008Z",
+      "endedAt": "2026-11-14T16:05:02.780Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-10.log"
+    },
+    {
+      "label": "独占管理员初始化",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-e",
+        "INIT_ADMIN_USERNAME",
+        "-e",
+        "INIT_ADMIN_PASSWORD",
+        "api",
+        "pnpm",
+        "db:seed:admin"
+      ],
+      "startedAt": "2026-11-14T16:05:02.780Z",
+      "endedAt": "2026-11-14T16:05:05.721Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-11.log"
+    },
+    {
+      "label": "启动独占四服务",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "up",
+        "-d",
+        "--wait",
+        "--wait-timeout",
+        "120"
+      ],
+      "startedAt": "2026-11-14T16:05:05.721Z",
+      "endedAt": "2026-11-14T16:05:18.371Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-12.log"
+    },
+    {
+      "label": "失败API诊断",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m313-acceptance-47fd45c7",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\compose.override.yaml",
+        "logs",
+        "--no-color",
+        "--tail",
+        "100",
+        "api"
+      ],
+      "startedAt": "2026-11-14T16:05:25.292Z",
+      "endedAt": "2026-11-14T16:05:25.962Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-13.log"
+    },
+    {
+      "label": "原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "5ee1597a1f58",
+        "e418a6f26617",
+        "88a67a64cbf8",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T16:05:26.587Z",
+      "endedAt": "2026-11-14T16:05:26.868Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-14.log"
+    },
+    {
+      "label": "复核原卷",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T16:05:26.868Z",
+      "endedAt": "2026-11-14T16:05:27.017Z",
+      "exitCode": 0,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\M3-13\\docker-final\\command-15.log"
+    }
+  ],
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m313-acceptance-88459108-api:local",
+      "id": "sha256:64805363f23191267c172265b4db639d8b479dfd279749b98141cffb663b84ac"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-88459108-admin:local",
+      "id": "sha256:a25d2f8fd3f148913a1d5d9b053241abf0d16108501118e4b894da75bb0793c7"
+    },
+    {
+      "name": "self-ecom-m313-acceptance-88459108-store:local",
+      "id": "sha256:d0a43f8ed87a4ee57bc7b3046fd6a9da56426382e579d57a216eed9a9a592307"
+    }
+  ],
+  "pageErrors": [],
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: /admin/orders/3225cbf3-8c49-42b9-9804-479fdcf0982f/address-requests VALIDATION_FAILED\n\n400 !== 200\n\n    at call (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-coordination-compose.mjs:28:481)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async verifyCoordination (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-coordination-http.mjs:31:178)\n    at async file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-coordination-compose.mjs:36:15",
+  "originalResourcesPreserved": true,
+  "retainedResources": {
+    "project": "self-ecom-m313-acceptance-47fd45c7",
+    "volumes": [
+      "self-ecom-m313-acceptance-47fd45c7_db_data",
+      "self-ecom-m313-acceptance-47fd45c7_uploads"
+    ]
+  },
+  "cleaned": false,
+  "endedAt": "2026-11-14T16:05:27.017Z"
+}

@@ -1,0 +1,139 @@
+Datasource "db": PostgreSQL database "m313_989c2559adb84107b01fbe9618d3811b_test", schema "public" at "localhost:15432"
+
+16 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+Applying migration `0015_return_inspections_physical_checks_refunds`
+Applying migration `0016_exception_coordination`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+  └─ 0015_return_inspections_physical_checks_refunds/
+    └─ migration.sql
+  └─ 0016_exception_coordination/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/coordination-disputes.integration.ts (12 tests | 2 failed) 47230ms
+   × 停止未交运退款与首次退款真实竞争，由先提交事实决定，最多一条路线改变库存 15055ms
+   × 管理员结案和仓储物品凭据真实上传并私有绑定，跨售后复用被拒绝，物品详情可复查原凭据 1528ms
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 10 passed (12)
+     Errors  1 error
+   Start at  23:41:15
+   Duration  51.22s (tests 93%, import 6%, transform 2%)
+
+{"suite":"test/coordination-disputes.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+(node:15244) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/coordination-disputes.integration.ts > 停止未交运退款与首次退款真实竞争，由先提交事实决定，最多一条路线改变库存
+Error: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ test/coordination-disputes.integration.ts:62:1
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/coordination-disputes.integration.ts > 管理员结案和仓储物品凭据真实上传并私有绑定，跨售后复用被拒绝，物品详情可复查原凭据
+FileError: 图片用途与业务要求不符
+ ❯ FileBindingService.bindFiles src/files/file-binding.service.ts:49:51
+     47|       const asset = await tx.fileAsset.findUnique({ where: { id }, inc…
+     48|       if (!asset || (asset.state === 'STAGED' && !uploadedBy(asset, ac…
+     49|       if (asset.purpose !== policy.purpose) throw new FileError('FILE_…
+       |                                                   ^
+     50|       if (!['STAGED', 'RETAINED'].includes(asset.state)
+     51|         || (asset.state === 'STAGED' && (!asset.expiresAt || asset.exp…
+ ❯ src/coordination/dispute.service.ts:61:31
+ ❯ src/after-sales/after-sale.service.ts:51:17
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:70:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:39:74
+ ❯ test/coordination-disputes.integration.ts:68:191
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+TaskError: 任务仍有未结束的业务来源
+ ❯ src/tasks/task-lifecycle.service.ts:70:126
+     68|       // 已注册来源仓储时，完成/取消前必须先逐个结束来源；不能取消共享任务掩盖其它来源。
+     69|       const sources = this.adapters.getSources(task.businessType);
+     70|       if (['COMPLETED', 'CANCELLED'].includes(input.action) && sources…
+       |                                                                                                                              ^
+     71|       await port.applyTransition(tx, actor, task, input.action);
+     72|       actor = await scope.revalidate(); assertActor(actor); const now …
+ ❯ process.processTicksAndRejections node:internal/process/task_queues:104:5
+ ❯ RefundService.finishTasks src/after-sales/refund.service.ts:92:286
+ ❯ src/after-sales/refund.service.ts:81:6
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:70:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/runtime/client.js:99:4854
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:39:74
+ ❯ RefundService.execute src/after-sales/refund.service.ts:34:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { code: 'TASK_SOURCE_ACTIVE', status: 409 }
+This error originated in "test/coordination-disputes.integration.ts" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was "停止未交运退款与首次退款真实竞争，由先提交事实决定，最多一条路线改变库存". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+数据库集成测试存在失败，本轮独占资源已按归属清理
