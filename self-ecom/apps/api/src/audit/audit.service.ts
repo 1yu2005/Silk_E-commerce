@@ -47,6 +47,7 @@ const policies = {
   'task.transfer': { target: 'Task', fields: ['taskStatus', 'assigneeId', 'round', 'taskVersion', 'reassignNeeded'], reason: true },
   'task.qualification.lost': { target: 'Task', fields: ['taskStatus', 'assigneeId', 'round', 'taskVersion', 'reassignNeeded'], reason: true },
   'task.deadline.extend': { target: 'Task', fields: ['dueAt', 'taskStatus', 'round', 'taskVersion'], reason: true },
+  'task.receipt-start.correct': { target: 'Task', fields: ['startedAt', 'dueAt'], reason: true },
   'task.stage.suspend': { target: 'Task', fields: ['taskStatus', 'assigneeId', 'round'], reason: true },
   'task.stage.resume': { target: 'Task', fields: ['taskStatus', 'assigneeId', 'round'], reason: true },
   'task.source.add': { target: 'Task', fields: ['sourceType', 'sourceId', 'sourceStatus'], reason: true },
@@ -103,7 +104,7 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
     else if(field==='closeReasonCode') valid=typeof item==='string'&&['USER_CANCELLED','ADMIN_CLOSED','PAYMENT_TIMEOUT'].includes(item);
     else if(field==='incidentAction') valid=typeof item==='string'&&['CREATE','VERIFY','REPLENISH','RESOLVE','SETTLE'].includes(item);
     else if (field === 'inventoryVersion' || field === 'inventoryQuantity') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
-    else if(field === 'inventoryOperation') valid=typeof item==='string'&&['MANUAL_POST','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','CREATE','EDIT','VERIFY','CONVERT','POST','VOID','CHECK','RESOLVE','THRESHOLD','BLOCK','UNBLOCK'].includes(item);
+    else if(field === 'inventoryOperation') valid=typeof item==='string'&&['MANUAL_POST','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','REFUNDED_AVAILABLE_LOSS','CREATE','EDIT','VERIFY','CONVERT','POST','VOID','CHECK','RESOLVE','THRESHOLD','BLOCK','UNBLOCK'].includes(item);
     else if (field === 'catalogVersion' || field === 'affectedCount') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
     else if (field === 'catalogAction') valid = typeof item==='string' && /^[a-z.-]{1,60}$/.test(item);
     else if (field === 'catalogChanges') valid = Array.isArray(item) && item.length<=1000 && item.every(change => {
@@ -150,7 +151,7 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
     else if (field === 'businessId') valid = typeof item === 'string' && uuid.test(item);
     else if (field === 'stage') valid = typeof item === 'string' && Object.hasOwn(TaskStage, item);
     else if (field === 'taskStatus') valid = typeof item === 'string' && Object.hasOwn(TaskStatus, item);
-    else if (field === 'sourceType') valid = typeof item === 'string' && ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST'].includes(item);
+    else if (field === 'sourceType') valid = typeof item === 'string' && ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST', 'RETURN_PARCEL'].includes(item);
     else if (field === 'sourceId') valid = typeof item === 'string' && uuid.test(item);
     else if (field === 'sourceStatus') valid = typeof item === 'string' && ['ACTIVE', 'RESOLVED', 'CANCELLED'].includes(item);
     else if (field === 'timerState') valid = typeof item === 'string' && ['UNSHIPPED', 'HANDOVER_UNKNOWN', 'SHIPPED', 'COMPLETED', 'REFUNDED'].includes(item);
@@ -159,7 +160,7 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
     else if (field === 'round') valid = Number.isInteger(item) && (item as number) >= 1 && (item as number) <= 2147483647;
     else if (field === 'taskVersion') valid = Number.isInteger(item) && (item as number) >= 0 && (item as number) <= 2147483647;
     else if (field === 'assigneeId' || field === 'settingsVersionId') valid = item === null || (typeof item === 'string' && uuid.test(item));
-    else if (field === 'dueAt' || field === 'firstOverdueAt') valid = item === null || (typeof item === 'string'
+    else if (field === 'dueAt' || field === 'firstOverdueAt' || field === 'startedAt') valid = item === null || (typeof item === 'string'
       && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(item) && Number.isFinite(Date.parse(item)) && new Date(item).toISOString() === item);
     if (!valid) invalid();
     result[field] = item as Prisma.InputJsonValue;
@@ -180,7 +181,7 @@ export class AuditService {
     if (!actor || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(actor.type)) invalid();
     if (actor.type !== 'SYSTEM' && !uuid.test(actor.id)) invalid();
     // 系统只允许初始化及已明确实现的任务动作，不能冒用系统绕过员工管理主体约束。
-    if (actor.type === 'SYSTEM' && !['order.fulfillment','order.receipt','order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
+    if (actor.type === 'SYSTEM' && !['after-sale.change','order.fulfillment','order.receipt','order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
       'task.stage.suspend', 'task.stage.resume', 'task.source.add', 'task.source.resolve', 'task.source.cancel',
       'order.timer.block.add', 'order.timer.block.release', 'order.timer.handover.record', 'order.timer.finish'].includes(payload.action)) invalid();
     if (['task.claim', 'task.release', 'task.transfer', 'task.qualification.lost', 'task.deadline.extend'].includes(payload.action) && actor.type !== 'EMPLOYEE') invalid();

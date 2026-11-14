@@ -1,3 +1,4 @@
+import {OrderPhysicalChanges} from './order-physical-changes.js';
 // 作用：仓储动作以订单锁串行裁决；真实交运、计时、任务、证据、历史和审计在同一事务。
 import {Inject,Injectable} from '@nestjs/common';
 import {randomUUID} from 'node:crypto';
@@ -33,7 +34,7 @@ const retryPlan=(e:unknown)=>e instanceof TaskError&&e.code==='TASK_LOCK_PLAN_CH
 const activeStatuses:TaskStatus[]=['OPEN','CLAIMED','SUSPENDED'];
 @Injectable()
 export class FulfillmentService {
- constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(Clock)private readonly clock:Clock,
+ constructor(@Inject(OrderPhysicalChanges)private readonly physicalChanges:OrderPhysicalChanges,@Inject(PrismaService)private readonly db:PrismaService,@Inject(Clock)private readonly clock:Clock,
  @Inject(TaskEntryService)private readonly entry:TaskEntryService,@Inject(TaskLifecycleService)private readonly lifecycle:TaskLifecycleService,
  @Inject(TaskSourceService)private readonly sources:TaskSourceService,@Inject(TaskCommandService)private readonly tasks:TaskCommandService,
  @Inject(OrderTimerService)private readonly timer:OrderTimerService,@Inject(StateHistoryService)private readonly history:StateHistoryService,
@@ -80,7 +81,7 @@ export class FulfillmentService {
   const p=await s.tx.packingCheck.create({data:{orderId:id,fulfillmentId:f.id,checkedPhysicalVersion:o.stockPhysicalVersion+(physical?1:0),checkedItems:items,goodsLocation:b.goodsLocation,checkedById:a.subjectId,commandKey:b.commandKey,createdAt:now}});
   await s.tx.fulfillment.update({where:{id:f.id},data:{currentPackingCheckId:physical?null:p.id,version:{increment:1},updatedAt:now}});
   const shipment=await s.tx.shipment.findUnique({where:{orderId:id}});await this.changeStage(s,o,!physical&&shipment?'READY':'PREPARING',b.commandKey,b.reason,physical?{stockPhysicalVersion:{increment:1}}:{});
-  await this.event(s,id,physical?'PHYSICAL_CHECK':'PACK',b.reason,p.id);return {packingCheckId:p.id};
+  if(physical)await this.physicalChanges.notify(s.tx,id,s.requestId);await this.event(s,id,physical?'PHYSICAL_CHECK':'PACK',b.reason,p.id);return {packingCheckId:p.id};
  });}
  prepare(ctx:CustomerContext,id:string,b:D.PrepareShipmentDto){return this.command(ctx,id,'prepare',b,'shipment.pack',async(s,_c,o)=>{
   await this.readyToWork(s,o);await this.assignee(s,id,['SHIPMENT_PROCESS'],b.expectedTaskVersion);const a=requireOrderPermission(s.actor,'shipment.pack');const prior=await s.tx.shipment.findUnique({where:{orderId:id}});
@@ -138,7 +139,7 @@ export class FulfillmentService {
   await s.tx.shipment.update({where:{id:attempt.shipmentId},data:{status:'CONFIRMED',confirmedAttemptId:attempt.id,confirmedById:a.subjectId,actualHandoverAt:actual,version:{increment:1},updatedAt:now}});
   if(verified)await this.timer.releaseBlock(c,o.id,{sourceType:'HANDOVER_UNCERTAIN',sourceId:attempt.id},{commandKey:'resolve:'+b.commandKey,reason:b.reason});
   const setting=await this.settings.requireCurrent(s.tx);await s.tx.order.update({where:{id:o.id},data:{autoReceiptDays:setting.autoReceiptDays,receiptSettingVersionId:setting.id}});
-  await this.timer.recordActualHandover(c,o.id,actual,{commandKey:'handover:'+b.commandKey,reason:b.reason});
+  await this.timer.recordActualHandover(c,o.id,actual,{commandKey:'handover:'+b.commandKey,reason:b.reason});await this.physicalChanges.notify(s.tx,o.id,s.requestId);
   await s.tx.order.update({where:{id:o.id},data:{version:{increment:1},updatedAt:now}});
   await this.history.appendStateHistory(s.tx,taskAuditActor(a),{aggregateType:'ORDER',aggregateId:o.id,dimension:'status',fromState:'WAIT_SHIPMENT',toState:'SHIPPED',commandKey:b.commandKey,reason:b.reason,requestId:s.requestId,publicText:'包裹已实际交运，可查看运单'});
   await this.history.appendStateHistory(s.tx,taskAuditActor(a),{aggregateType:'ORDER',aggregateId:o.id,dimension:'fulfillment',fromState:o.fulfillmentStage,toState:'SHIPPED',commandKey:b.commandKey,reason:b.reason,requestId:s.requestId});
@@ -178,7 +179,7 @@ export class FulfillmentService {
   if(b.stockIncidentId&&!await s.tx.stockIncidentItem.count({where:{incidentId:b.stockIncidentId,orderItem:{orderId:id}}}))throw new OrderError('STOCK_INCIDENT_CONFLICT');
   const existing=await s.tx.shipmentException.findUnique({where:{incidentKey:b.incidentKey}});if(existing)throw new OrderError('COMMAND_PAYLOAD_CONFLICT');const a=requireOrderPermission(s.actor,'shipment.exception.manage'),now=this.clock.now();
   const row=await s.tx.shipmentException.create({data:{orderId:id,type:b.type,incidentKey:b.incidentKey,fingerprint,reason:b.reason,evidenceNote:b.evidenceNote,goodsLocation:b.goodsLocation,orderItemIds:[...b.orderItemIds].sort(),physicalVersionAtOpen:o.stockPhysicalVersion+1,stockIncidentId:b.stockIncidentId,createdById:a.subjectId,createdAt:now}});
-  await s.tx.order.update({where:{id},data:{stockPhysicalVersion:{increment:1},version:{increment:1},updatedAt:now}});await this.bind(s,ctx,'SHIPMENT_EXCEPTION',row.id,b.evidenceFileIds,b.commandKey);
+  await s.tx.order.update({where:{id},data:{stockPhysicalVersion:{increment:1},version:{increment:1},updatedAt:now}});await this.physicalChanges.notify(s.tx,id,s.requestId);await this.bind(s,ctx,'SHIPMENT_EXCEPTION',row.id,b.evidenceFileIds,b.commandKey);
   await this.timer.addBlock(c,id,{sourceType:'SHIPMENT_EXCEPTION',sourceId:row.id},{commandKey:'exception:'+b.commandKey,reason:b.reason});
   const attempt=await pendingHandover(s.tx,id);if(attempt?.status==='IN_PROGRESS')await this.makeUncertain(s,c,await s.tx.order.findUniqueOrThrow({where:{id}}),attempt,'交运期间发生异常，需独立核实事实');
   else if(o.status==='WAIT_SHIPMENT')await this.stopShipping(s,c,id,'SUSPENDED',b.commandKey,b.reason);

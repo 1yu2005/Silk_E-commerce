@@ -48,7 +48,7 @@ beforeAll(async () => {
     NODE_ENV: 'test',
     DATABASE_URL: 'postgresql://test:test@127.0.0.1:5432/shop_test',
     CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174',
-  })).overrideProvider(AfterSaleCloseFacts).useValue({}).overrideProvider(PrismaService).useValue({ ping }).compile();
+  })).overrideProvider(AfterSaleCloseFacts).useValue({register:()=>{}}).overrideProvider(PrismaService).useValue({ ping }).compile();
   app = module.createNestApplication();
   configureApp(app);
   await app.listen(0, '127.0.0.1');

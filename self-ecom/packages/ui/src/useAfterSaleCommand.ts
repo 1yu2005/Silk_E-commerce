@@ -1,9 +1,10 @@
 // 作用：每次明确提交固定请求体和动作键；结果不明只允许原体重试，切换身份丢弃旧响应。
 import {useEffect,useRef,useState} from 'react';
 import {ApiClientError,type AuthSessionStore} from '@shop/api-client';
-export function useAfterSaleCommand(session:AuthSessionStore,saved:()=>void){
- const [busy,setBusy]=useState(false),[error,setError]=useState<unknown>(),[pending,setPending]=useState(false),[conflict,setConflict]=useState(false);
- const inflight=useRef(false),alive=useRef(false),original=useRef<(()=>Promise<unknown>)|null>(null);
+export function useAfterSaleCommand(session:AuthSessionStore,saved:()=>void,restore?:()=>null|(()=>Promise<unknown>)){
+ const [restored]=useState(()=>restore?.()??null);
+ const [busy,setBusy]=useState(false),[error,setError]=useState<unknown>(),[pending,setPending]=useState(!!restored),[conflict,setConflict]=useState(false);
+ const inflight=useRef(false),alive=useRef(false),original=useRef<(()=>Promise<unknown>)|null>(restored);
  useEffect(()=>{alive.current=true;return()=>{alive.current=false;};},[]);
  async function run(work:()=>Promise<unknown>,retry=false){if(inflight.current||(!retry&&(original.current||conflict))||!session.current().credential)return;const revision=session.current().revision,current=()=>alive.current&&session.current().revision===revision;
   if(!retry)original.current=work;const action=original.current;if(!action)return;inflight.current=true;setBusy(true);setError(undefined);

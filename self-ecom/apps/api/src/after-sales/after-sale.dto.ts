@@ -34,7 +34,7 @@ export class ReviewDto extends AfterSaleStaffCommandDto{
 }
 export class ReturnLogisticsDto extends AfterSaleCommandDto{
  @IsOptional() @IsUUID() parcelId?:string;
- @IsOptional() @IsInt() @Min(1) expectedParcelRevision?:number;
+ @IsOptional() @IsInt() @Min(0) expectedParcelRevision?:number;
  @Transform(trim) @IsString() @Length(1,60) carrierName!:string;
  @Transform(trim) @Matches(/^[A-Za-z0-9-]{1,100}$/) trackingNumber!:string;
  @IsIn(['NOT_YET_SENT','DECLARED_SENT']) dispatchDeclaration!:'NOT_YET_SENT'|'DECLARED_SENT';

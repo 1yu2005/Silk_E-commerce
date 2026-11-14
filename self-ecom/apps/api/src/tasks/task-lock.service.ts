@@ -17,6 +17,8 @@ export class TaskLockService {
   }
   async acquire(tx: Prisma.TransactionClient, references: readonly TaskBusinessReference[], employees: readonly string[], extra: readonly TaskLockResource[] = [], assignmentTargetId?: string) {
     requireSessionTransaction(tx);
+    const originalReferences=references;
+    references = await this.adapters.expand(tx,references);
     const plan = mergeTaskLocks([await this.adapters.plan(tx, references), extra]);
     const where = { OR: references.map(ref => ({ businessType: ref.businessType, businessId: ref.businessId })), status: 'CLAIMED' as const };
     const candidates = await tx.task.findMany({ where, select: { assigneeId: true } });
@@ -28,6 +30,7 @@ export class TaskLockService {
       } else await lockSessionSubject(tx, { subjectType: 'EMPLOYEE', subjectId: id });
     }
     await this.adapters.acquire(tx, plan);
+    if (JSON.stringify(references)!==JSON.stringify(await this.adapters.expand(tx,originalReferences))) throw new TaskError('TASK_LOCK_PLAN_CHANGED');
     const confirmed = mergeTaskLocks([await this.adapters.plan(tx, references), extra]);
     if (JSON.stringify(plan) !== JSON.stringify(confirmed)) throw new TaskError('TASK_LOCK_PLAN_CHANGED');
     const claimed = await tx.task.findMany({ where, select: { assigneeId: true } });

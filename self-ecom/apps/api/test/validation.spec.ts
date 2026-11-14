@@ -47,7 +47,7 @@ beforeAll(async () => {
     .overrideProvider(APP_CONFIG).useValue(validateEnvironment({ NODE_ENV: 'test', LOG_LEVEL: 'silent',
       DATABASE_URL: 'postgresql://test:test@localhost:15432/shop_test',
       CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174' }))
-    .overrideProvider(AfterSaleCloseFacts).useValue({})
+    .overrideProvider(AfterSaleCloseFacts).useValue({register:()=>{}})
     .overrideProvider(PrismaService).useValue({ ping: async () => {} }).compile();
   app = module.createNestApplication();
   configureApp(app);

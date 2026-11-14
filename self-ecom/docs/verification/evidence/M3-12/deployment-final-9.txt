@@ -1,0 +1,19 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+15 migrations found in prisma/migrations
+
+Applying migration `0015_return_inspections_physical_checks_refunds`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0015_return_inspections_physical_checks_refunds/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-54fe187cd059 Creating
+ Container self-ecom-api-run-54fe187cd059 Created
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

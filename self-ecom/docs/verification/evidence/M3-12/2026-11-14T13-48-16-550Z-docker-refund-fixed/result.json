@@ -1,0 +1,15 @@
+{
+  "startedAt": "2026-11-14T13:48:16.551Z",
+  "endedAt": "2026-11-14T13:56:32.265Z",
+  "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom",
+  "command": [
+    "node",
+    "infra/verify-settlement-compose.mjs",
+    "docs/verification/evidence/M3-12/docker-final2",
+    "--reuse=self-ecom-m312-acceptance-f307fd97",
+    "--rebuild-api",
+    "--rebuild-admin",
+    "--rebuild-store"
+  ],
+  "exitCode": 1
+}

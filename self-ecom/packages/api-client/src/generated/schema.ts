@@ -9,7 +9,7 @@ export interface paths {
         };
         /**
          * 客服或仓储售后队列
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         get: operations["listAdminAfterSales"];
         put?: never;
@@ -29,7 +29,7 @@ export interface paths {
         };
         /**
          * 按客服或仓储权限裁剪详情
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         get: operations["getAdminAfterSale"];
         put?: never;
@@ -51,7 +51,7 @@ export interface paths {
         put?: never;
         /**
          * BR-07受限关闭，只解除自身来源
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["closeAfterSale"];
         delete?: never;
@@ -71,9 +71,89 @@ export interface paths {
         put?: never;
         /**
          * 交运事实变化后明确无需退货决定
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["confirmNoReturnRefund"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/exception-final-inspection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 批准后按真实实收独立最终核实
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["finalizeAfterSaleExceptionInspection"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/exception-refund-approvals": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 管理员批准，不直接退款或回补
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["approveAfterSaleExceptionRefund"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/exception-refund-requests": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 申请管理员异常全退批准
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["requestAfterSaleExceptionRefund"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/final-inspection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 正常齐货最终验收并唯一回补
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["finalizeAfterSaleInspection"];
         delete?: never;
         options?: never;
         head?: never;
@@ -89,11 +169,191 @@ export interface paths {
         };
         /**
          * 售后任务期限及决定时间线
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         get: operations["getAdminAfterSaleHistory"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/inspection-drafts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 按包追加完整核对版本
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["saveAfterSaleInspectionDraft"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/inspection-exceptions": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 少件错货空包转异常跟进
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["reportAfterSaleInspectionException"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/physical-checks": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 未交运本售后全行核实，不回补
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["confirmAfterSalePhysicalCheck"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/receipt-sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 登记稳定实包来源，不视为实际收包
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["prepareAfterSaleReceipt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/receipts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 登记真实到仓及保管位置
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["receiveAfterSaleReturn"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/refund": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 当前经办执行全额模拟退款，FAILED也是200
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["executeAfterSaleRefund"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/refund-retries": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 原退款业务新键重试，需额外retry资格
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["retryAfterSaleRefund"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/reshipments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 按真实缺件授权本轮补寄
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["requestAfterSaleReshipment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/return-physical-events": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 实物移动损坏更正，使旧基线失效
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        post: operations["recordAfterSaleReturnPhysicalEvent"];
         delete?: never;
         options?: never;
         head?: never;
@@ -111,7 +371,7 @@ export interface paths {
         put?: never;
         /**
          * 记录寄出核实，不登记实收到仓
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["verifyAfterSaleReturn"];
         delete?: never;
@@ -131,9 +391,29 @@ export interface paths {
         put?: never;
         /**
          * 当前审核经办提交明确决定
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["reviewAfterSale"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/after-sales/{id}/settlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 按岗位读取验收与退款事实
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        get: operations["getAdminAfterSaleSettlement"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -2225,13 +2505,13 @@ export interface paths {
         };
         /**
          * 本人售后列表
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         get: operations["listMyAfterSales"];
         put?: never;
         /**
          * 整单申请，成功恢复优先
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["applyMyAfterSale"];
         delete?: never;
@@ -2249,7 +2529,7 @@ export interface paths {
         };
         /**
          * 本人售后公开详情
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         get: operations["getMyAfterSale"];
         put?: never;
@@ -2289,7 +2569,7 @@ export interface paths {
         };
         /**
          * 公开任务与期限时间线
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         get: operations["getMyAfterSaleHistory"];
         put?: never;
@@ -2311,9 +2591,29 @@ export interface paths {
         put?: never;
         /**
          * 追加寄回物流版本，单号不代表实际寄出
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["saveMyReturnLogistics"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/after-sales/{id}/settlement": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 本人公开收包验收与退款进度
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
+         */
+        get: operations["getMyAfterSaleSettlement"];
+        put?: never;
+        post?: never;
         delete?: never;
         options?: never;
         head?: never;
@@ -2331,7 +2631,7 @@ export interface paths {
         put?: never;
         /**
          * 完整替换当前材料，新审核轮
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["supplementMyAfterSale"];
         delete?: never;
@@ -2351,7 +2651,7 @@ export interface paths {
         put?: never;
         /**
          * 撤销尚无批准或拒绝决定的待审申请
-         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转；本接口不执行退款。
+         * @description 金额为支付全额整数分；每个命令持业务锁同事务保存事实、文件引用、任务、暂停、历史及审计。模拟交易，不发生真实资金流转。
          */
         post: operations["withdrawMyAfterSale"];
         delete?: never;
@@ -2941,7 +3241,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -3234,7 +3534,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -3383,7 +3683,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -3532,7 +3832,646 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    finalizeAfterSaleExceptionInspection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    approvalId: string;
+                    /** Format: uuid */
+                    commandKey: string;
+                    currentRevisionRefs: string[];
+                    expectedAfterSaleVersion: number;
+                    expectedReturnPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    approveAfterSaleExceptionRefund: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    currentRevisionRefs: string[];
+                    /** @enum {string} */
+                    decision: "APPROVE_FULL_REFUND";
+                    expectedAfterSaleVersion: number;
+                    expectedReturnPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    publicExplanation: string;
+                    reason: string;
+                    responsibilityNote: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    requestAfterSaleExceptionRefund: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    /** Format: uuid */
+                    communicationId: string;
+                    expectedAfterSaleVersion: number;
+                    expectedTaskVersion: number;
+                    publicExplanation: string;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    finalizeAfterSaleInspection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    currentRevisionRefs: string[];
+                    expectedAfterSaleVersion: number;
+                    expectedReturnPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -3663,7 +4602,1465 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    saveAfterSaleInspectionDraft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    evidenceFileIds: string[];
+                    expectedAfterSaleVersion: number;
+                    expectedReceiptVersion: number;
+                    expectedReturnPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    inspectionComplete: boolean;
+                    items: {
+                        conditionNote: string;
+                        matchedReceivedQty: number;
+                        /** Format: uuid */
+                        orderItemId: string;
+                        sellableQty: number;
+                        unsellableQty: number;
+                    }[];
+                    reason: string;
+                    /** Format: uuid */
+                    receiptId: string;
+                    unmatchedItems: {
+                        custodyLocation: string;
+                        description: string;
+                        /** @enum {string} */
+                        kind: "WRONG_VARIANT" | "EXCESS" | "UNRELATED" | "UNKNOWN";
+                        quantity: number;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    reportAfterSaleInspectionException: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    currentRevisionRefs: string[];
+                    exceptionTypes: ("SHORTAGE" | "WRONG_ITEM" | "EMPTY_PACKAGE" | "UNKNOWN_QUANTITY" | "DAMAGED")[];
+                    expectedAfterSaleVersion: number;
+                    expectedReturnPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    publicExplanation: string;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    confirmAfterSalePhysicalCheck: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    evidenceFileIds: string[];
+                    expectedAfterSaleVersion: number;
+                    expectedPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    goodsLocation: string;
+                    items: {
+                        damagedQty: number;
+                        incidentItemIds: string[];
+                        /** Format: uuid */
+                        orderItemId: string;
+                        sellableQty: number;
+                    }[];
+                    reason: string;
+                    /** Format: date-time */
+                    stoppedAt: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    prepareAfterSaleReceipt: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    expectedAfterSaleVersion: number;
+                    /** Format: uuid */
+                    parcelId?: string;
+                    reason: string;
+                    sourceNamespace: string;
+                    sourceReference: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    receiveAfterSaleReturn: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    evidenceFileIds: string[];
+                    expectedAfterSaleVersion: number;
+                    expectedTaskVersion: number;
+                    goodsLocation: string;
+                    /** Format: uuid */
+                    parcelId: string;
+                    reason: string;
+                    /** Format: date-time */
+                    receivedAt: string;
+                    sourceNote: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    executeAfterSaleRefund: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    expectedAfterSaleVersion: number;
+                    /** Format: uuid */
+                    expectedFinalInspectionId?: string;
+                    expectedPhysicalVersion?: number;
+                    expectedTaskVersion: number;
+                    /** Format: uuid */
+                    physicalCheckId?: string;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            attemptId: string;
+                            attemptNo: number;
+                            /** @enum {string} */
+                            attemptOutcome: "FAILED" | "SUCCEEDED";
+                            failureCode: string | null;
+                            publicExplanation: string;
+                            /** Format: uuid */
+                            refundId: string;
+                            refundNo: string;
+                            /** @enum {string} */
+                            refundStatus: "FAILED" | "SUCCEEDED";
+                            refundVersion: number;
+                            replayed: boolean;
+                            retryAllowed: boolean;
+                            status: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    retryAfterSaleRefund: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    expectedAfterSaleVersion: number;
+                    /** Format: uuid */
+                    expectedFinalInspectionId?: string;
+                    expectedPhysicalVersion?: number;
+                    expectedRefundVersion: number;
+                    expectedTaskVersion: number;
+                    /** Format: uuid */
+                    physicalCheckId?: string;
+                    reason: string;
+                    /** Format: uuid */
+                    refundId: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            attemptId: string;
+                            attemptNo: number;
+                            /** @enum {string} */
+                            attemptOutcome: "FAILED" | "SUCCEEDED";
+                            failureCode: string | null;
+                            publicExplanation: string;
+                            /** Format: uuid */
+                            refundId: string;
+                            refundNo: string;
+                            /** @enum {string} */
+                            refundStatus: "FAILED" | "SUCCEEDED";
+                            refundVersion: number;
+                            replayed: boolean;
+                            retryAllowed: boolean;
+                            status: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    requestAfterSaleReshipment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    /** Format: uuid */
+                    communicationId: string;
+                    expectedAfterSaleVersion: number;
+                    expectedTaskVersion: number;
+                    missingItems: {
+                        /** Format: uuid */
+                        orderItemId: string;
+                        remainingQty: number;
+                    }[];
+                    publicExplanation: string;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    recordAfterSaleReturnPhysicalEvent: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    expectedAfterSaleVersion: number;
+                    expectedReturnPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    goodsLocation: string;
+                    /** @enum {string} */
+                    kind: "MOVE" | "DAMAGE" | "CORRECTION";
+                    reason: string;
+                    /** Format: uuid */
+                    receiptId: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            amountCents: number;
+                            /** Format: uuid */
+                            approvalId?: string;
+                            /** Format: uuid */
+                            finalInspectionId?: string;
+                            /** Format: uuid */
+                            materialVersionId?: string;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** Format: uuid */
+                            parcelId?: string;
+                            /** Format: uuid */
+                            physicalCheckId?: string;
+                            /** Format: uuid */
+                            physicalEventId?: string;
+                            /** Format: uuid */
+                            receiptId?: string;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            reshipmentRequestId?: string;
+                            /** Format: uuid */
+                            revisionId?: string;
+                            /** @enum {string} */
+                            status: "PENDING_REVIEW" | "WAIT_SUPPLEMENT" | "WAIT_FULFILLMENT_CHECK" | "WAIT_REFUND" | "WAIT_RETURN" | "WAIT_RECEIPT" | "WAIT_INSPECTION" | "INSPECTION_EXCEPTION" | "FINAL_INSPECTION" | "REFUNDING" | "REFUND_FAILED" | "REJECTED" | "WITHDRAWN" | "CLOSED" | "SUCCEEDED";
+                            /** Format: uuid */
+                            verificationId?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -3821,7 +6218,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -3972,7 +6369,324 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getAdminAfterSaleSettlement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            activeUnshippedCheckId: string | null;
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            allowedActions: {
+                                approve: boolean;
+                                draft: boolean;
+                                exception: boolean;
+                                finalize: boolean;
+                                finalizeException: boolean;
+                                physical: boolean;
+                                prepare: boolean;
+                                receive: boolean;
+                                refund: boolean;
+                                requestException: boolean;
+                                reship: boolean;
+                                retry: boolean;
+                            };
+                            approvals: {
+                                approvalNo: number;
+                                /** Format: date-time */
+                                approvedAt: string;
+                                basedReturnPhysicalVersion: number;
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: date-time */
+                                invalidatedAt: string | null;
+                                publicExplanation: string;
+                            }[];
+                            currentRevisionRefs: string[];
+                            finalInspection: {
+                                /** Format: date-time */
+                                confirmedAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                mode: string;
+                            } | null;
+                            parcels: {
+                                batchNo: number;
+                                /** Format: uuid */
+                                id: string;
+                                origin: string;
+                                received: boolean;
+                                /** Format: uuid */
+                                reshipmentRequestId: string | null;
+                            }[];
+                            physicalCheck: {
+                                /** Format: date-time */
+                                checkedAt: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                goodsLocation: string;
+                                /** Format: uuid */
+                                id: string;
+                                items: {
+                                    damagedQty: number;
+                                    /** Format: uuid */
+                                    orderItemId: string;
+                                    purchasedQty: number;
+                                    sellableQty: number;
+                                }[];
+                                physicalVersion: number;
+                                status: string;
+                                /** Format: date-time */
+                                stoppedAt: string;
+                            } | null;
+                            physicalItems: {
+                                damagedQty: number;
+                                incidentItemIds: string[];
+                                /** Format: uuid */
+                                orderItemId: string;
+                                quantity: number;
+                                unknown: boolean;
+                            }[];
+                            receipts: {
+                                /** Format: uuid */
+                                currentRevisionId: string | null;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                goodsLocation: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                parcelId: string;
+                                physicalVersion: number;
+                                /** Format: date-time */
+                                receivedAt: string;
+                                /** Format: date-time */
+                                recordedAt: string;
+                                revisions: {
+                                    basedReceiptPhysicalVersion: number;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    evidence: {
+                                        contentUrl: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                    }[];
+                                    /** Format: uuid */
+                                    id: string;
+                                    inspectionComplete: boolean;
+                                    items: {
+                                        conditionNote: string;
+                                        matchedReceivedQty: number;
+                                        /** Format: uuid */
+                                        orderItemId: string;
+                                        sellableQty: number;
+                                        unsellableQty: number;
+                                    }[];
+                                    reason: string;
+                                    revisionNo: number;
+                                    unmatchedItems: {
+                                        custodyLocation: string;
+                                        description: string;
+                                        /** @enum {string} */
+                                        kind: "WRONG_VARIANT" | "EXCESS" | "UNRELATED" | "UNKNOWN";
+                                        quantity: number;
+                                    }[];
+                                }[];
+                                sourceNote: string;
+                                version: number;
+                            }[];
+                            receivedPackages: number;
+                            refund: {
+                                amountCents?: number;
+                                attempts: {
+                                    attemptNo: number;
+                                    failureCode: string | null;
+                                    /** Format: date-time */
+                                    finishedAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    outcome: string;
+                                    publicExplanation: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                refundNo?: string;
+                                status: string;
+                                /** Format: date-time */
+                                succeededAt: string | null;
+                                version: number;
+                            } | null;
+                            reshipments: {
+                                /** Format: date-time */
+                                dueAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                missingItems: {
+                                    /** Format: uuid */
+                                    orderItemId: string;
+                                    remainingQty: number;
+                                }[];
+                                parcelIds: string[];
+                                publicExplanation: string | null;
+                                returnAddressSnapshot: {
+                                    city: string;
+                                    detail: string;
+                                    district: string;
+                                    phone: string;
+                                    province: string;
+                                    receiver: string;
+                                };
+                                round: number;
+                                status: string;
+                            }[];
+                            returnPhysicalVersion: number;
+                            /** Format: date-time */
+                            serverTime: string;
+                            simulationNotice: string;
+                            status: string;
+                            stockPhysicalVersion: number;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId?: string | null;
+                                canClaim?: boolean;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                round: number;
+                                stage: string;
+                                status: string;
+                                version: number;
+                            }[];
+                            totals: {
+                                missingQty: number;
+                                /** Format: uuid */
+                                orderItemId: string;
+                                purchasedQty: number;
+                                receivedQty: number;
+                                sellableQty?: number;
+                                unsellableQty?: number;
+                            }[];
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -24715,7 +27429,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -24893,7 +27607,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -25186,7 +27900,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -25457,7 +28171,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -25610,7 +28324,324 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getMyAfterSaleSettlement: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            activeUnshippedCheckId: string | null;
+                            /** Format: uuid */
+                            afterSaleId: string;
+                            allowedActions: {
+                                approve: boolean;
+                                draft: boolean;
+                                exception: boolean;
+                                finalize: boolean;
+                                finalizeException: boolean;
+                                physical: boolean;
+                                prepare: boolean;
+                                receive: boolean;
+                                refund: boolean;
+                                requestException: boolean;
+                                reship: boolean;
+                                retry: boolean;
+                            };
+                            approvals: {
+                                approvalNo: number;
+                                /** Format: date-time */
+                                approvedAt: string;
+                                basedReturnPhysicalVersion: number;
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: date-time */
+                                invalidatedAt: string | null;
+                                publicExplanation: string;
+                            }[];
+                            currentRevisionRefs: string[];
+                            finalInspection: {
+                                /** Format: date-time */
+                                confirmedAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                mode: string;
+                            } | null;
+                            parcels: {
+                                batchNo: number;
+                                /** Format: uuid */
+                                id: string;
+                                origin: string;
+                                received: boolean;
+                                /** Format: uuid */
+                                reshipmentRequestId: string | null;
+                            }[];
+                            physicalCheck: {
+                                /** Format: date-time */
+                                checkedAt: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                goodsLocation: string;
+                                /** Format: uuid */
+                                id: string;
+                                items: {
+                                    damagedQty: number;
+                                    /** Format: uuid */
+                                    orderItemId: string;
+                                    purchasedQty: number;
+                                    sellableQty: number;
+                                }[];
+                                physicalVersion: number;
+                                status: string;
+                                /** Format: date-time */
+                                stoppedAt: string;
+                            } | null;
+                            physicalItems: {
+                                damagedQty: number;
+                                incidentItemIds: string[];
+                                /** Format: uuid */
+                                orderItemId: string;
+                                quantity: number;
+                                unknown: boolean;
+                            }[];
+                            receipts: {
+                                /** Format: uuid */
+                                currentRevisionId: string | null;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                goodsLocation: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                parcelId: string;
+                                physicalVersion: number;
+                                /** Format: date-time */
+                                receivedAt: string;
+                                /** Format: date-time */
+                                recordedAt: string;
+                                revisions: {
+                                    basedReceiptPhysicalVersion: number;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    evidence: {
+                                        contentUrl: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                    }[];
+                                    /** Format: uuid */
+                                    id: string;
+                                    inspectionComplete: boolean;
+                                    items: {
+                                        conditionNote: string;
+                                        matchedReceivedQty: number;
+                                        /** Format: uuid */
+                                        orderItemId: string;
+                                        sellableQty: number;
+                                        unsellableQty: number;
+                                    }[];
+                                    reason: string;
+                                    revisionNo: number;
+                                    unmatchedItems: {
+                                        custodyLocation: string;
+                                        description: string;
+                                        /** @enum {string} */
+                                        kind: "WRONG_VARIANT" | "EXCESS" | "UNRELATED" | "UNKNOWN";
+                                        quantity: number;
+                                    }[];
+                                }[];
+                                sourceNote: string;
+                                version: number;
+                            }[];
+                            receivedPackages: number;
+                            refund: {
+                                amountCents?: number;
+                                attempts: {
+                                    attemptNo: number;
+                                    failureCode: string | null;
+                                    /** Format: date-time */
+                                    finishedAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    outcome: string;
+                                    publicExplanation: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                refundNo?: string;
+                                status: string;
+                                /** Format: date-time */
+                                succeededAt: string | null;
+                                version: number;
+                            } | null;
+                            reshipments: {
+                                /** Format: date-time */
+                                dueAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                missingItems: {
+                                    /** Format: uuid */
+                                    orderItemId: string;
+                                    remainingQty: number;
+                                }[];
+                                parcelIds: string[];
+                                publicExplanation: string | null;
+                                returnAddressSnapshot: {
+                                    city: string;
+                                    detail: string;
+                                    district: string;
+                                    phone: string;
+                                    province: string;
+                                    receiver: string;
+                                };
+                                round: number;
+                                status: string;
+                            }[];
+                            returnPhysicalVersion: number;
+                            /** Format: date-time */
+                            serverTime: string;
+                            simulationNotice: string;
+                            status: string;
+                            stockPhysicalVersion: number;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId?: string | null;
+                                canClaim?: boolean;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                round: number;
+                                stage: string;
+                                status: string;
+                                version: number;
+                            }[];
+                            totals: {
+                                missingQty: number;
+                                /** Format: uuid */
+                                orderItemId: string;
+                                purchasedQty: number;
+                                receivedQty: number;
+                                sellableQty?: number;
+                                unsellableQty?: number;
+                            }[];
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "FILE_NOT_BINDABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_NOT_FOUND" | "ORDER_NOT_FOUND" | "FILE_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -25756,7 +28787,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -25898,7 +28929,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED";
+                        code: "AFTER_SALE_ALREADY_ACTIVE" | "ORDER_NOT_ELIGIBLE_FOR_AFTER_SALE" | "AFTER_SALE_WINDOW_EXPIRED" | "AFTER_SALE_TYPE_NOT_ALLOWED" | "AFTER_SALE_ACTION_NOT_ALLOWED" | "AFTER_SALE_CLOSE_FORBIDDEN" | "AFTER_SALE_CLOSE_FACTS_REQUIRED" | "RETURN_ADDRESS_NOT_CONFIGURED" | "RETURN_VERIFICATION_STALE" | "RETURN_IN_TRANSIT" | "COMMAND_PAYLOAD_CONFLICT" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNEE" | "HANDOVER_VERIFICATION_REQUIRED" | "PHYSICAL_CHECK_STALE" | "PHYSICAL_CHECK_INCOMPLETE" | "INSPECTION_INCOMPLETE" | "INSPECTION_QUANTITY_MISMATCH" | "EXCEPTION_APPROVAL_STALE" | "EXCEPTION_APPROVAL_REQUIRED" | "REFUND_PRECONDITION_FAILED" | "REFUND_ALREADY_SUCCEEDED" | "FINAL_INSPECTION_ALREADY_EXISTS" | "RECEIPT_SOURCE_CONFLICT" | "RECEIPT_ALREADY_RECORDED";
                         details?: {
                             field?: string;
                             message?: string;

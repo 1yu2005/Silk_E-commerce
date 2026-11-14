@@ -6,7 +6,7 @@ import { requireSessionTransaction } from '../auth/session-support.js';
 import { InventoryKernel, type InventoryCommand, type InventoryEffect } from './inventory-kernel.service.js';
 import { InventoryError } from './inventory.errors.js';
 import { integer, lockStock } from './inventory-support.js';
-export type AutomaticOperation=Exclude<InventoryCommand['actionType'],'MANUAL_POST'>;
+export type AutomaticOperation=Exclude<InventoryCommand['actionType'],'MANUAL_POST'|'REFUNDED_AVAILABLE_LOSS'>;
 export interface InventoryFactLine {
  readonly skuId:string;readonly quantity:number;readonly damaged:number|null;readonly saleable:number;readonly received:number;
  readonly replacementQuantity:number;readonly unfilledQuantity:number;
@@ -43,7 +43,7 @@ export class InventoryAutomatic {
   if(facts.factId!==factId||candidate.businessId!==facts.businessId||JSON.stringify(candidate.lines)!==JSON.stringify(facts.lines))throw new InventoryError('VERSION_CONFLICT');
   const semantic={operation,factId,businessId:facts.businessId,lines:facts.lines,afterSaleId:facts.afterSaleId,checkedAfterSaleId:facts.checkedAfterSaleId,
    physicalVersion:facts.physicalVersion,checkedPhysicalVersion:facts.checkedPhysicalVersion};
-  const actionKey=`${operation}:${factId}`;const prior=await this.kernel.replay(tx,actionKey,semantic);if(prior)return {changed:false,action:prior};
+  const actionKey=operation==='RETURN_RESTOCK'?`RESTOCK_FINAL_INSPECTION:${facts.afterSaleId}`:operation==='UNSHIPPED_REFUND_RESTOCK'?`RESTOCK_UNSHIPPED_REFUND:${factId}`:`${operation}:${factId}`;const prior=await this.kernel.replay(tx,actionKey,semantic);if(prior)return {changed:false,action:prior};
   if(!facts.lines.length||new Set(facts.lines.map(l=>l.skuId)).size!==facts.lines.length)throw new InventoryError('VALIDATION_FAILED');
   const effects:InventoryEffect[]=[];
   const physical=()=>{if(!facts.afterSaleId||facts.afterSaleId!==facts.checkedAfterSaleId||facts.physicalVersion!==facts.checkedPhysicalVersion)throw new InventoryError('PHYSICAL_CHECK_STALE');};
@@ -72,7 +72,7 @@ export class InventoryAutomatic {
     ...(operation==='CLOSE'?{quantityReleased:q,quantityDamaged:line.damaged!}:{})});
   }
   const businessType=operation==='PAY'?'PAYMENT':operation==='RETURN_RESTOCK'?'RETURN_INSPECTION':operation==='UNSHIPPED_REFUND_RESTOCK'?'REFUND':'ORDER';
-  const result=await this.kernel.execute(tx,{businessType,businessId:facts.businessId,businessNumber:facts.number,actionType:operation,actionKey,semantic,actor:facts.actor,requestId,reason:'已核实业务事实：'+operation,effects});
+  const result=await this.kernel.execute(tx,{businessType,businessId:facts.businessId,businessNumber:facts.number,actionType:operation,actionKey,semantic,actor:candidate.actor,requestId,reason:'已核实业务事实：'+operation,effects});
   await port.apply(tx,operation,facts,result.action.id);return result;
  }
 }

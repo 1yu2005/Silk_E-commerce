@@ -15,7 +15,7 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
     .overrideProvider(APP_CONFIG).useValue(validateEnvironment({ NODE_ENV: 'test', LOG_LEVEL: 'silent',
       DATABASE_URL: 'postgresql://test:test@localhost:15432/shop_test',
       CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174', SWAGGER_ENABLED: String(enabled) }))
-    .overrideProvider(AfterSaleCloseFacts).useValue({})
+    .overrideProvider(AfterSaleCloseFacts).useValue({register:()=>{}})
     .overrideProvider(PrismaService).useValue({ ping: async () => {} }).compile();
   const app: INestApplication = module.createNestApplication();
   configureApp(app);
@@ -68,6 +68,8 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           ...['supplements','withdraw','return-logistics'].map(action=>'/api/v1/store/after-sales/{id}/'+action),
           '/api/v1/store/after-sales/{id}/communications',
           ...['review','return-verifications','close','confirm-no-return-refund'].map(action=>'/api/v1/admin/after-sales/{id}/'+action),
+          ...['settlement','receipt-sources','receipts','inspection-drafts','inspection-exceptions','reshipments','exception-refund-requests','exception-refund-approvals','final-inspection','exception-final-inspection','return-physical-events','physical-checks','refund','refund-retries'].map(action=>'/api/v1/admin/after-sales/{id}/'+action),
+          '/api/v1/store/after-sales/{id}/settlement',
         ]).sort());
         for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products|inventory)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){
           const operation=item![key];if(operation)expect(operation.security).toEqual([{bearerAuth:[]}]);

@@ -23,6 +23,7 @@ import { InventoryAdjustments } from '../src/inventory/inventory-adjustment.serv
 import { InventoryConversion } from '../src/inventory/inventory-conversion.service.js';
 import type { InventoryContext } from '../src/inventory/inventory-access.service.js';
 import { InventoryAutomatic, InventoryDomainPorts, type AutomaticOperation, type InventoryDomainFacts, type InventoryDomainPort } from '../src/inventory/inventory-automatic.service.js';
+import { InventoryKernel } from '../src/inventory/inventory-kernel.service.js';
 import { InventoryBlocks } from '../src/inventory/inventory-block.service.js';
 import { InventoryQueries } from '../src/inventory/inventory-query.service.js';
 import { runAuthTransaction } from '../src/auth/auth-transaction.js';
@@ -196,7 +197,7 @@ async function automaticFixture(skuId:string,overrides:Partial<InventoryDomainFa
 }
 async function autoRun(operation:AutomaticOperation,fact:InventoryDomainFacts){return runAuthTransaction(db,tx=>automatic.execute(tx,operation,fact.factId,ctx(),randomUUID()));}
 it('IT05：自动父事实适配器默认拒绝；测试适配器真实锁定/校验父事实后才允许执行',async()=>{
- automatic=app.get(InventoryAutomatic);await expect(runAuthTransaction(db,tx=>automatic.execute(tx,'RESERVE',randomUUID(),ctx(),randomUUID()))).rejects.toMatchObject({code:'INVENTORY_DOMAIN_NOT_READY'});
+ const ports=new InventoryDomainPorts();automatic=new InventoryAutomatic(ports,app.get(InventoryKernel));await expect(runAuthTransaction(db,tx=>automatic.execute(tx,'RESERVE',randomUUID(),ctx(),randomUUID()))).rejects.toMatchObject({code:'INVENTORY_DOMAIN_NOT_READY'});
  await db.$executeRawUnsafe(`CREATE TABLE module6_test_fact(id uuid PRIMARY KEY,body jsonb NOT NULL,state text NOT NULL,applications integer NOT NULL DEFAULT 0,action_id uuid REFERENCES inventory_action(id),physical_revision integer NOT NULL DEFAULT 0)`);testFactCreated=true;
  const read=async(tx:Prisma.TransactionClient,id:string)=>{const [r]=await tx.$queryRaw<{body:InventoryDomainFacts;state:InventoryDomainFacts['state']}[]>`SELECT body,state FROM module6_test_fact WHERE id=${id}::uuid`;
   if(!r)throw new Error('测试父事实不存在');return {...r.body,state:r.state,deadline:r.body.deadline?new Date(r.body.deadline):null};};
@@ -208,7 +209,7 @@ it('IT05：自动父事实适配器默认拒绝；测试适配器真实锁定/�
   async apply(tx,operation,facts,actionId){const state=operation==='RESERVE'?'UNPAID':operation==='PAY'?'PAID':operation==='CLOSE'?'CLOSED':operation==='UNSHIPPED_REFUND_RESTOCK'?'REFUNDED':operation==='RETURN_RESTOCK'?'INSPECTED':facts.state;
    await tx.$executeRaw`UPDATE module6_test_fact SET applications=applications+1,action_id=${actionId}::uuid,state=${state},physical_revision=physical_revision+${['PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT'].includes(operation)?1:0} WHERE id=${facts.factId}::uuid`;},
  };
- for(const op of ['RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT'] as const)app.get(InventoryDomainPorts).register(op,port);
+ for(const op of ['RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT'] as const)ports.register(op,port);
 });
 it('IT05：预占/付款/净释放、未知受损拒绝、整数边界、多SKU失败全部回滚',async()=>{
  const f=await fixture(10);await post((await pending(f,10)).id);await db.product.update({where:{id:f.product!.id},data:{status:'ON_SALE'}});await db.sku.update({where:{id:f.skuId},data:{priceCents:100}});
@@ -309,7 +310,8 @@ it('IT05/06：补齐只扣A；最终验收独立于退款，少件需批准且�
  await expect(autoRun('RETURN_RESTOCK',await automaticFixture(f.skuId,base))).rejects.toMatchObject({code:'RESTOCK_NOT_ALLOWED'});
  const approved=await automaticFixture(f.skuId,{...base,exceptionApproved:true,finalPhysicalCheck:true});await autoRun('RETURN_RESTOCK',approved);
  expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:10});
- await expect(autoRun('RETURN_RESTOCK',await automaticFixture(f.skuId,{...base,restockedByOtherPath:true,exceptionApproved:true,finalPhysicalCheck:true}))).rejects.toMatchObject({code:'RESTOCK_NOT_ALLOWED'});
+ // 独立售后验证禁止其它路径回补；同一售后的唯一Action冲突另由真实板块12测试覆盖。
+ const otherSale=randomUUID();await expect(autoRun('RETURN_RESTOCK',await automaticFixture(f.skuId,{...base,afterSaleId:otherSale,checkedAfterSaleId:otherSale,restockedByOtherPath:true,exceptionApproved:true,finalPhysicalCheck:true}))).rejects.toMatchObject({code:'RESTOCK_NOT_ALLOWED'});
  const zero=await automaticFixture(f.skuId,{...base,handover:'NONE',refundSucceeded:true,finalPhysicalCheck:true,lines:[{...base.lines[0]!,saleable:0,received:2,damaged:2}]});
  const results=await Promise.all(Array.from({length:20},()=>autoRun('UNSHIPPED_REFUND_RESTOCK',zero)));expect(results.filter(r=>r.changed)).toHaveLength(1);
  expect(await db.inventoryLedger.count({where:{businessId:zero.businessId}})).toBe(0);expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:10});

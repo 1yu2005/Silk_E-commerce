@@ -15,5 +15,13 @@ import {AfterSaleAdapters} from './after-sale.adapters.js';
 import {AfterSaleCloseFacts} from './after-sale-close-facts.js';
 import {StoreAfterSalesController,AdminAfterSalesController} from './after-sale.controller.js';
 import {StoreAfterSaleCommunicationController} from '../orders/order-communication.controller.js';
-@Module({imports:[AuthGuardModule,AuditModule,TimeModule,StoreSettingsModule,TasksModule,FilesModule,RecordsModule,OrdersModule,CatalogModule],controllers:[StoreAfterSalesController,AdminAfterSalesController,StoreAfterSaleCommunicationController],providers:[AfterSaleService,AfterSaleQueries,AfterSaleAdapters,AfterSaleCloseFacts],exports:[AfterSaleService,AfterSaleQueries,AfterSaleCloseFacts]})
+import {SettlementQueries} from './settlement-query.service.js';
+import {SettlementController,StoreSettlementController} from './settlement.controller.js';
+import {InventoryModule} from '../inventory/inventory.module.js';
+import {SettlementSupport} from './settlement-support.service.js';
+import {SettlementAdapters} from './settlement.adapters.js';
+import {ReturnInspectionService} from './return-inspection.service.js';
+import {UnshippedPhysicalService} from './unshipped-physical.service.js';
+import {RefundService,RefundSimulator} from './refund.service.js';
+@Module({imports:[AuthGuardModule,AuditModule,TimeModule,StoreSettingsModule,TasksModule,FilesModule,RecordsModule,OrdersModule,CatalogModule,InventoryModule],controllers:[StoreAfterSalesController,AdminAfterSalesController,StoreAfterSaleCommunicationController,SettlementController,StoreSettlementController],providers:[AfterSaleService,AfterSaleQueries,AfterSaleAdapters,AfterSaleCloseFacts,SettlementSupport,SettlementAdapters,ReturnInspectionService,UnshippedPhysicalService,RefundService,RefundSimulator,SettlementQueries],exports:[AfterSaleService,AfterSaleQueries,AfterSaleCloseFacts]})
 export class AfterSalesModule{}

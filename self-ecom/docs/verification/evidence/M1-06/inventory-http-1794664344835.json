@@ -1,0 +1,104 @@
+[
+  {
+    "path": "/admin/inventory/adjustments/3fea1425-8407-4f8c-b64d-3f4849e3bdf7/corrections",
+    "method": "POST",
+    "status": 201,
+    "requestId": "4a322380-6023-4cb1-ad9d-6f6251925c9c"
+  },
+  {
+    "path": "/admin/inventory/adjustments/3fea1425-8407-4f8c-b64d-3f4849e3bdf7/corrections",
+    "method": "POST",
+    "status": 409,
+    "code": "CORRECTION_NOT_ALLOWED",
+    "requestId": "d0a847b6-9609-4064-b213-f0faf23261dc"
+  },
+  {
+    "path": "/admin/inventory",
+    "method": "GET",
+    "status": 200,
+    "requestId": "f5396a1c-8b94-4508-85ee-4ad142617172"
+  },
+  {
+    "path": "/admin/inventory/ledger",
+    "method": "GET",
+    "status": 200,
+    "requestId": "dc5aa3e9-6398-40dc-b9ce-d72598521754"
+  },
+  {
+    "path": "/admin/inventory/sources",
+    "method": "GET",
+    "status": 200,
+    "requestId": "393d04d3-f1ab-42bb-9554-150861d1b6b3"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "GET",
+    "status": 200,
+    "requestId": "214e2f4e-d561-4f92-aee4-8107c921208d"
+  },
+  {
+    "path": "/admin/inventory/not-a-uuid",
+    "method": "GET",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "eba7a31b-a4f9-4988-85c6-339fe1d41434"
+  },
+  {
+    "path": "/admin/inventory?lowStock=1",
+    "method": "GET",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "cb679618-424c-479f-a004-885fd797491a"
+  },
+  {
+    "path": "/admin/inventory?lowStock=true",
+    "method": "GET",
+    "status": 200,
+    "requestId": "3c8133b0-30d9-43e4-b28a-93d2e9d7920d"
+  },
+  {
+    "path": "/admin/inventory",
+    "method": "GET",
+    "status": 403,
+    "code": "FORBIDDEN",
+    "requestId": "3df9c063-1307-4ce3-9d00-91007aa8f48c"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "POST",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "6b5fe6aa-0109-4823-9e24-eb7772508177"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "POST",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "1185fc13-d7b4-4c98-b267-5784b40fb612"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "POST",
+    "status": 201,
+    "requestId": "53cd44b3-9189-4ce0-a90e-a8a5a87b3e36"
+  },
+  {
+    "path": "/admin/inventory/adjustments/b184d1ea-e583-49f1-9e9c-d49016cbfa7b/claim",
+    "method": "POST",
+    "status": 200,
+    "requestId": "f972ea9c-d7e2-4999-80b9-fcdef36527f4"
+  },
+  {
+    "path": "/admin/inventory/adjustments/b184d1ea-e583-49f1-9e9c-d49016cbfa7b/post",
+    "method": "POST",
+    "status": 200,
+    "requestId": "290ddf93-7d1b-458e-b1fe-d4f67c4f775f"
+  },
+  {
+    "path": "/store/products/a82a1ce2-9f9f-4e52-809c-0bd47b96f855",
+    "method": "GET",
+    "status": 200,
+    "requestId": "6dc0effd-abfe-4675-8e4b-f5143f9ebe5c"
+  }
+]

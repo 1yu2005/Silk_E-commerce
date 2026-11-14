@@ -37,15 +37,15 @@ export class TaskSourceService {
       const { tx, requestId } = scope; let task = await lockedContextTask(scope, input, input.taskId);
       const port = this.adapters.requireSources(task.businessType); await port.assertSource(tx, scope.actor, task, source);
       const prior = await port.find(tx, task, source); const actor = await scope.revalidate(); const actorKey = taskActorKey(actor);
-      if (prior && (status === 'ACTIVE' ? prior.addCommandKey === commandKey && prior.addReason === reason && prior.addActorKey === actorKey
+      if (prior && (status === 'ACTIVE' ? prior.status === 'ACTIVE' && prior.addCommandKey === commandKey && prior.addReason === reason && prior.addActorKey === actorKey
         : prior.status === status && prior.resolutionCommandKey === commandKey && prior.resolutionReason === reason && prior.resolutionActorKey === actorKey && prior.resolutionOutcome === outcome)) {
         return { changed: false, task, source: prior };
       }
       if (task.version !== input.expectedVersion) throw new TaskError('VERSION_CONFLICT');
       if (['COMPLETED', 'CANCELLED'].includes(task.status)) throw new TaskError('TASK_TRANSITION_BLOCKED');
-      if (status === 'ACTIVE' ? !!prior : !prior || prior.status !== 'ACTIVE') throw new TaskError('TASK_SOURCE_CONFLICT');
+      if (status === 'ACTIVE' ? prior?.status==='ACTIVE'||!!prior&&!port.reactivate : !prior || prior.status !== 'ACTIVE') throw new TaskError('TASK_SOURCE_CONFLICT');
       const metadata = { commandKey, reason, requestId, actor, now: this.clock.now(), outcome };
-      const result = status === 'ACTIVE' ? await port.add(tx, task, source, metadata) : await port.finish(tx, task, prior!, status, metadata);
+      const result = status === 'ACTIVE' ? prior?await port.reactivate!(tx,task,source,metadata):await port.add(tx, task, source, metadata) : await port.finish(tx, task, prior!, status, metadata);
       const finalActor = await scope.revalidate();
       await this.audit.appendAudit(tx, { actor: taskAuditActor(finalActor), action: status === 'ACTIVE' ? 'task.source.add' : status === 'RESOLVED' ? 'task.source.resolve' : 'task.source.cancel',
         targetId: task.id, requestId, reason, after: { sourceType: source.sourceType, sourceId: source.sourceId, sourceStatus: result.status } });

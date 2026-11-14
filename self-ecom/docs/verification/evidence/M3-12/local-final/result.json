@@ -1,0 +1,71 @@
+{
+  "startedAt": "2026-11-14T14:07:17.231Z",
+  "newMembers": 0,
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "afef586d-263a-4c1d-9994-f9ae5b6895ca"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "a6f440ba-a258-4de2-a7b0-31f4c6b3c048"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "7baaa50e-bb94-4f6a-b837-8dcaf6887193"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "cddde9d5-c45b-410e-8704-0004c38d03ad"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "4d6a0119-0b84-4b73-81df-2d5c4e34ec1f"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "0f7e2eb4-3ea5-4a7d-a555-298ed791d11a"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "42152237-d25c-4653-9244-b4af0eeab736"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "363df3df-47b6-4d38-9370-9b6d1b8b56a5"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "3db69841-61b9-4798-aff8-134bf298a2db"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 400,
+      "requestId": "c7fff62e-8699-4f16-a102-86e835f2ae1a"
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: /store/orders IDEMPOTENCY_KEY_INVALID\n\n400 !== 201\n\n    at call (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-settlement-local.mjs:14:374)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-settlement-local.mjs:19:262",
+  "endedAt": "2026-11-14T14:07:18.265Z"
+}

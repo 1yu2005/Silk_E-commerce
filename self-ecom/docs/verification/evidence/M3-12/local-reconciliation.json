@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-14T14:14:32.886Z",
+  "status": "passed",
+  "totals": {
+    "available": "93",
+    "reserved": "0"
+  },
+  "ledgerDifferences": 0,
+  "demo": {
+    "status": "SUCCEEDED",
+    "refund_id": "16dbde5e-282a-4646-923c-2b4033b47aa5",
+    "refund_status": "SUCCEEDED",
+    "amount_cents": 10700,
+    "payment_amount": 10700,
+    "payment_status": "SUCCEEDED",
+    "attempts": 1,
+    "final_inspections": 1,
+    "restock_actions": 1
+  },
+  "protectedTables": {
+    "order": "原行摘要一致",
+    "after_sale": "原行摘要一致",
+    "cart_item": "原行摘要一致",
+    "address": "原行摘要一致"
+  },
+  "meaning": "新增明确开发演示的支付销量与流水保留；退款不倒扣支付销量，未改变原演示售后"
+}

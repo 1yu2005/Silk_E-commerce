@@ -1,7 +1,7 @@
 // 作用：冻结同阶段多来源的事务仓储契约；真实表随订单板块迁移，当前没有生产默认仓储。
 import type { Prisma, Task } from '@prisma/client';
 import type { TaskCommandActor } from './task-business-adapters.js';
-export const TASK_SOURCE_TYPES = ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST'] as const;
+export const TASK_SOURCE_TYPES = ['AFTER_SALE', 'SHIPMENT_EXCEPTION', 'STOCK_EXCEPTION', 'HANDOVER_UNCERTAIN', 'ADDRESS_REQUEST', 'RETURN_PARCEL'] as const;
 export type TaskSourceType = typeof TASK_SOURCE_TYPES[number];
 export interface TaskSourceReference { readonly sourceType: TaskSourceType; readonly sourceId: string }
 export interface TaskSourceMetadata {
@@ -22,5 +22,7 @@ export interface TaskBusinessSources {
   listActive(tx: Prisma.TransactionClient, task: Task): Promise<readonly TaskSourceRecord[]>;
   /** 仓储须按Task之后的稳定顺序持来源锁，写来源及只追加的来源历史，禁止另开事务。 */
   add(tx: Prisma.TransactionClient, task: Task, source: TaskSourceReference, metadata: TaskSourceMetadata): Promise<TaskSourceRecord>;
+  /** 仅明确支持同一共享任务内再次进入的领域注册；必须保留原来源历史。 */
+  reactivate?(tx: Prisma.TransactionClient, task: Task, source: TaskSourceReference, metadata: TaskSourceMetadata): Promise<TaskSourceRecord>;
   finish(tx: Prisma.TransactionClient, task: Task, source: TaskSourceRecord, status: 'RESOLVED' | 'CANCELLED', metadata: TaskSourceMetadata): Promise<TaskSourceRecord>;
 }

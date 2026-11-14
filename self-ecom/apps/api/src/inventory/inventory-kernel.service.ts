@@ -12,7 +12,7 @@ export interface InventoryEffect {
 }
 export interface InventoryCommand {
  businessType:'ADJUSTMENT'|'ORDER'|'PAYMENT'|'RETURN_INSPECTION'|'REFUND'; businessId:string;businessNumber:string;
- actionType:'MANUAL_POST'|'RESERVE'|'PAY'|'CLOSE'|'RETURN_RESTOCK'|'UNSHIPPED_REFUND_RESTOCK'|'PAID_PREPARATION_LOSS'|'ALLOCATE_REPLACEMENT';
+ actionType:'MANUAL_POST'|'RESERVE'|'PAY'|'CLOSE'|'RETURN_RESTOCK'|'UNSHIPPED_REFUND_RESTOCK'|'PAID_PREPARATION_LOSS'|'ALLOCATE_REPLACEMENT'|'REFUNDED_AVAILABLE_LOSS';
  actionKey:string;semantic:unknown;actor:AuditActor;requestId:string;reason:string;effects:InventoryEffect[];
 }
 @Injectable()

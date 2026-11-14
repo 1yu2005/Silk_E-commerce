@@ -53,12 +53,14 @@ export type TaskLockKind = typeof TASK_LOCK_ORDER[number];
 export interface TaskLockResource { readonly kind: TaskLockKind; readonly id: string }
 export interface TaskStageEntry extends TaskBusinessReference { readonly stage: TaskStage; readonly entryKey: string; readonly reason: string }
 export interface TaskEntryDecision {
+  readonly startBasis?: 'ACTUAL_RECEIPT'|'APPROVAL'|'RESHIPMENT_AUTHORIZATION';
   /** 必须取真实业务阶段起算时刻；不可直接照收浏览器时间或默认改成记录时间。 */
   readonly startedAt: Date;
   /** 只有领域已确认旧轮结束，才允许替换；未指定时不能悄悄取消现存任务。 */
   readonly replaces?: { readonly taskId: string; readonly expectedVersion: number; readonly outcome: 'COMPLETED' | 'CANCELLED' };
 }
 export interface TaskBusinessAdapter {
+  relatedReferences?(tx: Prisma.TransactionClient, reference: TaskBusinessReference): Promise<readonly TaskBusinessReference[]>;
   /** 只读定位所有上游锁；本方法禁止取行锁、写入或发外部请求。 */
   planLocks(tx: Prisma.TransactionClient, reference: TaskBusinessReference): Promise<readonly TaskLockResource[]>;
   /** 持有完整锁计划后核对真实实体、归属与当前主体；幂等重放也必须授权。 */
@@ -155,6 +157,7 @@ export class TaskBusinessAdapters {
   require(type: TaskBusinessType): TaskBusinessAdapter {
     const adapter = this.businesses.get(type); if (!adapter) throw new TaskError('BUSINESS_MODULE_NOT_READY'); return adapter;
   }
+  async expand(tx: Prisma.TransactionClient, references: readonly TaskBusinessReference[]) { const all=new Map(references.map(r=>[businessKey(r),r]));for(const r of references)for(const extra of await this.require(r.businessType).relatedReferences?.(tx,r)??[])all.set(businessKey(extra),extra);return [...all.values()]; }
   async plan(tx: Prisma.TransactionClient, references: readonly TaskBusinessReference[]) {
     requireSessionTransaction(tx); const plans: (readonly TaskLockResource[])[] = [];
     for (const reference of references) {

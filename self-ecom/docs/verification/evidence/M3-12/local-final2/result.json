@@ -1,0 +1,270 @@
+{
+  "startedAt": "2026-11-14T14:12:38.845Z",
+  "newMembers": 0,
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "8ca8a715-1ff6-4d8c-8c51-3055e487da8a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "10241c2e-8946-4178-8b9d-0738dfae0f41"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "9ff3070d-9d1d-41f5-b5e4-2a20dabfe412"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "4f860cbe-7100-4788-8fae-a96b0b1b3ea3"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "e69c9dd0-5987-405a-973a-71efdc40c13a"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "d91d4f45-5988-44b5-8124-035122378f25"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "6c71a6f9-311d-48dc-8185-43a45fe0ffd6"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "982ddf8d-c4fd-4b6d-a6a5-8bc950706832"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "c4d86573-d6a7-4535-9d5f-e22b68a723dd"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "b5c4aa12-5490-41d9-97b9-83ebef901a7b"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/pay",
+      "status": 200,
+      "requestId": "68764ac1-b75c-4934-a035-e0034838e5c7"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment",
+      "status": 200,
+      "requestId": "0a0e019e-938f-4635-ba57-f86928c3ab3f"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/24ac092a-7fe5-40de-893a-a100390cec2f/claim",
+      "status": 200,
+      "requestId": "0ecff9cb-daba-43d9-af9b-587ee6498c79"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7",
+      "status": 200,
+      "requestId": "33bf7eb8-572a-4c1b-91dc-162b0a810516"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment",
+      "status": 200,
+      "requestId": "506bb588-2fa7-4ba4-b1df-f6c6f0f3611f"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment/pack",
+      "status": 200,
+      "requestId": "05fcf67e-8540-4bd8-b1c7-0bac7d1e7711"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment",
+      "status": 200,
+      "requestId": "463731c7-567a-42cf-9216-6e714c14cf60"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment/prepare",
+      "status": 200,
+      "requestId": "bf99875f-23bc-4989-b7b2-ceeecf9503b1"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment",
+      "status": 200,
+      "requestId": "b4676bb7-428e-4591-b77a-ac71c98a6adf"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment",
+      "status": 200,
+      "requestId": "53253e22-c98d-4a94-9534-2eb79dc601e9"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment/start-handover",
+      "status": 200,
+      "requestId": "907daf1d-1c9c-4e6f-95fc-7d0e2a114a31"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment",
+      "status": 200,
+      "requestId": "48141fa9-f892-4f79-9662-fc00d5423f5d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/99d771bc-2d4b-414e-ae9c-5942245356b7/fulfillment/confirm-handover",
+      "status": 200,
+      "requestId": "c70da8b2-6afa-49e6-8e1b-8598facea20c"
+    },
+    {
+      "method": "POST",
+      "path": "/store/after-sales",
+      "status": 201,
+      "requestId": "78b823bc-bd09-4d4a-af8c-535754551050"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/d601ca9c-f3d3-431e-bab1-9f264d2a8aea",
+      "status": 200,
+      "requestId": "11e65b0a-c9bf-4c26-a412-9ef8ce82e3f5"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/5ff4b3fc-8df8-4a61-ad8a-eca5a447074b/claim",
+      "status": 200,
+      "requestId": "977886a1-9aad-4434-ae7d-d125928b43b0"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/d601ca9c-f3d3-431e-bab1-9f264d2a8aea",
+      "status": 200,
+      "requestId": "0e39ac9a-0470-4429-bf60-01f2c44629ae"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/after-sales/d601ca9c-f3d3-431e-bab1-9f264d2a8aea/review",
+      "status": 200,
+      "requestId": "ab1cb669-6095-4831-8521-312b1b76a693"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "b9adb887-335e-46d9-8ac5-9c3575d3a4aa"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "6fcb8be9-1cb2-4780-9ca2-df9a3bae33ff"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/d601ca9c-f3d3-431e-bab1-9f264d2a8aea/settlement",
+      "status": 200,
+      "requestId": "8deb6f6c-eb40-4a44-aea1-1809c5e312e9"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/99d771bc-2d4b-414e-ae9c-5942245356b7",
+      "status": 200,
+      "requestId": "71f8aebb-b948-46d0-8938-547a09f4711f"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "1ba6b38e-49e8-4d62-970b-a3b88a693cbb"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "2ea630fb-7631-4095-9c32-69eec89d73cc"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "fa63b366-9136-4382-a1a5-5cfea418ac46"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "5ffdf9bb-98c7-4717-a51d-c79abab4c95b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "e46f7849-d9f9-45b9-8582-7af28c71bd39"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/d601ca9c-f3d3-431e-bab1-9f264d2a8aea",
+      "status": 200,
+      "requestId": "0b284628-1fb9-4a11-b924-a89ef4181eff"
+    }
+  ],
+  "checks": [
+    "常用同组镜像：正式购买付款交运→退货申请审核→浏览器收包/草稿/最终验收/全额退款→顾客手机公开进度；草稿不回补，最终验收只回补一次，退款不重复，地址购物车净消费保持，无新增成员"
+  ],
+  "pageErrors": [],
+  "demo": {
+    "skuId": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+    "orderCommandKey": "667a4b0f-1046-40d8-9393-46b7f2008471",
+    "baselineCart": [],
+    "meaning": "板块12服装退货退款开发演示，不代表真实寄件、经营事实或资金流转",
+    "cartItemId": "2e627caa-fb67-45c0-8329-b7a8e76b0602",
+    "quoteId": "8daaa9ac-2f5d-4048-b630-ed7fac3a3a87",
+    "orderId": "99d771bc-2d4b-414e-ae9c-5942245356b7",
+    "afterSaleId": "d601ca9c-f3d3-431e-bab1-9f264d2a8aea",
+    "orderNo": "OMWGHJC9B60425F042ABE",
+    "afterSaleNo": "ASMWGHJD1CC9AEAFEF9BBC4D",
+    "status": "SUCCEEDED",
+    "refundId": "16dbde5e-282a-4646-923c-2b4033b47aa5",
+    "refundNo": "RFMWGHJGAOE2634B0F0B7649",
+    "amountCents": 10700
+  },
+  "balance": {
+    "before": {
+      "available": 10,
+      "reserved": 0
+    },
+    "draft": {
+      "available": 9,
+      "reserved": 0
+    },
+    "final": {
+      "available": 10,
+      "reserved": 0
+    }
+  },
+  "status": "passed",
+  "endedAt": "2026-11-14T14:12:46.789Z"
+}

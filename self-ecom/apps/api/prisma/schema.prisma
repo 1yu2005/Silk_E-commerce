@@ -1509,6 +1509,10 @@ model TimerPauseBlock {
 
 // 售后各真实FK、跨单归属及追加事实守卫由0014的SQL约束维护；不使用逻辑UUID冒充归属。
 model AfterSale {
+ returnPhysicalVersion Int @default(0) @map("return_physical_version")
+ finalInspectionId String? @unique @map("final_inspection_id") @db.Uuid
+ activeUnshippedCheckId String? @map("active_unshipped_check_id") @db.Uuid
+ refundId String? @unique @map("refund_id") @db.Uuid
  id String @id @default(uuid()) @db.Uuid
  number String @unique @db.VarChar(40)
  orderId String @map("order_id") @db.Uuid
@@ -1590,6 +1594,10 @@ model AfterSaleDecision {
  @@map("after_sale_decision")
 }
 model ReturnParcel {
+ origin String @default("CUSTOMER_LOGISTICS") @db.VarChar(40)
+ reshipmentRequestId String? @map("reshipment_request_id") @db.Uuid
+ sourceNamespace String? @map("source_namespace") @db.VarChar(80)
+ sourceReferenceNormalized String? @map("source_reference_normalized") @db.VarChar(200)
  id String @id @default(uuid()) @db.Uuid
  afterSaleId String @map("after_sale_id") @db.Uuid
  batchNo Int @map("batch_no")
@@ -1647,4 +1655,211 @@ model AfterSaleCommandResult {
  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
  @@unique([customerId,orderId,action,commandKey])
  @@map("after_sale_command_result")
+}
+
+// 板块12：真实收包、不可变验收版本、核实及全额退款事实。外键/部分唯一/CHECK见0015。
+model ReturnReceipt {
+ id String @id @default(uuid()) @db.Uuid
+ parcelId String @unique @map("parcel_id") @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ receivedAt DateTime @map("received_at") @db.Timestamptz(3)
+ receivedById String @map("received_by_id") @db.Uuid
+ goodsLocation String @map("goods_location") @db.VarChar(200)
+ sourceNote String @map("source_note") @db.VarChar(1000)
+ recordedAt DateTime @map("recorded_at") @db.Timestamptz(3)
+ version Int @default(0)
+ physicalVersion Int @default(0) @map("physical_version")
+ currentInspectionRevisionId String? @map("current_inspection_revision_id") @db.Uuid
+ @@map("return_receipt")
+}
+model ReturnInspectionRevision {
+ id String @id @default(uuid()) @db.Uuid
+ receiptId String @map("receipt_id") @db.Uuid
+ revisionNo Int @map("revision_no")
+ basedReturnPhysicalVersion Int @map("based_return_physical_version")
+ basedReceiptPhysicalVersion Int @map("based_receipt_physical_version")
+ inspectionComplete Boolean @map("inspection_complete")
+ reason String @db.VarChar(1000)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ createdAt DateTime @map("created_at") @db.Timestamptz(3)
+ @@unique([receiptId,revisionNo])
+ @@map("return_inspection_revision")
+}
+model ReturnInspectionLine {
+ id String @id @default(uuid()) @db.Uuid
+ revisionId String @map("revision_id") @db.Uuid
+ orderItemId String @map("order_item_id") @db.Uuid
+ matchedReceivedQty Int @map("matched_received_qty")
+ sellableQty Int @map("sellable_qty")
+ unsellableQty Int @map("unsellable_qty")
+ conditionNote String @map("condition_note") @db.VarChar(1000)
+ @@unique([revisionId,orderItemId])
+ @@map("return_inspection_line")
+}
+model ReturnUnmatchedItem {
+ id String @id @default(uuid()) @db.Uuid
+ revisionId String @map("revision_id") @db.Uuid
+ description String @db.VarChar(1000)
+ quantity Int
+ kind String @db.VarChar(30)
+ custodyLocation String @map("custody_location") @db.VarChar(200)
+ dispositionNote String? @map("disposition_note") @db.VarChar(1000)
+ @@map("return_unmatched_item")
+}
+model ReturnReshipmentRequest {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ round Int
+ missingItems Json @map("missing_items")
+ reason String @db.VarChar(1000)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ communicationId String @map("communication_id") @db.Uuid
+ returnAddressSnapshot Json @map("return_address_snapshot")
+ dueAt DateTime @map("due_at") @db.Timestamptz(3)
+ ruleSnapshot Json @map("rule_snapshot")
+ settingVersionId String @map("setting_version_id") @db.Uuid
+ createdById String @map("created_by_id") @db.Uuid
+ createdAt DateTime @map("created_at") @db.Timestamptz(3)
+ status String @db.VarChar(20)
+ @@unique([afterSaleId,round])
+ @@map("return_reshipment_request")
+}
+model ExceptionRefundApproval {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ approvalNo Int @map("approval_no")
+ basedReturnPhysicalVersion Int @map("based_return_physical_version")
+ basedRevisionRefs Json @map("based_revision_refs")
+ reason String @db.VarChar(1000)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ responsibilityNote String @map("responsibility_note") @db.VarChar(1000)
+ approvedById String @map("approved_by_id") @db.Uuid
+ approvedAt DateTime @map("approved_at") @db.Timestamptz(3)
+ invalidatedAt DateTime? @map("invalidated_at") @db.Timestamptz(3)
+ invalidationReason String? @map("invalidation_reason") @db.VarChar(1000)
+ @@unique([afterSaleId,approvalNo])
+ @@map("exception_refund_approval")
+}
+model FinalInspection {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @unique @map("after_sale_id") @db.Uuid
+ mode String @db.VarChar(30)
+ approvalId String? @map("approval_id") @db.Uuid
+ returnPhysicalVersion Int @map("return_physical_version")
+ sourceRevisionRefs Json @map("source_revision_refs")
+ inventoryActionId String? @unique @map("inventory_action_id") @db.Uuid
+ confirmedById String @map("confirmed_by_id") @db.Uuid
+ confirmedAt DateTime @map("confirmed_at") @db.Timestamptz(3)
+ commandKey String @map("command_key") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ @@map("final_inspection")
+}
+model FinalInspectionItem {
+ id String @id @default(uuid()) @db.Uuid
+ finalInspectionId String @map("final_inspection_id") @db.Uuid
+ orderItemId String @map("order_item_id") @db.Uuid
+ purchasedQty Int @map("purchased_qty")
+ receivedQty Int @map("received_qty")
+ sellableQty Int @map("sellable_qty")
+ unsellableQty Int @map("unsellable_qty")
+ missingQty Int @map("missing_qty")
+ @@unique([finalInspectionId,orderItemId])
+ @@map("final_inspection_item")
+}
+model UnshippedPhysicalCheck {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ physicalVersion Int @map("physical_version")
+ checkNo Int @map("check_no")
+ status String @db.VarChar(20)
+ goodsLocation String @map("goods_location") @db.VarChar(200)
+ stoppedAt DateTime @map("stopped_at") @db.Timestamptz(3)
+ checkedAt DateTime @map("checked_at") @db.Timestamptz(3)
+ checkedById String @map("checked_by_id") @db.Uuid
+ invalidatedAt DateTime? @map("invalidated_at") @db.Timestamptz(3)
+ invalidationReason String? @map("invalidation_reason") @db.VarChar(1000)
+ consumedRefundId String? @map("consumed_refund_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ @@unique([afterSaleId,checkNo])
+ @@map("unshipped_physical_check")
+}
+model UnshippedPhysicalCheckItem {
+ id String @id @default(uuid()) @db.Uuid
+ checkId String @map("check_id") @db.Uuid
+ orderItemId String @map("order_item_id") @db.Uuid
+ purchasedQty Int @map("purchased_qty")
+ sellableQty Int @map("sellable_qty")
+ damagedQty Int @map("damaged_qty")
+ @@unique([checkId,orderItemId])
+ @@map("unshipped_physical_check_item")
+}
+model PhysicalCheckItemIncident {
+ id String @id @default(uuid()) @db.Uuid
+ itemId String @map("item_id") @db.Uuid
+ incidentItemId String @map("incident_item_id") @db.Uuid
+ @@unique([itemId,incidentItemId])
+ @@map("physical_check_item_incident")
+}
+model Refund {
+ id String @id @default(uuid()) @db.Uuid
+ refundNo String @unique @map("refund_no") @db.VarChar(40)
+ paymentId String @unique @map("payment_id") @db.Uuid
+ orderId String @unique @map("order_id") @db.Uuid
+ afterSaleId String @unique @map("after_sale_id") @db.Uuid
+ amountCents Int @map("amount_cents")
+ currency String @db.VarChar(3)
+ channel String @db.VarChar(20)
+ status String @db.VarChar(20)
+ version Int @default(0)
+ succeededAt DateTime? @map("succeeded_at") @db.Timestamptz(3)
+ successfulAttemptId String? @unique @map("successful_attempt_id") @db.Uuid
+ createdAt DateTime @map("created_at") @db.Timestamptz(3)
+ updatedAt DateTime @map("updated_at") @db.Timestamptz(3)
+ @@map("refund")
+}
+model RefundAttempt {
+ id String @id @default(uuid()) @db.Uuid
+ refundId String @map("refund_id") @db.Uuid
+ attemptNo Int @map("attempt_no")
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.VarChar(64)
+ outcome String @db.VarChar(20)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ taskId String @map("task_id") @db.Uuid
+ physicalCheckId String? @map("physical_check_id") @db.Uuid
+ finalInspectionId String? @map("final_inspection_id") @db.Uuid
+ failureCode String? @map("failure_code") @db.VarChar(80)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ startedAt DateTime @map("started_at") @db.Timestamptz(3)
+ finishedAt DateTime @map("finished_at") @db.Timestamptz(3)
+ requestId String @map("request_id") @db.VarChar(64)
+ @@unique([refundId,attemptNo])
+ @@unique([refundId,commandKey])
+ @@map("refund_attempt")
+}
+model RefundPreconditionRejection {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.VarChar(64)
+ code String @db.VarChar(80)
+ publicResult Json @map("public_result")
+ createdAt DateTime @map("created_at") @db.Timestamptz(3)
+ @@unique([afterSaleId,commandKey])
+ @@map("refund_precondition_rejection")
+}
+model ReturnPhysicalEvent {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ receiptId String @map("receipt_id") @db.Uuid
+ kind String @db.VarChar(30)
+ reason String @db.VarChar(1000)
+ goodsLocation String @map("goods_location") @db.VarChar(200)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ createdAt DateTime @map("created_at") @db.Timestamptz(3)
+ commandKey String @map("command_key") @db.Uuid
+ @@unique([afterSaleId,commandKey])
+ @@map("return_physical_event")
 }

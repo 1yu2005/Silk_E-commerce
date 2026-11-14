@@ -1,4 +1,5 @@
 // 作用：装配板块8＋9交易和板块10履约领域；售后/退款由后续板块接入。
+import {OrderPhysicalChanges} from './order-physical-changes.js';
 import {Module} from '@nestjs/common';
 import {AuthGuardModule} from '../auth/auth-guard.module.js';
 import {AuditModule} from '../audit/audit.module.js';
@@ -28,5 +29,5 @@ import {FulfillmentQueries} from './fulfillment-query.service.js';
 import {FulfillmentScanner,FulfillmentScheduler} from './fulfillment-scanner.service.js';
 @Module({imports:[AuthGuardModule,AuditModule,TimeModule,CustomersModule,StoreSettingsModule,InventoryModule,TasksModule,FilesModule,RecordsModule,CatalogModule],
  controllers:[CheckoutController,StoreOrdersController,AdminOrdersController,StockIncidentsController,OrderCommunicationController,StoreOrderCommunicationController,FulfillmentController,ReceiptController],
- providers:[OrderService,OrderAccess,OrderAdapters,OrderTimerAdapter,OrderCommands,OrderQueries,StockIncidents,OrderScanner,OrderScheduler,FulfillmentService,FulfillmentTaskPolicy,FulfillmentAfterSales,FulfillmentQueries,FulfillmentScanner,FulfillmentScheduler],exports:[OrderService,OrderCommands,OrderQueries,StockIncidents,OrderScanner,FulfillmentService,FulfillmentAfterSales,FulfillmentQueries,FulfillmentScanner]})
+ providers:[OrderPhysicalChanges,OrderService,OrderAccess,OrderAdapters,OrderTimerAdapter,OrderCommands,OrderQueries,StockIncidents,OrderScanner,OrderScheduler,FulfillmentService,FulfillmentTaskPolicy,FulfillmentAfterSales,FulfillmentQueries,FulfillmentScanner,FulfillmentScheduler],exports:[OrderPhysicalChanges,OrderService,OrderCommands,OrderQueries,StockIncidents,OrderScanner,FulfillmentService,FulfillmentAfterSales,FulfillmentQueries,FulfillmentScanner]})
 export class OrdersModule{}

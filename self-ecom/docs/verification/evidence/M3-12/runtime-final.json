@@ -1,0 +1,48 @@
+{
+  "at": "2026-11-14T14:26:45.742Z",
+  "status": "passed",
+  "containers": [
+    {
+      "name": "/self-ecom-db-1",
+      "image": "sha256:557fea37a744d5f4c8faab304b0a90858b53ab119735a88c131fd19dab802f36",
+      "status": "running",
+      "health": "healthy"
+    },
+    {
+      "name": "/self-ecom-api-1",
+      "image": "sha256:eab3c263fe3111a62abf979d17226d4010c30d7e63f576f38784fe8c7ea7d2ce",
+      "status": "running",
+      "health": "healthy"
+    },
+    {
+      "name": "/self-ecom-admin-web-1",
+      "image": "sha256:df106d4721f779821a067f3a2c15d6b0349fffa034c01cdba8ab46765d811538",
+      "status": "running",
+      "health": "healthy"
+    },
+    {
+      "name": "/self-ecom-store-web-1",
+      "image": "sha256:86f3cd9a24c16b38820680779e01a81d37267b736cf4d19127b812c2658dd96a",
+      "status": "running",
+      "health": "healthy"
+    }
+  ],
+  "endpoints": [
+    {
+      "port": 3001,
+      "ready": 200,
+      "operations": 170
+    },
+    {
+      "port": 8080,
+      "ready": 200,
+      "operations": 170
+    },
+    {
+      "port": 8081,
+      "ready": 200,
+      "operations": 170
+    }
+  ],
+  "exitCode": 0
+}

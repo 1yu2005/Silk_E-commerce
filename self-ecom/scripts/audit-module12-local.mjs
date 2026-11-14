@@ -1,0 +1,15 @@
+// 作用：只读对账常用环境的正式演示、全店余额与流水，核对原订单/售后/购物车/地址未改。
+import assert from 'node:assert/strict';
+import {createHash} from 'node:crypto';
+import {existsSync,readFileSync,writeFileSync} from 'node:fs';
+import {env,requireApi} from './module12-runtime.mjs';
+const target='docs/verification/evidence/M3-12/local-reconciliation.json';assert.ok(!existsSync(target));
+const demo=JSON.parse(readFileSync('docs/verification/evidence/M3-12/local-final2/result.json','utf8')).demo,before=JSON.parse(readFileSync('docs/verification/evidence/M3-12/data-postdeploy.json','utf8'));
+const {Client}=requireApi('pg'),db=new Client({connectionString:env.DATABASE_URL});
+try{await db.connect();await db.query('BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ READ ONLY');
+ const totals=(await db.query('SELECT sum(available)::text AS available,sum(reserved)::text AS reserved FROM inventory_balance')).rows[0];assert.deepEqual(totals,{available:'93',reserved:'0'});
+ const differences=(await db.query('SELECT b.sku_id FROM inventory_balance b LEFT JOIN (SELECT sku_id,sum(delta_a)::bigint a,sum(delta_r)::bigint r FROM inventory_ledger GROUP BY sku_id) l ON l.sku_id=b.sku_id WHERE b.available<>COALESCE(l.a,0) OR b.reserved<>COALESCE(l.r,0)')).rows;assert.equal(differences.length,0);
+ const sale=(await db.query('SELECT a.status,r.id AS refund_id,r.status AS refund_status,r.amount_cents,p.amount_cents AS payment_amount,p.status AS payment_status,(SELECT count(*)::int FROM refund_attempt t WHERE t.refund_id=r.id) AS attempts,(SELECT count(*)::int FROM final_inspection f WHERE f.after_sale_id=a.id) AS final_inspections,(SELECT count(*)::int FROM inventory_action i WHERE i.action_key=$2) AS restock_actions FROM after_sale a JOIN refund r ON r.after_sale_id=a.id JOIN payment p ON p.id=r.payment_id WHERE a.id=$1',[demo.afterSaleId,'RESTOCK_FINAL_INSPECTION:'+demo.afterSaleId])).rows[0];assert.equal(sale.status,'SUCCEEDED');assert.equal(sale.refund_status,'SUCCEEDED');assert.equal(sale.payment_status,'SUCCEEDED');assert.equal(sale.amount_cents,sale.payment_amount);assert.equal(sale.attempts,1);assert.equal(sale.final_inspections,1);assert.equal(sale.restock_actions,1);
+ const protectedTables={};for(const table of ['order','after_sale','cart_item','address']){const old=before.tables[table],projection=old.columns.map(n=>'t."'+n+'"').join(','),exclude=table==='order'?demo.orderId:table==='after_sale'?demo.afterSaleId:null,rows=(await db.query(`SELECT row_to_json(x)::text AS row FROM (SELECT ${projection} FROM "${table}" t${exclude?' WHERE id<>$1':''}) x ORDER BY row_to_json(x)::text`,exclude?[exclude]:[])).rows;assert.equal(createHash('sha256').update(JSON.stringify(rows)).digest('hex'),old.sha256);protectedTables[table]='原行摘要一致';}
+ await db.query('COMMIT');const report={at:new Date().toISOString(),status:'passed',totals,ledgerDifferences:differences.length,demo:sale,protectedTables,meaning:'新增明确开发演示的支付销量与流水保留；退款不倒扣支付销量，未改变原演示售后'};writeFileSync(target,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));
+}finally{await db.end();}

@@ -1,3 +1,4 @@
+import {OrderPhysicalChanges} from './order-physical-changes.js';
 // 作用：所有任务入口共用履约领域守卫；经办只在Task保存，回池不抹掉未决交运。
 import {Inject,Injectable} from '@nestjs/common';
 import {randomUUID} from 'node:crypto';
@@ -10,7 +11,7 @@ import {FulfillmentAfterSales} from './fulfillment-after-sales.js';
 import {checkWholeOrder,pendingHandover,shipmentBlocked,validPacking} from './fulfillment.rules.js';
 @Injectable()
 export class FulfillmentTaskPolicy {
- constructor(@Inject(FulfillmentAfterSales)private readonly afterSales:FulfillmentAfterSales,@Inject(StateHistoryService)private readonly history:StateHistoryService,@Inject(AuditService)private readonly audit:AuditService){}
+ constructor(@Inject(OrderPhysicalChanges)private readonly physicalChanges:OrderPhysicalChanges,@Inject(FulfillmentAfterSales)private readonly afterSales:FulfillmentAfterSales,@Inject(StateHistoryService)private readonly history:StateHistoryService,@Inject(AuditService)private readonly audit:AuditService){}
  async active(tx:Prisma.TransactionClient,t:Task){const o=await tx.order.findUniqueOrThrow({where:{id:t.businessId}});
   if(t.stage==='SHIPMENT_PROCESS'){
    if(o.status!=='WAIT_SHIPMENT'||await pendingHandover(tx,o.id)||await shipmentBlocked(tx,o.id)||await this.afterSales.hasActive(tx,o.id))throw new TaskError('TASK_ENTRY_BLOCKED');
@@ -33,6 +34,7 @@ export class FulfillmentTaskPolicy {
   await tx.fulfillment.update({where:{id:f.id},data:{currentPackingCheckId:p.id,version:{increment:1},updatedAt:evidence.now}});
   const shipment=await tx.shipment.findUnique({where:{orderId:o.id}}),stage=shipment?'READY':'PREPARING';
   await tx.order.update({where:{id:o.id},data:{stockPhysicalVersion:{increment:1},fulfillmentStage:stage,version:{increment:1},updatedAt:evidence.now}});
+  await this.physicalChanges.notify(tx,o.id,evidence.requestId);
   if(o.fulfillmentStage!==stage)await this.history.appendStateHistory(tx,{type:'EMPLOYEE',id:a.subjectId},{aggregateType:'ORDER',aggregateId:o.id,dimension:'fulfillment',commandKey:'transfer:'+t.id+':'+t.version,fromState:o.fulfillmentStage,toState:stage,requestId:evidence.requestId,reason:'转交时全量核对实物'});
   await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:a.subjectId},action:'order.fulfillment',targetId:o.id,requestId:evidence.requestId,reason:'转交时核对整单实物与货物位置',after:{fulfillmentAction:'PHYSICAL_CHECK',sourceId:p.id}});
  };

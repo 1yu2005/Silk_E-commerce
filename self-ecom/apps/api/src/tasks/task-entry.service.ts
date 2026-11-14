@@ -53,7 +53,8 @@ export class TaskEntryService {
     requestId: string, command: (context: TaskEntryContext) => Promise<T>, extraLocks: readonly TaskLockResource[] = []): Promise<T> {
     requireSessionTransaction(tx); requestId = checkedId(requestId);
     if (!access || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(access.type) || !Array.isArray(references) || !references.length) throw new TaskError('TASK_INPUT_INVALID');
-    const refs = [...new Map(references.map(item => { const ref = checkedBusiness(item); return [businessKey(ref), ref]; })).values()]
+    const expanded = await this.adapters.expand(tx,references);
+    const refs = [...new Map(expanded.map(item => { const ref = checkedBusiness(item); return [businessKey(ref), ref]; })).values()]
       .sort((a, b) => businessKey(a) < businessKey(b) ? -1 : 1);
     const subjectId = access.type === 'SYSTEM' ? null : checkedId(access.subjectId);
     const employeeIds = await this.locks.acquire(tx, refs, access.type === 'EMPLOYEE' ? [subjectId!] : [],
@@ -114,7 +115,7 @@ export class TaskEntryService {
       startedAt: decision.startedAt, originalDueAt: dueAt, dueAt, settingsVersionId: setting?.id ?? null,
       ruleSnapshot: { ruleCode: entry.stage, source: rule ? 'STORE_SETTING' : 'NO_DEFAULT_SLA', sourceField: definition.deadline?.field ?? null,
         unit: rule?.unit ?? null, amount: rule?.amount ?? null, settingsVersionNumber: setting?.versionNumber ?? null,
-        timeZone: BUSINESS_TIME_ZONE, algorithmVersion: DEADLINE_ALGORITHM_VERSION, stageCatalogVersion: TASK_STAGE_CATALOG_VERSION },
+        ...(decision.startBasis?{startBasis:decision.startBasis}:{}),timeZone: BUSINESS_TIME_ZONE, algorithmVersion: DEADLINE_ALGORITHM_VERSION, stageCatalogVersion: TASK_STAGE_CATALOG_VERSION },
       createdAt: now, updatedAt: now } });
     await tx.taskStageCursor.update({ where: { id: cursor.id }, data: { lastRound: task.round, updatedAt: now } });
     await tx.taskHistory.create({ data: { taskId: task.id, action: 'CREATED', ...historyActor(actor), beforeStatus: null, afterStatus: 'OPEN',
@@ -122,6 +123,7 @@ export class TaskEntryService {
     await this.audit.appendAudit(tx, { actor: auditActor(actor), action: 'task.create', targetId: task.id, requestId, reason: entry.reason,
       after: { businessType: task.businessType, businessId: task.businessId, stage: task.stage, round: task.round, taskStatus: task.status,
         dueAt: dueAt?.toISOString() ?? null, settingsVersionId: task.settingsVersionId } });
+    await this.events.recordOverdue(tx,task,auditActor(actor),requestId,now);
     return { task, changed: true };
   }
 
