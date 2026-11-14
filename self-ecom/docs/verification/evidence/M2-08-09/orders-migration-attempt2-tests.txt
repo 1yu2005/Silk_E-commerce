@@ -1,0 +1,21 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/orders-migration.integration.ts (2 tests | 1 failed) 96ms
+   × 0001～0009全新部署成功，真实订单与支付表和外键存在 90ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders-migration.integration.ts > 0001～0009全新部署成功，真实订单与支付表和外键存在
+AssertionError: expected 4 to be greater than or equal to 5
+ ❯ test/orders-migration.integration.ts:10:179
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed (2)
+   Start at  11:57:29
+   Duration  388ms (import 44%, tests 42%, transform 12%, worker 2%)
+

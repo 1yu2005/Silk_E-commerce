@@ -188,8 +188,10 @@ it('SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停�
 });
 it('IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败',async()=>{
   const p=await create();const refs=new SkuReferences();await expect(refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});refs.register({domain:'inventory',async referenced(){return false;}});refs.register({domain:'order',async referenced(){return true;}});expect(await refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(true);
-  await db.$executeRawUnsafe('CREATE TABLE order_item (id uuid PRIMARY KEY)');
-  try{await expect(app.get(SkuReferences).referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});}finally{await db.$executeRawUnsafe('DROP TABLE order_item');}
+  // 订单领域现已真实安装：独立检查器遗漏订单适配器必须失败，应用注册器可查询真实订单引用。
+  const missingOrder=new SkuReferences();missingOrder.register({domain:'inventory',async referenced(){return false;}});
+  await expect(missingOrder.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});
+  expect(await app.get(SkuReferences).referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(false);
   const d=await db.initialInventoryDraft.create({data:{productId:p.id,createdById:staff.actor.subjectId,status:'CONVERTED',lines:{create:{skuId:p.skus[0]!.id,quantity:1}}}});expect(d.status).toBe('CONVERTED');
   await expect(commands.prices(staff,p.id,{expectedVersion:0,skuIds:[p.skus[0]!.id],priceCents:null})).rejects.toMatchObject({code:'SKU_PRICE_REQUIRED'});
 });

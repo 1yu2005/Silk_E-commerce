@@ -1,0 +1,30 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:74220) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (21 tests | 1 failed | 19 skipped) 2617ms
+   × 多订单异常解除按各自任务版本核验，不要求不同任务版本恰好相等 1200ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > 多订单异常解除按各自任务版本核验，不要求不同任务版本恰好相等
+AssertionError: {"code":"COMMAND_PAYLOAD_INVALID","message":"命令载荷不符合规范","requestId":"709cf35e-12f1-45b5-a432-1b88e072029f"}: expected 400 to be 200 // Object.is equality
+
+- Expected
++ Received
+
+- 200
++ 400
+
+ ❯ test/orders.integration.ts:164:52
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 19 skipped (21)
+   Start at  12:56:35
+   Duration  4.56s (tests 59%, import 30%, transform 10%)
+

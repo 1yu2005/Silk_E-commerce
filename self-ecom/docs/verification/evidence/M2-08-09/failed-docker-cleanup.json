@@ -1,0 +1,342 @@
+{
+  "at": "2026-11-14T05:00:48.041Z",
+  "commands": [
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}}",
+        "self-ecom-db-1",
+        "self-ecom-api-1",
+        "self-ecom-admin-web-1",
+        "self-ecom-store-web-1"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "ps",
+        "-aq",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m208-acceptance-52f69590"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "b998694c43b7"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "b998694c43b7"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "b998694c43b7"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "a8e5796f0a7f"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "a8e5796f0a7f"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "a8e5796f0a7f"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "eb107a1e699a"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "eb107a1e699a"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "eb107a1e699a"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "23ab46981477"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "23ab46981477"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "23ab46981477"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "network",
+        "ls",
+        "-q",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m208-acceptance-52f69590"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "network",
+        "rm",
+        "2998d0a171fc"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m208-acceptance-52f69590"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "volume",
+        "rm",
+        "self-ecom-m208-acceptance-52f69590_db_data"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "volume",
+        "rm",
+        "self-ecom-m208-acceptance-52f69590_uploads"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "ps",
+        "-aq",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m208-acceptance-d0c953d4"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "e0ade73389ab"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "e0ade73389ab"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "e0ade73389ab"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "e60839e59bd7"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "e60839e59bd7"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "e60839e59bd7"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "3e88da9da3ae"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "3e88da9da3ae"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "3e88da9da3ae"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{index .Config.Labels \"com.docker.compose.project\"}}",
+        "5a790860960c"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "stop",
+        "5a790860960c"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "rm",
+        "5a790860960c"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "network",
+        "ls",
+        "-q",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m208-acceptance-d0c953d4"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "network",
+        "rm",
+        "22d624ea4c35"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m208-acceptance-d0c953d4"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "volume",
+        "rm",
+        "self-ecom-m208-acceptance-d0c953d4_db_data"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "volume",
+        "rm",
+        "self-ecom-m208-acceptance-d0c953d4_uploads"
+      ],
+      "exitCode": 0
+    },
+    {
+      "args": [
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}}",
+        "self-ecom-db-1",
+        "self-ecom-api-1",
+        "self-ecom-admin-web-1",
+        "self-ecom-store-web-1"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "projects": [
+    {
+      "project": "self-ecom-m208-acceptance-52f69590",
+      "containers": 4,
+      "volumes": [
+        "self-ecom-m208-acceptance-52f69590_db_data",
+        "self-ecom-m208-acceptance-52f69590_uploads"
+      ],
+      "networks": 1
+    },
+    {
+      "project": "self-ecom-m208-acceptance-d0c953d4",
+      "containers": 4,
+      "volumes": [
+        "self-ecom-m208-acceptance-d0c953d4_db_data",
+        "self-ecom-m208-acceptance-d0c953d4_uploads"
+      ],
+      "networks": 1
+    }
+  ],
+  "originalResourcesPreserved": true
+}

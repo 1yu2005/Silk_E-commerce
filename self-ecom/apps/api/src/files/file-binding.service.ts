@@ -52,6 +52,11 @@ export class FileBindingService {
         && !asset.references.some(ref=>ref.ownerType==='PRODUCT'&&ref.ownerId===target.ownerId)) throw new FileError('FILE_NOT_BINDABLE');
       for (const reference of asset.references) {
         const previous = await this.adapters.get(reference.ownerType).aggregate(tx, reference);
+        // 订单只读快照引用不改变原PRODUCT聚合归属，也不妨碍该商品后续维护原图。
+        if (reference.ownerType==='ORDER_ITEM' && target.ownerType==='PRODUCT') {
+          const item=await tx.orderItem.findUnique({where:{id:reference.ownerId},select:{productId:true,imageAssetId:true}});
+          if(item?.productId===target.ownerId&&item.imageAssetId===id)continue;
+        }
         if (previous !== aggregate) throw new FileError('FILE_NOT_BINDABLE');
       }
       const existing = asset.references.find(ref => ref.ownerType === target.ownerType && ref.ownerId === target.ownerId && ref.slot === target.slot);
@@ -65,5 +70,16 @@ export class FileBindingService {
     }
     // commandKey由领域幂等命令持有；本表以引用唯一键防重复，不假装保存/校验完整业务请求指纹。
     return result;
+  }
+  /** 仅可信建单事务调用；不接受HTTP文件ID，按真实订单行验证原商品已保留的公开图片。 */
+  async retainOrderImage(tx:Prisma.TransactionClient,orderItemId:string){
+    requireSessionTransaction(tx);
+    const item=await tx.orderItem.findUniqueOrThrow({where:{id:orderItemId}});if(!item.imageAssetId)return;
+    await tx.$queryRaw`SELECT id FROM file_asset WHERE id=${item.imageAssetId}::uuid FOR UPDATE`;
+    const asset=await tx.fileAsset.findUnique({where:{id:item.imageAssetId},include:{references:true}});
+    if(!asset||asset.purpose!=='PRODUCT_IMAGE'||asset.state!=='RETAINED'||asset.visibility!=='PUBLIC'
+      ||!asset.references.some(r=>r.ownerType==='PRODUCT'&&r.ownerId===item.productId))throw new FileError('FILE_NOT_BINDABLE');
+    const order=await tx.order.findUniqueOrThrow({where:{id:item.orderId},select:{customerId:true}});
+    await tx.fileReference.create({data:{fileAssetId:asset.id,ownerType:'ORDER_ITEM',ownerId:item.id,slot:'snapshot',audience:'PUBLIC',createdByType:'CUSTOMER',createdByCustomerId:order.customerId}});
   }
 }

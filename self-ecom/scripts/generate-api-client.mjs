@@ -40,12 +40,15 @@ for (const [url, item] of Object.entries(spec.paths)) {
     const parameters = [...(item.parameters ?? []), ...(op.parameters ?? [])];
     const pathParameters = parameters.filter(param => param.in === 'path').map(param => ({ name: param.name, format: param.schema?.format }));
     const queryParameters = parameters.filter(param => param.in === 'query');
+    const headerParameters=parameters.filter(param=>param.in==='header');
+    if(headerParameters.some(param=>param.name.toLowerCase()!=='idempotency-key'))throw new Error('未允许的生成请求头');
     const id = JSON.stringify(op.operationId); const parts = ['signal?: AbortSignal']; let required = false;
     if (pathParameters.length) { parts.push(`path: operations[${id}]['parameters']['path']`); required = true; }
     if (queryParameters.length) { const requiredQuery = queryParameters.some(param => param.required);
       parts.push(`query${requiredQuery ? '' : '?'}: operations[${id}]['parameters']['query']`); required ||= requiredQuery; }
     if (op.requestBody) { parts.push(`body${op.requestBody.required ? '' : '?'}: NonNullable<operations[${id}]['requestBody']>['content']['application/json']`); required ||= op.requestBody.required; }
-    const descriptor = { method, path: url.slice('/api/v1'.length), pathParameters, queryKeys: queryParameters.map(param => param.name) };
+    if(headerParameters.length){const requiredHeader=headerParameters.some(param=>param.required);parts.push(`headers${requiredHeader?'':'?'}: NonNullable<operations[${id}]['parameters']['header']>`);required ||= requiredHeader;}
+    const descriptor = { method, path: url.slice('/api/v1'.length), pathParameters, queryKeys: queryParameters.map(param => param.name),...(headerParameters.length?{headerKeys:headerParameters.map(p=>p.name)}:{}) };
     entries.push(`    ${op.operationId}: (input: { ${parts.join('; ')} }${required ? '' : ' = {}'}) => requestJson<operations[${id}]['responses'][${JSON.stringify(success[0])}]['content']['application/json']>(api, ${JSON.stringify(descriptor)}, input),`);
   }
 }

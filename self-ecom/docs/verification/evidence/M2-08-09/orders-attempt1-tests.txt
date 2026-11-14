@@ -1,0 +1,88 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:32684) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (15 tests | 4 failed) 5736ms
+   × SW08：未知损耗阻付款和释放；核实d1后关闭只还q-d，流水保留gross 154ms
+   × SW09：真实补齐A8/R2→A7/R2，损耗历史保持1，同key重放不扣，关闭→A9/R0 247ms
+   × SW10：两个异常共用同阶段任务；解除第一来源不清第二来源/全SKU暂停 205ms
+   × 已付后登记走PAID_PREPARATION不再扣A/R；无关旧单可付；关闭后不能重复释放 423ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > SW08：未知损耗阻付款和释放；核实d1后关闭只还q-d，流水保留gross
+ContractError: 命令载荷不符合规范
+ ❯ commandFingerprint src/common/command-fingerprint.ts:19:38
+     17| /** 只取白名单字段，HTTP上下文中的requestId/token不会进入摘要；payload中出现凭据字段则拒绝。 */
+     18| export function commandFingerprint(input: FingerprintCommand): string {
+     19|   return createHash('sha256').update(canonicalJson({ ...namespace(inpu…
+       |                                      ^
+     20| }
+     21| export function commandNamespace(input: Omit<FingerprintCommand, 'payl…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  test/orders.integration.ts > SW09：真实补齐A8/R2→A7/R2，损耗历史保持1，同key重放不扣，关闭→A9/R0
+ FAIL  test/orders.integration.ts > SW10：两个异常共用同阶段任务；解除第一来源不清第二来源/全SKU暂停
+PrismaClientKnownRequestError: 
+Invalid `tx.inventoryPurchaseBlock.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/src/inventory/inventory-block.service.ts:13:45
+
+  10 async open(tx:Prisma.TransactionClient,skuId:string,sourceType:string,sourceId:string,reasonCode:string,actor:AuditActor,requestId:string){
+  11  requireSessionTransaction(tx);
+  12  const old=await tx.inventoryPurchaseBlock.findFirst({where:{skuId,sourceType,sourceId,active:true}});if(old)return old;
+→ 13  const row=await tx.inventoryPurchaseBlock.create(
+Database error. Code: `23514`. Message: `new row for relation "inventory_purchase_block" violates check constraint "inventory_purchase_block_source_type_check"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ InventoryBlocks.open src/inventory/inventory-block.service.ts:13:13
+     11|   requireSessionTransaction(tx);
+     12|   const old=await tx.inventoryPurchaseBlock.findFirst({where:{skuId,so…
+     13|   const row=await tx.inventoryPurchaseBlock.create({data:{skuId,source…
+       |             ^
+     14|   const changed=await tx.inventoryBalance.updateMany({where:{skuId,ver…
+     15|   if(changed.count!==1)throw new InventoryError('INVENTORY_LIMIT_EXCEE…
+ ❯ apply src/orders/stock-incident.service.ts:54:5
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:69:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:9:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  test/orders.integration.ts > 已付后登记走PAID_PREPARATION不再扣A/R；无关旧单可付；关闭后不能重复释放
+PrismaClientKnownRequestError: 
+Invalid `tx.inventoryLedger.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/src/inventory/inventory-kernel.service.ts:51:29
+
+  48  AND reserved::bigint+${effect.deltaR}::bigint BETWEEN 0 AND 2147483647`;
+  49 if(changed!==1)throw new InventoryError('VERSION_CONFLICT');
+  50 const seq=(sequence.get(effect.skuId)??0)+1;sequence.set(effect.skuId,seq);
+→ 51 await tx.inventoryLedger.create(
+Database error. Code: `23514`. Message: `new row for relation "inventory_ledger" violates check constraint "inventory_ledger_check1"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ InventoryKernel.execute src/inventory/inventory-kernel.service.ts:51:4
+     49|    if(changed!==1)throw new InventoryError('VERSION_CONFLICT');
+     50|    const seq=(sequence.get(effect.skuId)??0)+1;sequence.set(effect.sku…
+     51|    await tx.inventoryLedger.create({data:{id:ledgerIds[index]!,actionI…
+       |    ^
+     52|     beforeA:before.available,beforeR:before.reserved,afterA:Number(a),…
+     53|     quantityReleased:effect.quantityReleased,quantityDamaged:effect.qu…
+ ❯ StockIncidents.paidLoss src/orders/stock-incident.service.ts:66:3
+ ❯ apply src/orders/stock-incident.service.ts:50:40
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:69:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 11 passed (15)
+   Start at  12:10:05
+   Duration  8.12s (tests 72%, import 20%, transform 8%)
+

@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:50684) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (23 tests | 1 failed | 22 skipped) 1536ms
+   × IT03：真实锁屏障仲裁建单与加购/减量/改地址/改价格/改设置 655ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > IT03：真实锁屏障仲裁建单与加购/减量/改地址/改价格/改设置
+CatalogError: 请先下架再清除销售所需资料
+ ❯ ProductCommands.publishable src/catalog/product-command.service.ts:63:29
+     61|     if(skus.some(s=>s.priceCents===null))missing.push('price');
+     62|     if(stock&&!skus.some(s=>s.priceCents!==null&&s.balance!.available>…
+     63|     if(missing.length)throw new CatalogError(stock?'PRODUCT_NOT_PUBLIS…
+       |                             ^
+     64|   }
+     65|   edit(ctx:CatalogContext,id:string,input:ProductEditDto){return this.…
+ ❯ src/catalog/product-command.service.ts:51:37
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:9:18
+ ❯ ProductCommands.guarded src/catalog/product-command.service.ts:31:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 22 skipped (23)
+   Start at  12:59:55
+   Duration  3.81s (import 45%, tests 42%, transform 12%)
+

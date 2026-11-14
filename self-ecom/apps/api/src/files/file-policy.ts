@@ -7,7 +7,7 @@ import { FileError } from './file.errors.js';
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 export const purposePermissions = {
   CUSTOMER_AVATAR: [], PRODUCT_IMAGE: ['product.manage'], AFTER_SALE_EVIDENCE: ['customer.frozen.proxy'],
-  INVENTORY_EVIDENCE: ['inventory.adjustment.create', 'inventory.source.manage'],
+  INVENTORY_EVIDENCE: ['inventory.adjustment.create', 'inventory.source.manage', 'inventory.order-exception.manage'],
   FULFILLMENT_EVIDENCE: ['shipment.exception.manage', 'order.physical.check'],
   INSPECTION_EVIDENCE: ['after-sale.inspection.confirm', 'after-sale.receipt.record'],
   COMMUNICATION_EVIDENCE: ['communication.service.write', 'offline-case.manage'],
@@ -30,6 +30,8 @@ export function uploadedBy(asset: Pick<FileAsset, 'uploaderType' | 'uploaderCust
     ? asset.uploaderCustomerId : asset.uploaderEmployeeId) === actor.subjectId;
 }
 export const ownerPolicies: Record<FileOwnerType, { purpose: FilePurpose; slots: readonly string[]; max: number; public: boolean }> = {
+  ORDER_ITEM: { purpose: 'PRODUCT_IMAGE', slots: ['snapshot'], max: 1, public: true },
+  STOCK_INCIDENT: { purpose: 'INVENTORY_EVIDENCE', slots: ['evidence'], max: 5, public: false },
   CUSTOMER_AVATAR: { purpose: 'CUSTOMER_AVATAR', slots: ['avatar'], max: 1, public: true },
   PRODUCT: { purpose: 'PRODUCT_IMAGE', slots: ['main', 'gallery'], max: 10, public: true },
   AFTER_SALE_MATERIAL: { purpose: 'AFTER_SALE_EVIDENCE', slots: ['evidence'], max: 5, public: false },

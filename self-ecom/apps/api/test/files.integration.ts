@@ -9,6 +9,7 @@ import { Test } from '@nestjs/testing';
 import { Prisma, type FilePurpose } from '@prisma/client';
 import sharp from 'sharp';
 import { afterAll, beforeAll, expect, it, vi } from 'vitest';
+import { OrderAdapters } from '../src/orders/order.adapters.js';
 import { AppModule } from '../src/app.module.js';
 import { AuditService } from '../src/audit/audit.service.js';
 import { CurrentIdentityService } from '../src/auth/current-identity.service.js';
@@ -39,7 +40,7 @@ beforeAll(async () => {
   directory = await mkdtemp(join(tmpdir(), 'self-ecom-files-db-'));
   const module = await Test.createTestingModule({ imports: [AppModule] })
     .overrideProvider(APP_CONFIG).useValue({ ...loadConfiguration({ ...process.env, LOG_LEVEL: 'silent' }), uploadDir: directory })
-    .overrideProvider(FILE_CONFIG).useValue(config).compile();
+    .overrideProvider(OrderAdapters).useValue({onModuleInit(){ /* 文件内核测试以独占归属表覆盖ORDER端口，真实订单文件另有端到端验收。 */ }}).overrideProvider(FILE_CONFIG).useValue(config).compile();
   app = module.createNestApplication(); configureApp(app); await app.listen(0, '127.0.0.1'); base = await app.getUrl();
   prisma = app.get(PrismaService); storage = app.get(FileStorageService); bindings = app.get(FileBindingService); cleanup = app.get(FileCleanupService);
   customer = await actor('CUSTOMER'); other = await actor('CUSTOMER'); staff = await actor('EMPLOYEE');

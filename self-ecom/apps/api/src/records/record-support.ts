@@ -4,10 +4,12 @@ import { checkedId } from '../auth/session-support.js';
 import { normalizePagination } from '@shop/shared';
 
 export class RecordInputError extends Error {
+  readonly status = 400;
   readonly code = 'RECORD_INPUT_INVALID';
   constructor(message = '记录参数不合法') { super(message); this.name = 'RecordInputError'; }
 }
 export class BusinessModuleNotReadyError extends Error {
+  readonly status = 503;
   readonly code = 'BUSINESS_MODULE_NOT_READY';
   constructor() { super('该业务模块尚未接入公共记录服务'); this.name = 'BusinessModuleNotReadyError'; }
 }

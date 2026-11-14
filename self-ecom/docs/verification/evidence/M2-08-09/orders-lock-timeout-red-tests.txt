@@ -1,0 +1,37 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:34724) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/orders.integration.ts > 锁等待超时映射为可恢复409，事务退出不残留PENDING，同键稍后成功
+{"lockErrorMeta":{"driverAdapterError":{"name":"DriverAdapterError","cause":{"originalCode":"55P03","originalMessage":"canceling statement due to lock timeout","kind":"postgres","code":"55P03","severity":"ERROR","message":"canceling statement due to lock timeout"}}}}
+
+ ❯ test/orders.integration.ts (27 tests | 1 failed | 26 skipped) 1528ms
+   × 锁等待超时映射为可恢复409，事务退出不残留PENDING，同键稍后成功 648ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > 锁等待超时映射为可恢复409，事务退出不残留PENDING，同键稍后成功
+AssertionError: expected PrismaClientKnownRequestError{ …(7) } to match object { code: 'REQUEST_IN_PROGRESS' }
+(4 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "REQUEST_IN_PROGRESS",
++ PrismaClientKnownRequestError {
++   "code": "P2010",
+  }
+
+ ❯ test/orders.integration.ts:69:590
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 26 skipped (27)
+   Start at  13:20:01
+   Duration  4.35s (import 49%, tests 37%, transform 14%)
+

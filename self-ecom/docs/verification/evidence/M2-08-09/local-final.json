@@ -1,0 +1,179 @@
+{
+  "startedAt": "2026-11-14T05:34:41.966Z",
+  "checks": [
+    "常用环境正式演示：原服装加购→报价→真实建单→唯一模拟付款/另一单取消；净A减1、R保持，唯一待发货任务，未收货消费0",
+    "常用商城手机订单无横向溢出，管理员订单与异常深层页面可操作，浏览器无异常"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "2aa9c639-ecde-4d72-993f-65ef06687201"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "245ac2c6-e73c-4d13-b5aa-18e9b6dec98f"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "52af3958-b107-49ae-b75f-c1a65f75fcf7"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "64f1c6f9-6d28-4e33-b653-3545cd9a903a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/register",
+      "status": 201,
+      "requestId": "ac9c4732-3eea-40bf-ac36-c83a38354ae6"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "f467e4e4-575e-4a58-aaf2-082105821d7a"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "c1dacbbd-3bc2-4fce-a74b-78a02a831546"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "44e29593-766d-45f3-b685-aed410eecc84"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "29cd3809-77ab-4eaf-ab4d-00a48bcc0bc2"
+    },
+    {
+      "method": "GET",
+      "path": "/store/products?page=1&pageSize=20",
+      "status": 200,
+      "requestId": "5758184e-cfb7-49a1-8447-deedfc65ae96"
+    },
+    {
+      "method": "GET",
+      "path": "/store/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "status": 200,
+      "requestId": "1889a64b-7bfd-42c5-8606-afc122da6726"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/8d234d35-a73a-493e-adde-06a638659195",
+      "status": 200,
+      "requestId": "ae015fec-386e-4f27-a1e0-bd33cc2913a5"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "2c7fc5a3-9bff-4fda-8c01-c1a4c404c57a"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/f2c3e0be-66a2-4b43-8636-8603f85cb086",
+      "status": 200,
+      "requestId": "69cc171c-6c3e-40f5-aa70-a22c3afb669f"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/f2c3e0be-66a2-4b43-8636-8603f85cb086/pay",
+      "status": 200,
+      "requestId": "62c21080-bda4-430c-8702-4fdbbe6d66e2"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "7efddec6-5ca6-441c-a7b7-5eb3e830794e"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/78e6b5ea-7d41-4a10-be5f-6bf49cd9ebe4",
+      "status": 200,
+      "requestId": "e27579de-b7da-44e6-ba2f-8c308880cf6c"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/8d234d35-a73a-493e-adde-06a638659195",
+      "status": 200,
+      "requestId": "59f0b37d-a33d-4a75-91b7-df9a174eda85"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/f2c3e0be-66a2-4b43-8636-8603f85cb086",
+      "status": 200,
+      "requestId": "0c7e8f43-f294-44ae-845b-96fffd61e547"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "e9104110-c39a-4d80-887e-9a53aae7c458"
+    }
+  ],
+  "pageErrors": [],
+  "settingVersion": 1,
+  "demoCustomerId": "4a747851-50ae-484c-84f6-cf6f7070b574",
+  "productId": "cdde35cb-472f-4f45-afda-a2807e657344",
+  "skuId": "8d234d35-a73a-493e-adde-06a638659195",
+  "balanceBefore": {
+    "skuId": "8d234d35-a73a-493e-adde-06a638659195",
+    "code": "S-E3AC41387FAA42F4BCB5236D1ED27616",
+    "productId": "cdde35cb-472f-4f45-afda-a2807e657344",
+    "productName": "简约拉链外套",
+    "choices": [
+      "颜色：黑色",
+      "尺码：L"
+    ],
+    "available": 12,
+    "reserved": 0,
+    "warningThreshold": 10,
+    "lowStock": false,
+    "purchaseBlocked": false,
+    "version": 1,
+    "blocks": []
+  },
+  "paidOrder": {
+    "id": "f2c3e0be-66a2-4b43-8636-8603f85cb086",
+    "number": "OMWFZ1BH8CECAC5BEE177",
+    "payableCents": 29900
+  },
+  "cancelledOrder": {
+    "id": "78e6b5ea-7d41-4a10-be5f-6bf49cd9ebe4",
+    "number": "OMWFZ1CC85DB0B0E74896"
+  },
+  "balanceAfter": {
+    "skuId": "8d234d35-a73a-493e-adde-06a638659195",
+    "code": "S-E3AC41387FAA42F4BCB5236D1ED27616",
+    "productId": "cdde35cb-472f-4f45-afda-a2807e657344",
+    "productName": "简约拉链外套",
+    "choices": [
+      "颜色：黑色",
+      "尺码：L"
+    ],
+    "available": 11,
+    "reserved": 0,
+    "warningThreshold": 10,
+    "lowStock": false,
+    "purchaseBlocked": false,
+    "version": 5,
+    "blocks": []
+  },
+  "status": "passed",
+  "endedAt": "2026-11-14T05:34:48.649Z"
+}

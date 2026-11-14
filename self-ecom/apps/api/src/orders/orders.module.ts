@@ -1,0 +1,26 @@
+// 作用：装配板块8＋9真实交易领域，后续发货/售后能力仍由后续板块实现。
+import {Module} from '@nestjs/common';
+import {AuthGuardModule} from '../auth/auth-guard.module.js';
+import {AuditModule} from '../audit/audit.module.js';
+import {TimeModule} from '../common/time/time.module.js';
+import {CustomersModule} from '../customers/customers.module.js';
+import {StoreSettingsModule} from '../settings/store-settings.module.js';
+import {InventoryModule} from '../inventory/inventory.module.js';
+import {TasksModule} from '../tasks/tasks.module.js';
+import {FilesModule} from '../files/files.module.js';
+import {RecordsModule} from '../records/records.module.js';
+import {CatalogModule} from '../catalog/catalog.module.js';
+import {OrderService} from './order.service.js';
+import {OrderAccess} from './order-access.service.js';
+import {OrderAdapters} from './order.adapters.js';
+import {OrderTimerAdapter} from './order-timer.adapter.js';
+import {OrderCommands} from './order-command.service.js';
+import {OrderQueries} from './order-query.service.js';
+import {StockIncidents} from './stock-incident.service.js';
+import {OrderScanner,OrderScheduler} from './order-scanner.service.js';
+import {CheckoutController,StoreOrdersController,AdminOrdersController,StockIncidentsController} from './order.controller.js';
+import {OrderCommunicationController,StoreOrderCommunicationController} from './order-communication.controller.js';
+@Module({imports:[AuthGuardModule,AuditModule,TimeModule,CustomersModule,StoreSettingsModule,InventoryModule,TasksModule,FilesModule,RecordsModule,CatalogModule],
+ controllers:[CheckoutController,StoreOrdersController,AdminOrdersController,StockIncidentsController,OrderCommunicationController,StoreOrderCommunicationController],
+ providers:[OrderService,OrderAccess,OrderAdapters,OrderTimerAdapter,OrderCommands,OrderQueries,StockIncidents,OrderScanner,OrderScheduler],exports:[OrderService,OrderCommands,OrderQueries,StockIncidents,OrderScanner]})
+export class OrdersModule{}

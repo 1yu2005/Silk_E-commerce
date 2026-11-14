@@ -3,6 +3,10 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'order.create': { target: 'Order', fields: ['orderStatus','orderVersion','amountCents'], reason: false },
+  'order.pay': { target: 'Order', fields: ['orderStatus','orderVersion','amountCents','paymentId'], reason: false },
+  'order.close': { target: 'Order', fields: ['orderStatus','orderVersion','closeReasonCode'], reason: true },
+  'stock.incident': { target: 'StockIncident', fields: ['incidentVersion','incidentAction','affectedCount'], reason: true },
   'customer.status.change': { target: 'Customer', fields: ['status','customerStatusVersion'], reason: true },
   'address.change': { target: 'Address', fields: ['addressFields','isDefault','addressVersion'], reason: false },
   'cart.change': { target: 'CartItem', fields: ['skuId','quantity','selected','cartVersion','deleted'], reason: false },
@@ -82,7 +86,12 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
   for (const [field, item] of Object.entries(value)) {
     if (!fields.includes(field)) invalid();
     let valid = false;
-    if (field === 'inventoryVersion' || field === 'inventoryQuantity') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
+    if (['orderVersion','incidentVersion','amountCents'].includes(field)) valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=(field==='amountCents'?100000000:2147483647);
+    else if(field==='orderStatus') valid=typeof item==='string'&&['WAIT_PAYMENT','WAIT_SHIPMENT','SHIPPED','COMPLETED','CLOSED','REFUNDED'].includes(item);
+    else if(field==='paymentId') valid=typeof item==='string'&&uuid.test(item);
+    else if(field==='closeReasonCode') valid=typeof item==='string'&&['USER_CANCELLED','ADMIN_CLOSED','PAYMENT_TIMEOUT'].includes(item);
+    else if(field==='incidentAction') valid=typeof item==='string'&&['CREATE','VERIFY','REPLENISH','RESOLVE','SETTLE'].includes(item);
+    else if (field === 'inventoryVersion' || field === 'inventoryQuantity') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
     else if(field === 'inventoryOperation') valid=typeof item==='string'&&['MANUAL_POST','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','CREATE','EDIT','VERIFY','CONVERT','POST','VOID','CHECK','RESOLVE','THRESHOLD','BLOCK','UNBLOCK'].includes(item);
     else if (field === 'catalogVersion' || field === 'affectedCount') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
     else if (field === 'catalogAction') valid = typeof item==='string' && /^[a-z.-]{1,60}$/.test(item);
@@ -160,7 +169,7 @@ export class AuditService {
     if (!actor || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(actor.type)) invalid();
     if (actor.type !== 'SYSTEM' && !uuid.test(actor.id)) invalid();
     // 系统只允许初始化及已明确实现的任务动作，不能冒用系统绕过员工管理主体约束。
-    if (actor.type === 'SYSTEM' && !['inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
+    if (actor.type === 'SYSTEM' && !['order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
       'task.stage.suspend', 'task.stage.resume', 'task.source.add', 'task.source.resolve', 'task.source.cancel',
       'order.timer.block.add', 'order.timer.block.release', 'order.timer.handover.record', 'order.timer.finish'].includes(payload.action)) invalid();
     if (['task.claim', 'task.release', 'task.transfer', 'task.qualification.lost', 'task.deadline.extend'].includes(payload.action) && actor.type !== 'EMPLOYEE') invalid();
@@ -169,6 +178,8 @@ export class AuditService {
     if ((payload.action==='address.change'||payload.action==='cart.change') && actor.type!=='CUSTOMER') invalid();
     if (payload.action.startsWith('communication.') && actor.type !== 'EMPLOYEE') invalid();
     if ((payload.action === 'store.setting.update' || payload.action === 'category.change' || payload.action === 'product.change') && actor.type !== 'EMPLOYEE') invalid();
+    if ((payload.action==='order.create'||payload.action==='order.pay')&&actor.type!=='CUSTOMER') invalid();
+    if(payload.action==='stock.incident'&&actor.type==='CUSTOMER') invalid();
     const reason = payload.reason?.trim();
     if ((policy.reason && !reason) || (reason !== undefined && [...reason].length > 500)) invalid();
     const beforeData = snapshot(payload.before, policy.fields);

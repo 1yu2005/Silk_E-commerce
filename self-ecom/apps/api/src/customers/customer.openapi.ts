@@ -16,7 +16,7 @@ const status:Schema={type:'string',enum:['NORMAL','TRADE_RESTRICTED','LOGIN_FROZ
 export const version={expectedVersion:integer(2147483646)};
 export const statusBody=object({...version,reason:text(500)});
 const summary={id:uuid,nickname:text(40),status,statusVersion:integer(),createdAt:date,lastLoginAt:nullable(date)};
-export const customerDetail=object({...summary,phone:text(11),avatarUrl:nullable(text(200)),ordersAvailability:{type:'string',enum:['NOT_READY']}});
+export const customerDetail=object({...summary,phone:text(11),avatarUrl:nullable(text(200)),ordersAvailability:{type:'string',enum:['NOT_READY','AVAILABLE']}});
 export const paged=(item:Schema,extra:Record<string,Schema>={}):Schema=>object({items:array(item),total:integer(Number.MAX_SAFE_INTEGER),page:integer(Number.MAX_SAFE_INTEGER,1),pageSize:integer(100,1),...extra});
 export const customerList=paged(object({...summary,phoneMasked:text(20)}));
 export const statusResult=object({id:uuid,status,statusVersion:integer(),changed:bool});

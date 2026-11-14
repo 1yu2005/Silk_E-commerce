@@ -1,0 +1,30 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:62152) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (19 tests | 1 failed) 39869ms
+   × IT02：100个不同顾客争10件库存不超卖，失败无PENDING 8228ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > IT02：100个不同顾客争10件库存不超卖，失败无PENDING
+AssertionError: expected undefined to be 'STOCK_INSUFFICIENT' // Object.is equality
+
+- Expected:
+"STOCK_INSUFFICIENT"
+
++ Received:
+undefined
+
+ ❯ test/orders.integration.ts:64:154
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 passed (19)
+   Start at  12:30:17
+   Duration  41.97s (tests 95%, import 4%, transform 1%)
+

@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-14T04:48:28.674Z",
+  "mode": "suites",
+  "label": "catalog-fixed1",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/catalog.integration.ts"
+      ],
+      "startedAt": "2026-11-14T04:48:28.682Z",
+      "endedAt": "2026-11-14T04:48:47.002Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/suites-catalog-fixed1-suites.txt"
+    }
+  ],
+  "passed": true
+}

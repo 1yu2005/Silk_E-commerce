@@ -9,6 +9,8 @@ import { afterAll, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 import { assertSafeTestDatabase } from '../scripts/database-env.js';
 import { runPrisma } from '../scripts/database.js';
 import { AppModule } from '../src/app.module.js';
+import { OrderTimerAdapter } from '../src/orders/order-timer.adapter.js';
+import { OrderAdapters } from '../src/orders/order.adapters.js';
 import { InventoryAdapters } from '../src/inventory/inventory.adapters.js';
 import { AuditService, type AuditPayload } from '../src/audit/audit.service.js';
 import { AuthSessionService } from '../src/auth/auth-session.service.js';
@@ -58,7 +60,7 @@ beforeAll(async () => {
   runPrisma(['migrate', 'deploy'], { ...process.env, DATABASE_URL: target.testUrl });
   const module = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(APP_CONFIG).useValue(loadConfiguration({ ...process.env, DATABASE_URL: target.testUrl, LOG_LEVEL: 'silent' }))
     .overrideProvider(JwtTokenService).useValue(tokens).overrideProvider(AuthSessionService).useValue(sessions).overrideProvider(CurrentIdentityService).useValue(identities)
-    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(AuditService).useValue(audit).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).compile();
+    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(AuditService).useValue(audit).overrideProvider(OrderTimerAdapter).useValue({onModuleInit(){ /* 本文件独立验证暂停计时端口。 */ }}).overrideProvider(OrderAdapters).useValue({onModuleInit(){ /* 任务内核隔离测试使用本文件的父事实夹具；真实订单接通由orders.integration覆盖。 */ }}).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).compile();
   app = module.createNestApplication(); await app.init(); prisma = app.get(PrismaService); entry = app.get(TaskEntryService); lifecycle = app.get(TaskLifecycleService);
   sources = app.get(TaskSourceService); timer = app.get(OrderTimerService); scanner = app.get(TaskOverdueScanService); commands = app.get(TaskCommandService); deadline = app.get(TaskDeadlineService);
   app.get(OrderTimerRepositories).register(adapters.timerRepository); await holder.connect(); await prisma.$transaction(installKernelFixture); await seedPermissionCatalog(prisma);

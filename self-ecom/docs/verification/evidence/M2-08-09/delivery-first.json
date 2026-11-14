@@ -1,0 +1,266 @@
+{
+  "startedAt": "2026-11-14T05:39:25.149Z",
+  "checks": [
+    "原3员工/2顾客除正常登录时间外的全部字段与额外权限摘要保持；新增演示顾客独立",
+    ".env及0001～0007迁移保持，3个原上传文件HTTP内容摘要保持",
+    "正式演示两次预占、唯一付款、一次关闭均有对应流水；10迁移成功",
+    "三应用使用同组验收镜像、API非root、运行镜像无真实配置/私有交付/测试入口",
+    "可提交改动/证据、两端产物、镜像配置及运行日志未发现真实秘密；私有交付被Git与Docker排除"
+  ],
+  "secretFindings": [],
+  "commands": [
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T05:39:25.405Z",
+      "endedAt": "2026-11-14T05:39:25.602Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{json .Config}}",
+        "sha256:b74f22d0127aa8d5072b5422a09170f064d053b9d360b7974729e0953f4280b0"
+      ],
+      "startedAt": "2026-11-14T05:39:25.602Z",
+      "endedAt": "2026-11-14T05:39:25.807Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "logs",
+        "--tail",
+        "300",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T05:39:25.808Z",
+      "endedAt": "2026-11-14T05:39:25.934Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-admin-web-1"
+      ],
+      "startedAt": "2026-11-14T05:39:25.934Z",
+      "endedAt": "2026-11-14T05:39:26.041Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{json .Config}}",
+        "sha256:212f8ac12989d0ddef808f40a07bdbd0102093d6126b983cd1dedd82a70b607f"
+      ],
+      "startedAt": "2026-11-14T05:39:26.041Z",
+      "endedAt": "2026-11-14T05:39:26.182Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "logs",
+        "--tail",
+        "300",
+        "self-ecom-admin-web-1"
+      ],
+      "startedAt": "2026-11-14T05:39:26.182Z",
+      "endedAt": "2026-11-14T05:39:26.295Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-store-web-1"
+      ],
+      "startedAt": "2026-11-14T05:39:26.296Z",
+      "endedAt": "2026-11-14T05:39:26.416Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{json .Config}}",
+        "sha256:e742e10e78ed3adfc0cb5c2563f47b2434dc4e80bb455027c3a2ae424f6cceee"
+      ],
+      "startedAt": "2026-11-14T05:39:26.416Z",
+      "endedAt": "2026-11-14T05:39:26.559Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "logs",
+        "--tail",
+        "300",
+        "self-ecom-store-web-1"
+      ],
+      "startedAt": "2026-11-14T05:39:26.559Z",
+      "endedAt": "2026-11-14T05:39:26.694Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "exec",
+        "self-ecom-api-1",
+        "id",
+        "-u"
+      ],
+      "startedAt": "2026-11-14T05:39:26.694Z",
+      "endedAt": "2026-11-14T05:39:26.881Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "exec",
+        "self-ecom-api-1",
+        "node",
+        "-e",
+        "const f=require('fs');const bad=['/app/.env','/app/private-delivery','/app/output','/app/test','/app/apps/api/test','/app/scripts/task-acceptance.mjs'].filter(p=>f.existsSync(p));console.log(JSON.stringify(bad));process.exitCode=bad.length?1:0"
+      ],
+      "startedAt": "2026-11-14T05:39:26.881Z",
+      "endedAt": "2026-11-14T05:39:27.077Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "--relative",
+        "-z",
+        "--",
+        "."
+      ],
+      "startedAt": "2026-11-14T05:39:27.077Z",
+      "endedAt": "2026-11-14T05:39:27.166Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--others",
+        "--exclude-standard",
+        "-z",
+        "--",
+        "."
+      ],
+      "startedAt": "2026-11-14T05:39:27.166Z",
+      "endedAt": "2026-11-14T05:39:27.255Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        "--quiet",
+        "private-delivery/板块8＋9_开发完成说明_含账号密码.local.md"
+      ],
+      "startedAt": "2026-11-14T05:39:27.466Z",
+      "endedAt": "2026-11-14T05:39:27.543Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--",
+        "private-delivery"
+      ],
+      "startedAt": "2026-11-14T05:39:27.543Z",
+      "endedAt": "2026-11-14T05:39:27.612Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "startedAt": "2026-11-14T05:39:27.614Z",
+      "endedAt": "2026-11-14T05:39:27.699Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "startedAt": "2026-11-14T05:39:27.699Z",
+      "endedAt": "2026-11-14T05:39:27.783Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "startedAt": "2026-11-14T05:39:27.783Z",
+      "endedAt": "2026-11-14T05:39:27.852Z",
+      "exitCode": 0
+    }
+  ],
+  "database": {
+    "migrations": [
+      "0001_bootstrap",
+      "0002_auth_employee_permission_audit",
+      "0003_files_communication_history",
+      "0004_store_settings_tasks_deadlines",
+      "0005_categories_products_skus_inventory_accounts",
+      "0006_inventory_sources_adjustments_ledger",
+      "0007_customer_status_addresses_cart",
+      "0008_orders_quotes_idempotency_blocks",
+      "0009_payments_stock_issues",
+      "0010_order_snapshot_file_reference"
+    ],
+    "balances": {
+      "available": "95",
+      "reserved": "0"
+    },
+    "orders": [
+      {
+        "status": "CLOSED",
+        "count": 1
+      },
+      {
+        "status": "WAIT_SHIPMENT",
+        "count": 1
+      }
+    ],
+    "payments": 1
+  },
+  "git": {
+    "branch": "main",
+    "head": "824537a8ae86908ae883387dcec27689fd2f4dba",
+    "staged": ""
+  },
+  "status": "passed",
+  "endedAt": "2026-11-14T05:39:27.857Z"
+}

@@ -9,6 +9,7 @@ import { afterAll, beforeAll, beforeEach, expect, it } from 'vitest';
 import { assertSafeTestDatabase } from '../scripts/database-env.js';
 import { runPrisma } from '../scripts/database.js';
 import { AppModule } from '../src/app.module.js';
+import { OrderAdapters } from '../src/orders/order.adapters.js';
 import { InventoryAdapters } from '../src/inventory/inventory.adapters.js';
 import { AuditService, type AuditAction, type AuditPayload } from '../src/audit/audit.service.js';
 import { AuthSessionService } from '../src/auth/auth-session.service.js';
@@ -64,7 +65,7 @@ beforeAll(async () => {
   config = loadConfiguration({ ...process.env, DATABASE_URL: target.testUrl, LOG_LEVEL: 'silent', SWAGGER_ENABLED: 'true' });
   const module = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(APP_CONFIG).useValue(config)
     .overrideProvider(JwtTokenService).useValue(tokens).overrideProvider(AuthSessionService).useValue(sessions).overrideProvider(CurrentIdentityService).useValue(identities)
-    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(AuditService).useValue(audit).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).compile();
+    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(AuditService).useValue(audit).overrideProvider(OrderAdapters).useValue({onModuleInit(){ /* 任务内核隔离测试使用本文件的父事实夹具；真实订单接通由orders.integration覆盖。 */ }}).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).compile();
   app = module.createNestApplication(); configureApp(app); await app.listen(0, '127.0.0.1'); base = (await app.getUrl()) + '/api/v1';
   prisma = app.get(PrismaService); entry = app.get(TaskEntryService);
   peer = new PrismaService(config); await peer.onModuleInit(); await holder.connect();

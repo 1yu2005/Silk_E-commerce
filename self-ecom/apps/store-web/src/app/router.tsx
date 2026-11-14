@@ -12,6 +12,9 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
     { path: '/register', lazy: async () => ({ Component: (await import('../pages/RegisterPage')).RegisterPage }) },
   ] },
   { element: <RequireCustomer />, children: [
+    {path:'/checkout',lazy:async()=>({Component:(await import('../pages/CheckoutPage')).CheckoutPage})},
+    {path:'/orders',lazy:async()=>({Component:(await import('../pages/OrderPage')).OrderListPage})},
+    {path:'/orders/:id',lazy:async()=>({Component:(await import('../pages/OrderPage')).OrderPage})},
     { path: '/addresses', lazy: async () => ({ Component: (await import('../pages/AddressPage')).AddressPage }) },
     { path: '/cart', lazy: async () => ({ Component: (await import('../pages/CartPage')).CartPage }) },
     { path: '/account', lazy: async () => ({ Component: (await import('../pages/AccountPage')).AccountPage }) },

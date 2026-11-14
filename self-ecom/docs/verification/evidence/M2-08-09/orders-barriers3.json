@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-14T05:01:53.097Z",
+  "mode": "orders",
+  "label": "barriers3",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T05:01:53.461Z",
+      "endedAt": "2026-11-14T05:02:00.664Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/orders-barriers3-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/orders.integration.ts",
+        "-t",
+        "真实锁屏障"
+      ],
+      "startedAt": "2026-11-14T05:02:00.664Z",
+      "endedAt": "2026-11-14T05:02:06.721Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/orders-barriers3-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m108_c91e9e45836a40ea82ba8a142bd707b6_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": true
+}

@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-14T05:19:54.002Z",
+  "mode": "orders",
+  "label": "lock-timeout-red",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T05:19:54.242Z",
+      "endedAt": "2026-11-14T05:20:01.515Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/orders-lock-timeout-red-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/orders.integration.ts",
+        "-t",
+        "锁等待超时映射"
+      ],
+      "startedAt": "2026-11-14T05:20:01.515Z",
+      "endedAt": "2026-11-14T05:20:06.424Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/orders-lock-timeout-red-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m108_1fdbffe10ddd4be6be92862eec527147_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

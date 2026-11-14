@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-14T05:18:20.040Z",
+  "mode": "suites",
+  "label": "logout-final3",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/logout.integration.ts"
+      ],
+      "startedAt": "2026-11-14T05:18:20.046Z",
+      "endedAt": "2026-11-14T05:18:51.053Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/suites-logout-final3-suites.txt"
+    }
+  ],
+  "passed": true
+}

@@ -13,6 +13,8 @@ import { ContractError } from '@shop/shared';
 import { CatalogError } from '../../catalog/catalog.errors.js';
 import { InventoryError } from '../../inventory/inventory.errors.js';
 import { CustomerError } from '../../customers/customer.errors.js';
+import { OrderError } from '../../orders/order.errors.js';
+import {RecordInputError,BusinessModuleNotReadyError} from '../../records/record-support.js';
 
 const errors: Record<number, { code: string; message: string }> = {
   400: { code: 'VALIDATION_FAILED', message: '请求参数不合法' },
@@ -37,7 +39,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
     }
 
     const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
-      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError || exception instanceof InventoryError || exception instanceof CustomerError ? exception : undefined);
+      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError || exception instanceof InventoryError || exception instanceof CustomerError || exception instanceof OrderError || exception instanceof RecordInputError || exception instanceof BusinessModuleNotReadyError ? exception : undefined);
     const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
     const error = knownError ? { code: knownError.code, message: knownError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };
@@ -49,6 +51,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
       ...(exception instanceof DtoValidationException ? { details: exception.details } : {}),
       ...(exception instanceof CatalogError && exception.details ? { details: exception.details } : {}),
       ...(exception instanceof InventoryError && exception.details ? { details: exception.details } : {}),
+      ...(exception instanceof OrderError && exception.details ? { details: exception.details } : {}),
       requestId: request.requestId }));
   }
 }

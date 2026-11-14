@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-14T04:25:21.700Z",
+  "mode": "api-unit",
+  "label": "fixed1",
+  "checks": [
+    {
+      "name": "api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "test/swagger.spec.ts",
+        "test/files.spec.ts"
+      ],
+      "startedAt": "2026-11-14T04:25:21.702Z",
+      "endedAt": "2026-11-14T04:25:25.338Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/api-unit-fixed1-api.txt"
+    }
+  ],
+  "passed": true
+}

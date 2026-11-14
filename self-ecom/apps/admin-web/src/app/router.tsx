@@ -6,6 +6,7 @@ import { EmployeeReadGuard } from '../employees/EmployeeReadGuard';
 import { EmployeeCreateGuard } from '../employees/EmployeeCreateGuard';
 import { SettingsGuard } from '../settings/SettingsGuard';
 import { CatalogGuard } from '../catalog/CatalogGuard';
+import {OrdersGuard} from '../orders/OrdersGuard';
 
 export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{ element: <AppLayout />, children: [
   { element: <LoginOnly />, children: [
@@ -15,6 +16,15 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
     { path: '/change-password', lazy: async () => ({ Component: (await import('../pages/ChangePasswordPage')).ChangePasswordPage }) },
   ] },
   { element: <RequireEmployee />, children: [
+    {element:<OrdersGuard/>,children:[
+      {path:'/orders',lazy:async()=>({Component:(await import('../pages/OrderListPage')).OrderListPage})},
+      {path:'/orders/:id',lazy:async()=>({Component:(await import('../pages/OrderDetailPage')).OrderDetailPage})},
+    ]},
+    {element:<CatalogGuard permission="inventory.order-exception.manage"/>,children:[
+      {path:'/inventory/stock-incidents',lazy:async()=>({Component:(await import('../pages/StockIncidentPage')).StockIncidentListPage})},
+      {path:'/inventory/stock-incidents/new',lazy:async()=>({Component:(await import('../pages/StockIncidentPage')).StockIncidentCreatePage})},
+      {path:'/inventory/stock-incidents/:id',lazy:async()=>({Component:(await import('../pages/StockIncidentPage')).StockIncidentPage})},
+    ]},
     { path: '/', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
     {element:<CatalogGuard permission="customer.read"/>,children:[
       {path:'/customers',lazy:async()=>({Component:(await import('../pages/CustomerListPage')).CustomerListPage})},

@@ -1,0 +1,186 @@
+{
+  "startedAt": "2026-11-14T05:55:43.198Z",
+  "checks": [
+    "全部本轮Markdown及私有交付本地文件链接存在",
+    "工程、定向复验、Docker、部署、真实演示及交付保护证据状态一致；首轮失败未覆盖",
+    "两份完成说明均完整；私有版含新增顾客实际初始密码及改密/有效性，公开版不含密码",
+    "diff --check通过、main/HEAD及空暂存区保持，常用四服务healthy；业务结果以前述真实验收为准"
+  ],
+  "commands": [
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "--relative",
+        "-z",
+        "--",
+        "."
+      ],
+      "startedAt": "2026-11-14T05:55:43.199Z",
+      "endedAt": "2026-11-14T05:55:43.323Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--others",
+        "--exclude-standard",
+        "-z",
+        "--",
+        "."
+      ],
+      "startedAt": "2026-11-14T05:55:43.323Z",
+      "endedAt": "2026-11-14T05:55:43.406Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "startedAt": "2026-11-14T05:55:43.456Z",
+      "endedAt": "2026-11-14T05:55:43.670Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "startedAt": "2026-11-14T05:55:43.670Z",
+      "endedAt": "2026-11-14T05:55:43.726Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "startedAt": "2026-11-14T05:55:43.726Z",
+      "endedAt": "2026-11-14T05:55:43.787Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "startedAt": "2026-11-14T05:55:43.787Z",
+      "endedAt": "2026-11-14T05:55:43.850Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{json .}}",
+        "self-ecom-db-1"
+      ],
+      "startedAt": "2026-11-14T05:55:43.850Z",
+      "endedAt": "2026-11-14T05:55:44.050Z",
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "docker.exe",
+        "ps",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom",
+        "--format",
+        "{{.Names}} {{.Status}}"
+      ],
+      "startedAt": "2026-11-14T05:55:44.051Z",
+      "endedAt": "2026-11-14T05:55:44.236Z",
+      "exitCode": 0
+    }
+  ],
+  "missingLinks": [],
+  "markdownFiles": [
+    "README.md",
+    "docs/verification/M1-05.md",
+    "docs/verification/M1-06.md",
+    "docs/verification/M2-07.md",
+    "项目文档/开发进度总览.md",
+    "项目文档/开发进度文档/M1_商品可售/05_板块5_分类商品与前台浏览.md",
+    "项目文档/开发进度文档/M1_商品可售/06_板块6_库存入账与记账内核.md",
+    "项目文档/开发进度文档/M2_购买闭环/07_板块7_顾客地址购物车与账号限制.md",
+    "项目文档/开发进度文档/M2_购买闭环/08_板块8加9_报价下单模拟支付与关单.md",
+    "docs/design/M2-08-09.md",
+    "docs/verification/M2-08-09.md",
+    "项目文档/开发进度文档/开发完成说明/板块8＋9_开发完成说明.md",
+    "private-delivery/板块8＋9_开发完成说明_含账号密码.local.md"
+  ],
+  "checkedLocalLinks": 219,
+  "engineering": {
+    "unit-final4": {
+      "passed": true,
+      "commands": 5
+    },
+    "types-final4": {
+      "passed": true,
+      "commands": 6
+    },
+    "lint-final4": {
+      "passed": true,
+      "commands": 1
+    },
+    "lint-closure": {
+      "passed": true,
+      "commands": 1
+    },
+    "build-final4": {
+      "passed": true,
+      "commands": 8
+    },
+    "contracts-final4": {
+      "passed": true,
+      "commands": 2
+    },
+    "orders-final4": {
+      "passed": true,
+      "commands": 2
+    },
+    "suites-logout-final3": {
+      "passed": true,
+      "commands": 1
+    },
+    "docker-final": {
+      "status": "passed"
+    },
+    "deployment-final": {
+      "status": "passed"
+    },
+    "local-final": {
+      "status": "passed"
+    },
+    "delivery-closure2": {
+      "status": "passed"
+    },
+    "fullSuiteFirstAttempt": {
+      "passed": false,
+      "note": "首轮失败保留；订单和注销定向复验，不冒充全量重跑"
+    }
+  },
+  "git": {
+    "branch": "main",
+    "head": "824537a8ae86908ae883387dcec27689fd2f4dba",
+    "staged": ""
+  },
+  "services": "healthy",
+  "containerHealth": [
+    "self-ecom-admin-web-1 Up 21 minutes (healthy)",
+    "self-ecom-store-web-1 Up 21 minutes (healthy)",
+    "self-ecom-api-1 Up 21 minutes (healthy)",
+    "self-ecom-db-1 Up 44 hours (healthy)"
+  ],
+  "status": "passed",
+  "endedAt": "2026-11-14T05:55:44.236Z"
+}

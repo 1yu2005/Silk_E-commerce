@@ -1,0 +1,35 @@
+{
+  "at": "2026-11-14T04:36:09.677Z",
+  "mode": "suites",
+  "label": "recovery1",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/catalog.integration.ts",
+        "test/customers.integration.ts",
+        "test/files.integration.ts",
+        "test/inventory.integration.ts",
+        "test/task-access.integration.ts",
+        "test/task-deadline.integration.ts",
+        "test/task-entry.integration.ts",
+        "test/task-kernel.integration.ts",
+        "test/task-reassign.integration.ts",
+        "test/database.integration.ts",
+        "test/files-migration.integration.ts",
+        "test/tasks-migration.integration.ts",
+        "test/tasks-schema.integration.ts",
+        "test/orders.integration.ts"
+      ],
+      "startedAt": "2026-11-14T04:36:09.681Z",
+      "endedAt": "2026-11-14T04:41:31.941Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/suites-recovery1-suites.txt"
+    }
+  ],
+  "passed": false
+}

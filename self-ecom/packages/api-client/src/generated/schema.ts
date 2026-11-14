@@ -124,6 +124,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/communications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 客服读取内部沟通
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["listOrderInternalCommunications"];
+        put?: never;
+        /**
+         * 追加沟通/更正；内部内容不公开
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["appendOrderCommunication"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/customers": {
         parameters: {
             query?: never;
@@ -192,7 +216,7 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * 完成且未全额退款消费统计；未接订单明确NOT_READY
+         * 完成且未全额退款消费统计；真实订单聚合
          * @description 私有对象按本人归属；写命令持主体锁后重验身份及版本，与审计同事务。金额为整数分，汇总为十进制字符串。购物车不留货，小计不是结算报价。
          */
         get: operations["getCustomerConsumption"];
@@ -780,6 +804,130 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/inventory/stock-incidents": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 查询真实库存异常
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["listStockIncidents"];
+        put?: never;
+        /**
+         * 登记真实异常、暂停新购与受影响订单
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["createStockIncident"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/stock-incidents/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 异常影响、补齐、任务与历史
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["getStockIncident"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/stock-incidents/{id}/replenishments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 从已入账可售分配补齐，A减R不变
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["replenishStockIncident"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/stock-incidents/{id}/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 全部实际处理后只解除此异常来源
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["resolveStockIncident"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/stock-incidents/{id}/verify": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 当前核实经办确认损耗，保留历史
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["verifyStockIncident"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/stock-incidents/candidates/{skuId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 读取可声明的待付或已付未交运行
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["getStockIncidentCandidates"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/me": {
         parameters: {
             query?: never;
@@ -814,6 +962,66 @@ export interface paths {
         get: operations["getEmployeeMePermissions"];
         put?: never;
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 按客服或履约权限查询订单
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["listAdminOrders"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/orders/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 订单详情；成本另需product.cost.read
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["getAdminOrder"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/orders/{id}/close-unpaid": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 超级管理员安全关闭未付单，必填原因
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["closeUnpaidOrder"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1752,6 +1960,26 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/store/checkout/preview": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 服务器结算报价，5分钟有效，不占货
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["previewCheckout"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/store/contact": {
         parameters: {
             query?: never;
@@ -1815,6 +2043,110 @@ export interface paths {
          * @description 无业务请求体；重复移除changed=false。只清当前指针，不删除历史引用或已公开的旧图片。
          */
         delete: operations["removeCustomerAvatar"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/orders": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 分页查询本人订单
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["listMyOrders"];
+        put?: never;
+        /**
+         * 固定购买键幂等建单；成功恢复优先
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["createOrder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/orders/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 本人订单快照、模拟付款事实和公开历史
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["getMyOrder"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/orders/{id}/cancel": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 顾客取消未付订单，安全净释放，不恢复购物车
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["cancelMyOrder"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/orders/{id}/communications": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 本人读取沟通公开说明，内部内容不可见
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        get: operations["listMyOrderCommunications"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/store/orders/{id}/pay": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 模拟付款；一单唯一成功，重复返回原事实
+         * @description 模拟交易，不发生真实资金流转。金额由服务端计算。写命令持完整领域锁，同事务记录事实、流水和审计。
+         */
+        post: operations["payMyOrder"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -2870,6 +3202,299 @@ export interface operations {
             };
         };
     };
+    listOrderInternalCommunications: {
+        parameters: {
+            query: {
+                page?: number;
+                pageSize?: number;
+                scopeId: string;
+                scopeType: "ORDER" | "AFTER_SALE";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                attachments: {
+                                    /** @enum {string} */
+                                    audience: "INTERNAL" | "CUSTOMER_VISIBLE";
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    fileId: string;
+                                }[];
+                                /** Format: uuid */
+                                authorEmployeeId: string;
+                                channel: string;
+                                correctionReason: string | null;
+                                /** Format: uuid */
+                                correctsId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                nextStep: string | null;
+                                /** Format: date-time */
+                                occurredAt: string;
+                                publicText: string | null;
+                                result: string;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    appendOrderCommunication: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    attachments?: {
+                        /** @enum {string} */
+                        audience: "INTERNAL" | "CUSTOMER_VISIBLE";
+                        /** Format: uuid */
+                        fileId: string;
+                    }[];
+                    /** @enum {string} */
+                    channel: "PHONE" | "EXTERNAL_MESSAGE" | "IN_PERSON" | "OTHER";
+                    correctionReason?: string;
+                    /** Format: uuid */
+                    correctsId?: string;
+                    nextStep?: string;
+                    /** Format: date-time */
+                    occurredAt: string;
+                    publicText?: string;
+                    result: string;
+                    /** Format: uuid */
+                    scopeId: string;
+                    /** @enum {string} */
+                    scopeType: "ORDER" | "AFTER_SALE";
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            correctsId: string | null;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
     listCustomers: {
         parameters: {
             query?: {
@@ -3057,7 +3682,7 @@ export interface operations {
                             lastLoginAt: string | null;
                             nickname: string;
                             /** @enum {string} */
-                            ordersAvailability: "NOT_READY";
+                            ordersAvailability: "NOT_READY" | "AVAILABLE";
                             phone: string;
                             /** @enum {string} */
                             status: "NORMAL" | "TRADE_RESTRICTED" | "LOGIN_FROZEN";
@@ -10426,6 +11051,1084 @@ export interface operations {
             };
         };
     };
+    listStockIncidents: {
+        parameters: {
+            query?: {
+                page?: number;
+                pageSize?: number;
+                skuId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidenceNote: string;
+                                fingerprint: string;
+                                /** Format: uuid */
+                                id: string;
+                                incidentKey: string;
+                                reason: string;
+                                /** Format: date-time */
+                                resolvedAt: string | null;
+                                /** Format: uuid */
+                                skuId: string;
+                                status: string;
+                                version: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createStockIncident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote: string;
+                    incidentKey: string;
+                    items?: {
+                        damagedQuantity?: number;
+                        /** Format: uuid */
+                        orderItemId: string;
+                    }[];
+                    reason: string;
+                    /** Format: uuid */
+                    skuId: string;
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            replayed: boolean;
+                            status: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getStockIncident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                fileId: string;
+                            }[];
+                            evidenceNote: string;
+                            fingerprint: string;
+                            history: {
+                                action: string;
+                                /** Format: uuid */
+                                actorId: string | null;
+                                actorType: string;
+                                after: {
+                                    [key: string]: unknown;
+                                } | null;
+                                before: {
+                                    [key: string]: unknown;
+                                } | null;
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                incidentId: string;
+                                /** Format: uuid */
+                                incidentItemId: string | null;
+                                reason: string;
+                                requestId: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            incidentKey: string;
+                            items: {
+                                allocationType: string;
+                                conclusion: string | null;
+                                damagedQuantity: number | null;
+                                /** Format: uuid */
+                                id: string;
+                                /** Format: uuid */
+                                incidentId: string;
+                                orderItem: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    order: {
+                                        number: string;
+                                        /** Format: date-time */
+                                        paymentDeadline: string;
+                                        /** @enum {string} */
+                                        status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                                        version: number;
+                                    };
+                                    /** Format: uuid */
+                                    orderId: string;
+                                    physicalVersion: number;
+                                    quantity: number;
+                                };
+                                /** Format: uuid */
+                                orderItemId: string;
+                                quantityAffected: number;
+                                remaining: number | null;
+                                replenishments: {
+                                    /** Format: uuid */
+                                    actorEmployeeId: string;
+                                    /** Format: uuid */
+                                    commandKey: string;
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    fingerprint: string;
+                                    goodsLocation: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    incidentItemId: string;
+                                    /** Format: uuid */
+                                    inventoryActionId: string;
+                                    /** Format: uuid */
+                                    orderItemId: string;
+                                    quantity: number;
+                                    reason: string;
+                                }[];
+                                verificationState: string;
+                                /** Format: date-time */
+                                verifiedAt: string | null;
+                                /** Format: uuid */
+                                verifiedById: string | null;
+                                version: number;
+                            }[];
+                            reason: string;
+                            /** Format: date-time */
+                            resolvedAt: string | null;
+                            /** Format: uuid */
+                            skuId: string;
+                            status: string;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                /** Format: uuid */
+                                id: string;
+                                status: string;
+                                version: number;
+                            }[];
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    replenishStockIncident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    evidenceNote: string;
+                    expectedIncidentVersion: number;
+                    expectedOrderVersion: number;
+                    expectedPhysicalVersion: number;
+                    expectedTaskVersion: number;
+                    goodsLocation: string;
+                    /** Format: uuid */
+                    orderItemId: string;
+                    quantity: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            inventoryActionId?: string;
+                            orderVersion?: number;
+                            physicalVersion?: number;
+                            remaining?: number;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            replenishmentId?: string;
+                            status?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    resolveStockIncident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    evidenceNote: string;
+                    expectedTaskVersion: number;
+                    expectedVersion: number;
+                    reason: string;
+                    taskVersions?: {
+                        expectedVersion: number;
+                        /** Format: uuid */
+                        taskId: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            inventoryActionId?: string;
+                            orderVersion?: number;
+                            physicalVersion?: number;
+                            remaining?: number;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            replenishmentId?: string;
+                            status?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    verifyStockIncident: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    commandKey: string;
+                    evidenceNote: string;
+                    expectedTaskVersion: number;
+                    expectedVersion: number;
+                    items: {
+                        /** @enum {string} */
+                        conclusion: "DAMAGED" | "INTACT" | "WAIT_REPLACEMENT";
+                        damagedQuantity: number;
+                        /** Format: uuid */
+                        orderItemId: string;
+                    }[];
+                    reason: string;
+                    taskVersions?: {
+                        expectedVersion: number;
+                        /** Format: uuid */
+                        taskId: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: uuid */
+                            id: string;
+                            /** Format: uuid */
+                            inventoryActionId?: string;
+                            orderVersion?: number;
+                            physicalVersion?: number;
+                            remaining?: number;
+                            replayed: boolean;
+                            /** Format: uuid */
+                            replenishmentId?: string;
+                            status?: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getStockIncidentCandidates: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                skuId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                damagedReservedQuantity: number;
+                                damageUnknown: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                order: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    number: string;
+                                    /** Format: date-time */
+                                    paymentDeadline: string;
+                                    /** @enum {string} */
+                                    status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                                };
+                                quantity: number;
+                            }[];
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
     getEmployeeMe: {
         parameters: {
             query?: never;
@@ -10545,6 +12248,546 @@ export interface operations {
                     "application/json": {
                         /** @enum {string} */
                         code: "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listAdminOrders: {
+        parameters: {
+            query?: {
+                afterSaleOnly?: boolean;
+                customerId?: string;
+                from?: string;
+                number?: string;
+                page?: number;
+                pageSize?: number;
+                receiverKeyword?: string;
+                status?: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                customerId?: string;
+                                fulfillmentStage?: string;
+                                /** Format: uuid */
+                                id: string;
+                                items: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    imageUrl: string | null;
+                                    lineAmountCents: number;
+                                    productName: string;
+                                    quantity: number;
+                                }[];
+                                number: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                payableCents: number;
+                                paymentBlocked?: boolean;
+                                /** Format: date-time */
+                                paymentDeadline: string;
+                                phone?: string;
+                                receiver?: string;
+                                /** @enum {string} */
+                                status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                                version: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            /** Format: date-time */
+                            serverTime: string;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getAdminOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            address: {
+                                city: string;
+                                detail: string;
+                                district: string;
+                                phone: string;
+                                province: string;
+                                receiver: string;
+                            };
+                            allowedActions: {
+                                cancel: boolean;
+                                closeUnpaid: boolean;
+                                pay: boolean;
+                            };
+                            blocks?: {
+                                /** Format: uuid */
+                                sourceId: string;
+                                sourceType: string;
+                                type: string;
+                            }[];
+                            /** Format: date-time */
+                            closedAt: string | null;
+                            closeReasonCode: string | null;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            customerId?: string;
+                            fulfillmentStage: string;
+                            goodsAmountCents: number;
+                            history: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** @enum {string|null} */
+                                fromState: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED" | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string;
+                                /** @enum {string} */
+                                toState: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            items: {
+                                damagedReservedQuantity?: number;
+                                damageUnknown?: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                imageUrl: string | null;
+                                lineAmountCents: number;
+                                physicalVersion?: number;
+                                productCode: string;
+                                /** Format: uuid */
+                                productId: string;
+                                productName: string;
+                                quantity: number;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                spec: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                unitCostCents?: number | null;
+                                unitPriceCents: number;
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            paidAt: string | null;
+                            payableCents: number;
+                            payment: ({
+                                amountCents: number;
+                                /** @enum {string} */
+                                currency: "CNY";
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                method: "SIMULATED";
+                                number: string;
+                                /** Format: date-time */
+                                paidAt: string;
+                                /** @enum {string} */
+                                status: "SUCCEEDED";
+                            } | {
+                                paid: boolean;
+                            }) | null;
+                            paymentBlocked?: boolean;
+                            /** Format: date-time */
+                            paymentDeadline: string;
+                            paymentRule: {
+                                algorithm: string;
+                                amount: number;
+                                /** Format: uuid */
+                                settingVersionId: string;
+                                unit: string;
+                            };
+                            releaseBlocked?: boolean;
+                            /** Format: date-time */
+                            serverTime: string;
+                            serviceContact: {
+                                configured: boolean;
+                                serviceHours: string | null;
+                                servicePhone: string | null;
+                                settingsVersion: number;
+                            };
+                            shippingFeeCents: number;
+                            shippingRule: {
+                                algorithm: string;
+                                freeShippingEnabled: boolean;
+                                freeShippingThresholdCents: number;
+                                shippingFeeCents: number;
+                            };
+                            simulationNotice: string;
+                            /** @enum {string} */
+                            status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            stockNotice: string | null;
+                            stockPhysicalVersion?: number;
+                            tasks?: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                round: number;
+                                stage: string;
+                                status: string;
+                                version: number;
+                            }[];
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    closeUnpaidOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            closedAt: string;
+                            closeReasonCode: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** @enum {string} */
+                            orderStatus: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            replayed: boolean;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
                         details?: {
                             field?: string;
                             message?: string;
@@ -19422,6 +21665,171 @@ export interface operations {
             };
         };
     };
+    previewCheckout: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    addressId: string;
+                    items: {
+                        /** Format: uuid */
+                        cartItemId: string;
+                        quantity: number;
+                        /** Format: uuid */
+                        skuId: string;
+                    }[];
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            address: {
+                                city: string;
+                                detail: string;
+                                district: string;
+                                phone: string;
+                                province: string;
+                                receiver: string;
+                            };
+                            /** Format: uuid */
+                            addressId: string;
+                            /** Format: date-time */
+                            expiresAt: string;
+                            goodsAmountCents: number;
+                            items: {
+                                /** Format: uuid */
+                                cartItemId: string;
+                                lineAmountCents: number;
+                                productName?: string;
+                                quantity: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                unitPriceCents: number;
+                            }[];
+                            payableCents: number;
+                            /** Format: uuid */
+                            quoteId: string;
+                            /** Format: date-time */
+                            serverTime: string;
+                            shippingFeeCents: number;
+                            shippingRule: {
+                                algorithm: string;
+                                freeShippingEnabled: boolean;
+                                freeShippingThresholdCents: number;
+                                shippingFeeCents: number;
+                            };
+                            simulationNotice: string;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
     getStoreContact: {
         parameters: {
             query?: never;
@@ -19769,6 +22177,992 @@ export interface operations {
                     "application/json": {
                         /** @enum {string} */
                         code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "TOKEN_SUBJECT_MISMATCH" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listMyOrders: {
+        parameters: {
+            query?: {
+                afterSaleOnly?: boolean;
+                customerId?: string;
+                from?: string;
+                number?: string;
+                page?: number;
+                pageSize?: number;
+                receiverKeyword?: string;
+                status?: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                customerId?: string;
+                                fulfillmentStage?: string;
+                                /** Format: uuid */
+                                id: string;
+                                items: {
+                                    /** Format: uuid */
+                                    id: string;
+                                    imageUrl: string | null;
+                                    lineAmountCents: number;
+                                    productName: string;
+                                    quantity: number;
+                                }[];
+                                number: string;
+                                /** Format: date-time */
+                                paidAt: string | null;
+                                payableCents: number;
+                                paymentBlocked?: boolean;
+                                /** Format: date-time */
+                                paymentDeadline: string;
+                                phone?: string;
+                                receiver?: string;
+                                /** @enum {string} */
+                                status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                                version: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            /** Format: date-time */
+                            serverTime: string;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createOrder: {
+        parameters: {
+            query?: never;
+            header: {
+                /** @description 每次购买确认保存独立键；恢复结果沿用原键和原体 */
+                "Idempotency-Key": string;
+            };
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    /** Format: uuid */
+                    addressId: string;
+                    items: {
+                        /** Format: uuid */
+                        cartItemId: string;
+                        quantity: number;
+                        /** Format: uuid */
+                        skuId: string;
+                    }[];
+                    /** Format: uuid */
+                    quoteId: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            goodsAmountCents: number;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            payableCents: number;
+                            /** Format: date-time */
+                            paymentDeadline: string;
+                            replayed: boolean;
+                            shippingFeeCents: number;
+                            /** @enum {string} */
+                            status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            201: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            goodsAmountCents: number;
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            payableCents: number;
+                            /** Format: date-time */
+                            paymentDeadline: string;
+                            replayed: boolean;
+                            shippingFeeCents: number;
+                            /** @enum {string} */
+                            status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getMyOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            address: {
+                                city: string;
+                                detail: string;
+                                district: string;
+                                phone: string;
+                                province: string;
+                                receiver: string;
+                            };
+                            allowedActions: {
+                                cancel: boolean;
+                                closeUnpaid: boolean;
+                                pay: boolean;
+                            };
+                            blocks?: {
+                                /** Format: uuid */
+                                sourceId: string;
+                                sourceType: string;
+                                type: string;
+                            }[];
+                            /** Format: date-time */
+                            closedAt: string | null;
+                            closeReasonCode: string | null;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            customerId?: string;
+                            fulfillmentStage: string;
+                            goodsAmountCents: number;
+                            history: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** @enum {string|null} */
+                                fromState: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED" | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string;
+                                /** @enum {string} */
+                                toState: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            items: {
+                                damagedReservedQuantity?: number;
+                                damageUnknown?: boolean;
+                                /** Format: uuid */
+                                id: string;
+                                imageUrl: string | null;
+                                lineAmountCents: number;
+                                physicalVersion?: number;
+                                productCode: string;
+                                /** Format: uuid */
+                                productId: string;
+                                productName: string;
+                                quantity: number;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                spec: {
+                                    dimension: string;
+                                    /** Format: uuid */
+                                    dimensionId: string;
+                                    value: string;
+                                    /** Format: uuid */
+                                    valueId: string;
+                                }[];
+                                unitCostCents?: number | null;
+                                unitPriceCents: number;
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            paidAt: string | null;
+                            payableCents: number;
+                            payment: ({
+                                amountCents: number;
+                                /** @enum {string} */
+                                currency: "CNY";
+                                /** Format: uuid */
+                                id: string;
+                                /** @enum {string} */
+                                method: "SIMULATED";
+                                number: string;
+                                /** Format: date-time */
+                                paidAt: string;
+                                /** @enum {string} */
+                                status: "SUCCEEDED";
+                            } | {
+                                paid: boolean;
+                            }) | null;
+                            paymentBlocked?: boolean;
+                            /** Format: date-time */
+                            paymentDeadline: string;
+                            paymentRule: {
+                                algorithm: string;
+                                amount: number;
+                                /** Format: uuid */
+                                settingVersionId: string;
+                                unit: string;
+                            };
+                            releaseBlocked?: boolean;
+                            /** Format: date-time */
+                            serverTime: string;
+                            serviceContact: {
+                                configured: boolean;
+                                serviceHours: string | null;
+                                servicePhone: string | null;
+                                settingsVersion: number;
+                            };
+                            shippingFeeCents: number;
+                            shippingRule: {
+                                algorithm: string;
+                                freeShippingEnabled: boolean;
+                                freeShippingThresholdCents: number;
+                                shippingFeeCents: number;
+                            };
+                            simulationNotice: string;
+                            /** @enum {string} */
+                            status: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            stockNotice: string | null;
+                            stockPhysicalVersion?: number;
+                            tasks?: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                round: number;
+                                stage: string;
+                                status: string;
+                                version: number;
+                            }[];
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    cancelMyOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    reason?: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** Format: date-time */
+                            closedAt: string;
+                            closeReasonCode: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** @enum {string} */
+                            orderStatus: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            replayed: boolean;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listMyOrderCommunications: {
+        parameters: {
+            query?: {
+                page?: number;
+                pageSize?: number;
+            };
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                attachments: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    fileId: string;
+                                }[];
+                                /** Format: uuid */
+                                correctsId: string | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                isCorrected: boolean;
+                                /** Format: date-time */
+                                occurredAt: string;
+                                publicText: string;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    payMyOrder: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": Record<string, never>;
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            amountCents: number;
+                            /** @enum {string} */
+                            currency: "CNY";
+                            /** @enum {string} */
+                            method: "SIMULATED";
+                            number: string;
+                            /** Format: uuid */
+                            orderId: string;
+                            /** @enum {string} */
+                            orderStatus: "WAIT_PAYMENT" | "WAIT_SHIPMENT" | "SHIPPED" | "COMPLETED" | "CLOSED" | "REFUNDED";
+                            /** Format: date-time */
+                            paidAt: string;
+                            /** Format: uuid */
+                            paymentId: string;
+                            replayed: boolean;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "ORDER_AMOUNT_LIMIT" | "IDEMPOTENCY_KEY_INVALID";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "ACCOUNT_UNAVAILABLE" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "ORDER_NOT_FOUND" | "QUOTE_NOT_FOUND" | "ADDRESS_NOT_FOUND" | "INCIDENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    "Retry-After"?: number;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CUSTOMER_TRADE_RESTRICTED" | "QUOTE_EXPIRED" | "PRICE_CHANGED" | "ADDRESS_CHANGED" | "CART_CHANGED" | "STOCK_INSUFFICIENT" | "PRODUCT_UNAVAILABLE" | "PURCHASE_BLOCKED" | "IDEMPOTENCY_PAYLOAD_CONFLICT" | "REQUEST_IN_PROGRESS" | "ORDER_PAYMENT_EXPIRED" | "ORDER_NOT_PAYABLE" | "ORDER_NOT_UNPAID" | "ORDER_STOCK_BLOCKED" | "ORDER_STOCK_CHECK_REQUIRED" | "STOCK_INCIDENT_CONFLICT" | "PHYSICAL_CHECK_STALE" | "VERSION_CONFLICT" | "TASK_NOT_ASSIGNED" | "INCIDENT_UNRESOLVED";
                         details?: {
                             field?: string;
                             message?: string;

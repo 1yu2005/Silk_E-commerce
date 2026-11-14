@@ -1,23 +1,12 @@
 // 作用：提供双登录域共用的当前会话注销接口，严格拒绝非空请求字段。
-import { Body, Controller, Header, HttpCode, Inject, Post, Req, UseGuards, type PipeTransform } from '@nestjs/common';
+import { Body, Controller, Header, HttpCode, Inject, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBadRequestResponse, ApiBearerAuth, ApiBody, ApiOkResponse, ApiOperation, ApiTags, ApiUnauthorizedResponse } from '@nestjs/swagger';
-import { DtoValidationException } from '../common/http/dto-validation.js';
+import { EmptyBodyPipe } from '../common/http/empty-body.pipe.js';
 import { requestIdHeader } from '../health/health.openapi.js';
 import { readBearerToken, type AuthHttpRequest } from './auth-request-context.js';
 import { authErrorSchema } from './employee-auth.openapi.js';
 import { LogoutService } from './logout.service.js';
 import { LogoutTokenGuard } from './logout-token.guard.js';
-
-/** 空DTO会被forbidUnknownValues拒绝，使用专用管道严格接受空对象或无请求体。 */
-class LogoutBodyPipe implements PipeTransform<unknown, void> {
-  transform(value: unknown): void {
-    if (value === undefined) return;
-    if (value === null || typeof value !== 'object' || Array.isArray(value)
-      || Object.getPrototypeOf(value) !== Object.prototype || Object.keys(value).length !== 0) {
-      throw new DtoValidationException([{ field: 'body', message: '仅允许空对象或无请求体' }]);
-    }
-  }
-}
 
 @Controller('auth')
 @ApiTags('Auth')
@@ -39,7 +28,7 @@ export class LogoutController {
   @ApiUnauthorizedResponse({ headers: requestIdHeader, schema: authErrorSchema([
     'TOKEN_INVALID', 'TOKEN_EXPIRED', 'TOKEN_SUBJECT_MISMATCH', 'SESSION_REVOKED', 'ACCOUNT_UNAVAILABLE',
   ]) })
-  logout(@Body(new LogoutBodyPipe()) _body: unknown, @Req() request: AuthHttpRequest) {
+  logout(@Body(new EmptyBodyPipe()) _body: unknown, @Req() request: AuthHttpRequest) {
     return this.logoutService.logout(readBearerToken(request), request.requestId);
   }
 }

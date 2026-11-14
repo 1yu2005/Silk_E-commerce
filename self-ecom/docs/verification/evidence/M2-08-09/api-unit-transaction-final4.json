@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-14T05:21:47.433Z",
+  "mode": "api-unit",
+  "label": "transaction-final4",
+  "checks": [
+    {
+      "name": "api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "test/auth-transaction.spec.ts"
+      ],
+      "startedAt": "2026-11-14T05:21:47.435Z",
+      "endedAt": "2026-11-14T05:21:48.115Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/api-unit-transaction-final4-api.txt"
+    }
+  ],
+  "passed": true
+}

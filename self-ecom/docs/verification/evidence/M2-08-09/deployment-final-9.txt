@@ -1,0 +1,25 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+10 migrations found in prisma/migrations
+
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-62c044fa2d3a Creating 
+ Container self-ecom-api-run-62c044fa2d3a Created 
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

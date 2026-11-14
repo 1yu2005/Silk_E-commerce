@@ -1,0 +1,67 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:43848) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (26 tests | 1 failed) 63733ms
+   × IT02：100个不同顾客争10件库存不超卖，失败无PENDING 13193ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > IT02：100个不同顾客争10件库存不超卖，失败无PENDING
+AssertionError: expected [ { …(3) }, { …(3) }, { …(3) }, …(1) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "P2010",
++     "message": "
++ Invalid `prisma.$queryRaw()` invocation:
++
++
++ Raw query failed. Code: `55P03`. Message: `canceling statement due to lock timeout`",
++     "name": "PrismaClientKnownRequestError",
++   },
++   {
++     "code": "P2010",
++     "message": "
++ Invalid `prisma.$queryRaw()` invocation:
++
++
++ Raw query failed. Code: `55P03`. Message: `canceling statement due to lock timeout`",
++     "name": "PrismaClientKnownRequestError",
++   },
++   {
++     "code": "P2010",
++     "message": "
++ Invalid `prisma.$queryRaw()` invocation:
++
++
++ Raw query failed. Code: `55P03`. Message: `canceling statement due to lock timeout`",
++     "name": "PrismaClientKnownRequestError",
++   },
++   {
++     "code": "P2010",
++     "message": "
++ Invalid `prisma.$queryRaw()` invocation:
++
++
++ Raw query failed. Code: `55P03`. Message: `canceling statement due to lock timeout`",
++     "name": "PrismaClientKnownRequestError",
++   },
++ ]
+
+ ❯ test/orders.integration.ts:73:265
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 25 passed (26)
+   Start at  13:17:51
+   Duration  68.12s (tests 94%, import 4%, transform 1%)
+

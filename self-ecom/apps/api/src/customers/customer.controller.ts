@@ -23,7 +23,7 @@ export class CustomerController {
  addresses(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:CustomerIdDto){return this.service.addresses(context(a,r),p.id);}
  @Get(':id/status-history') @O.idParam() @O.listQuery() @O.endpoint('getCustomerStatusHistory','查询顾客状态历史',O.history)
  history(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:CustomerIdDto,@Query() q:PaginationDto){return this.service.history(context(a,r),p.id,q);}
- @Get(':id/consumption') @O.idParam() @O.endpoint('getCustomerConsumption','完成且未全额退款消费统计；未接订单明确NOT_READY',O.consumption)
+ @Get(':id/consumption') @O.idParam() @O.endpoint('getCustomerConsumption','完成且未全额退款消费统计；真实订单聚合',O.consumption)
  consumption(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:CustomerIdDto){return this.service.consumed(context(a,r),p.id);}
  @Post(':id/restrict-trade') @HttpCode(200) @EmployeeAccess('customer.status.manage') @O.idParam() @O.endpoint('restrictCustomerTrade','限制新建订单，保留登录与旧单能力',O.statusResult,O.statusBody)
  restrict(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:CustomerIdDto,@Body() b:CustomerStatusDto){return this.service.change(context(a,r),p.id,'TRADE_RESTRICTED',b);}

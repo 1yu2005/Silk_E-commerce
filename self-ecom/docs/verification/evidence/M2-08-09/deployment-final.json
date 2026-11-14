@@ -1,0 +1,307 @@
+{
+  "startedAt": "2026-11-14T05:33:44.762Z",
+  "source": "output/playwright/M2-08-09/docker-final-tail",
+  "commands": [
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-db-1"
+      ],
+      "startedAt": "2026-11-14T05:33:44.766Z",
+      "endedAt": "2026-11-14T05:33:44.936Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-0.txt"
+    },
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T05:33:44.936Z",
+      "endedAt": "2026-11-14T05:33:45.052Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-1.txt"
+    },
+    {
+      "name": "沿用原Compose配置",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "config",
+        "--quiet"
+      ],
+      "startedAt": "2026-11-14T05:33:45.052Z",
+      "endedAt": "2026-11-14T05:33:45.359Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-2.txt"
+    },
+    {
+      "name": "核对已验收镜像",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m208-acceptance-d55bc413-api:local"
+      ],
+      "startedAt": "2026-11-14T05:33:45.359Z",
+      "endedAt": "2026-11-14T05:33:45.544Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-3.txt"
+    },
+    {
+      "name": "标记常用镜像",
+      "command": [
+        "docker",
+        "tag",
+        "self-ecom-m208-acceptance-d55bc413-api:local",
+        "self-ecom-api:local"
+      ],
+      "startedAt": "2026-11-14T05:33:45.544Z",
+      "endedAt": "2026-11-14T05:33:45.726Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-4.txt"
+    },
+    {
+      "name": "核对已验收镜像",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m208-acceptance-d55bc413-admin:local"
+      ],
+      "startedAt": "2026-11-14T05:33:45.727Z",
+      "endedAt": "2026-11-14T05:33:45.942Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-5.txt"
+    },
+    {
+      "name": "标记常用镜像",
+      "command": [
+        "docker",
+        "tag",
+        "self-ecom-m208-acceptance-d55bc413-admin:local",
+        "self-ecom-admin-web:local"
+      ],
+      "startedAt": "2026-11-14T05:33:45.942Z",
+      "endedAt": "2026-11-14T05:33:46.102Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-6.txt"
+    },
+    {
+      "name": "核对已验收镜像",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m208-acceptance-d55bc413-store:local"
+      ],
+      "startedAt": "2026-11-14T05:33:46.102Z",
+      "endedAt": "2026-11-14T05:33:46.307Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-7.txt"
+    },
+    {
+      "name": "标记常用镜像",
+      "command": [
+        "docker",
+        "tag",
+        "self-ecom-m208-acceptance-d55bc413-store:local",
+        "self-ecom-store-web:local"
+      ],
+      "startedAt": "2026-11-14T05:33:46.307Z",
+      "endedAt": "2026-11-14T05:33:46.540Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-8.txt"
+    },
+    {
+      "name": "原库非破坏增量迁移",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "api",
+        "pnpm",
+        "db:migrate:deploy"
+      ],
+      "startedAt": "2026-11-14T05:33:46.540Z",
+      "endedAt": "2026-11-14T05:33:51.289Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-9.txt"
+    },
+    {
+      "name": "固定权限目录幂等核对",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "api",
+        "pnpm",
+        "db:seed:permissions"
+      ],
+      "startedAt": "2026-11-14T05:33:51.289Z",
+      "endedAt": "2026-11-14T05:33:54.156Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-10.txt"
+    },
+    {
+      "name": "更新三应用，保留原DB容器与两卷",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "up",
+        "-d",
+        "--no-deps",
+        "--wait",
+        "--wait-timeout",
+        "120",
+        "api",
+        "admin-web",
+        "store-web"
+      ],
+      "startedAt": "2026-11-14T05:33:54.156Z",
+      "endedAt": "2026-11-14T05:34:08.024Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-11.txt"
+    },
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-db-1"
+      ],
+      "startedAt": "2026-11-14T05:34:08.024Z",
+      "endedAt": "2026-11-14T05:34:08.171Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-12.txt"
+    },
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T05:34:08.171Z",
+      "endedAt": "2026-11-14T05:34:08.289Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-13.txt"
+    },
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T05:34:08.291Z",
+      "endedAt": "2026-11-14T05:34:08.405Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-14.txt"
+    },
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-admin-web-1"
+      ],
+      "startedAt": "2026-11-14T05:34:08.405Z",
+      "endedAt": "2026-11-14T05:34:08.515Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-15.txt"
+    },
+    {
+      "name": "核对容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{\"Id\":{{json .Id}},\"Image\":{{json .Image}},\"State\":{\"StartedAt\":{{json .State.StartedAt}}},\"Mounts\":{{json .Mounts}}}",
+        "self-ecom-store-web-1"
+      ],
+      "startedAt": "2026-11-14T05:34:08.515Z",
+      "endedAt": "2026-11-14T05:34:08.630Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M2-08-09/deployment-final-16.txt"
+    }
+  ],
+  "images": [
+    {
+      "name": "self-ecom-m208-acceptance-d55bc413-api:local",
+      "id": "sha256:b74f22d0127aa8d5072b5422a09170f064d053b9d360b7974729e0953f4280b0",
+      "target": "self-ecom-api:local"
+    },
+    {
+      "name": "self-ecom-m208-acceptance-d55bc413-admin:local",
+      "id": "sha256:212f8ac12989d0ddef808f40a07bdbd0102093d6126b983cd1dedd82a70b607f",
+      "target": "self-ecom-admin-web:local"
+    },
+    {
+      "name": "self-ecom-m208-acceptance-d55bc413-store:local",
+      "id": "sha256:e742e10e78ed3adfc0cb5c2563f47b2434dc4e80bb455027c3a2ae424f6cceee",
+      "target": "self-ecom-store-web:local"
+    }
+  ],
+  "checks": [
+    "原数据库容器ID/启动时间/挂载保持，上传卷名称保持，三应用等于验收镜像ID",
+    "三个入口124操作完整OpenAPI一致"
+  ],
+  "origins": [
+    "http://localhost:3001",
+    "http://localhost:8080",
+    "http://localhost:8081"
+  ],
+  "status": "passed",
+  "endedAt": "2026-11-14T05:34:08.847Z"
+}

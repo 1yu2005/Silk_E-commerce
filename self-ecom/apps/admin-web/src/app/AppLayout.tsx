@@ -18,6 +18,8 @@ export function AppLayout() {
       {state.status==='ready'&&state.permissions?.effectivePermissions.includes('product.read')?<Link to="/products">商品</Link>:null}
       {state.status==='ready'&&state.permissions?.effectivePermissions.includes('inventory.read')?<Link to="/inventory">库存</Link>:null}
       {state.status==='ready'&&state.permissions?.effectivePermissions.includes('customer.read')?<Link to="/customers">顾客</Link>:null}
+      {state.status==='ready'&&['order.service.read','order.fulfillment.read'].some(p=>state.permissions?.effectivePermissions.includes(p))?<Link to="/orders">订单</Link>:null}
+      {state.status==='ready'&&state.permissions?.effectivePermissions.includes('inventory.order-exception.manage')?<Link to="/inventory/stock-incidents">订单库存异常</Link>:null}
       {signedIn ? <><span>{state.employee?.displayName ?? '当前员工'}</span><Button onClick={() => void employeeAuth.logout()}>退出登录</Button></> : null}
     </nav></header>
     <main className="page-content">{state.notice ? <Alert className="auth-notice" title={state.notice} type="info" showIcon /> : null}<Outlet /></main>

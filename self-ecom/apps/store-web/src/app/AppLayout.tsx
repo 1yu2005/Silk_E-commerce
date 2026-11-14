@@ -10,7 +10,7 @@ export function AppLayout() {
   const state = useCustomerAuth();
   return <Layout className="app-layout">
     <header className="site-header"><Link className="brand" to="/">日常衣橱 <small>EVERYDAY</small></Link><nav aria-label="主导航"><Link to="/">首页</Link><Link to="/products">全部款式</Link>
-      {state.status === 'ready' ? <><Link to="/cart">购物车</Link><Link to="/addresses">收货地址</Link><Link to="/account">我的账号</Link><span className="customer-name" title={state.customer?.nickname}>{state.customer?.nickname}</span>
+      {state.status === 'ready' ? <><Link to="/cart">购物车</Link><Link to="/orders">我的订单</Link><Link to="/addresses">收货地址</Link><Link to="/account">我的账号</Link><span className="customer-name" title={state.customer?.nickname}>{state.customer?.nickname}</span>
         <Button onClick={() => void customerAuth.logout()}>退出登录</Button></> : null}
       {state.status === 'anonymous' ? <><Link to="/login">顾客登录</Link><Link to="/register">注册账号</Link></> : null}
       {state.status === 'checking' ? <span role="status">正在确认登录状态…</span> : null}

@@ -1,0 +1,268 @@
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_f9b41cf5fb344c47bb09e777e1130055_test", schema "public" at "localhost:15432"
+
+9 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:74148) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M2-08-09\self-ecom-catalog-ixuB1b
+
+ ❯ test/catalog.integration.ts (20 tests | 1 failed) 8853ms
+   × IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败 62ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败
+PrismaClientKnownRequestError: 
+Invalid `prisma.$executeRawUnsafe()` invocation:
+
+
+Raw query failed. Code: `42P07`. Message: `relation "order_item" already exists`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/catalog.integration.ts:191:3
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 19 passed (20)
+   Start at  12:44:15
+   Duration  12.03s (tests 75%, import 20%, transform 5%)
+
+{"suite":"test/catalog.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_945b5ea654134422a89ab525528f589c_test", schema "public" at "localhost:15432"
+
+9 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:34928) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  1 passed (1)
+      Tests  47 passed (47)
+   Start at  12:44:36
+   Duration  10.18s (tests 68%, import 25%, transform 7%)
+
+{"suite":"test/customers.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_a156f345dce7418ca8b4784e9cd664e3_test", schema "public" at "localhost:15432"
+
+9 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_kernel_04858c4e27f845c9aa8a815552c76901_test", schema "public" at "localhost:15432"
+
+9 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ Test Files  1 passed (1)
+      Tests  47 passed (47)
+   Start at  12:44:54
+   Duration  28.47s (tests 89%, import 9%, transform 2%)
+
+{"suite":"test/task-kernel.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_c1954c2a61c843c9bfe23bcbfae483e2_test", schema "public" at "localhost:15432"
+
+9 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  6 passed (6)
+   Start at  12:45:30
+   Duration  3.87s (import 48%, tests 38%, transform 14%)
+
+{"suite":"test/database.integration.ts","ownedDatabaseRemoved":true}
+数据库集成测试存在失败，本轮独占资源已按归属清理

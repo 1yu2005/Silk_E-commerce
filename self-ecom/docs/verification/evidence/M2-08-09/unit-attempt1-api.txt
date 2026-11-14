@@ -1,0 +1,139 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+stdout | test/files.spec.ts
+保留测试临时目录：C:\Users\20334\AppData\Local\Temp\self-ecom-files-unit-2ddHhu
+
+ ❯ test/files.spec.ts (21 tests | 21 skipped) 9ms
+(node:54668) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:77548) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:17124) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"level":30,"time":1794630194286,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"4f643f9f-0264-4cf2-b144-0d3f98e04a7f","res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+{"level":30,"time":1794630194302,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"83432d83-b7a1-4b33-8422-a7068f8f2d98","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":50,"time":1794630194309,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"e89deb05-bfd1-4089-89eb-1a811bc22e7d","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+{"level":30,"time":1794630194325,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3366e041-1db1-4de9-88d6-dd98bfea7895","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794630194358,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/guard-public"},"requestId":"7456654a-ea85-4e41-bc1f-b31441657809","res":{"statusCode":404},"responseTime":2,"msg":"request completed"}
+{"level":40,"time":1794630194375,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/store/me"},"requestId":"2c791e88-d071-46d1-932f-66bc28317ce7","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794630194377,"pid":10872,"hostname":"YHY","req":{"method":"POST","path":"/api/v1/auth/logout"},"requestId":"55643f18-a903-4aab-a630-521f60278dbd","res":{"statusCode":401},"responseTime":0,"msg":"request completed"}
+{"level":40,"time":1794630194391,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/admin/me"},"requestId":"72b5f85c-1b76-441d-9880-22848f34227e","res":{"statusCode":401},"responseTime":0,"msg":"request completed"}
+{"level":40,"time":1794630194407,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"d8e497ef-ce46-401d-9119-48e1f0c983e3","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794630194414,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"0c887c90-c08a-483d-844b-518c2bbb4a0f","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194415,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"9b1c888b-039f-4a27-8c5c-9b8601efc94a","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794630194415,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"e48c5a18-acdd-4d0a-990a-906856be0b06","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194415,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"c8f7b691-cd03-4bfe-87f4-29f26dde257f","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194416,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"e95c5fd7-4b07-40d8-876e-7477891ebcb7","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194416,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"74733c93-f151-4a01-a724-d1145e19963f","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194417,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"d83c6961-fd97-4b71-950d-1d83c155bc62","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194417,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"7fefc1e3-d9c3-42da-899a-b08df044feb1","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194417,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"7d3e1e40-3a79-4039-b6cb-b52e8914ae60","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194418,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"c90e98ff-26f4-49ad-8da3-5396f21bd187","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794630194424,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"c91801bd-2d97-466e-a6c8-079ede6db863","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+ ❯ test/swagger.spec.ts (2 tests | 1 failed) 501ms
+   × serves native Swagger documents only when enabled=true 439ms
+{"level":50,"time":1794630194441,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"0ea9fc54-48be-4453-9a8d-6ea52f1ccbe4","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":50,"time":1794630194457,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"68000f3c-a154-4292-95cf-a9d4208e3aee","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":30,"time":1794630194474,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"f883212e-d270-42cb-bd42-daa4cb7238c7","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794630194491,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"73e7ad3a-51bb-4344-9981-4d4b9c18f596","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794630194507,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"bbd114cf-3a60-4ff5-8e73-91f97232f96c","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794630194523,"pid":10872,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"cadfcd13-f14f-41c7-a69b-771e7b45810b","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/files.spec.ts [ test/files.spec.ts ]
+Error: EPERM: operation not permitted, lstat 'C:\Users\20334\AppData'
+ ❯ FileStorageService.assertDirectory src/files/file-storage.service.ts:26:26
+     24|     for (const part of parts) {
+     25|       current = join(current, part);
+     26|       try { const stat = await lstat(current); if (stat.isSymbolicLink…
+       |                          ^
+     27|       catch (error) {
+     28|         if (create && isMissing(error)) await mkdir(current, { mode: 0…
+ ❯ FileStorageService.initialize src/files/file-storage.service.ts:18:5
+ ❯ test/files.spec.ts:15:87
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/swagger.spec.ts > serves native Swagger documents only when enabled=true
+AssertionError: expected [ …(106) ] to deeply equal [ …(90) ]
+
+- Expected
++ Received
+
+@@ -3,10 +3,11 @@
+    "/api/v1/admin/auth/login",
+    "/api/v1/admin/categories",
+    "/api/v1/admin/categories/tree",
+    "/api/v1/admin/categories/{id}",
+    "/api/v1/admin/categories/{id}/move",
++   "/api/v1/admin/communications",
+    "/api/v1/admin/customers",
+    "/api/v1/admin/customers/{id}",
+    "/api/v1/admin/customers/{id}/addresses",
+    "/api/v1/admin/customers/{id}/consumption",
+    "/api/v1/admin/customers/{id}/freeze-login",
+@@ -33,14 +34,23 @@
+    "/api/v1/admin/inventory/ledger",
+    "/api/v1/admin/inventory/source-lines/{id}/verified-quantity",
+    "/api/v1/admin/inventory/sources",
+    "/api/v1/admin/inventory/sources/{id}",
+    "/api/v1/admin/inventory/sources/{id}/lines",
++   "/api/v1/admin/inventory/stock-incidents",
++   "/api/v1/admin/inventory/stock-incidents/candidates/{skuId}",
++   "/api/v1/admin/inventory/stock-incidents/{id}",
++   "/api/v1/admin/inventory/stock-incidents/{id}/replenishments",
++   "/api/v1/admin/inventory/stock-incidents/{id}/resolve",
++   "/api/v1/admin/inventory/stock-incidents/{id}/verify",
+    "/api/v1/admin/inventory/{skuId}",
+    "/api/v1/admin/inventory/{skuId}/warning-threshold",
+    "/api/v1/admin/me",
+    "/api/v1/admin/me/permissions",
++   "/api/v1/admin/orders",
++   "/api/v1/admin/orders/{id}",
++   "/api/v1/admin/orders/{id}/close-unpaid",
+    "/api/v1/admin/permissions",
+    "/api/v1/admin/products",
+    "/api/v1/admin/products/batch-status",
+    "/api/v1/admin/products/{id}",
+    "/api/v1/admin/products/{id}/archive",
+@@ -82,11 +92,17 @@
+    "/api/v1/store/cart/items",
+    "/api/v1/store/cart/items/batch-delete",
+    "/api/v1/store/cart/items/{id}",
+    "/api/v1/store/cart/selection",
+    "/api/v1/store/categories",
++   "/api/v1/store/checkout/preview",
+    "/api/v1/store/contact",
+    "/api/v1/store/me",
+    "/api/v1/store/me/avatar",
++   "/api/v1/store/orders",
++   "/api/v1/store/orders/{id}",
++   "/api/v1/store/orders/{id}/cancel",
++   "/api/v1/store/orders/{id}/communications",
++   "/api/v1/store/orders/{id}/pay",
+    "/api/v1/store/products",
+    "/api/v1/store/products/{id}",
+  ]
+
+ ❯ test/swagger.spec.ts:34:47
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed | 23 passed (25)
+      Tests  1 failed | 470 passed | 21 skipped (492)
+   Start at  12:23:10
+   Duration  4.65s (import 73%, tests 19%, transform 7%, worker 1%)
+

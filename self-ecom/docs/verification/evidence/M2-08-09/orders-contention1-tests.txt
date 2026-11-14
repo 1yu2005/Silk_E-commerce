@@ -1,0 +1,341 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:66588) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (19 tests | 1 failed | 18 skipped) 8049ms
+   × IT02：100个不同顾客争10件库存不超卖，失败无PENDING 7196ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > IT02：100个不同顾客争10件库存不超卖，失败无PENDING
+AssertionError: expected [ { name: 'Error', …(2) }, …(61) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++   {
++     "code": undefined,
++     "message": "timeout exceeded when trying to connect",
++     "name": "Error",
++   },
++ ]
+
+ ❯ test/orders.integration.ts:64:265
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 18 skipped (19)
+   Start at  12:31:45
+   Duration  10.02s (tests 81%, import 14%, transform 5%)
+

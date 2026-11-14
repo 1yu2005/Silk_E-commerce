@@ -1,0 +1,44 @@
+// 作用：在已部署常用环境通过正式接口和真实浏览器保留明确的开发演示，秘密仅写忽略的私有交付。
+/* global document,innerWidth */
+import assert from 'node:assert/strict';
+import {spawnSync} from 'node:child_process';
+import {randomBytes} from 'node:crypto';
+import {existsSync,mkdirSync,readFileSync,writeFileSync} from 'node:fs';
+import {parseEnv} from 'node:util';
+import path from 'node:path';
+import {pathToFileURL} from 'node:url';
+const label=process.argv[2];assert.match(label,/^[a-z0-9-]+$/);
+const output='output/playwright/M2-08-09/local-'+label,evidence='docs/verification/evidence/M2-08-09/local-'+label+'.json';assert.ok(!existsSync(evidence));mkdirSync(output,{recursive:true});
+const credentialFile='private-delivery/板块8＋9_演示顾客.local.json';
+assert.equal(spawnSync('git',['check-ignore','--quiet',credentialFile],{windowsHide:true}).status,0);
+assert.match(readFileSync('.dockerignore','utf8'),/^private-delivery\s*$/m);mkdirSync('private-delivery',{recursive:true});
+const env=parseEnv(readFileSync('.env','utf8')),origin='http://localhost:'+(env.ADMIN_HOST_PORT??8080),storeOrigin='http://localhost:'+(env.STORE_HOST_PORT??8081);
+const adminUsername=process.env.LOCAL_ADMIN_USERNAME,adminPassword=process.env.LOCAL_ADMIN_PASSWORD;assert.ok(adminUsername&&adminPassword);
+const report={startedAt:new Date().toISOString(),checks:[],requests:[],pageErrors:[]};let browser;
+const secrets=[adminPassword];const redact=s=>secrets.reduce((r,v)=>r.replaceAll(v,'[REDACTED]'),String(s));
+async function call(site,url,method='GET',body,token,status=200){const response=await fetch(site+'/api/v1'+url,{method,signal:AbortSignal.timeout(15000),headers:{...(token?{Authorization:'Bearer '+token}:{}),...(body===undefined?{}:{'Content-Type':'application/json'})},...(body===undefined?{}:{body:JSON.stringify(body)})});const result=await response.json();report.requests.push({method,path:url,status:response.status,requestId:result.requestId});assert.equal(response.status,status,url+' '+result.code);if(result.data?.accessToken)secrets.push(result.data.accessToken);return result.data;}
+const passed=s=>{report.checks.push(s);console.log(JSON.stringify({passed:s}));};
+try{
+ const adminToken=(await call(origin,'/admin/auth/login','POST',{username:adminUsername,password:adminPassword})).accessToken;
+ const admin=(url,method='GET',body,status=200)=>call(origin,url,method,body,adminToken,status);
+ const address={receiver:'开发演示收件人',phone:'01000000000',province:'开发演示省',city:'开发演示市',district:'开发演示区',detail:'开发演示地址，不用于真实寄件'};
+ let setting=await admin('/admin/settings');if(!setting.configured){setting=await admin('/admin/settings','PUT',{shippingFeeCents:800,freeShippingEnabled:true,freeShippingThresholdCents:20000,returnAddress:address,serviceContact:{phone:'01000000000',serviceHours:'开发演示配置，非真实客服电话'},deadlines:{paymentMinutes:30,autoReceiptDays:10,afterSaleWindowDays:7,reviewWorkdays:3,supplementDays:7,returnShipDays:7,inspectionWorkdays:3,refundWorkdays:3},expectedVersion:setting.version,reason:'用户授权的板块8＋9开发演示配置，非真实经营资料'});}
+ setting=await admin('/admin/settings');assert.equal(setting.configured,true);report.settingVersion=setting.version;
+ let credential=existsSync(credentialFile)?JSON.parse(readFileSync(credentialFile,'utf8')):null;
+ if(!credential){credential={phone:'138'+String(BigInt('0x'+randomBytes(6).toString('hex'))%100000000n).padStart(8,'0'),password:'Demo89#'+randomBytes(16).toString('hex'),nickname:'板块89开发演示顾客',createdAt:new Date().toISOString(),active:false};writeFileSync(credentialFile,JSON.stringify(credential,null,2)+'\n');secrets.push(credential.password);await call(storeOrigin,'/store/auth/register','POST',{phone:credential.phone,password:credential.password,nickname:credential.nickname},undefined,201);credential.active=true;writeFileSync(credentialFile,JSON.stringify(credential,null,2)+'\n');}else secrets.push(credential.password);
+ const token=(await call(storeOrigin,'/store/auth/login','POST',{phone:credential.phone,password:credential.password})).accessToken;
+ const customer=(url,method='GET',body,status=200)=>call(storeOrigin,url,method,body,token,status);
+ const me=await customer('/store/me');report.demoCustomerId=me.id;const addresses=await customer('/store/addresses');if(!addresses.items.length)await customer('/store/addresses','POST',{...address,isDefault:true},201);
+ const products=await customer('/store/products?page=1&pageSize=20');const product=await customer('/store/products/'+products.items.find(p=>p.purchasable).id);const sku=product.skus.find(s=>s.purchasable&&s.available>=2);assert.ok(sku);report.productId=product.id;report.skuId=sku.id;report.balanceBefore=await admin('/admin/inventory/'+sku.id);
+ const module=process.env.PLAYWRIGHT_MODULE_PATH??path.join(process.env.USERPROFILE,'.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright/index.mjs');const {chromium}=await import(pathToFileURL(module).href);browser=await chromium.launch({headless:true,executablePath:path.join(process.env.LOCALAPPDATA,'ms-playwright/chromium-1208/chrome-win64/chrome.exe')});
+ const page=await browser.newPage({viewport:{width:1280,height:900}});page.on('pageerror',e=>report.pageErrors.push(e.name));
+ await page.goto(storeOrigin+'/login');await page.getByLabel('手机号',{exact:true}).fill(credential.phone);await page.getByLabel('密码',{exact:true}).fill(credential.password);await page.locator('form button[type=submit]').click();await page.waitForURL(storeOrigin+'/account');
+ async function checkout(){await customer('/store/cart/items','POST',{skuId:sku.id,quantity:1},201);await page.goto(storeOrigin+'/cart');await page.getByRole('link',{name:'去确认订单 →',exact:true}).click();await page.getByRole('button',{name:'获取服务器报价',exact:true}).click();await page.getByRole('heading',{name:'本次服务器报价',exact:true}).waitFor();await page.getByRole('button',{name:'确认金额并创建订单',exact:true}).click();await page.waitForURL(/\/orders\/[a-f0-9-]{36}$/);return page.url().split('/').at(-1);}
+ const paidId=await checkout();await page.getByRole('button',{name:'确认模拟付款',exact:true}).click();await page.getByText('模拟付款成功，等待发货',{exact:true}).waitFor();const paid=await customer('/store/orders/'+paidId);assert.equal(paid.status,'WAIT_SHIPMENT');const replay=await customer('/store/orders/'+paidId+'/pay','POST',{});assert.equal(replay.replayed,true);report.paidOrder={id:paidId,number:paid.number,payableCents:paid.payableCents};await page.screenshot({path:output+'/paid.png',fullPage:true});await page.setViewportSize({width:390,height:844});assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await page.screenshot({path:output+'/paid-mobile.png',fullPage:true});
+ const cancelledId=await checkout();page.once('dialog',d=>d.accept());await page.getByRole('button',{name:'取消订单',exact:true}).click();await page.getByRole('heading',{name:'已关闭',exact:true}).waitFor();const cancelled=await customer('/store/orders/'+cancelledId);assert.equal(cancelled.closeReasonCode,'USER_CANCELLED');report.cancelledOrder={id:cancelledId,number:cancelled.number};await page.screenshot({path:output+'/cancelled.png',fullPage:true});report.balanceAfter=await admin('/admin/inventory/'+sku.id);assert.equal(report.balanceAfter.available,report.balanceBefore.available-1);assert.equal(report.balanceAfter.reserved,report.balanceBefore.reserved);
+ const detail=await admin('/admin/orders/'+paidId);assert.equal(detail.tasks.filter(t=>t.stage==='SHIPMENT_PROCESS').length,1);const consumption=await admin('/admin/customers/'+me.id+'/consumption');assert.equal(consumption.availability,'AVAILABLE');assert.equal(consumption.amountCents,'0');
+ passed('常用环境正式演示：原服装加购→报价→真实建单→唯一模拟付款/另一单取消；净A减1、R保持，唯一待发货任务，未收货消费0');
+ const staff=await browser.newPage({viewport:{width:1440,height:1000}});staff.on('pageerror',e=>report.pageErrors.push(e.name));await staff.goto(origin+'/login');await staff.getByLabel('员工账号',{exact:true}).fill(adminUsername);await staff.getByLabel('密码',{exact:true}).fill(adminPassword);await staff.locator('form button[type=submit]').click();await staff.waitForURL(origin+'/');await staff.goto(origin+'/orders/'+paidId);await staff.getByRole('heading',{name:'任务与阻塞',exact:true}).waitFor();await staff.screenshot({path:output+'/admin-order.png',fullPage:true});await staff.goto(origin+'/inventory/stock-incidents');await staff.getByRole('heading',{name:'订单库存异常',exact:true}).waitFor();await staff.screenshot({path:output+'/admin-incidents.png',fullPage:true});
+ assert.deepEqual(report.pageErrors,[]);passed('常用商城手机订单无横向溢出，管理员订单与异常深层页面可操作，浏览器无异常');report.status='passed';
+}catch(e){report.status='failed';report.failure=redact(e.stack??e.message);process.exitCode=1;console.error(report.failure);}
+finally{await browser?.close();report.endedAt=new Date().toISOString();writeFileSync(evidence,JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checks:report.checks.length,credentialFile}));}

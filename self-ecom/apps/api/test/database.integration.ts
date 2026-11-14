@@ -39,7 +39,7 @@ it('已应用工程、认证、文件及设置任务基础迁移，并保留完�
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
   expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history',
-    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart']
+    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference']
     .map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
@@ -47,7 +47,9 @@ it('已应用工程、认证、文件及设置任务基础迁移，并保留完�
     'cart_item', 'category', 'communication', 'customer', 'customer_status_history', 'deadline_event', 'employee', 'employee_extra_permission', 'file_asset', 'file_reference',
     'initial_inventory_draft', 'initial_inventory_draft_line', 'inventory_action', 'inventory_adjustment', 'inventory_adjustment_line', 'inventory_balance', 'inventory_ledger', 'inventory_purchase_block', 'inventory_receipt_batch', 'inventory_source', 'inventory_source_line',
     'permission_definition', 'product', 'product_image', 'product_spec_dimension', 'product_spec_value', 'role_permission', 'scheduler_failure', 'scheduler_run', 'sku', 'sku_spec_choice', 'store_setting_head',
-    'store_setting_version', 'system_guard', 'task', 'task_history', 'task_stage_cursor']);
+    'store_setting_version', 'system_guard', 'task', 'task_history', 'task_stage_cursor',
+    'checkout_quote','checkout_quote_item','order','order_item','idempotency_record','order_block','timer_pause','order_timer_receipt',
+    'task_business_source','task_business_source_history','payment','stock_incident','stock_incident_item','stock_incident_history','stock_incident_command','stock_replenishment'].sort());
 });
 
 it('keeps liveness working with the real database module installed', async () => {

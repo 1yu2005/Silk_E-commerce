@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-14T05:06:07.402Z",
+  "mode": "build",
+  "label": "final2",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T05:06:07.403Z",
+      "endedAt": "2026-11-14T05:06:07.860Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T05:06:07.860Z",
+      "endedAt": "2026-11-14T05:06:08.772Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T05:06:08.773Z",
+      "endedAt": "2026-11-14T05:06:09.551Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.build.json"
+      ],
+      "startedAt": "2026-11-14T05:06:09.551Z",
+      "endedAt": "2026-11-14T05:06:13.948Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T05:06:13.948Z",
+      "endedAt": "2026-11-14T05:06:19.868Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T05:06:19.868Z",
+      "endedAt": "2026-11-14T05:06:23.808Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-apps-store-web.txt"
+    },
+    {
+      "name": "admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M2-08-09\\final2\\admin-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T05:06:23.808Z",
+      "endedAt": "2026-11-14T05:06:25.055Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-admin-web.txt"
+    },
+    {
+      "name": "store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M2-08-09\\final2\\store-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T05:06:25.055Z",
+      "endedAt": "2026-11-14T05:06:25.837Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-08-09/build-final2-store-web.txt"
+    }
+  ],
+  "passed": true
+}
