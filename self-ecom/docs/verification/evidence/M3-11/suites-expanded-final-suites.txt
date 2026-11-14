@@ -1,0 +1,165 @@
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_57a01197ea34417c857bb379c03c894d_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:31244) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-m311-upgrade-QdT7kG\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_upgrade_5996490d723f46c88e7984728591cb52_test", schema "public" at "localhost:15432"
+
+13 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_upgrade_5996490d723f46c88e7984728591cb52_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_upgrade_5996490d723f46c88e7984728591cb52_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+ ❯ test/after-sales.integration.ts (39 tests | 1 failed) 57570ms
+   × 在途核实未填单号也进入等收包；退货地址缺失批准整事务回滚 1326ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/after-sales.integration.ts > 在途核实未填单号也进入等收包；退货地址缺失批准整事务回滚
+TypeError: Cannot read properties of null (reading 'receiver')
+ ❯ src/settings/store-settings.service.ts:95:45
+     93|       const data = { shippingFeeCents: input.shippingFeeCents, freeShi…
+     94|         freeShippingThresholdCents: input.freeShippingThresholdCents,
+     95|         returnReceiver: input.returnAddress.receiver, returnPhone: inp…
+       |                                             ^
+     96|         returnProvince: input.returnAddress.province, returnCity: inpu…
+     97|         returnDistrict: input.returnAddress.district, returnDetail: in…
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ test/after-sales.integration.ts:181:59
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 38 passed (39)
+   Start at  18:35:16
+   Duration  60.66s (tests 95%, import 4%, transform 1%)
+
+{"suite":"test/after-sales.integration.ts","ownedDatabaseRemoved":true}
+数据库集成测试存在失败，本轮独占资源已按归属清理

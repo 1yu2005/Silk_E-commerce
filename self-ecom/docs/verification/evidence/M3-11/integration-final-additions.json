@@ -1,0 +1,45 @@
+{
+  "at": "2026-11-14T10:45:57.850Z",
+  "mode": "integration",
+  "label": "final-additions",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T10:45:58.957Z",
+      "endedAt": "2026-11-14T10:46:09.905Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/integration-final-additions-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/after-sales.integration.ts",
+        "-t",
+        "数据库拒绝串|已领取审核任务停用|未寄核实与新"
+      ],
+      "startedAt": "2026-11-14T10:46:09.906Z",
+      "endedAt": "2026-11-14T10:46:22.514Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/integration-final-additions-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m311_6b9a3b82fb1c41019f39301a6b69db3a_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

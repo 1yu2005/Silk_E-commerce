@@ -20,7 +20,7 @@ export class FulfillmentTaskPolicy {
  async claimed(tx:Prisma.TransactionClient,a:TaskEmployee,t:Task,requestId:string,now:Date){if(t.stage!=='SHIPMENT_PROCESS')return;const before=await this.active(tx,t);
   const stage=before.fulfillmentStage==='READY'&&await validPacking(tx,before)?'READY':'PREPARING';
   await tx.fulfillment.upsert({where:{orderId:before.id},create:{orderId:before.id,createdAt:now,updatedAt:now},update:{}});
-  const o=await tx.order.update({where:{id:before.id},data:{fulfillmentStage:stage,version:{increment:1},updatedAt:now}});
+  const o=await tx.order.update({where:{id:before.id},data:{fulfillmentStage:stage,shipmentReclaimRequired:false,version:{increment:1},updatedAt:now}});
   if(before.fulfillmentStage!==stage)await this.history.appendStateHistory(tx,{type:'EMPLOYEE',id:a.subjectId},{aggregateType:'ORDER',aggregateId:o.id,dimension:'fulfillment',commandKey:'claim:'+t.id+':'+t.version,fromState:before.fulfillmentStage,toState:stage,requestId,reason:'领取发货任务'});
   await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:a.subjectId},action:'order.fulfillment',targetId:o.id,requestId,reason:'领取发货任务',after:{orderStatus:o.status,orderVersion:o.version,fulfillmentStage:stage,fulfillmentAction:'CLAIM'}});
  }

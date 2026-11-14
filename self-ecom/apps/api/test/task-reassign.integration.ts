@@ -1,3 +1,4 @@
+import {AfterSaleAdapters} from '../src/after-sales/after-sale.adapters.js';
 // 作用：以真实HTTP/事务/行锁验证管理员转交、资格同步回池、整笔回滚与竞争，只操作本文件专属库。
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
@@ -61,7 +62,7 @@ beforeAll(async () => {
   const config = loadConfiguration({ ...process.env, DATABASE_URL: target.testUrl, LOG_LEVEL: 'silent' });
   const module = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(APP_CONFIG).useValue(config)
     .overrideProvider(JwtTokenService).useValue(tokens).overrideProvider(AuthSessionService).useValue(sessions).overrideProvider(CurrentIdentityService).useValue(identities)
-    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(AuditService).useValue(audit).overrideProvider(OrderAdapters).useValue({onModuleInit(){ /* 任务内核隔离测试使用本文件的父事实夹具；真实订单接通由orders.integration覆盖。 */ }}).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).compile();
+    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(AuditService).useValue(audit).overrideProvider(OrderAdapters).useValue({onModuleInit(){ /* 任务内核隔离测试使用本文件的父事实夹具；真实订单接通由orders.integration覆盖。 */ }}).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).overrideProvider(AfterSaleAdapters).useValue({ /* 本套件只安装任务内核夹具；真实售后适配由售后集成套件验证。 */ }).compile();
   app = module.createNestApplication(); configureApp(app); await app.listen(0, '127.0.0.1'); base = (await app.getUrl()) + '/api/v1';
   prisma = app.get(PrismaService); entry = app.get(TaskEntryService); commands = app.get(TaskCommandService); await holder.connect();
   await prisma.$transaction(installReassignFixture); await seedPermissionCatalog(prisma); passwordHash = await new PasswordService().hash('IsolatedReassign#2026');

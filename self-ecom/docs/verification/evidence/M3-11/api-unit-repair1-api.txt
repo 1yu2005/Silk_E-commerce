@@ -1,0 +1,52 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/order-timer.spec.ts (21 tests | 1 failed) 17ms
+   × COMPLETED终结暂停周期，解除剩余来源也不会恢复计时 3ms
+{"level":30,"time":1794651712488,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"85b781bd-e291-4875-be64-91e94ed9f799","res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+{"level":30,"time":1794651712506,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"220d6c88-7666-4120-9c76-e81e1326c2cc","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":50,"time":1794651712521,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"8c5d31bd-9052-4d58-a97c-20537074112a","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+{"level":30,"time":1794651712537,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"06e85367-e7a6-44af-a05a-6b3e8dfccad3","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":40,"time":1794651712571,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/guard-public"},"requestId":"b3072483-d0ea-42bf-b975-ceba3cf28bbd","res":{"statusCode":404},"responseTime":2,"msg":"request completed"}
+{"level":40,"time":1794651712587,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/store/me"},"requestId":"5ea98cd7-bb81-47b9-aaad-dfcf4e89d341","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794651712604,"pid":49772,"hostname":"YHY","req":{"method":"POST","path":"/api/v1/auth/logout"},"requestId":"4d2c8330-4d08-46e0-a144-e0e7a231d2f5","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794651712620,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/admin/me"},"requestId":"00d0f950-638d-4084-b8af-96342dbe1587","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794651712635,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"cb8e6530-7dd5-4494-957e-2cd47cac1622","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794651712643,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3fc2f9c6-7e7c-486c-b2ac-acf23fe958f4","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712644,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"1299ea79-d685-498a-a082-73def660b547","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794651712644,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"15711db0-d12b-44e7-827d-adb6ee024f0d","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712645,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"0449dd4f-75df-406f-9972-b559f81194a5","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794651712645,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"5203a15f-98cd-43a5-a5e5-52ada28a71d4","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712645,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"13a07737-c8c7-42e1-9722-ba13b512b9b9","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712646,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"588548cf-ea03-4303-a326-e5510d0f732d","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712646,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"43b6a1cc-5b0b-4af4-a8eb-d8e28bfae008","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712646,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"0c2f3db5-3431-4268-94b3-14c46024e942","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712647,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"8ebc3ba6-7cae-47d0-9a2a-b76a445b12c2","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712653,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"03c955e8-7e91-4b56-bfb4-b8775d73dd6b","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":50,"time":1794651712671,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"6c1556ab-6e71-4610-80f8-b935408c6536","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":50,"time":1794651712686,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"32f3ebec-96f6-425d-a3b6-1c33ecbc4351","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":1,"msg":"request failed"}
+{"level":30,"time":1794651712703,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"bdef083d-cb6f-4747-b9a3-47ffd41e8887","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794651712719,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"92940ede-9359-45a2-9d55-d81aca35b13b","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794651712737,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"ccf5af05-c297-40db-bc46-57fab05c146e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794651712752,"pid":49772,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"a1c62bde-8eda-415b-8ce4-478de6bd5713","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/order-timer.spec.ts > COMPLETED终结暂停周期，解除剩余来源也不会恢复计时
+AssertionError: expected [Function] to throw an error
+ ❯ test/order-timer.spec.ts:50:38
+     48|   state = applyOrderTimer(state, command({ action: 'RELEASE_BLOCK', so…
+     49|   expect(state.status).toBe(terminal); expect(state.dueAt).toBeNull();
+     50|   expect(() => block(state, at(26))).toThrow();
+       |                                      ^
+     51|   expect(() => applyOrderTimer(state, command({ action: 'RECORD_HANDOV…
+     52| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 3 passed (4)
+      Tests  1 failed | 73 passed (74)
+   Start at  18:21:49
+   Duration  3.47s (import 58%, tests 25%, transform 17%)
+

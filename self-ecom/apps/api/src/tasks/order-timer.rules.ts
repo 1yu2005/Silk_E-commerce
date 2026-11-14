@@ -58,7 +58,8 @@ export function applyOrderTimer(input: OrderTimerState, command: OrderTimerComma
   if (command.action === 'ADD_BLOCK' || command.action === 'RELEASE_BLOCK') {
     const block = state.blocks.find(row => row.sourceType === command.source.sourceType && row.sourceId === command.source.sourceId.toLowerCase());
     if (command.action === 'ADD_BLOCK') {
-      if (terminal(state)) throw new TaskError('ORDER_TIMER_BLOCKED');
+      // 完成单仍可在原窗口申请售后，仅记录来源；不重开收货计时。退款终态禁止新阻塞。
+      if (terminal(state)&&!(state.status==='COMPLETED'&&command.source.sourceType==='AFTER_SALE')) throw new TaskError('ORDER_TIMER_BLOCKED');
       if (block) { if (block.active) return { changed: false, state }; throw new TaskError('ORDER_TIMER_COMMAND_CONFLICT'); }
       const alreadyBlocked = state.blocks.some(receiptBlocking);
       state.blocks.push({ sourceType: command.source.sourceType, sourceId: command.source.sourceId.toLowerCase(), active: true, createdAt: new Date(now), releasedAt: null });

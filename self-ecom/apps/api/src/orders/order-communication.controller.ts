@@ -18,7 +18,7 @@ const publicItem=O.object({id:O.uuid,publicText:O.text(2000),occurredAt:O.date,c
 const internalItem=O.object({id:O.uuid,authorEmployeeId:O.uuid,channel:O.text(30),occurredAt:O.date,result:O.text(4000),nextStep:O.nullable(O.text(1000)),publicText:O.nullable(O.text(2000)),correctsId:O.nullable(O.uuid),correctionReason:O.nullable(O.text(500)),createdAt:O.date,attachments:O.array(attachment)});
 const paged=(item:Parameters<typeof O.array>[0])=>O.object({items:O.array(item),total:O.integer(),page:O.integer(Number.MAX_SAFE_INTEGER,1),pageSize:O.integer(100,1)});
 export class CommunicationQueryDto extends PaginationDto {@IsIn(['ORDER','AFTER_SALE']) scopeType!:'ORDER'|'AFTER_SALE';@IsUUID() scopeId!:string;}
-@Controller('admin/communications') @ApiTags('Communications') @EmployeeAccess('order.service.read')
+@Controller('admin/communications') @ApiTags('Communications') @EmployeeAccess()
 export class OrderCommunicationController {
  constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(CommunicationService)private readonly service:CommunicationService){}
  @Post() @EmployeeAccess('communication.service.write') @O.endpoint('appendOrderCommunication','追加沟通/更正；内部内容不公开',O.object({id:O.uuid,createdAt:O.date,correctsId:O.nullable(O.uuid)}),body,true)
@@ -31,4 +31,10 @@ export class StoreOrderCommunicationController {
  constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(CommunicationService)private readonly service:CommunicationService){}
  @Get() @O.idParam() @O.listQuery() @O.endpoint('listMyOrderCommunications','本人读取沟通公开说明，内部内容不可见',paged(publicItem))
  list(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Query() q:PaginationDto){return this.db.$transaction(tx=>this.service.readPublicCommunication(tx,{identity:a,token:readBearerToken(r)},{scopeType:'ORDER',scopeId:p.id},{page:q.page,pageSize:q.pageSize}));}
+}
+@Controller('store/after-sales/:id/communications') @ApiTags('Communications') @CustomerAccess()
+export class StoreAfterSaleCommunicationController {
+ constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(CommunicationService)private readonly service:CommunicationService){}
+ @Get() @O.idParam() @O.listQuery() @O.endpoint('listMyAfterSaleCommunications','本人售后公开沟通，内部内容不可见',paged(publicItem))
+ list(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Query() q:PaginationDto){return this.db.$transaction(tx=>this.service.readPublicCommunication(tx,{identity:a,token:readBearerToken(r)},{scopeType:'AFTER_SALE',scopeId:p.id},{page:q.page,pageSize:q.pageSize}));}
 }

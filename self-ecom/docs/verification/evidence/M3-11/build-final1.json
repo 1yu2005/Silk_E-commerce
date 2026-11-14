@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-14T10:39:31.831Z",
+  "mode": "build",
+  "label": "final1",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T10:39:31.833Z",
+      "endedAt": "2026-11-14T10:39:32.544Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T10:39:32.545Z",
+      "endedAt": "2026-11-14T10:39:33.862Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T10:39:33.862Z",
+      "endedAt": "2026-11-14T10:39:35.394Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.build.json"
+      ],
+      "startedAt": "2026-11-14T10:39:35.395Z",
+      "endedAt": "2026-11-14T10:39:42.375Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T10:39:42.375Z",
+      "endedAt": "2026-11-14T10:39:50.034Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T10:39:50.035Z",
+      "endedAt": "2026-11-14T10:39:54.522Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-apps-store-web.txt"
+    },
+    {
+      "name": "admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M3-11\\final1\\admin-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T10:39:54.523Z",
+      "endedAt": "2026-11-14T10:39:56.353Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-admin-web.txt"
+    },
+    {
+      "name": "store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M3-11\\final1\\store-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T10:39:56.354Z",
+      "endedAt": "2026-11-14T10:39:57.571Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/build-final1-store-web.txt"
+    }
+  ],
+  "passed": true
+}

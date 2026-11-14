@@ -14,6 +14,7 @@ import { CatalogError } from '../../catalog/catalog.errors.js';
 import { InventoryError } from '../../inventory/inventory.errors.js';
 import { CustomerError } from '../../customers/customer.errors.js';
 import { OrderError } from '../../orders/order.errors.js';
+import {AfterSaleError} from '../../after-sales/after-sale.rules.js';
 import {RecordInputError,BusinessModuleNotReadyError} from '../../records/record-support.js';
 
 const errors: Record<number, { code: string; message: string }> = {
@@ -40,8 +41,9 @@ export class ApiExceptionFilter implements ExceptionFilter {
 
     const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
       ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError || exception instanceof InventoryError || exception instanceof CustomerError || exception instanceof OrderError || exception instanceof RecordInputError || exception instanceof BusinessModuleNotReadyError ? exception : undefined);
-    const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
-    const error = knownError ? { code: knownError.code, message: knownError.message }
+    const domainError = exception instanceof AfterSaleError ? exception : knownError;
+    const status = domainError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
+    const error = domainError ? { code: domainError.code, message: domainError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };
     response.statusCode = status;
     if (knownError?.retryAfterSeconds !== undefined) response.setHeader('Retry-After', String(knownError.retryAfterSeconds));

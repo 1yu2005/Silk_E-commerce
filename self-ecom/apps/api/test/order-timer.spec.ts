@@ -47,7 +47,7 @@ it.each(['COMPLETED', 'REFUNDED'] as const)('%s终结暂停周期，解除剩余
   expect(state.pauses[0]?.status).toBe('TERMINATED'); expect(state.dueAt).toBeNull();
   state = applyOrderTimer(state, command({ action: 'RELEASE_BLOCK', source: ref }), at(25)).state;
   expect(state.status).toBe(terminal); expect(state.dueAt).toBeNull();
-  expect(() => block(state, at(26))).toThrow();
+  if(terminal==='REFUNDED')expect(() => block(state, at(26))).toThrow();else{const next=block(state,at(26));expect(next.status).toBe('COMPLETED');expect(next.dueAt).toBeNull();expect(next.pauses.filter(p=>p.status==='ACTIVE')).toHaveLength(0);}
   expect(() => applyOrderTimer(state, command({ action: 'RECORD_HANDOVER', actualAt: at(10) }), at(26))).toThrow();
 });
 it.each(['UNSHIPPED', 'HANDOVER_UNKNOWN'] as const)('%s添加阻塞不启动收货计时；补录交运再按当前剩余冻结', status => {

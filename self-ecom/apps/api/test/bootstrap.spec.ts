@@ -7,6 +7,7 @@ import { AppModule } from '../src/app.module.js';
 import { configureApp } from '../src/common/configure-app.js';
 import { APP_CONFIG, validateEnvironment } from '../src/config/environment.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import { AfterSaleCloseFacts } from '../src/after-sales/after-sale-close-facts.js';
 
 // 这些路由仅存在于测试应用中，不会注册到 AppModule。
 @Controller('contract-test')
@@ -47,7 +48,7 @@ beforeAll(async () => {
     NODE_ENV: 'test',
     DATABASE_URL: 'postgresql://test:test@127.0.0.1:5432/shop_test',
     CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174',
-  })).overrideProvider(PrismaService).useValue({ ping }).compile();
+  })).overrideProvider(AfterSaleCloseFacts).useValue({}).overrideProvider(PrismaService).useValue({ ping }).compile();
   app = module.createNestApplication();
   configureApp(app);
   await app.listen(0, '127.0.0.1');

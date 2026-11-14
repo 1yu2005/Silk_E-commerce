@@ -1,0 +1,113 @@
+{
+  "at": "2026-11-14T11:28:22.874Z",
+  "label": "after",
+  "files": {
+    ".env": "cc5a781b920301b562b83488122d9060c840a6803fa3203375dcd94e5b434b66",
+    "apps\\api\\prisma\\migrations\\0001_bootstrap\\migration.sql": "5e9d9b6adaf05917642eac873c1719e561631c49d1fc03ae085f6db178e6c3e3",
+    "apps\\api\\prisma\\migrations\\0002_auth_employee_permission_audit\\migration.sql": "59f83c81067fa3721e9cef6698a01728fbaab37abdb1f5b790f4c6e22690f18a",
+    "apps\\api\\prisma\\migrations\\0003_files_communication_history\\migration.sql": "bae9e336b648ed6dac9c6ca4bb17024ec1268fe4a3d002a0c1d45bb2ec5d1978",
+    "apps\\api\\prisma\\migrations\\0004_store_settings_tasks_deadlines\\migration.sql": "052a6951ba7788a471aec6cc8955dafc68e9746cd524a74565c7bf8d163caa75",
+    "apps\\api\\prisma\\migrations\\0005_categories_products_skus_inventory_accounts\\migration.sql": "343f8de239c59ca9b299299934e7ca341156f456a67e9fa5b0ca372569d71111",
+    "apps\\api\\prisma\\migrations\\0006_inventory_sources_adjustments_ledger\\migration.sql": "210d07964568b46149011b4babf56077203cbe36d1192f9a81d66356b3774745",
+    "apps\\api\\prisma\\migrations\\0007_customer_status_addresses_cart\\migration.sql": "23faedce87f04ac833d2455de0a7d30f8788eb7a3c0cc2ff21baa52129553da6",
+    "apps\\api\\prisma\\migrations\\0008_orders_quotes_idempotency_blocks\\migration.sql": "a32277770a012cccd84ca27f9f19e1383ef8a080bdd0f2a45920acec8e82a013",
+    "apps\\api\\prisma\\migrations\\0009_payments_stock_issues\\migration.sql": "9c074079d518c22ea1398f6770559427ac88685632e53ba879dff80eee8f7943",
+    "apps\\api\\prisma\\migrations\\0010_order_snapshot_file_reference\\migration.sql": "ad15c4228f18fb2f9f5ad96239832ab2057c0b3f2daf82a0c42943d2a4df2154",
+    "apps\\api\\prisma\\migrations\\0011_fulfillment_shipments_handover\\migration.sql": "62372c08cc4df9c15a9743281d0d839fff7422710aa578634d74729afa8fb5fe",
+    "apps\\api\\prisma\\migrations\\0012_fulfillment_fact_guards\\migration.sql": "086cbb3b4a7860c4ab141e48afc7d481b94db765903379dc0942a3f3c7593e73",
+    "apps\\api\\prisma\\migrations\\0013_inventory_fact_guards\\migration.sql": "1d51782c2ba1018b8d7e0501b67e40681b97d7c7ea2b2441218711284b5afc9d"
+  },
+  "uploads": [
+    {
+      "path": "storage\\uploads\\objects\\3982ed89-bb87-4a59-9c55-005e7887fe7a.jpg",
+      "sha256": "96b3580cafdcf819d0734c735c1dfdbc959faa86f537ac6500070a2689e45787"
+    },
+    {
+      "path": "storage\\uploads\\objects\\3a8e6852-fcfc-42e0-96f0-dbfd3dccd797.jpg",
+      "sha256": "9d781095576f3b235fbbe9fb2fd537e9c99b3bc0677a7647b540839478396f36"
+    },
+    {
+      "path": "storage\\uploads\\objects\\8ab11b2d-16fd-4b99-ada2-585014951051.jpg",
+      "sha256": "36184766e7cf0ebb1cc8916a0bc2d203c8d023a9f3d283eb796b9370c4df9fbc"
+    }
+  ],
+  "containers": [
+    {
+      "name": "/self-ecom-db-1",
+      "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+      "startedAt": "2026-11-12T10:13:54.461500349Z",
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "self-ecom_db_data",
+          "destination": "/var/lib/postgresql/data"
+        }
+      ]
+    },
+    {
+      "name": "/self-ecom-api-1",
+      "id": "b7ec0e299e7df7f29d7336e32c204680b9675705726ffd6ae3d995b6bcd63ad1",
+      "startedAt": "2026-11-14T11:24:17.03554043Z",
+      "mounts": [
+        {
+          "type": "volume",
+          "name": "self-ecom_uploads",
+          "destination": "/app/storage/uploads"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "kind": "customer",
+      "id": "1dc0547f-f048-4e02-86cb-c31ecfc06292",
+      "protected_hash": "69728813f910ed24a26a8bde487c8051"
+    },
+    {
+      "kind": "customer",
+      "id": "4a747851-50ae-484c-84f6-cf6f7070b574",
+      "protected_hash": "f9d88b914e66ec5e3e691d18ea7652c7"
+    },
+    {
+      "kind": "customer",
+      "id": "5ce16204-4545-426b-bacf-8596f4dcd115",
+      "protected_hash": "d1d944cc2b13572ccc41d621f84c7faa"
+    },
+    {
+      "kind": "employee",
+      "id": "81a565d2-e8e9-4624-b10c-5da530931979",
+      "protected_hash": "86c901baecfafb4a21177293611240f4"
+    },
+    {
+      "kind": "employee",
+      "id": "9fc973a1-c634-43f2-bf35-d4e0b7d7449f",
+      "protected_hash": "5946943105c9f6b1e587c92b906764b1"
+    },
+    {
+      "kind": "employee",
+      "id": "c5fe1bb5-b07a-4036-ba04-9d8620b5d956",
+      "protected_hash": "a89cd80f3d6ddbb9444763c32289db72"
+    }
+  ],
+  "orders": [
+    {
+      "status": "CLOSED",
+      "count": 1
+    },
+    {
+      "status": "COMPLETED",
+      "count": 1
+    },
+    {
+      "status": "WAIT_SHIPMENT",
+      "count": 2
+    }
+  ],
+  "settings": [
+    {
+      "version": 1,
+      "current_version_id": "5d224983-b09f-49bd-885e-d20bdf94539e"
+    }
+  ],
+  "originalResourcesPreserved": true
+}

@@ -1,0 +1,17 @@
+{
+  "at": "2026-11-14T11:26:28.803Z",
+  "command": [
+    "node",
+    "infra/verify-after-sales-local.mjs",
+    "output/playwright/M3-11/local-final"
+  ],
+  "exitCode": 1,
+  "phase": "登录之前，没有创建订单或修改数据",
+  "reason": "现有.env不保存INIT_ADMIN凭据，脚本原先错误假定存在",
+  "fix": "支持既有LOCAL_ADMIN变量，缺省时只复用仓库原readInitialAdminConfig纯函数；不调用seed，凭据只在内存，.env和原密码不变",
+  "additionalAttempt": {
+    "exitCode": 1,
+    "phase": "登录之前，没有创建订单",
+    "reason": "终端普通管道已关闭stdin，等待输入没有活动句柄；去掉该终端不支持的交互方式"
+  }
+}

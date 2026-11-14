@@ -1,0 +1,35 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:78752) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/after-sales.integration.ts (27 tests | 1 failed) 26213ms
+   × 两轮SLA读新配置、旧轮不变；晚补充不拒绝、延期同步业务、扫描无重复 1065ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/after-sales.integration.ts > 两轮SLA读新配置、旧轮不变；晚补充不拒绝、延期同步业务、扫描无重复
+AssertionError: expected { …(10) } to match object { status: 'OPEN', …(2) }
+(7 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "assigneeId": null,
+-   "originalDueAt": 2026-12-03T08:00:00.001Z,
++   "originalDueAt": 2026-12-01T08:00:00.001Z,
+    "status": "OPEN",
+  }
+
+ ❯ test/after-sales.integration.ts:119:1492
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 26 passed (27)
+   Start at  18:24:41
+   Duration  28.59s (tests 92%, import 6%, transform 2%)
+

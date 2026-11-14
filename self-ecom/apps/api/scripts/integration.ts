@@ -19,15 +19,15 @@ async function main() {
   let failed = false; await admin.connect();
   try { for (const file of files) {
     // 保留前置板块既定独占库白名单；订单套件使用本板块白名单。
-    const name = (file.includes('/fulfillment') ? 'm210_' : file.includes('/orders') ? 'm108_' : 'm105_') + randomUUID().replaceAll('-', '') + '_test';
+    const name = (file.includes('/after-sales') ? 'm311_' : file.includes('/fulfillment') ? 'm210_' : file.includes('/orders') ? 'm108_' : 'm105_') + randomUUID().replaceAll('-', '') + '_test';
     const testUrl = new URL(safe.testUrl); testUrl.pathname = '/' + name;
-    const variables = { ...env, NODE_ENV: 'test', DATABASE_URL: testUrl.toString(), DEVELOPMENT_DATABASE_URL: safe.developmentUrl };
+    const variables = { ...env, NODE_ENV: 'test', FULL_VERIFICATION_KIND:'integration', DATABASE_URL: testUrl.toString(), DEVELOPMENT_DATABASE_URL: safe.developmentUrl };
     let created = false;
     try {
       await admin.query(`CREATE DATABASE "${name}" ENCODING 'UTF8' TEMPLATE template0`); created = true;
       runPrisma(['migrate', 'deploy'], variables);
       const result = spawnSync(process.execPath, [resolve(require.resolve('vitest/package.json'), '../vitest.mjs'),
-        'run', '--config', 'vitest.integration.config.mts', file], {
+        'run', '--config', 'test/verification/retained.config.mts', file], {
         cwd: resolve(__dirname, '..'), env: variables, stdio: 'inherit', windowsHide: true,
       });
       if (result.error || result.status !== 0) failed = true;

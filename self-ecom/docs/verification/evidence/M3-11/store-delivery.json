@@ -1,0 +1,67 @@
+{
+  "startedAt": "2026-11-14T11:19:18.072Z",
+  "checks": [
+    {
+      "name": "types",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom",
+      "startedAt": "2026-11-14T11:19:18.077Z",
+      "endedAt": "2026-11-14T11:19:21.643Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M3-11/store-delivery-types.txt"
+    },
+    {
+      "name": "unit",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "--test",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\test\\auth-controller.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\test\\purchase-confirmation.test.mjs"
+      ],
+      "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom",
+      "startedAt": "2026-11-14T11:19:21.644Z",
+      "endedAt": "2026-11-14T11:19:22.203Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M3-11/store-delivery-unit.txt"
+    },
+    {
+      "name": "lint",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js",
+        "apps/store-web/src/pages/AfterSalePage.tsx",
+        "infra/verify-after-sales-http.mjs"
+      ],
+      "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom",
+      "startedAt": "2026-11-14T11:19:22.203Z",
+      "endedAt": "2026-11-14T11:19:25.628Z",
+      "exitCode": 1,
+      "log": "docs/verification/evidence/M3-11/store-delivery-lint.txt"
+    },
+    {
+      "name": "build",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M3-11\\delivery\\store-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "cwd": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web",
+      "startedAt": "2026-11-14T11:19:25.628Z",
+      "endedAt": "2026-11-14T11:19:26.534Z",
+      "exitCode": 0,
+      "log": "docs/verification/evidence/M3-11/store-delivery-build.txt"
+    }
+  ],
+  "endedAt": "2026-11-14T11:19:26.534Z",
+  "passed": false
+}

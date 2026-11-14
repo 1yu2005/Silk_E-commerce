@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-14T10:22:43.911Z",
+  "mode": "integration",
+  "label": "expanded2",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T10:22:44.538Z",
+      "endedAt": "2026-11-14T10:22:52.524Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/integration-expanded2-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/after-sales.integration.ts"
+      ],
+      "startedAt": "2026-11-14T10:22:52.525Z",
+      "endedAt": "2026-11-14T10:23:16.334Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/integration-expanded2-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m311_d8d28e2948fa4a54844d62717a3fc52e_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": true
+}

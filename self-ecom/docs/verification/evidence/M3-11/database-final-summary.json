@@ -1,0 +1,837 @@
+{
+  "at": "2026-11-14T11:15:25.244Z",
+  "method": "44套件首轮 + 11受影响完整套件复验 + catalog完整套件超时续验；每个套件取本轮最新结果，不称一次全量全绿、不重复累计",
+  "latestSuites": 44,
+  "distinctTests": 1581,
+  "passed": 1581,
+  "failed": 0,
+  "skipped": 0,
+  "runs": [
+    {
+      "source": "suites-final-all",
+      "startedAt": "2026-11-14T10:39:31.660Z",
+      "endedAt": "2026-11-14T11:00:21.132Z",
+      "exitCode": 1,
+      "suites": [
+        {
+          "suite": "test/after-sales.integration.ts",
+          "source": "suites-final-all",
+          "passed": 39,
+          "failed": 0,
+          "skipped": 0,
+          "total": 39
+        },
+        {
+          "suite": "test/audit.integration.ts",
+          "source": "suites-final-all",
+          "passed": 15,
+          "failed": 0,
+          "skipped": 0,
+          "total": 15
+        },
+        {
+          "suite": "test/auth-guard.integration.ts",
+          "source": "suites-final-all",
+          "passed": 36,
+          "failed": 0,
+          "skipped": 0,
+          "total": 36
+        },
+        {
+          "suite": "test/auth-schema.integration.ts",
+          "source": "suites-final-all",
+          "passed": 24,
+          "failed": 0,
+          "skipped": 0,
+          "total": 24
+        },
+        {
+          "suite": "test/auth-session.integration.ts",
+          "source": "suites-final-all",
+          "passed": 36,
+          "failed": 0,
+          "skipped": 0,
+          "total": 36
+        },
+        {
+          "suite": "test/catalog-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1
+        },
+        {
+          "suite": "test/catalog.integration.ts",
+          "source": "suites-final-all",
+          "passed": 12,
+          "failed": 8,
+          "skipped": 0,
+          "total": 20
+        },
+        {
+          "suite": "test/customer-auth.integration.ts",
+          "source": "suites-final-all",
+          "passed": 58,
+          "failed": 0,
+          "skipped": 0,
+          "total": 58
+        },
+        {
+          "suite": "test/customer-avatar.integration.ts",
+          "source": "suites-final-all",
+          "passed": 8,
+          "failed": 0,
+          "skipped": 0,
+          "total": 8
+        },
+        {
+          "suite": "test/customer-profile-password.integration.ts",
+          "source": "suites-final-all",
+          "passed": 74,
+          "failed": 0,
+          "skipped": 0,
+          "total": 74
+        },
+        {
+          "suite": "test/customer-register.integration.ts",
+          "source": "suites-final-all",
+          "passed": 60,
+          "failed": 0,
+          "skipped": 0,
+          "total": 60
+        },
+        {
+          "suite": "test/customers-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1
+        },
+        {
+          "suite": "test/customers.integration.ts",
+          "source": "suites-final-all",
+          "passed": 47,
+          "failed": 0,
+          "skipped": 0,
+          "total": 47
+        },
+        {
+          "suite": "test/database.integration.ts",
+          "source": "suites-final-all",
+          "passed": 5,
+          "failed": 1,
+          "skipped": 0,
+          "total": 6
+        },
+        {
+          "suite": "test/employee-auth.integration.ts",
+          "source": "suites-final-all",
+          "passed": 30,
+          "failed": 0,
+          "skipped": 0,
+          "total": 30
+        },
+        {
+          "suite": "test/employee-create.integration.ts",
+          "source": "suites-final-all",
+          "passed": 49,
+          "failed": 0,
+          "skipped": 0,
+          "total": 49
+        },
+        {
+          "suite": "test/employee-extra-permission.integration.ts",
+          "source": "suites-final-all",
+          "passed": 89,
+          "failed": 0,
+          "skipped": 0,
+          "total": 89
+        },
+        {
+          "suite": "test/employee-password-reset.integration.ts",
+          "source": "suites-final-all",
+          "passed": 61,
+          "failed": 0,
+          "skipped": 0,
+          "total": 61
+        },
+        {
+          "suite": "test/employee-password.integration.ts",
+          "source": "suites-final-all",
+          "passed": 27,
+          "failed": 0,
+          "skipped": 0,
+          "total": 27
+        },
+        {
+          "suite": "test/employee-profile.integration.ts",
+          "source": "suites-final-all",
+          "passed": 48,
+          "failed": 0,
+          "skipped": 0,
+          "total": 48
+        },
+        {
+          "suite": "test/employee-query.integration.ts",
+          "source": "suites-final-all",
+          "passed": 30,
+          "failed": 0,
+          "skipped": 0,
+          "total": 30
+        },
+        {
+          "suite": "test/employee-role.integration.ts",
+          "source": "suites-final-all",
+          "passed": 64,
+          "failed": 0,
+          "skipped": 0,
+          "total": 64
+        },
+        {
+          "suite": "test/employee-status.integration.ts",
+          "source": "suites-final-all",
+          "passed": 49,
+          "failed": 0,
+          "skipped": 0,
+          "total": 49
+        },
+        {
+          "suite": "test/files-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 4,
+          "failed": 1,
+          "skipped": 0,
+          "total": 5
+        },
+        {
+          "suite": "test/files-schema.integration.ts",
+          "source": "suites-final-all",
+          "passed": 75,
+          "failed": 0,
+          "skipped": 0,
+          "total": 75
+        },
+        {
+          "suite": "test/files.integration.ts",
+          "source": "suites-final-all",
+          "passed": 39,
+          "failed": 0,
+          "skipped": 0,
+          "total": 39
+        },
+        {
+          "suite": "test/fulfillment.integration.ts",
+          "source": "suites-final-all",
+          "passed": 34,
+          "failed": 0,
+          "skipped": 0,
+          "total": 34
+        },
+        {
+          "suite": "test/initial-admin-seed.integration.ts",
+          "source": "suites-final-all",
+          "passed": 12,
+          "failed": 0,
+          "skipped": 0,
+          "total": 12
+        },
+        {
+          "suite": "test/inventory-fact-guards-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1
+        },
+        {
+          "suite": "test/inventory-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 1,
+          "failed": 0,
+          "skipped": 0,
+          "total": 1
+        },
+        {
+          "suite": "test/inventory.integration.ts",
+          "source": "suites-final-all",
+          "passed": 25,
+          "failed": 0,
+          "skipped": 0,
+          "total": 25
+        },
+        {
+          "suite": "test/logout.integration.ts",
+          "source": "suites-final-all",
+          "passed": 32,
+          "failed": 0,
+          "skipped": 0,
+          "total": 32
+        },
+        {
+          "suite": "test/orders-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 2,
+          "failed": 0,
+          "skipped": 0,
+          "total": 2
+        },
+        {
+          "suite": "test/orders.integration.ts",
+          "source": "suites-final-all",
+          "passed": 29,
+          "failed": 1,
+          "skipped": 0,
+          "total": 30
+        },
+        {
+          "suite": "test/permission-seed.integration.ts",
+          "source": "suites-final-all",
+          "passed": 7,
+          "failed": 0,
+          "skipped": 0,
+          "total": 7
+        },
+        {
+          "suite": "test/records.integration.ts",
+          "source": "suites-final-all",
+          "passed": 58,
+          "failed": 0,
+          "skipped": 0,
+          "total": 58
+        },
+        {
+          "suite": "test/settings.integration.ts",
+          "source": "suites-final-all",
+          "passed": 66,
+          "failed": 0,
+          "skipped": 0,
+          "total": 66
+        },
+        {
+          "suite": "test/task-access.integration.ts",
+          "source": "suites-final-all",
+          "passed": 0,
+          "failed": 0,
+          "skipped": 38,
+          "total": 38
+        },
+        {
+          "suite": "test/task-deadline.integration.ts",
+          "source": "suites-final-all",
+          "passed": 0,
+          "failed": 0,
+          "skipped": 57,
+          "total": 57
+        },
+        {
+          "suite": "test/task-entry.integration.ts",
+          "source": "suites-final-all",
+          "passed": 0,
+          "failed": 0,
+          "skipped": 34,
+          "total": 34
+        },
+        {
+          "suite": "test/task-kernel.integration.ts",
+          "source": "suites-final-all",
+          "passed": 0,
+          "failed": 0,
+          "skipped": 47,
+          "total": 47
+        },
+        {
+          "suite": "test/task-reassign.integration.ts",
+          "source": "suites-final-all",
+          "passed": 0,
+          "failed": 0,
+          "skipped": 44,
+          "total": 44
+        },
+        {
+          "suite": "test/tasks-migration.integration.ts",
+          "source": "suites-final-all",
+          "passed": 6,
+          "failed": 1,
+          "skipped": 0,
+          "total": 7
+        },
+        {
+          "suite": "test/tasks-schema.integration.ts",
+          "source": "suites-final-all",
+          "passed": 92,
+          "failed": 0,
+          "skipped": 0,
+          "total": 92
+        }
+      ]
+    },
+    {
+      "source": "suites-full-failures-fixed",
+      "startedAt": "2026-11-14T11:03:58.590Z",
+      "endedAt": "2026-11-14T11:11:13.671Z",
+      "exitCode": 1,
+      "suites": [
+        {
+          "suite": "test/after-sales.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 42,
+          "failed": 0,
+          "skipped": 0,
+          "total": 42
+        },
+        {
+          "suite": "test/catalog.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 19,
+          "failed": 1,
+          "skipped": 0,
+          "total": 20
+        },
+        {
+          "suite": "test/database.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 6,
+          "failed": 0,
+          "skipped": 0,
+          "total": 6
+        },
+        {
+          "suite": "test/files-migration.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 5,
+          "failed": 0,
+          "skipped": 0,
+          "total": 5
+        },
+        {
+          "suite": "test/orders.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 30,
+          "failed": 0,
+          "skipped": 0,
+          "total": 30
+        },
+        {
+          "suite": "test/task-access.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 38,
+          "failed": 0,
+          "skipped": 0,
+          "total": 38
+        },
+        {
+          "suite": "test/task-deadline.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 57,
+          "failed": 0,
+          "skipped": 0,
+          "total": 57
+        },
+        {
+          "suite": "test/task-entry.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 34,
+          "failed": 0,
+          "skipped": 0,
+          "total": 34
+        },
+        {
+          "suite": "test/task-kernel.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 47,
+          "failed": 0,
+          "skipped": 0,
+          "total": 47
+        },
+        {
+          "suite": "test/task-reassign.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 44,
+          "failed": 0,
+          "skipped": 0,
+          "total": 44
+        },
+        {
+          "suite": "test/tasks-migration.integration.ts",
+          "source": "suites-full-failures-fixed",
+          "passed": 7,
+          "failed": 0,
+          "skipped": 0,
+          "total": 7
+        }
+      ]
+    },
+    {
+      "source": "suites-catalog-timeout-recheck",
+      "startedAt": "2026-11-14T11:13:23.666Z",
+      "endedAt": "2026-11-14T11:13:43.444Z",
+      "exitCode": 0,
+      "suites": [
+        {
+          "suite": "test/catalog.integration.ts",
+          "source": "suites-catalog-timeout-recheck",
+          "passed": 20,
+          "failed": 0,
+          "skipped": 0,
+          "total": 20
+        }
+      ]
+    }
+  ],
+  "latest": [
+    {
+      "suite": "test/after-sales.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 42,
+      "failed": 0,
+      "skipped": 0,
+      "total": 42
+    },
+    {
+      "suite": "test/audit.integration.ts",
+      "source": "suites-final-all",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "total": 15
+    },
+    {
+      "suite": "test/auth-guard.integration.ts",
+      "source": "suites-final-all",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "total": 36
+    },
+    {
+      "suite": "test/auth-schema.integration.ts",
+      "source": "suites-final-all",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0,
+      "total": 24
+    },
+    {
+      "suite": "test/auth-session.integration.ts",
+      "source": "suites-final-all",
+      "passed": 36,
+      "failed": 0,
+      "skipped": 0,
+      "total": 36
+    },
+    {
+      "suite": "test/catalog-migration.integration.ts",
+      "source": "suites-final-all",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1
+    },
+    {
+      "suite": "test/catalog.integration.ts",
+      "source": "suites-catalog-timeout-recheck",
+      "passed": 20,
+      "failed": 0,
+      "skipped": 0,
+      "total": 20
+    },
+    {
+      "suite": "test/customer-auth.integration.ts",
+      "source": "suites-final-all",
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "total": 58
+    },
+    {
+      "suite": "test/customer-avatar.integration.ts",
+      "source": "suites-final-all",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "total": 8
+    },
+    {
+      "suite": "test/customer-profile-password.integration.ts",
+      "source": "suites-final-all",
+      "passed": 74,
+      "failed": 0,
+      "skipped": 0,
+      "total": 74
+    },
+    {
+      "suite": "test/customer-register.integration.ts",
+      "source": "suites-final-all",
+      "passed": 60,
+      "failed": 0,
+      "skipped": 0,
+      "total": 60
+    },
+    {
+      "suite": "test/customers-migration.integration.ts",
+      "source": "suites-final-all",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1
+    },
+    {
+      "suite": "test/customers.integration.ts",
+      "source": "suites-final-all",
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "total": 47
+    },
+    {
+      "suite": "test/database.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "total": 6
+    },
+    {
+      "suite": "test/employee-auth.integration.ts",
+      "source": "suites-final-all",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "total": 30
+    },
+    {
+      "suite": "test/employee-create.integration.ts",
+      "source": "suites-final-all",
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0,
+      "total": 49
+    },
+    {
+      "suite": "test/employee-extra-permission.integration.ts",
+      "source": "suites-final-all",
+      "passed": 89,
+      "failed": 0,
+      "skipped": 0,
+      "total": 89
+    },
+    {
+      "suite": "test/employee-password-reset.integration.ts",
+      "source": "suites-final-all",
+      "passed": 61,
+      "failed": 0,
+      "skipped": 0,
+      "total": 61
+    },
+    {
+      "suite": "test/employee-password.integration.ts",
+      "source": "suites-final-all",
+      "passed": 27,
+      "failed": 0,
+      "skipped": 0,
+      "total": 27
+    },
+    {
+      "suite": "test/employee-profile.integration.ts",
+      "source": "suites-final-all",
+      "passed": 48,
+      "failed": 0,
+      "skipped": 0,
+      "total": 48
+    },
+    {
+      "suite": "test/employee-query.integration.ts",
+      "source": "suites-final-all",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "total": 30
+    },
+    {
+      "suite": "test/employee-role.integration.ts",
+      "source": "suites-final-all",
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "total": 64
+    },
+    {
+      "suite": "test/employee-status.integration.ts",
+      "source": "suites-final-all",
+      "passed": 49,
+      "failed": 0,
+      "skipped": 0,
+      "total": 49
+    },
+    {
+      "suite": "test/files-migration.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "total": 5
+    },
+    {
+      "suite": "test/files-schema.integration.ts",
+      "source": "suites-final-all",
+      "passed": 75,
+      "failed": 0,
+      "skipped": 0,
+      "total": 75
+    },
+    {
+      "suite": "test/files.integration.ts",
+      "source": "suites-final-all",
+      "passed": 39,
+      "failed": 0,
+      "skipped": 0,
+      "total": 39
+    },
+    {
+      "suite": "test/fulfillment.integration.ts",
+      "source": "suites-final-all",
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "total": 34
+    },
+    {
+      "suite": "test/initial-admin-seed.integration.ts",
+      "source": "suites-final-all",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "total": 12
+    },
+    {
+      "suite": "test/inventory-fact-guards-migration.integration.ts",
+      "source": "suites-final-all",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1
+    },
+    {
+      "suite": "test/inventory-migration.integration.ts",
+      "source": "suites-final-all",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "total": 1
+    },
+    {
+      "suite": "test/inventory.integration.ts",
+      "source": "suites-final-all",
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "total": 25
+    },
+    {
+      "suite": "test/logout.integration.ts",
+      "source": "suites-final-all",
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0,
+      "total": 32
+    },
+    {
+      "suite": "test/orders-migration.integration.ts",
+      "source": "suites-final-all",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0,
+      "total": 2
+    },
+    {
+      "suite": "test/orders.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0,
+      "total": 30
+    },
+    {
+      "suite": "test/permission-seed.integration.ts",
+      "source": "suites-final-all",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "total": 7
+    },
+    {
+      "suite": "test/records.integration.ts",
+      "source": "suites-final-all",
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0,
+      "total": 58
+    },
+    {
+      "suite": "test/settings.integration.ts",
+      "source": "suites-final-all",
+      "passed": 66,
+      "failed": 0,
+      "skipped": 0,
+      "total": 66
+    },
+    {
+      "suite": "test/task-access.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 38,
+      "failed": 0,
+      "skipped": 0,
+      "total": 38
+    },
+    {
+      "suite": "test/task-deadline.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 57,
+      "failed": 0,
+      "skipped": 0,
+      "total": 57
+    },
+    {
+      "suite": "test/task-entry.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "total": 34
+    },
+    {
+      "suite": "test/task-kernel.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 47,
+      "failed": 0,
+      "skipped": 0,
+      "total": 47
+    },
+    {
+      "suite": "test/task-reassign.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 44,
+      "failed": 0,
+      "skipped": 0,
+      "total": 44
+    },
+    {
+      "suite": "test/tasks-migration.integration.ts",
+      "source": "suites-full-failures-fixed",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "total": 7
+    },
+    {
+      "suite": "test/tasks-schema.integration.ts",
+      "source": "suites-final-all",
+      "passed": 92,
+      "failed": 0,
+      "skipped": 0,
+      "total": 92
+    }
+  ]
+}

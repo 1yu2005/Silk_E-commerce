@@ -1,0 +1,21 @@
+{
+  "at": "2026-11-14T10:39:31.634Z",
+  "mode": "suites",
+  "label": "final-all",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts"
+      ],
+      "startedAt": "2026-11-14T10:39:31.660Z",
+      "endedAt": "2026-11-14T11:00:21.132Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/suites-final-all-suites.txt"
+    }
+  ],
+  "passed": false
+}

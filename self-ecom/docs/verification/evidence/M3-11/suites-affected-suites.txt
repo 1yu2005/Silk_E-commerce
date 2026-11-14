@@ -1,0 +1,308 @@
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_507cf3e02284446992d07c8620d71889_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:47672) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  18:26:43
+   Duration  29.28s (tests 92%, import 6%, transform 2%)
+
+{"suite":"test/after-sales.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m210_ac706bdc50df4b16818cc5ba6657feb0_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:24712) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/fulfillment.integration.ts (34 tests | 14 failed) 76806ms
+   × 交运事务在handover_attempt写入失败时回滚全部事实，原动作可恢复且不重复交包 534ms
+   × 交运事务在shipment写入失败时回滚全部事实，原动作可恢复且不重复交包 425ms
+   × 交运事务在order写入失败时回滚全部事实，原动作可恢复且不重复交包 428ms
+   × 交运事务在task写入失败时回滚全部事实，原动作可恢复且不重复交包 448ms
+   × 交运事务在timer_pause写入失败时回滚全部事实，原动作可恢复且不重复交包 408ms
+   × 交运事务在order_timer_receipt写入失败时回滚全部事实，原动作可恢复且不重复交包 431ms
+   × 交运事务在business_state_history写入失败时回滚全部事实，原动作可恢复且不重复交包 417ms
+   × 交运事务在audit_log写入失败时回滚全部事实，原动作可恢复且不重复交包 413ms
+   × 交运事务在fulfillment_command_result写入失败时回滚全部事实，原动作可恢复且不重复交包 434ms
+   × 真实发货异常表来源：独立暂停、部分解除不恢复 1018ms
+   × 真实BR05剩余0天：重叠暂停、等待5天、部分解除、重复解除、新周期及完成不降级 1077ms
+   × 真实BR05剩余2天：重叠暂停、等待5天、部分解除、重复解除、新周期及完成不降级 814ms
+   × 真实BR05剩余5天：重叠暂停、等待5天、部分解除、重复解除、新周期及完成不降级 711ms
+   × 晚补录超过10天并保留其它暂停，remaining为0；最后解除才给3天 602ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 14 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/fulfillment.integration.ts > 交运事务在handover_attempt写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在shipment写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在order写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在task写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在timer_pause写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在order_timer_receipt写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在business_state_history写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在audit_log写入失败时回滚全部事实，原动作可恢复且不重复交包
+ FAIL  test/fulfillment.integration.ts > 交运事务在fulfillment_command_result写入失败时回滚全部事实，原动作可恢复且不重复交包
+PrismaClientKnownRequestError: 
+Invalid `db.shipmentException.upsert()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/fulfillment.integration.ts:158:29
+
+  155 async function pauseSource(id:string,source:string,add:boolean,key=randomUUID()){
+  156  const facts=sourceFixtures().get(source);if(!facts||facts.orderId!==id)throw new Error('来源夹具缺失');
+  157  const order=await db.order.findUniqueOrThrow({where:{id}});
+→ 158  await db.shipmentException.upsert(
+Database error. Code: `23514`. Message: `new row for relation "shipment_exception" violates check constraint "shipment_exception_order_item_ids_check"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ pauseSource test/fulfillment.integration.ts:158:2
+
+ ❯ test/fulfillment.integration.ts:76:120
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/14]⎯
+
+ FAIL  test/fulfillment.integration.ts > 真实发货异常表来源：独立暂停、部分解除不恢复
+PrismaClientKnownRequestError: 
+Invalid `db.shipmentException.upsert()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/fulfillment.integration.ts:158:29
+
+  155 async function pauseSource(id:string,source:string,add:boolean,key=randomUUID()){
+  156  const facts=sourceFixtures().get(source);if(!facts||facts.orderId!==id)throw new Error('来源夹具缺失');
+  157  const order=await db.order.findUniqueOrThrow({where:{id}});
+→ 158  await db.shipmentException.upsert(
+Database error. Code: `23514`. Message: `new row for relation "shipment_exception" violates check constraint "shipment_exception_order_item_ids_check"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ pauseSource test/fulfillment.integration.ts:158:2
+
+ ❯ test/fulfillment.integration.ts:149:2
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/14]⎯
+
+ FAIL  test/fulfillment.integration.ts > 真实BR05剩余0天：重叠暂停、等待5天、部分解除、重复解除、新周期及完成不降级
+ FAIL  test/fulfillment.integration.ts > 真实BR05剩余2天：重叠暂停、等待5天、部分解除、重复解除、新周期及完成不降级
+ FAIL  test/fulfillment.integration.ts > 真实BR05剩余5天：重叠暂停、等待5天、部分解除、重复解除、新周期及完成不降级
+PrismaClientKnownRequestError: 
+Invalid `db.shipmentException.upsert()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/fulfillment.integration.ts:158:29
+
+  155 async function pauseSource(id:string,source:string,add:boolean,key=randomUUID()){
+  156  const facts=sourceFixtures().get(source);if(!facts||facts.orderId!==id)throw new Error('来源夹具缺失');
+  157  const order=await db.order.findUniqueOrThrow({where:{id}});
+→ 158  await db.shipmentException.upsert(
+Database error. Code: `23514`. Message: `new row for relation "shipment_exception" violates check constraint "shipment_exception_order_item_ids_check"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ pauseSource test/fulfillment.integration.ts:158:2
+
+ ❯ test/fulfillment.integration.ts:161:332
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/14]⎯
+
+ FAIL  test/fulfillment.integration.ts > 晚补录超过10天并保留其它暂停，remaining为0；最后解除才给3天
+PrismaClientKnownRequestError: 
+Invalid `db.shipmentException.upsert()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/fulfillment.integration.ts:158:29
+
+  155 async function pauseSource(id:string,source:string,add:boolean,key=randomUUID()){
+  156  const facts=sourceFixtures().get(source);if(!facts||facts.orderId!==id)throw new Error('来源夹具缺失');
+  157  const order=await db.order.findUniqueOrThrow({where:{id}});
+→ 158  await db.shipmentException.upsert(
+Database error. Code: `23514`. Message: `new row for relation "shipment_exception" violates check constraint "shipment_exception_order_item_ids_check"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ pauseSource test/fulfillment.integration.ts:158:2
+
+ ❯ test/fulfillment.integration.ts:162:227
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/14]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  14 failed | 20 passed (34)
+   Start at  18:27:21
+   Duration  78.74s (tests 98%, import 2%, transform 1%)
+
+{"suite":"test/fulfillment.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m108_acd5d4fd34b942f6b3ae04ed889d8113_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:28:48
+   Duration  386ms (import 44%, tests 40%, transform 11%, setup 3%, worker 2%)
+
+{"suite":"test/orders-migration.integration.ts","ownedDatabaseRemoved":true}
+数据库集成测试存在失败，本轮独占资源已按归属清理

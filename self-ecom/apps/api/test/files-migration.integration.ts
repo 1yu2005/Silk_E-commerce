@@ -15,7 +15,7 @@ import { PrismaService } from '../src/prisma/prisma.service.js';
 const base = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
 if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
 const previousMigrations = ['0001_bootstrap', '0002_auth_employee_permission_audit'];
-const expectedMigrations = [...previousMigrations, '0003_files_communication_history', '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference','0011_fulfillment_shipments_handover','0012_fulfillment_fact_guards','0013_inventory_fact_guards'];
+const expectedMigrations = [...previousMigrations, '0003_files_communication_history', '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference','0011_fulfillment_shipments_handover','0012_fulfillment_fact_guards','0013_inventory_fact_guards','0014_after_sales_review_material_return'];
 const oldTables = ['employee', 'customer', 'auth_session', 'permission_definition', 'role_permission',
   'employee_extra_permission', 'audit_log', 'system_guard'] as const;
 const newTables = ['file_asset', 'file_reference', 'communication', 'business_state_history'];
@@ -122,14 +122,14 @@ afterAll(async () => {
   }
 }, 30_000);
 
-it('PostgreSQL16空库通过十二条正式迁移，文件表为空且订单基础表已建立', async () => {
+it('PostgreSQL16空库通过十四条正式迁移，文件表为空且订单基础表已建立', async () => {
   expect((await freshClient.query('SHOW server_version')).rows[0].server_version).toMatch(/^16\./);
   const migrations = await freshClient.query('SELECT migration_name,finished_at,rolled_back_at FROM _prisma_migrations ORDER BY migration_name');
   expect(migrations.rows).toEqual(expectedMigrations.map(migration_name => ({ migration_name, finished_at: expect.any(Date), rolled_back_at: null })));
   for (const table of newTables) expect((await freshClient.query(`SELECT count(*)::int AS count FROM "${table}"`)).rows[0].count).toBe(0);
   expect((await freshClient.query("SELECT to_regclass('public.inventory_adjustment') AS name")).rows[0].name).toBe('inventory_adjustment');
   for (const table of ['after_sale']) {
-    expect((await freshClient.query('SELECT to_regclass($1) AS relation', [`public.${table}`])).rows[0].relation).toBeNull();
+    expect((await freshClient.query('SELECT to_regclass($1) AS relation', [`public.${table}`])).rows[0].relation).toBe(table);
   }
 });
 

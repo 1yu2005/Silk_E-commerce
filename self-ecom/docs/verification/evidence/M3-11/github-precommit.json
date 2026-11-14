@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-14T11:47:00.229Z",
+  "authorization": "用户明确要求提交到GitHub上",
+  "base": "9b1bdfc05aa9869e66f0496d3c09707926c9c336",
+  "branch": "main",
+  "remote": "https://github.com/1yu2005/Silk_E-commerce.git",
+  "remoteAligned": true,
+  "contracts": "contracts-github-precommit.json",
+  "contractsPassed": true,
+  "candidateScan": {
+    "files": 327,
+    "textFiles": 320,
+    "knownSecrets": 0,
+    "jwt": 0,
+    "privateKeys": 0
+  },
+  "excluded": [
+    ".env",
+    "private-delivery/",
+    "storage/",
+    "output/"
+  ],
+  "scope": "板块11源码、受影响前序回归、OpenAPI/客户端、文档与脱敏验收证据",
+  "priorBusinessVerification": "M3-11.md，本次未重复全量、启停服务或部署",
+  "stagedByteScan": {
+    "at": "2026-11-14T11:49:56.864Z",
+    "files": 328,
+    "textFiles": 321,
+    "totalBytes": 7307905,
+    "issues": [],
+    "scope": "actual staged bytes"
+  },
+  "whitespaceCheck": {
+    "nonRawLogFiles": 151,
+    "exitCode": 0,
+    "rawLogWarnings": {
+      "files": 38,
+      "lines": 244,
+      "decision": "保留测试与Docker原始日志的末尾空白及空行；未修改已应用迁移"
+    }
+  }
+}

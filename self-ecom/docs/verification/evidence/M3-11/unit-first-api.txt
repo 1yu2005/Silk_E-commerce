@@ -1,0 +1,62 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:25576) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:77180) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:68052) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ❯ test/validation.spec.ts (34 tests | 34 skipped) 350ms
+ ❯ test/bootstrap.spec.ts (17 tests | 17 skipped) 350ms
+ ❯ test/swagger.spec.ts (2 tests | 2 failed) 439ms
+   × serves native Swagger documents only when enabled=true 411ms
+   × serves native Swagger documents only when enabled=false 27ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/bootstrap.spec.ts [ test/bootstrap.spec.ts ]
+ FAIL  test/validation.spec.ts [ test/validation.spec.ts ]
+TypeError: this.db.$transaction is not a function
+ ❯ AfterSaleCloseFacts.onApplicationBootstrap src/after-sales/after-sale-close-facts.ts:13:47
+
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-app-bootstrap.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-app-bootstrap.hook.js:21:10
+ ❯ callModuleBootstrapHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-app-bootstrap.hook.js:37:27
+ ❯ Proxy.callBootstrapHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/nest-application-context.js:302:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/swagger.spec.ts > serves native Swagger documents only when enabled=true
+ FAIL  test/swagger.spec.ts > serves native Swagger documents only when enabled=false
+TypeError: this.db.$transaction is not a function
+ ❯ AfterSaleCloseFacts.onApplicationBootstrap src/after-sales/after-sale-close-facts.ts:13:47
+
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-app-bootstrap.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-app-bootstrap.hook.js:21:10
+ ❯ callModuleBootstrapHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-app-bootstrap.hook.js:37:27
+ ❯ Proxy.callBootstrapHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/nest-application-context.js:302:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+
+ Test Files  3 failed | 24 passed (27)
+      Tests  2 failed | 462 passed | 51 skipped (515)
+   Start at  18:06:47
+   Duration  10.36s (import 72%, transform 14%, tests 12%, worker 1%, setup 1%)
+

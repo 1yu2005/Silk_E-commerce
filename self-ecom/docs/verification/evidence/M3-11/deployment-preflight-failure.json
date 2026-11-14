@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-14T11:24:02.390Z",
+  "command": [
+    "node",
+    "infra/deploy-after-sales-local.mjs",
+    "output/playwright/M3-11/isolated-delivery",
+    "final"
+  ],
+  "exitCode": 1,
+  "phase": "读取原容器前，尚无部署变更",
+  "reason": "部署脚本只读process.env，未复用已验证的Docker路径解析；ERR_INVALID_ARG_TYPE received undefined",
+  "fix": "复用scripts/module11-runtime.mjs导出的docker"
+}

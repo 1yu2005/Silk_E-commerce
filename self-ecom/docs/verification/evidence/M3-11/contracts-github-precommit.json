@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-14T11:45:33.841Z",
+  "mode": "contracts",
+  "label": "github-precommit",
+  "checks": [
+    {
+      "name": "consistency",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\scripts\\check-contracts.mjs"
+      ],
+      "startedAt": "2026-11-14T11:45:33.843Z",
+      "endedAt": "2026-11-14T11:45:43.392Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/contracts-github-precommit-consistency.txt"
+    },
+    {
+      "name": "drift",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\scripts\\test-contract-drift.mjs"
+      ],
+      "startedAt": "2026-11-14T11:45:43.393Z",
+      "endedAt": "2026-11-14T11:45:50.576Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/contracts-github-precommit-drift.txt"
+    }
+  ],
+  "passed": true
+}

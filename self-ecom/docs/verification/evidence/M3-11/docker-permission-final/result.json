@@ -1,0 +1,2335 @@
+{
+  "startedAt": "2026-11-14T11:39:18.388Z",
+  "project": "self-ecom-m311-acceptance-ee6e6190",
+  "imagePrefix": "self-ecom-m311-acceptance-3d655dc1",
+  "checks": [
+    "正式售后SKU引用检查器接通，未引用草稿可通过真实HTTP修改规格",
+    "板块5/6真实衔接：来源→待确认登记→领取→正式入账50件→上架，未直接写余额",
+    "生产浏览器：真实购买备货→售后暂停→丢响应刷新原键恢复→显式领取→两轮补充/三版材料→拒绝→新轮发货，内部说明不公开且库存未回补",
+    "生产浏览器：新轮发货→已交运退货申请→批准地址/责任快照→运单未寄→人工未寄核实→新物流实际寄出；旧核实关闭409，手机布局可用",
+    "已交仅退款真实待退款、完成窗口申请撤销保持完成；仓储裁剪材料/金额、浏览器无审核按钮及真实403，无退款成功/回补冒充",
+    "生产真实交运未决→售后批准仍待核实→已交包补录→新审核轮领取/沟通→明确无需退货转待退款；队列真实筛选，无自动退款",
+    "重启/重建后售后材料、物流版本、快照、任务历史和未退款库存保持，深层路由与真实数据库持久化",
+    "同组生产镜像、三入口契约一致，重启和API重建保持交易/图片/会话"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "0a2c68e5-0dcd-4c70-8e42-6b462912042b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "e6910eba-547e-4b19-8555-4208b5109890"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "7248d488-d5f5-4275-b71c-d1905fd37555"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "2b26d646-ee54-42f6-9698-e3a286e36ba4"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "6abe0d5b-82d1-454d-8a8c-0060346aab0f"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/a4fa2e8f-b65a-4eaf-8b62-6757389cdcf3/sku-scheme",
+      "status": 200,
+      "requestId": "36fd2eec-eb33-4249-81ff-8cb0286877fa"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "11e8e3f3-14e8-4f31-a7b0-4dff608be8e8"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/63d31607-c088-49f9-905b-1486a049c942/skus/batch-fill",
+      "status": 200,
+      "requestId": "78c708e8-9a76-4b82-8f7d-ebb25ac29f08"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/63d31607-c088-49f9-905b-1486a049c942/images",
+      "status": 200,
+      "requestId": "9c405e0d-84b4-47ca-b68e-0681c165ba5c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "fd7c97a9-f1fd-4191-af85-071fcb2ed22d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "b70b520a-9d17-438e-b0b2-a131467428b9"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/cce06530-b11d-425e-af48-2877f98aba92/claim",
+      "status": 200,
+      "requestId": "adf2b291-da35-4c16-9b32-5477f0d8b981"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/cce06530-b11d-425e-af48-2877f98aba92/post",
+      "status": 200,
+      "requestId": "faeb1eb8-bfb9-4789-9911-142f88889c5f"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/63d31607-c088-49f9-905b-1486a049c942/publish",
+      "status": 200,
+      "requestId": "81c9c6c9-bbe2-47ea-9448-a051784a5a81"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/register",
+      "status": 201,
+      "requestId": "4aa04282-899c-457c-8380-316a2f8c2971"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "1a5b418b-435e-4bd2-9689-fddfe597b116"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "76470e38-8df5-476e-817f-cfb9ba04476e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "d89924a5-a1a8-481b-97d3-7ad3e0f9a357"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/auth/login",
+      "status": 200,
+      "requestId": "2c198f46-a149-477f-ba85-960ce3347e9d"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "2bb639d9-cb21-474e-bc40-3b711ff4e35c"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/auth/login",
+      "status": 200,
+      "requestId": "49506904-5255-414d-80e4-e127f833b4ca"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "465a9273-aa87-4afe-8339-8d44e98d9c25"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "57fdd6a2-c9e6-4c0d-a3a7-5cc9a623b687"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "5dc1a0de-b415-4266-8e5f-2e97ab46a73a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "1c0eb135-f4c7-45b0-b3d1-9f3e3c82a436"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "c5dbbae8-382d-4e22-8494-79f60e69b0fa"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/pay",
+      "status": 200,
+      "requestId": "4ac4decf-957d-43a6-b9f7-a423ec6ae181"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "2a5eadae-7c79-4a40-a27f-6d5fc1c4a5db"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/5533f7c1-1ed7-4763-b0c3-cee5c3ec0f9f/claim",
+      "status": 200,
+      "requestId": "f467f84a-e479-443d-abee-4637b70b8026"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed",
+      "status": 200,
+      "requestId": "36c48673-a5ec-401f-b333-0df8c744b04c"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "44d3ee3e-e0b4-43d4-9567-2ac5c26eb05a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment/pack",
+      "status": 200,
+      "requestId": "d5c00aa3-5749-44ef-a10c-73fca959988b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "863c9ed0-3398-489b-8fe0-492e326c7aaf"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment/prepare",
+      "status": 200,
+      "requestId": "33174db8-0d42-47f8-b82b-698bd95ff7b0"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/9ead0053-d067-4a5d-bbfa-7eb582cc0533",
+      "status": 200,
+      "requestId": "9cb8689b-6795-401b-9c9e-d00a90f8ab79"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "644dd24b-47a8-4f59-baf7-9a211ce41198"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "45d7c657-8076-4aef-ba63-64f484be04ec"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed",
+      "status": 200,
+      "requestId": "65bb99e1-7d68-441e-9a70-e7b90f9804f0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c404cdc3-606c-41e2-a8a7-bbad78999524/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/communications",
+      "status": 200,
+      "requestId": "004d0419-b935-467b-bf23-df41e1366dbc"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed",
+      "status": 200,
+      "requestId": "621bb2bf-7e1b-4d63-bf88-db9024dc152b"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/files",
+      "status": 201,
+      "requestId": "a1a4ecff-dce8-48a9-8885-b5eeed96b165"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "db969aeb-22c5-4c14-809a-fb21a9ade164"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "53de4862-598f-4065-9505-89bb3a460a81"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed",
+      "status": 200,
+      "requestId": "df36e702-5a49-4a6d-b8b9-4f47f75d381e"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/after-sales",
+      "status": 200,
+      "requestId": "e2a725b4-7fc6-430d-bcf0-4dc3ba9c8d5f"
+    },
+    {
+      "method": "POST",
+      "path": "/store/after-sales",
+      "status": 200,
+      "requestId": "e8844884-a4db-4c57-9e05-64e0ae0a52e4"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "48932fb1-be02-41a5-a7dc-756076f19f8a"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "24b9e22c-645a-46cf-b692-99ae35d9b586"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/communications",
+      "status": 200,
+      "requestId": "3db712b9-5f7c-47fe-a61b-3698a4774705"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "9b9609c2-82e3-4815-a1ec-0b67a2482544"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "9a2ba639-69e5-49f4-b138-ddea12002c97"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "dfcede82-c689-4ada-9b25-b1bdaca87575"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "760480ae-eb18-4419-b7d1-6575bb190a46"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "44081a26-e240-420b-b4d8-674a57e5ce7f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "37505f93-4fb0-4d7e-9e98-1f1f4b5621cf"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/tasks/9857beb6-03a1-48ec-9a59-8beddf13f2f9/claim",
+      "status": 200,
+      "requestId": "0a047573-a838-44a2-8f48-e6574b278cb8"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "d784522f-95ba-44e0-8947-316bdb94ee7e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "eb4dbc7a-7eb3-4d14-a901-2f4b97ab372b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "bc881ad0-1842-4848-b833-48c63f8e360b"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/review",
+      "status": 200,
+      "requestId": "fa1d733d-b1e0-426a-b664-cead272f5c21"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "501606ad-590e-4f22-b0a5-0d5d60cea565"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "827945e0-008d-4b16-b8fb-7162f06f051e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "c48ae269-d3c3-4e5c-9fa8-1d6830715364"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "56f5f905-7e04-4b79-92c8-39e98dfcd626"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "05fefc43-1787-45de-959d-41491d18711f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "fbfbda88-1525-4790-9df1-506200e96a97"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/communications",
+      "status": 200,
+      "requestId": "a88637cc-f8b9-4787-9c28-5fb3af1351a9"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "b2364f8d-8bf3-4af8-8e38-02b83846453f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/supplements",
+      "status": 200,
+      "requestId": "3f988eda-ee62-4778-bc5b-d7ca0dcc3c18"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "df1d55a0-0b68-4832-8f84-004279b51991"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/communications",
+      "status": 200,
+      "requestId": "ed9558b7-afb0-4a24-8410-eecf9a6affec"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "7599af24-bc86-4259-938c-237edbf6961e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "56d7a1cd-b52a-494f-856d-f9b402057067"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "92479aa6-2c51-41a0-a394-ed308e1b2400"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "9ccf7134-b8af-41a2-bb06-e327e178b77c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "914ef6b5-755a-4d01-8318-6c9dda707f34"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "e603adbe-f7cd-4e52-9d02-c397a7036c35"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/tasks/cca1c153-ce4f-41d1-b8ed-de074fa57bd7/claim",
+      "status": 200,
+      "requestId": "9b20c1b7-8bd1-4ef8-8b26-cddf9904b1c8"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "bfda62d6-b79f-4bc8-9fb7-6b3e06bc8edd"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "89ed1863-36d3-43dd-95d1-627fda5527b9"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "ec4411ad-9709-4c7e-8a54-047929e527b4"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/review",
+      "status": 200,
+      "requestId": "02153af2-c93c-4b9e-9e0b-2e4539fd21ce"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "c6566086-bb41-41b1-9640-804c915fae1f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "c745989e-fa9d-41bf-af47-74bfe3fe65aa"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "e05bd2fc-6854-47a1-af0b-59daf68e3726"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "357f891a-1183-46b8-abd8-6886289b4a93"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "30ac651a-49fe-44bf-a14e-034c29e73501"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "c07f0b85-7fdc-47d2-8cb2-ab8b7b24800c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/communications",
+      "status": 200,
+      "requestId": "37a664dd-4fad-4651-885c-144512a46970"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "881d5505-36fb-430e-891a-e738b4dc33af"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/supplements",
+      "status": 200,
+      "requestId": "4abfbdde-fe5b-4667-a66a-759c1a1c6ae0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "33e9e452-9d9c-4453-8018-2d34496b1799"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/communications",
+      "status": 200,
+      "requestId": "7a121ea2-8b4f-4af4-aec7-f6e87a29a334"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "1adaaf43-99d4-4f21-8cc7-3ebada394c6b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "85b679a3-f45a-4484-829d-83d8f92a0edb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "cd9b9bff-d28b-4e05-8e20-f72fb606ea6e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "40975e2f-28b2-4410-bcf6-b5a784b22b72"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "713e4118-a61f-48f1-8e27-803f9220247f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "a44714c6-d188-4075-bbfb-66139accf36c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/files/c5db6ca7-51bf-4fbe-98aa-5d45f0caa6a5/content",
+      "status": 200
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/tasks/57ec870e-4196-44da-a530-d3f8a97eba08/claim",
+      "status": 200,
+      "requestId": "ac15304d-346e-486d-9917-e274e9d1f92a"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "0b208d45-7e07-4477-b277-f4b18c4e8e08"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "c0f8e453-ec1f-4698-b65d-3d7f498c995b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "0f2b4651-419f-49b2-85ca-04a4bcb301e5"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/review",
+      "status": 200,
+      "requestId": "c8b59d46-81b3-4a58-9dcd-be32eb084e47"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "5617ee74-7328-4509-93c2-4c5d2625cbc0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2/history",
+      "status": 200,
+      "requestId": "e4272f63-dda9-483d-992f-33d8c4d3ad7c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "d48f4e2a-730d-4c86-9a10-733443b5bb7c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "bf69d24d-c91a-44fe-90fd-b85bd707aae9"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "979fa071-a540-4023-9613-c63fb4021865"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/9ead0053-d067-4a5d-bbfa-7eb582cc0533",
+      "status": 200,
+      "requestId": "f16cea3b-36f2-4045-a660-1e99ea5ea420"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "fb0f396a-f242-4887-9004-062fdf9974cd"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/b812390e-64fd-4f1a-8616-0e30fb258510/claim",
+      "status": 200,
+      "requestId": "34f5acad-58b8-452c-9a2b-4603f3fb92c5"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed",
+      "status": 200,
+      "requestId": "6c68de20-1488-40d2-b692-6c9e88857977"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "80adfaf5-b15d-45ce-866d-8533870616dd"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment/pack",
+      "status": 200,
+      "requestId": "9ce2cdf1-e823-42f6-a1d6-3d0e8dc6dc74"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "4d739606-dc5a-4900-9689-c12e3ea935bd"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment/prepare",
+      "status": 200,
+      "requestId": "118e68ec-0be5-4948-aeaa-80cd8babee48"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "cad49047-18af-4c99-bb73-9928b529b946"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "7579acda-4454-4ce3-ab3f-e2531fd8c25b"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment/start-handover",
+      "status": 200,
+      "requestId": "6ba4141e-71a1-48e0-83b0-dbb80a4a4462"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment",
+      "status": 200,
+      "requestId": "e909cc09-b470-4d65-a888-8a1fdd55b22e"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed/fulfillment/confirm-handover",
+      "status": 200,
+      "requestId": "3120b6d4-c52d-488e-9122-f19cfc0abe7d"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "7e9cfbcb-e676-405a-98aa-92817ffb3b51"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "5144252b-e3cd-4fbd-abfa-c8c7c0d65c40"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/orders/c1c5df5f-0ae5-4678-8d1e-b79422ffe8ed",
+      "status": 200,
+      "requestId": "a5795123-d40b-4266-be60-b03b57855d71"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/after-sales",
+      "status": 201,
+      "requestId": "66d8675a-8c01-4e40-b8a1-01fec86c42ed"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "c6186904-aaa3-4f8f-811b-e0939b52b56a"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/communications",
+      "status": 200,
+      "requestId": "c13ba451-a0eb-4d3b-bec6-174241b1f2eb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "6d2df5d3-493c-4c21-9ca9-26860c2d78d4"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "697f798c-9a2c-4b3e-9afd-0f4e6fdcd998"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "9d42236a-e9c8-4dfd-8c36-f4748de0a5aa"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "d2ded8ae-5695-4673-bbb7-783545c998ca"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "0303ca91-2fed-420c-adca-b23886dd6c12"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "df09baf7-6d26-49be-8451-112a702ff311"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/tasks/9967a5e0-5480-47f0-856b-752256729df4/claim",
+      "status": 200,
+      "requestId": "eeab1035-cd09-4aee-8c61-0ee09ce6bc3e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "f4f386a2-62ec-4f1f-8524-bf707fd4b917"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "aa7c46f2-5fa4-4bb2-b39c-f6d3d36458b0"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "54fa5070-2862-46fb-af16-e3288aa3a79f"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/review",
+      "status": 200,
+      "requestId": "7cfd3c75-3b79-491b-bff8-6afdfe5ed1f1"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "d9437399-3168-4eca-a5ac-6dd28e970df3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "55f49a55-34a0-43f7-8ff0-3d70d26e8e7f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "4437e37d-fdb4-4d7c-b67a-7aa82ce0c9b6"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "3135e78b-b0d8-4eaa-98df-929d24af5602"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "fa311ec0-21b6-4a7f-9eb1-9259c7b3043e"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "c1bcd123-69b7-40aa-93cf-94fb416726eb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "1d9165c4-fdf1-4045-81ab-1b89e5fe9a1d"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/communications",
+      "status": 200,
+      "requestId": "00dca642-c0a4-4fd0-adeb-c7d762b969a1"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "35a4f887-8374-48c8-968d-4e823215512f"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/return-logistics",
+      "status": 200,
+      "requestId": "3094d1e0-cfef-4b05-92cb-2d7c28febdd3"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "1e309e66-1d08-48b2-9e90-147f58aebf78"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/communications",
+      "status": 200,
+      "requestId": "88578bc6-f631-4ef1-ae78-8b5e67da1d4c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "79a922f2-9db3-4657-855a-b27d07fa54da"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "4914af15-7fbd-4b03-a785-ad36aaaf66a4"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "6bdaf70d-fd02-43ab-aa32-95f0d6cad9f7"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "5d203220-33ca-417a-a86a-0955b74f0269"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "f5b81c94-aab4-4db7-9447-18465e875b51"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "63353bb3-3a7a-4a9c-a687-fd8401a0e395"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/tasks/6cbbe393-42be-4937-823a-db1900ef98db/claim",
+      "status": 200,
+      "requestId": "7a978847-8bce-4726-b140-73740c523ef8"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "11b171bc-fe08-4ead-a6c7-2e01c93e820b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "a2fcf021-34d7-464c-968d-cf21d5a0d13c"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "995bcb67-b849-42ed-8599-9e49cd1379ac"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/return-verifications",
+      "status": 200,
+      "requestId": "851ae591-66d7-4a44-b7cd-956fcc1f1a4a"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "c5ea5562-7eeb-4786-ba40-7c19e807771b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "3adf29a9-04a6-4e1c-9da4-c1846961dae7"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "41e5f4f4-5144-4474-ac53-be3fc248ac55"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "8e837028-3d75-42e2-8e5b-443e999215eb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/me",
+      "status": 200,
+      "requestId": "025060cd-5e4c-4d29-977f-ddc41c0b3455"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/contact",
+      "status": 200,
+      "requestId": "8f58f91d-1a7e-4107-a379-934c29aaddac"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "0fe5e0b9-b08c-4300-8e23-b1b5f58bfa18"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/communications",
+      "status": 200,
+      "requestId": "0b186883-560a-4444-9e1c-1e418290b2fb"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "184d5428-0ec4-40c9-97c1-5cc8346782d4"
+    },
+    {
+      "source": "browser",
+      "method": "POST",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/return-logistics",
+      "status": 200,
+      "requestId": "2a0e6a2f-80ba-4627-a19a-8730d555783f"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "145229b1-c624-4bd0-92f1-379893879293"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "5b2ff959-bace-406d-9820-d9b14d7f47ed"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/communications",
+      "status": 200,
+      "requestId": "af0563b1-fa76-4585-8fc7-11c92fd6a1f8"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "757f5c44-46c0-4fff-8356-3669e04a37d4"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/close",
+      "status": 409,
+      "requestId": "e3b29ef7-9929-49a9-a8e6-0eed12b23544"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "f021fea5-e752-4e92-b100-603e31406a02"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "ff9d5591-4a5d-4e16-88fd-8bd665642ac8"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "ccfe998d-98a9-4fe7-8852-3cadb5a73a75"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/communications",
+      "status": 200,
+      "requestId": "dd0f8db7-a235-46c5-8b9c-8d8fb1b95977"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "cacf65c8-10ce-4f78-9e8f-46a6f1d14dcc"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "88e9c4a7-a610-49b1-955d-d534e2281fb2"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/history",
+      "status": 200,
+      "requestId": "1d01444a-57f4-455a-b0f9-ba7bd0a7458b"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/communications",
+      "status": 200,
+      "requestId": "a92539da-4168-490d-b64b-72b1f83904f4"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "ef8eaf28-5702-42a5-b7db-21dc403b01b7"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "e4aee328-fc62-4614-8a0f-0dfa6cb1f952"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "bae13239-75e8-4381-8cc7-0e5a96fce572"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "744315ae-1195-42d4-b427-b20facf5ac22"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/pay",
+      "status": 200,
+      "requestId": "eff821b5-2265-4a3a-96b2-9967d323e064"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment",
+      "status": 200,
+      "requestId": "48f53f2a-5520-4f0b-b1d4-bb70c025ef07"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/b35a226c-26af-49fe-aa72-0758a911ed85/claim",
+      "status": 200,
+      "requestId": "55366747-4e80-442e-b544-7ea83b9eca6b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036",
+      "status": 200,
+      "requestId": "bc107db6-9900-400b-9075-1fc64f00490e"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment",
+      "status": 200,
+      "requestId": "6e4cbcba-aa3f-4a40-8bf7-6bc76215f235"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment/pack",
+      "status": 200,
+      "requestId": "30b1d314-acec-402a-a311-a79094f399c4"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment",
+      "status": 200,
+      "requestId": "92b2486d-bd67-4809-9ab7-0003103e9001"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment/prepare",
+      "status": 200,
+      "requestId": "fdedbf43-48c4-4603-b325-2b4ad38ee39e"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment",
+      "status": 200,
+      "requestId": "3a7b5e05-bbe7-46f3-af82-fd69d8f7030b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment",
+      "status": 200,
+      "requestId": "411d8225-08ec-47ac-b98d-884d2bbac3f1"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment/start-handover",
+      "status": 200,
+      "requestId": "40f2263b-f771-411a-bdc6-5ee6ba6328ad"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment",
+      "status": 200,
+      "requestId": "7d31c418-8825-4ff7-8f80-38da713b413c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/937f50a0-7bd4-429c-ba2b-9b8aaa882036/fulfillment/confirm-handover",
+      "status": 200,
+      "requestId": "f6090d8b-5f28-4b60-99b0-220d4226838a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/after-sales",
+      "status": 201,
+      "requestId": "c5afdc2e-1653-4036-8ea6-c6a0e24b008b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/f3877f7d-785e-42c5-9325-cce22b55f09d",
+      "status": 200,
+      "requestId": "5dde6df9-79e0-431a-8b0f-9fb37b85c173"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/733c1865-7619-4435-963c-924b74164745/claim",
+      "status": 200,
+      "requestId": "f095829c-cd13-40a0-a2c9-0be4bd96351d"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/f3877f7d-785e-42c5-9325-cce22b55f09d",
+      "status": 200,
+      "requestId": "0b27c893-4ba1-49cd-a9d3-af1216340696"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/after-sales/f3877f7d-785e-42c5-9325-cce22b55f09d/review",
+      "status": 200,
+      "requestId": "4e607a4f-7b97-4754-a88c-bd7f23e593ee"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/f3877f7d-785e-42c5-9325-cce22b55f09d",
+      "status": 200,
+      "requestId": "a7c9d409-d324-4879-bf74-a27d0ca87dd7"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "7816be76-5488-4269-92a2-9d7e18b40c0e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "8cd4ffb9-7b21-4e7b-9103-9d3a5b040bae"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "e96f772e-46bf-4e31-9697-8a2e2675781c"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/pay",
+      "status": 200,
+      "requestId": "34ba34fa-cc02-4756-a5b0-965c67441339"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment",
+      "status": 200,
+      "requestId": "b1ea2392-4c69-41a2-9054-38611a1e94a8"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/e76bcd5a-6d59-4b35-9416-036cb809c4ab/claim",
+      "status": 200,
+      "requestId": "97417f13-af65-4013-ac72-b376e2ad2a56"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785",
+      "status": 200,
+      "requestId": "4346e537-0037-4ef8-90b4-e324e8ad61e0"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment",
+      "status": 200,
+      "requestId": "fca932bb-cb2a-48ec-9280-14e6d2f86a78"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment/pack",
+      "status": 200,
+      "requestId": "afc02e90-d774-418d-9289-dc10ba782eac"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment",
+      "status": 200,
+      "requestId": "86134d87-cb5b-4a78-8b53-a303404401cf"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment/prepare",
+      "status": 200,
+      "requestId": "70412fdf-a58b-412d-9c95-8beabd8a6870"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment",
+      "status": 200,
+      "requestId": "29aa14fa-383b-4684-82f6-3b1ab92b41ca"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment",
+      "status": 200,
+      "requestId": "f4115d9e-7044-4738-b155-86887607d67e"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment/start-handover",
+      "status": 200,
+      "requestId": "1aac80fb-f9b4-492f-88a6-607ace003ae7"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment",
+      "status": 200,
+      "requestId": "a0746a55-2901-40d8-8247-42f622cc6ddf"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/fulfillment/confirm-handover",
+      "status": 200,
+      "requestId": "dd0ddb04-9378-4791-aef8-f6893c0091bf"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785/confirm-receipt",
+      "status": 200,
+      "requestId": "53330bc9-231e-4e53-9617-537364d5b18d"
+    },
+    {
+      "method": "POST",
+      "path": "/store/after-sales",
+      "status": 201,
+      "requestId": "6bb49b56-ed35-4bfd-bc31-0a8f404ec2b1"
+    },
+    {
+      "method": "POST",
+      "path": "/store/after-sales/66dc9960-c9b1-4d43-8bf9-b284af9be8f7/withdraw",
+      "status": 200,
+      "requestId": "37f4f551-5bf5-45bc-a1a7-d25ad6b147d3"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/d63e2537-032e-4f17-ae6e-bf94fabc4785",
+      "status": 200,
+      "requestId": "38e086d2-a2c1-45f5-9ca6-f33a31bd060b"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees",
+      "status": 201,
+      "requestId": "c4089694-f373-47de-98a0-3271e1cf0258"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "dd02f963-0be1-4afe-9b31-62227760ed6a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "38458c44-2299-4669-a7b7-9bbee37bbf64"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "42509c73-3246-49df-bf9e-daeafdadab53"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "71a3f195-4cd6-4064-8153-ad130b67977a"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "5f6e73df-e17e-406c-abb7-89dff7445e63"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8/review",
+      "status": 403,
+      "requestId": "410c6548-ff59-437d-b873-81713f764248"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "5363ca8a-4292-4e33-85fd-79a0dcf8728e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "9798ab2d-df49-45b0-8e00-c67397d612bf"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "0f06f1ba-78f8-4a39-87d7-5d1b2f330e3a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/pay",
+      "status": 200,
+      "requestId": "97f9e9a7-69da-495f-887c-56226eaff486"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "d41d9355-be8b-4d59-a31e-8ba8b8ed03a2"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/b0087b37-a7ee-4e1a-83a2-b677c477c507/claim",
+      "status": 200,
+      "requestId": "f23515a5-10ee-4e77-abb2-db7f6b50102a"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc",
+      "status": 200,
+      "requestId": "3a29630d-f449-4aa9-8ace-0f449ab9a104"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "d73d1528-a21e-4a3b-b6a6-b51c0a5743f9"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment/pack",
+      "status": 200,
+      "requestId": "5b2c5033-174c-43f9-9cea-26502c4b044b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "a013ccfd-c959-426c-96aa-ebfff100daa3"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment/prepare",
+      "status": 200,
+      "requestId": "4507846b-6d6d-41e5-805f-60d2a0ff66b8"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "527e1782-4e7c-4e12-890c-f8e057b6d473"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "f1037152-6eb2-436d-b0be-92b932af1cdb"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment/start-handover",
+      "status": 200,
+      "requestId": "2b42d569-d104-4737-88ca-ef4111408ec3"
+    },
+    {
+      "method": "POST",
+      "path": "/store/after-sales",
+      "status": 201,
+      "requestId": "9a04c35f-b829-47e9-8fb6-dfa87867e785"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0",
+      "status": 200,
+      "requestId": "8c47835a-dac0-4b69-88e5-11b045d99a54"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/2e304505-7262-4646-a4c2-4c8bdb0d65a2/claim",
+      "status": 200,
+      "requestId": "6a6acd91-54b4-42de-9d34-e94867cebd22"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0",
+      "status": 200,
+      "requestId": "dfc6ee77-3186-4e65-bf51-cb65f1412815"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0/review",
+      "status": 200,
+      "requestId": "46f10076-2059-4a38-ab1b-c0bec20820a7"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "9e878001-db80-419f-8858-74d481b32528"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/422647aa-4a00-4e09-9039-c031713fca89/claim",
+      "status": 200,
+      "requestId": "6b1cbbfd-eb8a-4fd8-8a3b-007cf7db28ab"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "8b119891-55c6-4d4b-9212-4c08eac15de0"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment",
+      "status": 200,
+      "requestId": "c43ceb9d-fae9-47a8-96ea-745d35bf8230"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/be5f7fd9-d7c0-4881-8e1c-b808db3c03dc/fulfillment/resolve-handover",
+      "status": 200,
+      "requestId": "e866b5be-82ca-47ca-be5b-d37bf4872b74"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0",
+      "status": 200,
+      "requestId": "553dfd39-7cd1-458a-adf5-5ac58107d9e3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0",
+      "status": 200,
+      "requestId": "6d1e98e1-fc41-462b-bf54-d4c034bb415f"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/9d8a3f21-f431-4208-ba78-355946d1e682/claim",
+      "status": 200,
+      "requestId": "d1c668d5-afe4-465e-b110-a7d71409d3bf"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/communications",
+      "status": 201,
+      "requestId": "cd820892-c97a-455e-a364-34844f51ac4f"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0",
+      "status": 200,
+      "requestId": "9a3b1295-4c7b-4c73-8a57-f372bb62b378"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0/confirm-no-return-refund",
+      "status": 200,
+      "requestId": "826ac314-a8ed-4248-a52a-68fa729eef2b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/faa88dbe-6f0a-4563-960a-5b8f5d790fe0",
+      "status": 200,
+      "requestId": "1c32f69e-5495-4add-82b7-2ce9c37c1e16"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me",
+      "status": 200,
+      "requestId": "b54f045c-c185-40a8-9ec8-89ef607d7e42"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/me/permissions",
+      "status": 200,
+      "requestId": "46a40fb0-4698-4dd5-b60d-ed706d805876"
+    },
+    {
+      "source": "browser",
+      "method": "GET",
+      "path": "/api/v1/admin/after-sales",
+      "status": 200,
+      "requestId": "a16a308a-bdce-44ac-874a-c122aed7d7d4"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/32c5d22c-f023-4522-9910-d9ee4b6ca1f2",
+      "status": 200,
+      "requestId": "3e3f3981-589f-462a-a20f-209ccff39664"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "f16f8428-c842-4057-8117-9866d5b820e0"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/9ead0053-d067-4a5d-bbfa-7eb582cc0533",
+      "status": 200,
+      "requestId": "99f23a81-7f3a-428e-a91c-bdd3b46ee88e"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "fedeb764-236a-48e1-a7ce-9f664bb5231d"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/9ead0053-d067-4a5d-bbfa-7eb582cc0533",
+      "status": 200,
+      "requestId": "1bdab4e6-5cfa-44d8-b397-1d9a2288cde9"
+    },
+    {
+      "method": "GET",
+      "path": "/store/after-sales/db59aa98-6142-4df5-bce7-769736092ab8",
+      "status": 200,
+      "requestId": "481a18d3-96d4-4be7-9d01-7be7749eaf5a"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原容器清单",
+      "command": [
+        "docker",
+        "ps",
+        "-aq"
+      ],
+      "startedAt": "2026-11-14T11:39:18.505Z",
+      "endedAt": "2026-11-14T11:39:18.786Z",
+      "exitCode": 0,
+      "log": "command-1.txt"
+    },
+    {
+      "label": "原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "f9add40315d8",
+        "5dcce5c32db7",
+        "b7ec0e299e7d",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T11:39:18.786Z",
+      "endedAt": "2026-11-14T11:39:18.946Z",
+      "exitCode": 0,
+      "log": "command-2.txt"
+    },
+    {
+      "label": "原卷清单",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T11:39:18.947Z",
+      "endedAt": "2026-11-14T11:39:19.069Z",
+      "exitCode": 0,
+      "log": "command-3.txt"
+    },
+    {
+      "label": "独占Compose配置",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "config",
+        "--quiet"
+      ],
+      "startedAt": "2026-11-14T11:39:19.069Z",
+      "endedAt": "2026-11-14T11:39:19.378Z",
+      "exitCode": 0,
+      "log": "command-4.txt"
+    },
+    {
+      "label": "冻结镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m311-acceptance-3d655dc1-api:local"
+      ],
+      "startedAt": "2026-11-14T11:39:19.378Z",
+      "endedAt": "2026-11-14T11:39:19.545Z",
+      "exitCode": 0,
+      "log": "command-5.txt"
+    },
+    {
+      "label": "冻结镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m311-acceptance-3d655dc1-admin:local"
+      ],
+      "startedAt": "2026-11-14T11:39:19.547Z",
+      "endedAt": "2026-11-14T11:39:19.690Z",
+      "exitCode": 0,
+      "log": "command-6.txt"
+    },
+    {
+      "label": "冻结镜像ID",
+      "command": [
+        "docker",
+        "image",
+        "inspect",
+        "--format",
+        "{{.Id}}",
+        "self-ecom-m311-acceptance-3d655dc1-store:local"
+      ],
+      "startedAt": "2026-11-14T11:39:19.691Z",
+      "endedAt": "2026-11-14T11:39:19.842Z",
+      "exitCode": 0,
+      "log": "command-7.txt"
+    },
+    {
+      "label": "启动本轮独占数据库",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "up",
+        "-d",
+        "--wait",
+        "--wait-timeout",
+        "90",
+        "db"
+      ],
+      "startedAt": "2026-11-14T11:39:19.842Z",
+      "endedAt": "2026-11-14T11:39:26.446Z",
+      "exitCode": 0,
+      "log": "command-8.txt"
+    },
+    {
+      "label": "空库应用当前全部迁移",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "api",
+        "pnpm",
+        "db:migrate:deploy"
+      ],
+      "startedAt": "2026-11-14T11:39:26.447Z",
+      "endedAt": "2026-11-14T11:39:32.304Z",
+      "exitCode": 0,
+      "log": "command-9.txt"
+    },
+    {
+      "label": "权限初始化",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "api",
+        "pnpm",
+        "db:seed:permissions"
+      ],
+      "startedAt": "2026-11-14T11:39:32.304Z",
+      "endedAt": "2026-11-14T11:39:34.998Z",
+      "exitCode": 0,
+      "log": "command-10.txt"
+    },
+    {
+      "label": "独占管理员初始化",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "run",
+        "--rm",
+        "--no-deps",
+        "-e",
+        "INIT_ADMIN_USERNAME",
+        "-e",
+        "INIT_ADMIN_PASSWORD",
+        "api",
+        "pnpm",
+        "db:seed:admin"
+      ],
+      "startedAt": "2026-11-14T11:39:34.999Z",
+      "endedAt": "2026-11-14T11:39:37.740Z",
+      "exitCode": 0,
+      "log": "command-11.txt"
+    },
+    {
+      "label": "启动独占四服务",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "up",
+        "-d",
+        "--wait",
+        "--wait-timeout",
+        "120"
+      ],
+      "startedAt": "2026-11-14T11:39:37.741Z",
+      "endedAt": "2026-11-14T11:39:50.224Z",
+      "exitCode": 0,
+      "log": "command-12.txt"
+    },
+    {
+      "label": "专属数据库和API重启",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "restart",
+        "db",
+        "api"
+      ],
+      "startedAt": "2026-11-14T11:40:06.002Z",
+      "endedAt": "2026-11-14T11:40:07.439Z",
+      "exitCode": 0,
+      "log": "command-13.txt"
+    },
+    {
+      "label": "等待重启",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "up",
+        "-d",
+        "--wait",
+        "--wait-timeout",
+        "120"
+      ],
+      "startedAt": "2026-11-14T11:40:07.439Z",
+      "endedAt": "2026-11-14T11:40:13.613Z",
+      "exitCode": 0,
+      "log": "command-14.txt"
+    },
+    {
+      "label": "专属API重建",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "up",
+        "-d",
+        "--no-deps",
+        "--force-recreate",
+        "--wait",
+        "--wait-timeout",
+        "120",
+        "api"
+      ],
+      "startedAt": "2026-11-14T11:40:13.613Z",
+      "endedAt": "2026-11-14T11:40:20.578Z",
+      "exitCode": 0,
+      "log": "command-15.txt"
+    },
+    {
+      "label": "核对本轮专属卷",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--filter",
+        "label=com.docker.compose.project=self-ecom-m311-acceptance-ee6e6190",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T11:40:20.908Z",
+      "endedAt": "2026-11-14T11:40:21.030Z",
+      "exitCode": 0,
+      "log": "command-16.txt"
+    },
+    {
+      "label": "移除本轮专属容器",
+      "command": [
+        "docker",
+        "compose",
+        "--project-name",
+        "self-ecom-m311-acceptance-ee6e6190",
+        "--env-file",
+        ".env",
+        "-f",
+        "infra/compose.yaml",
+        "-f",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\playwright\\M3-11\\isolated-permission-final\\compose.override.yaml",
+        "down",
+        "--remove-orphans"
+      ],
+      "startedAt": "2026-11-14T11:40:21.031Z",
+      "endedAt": "2026-11-14T11:40:23.423Z",
+      "exitCode": 0,
+      "log": "command-17.txt"
+    },
+    {
+      "label": "移除本轮单个专属卷",
+      "command": [
+        "docker",
+        "volume",
+        "rm",
+        "self-ecom-m311-acceptance-ee6e6190_db_data"
+      ],
+      "startedAt": "2026-11-14T11:40:23.423Z",
+      "endedAt": "2026-11-14T11:40:23.580Z",
+      "exitCode": 0,
+      "log": "command-18.txt"
+    },
+    {
+      "label": "移除本轮单个专属卷",
+      "command": [
+        "docker",
+        "volume",
+        "rm",
+        "self-ecom-m311-acceptance-ee6e6190_uploads"
+      ],
+      "startedAt": "2026-11-14T11:40:23.581Z",
+      "endedAt": "2026-11-14T11:40:23.701Z",
+      "exitCode": 0,
+      "log": "command-19.txt"
+    },
+    {
+      "label": "原容器状态",
+      "command": [
+        "docker",
+        "inspect",
+        "--format",
+        "{{.Id}} {{.State.StartedAt}} {{.State.Running}}",
+        "f9add40315d8",
+        "5dcce5c32db7",
+        "b7ec0e299e7d",
+        "6329b5e18fa8",
+        "7739b45ac7a2",
+        "244279cd4439",
+        "8144d1966c52",
+        "ee27a28b9b48",
+        "2e1b71365c31",
+        "455c4edaf6a0",
+        "4234fa491169",
+        "bf5410398e77",
+        "273b12bc024b",
+        "8e406ea0b990"
+      ],
+      "startedAt": "2026-11-14T11:40:23.703Z",
+      "endedAt": "2026-11-14T11:40:23.879Z",
+      "exitCode": 0,
+      "log": "command-20.txt"
+    },
+    {
+      "label": "复核原卷",
+      "command": [
+        "docker",
+        "volume",
+        "ls",
+        "--format",
+        "{{.Name}}"
+      ],
+      "startedAt": "2026-11-14T11:40:23.879Z",
+      "endedAt": "2026-11-14T11:40:24.004Z",
+      "exitCode": 0,
+      "log": "command-21.txt"
+    }
+  ],
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m311-acceptance-3d655dc1-api:local",
+      "id": "sha256:66e39090dfbc840e4e2199fac96571d9b9a178dc74e5bf342b3ba11a34f2d935"
+    },
+    {
+      "name": "self-ecom-m311-acceptance-3d655dc1-admin:local",
+      "id": "sha256:fea6b47790f9f7f40040463266b1fae02d6cc5557b2ac63548b84d67ea4fe8f1"
+    },
+    {
+      "name": "self-ecom-m311-acceptance-3d655dc1-store:local",
+      "id": "sha256:7d3d698835bf6b695855fa50a86a523848df107554fdd1c7fb803ec4116240cc"
+    }
+  ],
+  "pageErrors": [],
+  "status": "passed",
+  "cleaned": true,
+  "originalResourcesPreserved": true,
+  "endedAt": "2026-11-14T11:40:24.005Z",
+  "source": "output/playwright/M3-11/isolated-permission-final"
+}

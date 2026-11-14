@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-14T11:29:52.810Z",
+  "mode": "lint",
+  "label": "closure",
+  "checks": [
+    {
+      "name": "all",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js",
+        "apps",
+        "packages",
+        "scripts",
+        "infra"
+      ],
+      "startedAt": "2026-11-14T11:29:52.811Z",
+      "endedAt": "2026-11-14T11:30:06.006Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/lint-closure-all.txt"
+    }
+  ],
+  "passed": true
+}

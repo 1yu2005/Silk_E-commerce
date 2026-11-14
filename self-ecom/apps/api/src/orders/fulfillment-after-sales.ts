@@ -6,6 +6,8 @@ export interface FulfillmentAfterSaleReader {
  hasActive(tx:Prisma.TransactionClient,orderId:string):Promise<boolean>;
  sourceBelongs(tx:Prisma.TransactionClient,orderId:string,sourceId:string):Promise<boolean>;
  sourceActive(tx:Prisma.TransactionClient,orderId:string,sourceId:string):Promise<boolean>;
+ physicalCheckStartedAt?(tx:Prisma.TransactionClient,orderId:string):Promise<Date|null>;
+ handoverRecorded?(tx:Prisma.TransactionClient,orderId:string,requestId:string):Promise<unknown>;
 }
 @Injectable()
 export class FulfillmentAfterSales {
@@ -15,4 +17,6 @@ export class FulfillmentAfterSales {
  async hasActive(tx:Prisma.TransactionClient,id:string){await this.installed(tx);return this.reader?this.reader.hasActive(tx,id):false;}
  async sourceBelongs(tx:Prisma.TransactionClient,id:string,sourceId:string){await this.installed(tx);return this.reader?this.reader.sourceBelongs(tx,id,sourceId):false;}
  async sourceActive(tx:Prisma.TransactionClient,id:string,sourceId:string){await this.installed(tx);return this.reader?this.reader.sourceActive(tx,id,sourceId):false;}
+ async physicalCheckStartedAt(tx:Prisma.TransactionClient,id:string){await this.installed(tx);return this.reader?.physicalCheckStartedAt?.(tx,id)??null;}
+ async handoverRecorded(tx:Prisma.TransactionClient,id:string,requestId:string){await this.installed(tx);return this.reader?.handoverRecorded?.(tx,id,requestId);}
 }

@@ -48,7 +48,7 @@ export class CommunicationService {
     if (current.subjectId !== subjectId || current.sessionId !== supplied.sessionId) throw new TokenValidationError('TOKEN_INVALID');
     if (current.subjectType === 'EMPLOYEE') {
       if (current.mustChangePassword) throw new AccessDeniedError('PASSWORD_CHANGE_REQUIRED');
-      const required = mode === 'WRITE' ? 'communication.service.write' : 'order.service.read';
+      const required = mode === 'WRITE' ? 'communication.service.write' : target.scopeType==='AFTER_SALE'?'after-sale.service.read':'order.service.read';
       if (!current.effectivePermissions.includes(required)
         || (target.scopeType === 'AFTER_SALE' && !current.effectivePermissions.includes('after-sale.service.read'))) {
         throw new AccessDeniedError('FORBIDDEN');

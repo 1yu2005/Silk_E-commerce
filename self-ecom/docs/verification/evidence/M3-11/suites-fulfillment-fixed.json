@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-14T10:31:02.254Z",
+  "mode": "suites",
+  "label": "fulfillment-fixed",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/fulfillment.integration.ts"
+      ],
+      "startedAt": "2026-11-14T10:31:02.261Z",
+      "endedAt": "2026-11-14T10:32:33.446Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/suites-fulfillment-fixed-suites.txt"
+    }
+  ],
+  "passed": true
+}

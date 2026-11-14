@@ -1,0 +1,4367 @@
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_ffed63b65d98491bad3a2025412bf35d_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:76472) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-m311-upgrade-DVHgx0\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_upgrade_055ce12e338d4b18a5d6b6029301bf65_test", schema "public" at "localhost:15432"
+
+13 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_upgrade_055ce12e338d4b18a5d6b6029301bf65_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m311_upgrade_055ce12e338d4b18a5d6b6029301bf65_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 passed (1)
+      Tests  39 passed (39)
+   Start at  18:39:45
+   Duration  75.04s (tests 93%, import 6%, transform 1%)
+
+{"suite":"test/after-sales.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_81d77befb9174e0caaaa3531a70aacd8_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  15 passed (15)
+   Start at  18:41:10
+   Duration  1.31s (import 48%, tests 48%, transform 3%, setup 1%)
+
+{"suite":"test/audit.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_07f11eb777f243b982e3f99d090dbe38_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  36 passed (36)
+   Start at  18:41:21
+   Duration  4.45s (tests 63%, import 34%, transform 3%)
+
+{"suite":"test/auth-guard.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_3a06cffe44d24c6998eae03a5f1adc9f_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  24 passed (24)
+   Start at  18:41:38
+   Duration  2.31s (tests 58%, import 28%, transform 9%, worker 3%, setup 2%)
+
+{"suite":"test/auth-schema.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_324e4ab9f7614c14ba18fb9f30fb6229_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  36 passed (36)
+   Start at  18:41:51
+   Duration  2.07s (tests 63%, import 34%, transform 3%)
+
+{"suite":"test/auth-session.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_363c78dc8d8544da92cb4ae35ef04672_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-catalog-migration-1py8OX\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_b7121fe896dd4f0a961ec7d173443103_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_b7121fe896dd4f0a961ec7d173443103_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_b7121fe896dd4f0a961ec7d173443103_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:42:01
+   Duration  20.22s (tests 100%)
+
+{"suite":"test/catalog-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_9c5ed744f6d04c3bbdfd65da45f38323_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:3112) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-catalog-RnGgvx
+
+ ❯ test/catalog.integration.ts (20 tests | 8 failed) 5075ms
+   × SW03/04：默认SKU零账户，预览只读，6组合映射与重复无新增 57ms
+   × IT02：容量提前拒绝、跨商品ID拒绝、签名不受选择顺序影响 78ms
+   × IT02：三维200组合边界实际保存、账户与重复提交稳定 45ms
+   × SW10/IT06：空草稿创建、数量保存/作废不入账，双版本与转换保护 113ms
+   × IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败 36ms
+   × IT03：创建、方案、分类子树、图片和上架审计失败全部回滚 365ms
+   × IT04：数据库CHECK和跨商品组合/数量外键拒绝不合法直接写入 150ms
+   × IT02：有引用时追加保留旧身份/价格，改已有显示含义拒绝；编码全局并发唯一 38ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW03/04：默认SKU零账户，预览只读，6组合映射与重复无新增
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ src/catalog/product-command.service.ts:119:82
+ ❯ src/catalog/product-command.service.ts:48:20
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ ProductCommands.guarded src/catalog/product-command.service.ts:31:16
+ ❯ test/catalog.integration.ts:122:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：容量提前拒绝、跨商品ID拒绝、签名不受选择顺序影响
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ src/catalog/product-command.service.ts:119:82
+ ❯ src/catalog/product-command.service.ts:48:20
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ ProductCommands.guarded src/catalog/product-command.service.ts:31:16
+ ❯ test/catalog.integration.ts:130:38
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：三维200组合边界实际保存、账户与重复提交稳定
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ src/catalog/product-command.service.ts:119:82
+ ❯ src/catalog/product-command.service.ts:48:20
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ ProductCommands.guarded src/catalog/product-command.service.ts:31:16
+ ❯ test/catalog.integration.ts:136:15
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/catalog.integration.ts > SW10/IT06：空草稿创建、数量保存/作废不入账，双版本与转换保护
+AssertionError: expected CatalogError: 已安装业务领域尚未注册SKU引用检查器 { …(3) } to match object { code: 'SKU_SCHEME_REFERENCED' }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+- {
+-   "code": "SKU_SCHEME_REFERENCED",
++ CatalogError {
++   "code": "SKU_REFERENCE_NOT_READY",
+  }
+
+ ❯ test/catalog.integration.ts:186:122
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ test/catalog.integration.ts:201:344
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT03：创建、方案、分类子树、图片和上架审计失败全部回滚
+AssertionError: expected [Function] to throw error including '审计故障' but got '已安装业务领域尚未注册SKU引用检查器'
+
+Expected: "审计故障"
+Received: "已安装业务领域尚未注册SKU引用检查器"
+
+ ❯ test/catalog.integration.ts:216:179
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT04：数据库CHECK和跨商品组合/数量外键拒绝不合法直接写入
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ src/catalog/product-command.service.ts:119:82
+ ❯ src/catalog/product-command.service.ts:48:20
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ ProductCommands.guarded src/catalog/product-command.service.ts:31:16
+ ❯ test/catalog.integration.ts:227:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：有引用时追加保留旧身份/价格，改已有显示含义拒绝；编码全局并发唯一
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ src/catalog/product-command.service.ts:119:82
+ ❯ src/catalog/product-command.service.ts:48:20
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ ProductCommands.guarded src/catalog/product-command.service.ts:31:16
+ ❯ test/catalog.integration.ts:231:26
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed | 12 passed (20)
+   Start at  18:42:30
+   Duration  8.95s (tests 59%, import 33%, transform 8%)
+
+{"suite":"test/catalog.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_59e678b9ed7a4f7992f760ff4230523b_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  58 passed (58)
+   Start at  18:42:49
+   Duration  24.96s (tests 90%, import 8%, transform 2%)
+
+{"suite":"test/customer-auth.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_42678c7c179442fb8c30c75704b30ca1_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  8 passed (8)
+   Start at  18:43:23
+   Duration  5.26s (tests 51%, import 38%, transform 10%)
+
+{"suite":"test/customer-avatar.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_cb350c811bc74395a4f082c8cc5a3b1e_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  74 passed (74)
+   Start at  18:43:36
+   Duration  37.56s (tests 95%, import 4%, transform 1%)
+
+{"suite":"test/customer-profile-password.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_3a6f61efd018407db9162d3d59479d4e_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  60 passed (60)
+   Start at  18:44:22
+   Duration  14.97s (tests 87%, import 9%, transform 3%)
+
+{"suite":"test/customer-register.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_09eb913a80d34806ab1e3bed96ec1153_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-customers-migration-jkYhbD\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "customers_migration_bd23c683aff343df89b3b13ddbf92b8f_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "customers_migration_bd23c683aff343df89b3b13ddbf92b8f_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "customers_migration_bd23c683aff343df89b3b13ddbf92b8f_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:44:45
+   Duration  30.54s (tests 100%)
+
+{"suite":"test/customers-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_7c1048719ac2459098f4c3eff6263103_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:63788) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  1 passed (1)
+      Tests  47 passed (47)
+   Start at  18:45:33
+   Duration  12.26s (tests 62%, import 29%, transform 8%)
+
+{"suite":"test/customers.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_06929a34ecfe43fdb91212a9937a6a93_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/database.integration.ts (6 tests | 1 failed) 1987ms
+   × 已应用工程、认证、文件及设置任务基础迁移，并保留完整业务表 21ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/database.integration.ts > 已应用工程、认证、文件及设置任务基础迁移，并保留完整业务表
+AssertionError: expected [ { …(2) }, { …(2) }, { …(2) }, …(11) ] to deeply equal [ { …(2) }, { …(2) }, { …(2) }, …(10) ]
+
+- Expected
++ Received
+
+@@ -49,6 +49,10 @@
+    },
+    {
+      "finished_at": 2026-11-14T10:45:55.838Z,
+      "migration_name": "0013_inventory_fact_guards",
+    },
++   {
++     "finished_at": 2026-11-14T10:45:56.405Z,
++     "migration_name": "0014_after_sales_review_material_return",
++   },
+  ]
+
+ ❯ test/database.integration.ts:41:16
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  18:45:57
+   Duration  7.56s (import 59%, tests 28%, transform 12%)
+
+{"suite":"test/database.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_ac6b74264d414d15b2a7517178d0ba79_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  30 passed (30)
+   Start at  18:46:16
+   Duration  16.72s (tests 85%, import 11%, transform 3%)
+
+{"suite":"test/employee-auth.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_94e5e533bae843f7ab7a9be312da3d28_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  49 passed (49)
+   Start at  18:46:46
+   Duration  20.84s (tests 85%, import 10%, transform 4%)
+
+{"suite":"test/employee-create.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_e46385a44d464c9cacfd34d47eaf695f_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  89 passed (89)
+   Start at  18:47:24
+   Duration  19.89s (tests 79%, import 16%, transform 5%)
+
+{"suite":"test/employee-extra-permission.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_5b473b3c7abd48e881feaa92197c83ef_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  61 passed (61)
+   Start at  18:47:52
+   Duration  33.33s (tests 93%, import 5%, transform 1%)
+
+{"suite":"test/employee-password-reset.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_e19337663a244b639fc24bf28a5c7136_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  27 passed (27)
+   Start at  18:48:35
+   Duration  31.16s (tests 91%, import 6%, transform 3%)
+
+{"suite":"test/employee-password.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_febef76b72f1444494bd4c8d030c8018_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  48 passed (48)
+   Start at  18:49:19
+   Duration  10.15s (tests 70%, import 23%, transform 6%)
+
+{"suite":"test/employee-profile.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_436db797ae1f4361b0613cecdfd51029_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  30 passed (30)
+   Start at  18:49:37
+   Duration  7.55s (tests 71%, import 22%, transform 7%)
+
+{"suite":"test/employee-query.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_9f86b995835547e1808f148dde06d893_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "employee_role_2c4fa95e36214e44b84834ad75c88698_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ Test Files  1 passed (1)
+      Tests  64 passed (64)
+   Start at  18:49:53
+   Duration  21.73s (tests 91%, import 7%, transform 2%)
+
+{"suite":"test/employee-role.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_e875fdb689c548329eb7bc473eca95fe_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "employee_status_a0abcd1fdc91411d969ade090d225e11_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ Test Files  1 passed (1)
+      Tests  49 passed (49)
+   Start at  18:50:23
+   Duration  20.89s (tests 89%, import 8%, transform 3%)
+
+{"suite":"test/employee-status.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_3c022c8131e64926a466247d90ef4033_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-m003-migrations-nnS5Ic\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_5b63a2217ed04ceb8e6ce2da4cd4329c_test", schema "public" at "localhost:15432"
+
+2 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_4f3d5c24334b414db2572845e42da627_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_5b63a2217ed04ceb8e6ce2da4cd4329c_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_5b63a2217ed04ceb8e6ce2da4cd4329c_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+stdout | test/files-migration.integration.ts
+保留迁移测试临时目录：D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m003-migrations-nnS5Ic, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m003-migrations-nnS5Ic\migrations, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m003-migrations-nnS5Ic\migrations\0001_bootstrap, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m003-migrations-nnS5Ic\migrations\0002_auth_employee_permission_audit
+
+ ❯ test/files-migration.integration.ts (5 tests | 1 failed) 28556ms
+   × PostgreSQL16空库通过十二条正式迁移，文件表为空且订单基础表已建立 16ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/files-migration.integration.ts > PostgreSQL16空库通过十二条正式迁移，文件表为空且订单基础表已建立
+AssertionError: expected 'after_sale' to be null
+
+- Expected:
+null
+
++ Received:
+"after_sale"
+
+ ❯ test/files-migration.integration.ts:132:115
+    130|   expect((await freshClient.query("SELECT to_regclass('public.inventor…
+    131|   for (const table of ['after_sale']) {
+    132|     expect((await freshClient.query('SELECT to_regclass($1) AS relatio…
+       |                                                                                                                   ^
+    133|   }
+    134| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 4 passed (5)
+   Start at  18:50:55
+   Duration  29.31s (tests 98%, import 2%)
+
+{"suite":"test/files-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_0270bb85244c4b459e588ccbf2a5c97c_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  75 passed (75)
+   Start at  18:51:32
+   Duration  673ms (tests 84%, import 12%, transform 2%, setup 1%, worker 1%)
+
+{"suite":"test/files-schema.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_79466670d3cc46f8866ff55819fe4bd6_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  39 passed (39)
+   Start at  18:51:41
+   Duration  7.13s (tests 69%, import 24%, transform 7%)
+
+{"suite":"test/files.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m210_cda827363caf4767a35ceac38d79c6dd_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:59408) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  1 passed (1)
+      Tests  34 passed (34)
+   Start at  18:51:57
+   Duration  86.53s (tests 98%, import 2%)
+
+{"suite":"test/fulfillment.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_2c26096483374ccc868a9688b0f44619_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "admin_seed_1d31fa52a0fe4506b31b9a19686fe208_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  18:53:32
+   Duration  20.58s (tests 89%, import 9%, transform 2%)
+
+{"suite":"test/initial-admin-seed.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_ca70a7cbd12c485db5a94facb75d220a_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-inventory-guards-gPTUkM\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_guards_b12a4ad408bf4b36b0b8447f8340f048_test", schema "public" at "localhost:15432"
+
+12 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_guards_b12a4ad408bf4b36b0b8447f8340f048_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_guards_b12a4ad408bf4b36b0b8447f8340f048_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:54:01
+   Duration  19.05s (tests 100%)
+
+{"suite":"test/inventory-fact-guards-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_45a3cfbde7be4ad5a0abb816f0293632_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-inventory-migration-Y3CABL\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_migration_ffda7e31f4cf4180bb29485837e13606_test", schema "public" at "localhost:15432"
+
+5 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_migration_ffda7e31f4cf4180bb29485837e13606_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_migration_ffda7e31f4cf4180bb29485837e13606_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+
+ Test Files  1 passed (1)
+      Tests  1 passed (1)
+   Start at  18:54:29
+   Duration  18.30s (tests 100%)
+
+{"suite":"test/inventory-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_b4c8f8a04c714613a3ddb9a9975ce0ed_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:49144) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+
+ Test Files  1 passed (1)
+      Tests  25 passed (25)
+   Start at  18:54:54
+   Duration  21.88s (tests 89%, import 9%, transform 2%)
+
+{"suite":"test/inventory.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_d4106108ed3f47cc8de74258230a21ea_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  32 passed (32)
+   Start at  18:55:25
+   Duration  7.81s (tests 73%, import 21%, transform 6%)
+
+{"suite":"test/logout.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m108_449761f5011e434ea434852d129ce423_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  18:55:42
+   Duration  919ms (import 51%, tests 39%, transform 6%, setup 3%, worker 2%)
+
+{"suite":"test/orders-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m108_977fda39a6644e80b0c179effe359890_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:29892) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (30 tests | 1 failed) 41138ms
+   × SW12：服务端字段、真实消费0与ORDER公开沟通；内部内容不泄漏 263ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > SW12：服务端字段、真实消费0与ORDER公开沟通；内部内容不泄漏
+AssertionError: expected 404 to be 503 // Object.is equality
+
+- Expected
++ Received
+
+- 503
++ 404
+
+ ❯ test/orders.integration.ts:89:649
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 29 passed (30)
+   Start at  18:55:53
+   Duration  43.17s (tests 96%, import 3%, transform 1%)
+
+{"suite":"test/orders.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_dcd4b5ac97c84fdcbe1ecc9984d4a7ca_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  7 passed (7)
+   Start at  18:56:44
+   Duration  1.25s (tests 61%, import 35%, transform 2%, setup 1%)
+
+{"suite":"test/permission-seed.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_9c6382a18718464a96210390224899e4_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  58 passed (58)
+   Start at  18:56:53
+   Duration  3.13s (tests 60%, import 36%, transform 4%)
+
+{"suite":"test/records.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_11d995db646c43469f70f2039d541018_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "settings_dbbaace089eb422986a0f8bd2c95bf2f_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ Test Files  1 passed (1)
+      Tests  66 passed (66)
+   Start at  18:57:05
+   Duration  16.29s (tests 83%, import 13%, transform 4%)
+
+{"suite":"test/settings.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_9040c44f6f9c4cd6bcb4bd16786189e6_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_access_d6caac0ef84b487e9027cb70204801b0_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-access.integration.ts
+步骤6专属测试库已删除
+
+ ❯ test/task-access.integration.ts (38 tests | 38 skipped) 9149ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-access.integration.ts [ test/task-access.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureAccessAdapters.registerLocker src/tasks/task-business-adapters.ts:152:114
+    150|   }
+    151|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    152|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    153|     this.lockers.set(kind, locker);
+    154|   }
+ ❯ AfterSaleAdapters.onModuleInit src/after-sales/after-sale.adapters.ts:20:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  38 skipped (38)
+   Start at  18:57:31
+   Duration  12.08s (tests 77%, import 18%, transform 5%)
+
+{"suite":"test/task-access.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_9eed3961837a42a69b7db9c178028be6_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_deadline_e798b33533a14493ab2e3e69cbab756d_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-deadline.integration.ts
+步骤8专属延期库已删除
+
+ ❯ test/task-deadline.integration.ts (57 tests | 57 skipped) 8094ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-deadline.integration.ts [ test/task-deadline.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureDeadlineAdapters.registerLocker src/tasks/task-business-adapters.ts:152:114
+    150|   }
+    151|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    152|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    153|     this.lockers.set(kind, locker);
+    154|   }
+ ❯ AfterSaleAdapters.onModuleInit src/after-sales/after-sale.adapters.ts:20:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  57 skipped (57)
+   Start at  18:57:51
+   Duration  10.51s (tests 78%, import 17%, transform 5%)
+
+{"suite":"test/task-deadline.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_b5cee79b6b2b4a0da8fed736d383dbc2_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_entry_32a6958ba60b4c0fa00dc3a394d0c838_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-entry.integration.ts
+步骤5本轮独占测试库已删除，未清空共享测试库或开发库
+
+ ❯ test/task-entry.integration.ts (34 tests | 34 skipped) 7893ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-entry.integration.ts [ test/task-entry.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureTaskAdapters.registerLocker src/tasks/task-business-adapters.ts:152:114
+    150|   }
+    151|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    152|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    153|     this.lockers.set(kind, locker);
+    154|   }
+ ❯ AfterSaleAdapters.onModuleInit src/after-sales/after-sale.adapters.ts:20:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  34 skipped (34)
+   Start at  18:58:09
+   Duration  9.89s (tests 81%, import 14%, transform 5%)
+
+{"suite":"test/task-entry.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_00ff9cebdcad4988a5949e2cf8c64c00_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_kernel_d509aed83f09449b90fe2ac56e5eef11_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-kernel.integration.ts
+步骤9专属内核库已删除
+
+ ❯ test/task-kernel.integration.ts (47 tests | 47 skipped) 8151ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-kernel.integration.ts [ test/task-kernel.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureKernelAdapters.registerLocker src/tasks/task-business-adapters.ts:152:114
+    150|   }
+    151|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    152|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    153|     this.lockers.set(kind, locker);
+    154|   }
+ ❯ AfterSaleAdapters.onModuleInit src/after-sales/after-sale.adapters.ts:20:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  47 skipped (47)
+   Start at  18:58:27
+   Duration  9.94s (tests 83%, import 13%, transform 4%)
+
+{"suite":"test/task-kernel.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_59cd942d29974017905949c10a75689d_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_reassign_3cb520e4eb9f4478af8ee30466bef3e2_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-reassign.integration.ts
+步骤7专属测试库已删除
+
+ ❯ test/task-reassign.integration.ts (44 tests | 44 skipped) 8403ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-reassign.integration.ts [ test/task-reassign.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureReassignAdapters.registerLocker src/tasks/task-business-adapters.ts:152:114
+    150|   }
+    151|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    152|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    153|     this.lockers.set(kind, locker);
+    154|   }
+ ❯ AfterSaleAdapters.onModuleInit src/after-sales/after-sale.adapters.ts:20:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  44 skipped (44)
+   Start at  18:58:45
+   Duration  10.15s (tests 84%, import 13%, transform 3%)
+
+{"suite":"test/task-reassign.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_38cc0f7676f94d719a339f0316e0f273_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from ..\..\output\testing\M3-11\self-ecom-m004-migrations-XFWvPs\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_c179ecc7e43947d1b43a6588312b64f6_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_d7149f32ecad40599851dee5557ca89a_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_c179ecc7e43947d1b43a6588312b64f6_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_c179ecc7e43947d1b43a6588312b64f6_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+(node:8336) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/tasks-migration.integration.ts
+保留迁移测试临时目录：D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m004-migrations-XFWvPs, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m004-migrations-XFWvPs\migrations, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m004-migrations-XFWvPs\migrations\0001_bootstrap, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m004-migrations-XFWvPs\migrations\0002_auth_employee_permission_audit, D:\实习\实习生全栈学习笔记\self-ecom\output\testing\M3-11\self-ecom-m004-migrations-XFWvPs\migrations\0003_files_communication_history
+
+ ❯ test/tasks-migration.integration.ts (7 tests | 1 failed) 60003ms
+   × 空库通过十二条正式迁移，仅Head有未配置行，订单基础表已建立 408ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/tasks-migration.integration.ts > 空库通过十二条正式迁移，仅Head有未配置行，订单基础表已建立
+AssertionError: expected 'after_sale' to be null
+
+- Expected:
+null
+
++ Received:
+"after_sale"
+
+ ❯ test/tasks-migration.integration.ts:145:115
+    143|   expect((await freshClient.query("SELECT to_regclass('public.inventor…
+    144|   for (const table of ['after_sale']) {
+    145|     expect((await freshClient.query('SELECT to_regclass($1) AS relatio…
+       |                                                                                                                   ^
+    146|   }
+    147| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed (7)
+   Start at  18:59:03
+   Duration  60.70s (tests 99%, import 1%)
+
+{"suite":"test/tasks-migration.integration.ts","ownedDatabaseRemoved":true}
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "m105_900ce15ec1ac44fe81080dbb410eb76f_test", schema "public" at "localhost:15432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+Applying migration `0007_customer_status_addresses_cart`
+Applying migration `0008_orders_quotes_idempotency_blocks`
+Applying migration `0009_payments_stock_issues`
+Applying migration `0010_order_snapshot_file_reference`
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+Applying migration `0013_inventory_fact_guards`
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+  └─ 0007_customer_status_addresses_cart/
+    └─ migration.sql
+  └─ 0008_orders_quotes_idempotency_blocks/
+    └─ migration.sql
+  └─ 0009_payments_stock_issues/
+    └─ migration.sql
+  └─ 0010_order_snapshot_file_reference/
+    └─ migration.sql
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+
+ Test Files  1 passed (1)
+      Tests  92 passed (92)
+   Start at  19:00:19
+   Duration  1.34s (tests 82%, import 14%, transform 2%, worker 1%, setup 1%)
+
+{"suite":"test/tasks-schema.integration.ts","ownedDatabaseRemoved":true}
+数据库集成测试存在失败，本轮独占资源已按归属清理

@@ -1,0 +1,98 @@
+{
+  "at": "2026-11-14T11:08:31.949Z",
+  "mode": "types",
+  "label": "final5",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T11:08:31.951Z",
+      "endedAt": "2026-11-14T11:08:32.398Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/types-final5-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T11:08:32.398Z",
+      "endedAt": "2026-11-14T11:08:33.283Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/types-final5-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T11:08:33.283Z",
+      "endedAt": "2026-11-14T11:08:34.343Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/types-final5-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T11:08:34.343Z",
+      "endedAt": "2026-11-14T11:08:47.377Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/types-final5-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T11:08:47.377Z",
+      "endedAt": "2026-11-14T11:08:52.678Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/types-final5-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "C:\\Users\\CodexSandboxOffline\\.codex\\.sandbox\\cwd\\1ea74de53453cb7f\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T11:08:52.679Z",
+      "endedAt": "2026-11-14T11:08:55.687Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/types-final5-apps-store-web.txt"
+    }
+  ],
+  "passed": true
+}

@@ -7,6 +7,7 @@ import { AppModule } from '../src/app.module.js';
 import { configureApp } from '../src/common/configure-app.js';
 import { APP_CONFIG, validateEnvironment } from '../src/config/environment.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import { AfterSaleCloseFacts } from '../src/after-sales/after-sale-close-facts.js';
 import type { OpenAPIObject } from '@nestjs/swagger';
 
 it.each([true, false])('serves native Swagger documents only when enabled=%s', async enabled => {
@@ -14,6 +15,7 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
     .overrideProvider(APP_CONFIG).useValue(validateEnvironment({ NODE_ENV: 'test', LOG_LEVEL: 'silent',
       DATABASE_URL: 'postgresql://test:test@localhost:15432/shop_test',
       CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174', SWAGGER_ENABLED: String(enabled) }))
+    .overrideProvider(AfterSaleCloseFacts).useValue({})
     .overrideProvider(PrismaService).useValue({ ping: async () => {} }).compile();
   const app: INestApplication = module.createNestApplication();
   configureApp(app);
@@ -62,6 +64,10 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           '/api/v1/store/orders/{id}/confirm-receipt',
           '/api/v1/store/checkout/preview','/api/v1/store/orders','/api/v1/store/orders/{id}',
           '/api/v1/store/orders/{id}/cancel','/api/v1/store/orders/{id}/communications','/api/v1/store/orders/{id}/pay',
+          ...['store','admin'].flatMap(scope=>['/api/v1/'+scope+'/after-sales','/api/v1/'+scope+'/after-sales/{id}','/api/v1/'+scope+'/after-sales/{id}/history']),
+          ...['supplements','withdraw','return-logistics'].map(action=>'/api/v1/store/after-sales/{id}/'+action),
+          '/api/v1/store/after-sales/{id}/communications',
+          ...['review','return-verifications','close','confirm-no-return-refund'].map(action=>'/api/v1/admin/after-sales/{id}/'+action),
         ]).sort());
         for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products|inventory)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){
           const operation=item![key];if(operation)expect(operation.security).toEqual([{bearerAuth:[]}]);

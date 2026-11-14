@@ -1,0 +1,83 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:75952) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/after-sales.integration.ts (6 tests | 3 failed) 6904ms
+   × 真实申请→两轮补充→撤销→发货新轮；原键重放不复活、金额库存无副作用 740ms
+   × 同订单100并发不同key只有一单；同key100重放同结果，异载荷冲突 1099ms
+   × 交运中售后保留真实Attempt，批准后已交补录触发限定再决定 1067ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/after-sales.integration.ts > 真实申请→两轮补充→撤销→发货新轮；原键重放不复活、金额库存无副作用
+AssertionError: expected 20600 to be 19800 // Object.is equality
+
+- Expected
++ Received
+
+- 19800
++ 20600
+
+ ❯ test/after-sales.integration.ts:90:208
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/after-sales.integration.ts > 同订单100并发不同key只有一单；同key100重放同结果，异载荷冲突
+AssertionError: expected undefined to be 'AFTER_SALE_ALREADY_ACTIVE' // Object.is equality
+
+- Expected:
+"AFTER_SALE_ALREADY_ACTIVE"
+
++ Received:
+undefined
+
+ ❯ test/after-sales.integration.ts:94:282
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/after-sales.integration.ts > 交运中售后保留真实Attempt，批准后已交补录触发限定再决定
+PrismaClientValidationError: 
+Invalid `db.handoverAttempt.findUnique()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/after-sales.integration.ts:97:871
+
+  94 it('同订单100并发不同key只有一单；同key100重放同结果，异载荷冲突',async()=>{const f=await paid(),results=await Promise.allSettled(Array.from({length:100},()=>apply(f)));expect(results.filter(r=>r.status==='fulfilled')).toHaveLength(1);for(const r of results)if(r.status==='rejected')expect(r.reason.code).toBe('AFTER_SALE_ALREADY_ACTIVE');const g=await paid(),b={orderId:g.id,type:'REFUND_ONLY' as const,reasonCode:'OTHER',description:'幂等',evidenceFileIds:[],commandKey:randomUUID()};const same=await Promise.all(Array.from({length:100},()=>sales().apply(g.c,b)));expect(new Set(same.map(r=>r.afterSaleId)).size).toBe(1);expect(same.filter(r=>!r.replayed)).toHaveLength(1);await expect(sales().apply(g.c,{...b,description:'变化'})).rejects.toMatchObject({code:'COMMAND_PAYLOAD_CONFLICT'});expect(await db.afterSaleMaterialVersion.count({where:{afterSaleId:same[0]!.afterSaleId}})).toBe(1);},180000);
+  95 it('审核必须领取；拒绝与撤销竞争最多一次，旧权限与他人订单拒绝',async()=>{const f=await paid(),a=await apply(f),b={...await saleBody(a.afterSaleId),decision:'REJECT' as const,publicExplanation:'拒绝原因'};await expect(sales().review(support,a.afterSaleId,b)).rejects.toMatchObject({code:'TASK_NOT_ASSIGNEE'});await saleTask(a.afterSaleId);const calls=await Promise.allSettled([sales().review(support,a.afterSaleId,{...b,...await saleBody(a.afterSaleId)}),sales().withdraw(f.c,a.afterSaleId,await saleBody(a.afterSaleId))]);expect(calls.filter(r=>r.status==='fulfilled')).toHaveLength(1);expect(await db.afterSaleDecision.count({where:{afterSaleId:a.afterSaleId}})).toBe(1);await expect(detail(a.afterSaleId,await customer())).rejects.toMatchObject({code:'AFTER_SALE_NOT_FOUND'});await expect(sales().review(warehouse,a.afterSaleId,b)).rejects.toMatchObject({code:'FORBIDDEN'});});
+  96 it('仅退款未交运等待实物；已交运待退款，无退款执行或库存回补',async()=>{const f=await paid(),a=await apply(f);await review(a.afterSaleId,'APPROVE');expect((await detail(a.afterSaleId,f.c)).status).toBe('WAIT_FULFILLMENT_CHECK');expect(await db.taskBusinessSource.count({where:{sourceType:'AFTER_SALE',sourceId:a.afterSaleId,status:'ACTIVE'}})).toBe(1);const g=await shipped(),b=await apply(g);await review(b.afterSaleId,'APPROVE');expect((await detail(b.afterSaleId,g.c)).status).toBe('WAIT_REFUND');expect(await db.task.findFirst({where:{businessId:b.afterSaleId,stage:'REFUND_PROCESS'}})).toMatchObject({status:'OPEN'});await expect(sales().close(support,b.afterSaleId,{...await saleBody(b.afterSaleId,'REFUND_PROCESS'),reason:'不得关闭',publicExplanation:'不得关闭'})).rejects.toMatchObject({code:'AFTER_SALE_CLOSE_FORBIDDEN'});expect(await db.inventoryBalance.findUnique({where:{skuId:g.sku.id}})).toMatchObject({available:8,reserved:0});});
+→ 97 it('交运中售后保留真实Attempt，批准后已交补录触发限定再决定',async()=>{const f=await ready(),attempt=await start(f.id),actual=clock.now(),a=await apply(f);expect(await db.handoverAttempt.findUnique({
+       data: {
+         scopeType: "AFTER_SALE",
+         scopeId: "5074d81c-5a9b-444e-86b8-6a6b317315fe",
+         channel: "OTHER",
+         occurredAt: new Date("2026-11-14T10:09:20.946Z"),
+         result: "顾客同意无需退货",
+         nextStep: "明确决定",
+         actorEmployeeId: "d007e276-72eb-402f-a6d6-5745b325c036",
+         requestId: "57fd0a42-a134-4913-985d-66bf0b77af83",
+     +   authorEmployee: {
+     +     create: EmployeeCreateWithoutCommunicationsInput | EmployeeUncheckedCreateWithoutCommunicationsInput,
+     +     connectOrCreate: EmployeeCreateOrConnectWithoutCommunicationsInput,
+     +     connect: EmployeeWhereUniqueInput
+     +   }
+       }
+     })
+
+Argument `authorEmployee` is missing.
+ ❯ Fr ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/core/errorRendering/throwValidationException.ts:46:9
+ ❯ throwValidationException ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:212:7
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/after-sales.integration.ts:97:848
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 3 passed (6)
+   Start at  18:09:13
+   Duration  9.22s (tests 76%, import 19%, transform 5%)
+

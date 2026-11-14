@@ -1,0 +1,45 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:71044) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/after-sales.integration.ts (21 tests | 2 failed) 20905ms
+   × 同订单100并发不同key只有一单；同key100重放同结果，异载荷冲突 3186ms
+   × 完成窗口毫秒边界、新旧规则、已提交晚补充及COMPLETED不降级 582ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/after-sales.integration.ts > 同订单100并发不同key只有一单；同key100重放同结果，异载荷冲突
+OrderError: 购买请求处理中，请沿用原请求重试
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:38:363
+
+ ❯ test/after-sales.integration.ts:97:689
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/after-sales.integration.ts > 完成窗口毫秒边界、新旧规则、已提交晚补充及COMPLETED不降级
+TaskError: 当前订单或阻塞状态不允许该计时动作
+ ❯ applyOrderTimer src/tasks/order-timer.rules.ts:61:34
+     59|     const block = state.blocks.find(row => row.sourceType === command.…
+     60|     if (command.action === 'ADD_BLOCK') {
+     61|       if (terminal(state)) throw new TaskError('ORDER_TIMER_BLOCKED');
+       |                                  ^
+     62|       if (block) { if (block.active) return { changed: false, state };…
+     63|       const alreadyBlocked = state.blocks.some(receiptBlocking);
+ ❯ src/tasks/order-timer.service.ts:52:22
+ ❯ src/after-sales/after-sale.service.ts:74:203
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:69:18
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:69:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ AfterSaleService.run src/after-sales/after-sale.service.ts:38:82
+ ❯ test/after-sales.integration.ts:113:248
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 19 passed (21)
+   Start at  18:14:23
+   Duration  24.09s (tests 88%, import 9%, transform 3%)
+

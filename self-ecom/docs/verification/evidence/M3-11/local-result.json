@@ -1,0 +1,140 @@
+{
+  "startedAt": "2026-11-14T11:27:49.517Z",
+  "checks": [
+    "常用镜像真实浏览器申请→领取补充→新材料新轮→再领取同意待实物核实；原地址/购物车保持、库存仅正式购买减1、售后未回补、净消费未增加、无新增成员"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "df7f3316-59ff-468c-9fae-d78706d4a04e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "dac92f11-bb8c-498b-a190-d83afe2d98b6"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "542a7364-323f-4a92-b1fb-b8c50ff77929"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "4738d014-c532-46e1-8e8c-a3077d6137f0"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "bc5d188c-0d06-492f-90df-5fe597d714e3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "b9e614eb-c515-4a5a-a458-82eb679d8e2b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "72cd9958-3d03-490a-82bd-8799b5194cad"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "1ca5c3a1-5436-4d85-a976-eb17c7213ccf"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "5e79e247-6ccf-414d-8630-b1d29e36564a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "34d59f42-88b2-482e-9b34-e8baeebf33e2"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/289e4a09-e52b-4488-8f85-6febd4bed09f/pay",
+      "status": 200,
+      "requestId": "754d61e6-1bde-4dac-943f-2c1cb295781b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/after-sales/03f51f20-5044-4f3e-ba7c-a391434f5041",
+      "status": 200,
+      "requestId": "ec6f1944-9b4d-4325-ac04-bc0fd656c14d"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/289e4a09-e52b-4488-8f85-6febd4bed09f",
+      "status": 200,
+      "requestId": "69cbe55a-e4df-43d4-9fd5-9214b921dacc"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/289e4a09-e52b-4488-8f85-6febd4bed09f",
+      "status": 200,
+      "requestId": "67ba73be-b74f-4585-af7f-19ebebde6b8f"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+      "status": 200,
+      "requestId": "26461a4a-91f8-4a28-be07-b4a597a9ce7b"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "e86a7918-4ddd-4b27-849c-c7829d88548a"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "e8ced517-10de-412b-9edb-aaac23c85b98"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "5c9f2351-95a4-4e37-b382-64ea29403e99"
+    }
+  ],
+  "pageErrors": [],
+  "newMembers": 0,
+  "demo": {
+    "orderId": "289e4a09-e52b-4488-8f85-6febd4bed09f",
+    "skuId": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+    "meaning": "板块11开发演示，不代表真实寄件、经营事实或资金流转",
+    "afterSaleId": "03f51f20-5044-4f3e-ba7c-a391434f5041",
+    "orderNo": "OMWGBNDPTA7452F27360B",
+    "afterSaleNo": "ASMWGBNFJ4D4844797914B4A",
+    "status": "WAIT_FULFILLMENT_CHECK",
+    "amountCents": 10700
+  },
+  "balance": {
+    "before": {
+      "available": 11,
+      "reserved": 0
+    },
+    "after": {
+      "available": 10,
+      "reserved": 0
+    }
+  },
+  "status": "passed",
+  "endedAt": "2026-11-14T11:27:55.472Z"
+}

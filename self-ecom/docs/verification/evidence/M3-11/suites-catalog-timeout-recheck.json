@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-14T11:13:23.656Z",
+  "mode": "suites",
+  "label": "catalog-timeout-recheck",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/catalog.integration.ts"
+      ],
+      "startedAt": "2026-11-14T11:13:23.666Z",
+      "endedAt": "2026-11-14T11:13:43.444Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/suites-catalog-timeout-recheck-suites.txt"
+    }
+  ],
+  "passed": true
+}

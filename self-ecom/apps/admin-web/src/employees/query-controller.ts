@@ -21,9 +21,11 @@ export class EmployeeQueryController<Input, Data> {
   private pending: Promise<void> | null = null;
   private lastRead: { key: string; input: Input } | null = null;
   private readonly failureMessage: string;
+  private readonly preserveOnRefresh: boolean;
 
   constructor(session: AuthSessionStore, fetch: (input: Input, signal: AbortSignal) => Promise<ApiResponse<Data>>,
-    failureMessage = '员工信息读取失败，请重试') {
+    failureMessage = '员工信息读取失败，请重试',preserveOnRefresh=false) {
+    this.preserveOnRefresh = preserveOnRefresh;
     this.failureMessage = failureMessage;
     this.session = session; this.fetch = fetch; this.revision = session.getSnapshot().revision;
     this.stopSession = session.subscribe(() => {
@@ -48,7 +50,8 @@ export class EmployeeQueryController<Input, Data> {
     }
     const generation = ++this.generation; const revision = this.session.getSnapshot().revision;
     this.abort?.abort(); const abort = new AbortController(); this.abort = abort;
-    this.update({ key, status: 'loading', data: null, error: null });
+    const data=this.preserveOnRefresh&&key===this.snapshot.key?this.snapshot.data:null;
+    this.update({ key, status: 'loading', data, error: null });
     const task = this.load(key, input, abort.signal, revision, generation).finally(() => { if (this.pending === task) this.pending = null; });
     this.pending = task; return task;
   };
@@ -58,6 +61,7 @@ export class EmployeeQueryController<Input, Data> {
     if (key !== undefined && this.snapshot.key !== key) return Promise.resolve();
     const previous = this.lastRead;
     this.generation++; this.abort?.abort(); this.pending = null;
+    if(this.preserveOnRefresh&&previous&&this.listeners.size)return this.read(previous.key,previous.input,true);
     this.update({ key: null, status: 'idle', data: null, error: null });
     return previous && this.listeners.size ? this.read(previous.key, previous.input, true) : Promise.resolve();
   };

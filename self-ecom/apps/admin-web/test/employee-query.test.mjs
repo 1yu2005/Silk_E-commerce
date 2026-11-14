@@ -120,3 +120,12 @@ test('失效只作用指定员工；离开页面仅清缓存不暗中发请求',
   await f.controller.invalidate('employee-b'); assert.equal(f.controller.getSnapshot().data, null); assert.equal(f.calls.length, 1);
   await f.controller.read('employee-b', '员工乙新版本'); assert.equal(f.controller.getSnapshot().data, '员工乙新版本'); f.controller.dispose();
 });
+
+test('售后同键刷新保留表单依赖数据，换键/错误/换会话立即清除', async () => {
+ const f=fixture(),gate=deferred();let behavior=async()=>response('原事实');
+ const controller=new EmployeeQueryController(f.session,()=>behavior(),'售后读取失败',true),stop=controller.subscribe(()=>{});
+ await controller.read('sale-a','a');behavior=()=>gate.promise;const refresh=controller.invalidate('sale-a');assert.equal(controller.getSnapshot().data,'原事实');assert.equal(controller.getSnapshot().status,'loading');
+ gate.resolve(response('最新事实'));await refresh;assert.equal(controller.getSnapshot().data,'最新事实');
+ behavior=async()=>{throw new ApiClientError('FORBIDDEN','无权',403);};await controller.read('sale-a','a',true);assert.equal(controller.getSnapshot().data,null);
+ behavior=async()=>response('新售后');await controller.read('sale-b','b');f.session.clear();assert.equal(controller.getSnapshot().data,null);stop();controller.dispose();f.controller.dispose();
+});

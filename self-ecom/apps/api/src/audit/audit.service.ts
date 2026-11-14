@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'after-sale.change': {target:'AfterSale',fields:['afterSaleAction','afterSaleStatus','afterSaleVersion','orderId'],reason:true},
+  'order.after-sale.pause': {target:'Order',fields:['orderStatus','orderVersion','fulfillmentAction','fulfillmentStage','sourceId'],reason:true},
   'order.fulfillment': { target: 'Order', fields: ['orderStatus','orderVersion','fulfillmentAction','fulfillmentStage','sourceId'], reason: true },
   'order.receipt': { target: 'Order', fields: ['orderStatus','orderVersion','receiptSource','dueAt'], reason: true },
   'order.create': { target: 'Order', fields: ['orderStatus','orderVersion','amountCents'], reason: false },
@@ -88,7 +90,11 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
   for (const [field, item] of Object.entries(value)) {
     if (!fields.includes(field)) invalid();
     let valid = false;
-    if(field==='fulfillmentAction') valid=typeof item==='string'&&['PACK','PREPARE','START','CONFIRM','UNCERTAIN','RESOLVE','EXCEPTION','WAREHOUSE_READY','CUSTOMER_WAIT','CUSTOMER_CONTINUE','CUSTOMER_REQUEST_REFUND','RELEASE_EXCEPTION','TRACKING','PHYSICAL_CHECK','CLAIM'].includes(item);
+    if(field==='afterSaleAction') valid=typeof item==='string'&&/^[a-z-]{1,60}$/.test(item);
+    else if(field==='afterSaleStatus') valid=typeof item==='string'&&['PENDING_REVIEW','WAIT_SUPPLEMENT','WAIT_FULFILLMENT_CHECK','WAIT_REFUND','WAIT_RETURN','WAIT_RECEIPT','WAIT_INSPECTION','INSPECTION_EXCEPTION','FINAL_INSPECTION','REFUNDING','REFUND_FAILED','REJECTED','WITHDRAWN','CLOSED','SUCCEEDED'].includes(item);
+    else if(field==='afterSaleVersion') valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=2147483647;
+    else if(field==='orderId') valid=typeof item==='string'&&uuid.test(item);
+    else if(field==='fulfillmentAction') valid=typeof item==='string'&&['PACK','PREPARE','START','CONFIRM','UNCERTAIN','RESOLVE','EXCEPTION','WAREHOUSE_READY','CUSTOMER_WAIT','CUSTOMER_CONTINUE','CUSTOMER_REQUEST_REFUND','RELEASE_EXCEPTION','TRACKING','PHYSICAL_CHECK','CLAIM'].includes(item);
     else if(field==='fulfillmentStage') valid=typeof item==='string'&&['UNCLAIMED','PREPARING','READY','HANDOVER_IN_PROGRESS','HANDOVER_UNCERTAIN','SHIPPED'].includes(item);
     else if(field==='receiptSource') valid=item==='CUSTOMER'||item==='SYSTEM';
     else if (['orderVersion','incidentVersion','amountCents'].includes(field)) valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=(field==='amountCents'?100000000:2147483647);
@@ -186,6 +192,7 @@ export class AuditService {
     if ((payload.action==='order.create'||payload.action==='order.pay')&&actor.type!=='CUSTOMER') invalid();
     if(payload.action==='stock.incident'&&actor.type==='CUSTOMER') invalid();
     if(payload.action==='order.fulfillment'&&actor.type==='CUSTOMER') invalid();
+    if(payload.action==='order.after-sale.pause'&&(actor.type!=='CUSTOMER'||payload.after?.fulfillmentAction!=='UNCERTAIN')) invalid();
     const reason = payload.reason?.trim();
     if ((policy.reason && !reason) || (reason !== undefined && [...reason].length > 500)) invalid();
     const beforeData = snapshot(payload.before, policy.fields);

@@ -16,6 +16,8 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
     { path: '/change-password', lazy: async () => ({ Component: (await import('../pages/ChangePasswordPage')).ChangePasswordPage }) },
   ] },
   { element: <RequireEmployee />, children: [
+    {path:'/after-sales',lazy:async()=>({Component:(await import('../pages/AfterSalePage')).AfterSaleListPage})},
+    {path:'/after-sales/:id',lazy:async()=>({Component:(await import('../pages/AfterSalePage')).AfterSalePage})},
     {element:<OrdersGuard/>,children:[
       {path:'/orders',lazy:async()=>({Component:(await import('../pages/OrderListPage')).OrderListPage})},
       {path:'/orders/:id',lazy:async()=>({Component:(await import('../pages/OrderDetailPage')).OrderDetailPage})},

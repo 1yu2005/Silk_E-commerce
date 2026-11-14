@@ -68,7 +68,7 @@ export class FulfillmentService {
   const after=await s.tx.order.update({where:{id:o.id},data:{...extra,fulfillmentStage:to,version:{increment:1},updatedAt:this.clock.now()}});
   if(o.fulfillmentStage!==to)await this.history.appendStateHistory(s.tx,taskAuditActor(s.actor),{aggregateType:'ORDER',aggregateId:o.id,dimension:'fulfillment',fromState:o.fulfillmentStage,toState:to,commandKey:key,reason,requestId:s.requestId});return after;
  }
- private async event(s:TaskTransactionScope,id:string,action:'PACK'|'PREPARE'|'START'|'CONFIRM'|'UNCERTAIN'|'RESOLVE'|'EXCEPTION'|'WAREHOUSE_READY'|'CUSTOMER_WAIT'|'CUSTOMER_CONTINUE'|'CUSTOMER_REQUEST_REFUND'|'RELEASE_EXCEPTION'|'TRACKING'|'PHYSICAL_CHECK',reason:string,sourceId?:string){const o=await s.tx.order.findUniqueOrThrow({where:{id}});await this.audit.appendAudit(s.tx,{actor:taskAuditActor(s.actor),action:'order.fulfillment',targetId:id,requestId:s.requestId,reason,after:{orderStatus:o.status,orderVersion:o.version,fulfillmentStage:o.fulfillmentStage,fulfillmentAction:action,...(sourceId?{sourceId}:{})}});}
+ private async event(s:TaskTransactionScope,id:string,action:'PACK'|'PREPARE'|'START'|'CONFIRM'|'UNCERTAIN'|'RESOLVE'|'EXCEPTION'|'WAREHOUSE_READY'|'CUSTOMER_WAIT'|'CUSTOMER_CONTINUE'|'CUSTOMER_REQUEST_REFUND'|'RELEASE_EXCEPTION'|'TRACKING'|'PHYSICAL_CHECK',reason:string,sourceId?:string){const o=await s.tx.order.findUniqueOrThrow({where:{id}});await this.audit.appendAudit(s.tx,{actor:taskAuditActor(s.actor),action:s.actor.subjectType==='CUSTOMER'?'order.after-sale.pause':'order.fulfillment',targetId:id,requestId:s.requestId,reason,after:{orderStatus:o.status,orderVersion:o.version,fulfillmentStage:o.fulfillmentStage,fulfillmentAction:action,...(sourceId?{sourceId}:{})}});}
  private async bind(s:TaskTransactionScope,ctx:CustomerContext,ownerType:'HANDOVER_VERIFICATION'|'SHIPMENT_EXCEPTION'|'SHIPMENT_EXCEPTION_DECISION'|'SHIPMENT_TRACKING_REVISION',ownerId:string,fileIds:string[]|undefined,key:string){if(!fileIds?.length)return;if(s.actor.subjectType==='SYSTEM')throw new OrderError('VALIDATION_FAILED');await this.files.bindFiles(s.tx,{identity:s.actor,token:ctx.token},{ownerType,ownerId,slot:'evidence',audience:'INTERNAL',fileIds,commandKey:key});}
  async claim(ctx:CustomerContext,id:string,b:D.ClaimShipmentDto){const task=await this.db.task.findFirst({where:{...ref(id),stage:'SHIPMENT_PROCESS',status:{in:activeStatuses}},orderBy:{round:'desc'}});if(!task)throw new OrderError('ORDER_NOT_READY_TO_SHIP');
   return this.tasks.claim(ctx.actor,ctx.token,task.id,{expectedVersion:b.expectedTaskVersion},ctx.requestId,async(tx,t)=>{const o=await ownedOrder(tx,id,ctx.actor);if(o.version!==b.expectedOrderVersion){const prior=t.status==='CLAIMED'&&t.assigneeId===ctx.actor.subjectId&&t.version===b.expectedTaskVersion+1;if(!prior)throw new OrderError('VERSION_CONFLICT');}});
@@ -124,7 +124,7 @@ export class FulfillmentService {
    await this.changeStage(s,o,unchanged?'READY':'UNCLAIMED',b.commandKey,b.reason,unchanged?{}:{stockPhysicalVersion:{increment:1}});
    await this.timer.releaseBlock(c,id,{sourceType:'HANDOVER_UNCERTAIN',sourceId:attempt.id},{commandKey:'resolve:'+b.commandKey,reason:b.reason});
    await this.finishSource(s,c,id,'HANDOVER_UNCERTAIN',attempt.id,b.commandKey,b.reason,true);
-   await this.stopShipping(s,c,id,'CANCELLED','resolve:'+b.commandKey,'未交运核实已结案，原轮结束，重新领取');await this.resumeShipping(s,c,id,b.commandKey,b.reason);
+   await this.stopShipping(s,c,id,'CANCELLED','resolve:'+b.commandKey,'未交运核实已结案，原轮结束，重新领取');await this.resumeShipping(s,c,id,b.commandKey,b.reason);await this.afterSales.handoverRecorded(s.tx,id,s.requestId);
   }
   await this.event(s,id,'RESOLVE',b.reason,v.id);return {attemptId:attempt.id,verificationId:v.id,conclusion:b.conclusion};
  });}
@@ -144,7 +144,7 @@ export class FulfillmentService {
   await this.history.appendStateHistory(s.tx,taskAuditActor(a),{aggregateType:'ORDER',aggregateId:o.id,dimension:'fulfillment',fromState:o.fulfillmentStage,toState:'SHIPPED',commandKey:b.commandKey,reason:b.reason,requestId:s.requestId});
   await this.stopShipping(s,c,o.id,verified?'CANCELLED':'COMPLETED',b.commandKey,'真实交运事实已登记，结束原发货轮');
   if(verified)await this.finishSource(s,c,o.id,'HANDOVER_UNCERTAIN',attempt.id,b.commandKey,b.reason,true);
-  await this.event(s,o.id,'CONFIRM',b.reason,attempt.id);return {attemptId:attempt.id,shipmentId:attempt.shipmentId,verificationId:v.id,conclusion:'HANDED_OVER'};
+  await this.event(s,o.id,'CONFIRM',b.reason,attempt.id);await this.afterSales.handoverRecorded(s.tx,o.id,s.requestId);return {attemptId:attempt.id,shipmentId:attempt.shipmentId,verificationId:v.id,conclusion:'HANDED_OVER'};
  }
  private async stopShipping(s:TaskTransactionScope,c:TaskEntryContext,id:string,action:'SUSPENDED'|'CANCELLED'|'COMPLETED',key:string,reason:string){const task=await s.tx.task.findFirst({where:{...ref(id),stage:'SHIPMENT_PROCESS',status:{in:activeStatuses}}});if(!task||action==='SUSPENDED'&&task.status==='SUSPENDED')return;await this.lifecycle.transition(c,{...ref(id),taskId:task.id,expectedVersion:task.version,action,commandKey:key,reason});}
  private async finishSource(s:TaskTransactionScope,c:TaskEntryContext,id:string,type:'HANDOVER_UNCERTAIN'|'SHIPMENT_EXCEPTION',sourceId:string,key:string,reason:string,complete=false){
@@ -154,13 +154,24 @@ export class FulfillmentService {
  }
  /** 统一放行只处理履约，绝不把未知、已完成或退款的订单恢复。后续售后结案同事务调用此端口。 */
  async resumeShipping(s:TaskTransactionScope,c:TaskEntryContext,id:string,key:string,reason:string,forceUnclaimed=false){const o=await s.tx.order.findUniqueOrThrow({where:{id}});
-  if(o.status!=='WAIT_SHIPMENT'||await pendingHandover(s.tx,id)||await shipmentBlocked(s.tx,id)||await this.afterSales.hasActive(s.tx,id))return;
+  if(o.status!=='WAIT_SHIPMENT'||await pendingHandover(s.tx,id)||await this.afterSales.hasActive(s.tx,id))return;
+  const blocked=await shipmentBlocked(s.tx,id);if(blocked&&!forceUnclaimed)return;
   const prior=await s.tx.task.findFirst({where:{...ref(id),stage:'SHIPMENT_PROCESS',status:{in:activeStatuses}}});if(prior?.status!=='SUSPENDED'&&prior)return;
+  if(o.shipmentReclaimRequired){
+   if(prior?.entryKey.startsWith('after-sale-resume:')){if(!blocked)await this.lifecycle.transition(c,{...ref(id),taskId:prior.id,expectedVersion:prior.version,action:'RESUMED',commandKey:'unblock:'+key,reason});return;}
+   if(prior)await this.stopShipping(s,c,id,'CANCELLED','resume:'+key,'售后结束，旧发货轮结束且不继承经办');
+   await s.tx.fulfillment.updateMany({where:{orderId:id},data:{currentPackingCheckId:null}});
+   if(o.fulfillmentStage!=='UNCLAIMED')await this.changeStage(s,o,'UNCLAIMED','resume:'+key,reason);
+   const next=await this.entry.enterStage(c,{...ref(id),stage:'SHIPMENT_PROCESS',entryKey:'after-sale-resume:'+key,reason});
+   if(blocked)await this.lifecycle.transition(c,{...ref(id),taskId:next.task.id,expectedVersion:next.task.version,action:'SUSPENDED',commandKey:'remaining-block:'+key,reason:'其它来源仍阻塞，新轮暂不可领取'});return;
+  }
   if(prior)await this.stopShipping(s,c,id,'CANCELLED','resume:'+key,'暂停来源结案，原轮结束，经办不继承');
   const p=await validPacking(s.tx,o),shipment=await s.tx.shipment.findUnique({where:{orderId:id}});
   const stage=!forceUnclaimed&&p&&shipment?'READY':'UNCLAIMED';if(o.fulfillmentStage!==stage)await this.changeStage(s,o,stage,'resume:'+key,reason);
   await this.entry.enterStage(c,{...ref(id),stage:'SHIPMENT_PROCESS',entryKey:'resume:'+key,reason});
  }
+ /** 顾客售后产生的受控副作用，保留顾客主体；不提供独立HTTP暂停入口。 */
+ async afterSaleOpened(s:TaskTransactionScope,c:TaskEntryContext,id:string,key:string){let o=await s.tx.order.findUniqueOrThrow({where:{id}});if(o.status!=='WAIT_SHIPMENT')return;o=await s.tx.order.update({where:{id},data:{shipmentReclaimRequired:true,version:{increment:1},updatedAt:this.clock.now()}});const attempt=await pendingHandover(s.tx,id);if(attempt?.status==='IN_PROGRESS')await this.makeUncertain(s,c,o,attempt,'售后提出时交运未决，保留动作并核实实物结果');else await this.stopShipping(s,c,id,'SUSPENDED','after-sale:'+key,'售后进行中，暂停当前发货轮并清经办');}
  exception(ctx:CustomerContext,id:string,b:D.ShipmentExceptionDto){return this.command(ctx,id,'exception',b,'shipment.exception.manage',async(s,c,o,fingerprint)=>{
   if(!['WAIT_SHIPMENT','SHIPPED'].includes(o.status))throw new OrderError('ORDER_NOT_READY_TO_SHIP');if(o.status==='WAIT_SHIPMENT')await this.assignee(s,id,['SHIPMENT_PROCESS','HANDOVER_VERIFY','SHIPMENT_EXCEPTION_VERIFY'],b.expectedTaskVersion);
   const items=await s.tx.orderItem.findMany({where:{orderId:id},select:{id:true}});if(new Set(b.orderItemIds).size!==b.orderItemIds.length||b.orderItemIds.some(item=>!items.some(i=>i.id===item)))throw new OrderError('VALIDATION_FAILED');

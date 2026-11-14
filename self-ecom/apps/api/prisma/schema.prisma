@@ -218,6 +218,8 @@ enum FileOwnerType {
   CUSTOMER_AVATAR
   PRODUCT
   AFTER_SALE_MATERIAL
+  AFTER_SALE_RETURN_LOGISTICS
+  AFTER_SALE_RETURN_VERIFICATION
   INVENTORY_ADJUSTMENT
   INVENTORY_SOURCE
   FULFILLMENT_CHECK
@@ -1093,6 +1095,7 @@ model Order {
   paymentBlocked       Boolean             @default(false) @map("payment_blocked")
   releaseBlocked       Boolean             @default(false) @map("release_blocked")
   stockPhysicalVersion Int                 @default(0) @map("stock_physical_version")
+  shipmentReclaimRequired Boolean          @default(false) @map("shipment_reclaim_required")
   version              Int                 @default(0)
   timerVersion         Int                 @default(0) @map("timer_version")
   autoReceiptDays      Int                 @default(10) @map("auto_receipt_days")
@@ -1167,6 +1170,7 @@ model OrderBlock {
   type              String    @db.VarChar(40)
   sourceType        String    @map("source_type") @db.VarChar(40)
   sourceId          String    @map("source_id") @db.Uuid
+  sourceAfterSaleId String?   @unique @map("source_after_sale_id") @db.Uuid
   active            Boolean   @default(true)
   blocksShipment    Boolean   @default(true) @map("blocks_shipment")
   blocksReceipt     Boolean   @default(true) @map("blocks_receipt")
@@ -1501,4 +1505,146 @@ model TimerPauseBlock {
  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
  @@unique([pauseId,blockId])
  @@map("timer_pause_block")
+}
+
+// 售后各真实FK、跨单归属及追加事实守卫由0014的SQL约束维护；不使用逻辑UUID冒充归属。
+model AfterSale {
+ id String @id @default(uuid()) @db.Uuid
+ number String @unique @db.VarChar(40)
+ orderId String @map("order_id") @db.Uuid
+ customerId String @map("customer_id") @db.Uuid
+ paymentId String @map("payment_id") @db.Uuid
+ type String @db.VarChar(30)
+ status String @default("PENDING_REVIEW") @db.VarChar(40)
+ reasonCode String @map("reason_code") @db.VarChar(30)
+ applicationDescription String @map("application_description") @db.VarChar(2000)
+ currentMaterialVersionId String? @map("current_material_version_id") @db.Uuid
+ requestedRefundAmount Int @map("requested_refund_amount")
+ version Int @default(0)
+ approvedAt DateTime? @map("approved_at") @db.Timestamptz(3)
+ closedAt DateTime? @map("closed_at") @db.Timestamptz(3)
+ returnAddressSnapshot Json? @map("return_address_snapshot")
+ returnSettingVersionId String? @map("return_setting_version_id") @db.Uuid
+ returnDueAt DateTime? @map("return_due_at") @db.Timestamptz(3)
+ returnRuleSnapshot Json? @map("return_rule_snapshot")
+ returnFreightResponsibility String? @map("return_freight_responsibility") @db.VarChar(30)
+ responsibilityNote String? @map("responsibility_note") @db.VarChar(1000)
+ lastPublicExplanation String? @map("last_public_explanation") @db.VarChar(1000)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamptz(3)
+ @@index([customerId,createdAt,id])
+ @@index([orderId,createdAt,id])
+ @@index([status,createdAt,id])
+ @@unique([id,orderId])
+ @@map("after_sale")
+}
+model AfterSaleMaterialVersion {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ versionNo Int @map("version_no")
+ description String @db.VarChar(2000)
+ submittedByCustomerId String? @map("submitted_by_customer_id") @db.Uuid
+ submittedByEmployeeId String? @map("submitted_by_employee_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([afterSaleId,versionNo])
+ @@unique([id,afterSaleId])
+ @@map("after_sale_material_version")
+}
+model AfterSaleSupplementRequest {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ requestNo Int @map("request_no")
+ basedMaterialVersionId String @map("based_material_version_id") @db.Uuid
+ requirement String @db.VarChar(1000)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ requestedById String @map("requested_by_id") @db.Uuid
+ requestedAt DateTime @map("requested_at") @db.Timestamptz(3)
+ dueAt DateTime @map("due_at") @db.Timestamptz(3)
+ ruleSnapshot Json @map("rule_snapshot")
+ settingVersionId String @map("setting_version_id") @db.Uuid
+ followTaskId String @unique @map("follow_task_id") @db.Uuid
+ respondedMaterialVersionId String? @map("responded_material_version_id") @db.Uuid
+ respondedAt DateTime? @map("responded_at") @db.Timestamptz(3)
+ closedAt DateTime? @map("closed_at") @db.Timestamptz(3)
+ @@unique([afterSaleId,requestNo])
+ @@map("after_sale_supplement_request")
+}
+model AfterSaleDecision {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ kind String @db.VarChar(40)
+ fromStatus String @map("from_status") @db.VarChar(40)
+ toStatus String @map("to_status") @db.VarChar(40)
+ basedMaterialVersionId String @map("based_material_version_id") @db.Uuid
+ actorCustomerId String? @map("actor_customer_id") @db.Uuid
+ actorEmployeeId String? @map("actor_employee_id") @db.Uuid
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ internalNote String? @map("internal_note") @db.VarChar(2000)
+ relatedHandoverAttemptId String? @map("related_handover_attempt_id") @db.Uuid
+ relatedDispatchVerificationId String? @map("related_dispatch_verification_id") @db.Uuid
+ communicationId String? @map("communication_id") @db.Uuid
+ reason String? @db.VarChar(500)
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@index([afterSaleId,createdAt,id])
+ @@map("after_sale_decision")
+}
+model ReturnParcel {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ batchNo Int @map("batch_no")
+ currentRevisionId String? @map("current_revision_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([afterSaleId,batchNo])
+ @@unique([id,afterSaleId])
+ @@map("return_parcel")
+}
+model ReturnLogisticsRevision {
+ id String @id @default(uuid()) @db.Uuid
+ parcelId String @map("parcel_id") @db.Uuid
+ revisionNo Int @map("revision_no")
+ carrierName String @map("carrier_name") @db.VarChar(60)
+ trackingNumber String @map("tracking_number") @db.VarChar(100)
+ dispatchDeclaration String @map("dispatch_declaration") @db.VarChar(30)
+ actualDispatchedAt DateTime? @map("actual_dispatched_at") @db.Timestamptz(3)
+ unapprovedDispatch Boolean @default(false) @map("unapproved_dispatch")
+ description String @db.VarChar(2000)
+ actorCustomerId String? @map("actor_customer_id") @db.Uuid
+ actorEmployeeId String? @map("actor_employee_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([parcelId,revisionNo])
+ @@unique([id,parcelId])
+ @@map("return_logistics_revision")
+}
+model ReturnDispatchVerification {
+ id String @id @default(uuid()) @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ parcelId String? @map("parcel_id") @db.Uuid
+ basedLogisticsRevisionId String? @map("based_logistics_revision_id") @db.Uuid
+ basedAfterSaleVersion Int @map("based_after_sale_version")
+ basedPhysicalVersion Int @map("based_physical_version")
+ outcome String @db.VarChar(20)
+ verifiedAt DateTime @map("verified_at") @db.Timestamptz(3)
+ channel String @db.VarChar(30)
+ sourceDescription String @map("source_description") @db.VarChar(2000)
+ contactResult String @map("contact_result") @db.VarChar(2000)
+ nextStep String @map("next_step") @db.VarChar(1000)
+ publicExplanation String @map("public_explanation") @db.VarChar(1000)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@index([afterSaleId,createdAt,id])
+ @@map("return_dispatch_verification")
+}
+model AfterSaleCommandResult {
+ id String @id @default(uuid()) @db.Uuid
+ customerId String @map("customer_id") @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ afterSaleId String @map("after_sale_id") @db.Uuid
+ action String @db.VarChar(60)
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.Char(64)
+ resultReference Json @map("result_reference")
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([customerId,orderId,action,commandKey])
+ @@map("after_sale_command_result")
 }

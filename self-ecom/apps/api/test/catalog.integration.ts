@@ -198,7 +198,7 @@ it('SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停�
   await bad('/admin/products/'+p.id,'PATCH',{expectedVersion:p.version,name:'不允许'},401,'ACCOUNT_UNAVAILABLE',disabled);
 });
 it('IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败',async()=>{
-  const p=await create();const refs=new SkuReferences();await expect(refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});refs.register({domain:'inventory',async referenced(){return false;}});refs.register({domain:'order',async referenced(){return true;}});expect(await refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(true);
+  const p=await create();const refs=new SkuReferences();await expect(refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});refs.register({domain:'inventory',async referenced(){return false;}});refs.register({domain:'order',async referenced(){return true;}});await expect(refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});refs.register({domain:'after-sale',async referenced(){return false;}});expect(await refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(true);
   // 订单领域现已真实安装：独立检查器遗漏订单适配器必须失败，应用注册器可查询真实订单引用。
   const missingOrder=new SkuReferences();missingOrder.register({domain:'inventory',async referenced(){return false;}});
   await expect(missingOrder.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});

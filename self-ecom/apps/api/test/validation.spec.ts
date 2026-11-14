@@ -11,6 +11,7 @@ import { PaginationDto } from '../src/common/http/pagination.dto.js';
 import { strictBoolean } from '../src/common/http/dto-transforms.js';
 import { APP_CONFIG, validateEnvironment } from '../src/config/environment.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import { AfterSaleCloseFacts } from '../src/after-sales/after-sale-close-facts.js';
 import { ContractError } from '@shop/shared';
 
 class InputDto {
@@ -46,6 +47,7 @@ beforeAll(async () => {
     .overrideProvider(APP_CONFIG).useValue(validateEnvironment({ NODE_ENV: 'test', LOG_LEVEL: 'silent',
       DATABASE_URL: 'postgresql://test:test@localhost:15432/shop_test',
       CORS_ORIGINS: 'http://localhost:5173,http://localhost:5174' }))
+    .overrideProvider(AfterSaleCloseFacts).useValue({})
     .overrideProvider(PrismaService).useValue({ ping: async () => {} }).compile();
   app = module.createNestApplication();
   configureApp(app);

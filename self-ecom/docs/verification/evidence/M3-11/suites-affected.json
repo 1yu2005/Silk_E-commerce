@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-14T10:26:34.965Z",
+  "mode": "suites",
+  "label": "affected",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/after-sales.integration.ts",
+        "test/fulfillment.integration.ts",
+        "test/orders-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T10:26:34.969Z",
+      "endedAt": "2026-11-14T10:28:49.213Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/suites-affected-suites.txt"
+    }
+  ],
+  "passed": false
+}

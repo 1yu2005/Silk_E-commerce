@@ -1,0 +1,88 @@
+{
+  "at": "2026-11-14T10:06:46.869Z",
+  "mode": "unit",
+  "label": "first",
+  "checks": [
+    {
+      "name": "api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts"
+      ],
+      "startedAt": "2026-11-14T10:06:46.870Z",
+      "endedAt": "2026-11-14T10:06:57.872Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/unit-first-api.txt"
+    },
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "--test",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\shared\\test\\command-contract.test.mjs"
+      ],
+      "startedAt": "2026-11-14T10:06:57.872Z",
+      "endedAt": "2026-11-14T10:06:58.109Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/unit-first-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "--test",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\auth-client.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\contracts.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\employee-management.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\files-client.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\generated-client.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\session.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\settings-client.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\packages\\api-client\\test\\tasks-client.test.mjs"
+      ],
+      "startedAt": "2026-11-14T10:06:58.109Z",
+      "endedAt": "2026-11-14T10:06:58.891Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/unit-first-packages-api-client.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "--test",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\auth-controller.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\employee-create.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\employee-management.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\employee-query.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\settings.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\test\\tasks.test.mjs"
+      ],
+      "startedAt": "2026-11-14T10:06:58.892Z",
+      "endedAt": "2026-11-14T10:06:59.468Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/unit-first-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "--test",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\test\\auth-controller.test.mjs",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\test\\purchase-confirmation.test.mjs"
+      ],
+      "startedAt": "2026-11-14T10:06:59.468Z",
+      "endedAt": "2026-11-14T10:06:59.918Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/unit-first-apps-store-web.txt"
+    }
+  ],
+  "passed": false
+}

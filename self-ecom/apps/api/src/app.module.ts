@@ -27,10 +27,11 @@ import { CatalogModule } from './catalog/catalog.module.js';
 import { InventoryModule } from './inventory/inventory.module.js';
 import { CustomersModule } from './customers/customers.module.js';
 import { OrdersModule } from './orders/orders.module.js';
+import { AfterSalesModule } from './after-sales/after-sales.module.js';
 
 @Module({ imports: [ConfigModule, LoggerModule.forRootAsync({
   imports: [ConfigModule],
   inject: [APP_CONFIG],
   useFactory: (config: EnvironmentConfig) => ({ pinoHttp: httpLogOptions(config) }),
-}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule, CatalogModule, InventoryModule, CustomersModule, OrdersModule] })
+}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule, CatalogModule, InventoryModule, CustomersModule, OrdersModule, AfterSalesModule] })
 export class AppModule {}

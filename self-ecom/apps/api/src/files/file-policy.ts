@@ -39,6 +39,8 @@ export const ownerPolicies: Record<FileOwnerType, { purpose: FilePurpose; slots:
   CUSTOMER_AVATAR: { purpose: 'CUSTOMER_AVATAR', slots: ['avatar'], max: 1, public: true },
   PRODUCT: { purpose: 'PRODUCT_IMAGE', slots: ['main', 'gallery'], max: 10, public: true },
   AFTER_SALE_MATERIAL: { purpose: 'AFTER_SALE_EVIDENCE', slots: ['evidence'], max: 5, public: false },
+  AFTER_SALE_RETURN_LOGISTICS: {purpose:'AFTER_SALE_EVIDENCE',slots:['evidence'],max:5,public:false},
+  AFTER_SALE_RETURN_VERIFICATION: {purpose:'COMMUNICATION_EVIDENCE',slots:['evidence'],max:5,public:false},
   INVENTORY_ADJUSTMENT: { purpose: 'INVENTORY_EVIDENCE', slots: ['evidence'], max: 5, public: false },
   INVENTORY_SOURCE: { purpose: 'INVENTORY_EVIDENCE', slots: ['evidence'], max: 5, public: false },
   FULFILLMENT_CHECK: { purpose: 'FULFILLMENT_EVIDENCE', slots: ['evidence'], max: 5, public: false },

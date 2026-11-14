@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-14T11:03:58.506Z",
+  "mode": "suites",
+  "label": "full-failures-fixed",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/after-sales.integration.ts",
+        "test/catalog.integration.ts",
+        "test/database.integration.ts",
+        "test/files-migration.integration.ts",
+        "test/orders.integration.ts",
+        "test/task-access.integration.ts",
+        "test/task-deadline.integration.ts",
+        "test/task-entry.integration.ts",
+        "test/task-kernel.integration.ts",
+        "test/task-reassign.integration.ts",
+        "test/tasks-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T11:03:58.590Z",
+      "endedAt": "2026-11-14T11:11:13.671Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/suites-full-failures-fixed-suites.txt"
+    }
+  ],
+  "passed": false
+}

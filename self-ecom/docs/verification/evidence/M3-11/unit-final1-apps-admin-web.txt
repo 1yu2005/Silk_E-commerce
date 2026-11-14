@@ -1,0 +1,102 @@
+✔ 匿名不查询本人；快照稳定，订阅可取消 (2.9665ms)
+✔ 恢复必须先本人再权限；在确认完成前不展示身份和菜单 (0.4747ms)
+✔ StrictMode清理再启动和同时重读共用一组请求 (0.2602ms)
+✔ 强制改密只查本人，不查询被禁止的权限接口 (0.1568ms)
+✔ 权限响应的最新岗位用于显示，权限不落入持久化存储 (0.5885ms)
+✔ 恢复500保留凭证，清空资料权限，可手动重试 (0.3615ms)
+✔ 未知恢复异常使用固定提示，不暴露原异常 (0.4288ms)
+✔ 401清除身份与权限，并丢弃在途本人响应 (0.5356ms)
+✔ 到期后由会话检查立即清除身份和权限 (0.3059ms)
+✔ 新登录保存后，迟到旧本人响应不能恢复旧身份 (0.5351ms)
+✔ 新登录保存后，迟到旧权限及旧异常不能覆盖新身份 (0.6176ms)
+✔ 并发403只触发一组本人/权限读取，不重放原动作 (0.2403ms)
+✔ 权限刷新本身403只失败一次，不循环请求或注销 (0.1889ms)
+✔ PASSWORD_CHANGE_REQUIRED立即清权限，迟到刷新不恢复业务状态 (0.2022ms)
+✔ 匿名收到403不会发起请求 (0.0902ms)
+✔ 登录保存后恢复本人，登录密码不持久化 (0.1784ms)
+✔ 公开登录失败留在匿名状态，不查询资料 (0.5683ms)
+✔ 改密成功清本地并提示重新登录 (0.2611ms)
+✔ 改密403保留当前会话，报告调用方 (0.1911ms)
+✔ 注销成功或网络失败都清本地，不保留旧身份 (0.2792ms)
+✔ 注销请求未完成时，焦点恢复不能重新展示正在退出的身份 (0.1832ms)
+✔ 迟到旧注销或改密不清除新登录的页面身份 (0.2604ms)
+✔ 清理订阅后会话变化不再请求；重新启动可恢复 (0.0915ms)
+✔ 页面复用服务端密码边界，不截断、不trim密码 (0.177ms)
+✔ 创建入口按有效权限判断，查看权限不能冒充创建资格 (0.6601ms)
+✔ 账号大小写与空白规范化，长度和字符规则与接口一致 (0.2621ms)
+✔ 显示名必填且按Unicode码点校验40字符，保留中间空白 (0.1678ms)
+✔ 创建原因必填，trim后最多500个Unicode字符 (0.1396ms)
+✔ 岗位仅允许固定三种，不能以对象继承属性绕过校验 (0.231ms)
+✔ 规范化只处理文本，初始密码保留原文，确认和内部字段不发API (0.6745ms)
+✔ 初始密码复用共享字符和字节规则，不trim或截断 (0.2837ms)
+✔ 管理入口逐项依据有效权限而非岗位名称 (0.6363ms)
+✔ 管理原因trim并按Unicode码点校验，不截断emoji (0.1371ms)
+✔ 新增操作递归补齐、排序去重，默认码不存额外且不修改输入 (0.82ms)
+✔ 撤销旧依赖优先级联，另一新增操作不能补回 (0.1618ms)
+✔ 完整旧集合无变化、清空、默认权限不能撤销 (0.2785ms)
+✔ 管理员目标、未知码、管理员专属码和旧缺依赖拒绝预览 (0.2803ms)
+✔ 目录重复、未知依赖、循环、模板缺依赖或管理员码禁止保存 (0.3319ms)
+✔ 当前写成功仅一次提交与缓存回调，当前错误原样传递 (1.6531ms)
+✔ 旧登录迟到成功与失败不能失效新缓存或刷新身份，即使token相同 (0.3178ms)
+✔ 未登录不发命令，退出后在途成功不执行回调 (0.2164ms)
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/admin-web/src/employees/query-controller.ts:26
+  constructor(session: AuthSessionStore, fetch: (input: Input, signal: AbortSignal) => Promise<ApiResponse<Data>>,
+    failureMessage = '员工信息读取失败，请重试',private readonly preserveOnRefresh=false) {
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^
+    this.failureMessage = failureMessage;
+
+SyntaxError [ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX]: TypeScript parameter property is not supported in strip-only mode
+    at parseTypeScript (node:internal/modules/typescript:68:40)
+    at processTypeScriptCode (node:internal/modules/typescript:146:42)
+    at stripTypeScriptModuleTypes (node:internal/modules/typescript:209:22)
+    at ModuleLoader.<anonymous> (node:internal/modules/esm/translators:680:29)
+    at #translate (node:internal/modules/esm/loader:434:20)
+    at afterLoad (node:internal/modules/esm/loader:502:29)
+    at ModuleLoader.loadAndTranslate (node:internal/modules/esm/loader:507:12)
+    at #getOrCreateModuleJobAfterResolve (node:internal/modules/esm/loader:560:36)
+    at afterResolve (node:internal/modules/esm/loader:607:52)
+    at ModuleLoader.getOrCreateModuleJob (node:internal/modules/esm/loader:613:12) {
+  code: 'ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX'
+}
+
+Node.js v24.18.0
+✖ D:\实习\实习生全栈学习笔记\self-ecom\apps\admin-web\test\employee-query.test.mjs (290.8246ms)
+✔ 金额按十进制精确换算，0和最大金额均可往返 (0.8936ms)
+✔ 金额不接受符号、指数、额外小数位、逗号、空值或越界，不四舍五入 (0.3236ms)
+✔ 八项期限的单位和上限固定，拒绝0、小数、指数及越界 (0.7249ms)
+✔ 未配置只有建议金额和期限，电话地址原因保持空白；不修改输入快照 (0.335ms)
+✔ 请求只发送契约字段，关闭包邮仍发送门槛，空服务时间清除，原因不复用 (0.3505ms)
+✔ 文本按Unicode码点验证，电话规范化前后长度和字符限制与接口一致 (0.2831ms)
+✔ 菜单只按有效设置权限开放，显示时间固定北京时间 (0.9133ms)
+✔ 默认本人任务，筛选往返保留false、页码、业务编号，不修改输入 (1.8305ms)
+✔ 未知、重复、空白、指数、小数、越界、非法枚举和UUID不请求服务器 (0.2365ms)
+✔ 管理员待安排要求真实管理员岗位与有效转交权限同时满足 (0.1048ms)
+✔ 北京时间明确转UTC，跨年/闰日/秒不依赖宿主时区，拒绝日历进位 (1.1378ms)
+✔ 业务链接只接受后端应用内安全详情路径 (0.1908ms)
+✔ 同一事件循环连续提交只发一次，成功只调用一次刷新 (0.4845ms)
+✔ 任务错误404保留原错误并阻止再次发写请求 (0.2782ms)
+✔ 任务错误409保留原错误并阻止再次发写请求 (0.2182ms)
+✔ 任务错误500保留原错误并阻止再次发写请求 (0.2112ms)
+✔ 任务错误网络失败保留原错误并阻止再次发写请求 (0.2331ms)
+✔ 400业务输入错误允许修正后手动提交，不自动重试 (0.3418ms)
+✔ 切换登录后丢弃在途成功，不会刷新新用户页面 (0.1561ms)
+✔ 切换登录后丢弃在途错误，不会刷新新用户页面 (0.1822ms)
+✔ 未登录或已销毁不提交，销毁后的在途结果无回调 (0.1923ms)
+ℹ tests 63
+ℹ suites 0
+ℹ pass 62
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 499.6885
+
+✖ failing tests:
+
+test at apps\admin-web\test\employee-query.test.mjs:1:1
+✖ D:\实习\实习生全栈学习笔记\self-ecom\apps\admin-web\test\employee-query.test.mjs (290.8246ms)
+  'test failed'

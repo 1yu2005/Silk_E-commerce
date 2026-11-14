@@ -2,9 +2,9 @@
 import { useEffect, useSyncExternalStore } from 'react';
 import type { EmployeeQueryController } from './query-controller';
 
-export function useEmployeeQuery<Input, Data>(controller: EmployeeQueryController<Input, Data>, key: string, input: Input) {
+export function useEmployeeQuery<Input, Data>(controller: EmployeeQueryController<Input, Data>, key: string, input: Input, enabled=true) {
   const snapshot = useSyncExternalStore(controller.subscribe, controller.getSnapshot);
-  useEffect(() => { void controller.read(key, input); }, [controller, key, input]);
+  useEffect(() => { if(enabled)void controller.read(key, input); }, [controller, key, input,enabled]);
   // 参数变化后不把上一筛选或上一员工的资料短暂显示在新地址下。
-  return snapshot.key === key ? snapshot : { key, status: 'loading' as const, data: null, error: null };
+  return enabled&&snapshot.key === key ? snapshot : { key, status: 'loading' as const, data: null, error: null };
 }

@@ -39,7 +39,7 @@ it('已应用工程、认证、文件及设置任务基础迁移，并保留完�
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
   expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history',
-    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference','0011_fulfillment_shipments_handover','0012_fulfillment_fact_guards','0013_inventory_fact_guards']
+    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference','0011_fulfillment_shipments_handover','0012_fulfillment_fact_guards','0013_inventory_fact_guards','0014_after_sales_review_material_return']
     .map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;
@@ -50,7 +50,7 @@ it('已应用工程、认证、文件及设置任务基础迁移，并保留完�
     'store_setting_version', 'system_guard', 'task', 'task_history', 'task_stage_cursor',
     'checkout_quote','checkout_quote_item','order','order_item','idempotency_record','order_block','timer_pause','order_timer_receipt',
     'task_business_source','task_business_source_history','payment','stock_incident','stock_incident_item','stock_incident_history','stock_incident_command','stock_replenishment',
-    'fulfillment','packing_check','shipment','handover_attempt','handover_verification','shipment_tracking_revision','shipment_exception','shipment_exception_decision','fulfillment_command_result','timer_pause_block'].sort());
+    'fulfillment','packing_check','shipment','handover_attempt','handover_verification','shipment_tracking_revision','shipment_exception','shipment_exception_decision','fulfillment_command_result','timer_pause_block','after_sale','after_sale_material_version','after_sale_supplement_request','after_sale_decision','return_parcel','return_logistics_revision','return_dispatch_verification','after_sale_command_result'].sort());
 });
 
 it('keeps liveness working with the real database module installed', async () => {

@@ -1,0 +1,24 @@
+{
+  "at": "2026-11-14T11:20:07.804Z",
+  "mode": "lint",
+  "label": "delivery",
+  "checks": [
+    {
+      "name": "all",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\eslint\\bin\\eslint.js",
+        "apps",
+        "packages",
+        "scripts",
+        "infra"
+      ],
+      "startedAt": "2026-11-14T11:20:07.809Z",
+      "endedAt": "2026-11-14T11:20:23.703Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/lint-delivery-all.txt"
+    }
+  ],
+  "passed": true
+}

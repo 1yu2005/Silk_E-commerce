@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-14T10:48:06.841Z",
+  "mode": "suites",
+  "label": "sale-final",
+  "checks": [
+    {
+      "name": "suites",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\tsx@4.23.15\\node_modules\\tsx\\dist\\cli.mjs",
+        "scripts/integration.ts",
+        "test/after-sales.integration.ts"
+      ],
+      "startedAt": "2026-11-14T10:48:06.846Z",
+      "endedAt": "2026-11-14T10:49:41.254Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M3-11/suites-sale-final-suites.txt"
+    }
+  ],
+  "passed": true
+}

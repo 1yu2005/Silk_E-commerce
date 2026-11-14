@@ -1,0 +1,19 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+14 migrations found in prisma/migrations
+
+Applying migration `0014_after_sales_review_material_return`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0014_after_sales_review_material_return/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-34b5547f8cd3 Creating 
+ Container self-ecom-api-run-34b5547f8cd3 Created 
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.
