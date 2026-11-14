@@ -68,7 +68,7 @@ export async function verifyOrders(c){
  const known=await newOrder(2),line=(await customer('/store/orders/'+known.orderId)).items[0];const beforeKnown=await admin('/admin/inventory/'+skuId);
  const knownIncident=await admin('/admin/inventory/stock-incidents','POST',{incidentKey:randomUUID(),skuId,items:[{orderItemId:line.id,damagedQuantity:1}],reason:'已知受损净释放演示',evidenceNote:'本轮独占事实'},201);await customer('/store/orders/'+known.orderId+'/cancel','POST',{});const afterKnown=await admin('/admin/inventory/'+skuId);assert.equal(afterKnown.available,beforeKnown.available+1);assert.equal(afterKnown.reserved,beforeKnown.reserved-2);assert.equal(afterKnown.purchaseBlocked,true);
  await admin('/admin/inventory/stock-incidents/'+knownIncident.id+'/resolve','POST',{expectedVersion:knownIncident.version,expectedTaskVersion:0,commandKey:randomUUID(),reason:'未付单净释放已结清，本来源实物核实结束',evidenceNote:'独占损耗历史保留，不把坏货重新入账'});assert.equal((await admin('/admin/inventory/'+skuId)).purchaseBlocked,false);
- await c.verifyFulfillment?.({...c,admin,customer,newOrder,store,staff,orderId:lostOrder.orderId,skuId});
+ await c.verifyFulfillment?.({...c,admin,customer,newOrder,store,staff,otherToken,orderId:lostOrder.orderId,skuId});
  // 仅本轮隔离库改为真实一分钟期限；停止API跨越截止，再由外层重启验证启动补扫。
  await saveSetting(1);const expired=await newOrder(1);await saveSetting(30);
  product=await admin('/admin/products/'+product.id);await admin('/admin/products/'+product.id+'/sku-scheme','PUT',{expectedVersion:product.version,mode:'REBUILD',reason:'真实订单引用保护',dimensions:[{clientKey:randomUUID(),name:'尺码',values:[{clientKey:randomUUID(),name:'M'}]}]},409,'SKU_SCHEME_REFERENCED');

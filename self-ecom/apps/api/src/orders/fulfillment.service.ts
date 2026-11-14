@@ -87,7 +87,7 @@ export class FulfillmentService {
   if(!await validPacking(s.tx,o))throw new OrderError('PACKING_CHECK_STALE');
   if(prior&&(prior.carrierName!==b.carrierName||prior.trackingNumber!==b.trackingNumber))await this.revision(s,ctx,prior,b,false);
   const shipment=prior?await s.tx.shipment.update({where:{id:prior.id},data:{carrierName:b.carrierName,trackingNumber:b.trackingNumber,version:{increment:1},updatedAt:this.clock.now()}}):await s.tx.shipment.create({data:{orderId:id,carrierName:b.carrierName,trackingNumber:b.trackingNumber,preparedById:a.subjectId,createdAt:this.clock.now(),updatedAt:this.clock.now()}});
-  await this.changeStage(s,o,await validPacking(s.tx,o)?'READY':'PREPARING',b.commandKey,b.reason);await this.event(s,id,'PREPARE',b.reason,shipment.id);return {shipmentId:shipment.id};
+  await this.changeStage(s,o,'READY',b.commandKey,b.reason);await this.event(s,id,'PREPARE',b.reason,shipment.id);return {shipmentId:shipment.id};
  });}
  start(ctx:CustomerContext,id:string,b:D.StartHandoverDto){return this.command(ctx,id,'start',b,'shipment.handover',async(s,_c,o,fingerprint)=>{
   await this.readyToWork(s,o);await this.assignee(s,id,['SHIPMENT_PROCESS'],b.expectedTaskVersion);const p=await validPacking(s.tx,o),shipment=await s.tx.shipment.findUnique({where:{orderId:id}});

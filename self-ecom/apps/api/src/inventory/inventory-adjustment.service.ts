@@ -76,7 +76,7 @@ export class InventoryAdjustments {
   if(roots.length!==input.lines.length)throw new InventoryError('CORRECTION_NOT_ALLOWED');
   await lockStock(tx,roots.map(l=>l.skuId));await lockSources(tx,roots.map(l=>l.sourceLineId));
   await tx.$queryRaw`SELECT id FROM inventory_adjustment WHERE id=${id}::uuid FOR UPDATE`;
-  const lines=input.lines.map(line=>{const root=roots.find(r=>r.id===line.rootLineId)!;return {skuId:root.skuId,sourceLineId:root.sourceLineId,...line};});
+  const lines=input.lines.map(line=>{const root=roots.find(r=>r.id===line.rootLineId.toLowerCase())!;return {...line,skuId:root.skuId,sourceLineId:root.sourceLineId,rootLineId:root.id};});
   const row=await this.createInTransaction(tx,ctx,'CORRECTION',input.reason,input.evidenceNote,input.evidenceFileIds,lines);return {id:row.id,changed:true};
  });}
  private command<T>(ctx:InventoryContext,id:string,fn:(tx:Prisma.TransactionClient,context:TaskEntryContext)=>Promise<T>,extraLocks:readonly TaskLockResource[]=[]){

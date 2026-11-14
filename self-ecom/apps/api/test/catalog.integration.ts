@@ -26,6 +26,8 @@ import { CatalogQueries } from '../src/catalog/catalog-query.service.js';
 import { SkuReferences } from '../src/catalog/sku-reference.service.js';
 import { signature } from '../src/catalog/catalog.rules.js';
 import { FILE_CONFIG } from '../src/files/file-configuration.js';
+import { InventorySources } from '../src/inventory/inventory-source.service.js';
+import { InventoryConversion } from '../src/inventory/inventory-conversion.service.js';
 assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL,process.env.DATABASE_URL);
 if(process.env.NODE_ENV!=='test'||!/^\/m105_[a-f0-9]{32}_test$/.test(new URL(process.env.DATABASE_URL!).pathname))throw new Error('本文件只运行在verify-module5创建的独占库');
 const metadata=(controller:object,rows:Record<string,unknown[]>)=>{for(const [key,types]of Object.entries(rows))Reflect.defineMetadata('design:paramtypes',types,controller,key);};
@@ -75,6 +77,15 @@ async function ready(stock=2){
   const image=await upload();p=await commands.images(staff,p.id,{expectedVersion:p.version!,mainImageId:image,galleryImageIds:[]});
   // 本文件只能连接本轮独占测试库；正余额仅为销售规则夹具，生产无此命令。
   await db.inventoryBalance.update({where:{skuId:p.skus[0]!.id},data:{available:stock}});return p;
+}
+async function convertInitialDraft(productId:string,skuId:string,quantity=1){
+  const before=await queries.detail(productId,staff.actor),previous=await commands.draft(productId);
+  await commands.draftSave(staff,productId,{expectedProductVersion:before.version!,expectedDraftVersion:previous?.status==='EDITABLE'?previous.version:null,lines:[{skuId,quantity}]});
+  const draft=(await commands.draft(productId))!,product=await queries.detail(productId,staff.actor);
+  const source=await app.get(InventorySources).create(staff,{sourceType:'RECEIPT',namespace:'CATALOG-TEST',reference:randomUUID(),note:'独占商品引用保护回归来源',lines:[{lineKey:'1',skuId,verifiedQuantity:quantity}]});
+  const line=await db.inventorySourceLine.findFirstOrThrow({where:{sourceId:source.id}});
+  await app.get(InventoryConversion).convert(staff,productId,{expectedProductVersion:product.version!,expectedDraftVersion:draft.version,sourceId:source.id,mappings:[{skuId,sourceLineId:line.id,batchKey:'INITIAL'}],reason:'真实转换建立商品引用'});
+  return db.initialInventoryDraft.findUniqueOrThrow({where:{id:draft.id}});
 }
 it('SW01/IT01：根和子名称规范化、三级、版本与删除保护',async()=>{
   const root=await category('ÉTÉ');await expect(category(' e\u0301te\u0301 ')).rejects.toMatchObject({code:'CATEGORY_NAME_EXISTS'});
@@ -175,7 +186,7 @@ it('SW10/IT06：空草稿创建、数量保存/作废不入账，双版本与转
   await expect(commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'不可重建',dimensions:scheme()})).rejects.toMatchObject({code:'SKU_SCHEME_REFERENCED'});
   await bad('/admin/products/'+p.id+'/initial-inventory-draft','PUT',{expectedProductVersion:p.version,expectedDraftVersion:0,lines:[]},409,'VERSION_CONFLICT');
   p=await commands.draftVoid(staff,p.id,{expectedProductVersion:p.version!,expectedDraftVersion:1,reason:'不用该草稿'});expect((await commands.draft(p.id))!.status).toBe('VOID');expect(p.skus[0]!.available).toBe(0);
-  await db.initialInventoryDraft.update({where:{id:d!.id},data:{status:'CONVERTED'}});
+  await convertInitialDraft(p.id,p.skus[0]!.id,999);p={...await queries.detail(p.id,staff.actor),changed:false};
   await expect(commands.draftSave(staff,p.id,{expectedProductVersion:p.version!,expectedDraftVersion:null,lines:[]})).rejects.toMatchObject({code:'INITIAL_DRAFT_NOT_EDITABLE'});
 });
 it('SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝',async()=>{
@@ -192,8 +203,9 @@ it('IT02：业务引用检查器接入后阻止改方案/清价，未注册已�
   const missingOrder=new SkuReferences();missingOrder.register({domain:'inventory',async referenced(){return false;}});
   await expect(missingOrder.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});
   expect(await app.get(SkuReferences).referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(false);
-  const d=await db.initialInventoryDraft.create({data:{productId:p.id,createdById:staff.actor.subjectId,status:'CONVERTED',lines:{create:{skuId:p.skus[0]!.id,quantity:1}}}});expect(d.status).toBe('CONVERTED');
-  await expect(commands.prices(staff,p.id,{expectedVersion:0,skuIds:[p.skus[0]!.id],priceCents:null})).rejects.toMatchObject({code:'SKU_PRICE_REQUIRED'});
+  const d=await convertInitialDraft(p.id,p.skus[0]!.id);expect(d.status).toBe('CONVERTED');
+  const version=(await queries.detail(p.id,staff.actor)).version!;
+  await expect(commands.prices(staff,p.id,{expectedVersion:version,skuIds:[p.skus[0]!.id],priceCents:null})).rejects.toMatchObject({code:'SKU_PRICE_REQUIRED'});
 });
 it('IT03：创建、方案、分类子树、图片和上架审计失败全部回滚',async()=>{
   const count=await db.product.count();audit.fail=true;try{await expect(create('失败创建')).rejects.toThrow('审计故障');}finally{audit.fail=false;}expect(await db.product.count()).toBe(count);
@@ -218,7 +230,7 @@ it('IT04：数据库CHECK和跨商品组合/数量外键拒绝不合法直接写
 it('IT02：有引用时追加保留旧身份/价格，改已有显示含义拒绝；编码全局并发唯一',async()=>{
   let p=await create();p=await commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'原方案',dimensions:scheme([['黑']])});
   const old=p.skus.find(s=>!s.retiredAt)!;p=await commands.prices(staff,p.id,{expectedVersion:p.version!,skuIds:[old.id],priceCents:5000});
-  await db.initialInventoryDraft.create({data:{productId:p.id,createdById:staff.actor.subjectId,status:'CONVERTED',lines:{create:{skuId:old.id,quantity:1}}}});
+  await convertInitialDraft(p.id,old.id);p={...await queries.detail(p.id,staff.actor),changed:false};
   const d=p.specDimensions[0]!;const appended=await commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'APPEND',reason:'追加白',dimensions:[{...d,values:[...d.values,{clientKey:randomUUID(),name:'白'}]}]});
   expect(appended.skus.find(s=>s.id===old.id)).toMatchObject({priceCents:5000,retiredAt:null});expect(appended.skus.filter(s=>!s.retiredAt)).toHaveLength(2);
   await expect(commands.scheme(staff,p.id,{expectedVersion:appended.version!,mode:'APPEND',reason:'改含义',dimensions:appended.specDimensions.map(d=>({...d,values:d.values.map(v=>({...v,name:'改名'+v.name}))}))})).rejects.toMatchObject({code:'SKU_SCHEME_REFERENCED'});

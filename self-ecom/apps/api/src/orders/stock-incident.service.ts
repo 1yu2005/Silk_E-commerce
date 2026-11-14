@@ -19,6 +19,7 @@ import {OrderAccess,requireOrderPermission} from './order-access.service.js';
 import {refreshDamage} from './order-stock.js';
 import {OrderError} from './order.errors.js';
 import {FulfillmentService} from './fulfillment.service.js';
+import {pendingHandover} from './fulfillment.rules.js';
 import type {IncidentCreateDto,IncidentVerifyDto,IncidentCommandDto,ReplenishmentDto} from './order.dto.js';
 const live=['WAIT_PAYMENT','WAIT_SHIPMENT'];
 const retryPlan=(e:unknown)=>e instanceof TaskError&&e.code==='TASK_LOCK_PLAN_CHANGED';
@@ -95,7 +96,10 @@ export class StockIncidents {
   const prior=await this.replay(tx,id,input.commandKey,fingerprint);if(prior)return prior;const incident=await tx.stockIncident.findUniqueOrThrow({where:{id},include:{items:{include:{orderItem:{include:{order:true}},replenishments:true}}}});
   const f=incident.items.find(i=>i.orderItemId===input.orderItemId);if(!f||incident.status!=='OPEN'||f.damagedQuantity===null||f.verificationState==='SETTLED')throw new OrderError('INCIDENT_UNRESOLVED');
   const o=f.orderItem.order;if(incident.version!==input.expectedIncidentVersion||o.version!==input.expectedOrderVersion)throw new OrderError('VERSION_CONFLICT');if(f.orderItem.physicalVersion!==input.expectedPhysicalVersion)throw new OrderError('PHYSICAL_CHECK_STALE');
-  await this.assigned(tx,ctx,o.id,input.expectedTaskVersion);if(!live.includes(o.status)||o.actualHandoverAt)throw new OrderError('STOCK_INCIDENT_CONFLICT');const remaining=f.damagedQuantity-f.replenishments.reduce((n,r)=>n+r.quantity,0);if(input.quantity>remaining)throw new OrderError('STOCK_INCIDENT_CONFLICT');
+  await this.assigned(tx,ctx,o.id,input.expectedTaskVersion);if(!live.includes(o.status)||o.actualHandoverAt)throw new OrderError('STOCK_INCIDENT_CONFLICT');
+  // 实物是否已经交给承运人仍不明时，不得用可售库存替换，先核实原包裹真实去向。
+  if(await pendingHandover(tx,o.id))throw new OrderError('HANDOVER_ALREADY_PENDING');
+  const remaining=f.damagedQuantity-f.replenishments.reduce((n,r)=>n+r.quantity,0);if(input.quantity>remaining)throw new OrderError('STOCK_INCIDENT_CONFLICT');
   const a=await this.stock.execute(tx,{businessType:'ORDER',businessId:o.id,businessNumber:o.number,actionType:'ALLOCATE_REPLACEMENT',actionKey:'ALLOCATE_REPLACEMENT:'+id+':'+input.commandKey,semantic:{id,...input},actor:{type:'EMPLOYEE',id:ctx.actor.subjectId},requestId:ctx.requestId,reason:input.reason,effects:[{skuId:incident.skuId,deltaA:-input.quantity,deltaR:0,eventType:'ALLOCATE_REPLACEMENT'}]});
   const r=await tx.stockReplenishment.create({data:{incidentItemId:f.id,orderItemId:f.orderItemId,quantity:input.quantity,inventoryActionId:a.action.id,commandKey:input.commandKey,fingerprint,actorEmployeeId:ctx.actor.subjectId,goodsLocation:input.goodsLocation,reason:input.reason}});
   if(remaining===input.quantity)await tx.stockIncidentItem.update({where:{id:f.id},data:{verificationState:'REPLENISHED',version:{increment:1}}});

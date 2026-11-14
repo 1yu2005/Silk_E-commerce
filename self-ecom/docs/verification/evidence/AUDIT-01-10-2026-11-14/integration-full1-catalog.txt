@@ -1,0 +1,78 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:59040) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：D:\实习\实习生全栈学习笔记\self-ecom\output\testing\AUDIT-01-10-2026-11-14\self-ecom-catalog-TXv8Yh
+
+ ❯ test/catalog.integration.ts (20 tests | 3 failed) 5589ms
+   × SW10/IT06：空草稿创建、数量保存/作废不入账，双版本与转换保护 133ms
+   × IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败 42ms
+   × IT02：有引用时追加保留旧身份/价格，改已有显示含义拒绝；编码全局并发唯一 104ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW10/IT06：空草稿创建、数量保存/作废不入账，双版本与转换保护
+PrismaClientKnownRequestError: 
+Invalid `db.initialInventoryDraft.update()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/catalog.integration.ts:178:34
+
+  175 await expect(commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'不可重建',dimensions:scheme()})).rejects.toMatchObject({code:'SKU_SCHEME_REFERENCED'});
+  176 await bad('/admin/products/'+p.id+'/initial-inventory-draft','PUT',{expectedProductVersion:p.version,expectedDraftVersion:0,lines:[]},409,'VERSION_CONFLICT');
+  177 p=await commands.draftVoid(staff,p.id,{expectedProductVersion:p.version!,expectedDraftVersion:1,reason:'不用该草稿'});expect((await commands.draft(p.id))!.status).toBe('VOID');expect(p.skus[0]!.available).toBe(0);
+→ 178 await db.initialInventoryDraft.update(
+Database error. Code: `23514`. Message: `new row for relation "initial_inventory_draft" violates check constraint "initial_draft_conversion_link"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/catalog.integration.ts:178:3
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败
+PrismaClientKnownRequestError: 
+Invalid `db.initialInventoryDraft.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/catalog.integration.ts:195:42
+
+  192 const missingOrder=new SkuReferences();missingOrder.register({domain:'inventory',async referenced(){return false;}});
+  193 await expect(missingOrder.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});
+  194 expect(await app.get(SkuReferences).referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(false);
+→ 195 const d=await db.initialInventoryDraft.create(
+Database error. Code: `23514`. Message: `new row for relation "initial_inventory_draft" violates check constraint "initial_draft_conversion_link"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/catalog.integration.ts:195:11
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：有引用时追加保留旧身份/价格，改已有显示含义拒绝；编码全局并发唯一
+PrismaClientKnownRequestError: 
+Invalid `db.initialInventoryDraft.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/catalog.integration.ts:221:34
+
+  218 it('IT02：有引用时追加保留旧身份/价格，改已有显示含义拒绝；编码全局并发唯一',async()=>{
+  219   let p=await create();p=await commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'原方案',dimensions:scheme([['黑']])});
+  220   const old=p.skus.find(s=>!s.retiredAt)!;p=await commands.prices(staff,p.id,{expectedVersion:p.version!,skuIds:[old.id],priceCents:5000});
+→ 221   await db.initialInventoryDraft.create(
+Database error. Code: `23514`. Message: `new row for relation "initial_inventory_draft" violates check constraint "initial_draft_conversion_link"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/catalog.integration.ts:221:3
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 17 passed (20)
+   Start at  16:42:20
+   Duration  7.76s (tests 73%, import 20%, transform 6%)
+

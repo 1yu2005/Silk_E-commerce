@@ -7,7 +7,7 @@ import {join} from 'node:path';
 import sharp from 'sharp';
 import {Test} from '@nestjs/testing';
 import type {INestApplication} from '@nestjs/common';
-import {afterAll,afterEach,beforeAll,expect,it} from 'vitest';
+import {afterAll,afterEach,beforeAll,expect,it,vi} from 'vitest';
 import type {Prisma} from '@prisma/client';
 import {AppModule} from '../src/app.module.js';
 import {APP_CONFIG,loadConfiguration} from '../src/config/environment.js';
@@ -31,6 +31,9 @@ import {OrderCommands} from '../src/orders/order-command.service.js';
 import {OrderQueries} from '../src/orders/order-query.service.js';
 import {StockIncidents} from '../src/orders/stock-incident.service.js';
 import {OrderScanner} from '../src/orders/order-scanner.service.js';
+import {OrderError} from '../src/orders/order.errors.js';
+import {FilesService} from '../src/files/files.service.js';
+import {BusinessRecordAdapters} from '../src/records/business-record-adapters.js';
 import {TaskCommandService} from '../src/tasks/task-command.service.js';
 import {ProductCommands} from '../src/catalog/product-command.service.js';
 import {CategoryService} from '../src/catalog/category.service.js';
@@ -158,6 +161,40 @@ it('IT06/08：真实上传商品图随订单保留，建单失败回滚快照引
  await db.product.update({where:{id:f.s.productId},data:{status:'OFF_SALE'}});
  await app.get(ProductCommands).images(admin,f.s.productId,{expectedVersion:1,mainImageId:null,galleryImageIds:[]});
  const detail=await app.get(OrderQueries).detail(f.c,order.orderId);const image=await fetch(new URL(detail.items[0]!.imageUrl!,base));expect(image.status).toBe(200);expect((await image.arrayBuffer()).byteLength).toBeGreaterThan(0);
+});
+async function communicationFile(){
+ const f=await created();
+ const png=await sharp({create:{width:30,height:40,channels:3,background:'#456789'}}).png().toBuffer();
+ const form=new FormData();form.append('purpose','COMMUNICATION_EVIDENCE');form.append('file',new Blob([new Uint8Array(png)],{type:'image/png'}),'communication.png');
+ const uploaded=await fetch(base+'/files',{method:'POST',headers:{Authorization:'Bearer '+support.token},body:form});expect(uploaded.status).toBe(201);
+ const fileId=(await uploaded.json()).data.id as string;
+ const recorded=await http('POST','/admin/communications',support,{scopeType:'ORDER',scopeId:f.order.orderId,channel:'PHONE',occurredAt:new Date().toISOString(),result:'隔离内部核实',publicText:'隔离顾客说明',attachments:[{fileId,audience:'CUSTOMER_VISIBLE'}]});
+ expect(recorded.status).toBe(201);expect(await db.fileReference.count({where:{fileAssetId:fileId,ownerType:'COMMUNICATION'}})).toBe(1);
+ return {...f,fileId};
+}
+it('文件边界：真实订单沟通附件对他人统一隐藏存在性，订单接口仍保留领域错误',async()=>{
+ const f=await communicationFile(),other=await customer();
+ expect((await http('GET','/files/'+f.fileId,f.c)).status).toBe(200);
+ const content=await fetch(base+'/files/'+f.fileId+'/content',{headers:{Authorization:'Bearer '+f.c.token}});expect(content.status).toBe(200);expect((await content.arrayBuffer()).byteLength).toBeGreaterThan(0);
+ for(const suffix of ['', '/content']){
+  const denied=await http('GET','/files/'+f.fileId+suffix,other),missing=await http('GET','/files/'+randomUUID()+suffix,other);
+  expect(denied.status).toBe(404);expect(missing.status).toBe(404);
+  expect(denied.json.code).toBe('FILE_NOT_FOUND');expect(denied.json.message).toBe(missing.json.message);expect(missing.json.code).toBe('FILE_NOT_FOUND');
+ }
+ const communication=await http('GET','/store/orders/'+f.order.orderId+'/communications',other);expect(communication.status).toBe(404);expect(communication.json.code).toBe('ORDER_NOT_FOUND');
+});
+it('文件边界：真实沟通附件授权的数据库故障与其它领域冲突继续抛出',async()=>{
+ const f=await communicationFile(),files=app.get(FilesService),adapter=app.get(BusinessRecordAdapters).communication('ORDER');
+ const spy=vi.spyOn(adapter,'lockAndAuthorize');
+ try{
+  spy.mockImplementationOnce(async tx=>{await tx.$queryRaw`SELECT audit_missing_communication_scope_column`;});
+  await expect(files.metadata(f.fileId,f.c.token)).rejects.toMatchObject({code:'P2010'});
+  const conflict=new OrderError('VERSION_CONFLICT');spy.mockRejectedValueOnce(conflict);
+  await expect(files.content(f.fileId,f.c.token)).rejects.toBe(conflict);
+  const unknown=Object.assign(new Error('隔离未知拒绝'),{code:'ORDER_NOT_FOUND',status:404});spy.mockRejectedValueOnce(unknown);
+  await expect(files.metadata(f.fileId,f.c.token)).rejects.toBe(unknown);
+ }finally{spy.mockRestore();}
+ expect((await files.metadata(f.fileId,f.c.token)).id).toBe(f.fileId);
 });
 it('真实HTTP单任务核实不传可选taskVersions仍可核实与解除',async()=>{const f=await created();const i=await incidents.create(warehouse,{incidentKey:randomUUID(),skuId:f.s.id,reason:'HTTP单任务核实',evidenceNote:'隔离证据'});const t=await claim(f.order.orderId),line=await db.orderItem.findFirstOrThrow({where:{orderId:f.order.orderId}});const body={expectedVersion:0,expectedTaskVersion:t.version,commandKey:randomUUID(),reason:'确认完好',evidenceNote:'真实核实证据'};const verified=await http('POST','/admin/inventory/stock-incidents/'+i.id+'/verify',warehouse,{...body,items:[{orderItemId:line.id,damagedQuantity:0,conclusion:'INTACT'}]});expect(verified.status).toBe(200);expect((await http('POST','/admin/inventory/stock-incidents/'+i.id+'/resolve',warehouse,{...body,expectedVersion:1,commandKey:randomUUID()})).status).toBe(200);});
 it('多订单异常解除按各自任务版本核验，不要求不同任务版本恰好相等',async()=>{

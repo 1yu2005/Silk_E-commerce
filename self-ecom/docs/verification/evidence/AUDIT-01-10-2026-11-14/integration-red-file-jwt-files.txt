@@ -1,0 +1,76 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+stdout | test/files.integration.ts
+保留测试临时目录：D:\实习\实习生全栈学习笔记\self-ecom\output\testing\AUDIT-01-10-2026-11-14\self-ecom-files-db-ZarBOB
+
+ ❯ test/files.integration.ts (39 tests | 2 failed | 37 skipped) 901ms
+   × 文件绑定业务锁等待跨过JWT到期后拒绝引用，文件仍为STAGED 120ms
+   × 私有文件业务锁等待跨过JWT到期后拒绝读取元数据 103ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/files.integration.ts > 文件绑定业务锁等待跨过JWT到期后拒绝引用，文件仍为STAGED
+AssertionError: promise resolved "[ { …(3) } ]" instead of rejecting
+
+- Expected:
+Error {
+  "message": "rejected promise",
+}
+
++ Received:
+[
+  {
+    "audience": "PUBLIC",
+    "fileId": "addc03dd-bf57-4ca4-a4fa-5b480e598649",
+    "id": "0cd1886c-b4ad-45b1-9e6e-edcd2d0348f5",
+  },
+]
+
+ ❯ test/files.integration.ts:131:123
+    129|   const service = new FileBindingService(new FileAccessService(f.ident…
+    130|   await expect(prisma.$transaction(tx => service.bindFiles(tx, f.acces…
+    131|     ownerId: customer.identity.subjectId, slot: 'avatar', audience: 'P…
+       |                                                                                                                           ^
+    132|     .rejects.toMatchObject({ code: 'TOKEN_EXPIRED' });
+    133|   expect(await prisma.fileReference.count({ where: { fileAssetId: id }…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/files.integration.ts > 私有文件业务锁等待跨过JWT到期后拒绝读取元数据
+AssertionError: promise resolved "{ …(10) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "byteSize": 106,
++   "contentUrl": "/api/v1/files/e4b93e0f-e08f-4e87-a595-e7902d43f1b2/content",
++   "expiresAt": null,
++   "height": 16,
++   "id": "e4b93e0f-e08f-4e87-a595-e7902d43f1b2",
++   "mimeType": "image/png",
++   "purpose": "COMMUNICATION_EVIDENCE",
++   "state": "RETAINED",
++   "visibility": "PRIVATE",
++   "width": 20,
+  }
+
+ ❯ test/files.integration.ts:147:59
+    145|   const spy = vi.spyOn(adapter, 'authorize').mockImplementation(async …
+    146|   const service = new FilesService(prisma, new FileAccessService(f.ide…
+    147|   try { await expect(service.metadata(id, f.access.token)).rejects.toM…
+       |                                                           ^
+    148|   finally { spy.mockRestore(); }
+    149| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 37 skipped (39)
+   Start at  16:38:04
+   Duration  4.07s (import 54%, tests 23%, transform 23%)
+

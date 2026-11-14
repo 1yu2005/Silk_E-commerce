@@ -151,6 +151,15 @@ it('IT04：并发两笔负更正共同不能穿透原根净量',async()=>{
  const race=await Promise.allSettled([adjustments.post(ctx(),a.id,await versions(a.id)),adjustments.post(ctx(peer),b.id,await versions(b.id))]);expect(race.filter(r=>r.status==='fulfilled')).toHaveLength(1);
  expect(race.find(r=>r.status==='rejected')).toMatchObject({reason:{code:'CORRECTION_NOT_ALLOWED'}});expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:3,reserved:0});
 });
+it('合法大写更正根UUID走真实HTTP并确认成功，大小写混合重复根不能新建登记',async()=>{
+ const f=await fixture(4),p=await pending(f,4);await post(p.id);const root=await db.inventoryAdjustmentLine.findFirstOrThrow({where:{adjustmentId:p.id}});
+ const result=await call('/admin/inventory/adjustments/'+p.id+'/corrections','POST',{reason:'核实录入差额',evidenceNote:'合法UUID大小写回归',lines:[{rootLineId:root.id.toUpperCase(),signedDeltaA:-1}]});
+ expect(result.r.status).toBe(201);const id=result.json.data.id as string;await post(id);
+ expect(await db.inventoryAdjustmentLine.findFirst({where:{adjustmentId:id}})).toMatchObject({rootLineId:root.id,signedDeltaA:-1});
+ expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:3,reserved:0});
+ const count=await db.inventoryAdjustment.count();const duplicate=await call('/admin/inventory/adjustments/'+p.id+'/corrections','POST',{reason:'重复根拒绝',evidenceNote:'不得拆分重复根',lines:[{rootLineId:root.id,signedDeltaA:-1},{rootLineId:root.id.toUpperCase(),signedDeltaA:-1}]});
+ expect(duplicate.r.status).toBe(409);expect(duplicate.json.code).toBe('CORRECTION_NOT_ALLOWED');expect(await db.inventoryAdjustment.count()).toBe(count);
+});
 it('IT07：两人抢领、转交和调岗回池，旧经办不能继续确认',async()=>{
  const f=await fixture(3),p=await pending(f,3);const v=await versions(p.id);const results=await Promise.allSettled([adjustments.claim(ctx(),p.id,v),adjustments.claim(ctx(peer),p.id,v)]);
  expect(results.filter(r=>r.status==='fulfilled')).toHaveLength(1);const t=await db.task.findFirstOrThrow({where:{businessId:p.id,status:'CLAIMED'}});const old=t.assigneeId===staff.actor.subjectId?staff:peer;

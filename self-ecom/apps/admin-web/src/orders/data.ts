@@ -13,7 +13,7 @@ export const orderQueries={
  incidents:new EmployeeQueryController<{page:number},Awaited<ReturnType<typeof settings.listStockIncidents>>['data']>(session,(q,signal)=>settings.listStockIncidents({query:{...q,pageSize:20},signal})),
  incident:new EmployeeQueryController<string,Incident>(session,(id,signal)=>settings.getStockIncident({path:{id},signal})),
  candidates:new EmployeeQueryController<string,Awaited<ReturnType<typeof settings.getStockIncidentCandidates>>['data']>(session,(skuId,signal)=>settings.getStockIncidentCandidates({path:{skuId},signal})),
- communications:new EmployeeQueryController<string,Awaited<ReturnType<typeof settings.listOrderInternalCommunications>>['data']>(session,(scopeId,signal)=>settings.listOrderInternalCommunications({query:{scopeType:'ORDER',scopeId,page:1,pageSize:100},signal})),
+ communications:new EmployeeQueryController<{scopeId:string;page:number},Awaited<ReturnType<typeof settings.listOrderInternalCommunications>>['data']>(session,({scopeId,page},signal)=>settings.listOrderInternalCommunications({query:{scopeType:'ORDER',scopeId,page,pageSize:20},signal})),
 };
 export const orderStatuses:Record<string,string>={WAIT_PAYMENT:'待付款',WAIT_SHIPMENT:'待发货',SHIPPED:'已发货',COMPLETED:'已完成',CLOSED:'已关闭',REFUNDED:'已退款'};
 export const cents=(n:number)=>'¥'+(n/100).toFixed(2);

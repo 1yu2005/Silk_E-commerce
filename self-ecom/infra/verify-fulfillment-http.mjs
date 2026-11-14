@@ -3,6 +3,7 @@
 import assert from 'node:assert/strict';
 import {randomBytes,randomUUID} from 'node:crypto';
 import path from 'node:path';
+import {verifyOrderCommunications} from './verify-order-communications-http.mjs';
 export async function verifyFulfillment(c){
  const {admin,customer,newOrder,store,staff,origin,storeOrigin,orderId,skuId,passed,output,call,browser,secrets,report}=c;
  const root=id=>'/admin/orders/'+id+'/fulfillment';
@@ -39,4 +40,5 @@ export async function verifyFulfillment(c){
  const service=await browser.newPage();service.on('pageerror',e=>report.pageErrors.push(e.name));await service.goto(origin+'/login');await service.getByLabel('员工账号',{exact:true}).fill(username);await service.getByLabel('密码',{exact:true}).fill(password);await service.locator('form button[type=submit]').click();await service.waitForURL(origin+'/');await service.goto(origin+'/orders/'+id);await service.getByRole('heading',{name:'仓储履约与物流',exact:true}).waitFor();assert.equal(await service.getByRole('button',{name:'保存整单打包核对',exact:true}).count(),0);assert.equal(await service.getByRole('button',{name:'开始交运并保存动作',exact:true}).count(),0);await service.screenshot({path:path.join(output,'service-permission.png'),fullPage:true});await service.close();
  await staff.goto(origin+'/orders');await staff.getByLabel('待办分组').selectOption('exception');await staff.getByRole('button',{name:'筛选订单',exact:true}).click();await staff.getByLabel('仓储阶段').selectOption('UNCLAIMED');await staff.getByLabel('待办分组').selectOption('');await staff.getByRole('button',{name:'筛选订单',exact:true}).click();await staff.screenshot({path:path.join(output,'fulfillment-filters.png'),fullPage:true});
  passed('板块10生产浏览器异常与权限：主动未知→仍不明→未交运新轮重领→仓储齐货/客服CONTINUE→显式结案；客服不可发货，真实403；工作台分组可用');
+ await verifyOrderCommunications(c);
 }

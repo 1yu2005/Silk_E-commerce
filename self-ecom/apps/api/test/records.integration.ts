@@ -150,6 +150,44 @@ it('私有原记录转公开更正时，不泄露私有原记录ID', async () =>
   });
 });
 
+it('沟通记录有效大页码返回空页，不把超出Prisma整数范围的偏移传给数据库', async () => {
+  await transaction(async (tx, f) => {
+    await f.communication.appendCommunication(tx, f.staff, input(f, { publicText: '测试公开说明' }));
+    const target = { scopeType: 'ORDER' as const, scopeId: f.orderId };
+    const pagination = { page: 2147483647, pageSize: 100 };
+    const publicResult = await f.communication.readPublicCommunication(tx, f.customer, target, pagination);
+    const internalResult = await f.communication.readInternalCommunication(tx, f.staff, target, pagination);
+    for (const result of [publicResult, internalResult]) {
+      expect(result).toMatchObject({ ...pagination, total: 1, items: [] });
+    }
+  });
+});
+
+it('沟通业务锁等待跨过JWT到期后拒绝写入，不追加沟通或审计', async () => {
+  await transaction(async (tx, f) => {
+    let now = new Date();
+    const clock = () => new Date(now);
+    const expiringTokens = new JwtTokenService({ secret: 'record-expiry-regression-only-'.repeat(2), ttlSeconds: 60 }, clock);
+    const expiringIdentities = new CurrentIdentityService(expiringTokens, new PermissionService(), clock);
+    const sessionId = randomUUID();
+    const issued = await expiringTokens.issue({ subjectType: 'EMPLOYEE', subjectId: f.employeeId, sessionId, tokenVersion: 0 });
+    await tx.authSession.create({ data: { id: sessionId, subjectType: 'EMPLOYEE', employeeId: f.employeeId,
+      tokenVersion: 0, createdAt: issued.issuedAt, expiresAt: issued.expiresAt } });
+    const identity = await expiringIdentities.authenticate(tx, issued.accessToken, 'EMPLOYEE');
+    const adapters = new BusinessRecordAdapters();
+    adapters.registerCommunication({ scopeType: 'ORDER', async lockAndAuthorize(db, actor, id, mode) {
+      await scopeAdapter('ORDER').lockAndAuthorize(db, actor, id, mode);
+      now = new Date(issued.expiresAt);
+    } });
+    const service = new CommunicationService(expiringIdentities, adapters, audit);
+    const beforeAudit = await tx.auditLog.count();
+    await expect(service.appendCommunication(tx, { identity, token: issued.accessToken }, input(f)))
+      .rejects.toMatchObject({ code: 'TOKEN_EXPIRED' });
+    expect(await tx.communication.count({ where: { scopeId: f.orderId } })).toBe(0);
+    expect(await tx.auditLog.count()).toBe(beforeAudit);
+  });
+});
+
 it('公开记录不能仅在内部更正，原公开内容及数据库旧记录不被改写', async () => {
   await transaction(async (tx, f) => {
     const original = await f.communication.appendCommunication(tx, f.staff, input(f, { publicText: '原公开说明' }));

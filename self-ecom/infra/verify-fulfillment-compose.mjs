@@ -10,6 +10,7 @@ import {pathToFileURL} from 'node:url';
 import {verifyOrders} from './verify-orders-http.mjs';
 import {verifyFulfillment} from './verify-fulfillment-http.mjs';
 const output=path.resolve(process.argv[2]);assert.ok(process.argv[2]&&!existsSync(path.join(output,'result.json')));mkdirSync(output,{recursive:true});
+const retainResources=process.argv.includes('--retain-resources');
 const configured=parseEnv(readFileSync('.env','utf8'));
 const docker=process.env.DOCKER_EXECUTABLE??path.join(process.env.LOCALAPPDATA,'Programs/DockerDesktop/resources/bin/docker.exe');
 const project='self-ecom-m210-acceptance-'+randomUUID().slice(0,8),reuse=process.argv.find(a=>a.startsWith('--reuse='))?.slice(8);
@@ -23,7 +24,7 @@ const env={...process.env,POSTGRES_DB:'acceptance_dev',POSTGRES_USER:'acceptance
 const override=path.join(output,'compose.override.yaml');writeFileSync(override,`services:\n  api:\n    image: ${imagePrefix}-api:local\n  admin-web:\n    image: ${imagePrefix}-admin:local\n  store-web:\n    image: ${imagePrefix}-store:local\n`);
 const base=['compose','--project-name',project,'--env-file','.env','-f','infra/compose.yaml','-f',override];
 const report={startedAt:new Date().toISOString(),project,imagePrefix,checks:[],requests:[],commands:[],acceptedImages:[],pageErrors:[]};let browser,owned=false;
-function run(args,label){const r=spawnSync(docker,args,{env,encoding:'utf8',windowsHide:true,maxBuffer:64*1024*1024});report.commands.push({label,startedAt:new Date(Date.now()-(r.wallTime??0)).toISOString(),endedAt:new Date().toISOString(),exitCode:r.status});writeFileSync(path.join(output,'command-'+report.commands.length+'.log'),redact((r.stdout??'')+(r.stderr??'')+(r.error??'')));assert.equal(r.status,0,label+' '+redact((r.stderr??'').slice(-500)));return {stdout:r.stdout??''};}
+function run(args,label){const startedAt=new Date().toISOString(),r=spawnSync(docker,args,{env,encoding:'utf8',windowsHide:true,maxBuffer:64*1024*1024});report.commands.push({label,command:['docker',...args],startedAt,endedAt:new Date().toISOString(),exitCode:r.status});writeFileSync(path.join(output,'command-'+report.commands.length+'.log'),redact((r.stdout??'')+(r.stderr??'')+(r.error??'')));assert.equal(r.status,0,label+' '+redact((r.stderr??'').slice(-500)));return {stdout:r.stdout??''};}
 const compose=(args,label)=>run([...base,...args],label),passed=s=>{report.checks.push(s);console.log(JSON.stringify({passed:s}));};
 const originals=run(['ps','-aq'],'原容器清单').stdout.trim().split(/\s+/).filter(Boolean);
 const state=()=>originals.length?run(['inspect','--format','{{.Id}} {{.State.StartedAt}} {{.State.Running}}',...originals],'原容器状态').stdout.trim():'';
@@ -35,7 +36,7 @@ try{
  compose(['config','--quiet'],'独占Compose配置');if(!reuse)compose(['build'],'三个生产镜像真实构建');
  for(const suffix of ['api','admin','store']){const name=imagePrefix+'-'+suffix+':local';report.acceptedImages.push({name,id:run(['image','inspect','--format','{{.Id}}',name],'冻结镜像ID').stdout.trim()});}
  owned=true;compose(['up','-d','--wait','--wait-timeout','90','db'],'启动本轮独占数据库');
- compose(['run','--rm','--no-deps','api','pnpm','db:migrate:deploy'],'空库十二次迁移');compose(['run','--rm','--no-deps','api','pnpm','db:seed:permissions'],'权限初始化');compose(['run','--rm','--no-deps','-e','INIT_ADMIN_USERNAME','-e','INIT_ADMIN_PASSWORD','api','pnpm','db:seed:admin'],'独占管理员初始化');
+ compose(['run','--rm','--no-deps','api','pnpm','db:migrate:deploy'],'空库应用当前全部迁移');compose(['run','--rm','--no-deps','api','pnpm','db:seed:permissions'],'权限初始化');compose(['run','--rm','--no-deps','-e','INIT_ADMIN_USERNAME','-e','INIT_ADMIN_PASSWORD','api','pnpm','db:seed:admin'],'独占管理员初始化');
  compose(['up','-d','--wait','--wait-timeout','120'],'启动独占四服务');
  const origin='http://localhost:'+adminPort,storeOrigin='http://localhost:'+storePort;
  const adminToken=(await call(origin,'/admin/auth/login','POST',{username:env.INIT_ADMIN_USERNAME,password:adminPassword})).accessToken;
@@ -49,7 +50,7 @@ try{
  assert.deepEqual(report.pageErrors,[]);passed('同组生产镜像、三入口契约一致，重启和API重建保持交易/图片/会话');report.status='passed';
 }catch(e){report.status='failed';report.failure=redact(e.stack??e.message);console.error(report.failure);process.exitCode=1;if(browser){for(const [i,page]of browser.contexts().flatMap(c=>c.pages()).entries()){try{writeFileSync(path.join(output,'failure-page-'+i+'.txt'),redact(await page.locator('body').innerText()));await page.screenshot({path:path.join(output,'failure-page-'+i+'.png'),fullPage:true});}catch{/* 页面可能已关闭 */}}}if(owned){try{compose(['logs','--no-color','--tail','100','api'],'失败API诊断');}catch{/* 保留原失败 */}}}
 finally{
- await browser?.close();try{if(owned){const names=run(['volume','ls','--filter','label=com.docker.compose.project='+project,'--format','{{.Name}}'],'核对本轮专属卷').stdout.trim().split(/\s+/).filter(Boolean);assert.ok(names.every(n=>n.startsWith(project+'_')&&!volumesBefore.includes(n)));compose(['down','--remove-orphans'],'移除本轮专属容器');for(const name of names)run(['volume','rm',name],'移除本轮单个专属卷');report.cleaned=true;}
+ await browser?.close();try{if(owned){const names=run(['volume','ls','--filter','label=com.docker.compose.project='+project,'--format','{{.Name}}'],'核对本轮专属卷').stdout.trim().split(/\s+/).filter(Boolean);assert.ok(names.every(n=>n.startsWith(project+'_')&&!volumesBefore.includes(n)));if(retainResources){report.retainedResources={project,volumes:names};report.cleaned=false;}else{compose(['down','--remove-orphans'],'移除本轮专属容器');for(const name of names)run(['volume','rm',name],'移除本轮单个专属卷');report.cleaned=true;}}
  assert.equal(state(),before);const after=run(['volume','ls','--format','{{.Name}}'],'复核原卷').stdout.trim().split(/\s+/);assert.ok(volumesBefore.every(v=>after.includes(v)));report.originalResourcesPreserved=true;
  }catch(e){report.status='failed';report.cleanupFailure=redact(e.message);process.exitCode=1;}
  report.endedAt=new Date().toISOString();writeFileSync(path.join(output,'result.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify({status:report.status,checks:report.checks.length,requests:report.requests.length,cleaned:report.cleaned,originalResourcesPreserved:report.originalResourcesPreserved,imagePrefix}));

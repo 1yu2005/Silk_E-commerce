@@ -1,0 +1,629 @@
+{
+  "startedAt": "2026-11-14T09:23:58.459Z",
+  "checks": [
+    "三应用使用同组验收镜像；API非root；镜像排除真实配置、私有交付和测试入口"
+  ],
+  "commands": [
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T09:23:58.465Z",
+      "endedAt": "2026-11-14T09:23:58.781Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{json .Config}}",
+        "sha256:6daac4585b3aeff3fe3870e436fe3f697c7bf44fcdd2ecf247b50a80cc991ecf"
+      ],
+      "startedAt": "2026-11-14T09:23:58.781Z",
+      "endedAt": "2026-11-14T09:23:59.043Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "logs",
+        "--tail",
+        "400",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T09:23:59.044Z",
+      "endedAt": "2026-11-14T09:23:59.212Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-admin-web-1"
+      ],
+      "startedAt": "2026-11-14T09:23:59.212Z",
+      "endedAt": "2026-11-14T09:23:59.336Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{json .Config}}",
+        "sha256:df79498ee7d45d15262b65626e992bd37062f0858e1613133e3f76883ccb937a"
+      ],
+      "startedAt": "2026-11-14T09:23:59.336Z",
+      "endedAt": "2026-11-14T09:23:59.536Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "logs",
+        "--tail",
+        "400",
+        "self-ecom-admin-web-1"
+      ],
+      "startedAt": "2026-11-14T09:23:59.536Z",
+      "endedAt": "2026-11-14T09:23:59.671Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-store-web-1"
+      ],
+      "startedAt": "2026-11-14T09:23:59.671Z",
+      "endedAt": "2026-11-14T09:23:59.787Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "image",
+        "inspect",
+        "--format",
+        "{{json .Config}}",
+        "sha256:c2e293ef8a3ceeb336cb25c3fc12629ec3593507f1b9e8a9e9afaba470ec1dac"
+      ],
+      "startedAt": "2026-11-14T09:23:59.787Z",
+      "endedAt": "2026-11-14T09:23:59.964Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "logs",
+        "--tail",
+        "400",
+        "self-ecom-store-web-1"
+      ],
+      "startedAt": "2026-11-14T09:23:59.964Z",
+      "endedAt": "2026-11-14T09:24:00.092Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "exec",
+        "self-ecom-api-1",
+        "id",
+        "-u"
+      ],
+      "startedAt": "2026-11-14T09:24:00.092Z",
+      "endedAt": "2026-11-14T09:24:00.299Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "docker.exe",
+        "exec",
+        "self-ecom-api-1",
+        "node",
+        "-e",
+        "const f=require('fs');const bad=['/app/.env','/app/private-delivery','/app/output','/app/test','/app/apps/api/test','/app/scripts/task-acceptance.mjs'].filter(p=>f.existsSync(p));console.log(JSON.stringify(bad));process.exitCode=bad.length?1:0"
+      ],
+      "startedAt": "2026-11-14T09:24:00.299Z",
+      "endedAt": "2026-11-14T09:24:00.515Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "--relative",
+        "-z",
+        "--",
+        "."
+      ],
+      "startedAt": "2026-11-14T09:24:00.515Z",
+      "endedAt": "2026-11-14T09:24:00.617Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--others",
+        "--exclude-standard",
+        "-z",
+        "--",
+        "."
+      ],
+      "startedAt": "2026-11-14T09:24:00.617Z",
+      "endedAt": "2026-11-14T09:24:00.695Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/.gitignore"
+      ],
+      "startedAt": "2026-11-14T09:24:00.696Z",
+      "endedAt": "2026-11-14T09:24:00.757Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/README.md"
+      ],
+      "startedAt": "2026-11-14T09:24:00.758Z",
+      "endedAt": "2026-11-14T09:24:00.819Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/admin-web/src/orders/data.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:00.819Z",
+      "endedAt": "2026-11-14T09:24:00.886Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/admin-web/src/pages/OrderDetailPage.tsx"
+      ],
+      "startedAt": "2026-11-14T09:24:00.886Z",
+      "endedAt": "2026-11-14T09:24:00.950Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/files/file-binding.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:00.950Z",
+      "endedAt": "2026-11-14T09:24:01.022Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/files/files.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.022Z",
+      "endedAt": "2026-11-14T09:24:01.082Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/inventory/inventory-adjustment.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.083Z",
+      "endedAt": "2026-11-14T09:24:01.149Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/inventory/inventory-posting.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.149Z",
+      "endedAt": "2026-11-14T09:24:01.212Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/orders/fulfillment.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.212Z",
+      "endedAt": "2026-11-14T09:24:01.275Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/orders/order.controller.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.275Z",
+      "endedAt": "2026-11-14T09:24:01.334Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/orders/orders.module.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.335Z",
+      "endedAt": "2026-11-14T09:24:01.404Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/orders/stock-incident.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.404Z",
+      "endedAt": "2026-11-14T09:24:01.464Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/records/communication-files.adapter.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.464Z",
+      "endedAt": "2026-11-14T09:24:01.526Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/src/records/communication.service.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.526Z",
+      "endedAt": "2026-11-14T09:24:01.583Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/catalog.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.584Z",
+      "endedAt": "2026-11-14T09:24:01.649Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/database.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.649Z",
+      "endedAt": "2026-11-14T09:24:01.708Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/files-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.709Z",
+      "endedAt": "2026-11-14T09:24:01.778Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/files.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.779Z",
+      "endedAt": "2026-11-14T09:24:01.836Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/fulfillment.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.837Z",
+      "endedAt": "2026-11-14T09:24:01.895Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/inventory-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.896Z",
+      "endedAt": "2026-11-14T09:24:01.954Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/inventory.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:01.954Z",
+      "endedAt": "2026-11-14T09:24:02.012Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/orders-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:02.012Z",
+      "endedAt": "2026-11-14T09:24:02.075Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/orders.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:02.075Z",
+      "endedAt": "2026-11-14T09:24:02.137Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/records.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:02.137Z",
+      "endedAt": "2026-11-14T09:24:02.210Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/api/test/tasks-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:02.210Z",
+      "endedAt": "2026-11-14T09:24:02.267Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/store-web/src/customers/purchase-confirmation.ts"
+      ],
+      "startedAt": "2026-11-14T09:24:02.268Z",
+      "endedAt": "2026-11-14T09:24:02.328Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/store-web/src/pages/CheckoutPage.tsx"
+      ],
+      "startedAt": "2026-11-14T09:24:02.328Z",
+      "endedAt": "2026-11-14T09:24:02.389Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/apps/store-web/src/pages/OrderPage.tsx"
+      ],
+      "startedAt": "2026-11-14T09:24:02.389Z",
+      "endedAt": "2026-11-14T09:24:02.447Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/infra/verify-fulfillment-compose.mjs"
+      ],
+      "startedAt": "2026-11-14T09:24:02.447Z",
+      "endedAt": "2026-11-14T09:24:02.506Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/infra/verify-fulfillment-http.mjs"
+      ],
+      "startedAt": "2026-11-14T09:24:02.506Z",
+      "endedAt": "2026-11-14T09:24:02.564Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/infra/verify-orders-http.mjs"
+      ],
+      "startedAt": "2026-11-14T09:24:02.564Z",
+      "endedAt": "2026-11-14T09:24:02.634Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/scripts/verify-delivery-module10.mjs"
+      ],
+      "startedAt": "2026-11-14T09:24:02.635Z",
+      "endedAt": "2026-11-14T09:24:02.696Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/项目文档/开发进度总览.md"
+      ],
+      "startedAt": "2026-11-14T09:24:02.697Z",
+      "endedAt": "2026-11-14T09:24:02.752Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/项目文档/开发进度文档/开发完成说明/板块10_开发完成说明.md"
+      ],
+      "startedAt": "2026-11-14T09:24:02.753Z",
+      "endedAt": "2026-11-14T09:24:02.813Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/项目文档/开发进度文档/开发完成说明/板块3_开发完成说明.md"
+      ],
+      "startedAt": "2026-11-14T09:24:02.813Z",
+      "endedAt": "2026-11-14T09:24:02.871Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "show",
+        "HEAD:self-ecom/项目文档/开发进度文档/开发完成说明/板块6_开发完成说明.md"
+      ],
+      "startedAt": "2026-11-14T09:24:02.871Z",
+      "endedAt": "2026-11-14T09:24:02.929Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        "--quiet",
+        "private-delivery/板块10_开发完成说明_含账号密码.local.md"
+      ],
+      "startedAt": "2026-11-14T09:24:03.063Z",
+      "endedAt": "2026-11-14T09:24:03.122Z",
+      "exitCode": 0,
+      "error": null
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--",
+        "private-delivery"
+      ],
+      "startedAt": "2026-11-14T09:24:03.122Z",
+      "endedAt": "2026-11-14T09:24:03.179Z",
+      "exitCode": 0,
+      "error": null
+    }
+  ],
+  "findings": [
+    "apps/api/test/inventory-correction.spec.ts"
+  ],
+  "exclusions": [
+    {
+      "name": "scripts/verify-delivery-module10.mjs",
+      "reason": "公开固定十六进制字符集的连续数字子串"
+    },
+    {
+      "name": "scripts/check-audit-delivery.mjs",
+      "reason": "公开固定十六进制字符集的连续数字子串"
+    },
+    {
+      "name": "output\\build\\AUDIT-01-10-2026-11-14\\final2\\admin-web\\assets\\api-CZ24gxNP.js",
+      "reason": "公开固定十六进制字符集的连续数字子串"
+    },
+    {
+      "name": "output\\build\\AUDIT-01-10-2026-11-14\\final2\\store-web\\assets\\api-BT4SR06D.js",
+      "reason": "公开固定十六进制字符集的连续数字子串"
+    }
+  ],
+  "status": "failed",
+  "failure": "交付断言失败：Expected values to be strictly deep-equal:\n+ actual - expected\n\n+ [\n+   'apps/api/test/inventory-correction.spec.ts'\n+ ]\n- []\n",
+  "endedAt": "2026-11-14T09:24:03.184Z"
+}

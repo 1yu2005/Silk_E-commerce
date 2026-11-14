@@ -1,0 +1,40 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:55036) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/fulfillment.integration.ts (34 tests | 1 failed | 33 skipped) 2007ms
+   × 交运结果未核实前不能分配替换库存；核实未交后原命令可成功且只扣一次 1188ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/fulfillment.integration.ts > 交运结果未核实前不能分配替换库存；核实未交后原命令可成功且只扣一次
+AssertionError: promise resolved "{ …(8) }" instead of rejecting
+
+- Expected
++ Received
+
+- Error {
+-   "message": "rejected promise",
++ {
++   "id": "c34d1aff-0a5d-4b68-bd2a-de0ec52cc5bf",
++   "inventoryActionId": "8c8bb7f7-f738-4f5a-bba0-41b65d3fae55",
++   "orderVersion": 8,
++   "physicalVersion": 2,
++   "remaining": 0,
++   "replayed": false,
++   "replenishmentId": "93dc7fcd-2d54-446f-8868-1565ad63eb14",
++   "version": 1,
+  }
+
+ ❯ test/fulfillment.integration.ts:127:70
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 33 skipped (34)
+   Start at  16:33:15
+   Duration  5.20s (tests 40%, transform 31%, import 29%)
+

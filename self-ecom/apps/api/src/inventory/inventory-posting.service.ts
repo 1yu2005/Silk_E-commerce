@@ -9,7 +9,7 @@ export interface PostingPlan {effects:InventoryEffect[];sourceDeltas:Map<string,
 export class InventoryPosting {
  async plan(tx:Prisma.TransactionClient,adjustment:InventoryAdjustment,lines:InventoryAdjustmentLine[]):Promise<PostingPlan>{
   if(!lines.length)throw new InventoryError('VALIDATION_FAILED');
-  const result:PostingPlan={effects:[],sourceDeltas:new Map(),batches:[]};const balances=new Map<string,{a:bigint;r:bigint}>();
+  const result:PostingPlan={effects:[],sourceDeltas:new Map(),batches:[]};const balances=new Map<string,{a:bigint}>();
   for(const line of [...lines].sort((a,b)=>a.skuId.localeCompare(b.skuId)||a.id.localeCompare(b.id))){
    const source=await tx.inventorySourceLine.findUnique({where:{id:line.sourceLineId}});
    if(!source||source.skuId!==line.skuId)throw new InventoryError('SOURCE_NOT_FOUND');
@@ -34,7 +34,7 @@ export class InventoryPosting {
    }
    const sourceDelta=parent.sourceType==='LOSS'?-deltaA:deltaA;
    result.sourceDeltas.set(source.id,(result.sourceDeltas.get(source.id)??0)+sourceDelta);
-   if(!balances.has(line.skuId)){const balance=await tx.inventoryBalance.findUniqueOrThrow({where:{skuId:line.skuId}});balances.set(line.skuId,{a:BigInt(balance.available),r:BigInt(balance.reserved)});}
+   if(!balances.has(line.skuId)){const balance=await tx.inventoryBalance.findUniqueOrThrow({where:{skuId:line.skuId},select:{available:true}});balances.set(line.skuId,{a:BigInt(balance.available)});}
    const balance=balances.get(line.skuId)!;balance.a+=BigInt(deltaA);
    if(balance.a<0n)throw new InventoryError('STOCK_INSUFFICIENT');if(balance.a>BigInt(MAX))throw new InventoryError('INVENTORY_LIMIT_EXCEEDED');
    result.effects.push({skuId:line.skuId,deltaA,deltaR:0,eventType:adjustment.type,sourceLineId:source.id,rootAdjustmentLineId:rootId});

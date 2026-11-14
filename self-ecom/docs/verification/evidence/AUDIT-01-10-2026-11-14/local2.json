@@ -1,0 +1,174 @@
+{
+  "startedAt": "2026-11-14T09:17:08.532Z",
+  "readOnlyBusiness": true,
+  "newMembers": 0,
+  "checks": [
+    {
+      "account": "customer",
+      "route": "/products",
+      "status": "passed"
+    },
+    {
+      "account": "customer",
+      "route": "/account",
+      "status": "passed"
+    },
+    {
+      "account": "customer",
+      "route": "/addresses",
+      "status": "passed"
+    },
+    {
+      "account": "customer",
+      "route": "/cart",
+      "status": "passed"
+    },
+    {
+      "account": "customer",
+      "route": "/orders",
+      "status": "passed"
+    },
+    {
+      "account": "customer",
+      "route": "/checkout",
+      "status": "passed",
+      "scenario": "浏览器禁止存储时结算页仍渲染，后端真实请求"
+    },
+    {
+      "account": "support",
+      "route": "/customers",
+      "status": "passed"
+    },
+    {
+      "account": "support",
+      "route": "/orders",
+      "status": "passed"
+    },
+    {
+      "account": "support",
+      "route": "/tasks",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/employees",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/settings",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/settings/versions",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/categories",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/products",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/inventory",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/inventory/ledger",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/inventory/sources",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/inventory/adjustments",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/customers",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/tasks",
+      "status": "passed"
+    },
+    {
+      "account": "admin",
+      "route": "/orders",
+      "status": "passed"
+    },
+    {
+      "account": "warehouse",
+      "route": "/products",
+      "status": "passed"
+    },
+    {
+      "account": "warehouse",
+      "route": "/inventory",
+      "status": "passed"
+    },
+    {
+      "account": "warehouse",
+      "route": "/tasks",
+      "status": "passed"
+    },
+    {
+      "account": "warehouse",
+      "route": "/orders",
+      "status": "passed"
+    }
+  ],
+  "requests": [
+    {
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "58f6d797-b1d7-48ef-a88d-ca51146c5a68"
+    },
+    {
+      "path": "/admin/orders",
+      "status": 401,
+      "requestId": "3c3b0fd8-4777-4bdf-9f3a-bd48808a93f6"
+    },
+    {
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "f83d33e9-1de4-4025-acb3-372bae988bdb"
+    },
+    {
+      "path": "/admin/employees",
+      "status": 403,
+      "requestId": "f4fe61f1-8810-4b2a-9430-fa34bd6d7ff2"
+    },
+    {
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "cf7d9971-648d-4c48-bb1c-6e4db19a1766"
+    },
+    {
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "06e292ef-9101-4bc4-bc72-2cd8afcc73be"
+    },
+    {
+      "path": "/admin/customers",
+      "status": 403,
+      "requestId": "a8c11dda-4cdc-4c07-a65d-10ec60224d66"
+    }
+  ],
+  "pageErrors": [],
+  "pageRequestErrors": [],
+  "status": "passed",
+  "endedAt": "2026-11-14T09:17:28.669Z"
+}

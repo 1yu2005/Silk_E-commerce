@@ -1,0 +1,629 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.81kB 0.0s done
+#1 DONE 0.0s
+
+#2 [store-web internal] load build definition from web.Dockerfile
+#2 transferring dockerfile:
+#2 transferring dockerfile: 818B done
+#2 DONE 0.2s
+
+#3 [api internal] load build definition from api.Dockerfile
+#3 transferring dockerfile: 1.80kB 0.0s done
+#3 DONE 0.2s
+
+#4 [store-web internal] load metadata for docker.io/library/node:24.18.0-bookworm-slim
+#4 DONE 1.9s
+
+#5 [store-web internal] load metadata for docker.io/library/nginx:1.28.0-alpine
+#5 DONE 1.9s
+
+#6 [store-web internal] load .dockerignore
+#6 transferring context: 490B 0.0s done
+#6 DONE 0.1s
+
+#7 [store-web build 1/6] FROM docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d
+#7 resolve docker.io/library/node:24.18.0-bookworm-slim@sha256:6f7b03f7c2c8e2e784dcf9295400527b9b1270fd37b7e9a7285cf83b6951452d 0.1s done
+#7 DONE 0.1s
+
+#8 [store-web runtime 1/3] FROM docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284
+#8 resolve docker.io/library/nginx:1.28.0-alpine@sha256:30f1c0d78e0ad60901648be663a710bdadf19e4c10ac6782c235200619158284 0.1s done
+#8 DONE 0.1s
+
+#9 [admin-web internal] load build context
+#9 transferring context: 612.84kB 0.2s done
+#9 DONE 0.4s
+
+#10 [api internal] load build context
+#10 transferring context: 180.71kB 0.2s done
+#10 DONE 0.4s
+
+#9 [admin-web internal] load build context
+#9 DONE 0.4s
+
+#11 [admin-web build 2/6] RUN npm install --global pnpm@11.25.0
+#11 CACHED
+
+#12 [admin-web build 3/6] WORKDIR /app
+#12 CACHED
+
+#13 [api base 2/3] RUN --mount=type=cache,target=/var/lib/apt/lists apt-get update && apt-get install -y --no-install-recommends openssl ca-certificates     && npm install --global pnpm@11.25.0
+#13 CACHED
+
+#14 [api base 3/3] WORKDIR /app
+#14 CACHED
+
+#15 [api build 1/6] COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+#15 CACHED
+
+#16 [admin-web build 4/6] COPY . .
+#16 ...
+
+#17 [api build 2/6] COPY apps ./apps
+#17 DONE 0.5s
+
+#16 [admin-web build 4/6] COPY . .
+#16 DONE 0.6s
+
+#18 [api build 3/6] COPY packages ./packages
+#18 DONE 0.2s
+
+#16 [store-web build 4/6] COPY . .
+#16 DONE 0.6s
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 3.227 Scope: all 9 workspace projects
+#19 3.539 ? Verifying lockfile against supply-chain policies (715 entries)...
+#19 3.585 Lockfile is up to date, resolution step is skipped
+#19 3.975 Progress: resolved 1, reused 0, downloaded 0, added 0
+#19 4.180 Packages: +635
+#19 4.180 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#19 5.871 Progress: resolved 635, reused 0, downloaded 0, added 0
+#19 6.727 Packages are hard linked from the content-addressable store to the virtual store.
+#19 6.727   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#19 6.727   Virtual store is at:             node_modules/.pnpm
+#19 6.903 Progress: resolved 635, reused 0, downloaded 25, added 7
+#19 8.076 Progress: resolved 635, reused 0, downloaded 64, added 30
+#19 9.103 Progress: resolved 635, reused 0, downloaded 85, added 42
+#19 ...
+
+#20 [admin-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 3.289 Scope: all 9 workspace projects
+#20 3.603 ? Verifying lockfile against supply-chain policies (715 entries)...
+#20 3.618 Lockfile is up to date, resolution step is skipped
+#20 4.076 Progress: resolved 1, reused 0, downloaded 0, added 0
+#20 4.283 Packages: +635
+#20 4.283 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#20 5.628 Progress: resolved 635, reused 0, downloaded 0, added 0
+#20 6.899 Progress: resolved 635, reused 0, downloaded 1, added 0
+#20 7.071 Packages are hard linked from the content-addressable store to the virtual store.
+#20 7.071   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#20 7.071   Virtual store is at:             node_modules/.pnpm
+#20 8.165 Progress: resolved 635, reused 0, downloaded 54, added 23
+#20 9.438 Progress: resolved 635, reused 0, downloaded 76, added 34
+#20 ...
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 10.22 Progress: resolved 635, reused 0, downloaded 130, added 64
+#19 11.30 Progress: resolved 635, reused 0, downloaded 178, added 99
+#19 12.41 Progress: resolved 635, reused 0, downloaded 241, added 129
+#19 13.68 Progress: resolved 635, reused 0, downloaded 260, added 140
+#19 13.68 [WARN] Request took 10041ms: https://registry.npmjs.org/@esbuild%2Fandroid-arm64
+#19 13.69 [WARN] Request took 10040ms: https://registry.npmjs.org/@esbuild%2Flinux-arm64
+#19 13.69 [WARN] Request took 10044ms: https://registry.npmjs.org/@esbuild%2Ffreebsd-x64
+#19 13.70 [WARN] Request took 10051ms: https://registry.npmjs.org/@esbuild%2Fdarwin-arm64
+#19 13.70 [WARN] Request took 10053ms: https://registry.npmjs.org/@esbuild%2Ffreebsd-arm64
+#19 13.70 [WARN] Request took 10057ms: https://registry.npmjs.org/@esbuild%2Fdarwin-x64
+#19 13.71 [WARN] Request took 10067ms: https://registry.npmjs.org/@esbuild%2Fandroid-x64
+#19 14.03 [WARN] Request took 10382ms: https://registry.npmjs.org/@esbuild%2Flinux-loong64
+#19 14.04 [WARN] Request took 10388ms: https://registry.npmjs.org/@esbuild%2Flinux-mips64el
+#19 14.15 [WARN] Request took 10522ms: https://registry.npmjs.org/@babel%2Ftemplate
+#19 14.36 [WARN] Request took 10742ms: https://registry.npmjs.org/@babel%2Fhelper-compilation-targets
+#19 14.55 [WARN] Request took 10912ms: https://registry.npmjs.org/@esbuild%2Fandroid-arm
+#19 14.56 [WARN] Request took 10899ms: https://registry.npmjs.org/@esbuild%2Fopenbsd-x64
+#19 14.63 [WARN] Request took 11011ms: https://registry.npmjs.org/@babel%2Fcompat-data
+#19 14.70 Progress: resolved 635, reused 0, downloaded 322, added 207
+#19 14.75 [WARN] Request took 11134ms: https://registry.npmjs.org/@babel%2Fhelper-module-transforms
+#19 14.80 [WARN] Request took 11205ms: https://registry.npmjs.org/@ant-design%2Fcssinjs
+#19 14.82 [WARN] Request took 11197ms: https://registry.npmjs.org/@babel%2Fhelpers
+#19 14.85 [WARN] Request took 11226ms: https://registry.npmjs.org/@babel%2Fruntime
+#19 14.96 [WARN] Request took 11332ms: https://registry.npmjs.org/@babel%2Ftypes
+#19 14.99 [WARN] Request took 11369ms: https://registry.npmjs.org/@babel%2Fgenerator
+#19 15.01 [WARN] Request took 11400ms: https://registry.npmjs.org/@ant-design%2Ficons
+#19 15.05 [WARN] Request took 11425ms: https://registry.npmjs.org/@babel%2Ftraverse
+#19 15.11 [WARN] Request took 11487ms: https://registry.npmjs.org/@babel%2Fparser
+#19 15.14 [WARN] Request took 11529ms: https://registry.npmjs.org/@babel%2Fcore
+#19 15.70 Progress: resolved 635, reused 0, downloaded 352, added 351
+#19 16.03 [WARN] Request took 12438ms: https://registry.npmjs.org/@angular-devkit%2Fschematics-cli
+#19 16.17 [WARN] Request took 12579ms: https://registry.npmjs.org/@angular-devkit%2Fcore
+#19 16.65 [WARN] Request took 13059ms: https://registry.npmjs.org/@angular-devkit%2Fschematics
+#19 16.71 Progress: resolved 635, reused 0, downloaded 394, added 392
+#19 17.41 [WARN] Request took 14173ms: https://registry.npmjs.org/pnpm
+#19 17.47 
+#19 17.47    ╭──────────────────────────────────────────────────────────────────────╮
+#19 17.47    │                                                                      │
+#19 17.47    │                 Update available! 11.25.0 → 12.18.0.                 │
+#19 17.47    │                 Changelog: https://pnpm.io/v/12.18.0                 │
+#19 17.47    │   To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -   │
+#19 17.47    │                                                                      │
+#19 17.47    ╰──────────────────────────────────────────────────────────────────────╯
+#19 17.47 
+#19 17.73 Progress: resolved 635, reused 0, downloaded 401, added 400
+#19 18.29 [WARN] Tarball download average speed 17 KiB/s (size 60 KiB) is below 50 KiB/s: https://registry.npmjs.org/find-my-way/-/find-my-way-9.7.0.tgz (GET)
+#19 18.77 Progress: resolved 635, reused 0, downloaded 429, added 422
+#19 20.29 Progress: resolved 635, reused 0, downloaded 466, added 465
+#19 ...
+
+#20 [admin-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 10.52 Progress: resolved 635, reused 0, downloaded 117, added 51
+#20 11.83 Progress: resolved 635, reused 0, downloaded 192, added 86
+#20 13.29 Progress: resolved 635, reused 0, downloaded 243, added 107
+#20 13.87 [WARN] Request took 10216ms: https://registry.npmjs.org/@babel%2Ftemplate
+#20 13.88 [WARN] Request took 10210ms: https://registry.npmjs.org/@esbuild%2Flinux-mips64el
+#20 13.97 [WARN] Request took 10302ms: https://registry.npmjs.org/@esbuild%2Flinux-ppc64
+#20 13.97 [WARN] Request took 10305ms: https://registry.npmjs.org/@esbuild%2Flinux-s390x
+#20 14.03 [WARN] Request took 10391ms: https://registry.npmjs.org/@babel%2Fhelper-compilation-targets
+#20 14.10 [WARN] Request took 10435ms: https://registry.npmjs.org/@esbuild%2Fandroid-arm
+#20 14.19 [WARN] Request took 10526ms: https://registry.npmjs.org/@esbuild%2Flinux-loong64
+#20 14.42 Progress: resolved 635, reused 0, downloaded 298, added 148
+#20 14.89 [WARN] Request took 11251ms: https://registry.npmjs.org/@babel%2Fcompat-data
+#20 15.19 [WARN] Request took 11527ms: https://registry.npmjs.org/@esbuild%2Flinux-arm
+#20 15.32 [WARN] Request took 11643ms: https://registry.npmjs.org/@esbuild%2Fsunos-x64
+#20 15.37 [WARN] Request took 11731ms: https://registry.npmjs.org/@babel%2Fhelper-module-transforms
+#20 15.42 Progress: resolved 635, reused 0, downloaded 333, added 194
+#20 15.47 [WARN] Request took 11843ms: https://registry.npmjs.org/@ant-design%2Fcssinjs
+#20 15.49 [WARN] Request took 11847ms: https://registry.npmjs.org/@babel%2Fhelpers
+#20 15.54 [WARN] Request took 11897ms: https://registry.npmjs.org/@babel%2Fruntime
+#20 15.58 [WARN] Request took 11932ms: https://registry.npmjs.org/@babel%2Ftypes
+#20 15.62 [WARN] Request took 11984ms: https://registry.npmjs.org/@ant-design%2Ficons
+#20 15.63 [WARN] Request took 11995ms: https://registry.npmjs.org/@babel%2Fgenerator
+#20 15.74 [WARN] Request took 12090ms: https://registry.npmjs.org/@babel%2Ftraverse
+#20 15.99 [WARN] Request took 12341ms: https://registry.npmjs.org/@babel%2Fparser
+#20 16.41 [WARN] Request took 12772ms: https://registry.npmjs.org/@babel%2Fcore
+#20 16.85 Progress: resolved 635, reused 0, downloaded 363, added 276
+#20 17.65 [WARN] Request took 14020ms: https://registry.npmjs.org/@angular-devkit%2Fschematics
+#20 17.87 Progress: resolved 635, reused 0, downloaded 397, added 395
+#20 18.15 [WARN] Request took 14522ms: https://registry.npmjs.org/@angular-devkit%2Fcore
+#20 18.46 [WARN] Tarball download average speed 31 KiB/s (size 50 KiB) is below 50 KiB/s: https://registry.npmjs.org/d3-shape/-/d3-shape-3.2.0.tgz (GET)
+#20 18.71 [WARN] Request took 15083ms: https://registry.npmjs.org/@angular-devkit%2Fschematics-cli
+#20 18.88 Progress: resolved 635, reused 0, downloaded 432, added 422
+#20 19.49 [WARN] Request took 16189ms: https://registry.npmjs.org/pnpm
+#20 19.59 
+#20 19.59    ╭──────────────────────────────────────────────────────────────────────╮
+#20 19.59    │                                                                      │
+#20 19.59    │                 Update available! 11.25.0 → 12.18.0.                 │
+#20 19.59    │                 Changelog: https://pnpm.io/v/12.18.0                 │
+#20 19.59    │   To update, run: curl -fsSL https://get.pnpm.io/install.sh | sh -   │
+#20 19.59    │                                                                      │
+#20 19.59    ╰──────────────────────────────────────────────────────────────────────╯
+#20 19.59 
+#20 20.58 [WARN] Tarball download average speed 14 KiB/s (size 18 KiB) is below 50 KiB/s: https://registry.npmjs.org/browserslist/-/browserslist-4.29.5.tgz (GET)
+#20 20.61 [WARN] Tarball download average speed 35 KiB/s (size 49 KiB) is below 50 KiB/s: https://registry.npmjs.org/cacheable/-/cacheable-2.5.0.tgz (GET)
+#20 20.62 [WARN] Tarball download average speed 22 KiB/s (size 31 KiB) is below 50 KiB/s: https://registry.npmjs.org/hookified/-/hookified-1.15.1.tgz (GET)
+#20 20.65 Progress: resolved 635, reused 0, downloaded 452, added 450
+#20 ...
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 21.37 Progress: resolved 635, reused 0, downloaded 492, added 480
+#19 22.57 Progress: resolved 635, reused 0, downloaded 520, added 493
+#19 24.01 Progress: resolved 635, reused 0, downloaded 526, added 501
+#19 25.02 Progress: resolved 635, reused 0, downloaded 608, added 522
+#19 25.59 [WARN] Request took 11385ms: https://registry.npmjs.org/@prisma%2Fconfig
+#19 26.05 Progress: resolved 635, reused 0, downloaded 631, added 558
+#19 27.10 Progress: resolved 635, reused 0, downloaded 632, added 586
+#19 28.18 Progress: resolved 635, reused 0, downloaded 632, added 592
+#19 29.18 Progress: resolved 635, reused 0, downloaded 633, added 632
+#19 ...
+
+#20 [admin-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 21.78 Progress: resolved 635, reused 0, downloaded 481, added 468
+#20 22.82 Progress: resolved 635, reused 0, downloaded 512, added 492
+#20 24.13 Progress: resolved 635, reused 0, downloaded 529, added 514
+#20 25.14 Progress: resolved 635, reused 0, downloaded 587, added 537
+#20 26.17 Progress: resolved 635, reused 0, downloaded 631, added 577
+#20 27.43 Progress: resolved 635, reused 0, downloaded 631, added 624
+#20 28.29 Progress: resolved 635, reused 0, downloaded 631, added 631
+#20 28.62 [WARN] Request took 10374ms: https://registry.npmjs.org/@redocly%2Fopenapi-core
+#20 29.21 Progress: resolved 635, reused 0, downloaded 633, added 632
+#20 29.98 [WARN] Request took 15836ms: https://registry.npmjs.org/@prisma%2Fdriver-adapter-utils
+#20 30.23 Progress: resolved 635, reused 0, downloaded 633, added 633
+#20 ...
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 30.53 Progress: resolved 635, reused 0, downloaded 633, added 633
+#19 32.06 [WARN] Request took 11128ms: https://registry.npmjs.org/@nestjs%2Fcli
+#19 32.83 [WARN] Request took 15455ms: https://registry.npmjs.org/@redocly%2Fopenapi-core
+#19 34.12 Progress: resolved 635, reused 0, downloaded 634, added 633
+#19 34.93 [WARN] Request took 20286ms: https://registry.npmjs.org/@prisma%2Fstudio-core
+#19 35.14 Progress: resolved 635, reused 0, downloaded 634, added 634
+#19 36.93 [WARN] Request took 22705ms: https://registry.npmjs.org/@prisma%2Fdriver-adapter-utils
+#19 37.60 [WARN] Request took 23443ms: https://registry.npmjs.org/@prisma%2Fadapter-pg
+#19 38.05 [WARN] Request took 13986ms: https://registry.npmjs.org/@types%2Fnode
+#19 38.45 Progress: resolved 635, reused 0, downloaded 635, added 634
+#19 38.52 Progress: resolved 635, reused 0, downloaded 635, added 635, done
+#19 38.93 [WARN] Request took 10004ms: https://registry.npmjs.org/electron-to-chromium
+#19 39.13 [WARN] Request took 24909ms: https://registry.npmjs.org/@prisma%2Fengines-version
+#19 40.43 [WARN] Request took 14404ms: https://registry.npmjs.org/antd
+#19 ...
+
+#20 [admin-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 30.65 [WARN] Request took 16583ms: https://registry.npmjs.org/@prisma%2Fadapter-pg
+#20 30.98 [WARN] Request took 15731ms: https://registry.npmjs.org/@prisma%2Fstudio-core
+#20 35.89 [WARN] Request took 12681ms: https://registry.npmjs.org/@types%2Fnode
+#20 36.95 Progress: resolved 635, reused 0, downloaded 634, added 633
+#20 37.92 [WARN] Request took 23469ms: https://registry.npmjs.org/@prisma%2Fengines-version
+#20 37.96 Progress: resolved 635, reused 0, downloaded 635, added 634
+#20 38.00 Progress: resolved 635, reused 0, downloaded 635, added 635, done
+#20 38.96 [WARN] Request took 12764ms: https://registry.npmjs.org/antd
+#20 40.07 [WARN] Request took 14929ms: https://registry.npmjs.org/@typescript-eslint%2Futils
+#20 40.30 [WARN] Request took 11985ms: https://registry.npmjs.org/eslint-plugin-react-hooks
+#20 40.74 [WARN] Request took 15631ms: https://registry.npmjs.org/@typescript-eslint%2Ftype-utils
+#20 41.37 [WARN] Request took 16251ms: https://registry.npmjs.org/@typescript-eslint%2Ftypes
+#20 ...
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 41.61 [WARN] Request took 16689ms: https://registry.npmjs.org/@typescript-eslint%2Ftype-utils
+#19 41.69 [WARN] Request took 16765ms: https://registry.npmjs.org/@typescript-eslint%2Futils
+#19 41.92 [WARN] Request took 12042ms: https://registry.npmjs.org/eslint-plugin-react-hooks
+#19 42.77 [WARN] Request took 17845ms: https://registry.npmjs.org/@typescript-eslint%2Ftypes
+#19 42.87 [WARN] Request took 17940ms: https://registry.npmjs.org/@typescript-eslint%2Fvisitor-keys
+#19 43.09 [WARN] Request took 18332ms: https://registry.npmjs.org/@typescript-eslint%2Fscope-manager
+#19 43.51 [WARN] Request took 18895ms: https://registry.npmjs.org/@typescript-eslint%2Fparser
+#19 44.02 [WARN] Request took 19096ms: https://registry.npmjs.org/@typescript-eslint%2Ftypescript-estree
+#19 44.58 [WARN] Request took 30354ms: https://registry.npmjs.org/@prisma%2Fengines
+#19 45.32 [WARN] Request took 20713ms: https://registry.npmjs.org/@typescript-eslint%2Feslint-plugin
+#19 46.85 [WARN] Request took 32274ms: https://registry.npmjs.org/@prisma%2Fget-platform
+#19 48.16 [WARN] Request took 33938ms: https://registry.npmjs.org/@prisma%2Fdebug
+#19 48.51 [WARN] Request took 34080ms: https://registry.npmjs.org/@prisma%2Ffetch-engine
+#19 49.30 [WARN] Request took 14111ms: https://registry.npmjs.org/prisma
+#19 50.72 [WARN] Request took 36561ms: https://registry.npmjs.org/@prisma%2Fclient
+#19 ...
+
+#20 [admin-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 41.84 [WARN] Request took 16700ms: https://registry.npmjs.org/@typescript-eslint%2Fvisitor-keys
+#20 42.89 [WARN] Request took 17867ms: https://registry.npmjs.org/@typescript-eslint%2Fscope-manager
+#20 43.28 [WARN] Request took 18258ms: https://registry.npmjs.org/@typescript-eslint%2Fparser
+#20 43.76 [WARN] Request took 29309ms: https://registry.npmjs.org/@prisma%2Fengines
+#20 43.99 [WARN] Request took 18848ms: https://registry.npmjs.org/@typescript-eslint%2Ftypescript-estree
+#20 44.16 [WARN] Request took 19145ms: https://registry.npmjs.org/@typescript-eslint%2Feslint-plugin
+#20 46.44 [WARN] Request took 32301ms: https://registry.npmjs.org/@prisma%2Fdebug
+#20 47.05 [WARN] Request took 31929ms: https://registry.npmjs.org/@prisma%2Fget-platform
+#20 48.08 [WARN] Request took 32965ms: https://registry.npmjs.org/@prisma%2Ffetch-engine
+#20 48.84 [WARN] Request took 16331ms: https://registry.npmjs.org/prisma
+#20 49.90 [WARN] Request took 35799ms: https://registry.npmjs.org/@prisma%2Fclient
+#20 51.16 ✓ Lockfile passes supply-chain policies (715 entries in 47.5s)
+#20 51.19 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#20 51.35 .../bcrypt@6.0.0/node_modules/bcrypt install$ node-gyp-build
+#20 51.45 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#20 51.77 .../bcrypt@6.0.0/node_modules/bcrypt install: Done
+#20 52.03 .../node_modules/@prisma/engines postinstall: prisma:warn Prisma failed to detect the libssl/openssl version to use, and may not work as expected. Defaulting to "openssl-1.1.x".
+#20 52.03 .../node_modules/@prisma/engines postinstall: Please manually install OpenSSL via `apt-get update -y && apt-get install -y openssl` and try installing Prisma again. If you're running Prisma on Docker, add this command to your Dockerfile, or switch to an image that already has OpenSSL installed.
+#20 52.03 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#20 ...
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 52.13 ✓ Lockfile passes supply-chain policies (715 entries in 48.5s)
+#19 52.15 .../node_modules/@prisma/engines postinstall$ node scripts/postinstall.js
+#19 52.32 .../bcrypt@6.0.0/node_modules/bcrypt install$ node-gyp-build
+#19 52.42 .../esbuild@0.28.2/node_modules/esbuild postinstall$ node install.js
+#19 52.51 .../bcrypt@6.0.0/node_modules/bcrypt install: Done
+#19 52.58 .../esbuild@0.28.2/node_modules/esbuild postinstall: Done
+#19 54.49 .../node_modules/@prisma/engines postinstall: Done
+#19 54.90 .../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#19 55.05 .../node_modules/prisma preinstall: Done
+#19 57.29 
+#19 57.29 devDependencies:
+#19 57.29 + @eslint/js 10.0.1
+#19 57.29 + @types/node 24.19.2
+#19 57.29 + eslint 10.14.0
+#19 57.29 + eslint-plugin-react-hooks 7.1.1
+#19 57.29 + eslint-plugin-react-refresh 0.5.7
+#19 57.29 + globals 17.14.0
+#19 57.29 + turbo 2.11.10
+#19 57.29 + typescript 6.0.3
+#19 57.29 + typescript-eslint 8.72.2
+#19 57.29 
+#19 57.64 Done in 55.8s using pnpm v11.25.0
+#19 ...
+
+#20 [admin-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 54.92 .../node_modules/@prisma/engines postinstall: Done
+#20 55.96 .../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#20 56.12 .../node_modules/prisma preinstall: Done
+#20 56.77 
+#20 56.77 devDependencies:
+#20 56.77 + @eslint/js 10.0.1
+#20 56.77 + @types/node 24.19.2
+#20 56.77 + eslint 10.14.0
+#20 56.77 + eslint-plugin-react-hooks 7.1.1
+#20 56.77 + eslint-plugin-react-refresh 0.5.7
+#20 56.77 + globals 17.14.0
+#20 56.77 + turbo 2.11.10
+#20 56.77 + typescript 6.0.3
+#20 56.77 + typescript-eslint 8.72.2
+#20 56.77 
+#20 57.14 Done in 55.2s using pnpm v11.25.0
+#20 DONE 58.2s
+
+#20 [store-web build 5/6] RUN pnpm install --frozen-lockfile
+#20 DONE 58.2s
+
+#21 [admin-web build 6/6] RUN case "admin-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/admin-web..." build     && cp -a "apps/admin-web/dist" /site
+#21 ...
+
+#19 [api build 4/6] RUN pnpm install --frozen-lockfile
+#19 DONE 58.8s
+
+#22 [api build 5/6] RUN DATABASE_URL=postgresql://build:build@127.0.0.1:5432/build pnpm --filter @shop/api db:generate
+#22 ...
+
+#23 [store-web build 6/6] RUN case "store-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/store-web..." build     && cp -a "apps/store-web/dist" /site
+#23 ...
+
+#21 [admin-web build 6/6] RUN case "admin-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/admin-web..." build     && cp -a "apps/admin-web/dist" /site
+#21 13.37 Scope: 4 of 9 workspace projects
+#21 13.43 $ tsc -p tsconfig.json
+#21 16.18 $ tsc -p tsconfig.json
+#21 ...
+
+#23 [store-web build 6/6] RUN case "store-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/store-web..." build     && cp -a "apps/store-web/dist" /site
+#23 13.64 Scope: 4 of 9 workspace projects
+#23 13.69 $ tsc -p tsconfig.json
+#23 16.25 $ tsc -p tsconfig.json
+#23 ...
+
+#21 [admin-web build 6/6] RUN case "admin-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/admin-web..." build     && cp -a "apps/admin-web/dist" /site
+#21 21.29 $ tsc -p tsconfig.json
+#21 22.96 $ tsc --noEmit && vite build
+#21 ...
+
+#22 [api build 5/6] RUN DATABASE_URL=postgresql://build:build@127.0.0.1:5432/build pnpm --filter @shop/api db:generate
+#22 12.71 $ tsx scripts/database.ts generate
+#22 17.90 Loaded Prisma config from prisma.config.ts.
+#22 17.90 
+#22 19.58 Prisma schema loaded from prisma/schema.prisma.
+#22 21.95 
+#22 21.95 ✔ Generated Prisma Client (v7.10.1) to ./../../node_modules/.pnpm/@prisma+client@7.10.1_prisma@7.10.1_@types+node@24.19.2_@types+react-dom@19.3.0_@types+_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client in 1.29s
+#22 21.95 
+#22 21.95 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#22 21.95 
+#22 21.95 
+#22 DONE 22.4s
+
+#24 [api build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#24 1.218 $ tsc -p tsconfig.json
+#24 3.071 $ tsc -p tsconfig.build.json
+#24 ...
+
+#23 [store-web build 6/6] RUN case "store-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/store-web..." build     && cp -a "apps/store-web/dist" /site
+#23 21.99 $ tsc -p tsconfig.json
+#23 23.40 $ tsc --noEmit && vite build
+#23 28.43 vite v8.3.8 building client environment for production...
+#23 28.53 transforming...
+#23 31.20 ✓ 1601 modules transformed.
+#23 34.37 rendering chunks...
+#23 ...
+
+#21 [admin-web build 6/6] RUN case "admin-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/admin-web..." build     && cp -a "apps/admin-web/dist" /site
+#21 35.56 vite v8.3.8 building client environment for production...
+#21 35.78 transforming...
+#21 36.27 ✓ 1644 modules transformed.
+#21 36.83 rendering chunks...
+#21 ...
+
+#23 [store-web build 6/6] RUN case "store-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/store-web..." build     && cp -a "apps/store-web/dist" /site
+#23 36.34 computing gzip size...
+#23 36.43 dist/index.html                                    0.77 kB │ gzip:   0.39 kB
+#23 36.43 dist/assets/index-BN497nGe.css                    18.24 kB │ gzip:   4.87 kB
+#23 36.43 dist/assets/useCSSVarCls-D5LDH8FE.js               0.03 kB │ gzip:   0.05 kB
+#23 36.43 dist/assets/model-KdblDANG.js                      0.15 kB │ gzip:   0.15 kB
+#23 36.43 dist/assets/useLocale-D2Z23SaU.js                  0.37 kB │ gzip:   0.26 kB
+#23 36.43 dist/assets/colors-02jDC4Md.js                     0.46 kB │ gzip:   0.31 kB
+#23 36.43 dist/assets/form-rules-GvzMaJpV.js                 0.51 kB │ gzip:   0.38 kB
+#23 36.43 dist/assets/rolldown-runtime-XKyaHtl9.js           0.72 kB │ gzip:   0.42 kB
+#23 36.43 dist/assets/use-store-data-C46NqYBQ.js             1.14 kB │ gzip:   0.58 kB
+#23 36.43 dist/assets/ExclamationCircleFilled-DUciUd9k.js    1.52 kB │ gzip:   0.70 kB
+#23 36.43 dist/assets/LoginPage-Bdx98X_Z.js                  1.60 kB │ gzip:   0.85 kB
+#23 36.43 dist/assets/StoreQueryState-B-7exNvC.js            1.77 kB │ gzip:   1.05 kB
+#23 36.43 dist/assets/ChangePasswordPage-CAMSgfdR.js         2.23 kB │ gzip:   1.17 kB
+#23 36.43 dist/assets/RegisterPage-DDNzrylu.js               2.40 kB │ gzip:   1.22 kB
+#23 36.43 dist/assets/dist-GIIg6kBR.js                       4.23 kB │ gzip:   1.97 kB
+#23 36.43 dist/assets/empty-bWvirUqO.js                      4.80 kB │ gzip:   2.09 kB
+#23 36.43 dist/assets/AddressPage-B0hL9f3s.js                5.01 kB │ gzip:   2.18 kB
+#23 36.43 dist/assets/ProductDetailPage-CE85zsJw.js          5.15 kB │ gzip:   2.30 kB
+#23 36.43 dist/assets/CartPage-BjIyRpKB.js                   5.54 kB │ gzip:   2.54 kB
+#23 36.43 dist/assets/HomePage-TXxYUCwM.js                   5.84 kB │ gzip:   2.56 kB
+#23 36.43 dist/assets/CheckoutPage-C-a2fzQQ.js               6.55 kB │ gzip:   2.99 kB
+#23 36.43 dist/assets/OrderPage-EtvRggSG.js                  8.29 kB │ gzip:   3.38 kB
+#23 36.43 dist/assets/tag-BfHyS8UH.js                        9.86 kB │ gzip:   3.89 kB
+#23 36.43 dist/assets/AccountPage-9u72IUWf.js               20.92 kB │ gzip:   7.99 kB
+#23 36.43 dist/assets/style-DIFX1qPw.js                     21.02 kB │ gzip:   6.14 kB
+#23 36.43 dist/assets/statusUtils-CisvJsh7.js               25.64 kB │ gzip:  10.01 kB
+#23 36.43 dist/assets/NotFoundPage-DxodRCX3.js              34.80 kB │ gzip:  11.07 kB
+#23 36.43 dist/assets/input-BhPK5wJ1.js                     77.31 kB │ gzip:  27.05 kB
+#23 36.43 dist/assets/api-BT4SR06D.js                       92.06 kB │ gzip:  29.04 kB
+#23 36.43 dist/assets/pagination-DGjJKDQu.js               106.97 kB │ gzip:  34.48 kB
+#23 36.43 dist/assets/index-BGy9dlbU.js                    149.65 kB │ gzip:  51.11 kB
+#23 36.43 dist/assets/jsx-runtime-DA9OIYCX.js              377.12 kB │ gzip: 123.44 kB
+#23 36.43 
+#23 36.50 ✓ built in 8.07s
+#23 DONE 37.3s
+
+#24 [api build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#24 ...
+
+#21 [admin-web build 6/6] RUN case "admin-web" in admin-web|store-web) ;; *) exit 1 ;; esac     && pnpm --filter "@shop/admin-web..." build     && cp -a "apps/admin-web/dist" /site
+#21 38.02 computing gzip size...
+#21 38.56 dist/index.html                                    0.84 kB │ gzip:   0.41 kB
+#21 38.56 dist/assets/index-DNkmENoy.css                    18.10 kB │ gzip:   4.38 kB
+#21 38.56 dist/assets/useCSSVarCls-D5LDH8FE.js               0.03 kB │ gzip:   0.05 kB
+#21 38.56 dist/assets/use-inventory-command-CMdkmZf1.js      0.10 kB │ gzip:   0.12 kB
+#21 38.56 dist/assets/model-Dn4iib1f.js                      0.27 kB │ gzip:   0.27 kB
+#21 38.56 dist/assets/use-employee-query-Dmqe5Xln.js         0.31 kB │ gzip:   0.24 kB
+#21 38.56 dist/assets/model-DlbK5gTt.js                      0.32 kB │ gzip:   0.29 kB
+#21 38.56 dist/assets/useLocale-CfAzFL2S.js                  0.40 kB │ gzip:   0.28 kB
+#21 38.56 dist/assets/CatalogCommandScope-BxHctctp.js        0.41 kB │ gzip:   0.28 kB
+#21 38.56 dist/assets/colors-BtvQbVpS.js                     0.45 kB │ gzip:   0.30 kB
+#21 38.56 dist/assets/SettingsQueryState-CQSNkZgC.js         0.46 kB │ gzip:   0.32 kB
+#21 38.56 dist/assets/model-CQXyOPi-.js                      0.59 kB │ gzip:   0.43 kB
+#21 38.56 dist/assets/QueryState-BZKn_3xV.js                 0.63 kB │ gzip:   0.41 kB
+#21 38.56 dist/assets/rolldown-runtime-XKyaHtl9.js           0.72 kB │ gzip:   0.42 kB
+#21 38.56 dist/assets/HomePage-DwB1Aj-M.js                   0.73 kB │ gzip:   0.49 kB
+#21 38.56 dist/assets/data-1yh8vTzT.js                       0.99 kB │ gzip:   0.56 kB
+#21 38.56 dist/assets/InventoryInputs-q_KEjyZR.js            1.40 kB │ gzip:   0.80 kB
+#21 38.56 dist/assets/LeftOutlined-3P0KbrhM.js               1.40 kB │ gzip:   0.67 kB
+#21 38.56 dist/assets/CatalogFeedback-CBxmuh8X.js            1.40 kB │ gzip:   0.87 kB
+#21 38.56 dist/assets/LoginPage-C_wdBXze.js                  1.66 kB │ gzip:   0.95 kB
+#21 38.56 dist/assets/InventoryCommon-VIHqU683.js            1.82 kB │ gzip:   0.97 kB
+#21 38.56 dist/assets/SettingsHistoryPage-mAtV8a5O.js        2.17 kB │ gzip:   1.16 kB
+#21 38.56 dist/assets/ChangePasswordPage-CFYZqXcp.js         2.19 kB │ gzip:   1.17 kB
+#21 38.56 dist/assets/InventoryBalancePage-9IGP13Iu.js       2.64 kB │ gzip:   1.41 kB
+#21 38.56 dist/assets/SettingsVersionPage-DKq6Hurx.js        3.50 kB │ gzip:   1.25 kB
+#21 38.56 dist/assets/TaskQueryState-BIzJP3Mo.js             3.56 kB │ gzip:   2.05 kB
+#21 38.56 dist/assets/EmployeeListPage-DOo9EkpX.js           3.97 kB │ gzip:   1.87 kB
+#21 38.56 dist/assets/OrderListPage-0n895-wM.js              4.04 kB │ gzip:   1.65 kB
+#21 38.56 dist/assets/CustomerListPage-Dua5ssw9.js           4.06 kB │ gzip:   1.86 kB
+#21 38.56 dist/assets/dist-BhJ5_KWE.js                       4.22 kB │ gzip:   1.97 kB
+#21 38.56 dist/assets/EmployeeCreatePage-B14FWNUN.js         4.30 kB │ gzip:   2.07 kB
+#21 38.56 dist/assets/CategoryPage-Bbey98xb.js               4.83 kB │ gzip:   1.91 kB
+#21 38.56 dist/assets/empty-CPbOyzY0.js                      4.84 kB │ gzip:   2.10 kB
+#21 38.56 dist/assets/TaskListPage-D_WTEij-.js               6.49 kB │ gzip:   2.55 kB
+#21 38.56 dist/assets/CustomerDetailPage-B9eYNgW2.js         6.70 kB │ gzip:   2.86 kB
+#21 38.56 dist/assets/ProductListPage-s4vCrOjU.js            7.22 kB │ gzip:   3.08 kB
+#21 38.56 dist/assets/StoreSettingsPage-B27t6WNq.js          7.82 kB │ gzip:   3.19 kB
+#21 38.56 dist/assets/checkbox-Bt2i03jY.js                   7.86 kB │ gzip:   3.25 kB
+#21 38.56 dist/assets/descriptions-B2Xue60V.js               7.91 kB │ gzip:   2.82 kB
+#21 38.56 dist/assets/jsx-runtime-C3cWAN_r.js                8.24 kB │ gzip:   3.11 kB
+#21 38.56 dist/assets/InventorySourcePage-CSPfqDn6.js        9.13 kB │ gzip:   3.03 kB
+#21 38.56 dist/assets/tag-Bye6V9fS.js                        9.88 kB │ gzip:   3.90 kB
+#21 38.56 dist/assets/InventoryListPage-ds80k5gA.js         11.28 kB │ gzip:   2.86 kB
+#21 38.56 dist/assets/StockIncidentPage-BsYZ2xVQ.js         11.88 kB │ gzip:   3.98 kB
+#21 38.56 dist/assets/EmployeeDetailPage-DzY8Prj0.js        12.48 kB │ gzip:   4.81 kB
+#21 38.56 dist/assets/InventoryAdjustmentPage-zoZe0far.js   13.44 kB │ gzip:   4.40 kB
+#21 38.56 dist/assets/ProductEditPage-C8qlx89W.js           20.76 kB │ gzip:   6.51 kB
+#21 38.56 dist/assets/style-BXu0OtpM.js                     21.12 kB │ gzip:   6.19 kB
+#21 38.56 dist/assets/statusUtils-BnsLe5aC.js               25.79 kB │ gzip:  10.05 kB
+#21 38.56 dist/assets/pagination-C9InatRD.js                26.36 kB │ gzip:   7.84 kB
+#21 38.56 dist/assets/OrderDetailPage-fEUPxaw4.js           28.83 kB │ gzip:   9.00 kB
+#21 38.56 dist/assets/NotFoundPage-dUwuzyMV.js              34.79 kB │ gzip:  11.06 kB
+#21 38.56 dist/assets/TaskDetailPage-DSr0ZeVi.js            35.90 kB │ gzip:  13.47 kB
+#21 38.56 dist/assets/Input-BRXWzbEo.js                     36.56 kB │ gzip:  12.70 kB
+#21 38.56 dist/assets/management-BFE2wVVy.js                39.08 kB │ gzip:  13.42 kB
+#21 38.56 dist/assets/input-B0ZV-MA3.js                     41.46 kB │ gzip:  15.57 kB
+#21 38.56 dist/assets/select-DDMNkwUW.js                    81.14 kB │ gzip:  27.83 kB
+#21 38.56 dist/assets/api-CZ24gxNP.js                       95.15 kB │ gzip:  29.42 kB
+#21 38.56 dist/assets/index-isw5_wkH.js                    162.87 kB │ gzip:  54.78 kB
+#21 38.56 dist/assets/table-BHT-VC4n.js                    212.83 kB │ gzip:  65.55 kB
+#21 38.56 dist/assets/button-CjHfM-ZI.js                   373.22 kB │ gzip: 122.16 kB
+#21 38.56 
+#21 38.64 ✓ built in 3.07s
+#21 DONE 39.5s
+
+#24 [api build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#24 19.69 [WARN] Shared workspace lockfile detected but configuration forces legacy deploy implementation.
+#24 20.03 Packages are copied from the content-addressable store to the virtual store.
+#24 20.03   Content-addressable store is at: /root/.local/share/pnpm/store/v11
+#24 20.03   Virtual store is at:             ../runtime/node_modules/.pnpm
+#24 20.03 ✓ Lockfile passes supply-chain policies (verified 49s ago)
+#24 20.07 Progress: resolved 1, reused 0, downloaded 0, added 0
+#24 21.07 Progress: resolved 38, reused 0, downloaded 0, added 0
+#24 22.13 Progress: resolved 39, reused 0, downloaded 0, added 0
+#24 23.13 Progress: resolved 43, reused 0, downloaded 0, added 0
+#24 24.97 Progress: resolved 47, reused 0, downloaded 0, added 0
+#24 26.80 Progress: resolved 48, reused 0, downloaded 0, added 0
+#24 27.80 Progress: resolved 265, reused 0, downloaded 0, added 0
+#24 28.82 Progress: resolved 356, reused 0, downloaded 0, added 0
+#24 29.85 Progress: resolved 503, reused 0, downloaded 0, added 0
+#24 30.85 Progress: resolved 536, reused 0, downloaded 0, added 0
+#24 32.21 Progress: resolved 539, reused 0, downloaded 0, added 0
+#24 33.21 Progress: resolved 643, reused 0, downloaded 0, added 0
+#24 34.21 Progress: resolved 718, reused 0, downloaded 0, added 0
+#24 34.43 Progress: resolved 718, reused 0, downloaded 0, added 0, done
+#24 34.56 .                                        | +293 +++++++++++++++++++++++++++++
+#24 ...
+
+#25 [admin-web runtime 2/3] COPY infra/nginx.conf /etc/nginx/conf.d/default.conf
+#25 CACHED
+
+#26 [store-web runtime 3/3] COPY --from=build /site /usr/share/nginx/html
+#26 ...
+
+#27 [admin-web runtime 3/3] COPY --from=build /site /usr/share/nginx/html
+#27 DONE 0.8s
+
+#26 [store-web runtime 3/3] COPY --from=build /site /usr/share/nginx/html
+#26 DONE 0.9s
+
+#24 [api build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#24 ...
+
+#28 [admin-web] exporting to image
+#28 exporting layers
+#28 exporting layers 2.4s done
+#28 exporting manifest sha256:a248f49d0384a95523b29cb9888d8b95bdb19f9585cf72a74cb5ea94bcaea86c 0.1s done
+#28 exporting config sha256:82280dc918f2a30c04a8077ec0ae9c55d44009c839f34a1f2dc1a5150c7a4bd5
+#28 exporting config sha256:82280dc918f2a30c04a8077ec0ae9c55d44009c839f34a1f2dc1a5150c7a4bd5 0.1s done
+#28 exporting attestation manifest sha256:911e7b82844ede253ae5001c4e0d8c1f3315ba6ae48acc9ab045d210ad1c728d 0.1s done
+#28 exporting manifest list sha256:1957aedc985316854411f508a941dfafccbe893f006ae4613eba532f811a75ca 0.1s done
+#28 naming to docker.io/library/self-ecom-m210-acceptance-8010614f-admin:local done
+#28 unpacking to docker.io/library/self-ecom-m210-acceptance-8010614f-admin:local
+#28 unpacking to docker.io/library/self-ecom-m210-acceptance-8010614f-admin:local 0.2s done
+#28 ...
+
+#29 [store-web] exporting to image
+#29 exporting layers 2.2s done
+#29 exporting manifest sha256:da6a7fe13884d7c514023834468e60607d82f56dfbc455ceb99368177bf894ac 0.1s done
+#29 exporting config sha256:51f3ef9742b857c611e41fe42489d20c1348623e8a59cc30c47602a0b762b479 0.1s done
+#29 exporting attestation manifest sha256:87b51aefc5f9825825d01038e6ff2cd6b18973acc867e2ef7c5e31fa22c336f4 0.1s done
+#29 exporting manifest list sha256:824620cb72f7297b6b5df2dd7edd1858a584a8582b3315108997ad07114882f5 0.1s done
+#29 naming to docker.io/library/self-ecom-m210-acceptance-8010614f-store:local 0.0s done
+#29 unpacking to docker.io/library/self-ecom-m210-acceptance-8010614f-store:local 0.2s done
+#29 DONE 3.2s
+
+#28 [admin-web] exporting to image
+#28 DONE 3.2s
+
+#24 [api build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#24 ...
+
+#30 [store-web] resolving provenance for metadata file
+#30 DONE 0.3s
+
+#31 [admin-web] resolving provenance for metadata file
+#31 DONE 0.3s
+
+#24 [api build 6/6] RUN pnpm --filter @shop/shared build     && pnpm --filter @shop/api build     && pnpm --filter @shop/api deploy --prod --legacy /runtime     && mkdir -p /runtime/node_modules/.prisma     && cp -a "$(dirname "$(node -p "require.resolve('.prisma/client/package.json', { paths: [require.resolve('@prisma/client', { paths: ['/app/apps/api'] })] })")")" /runtime/node_modules/.prisma/client
+#24 104.4 .../bcrypt@6.0.0/node_modules/bcrypt install$ node-gyp-build
+#24 104.4 .../node_modules/prisma preinstall$ node scripts/preinstall-entry.js
+#24 104.8 .../node_modules/prisma preinstall: Done
+#24 104.9 .../bcrypt@6.0.0/node_modules/bcrypt install: Done
+#24 DONE 107.7s
+
+#14 [api base 3/3] WORKDIR /app
+#14 CACHED
+
+#32 [api runtime 1/2] COPY --from=build --chown=node:node /runtime /app
+#32 DONE 22.3s
+
+#33 [api runtime 2/2] RUN mkdir -p /app/storage/uploads && chown -R node:node /app/storage
+#33 DONE 2.6s
+
+#34 [api] exporting to image
+#34 exporting layers
+#34 exporting layers 23.2s done
+#34 exporting manifest sha256:18fdeaecfc25457a7f1e639e997471d1c1d91c353962859d903900a0a66cc7c3 0.0s done
+#34 exporting config sha256:9a44a39c432b4cf632ecd88d40068e8342e8b76ceeead52fa5eedf973b2fac78 0.0s done
+#34 exporting attestation manifest sha256:f397a27c866009e31c467b2eed48702e862d2ffffa64c01fafe813dc400354dd 0.0s done
+#34 exporting manifest list sha256:c177ff5f21af393531397159e24a1258403faee1cfc4e5931324ec20029f5860 0.0s done
+#34 naming to docker.io/library/self-ecom-m210-acceptance-8010614f-api:local done
+#34 unpacking to docker.io/library/self-ecom-m210-acceptance-8010614f-api:local
+#34 unpacking to docker.io/library/self-ecom-m210-acceptance-8010614f-api:local 9.5s done
+#34 DONE 33.0s
+
+#35 [api] resolving provenance for metadata file
+#35 DONE 0.1s
+ Image self-ecom-m210-acceptance-8010614f-api:local Building 
+ Image self-ecom-m210-acceptance-8010614f-admin:local Building 
+ Image self-ecom-m210-acceptance-8010614f-store:local Building 
+ Image self-ecom-m210-acceptance-8010614f-api:local Built 
+ Image self-ecom-m210-acceptance-8010614f-store:local Built 
+ Image self-ecom-m210-acceptance-8010614f-admin:local Built 

@@ -1,0 +1,45 @@
+{
+  "startedAt": "2026-11-14T08:46:31.277Z",
+  "mode": "integration",
+  "label": "catalog-recheck",
+  "checks": [
+    {
+      "name": "catalog-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:46:31.545Z",
+      "endedAt": "2026-11-14T08:46:39.064Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-catalog-recheck-catalog-migrate.txt"
+    },
+    {
+      "name": "catalog",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/catalog.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:46:39.064Z",
+      "endedAt": "2026-11-14T08:46:49.434Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-catalog-recheck-catalog.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m105_729196b258924695b1ad8162f3fea997_test",
+      "suite": "test/catalog.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T08:46:49.441Z",
+  "passed": true
+}

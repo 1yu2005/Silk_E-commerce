@@ -1,0 +1,45 @@
+{
+  "startedAt": "2026-11-14T08:57:01.541Z",
+  "mode": "integration",
+  "label": "fulfillment-recheck",
+  "checks": [
+    {
+      "name": "fulfillment-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:57:01.872Z",
+      "endedAt": "2026-11-14T08:57:09.103Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-fulfillment-recheck-fulfillment-migrate.txt"
+    },
+    {
+      "name": "fulfillment",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/fulfillment.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:57:09.103Z",
+      "endedAt": "2026-11-14T08:58:35.610Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-fulfillment-recheck-fulfillment.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m210_c02ed9f6e7164354823b69db1e7e5168_test",
+      "suite": "test/fulfillment.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T08:58:35.626Z",
+  "passed": true
+}

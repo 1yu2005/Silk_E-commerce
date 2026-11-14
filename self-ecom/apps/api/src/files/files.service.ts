@@ -112,6 +112,8 @@ export class FilesService {
       for (const reference of asset.references) {
         try {
           await this.adapters.get(reference.ownerType).authorize(tx, actor, reference, 'READ');
+          // 真实业务授权可能等待领域锁，返回私有资料前复核自然到期，不重复取得主体锁。
+          await this.access.current(tx, { identity: supplied, token }, false);
           return { asset, publicContent: false };
         } catch (error) {
           if (!(error instanceof FileError) && !(error instanceof AccessDeniedError)) throw error;

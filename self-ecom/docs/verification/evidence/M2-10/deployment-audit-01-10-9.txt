@@ -1,0 +1,19 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+13 migrations found in prisma/migrations
+
+Applying migration `0013_inventory_fact_guards`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0013_inventory_fact_guards/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-3eca214f0cc4 Creating 
+ Container self-ecom-api-run-3eca214f0cc4 Created 
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

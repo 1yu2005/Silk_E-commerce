@@ -1,0 +1,45 @@
+{
+  "startedAt": "2026-11-14T08:38:05.580Z",
+  "mode": "integration",
+  "label": "red-inventory-guards",
+  "checks": [
+    {
+      "name": "inventory-fact-guards-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:38:05.848Z",
+      "endedAt": "2026-11-14T08:38:13.560Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-red-inventory-guards-inventory-fact-guards-migration-migrate.txt"
+    },
+    {
+      "name": "inventory-fact-guards-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/inventory-fact-guards-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:38:13.561Z",
+      "endedAt": "2026-11-14T08:38:27.644Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-red-inventory-guards-inventory-fact-guards-migration.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m105_be278d7a061346779b97c3946a0ec7eb_test",
+      "suite": "test/inventory-fact-guards-migration.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T08:38:27.649Z",
+  "passed": false
+}

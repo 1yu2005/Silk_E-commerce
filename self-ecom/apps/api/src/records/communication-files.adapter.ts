@@ -4,6 +4,7 @@ import type { Prisma } from '@prisma/client';
 import type { CurrentIdentity } from '../auth/current-identity.service.js';
 import { FileBusinessAdapters, type FileTarget } from '../files/file-business-adapters.js';
 import { FileError } from '../files/file.errors.js';
+import { OrderError } from '../orders/order.errors.js';
 import { BusinessRecordAdapters } from './business-record-adapters.js';
 import { BusinessModuleNotReadyError } from './record-support.js';
 
@@ -34,6 +35,9 @@ export class CommunicationFilesAdapter implements OnModuleInit {
             actor.subjectType === 'CUSTOMER' ? 'PUBLIC_READ' : mode === 'BIND' ? 'WRITE' : 'INTERNAL_READ');
         } catch (error) {
           if (error instanceof BusinessModuleNotReadyError) throw new FileError('FILE_BUSINESS_NOT_READY');
+          // 文件入口统一隐藏真实订单不存在/不归属；不能据领域错误推断附件关联业务。
+          // 只转换已知拒绝，数据库故障和其它领域冲突必须继续抛出。
+          if (error instanceof OrderError && error.code === 'ORDER_NOT_FOUND') throw new FileError('FILE_NOT_FOUND');
           throw error;
         }
         if (mode === 'BIND') {

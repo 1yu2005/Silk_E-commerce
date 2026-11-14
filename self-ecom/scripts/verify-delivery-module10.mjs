@@ -72,7 +72,7 @@ try{
  }
  report.protection={originalRows,expectedChangedRows:changed};
  report.checks.push('部署前原2946行完全保持；演示后仅账号登录时间、选中SKU正式账务和商品销量相关原行变化，原密码/角色/权限/.env/0001～0010和3原文件保持');
- report.database.migrations=(await db.query('SELECT migration_name FROM _prisma_migrations WHERE finished_at IS NOT NULL ORDER BY migration_name')).rows.map(r=>r.migration_name);assert.equal(report.database.migrations.length,12);
+ report.database.migrations=(await db.query('SELECT migration_name FROM _prisma_migrations WHERE finished_at IS NOT NULL ORDER BY migration_name')).rows.map(r=>r.migration_name);assert.deepEqual(report.database.migrations,readdirSync('apps/api/prisma/migrations').filter(n=>/^\d+_/.test(n)).sort());
  await db.query('ROLLBACK');
 
  for(const [i,name]of ['self-ecom-api-1','self-ecom-admin-web-1','self-ecom-store-web-1'].entries()){

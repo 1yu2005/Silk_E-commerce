@@ -1,0 +1,46 @@
+{
+  "startedAt": "2026-11-14T08:37:55.644Z",
+  "mode": "integration",
+  "label": "red-file-jwt",
+  "checks": [
+    {
+      "name": "files-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:37:56.244Z",
+      "endedAt": "2026-11-14T08:38:03.793Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-red-file-jwt-files-migrate.txt"
+    },
+    {
+      "name": "files",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/files.integration.ts",
+        "--testNamePattern=文件绑定业务锁等待跨过JWT到期|私有文件业务锁等待跨过JWT到期"
+      ],
+      "startedAt": "2026-11-14T08:38:03.793Z",
+      "endedAt": "2026-11-14T08:38:08.396Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-red-file-jwt-files.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m105_286ccc0082844aa6a38f8278fd157f46_test",
+      "suite": "test/files.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T08:38:08.407Z",
+  "passed": false
+}

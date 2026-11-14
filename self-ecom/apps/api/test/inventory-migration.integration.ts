@@ -32,7 +32,7 @@ it('IT01：0005旧数据升级0006保持原值，草稿真实FK与库存约束�
   runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);
   for(const row of checksums)expect(row.checksum).toBe(createHash('sha256').update(readFileSync(resolve(__dirname,'../prisma/migrations',row.migration_name,'migration.sql'))).digest('hex'));
   expect((await client.query('SELECT adjustment_id FROM initial_inventory_draft WHERE id=$1',[draft])).rows).toEqual([{adjustment_id:null}]);
-  await expect(client.query('UPDATE initial_inventory_draft SET adjustment_id=$1 WHERE id=$2',[randomUUID(),draft])).rejects.toMatchObject({code:'23503'});
+  await expect(client.query("UPDATE initial_inventory_draft SET status='CONVERTED',adjustment_id=$1 WHERE id=$2",[randomUUID(),draft])).rejects.toMatchObject({code:'23503'});
   await expect(client.query('UPDATE inventory_balance SET available=-1 WHERE sku_id=$1',[sku])).rejects.toMatchObject({code:'23514'});
   const applied=(await client.query('SELECT * FROM _prisma_migrations ORDER BY migration_name')).rows;runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);expect((await client.query('SELECT * FROM _prisma_migrations ORDER BY migration_name')).rows).toEqual(applied);
  }finally{if(connected)await client.end();if(created)await admin.query(`DROP DATABASE "${name}"`);await admin.end();console.log('保留0006升级测试目录：'+scratch);}

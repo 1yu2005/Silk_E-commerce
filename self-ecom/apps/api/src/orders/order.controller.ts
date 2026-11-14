@@ -1,4 +1,4 @@
-// 作用：只暴露本期真实命令；不发布发货、收货、退款或资金网关接口。
+// 作用：暴露真实报价、建单、模拟支付、关单和库存异常命令；履约与收货使用专用控制器。
 import {Body,Controller,Get,Headers,HttpCode,Inject,Param,Post,Query,Req,Res} from '@nestjs/common';
 import {ApiTags} from '@nestjs/swagger';
 import type {ServerResponse} from 'node:http';

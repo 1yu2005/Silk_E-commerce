@@ -1,0 +1,23 @@
+{
+  "startedAt": "2026-11-14T09:23:12.789Z",
+  "checks": [],
+  "commands": [
+    {
+      "command": [
+        "docker.exe",
+        "inspect",
+        "--format",
+        "{{.Image}}",
+        "self-ecom-api-1"
+      ],
+      "startedAt": "2026-11-14T09:23:12.792Z",
+      "endedAt": "2026-11-14T09:23:12.804Z",
+      "exitCode": null
+    }
+  ],
+  "findings": [],
+  "exclusions": [],
+  "status": "failed",
+  "failure": "交付断言失败：只读核对命令失败\n\nnull !== 0\n",
+  "endedAt": "2026-11-14T09:23:12.811Z"
+}

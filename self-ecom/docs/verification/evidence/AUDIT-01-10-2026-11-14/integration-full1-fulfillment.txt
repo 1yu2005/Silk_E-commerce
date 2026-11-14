@@ -1,0 +1,36 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:18636) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/fulfillment.integration.ts (34 tests | 1 failed) 120824ms
+   × 多实例扫描守护锁、ABANDONED恢复，103笔跨100分页；首笔故障不饿死后页 60973ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/fulfillment.integration.ts > 多实例扫描守护锁、ABANDONED恢复，103笔跨100分页；首笔故障不饿死后页
+TaskError: 任务命令参数不合法
+ ❯ applyOrderTimer src/tasks/order-timer.rules.ts:39:148
+     37|   const at = millis(now); checkedId(input.orderId); const commandKey =…
+     38|   if (!Number.isInteger(input.version) || input.version < 0 || input.v…
+     39|     || !Number.isInteger(input.autoReceiptDays) || input.autoReceiptDa…
+       |                                                                                                                                                    ^
+     40|   if (!['UNSHIPPED', 'HANDOVER_UNKNOWN', 'SHIPPED', 'COMPLETED', 'REFU…
+     41|   const activePauses = input.pauses.filter(row => row.status === 'ACTI…
+ ❯ src/tasks/order-timer.service.ts:52:22
+ ❯ FulfillmentService.handedOver src/orders/fulfillment.service.ts:141:3
+ ❯ src/orders/fulfillment.service.ts:57:17
+ ❯ TaskEntryService.withContext src/tasks/task-entry.service.ts:69:18
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:18:18
+ ❯ shipped test/fulfillment.integration.ts:62:68
+ ❯ test/fulfillment.integration.ts:157:121
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 33 passed (34)
+   Start at  16:49:58
+   Duration  123.35s (tests 99%, import 1%)
+

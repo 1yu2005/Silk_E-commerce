@@ -5,7 +5,7 @@ import {PrismaPg} from '@prisma/adapter-pg';
 if(process.env.NODE_ENV!=='test'||!/^\/m(?:108|210)_[a-f0-9]{32}_test$/.test(new URL(process.env.DATABASE_URL!).pathname))throw new Error('只允许本轮独占数据库');
 const db=new PrismaClient({adapter:new PrismaPg({connectionString:process.env.DATABASE_URL})});
 afterAll(async()=>{await db.$disconnect();});
-it('0001～0012全新部署成功，真实订单与支付表和外键存在',async()=>{const migrations=await db.$queryRaw<{migration_name:string;finished_at:Date|null}[]>`SELECT migration_name,finished_at FROM _prisma_migrations ORDER BY migration_name`;expect(migrations).toHaveLength(12);expect(migrations.at(-1)?.migration_name).toBe('0012_fulfillment_fact_guards');expect(migrations.every(m=>m.finished_at!==null)).toBe(true);
+it('0001～0013全新部署成功，真实订单与支付表和外键存在',async()=>{const migrations=await db.$queryRaw<{migration_name:string;finished_at:Date|null}[]>`SELECT migration_name,finished_at FROM _prisma_migrations ORDER BY migration_name`;expect(migrations).toHaveLength(13);expect(migrations.at(-1)?.migration_name).toBe('0013_inventory_fact_guards');expect(migrations.every(m=>m.finished_at!==null)).toBe(true);
  const [r]=await db.$queryRaw<{orders:boolean;payments:boolean;sources:boolean}[]>`SELECT to_regclass('public.order') IS NOT NULL AS orders,to_regclass('public.payment') IS NOT NULL AS payments,to_regclass('public.task_business_source') IS NOT NULL AS sources`;expect(r).toEqual({orders:true,payments:true,sources:true});
  const foreign=await db.$queryRaw<{target:string}[]>`SELECT confrelid::regclass::text AS target FROM pg_constraint WHERE conrelid='public.order_item'::regclass AND contype='f'`;expect(foreign.map(f=>f.target).sort()).toEqual(['file_asset','"order"','product','sku'].sort());
 });

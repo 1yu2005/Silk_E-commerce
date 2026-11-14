@@ -1,0 +1,17 @@
+{
+  "startedAt": "2026-11-14T09:14:50.826Z",
+  "readOnlyBusiness": true,
+  "newMembers": 0,
+  "checks": [],
+  "requests": [
+    {
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "67b94325-314a-4d19-8ec7-4c84bba19da4"
+    }
+  ],
+  "pageErrors": [],
+  "status": "failed",
+  "failure": "locator.waitFor: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('h1').first() to be visible\u001b[22m\n\n    at Module.verifyAuditLocal (D:\\实习\\实习生全栈学习笔记\\self-ecom\\infra\\verify-audit-local.mjs:23:94)\n    at async D:\\实习\\实习生全栈学习笔记\\self-ecom\\.node_repl_cell_1.mjs:6:1706",
+  "endedAt": "2026-11-14T09:15:23.563Z"
+}

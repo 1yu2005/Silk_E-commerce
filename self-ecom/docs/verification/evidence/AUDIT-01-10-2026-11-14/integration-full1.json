@@ -1,0 +1,1473 @@
+{
+  "startedAt": "2026-11-14T08:41:06.391Z",
+  "mode": "integration",
+  "label": "full1",
+  "checks": [
+    {
+      "name": "audit-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:41:07.635Z",
+      "endedAt": "2026-11-14T08:41:17.250Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-audit-migrate.txt"
+    },
+    {
+      "name": "audit",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/audit.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:41:17.250Z",
+      "endedAt": "2026-11-14T08:41:18.734Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-audit.txt"
+    },
+    {
+      "name": "auth-guard-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:41:18.863Z",
+      "endedAt": "2026-11-14T08:41:25.873Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-auth-guard-migrate.txt"
+    },
+    {
+      "name": "auth-guard",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/auth-guard.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:41:25.873Z",
+      "endedAt": "2026-11-14T08:41:29.569Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-auth-guard.txt"
+    },
+    {
+      "name": "auth-schema-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:41:29.744Z",
+      "endedAt": "2026-11-14T08:41:36.851Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-auth-schema-migrate.txt"
+    },
+    {
+      "name": "auth-schema",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/auth-schema.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:41:36.852Z",
+      "endedAt": "2026-11-14T08:41:37.804Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-auth-schema.txt"
+    },
+    {
+      "name": "auth-session-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:41:37.980Z",
+      "endedAt": "2026-11-14T08:41:45.004Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-auth-session-migrate.txt"
+    },
+    {
+      "name": "auth-session",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/auth-session.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:41:45.004Z",
+      "endedAt": "2026-11-14T08:41:46.804Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-auth-session.txt"
+    },
+    {
+      "name": "catalog-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:41:47.014Z",
+      "endedAt": "2026-11-14T08:41:53.988Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-catalog-migration-migrate.txt"
+    },
+    {
+      "name": "catalog-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/catalog-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:41:53.988Z",
+      "endedAt": "2026-11-14T08:42:13.287Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-catalog-migration.txt"
+    },
+    {
+      "name": "catalog-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:42:13.388Z",
+      "endedAt": "2026-11-14T08:42:20.204Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-catalog-migrate.txt"
+    },
+    {
+      "name": "catalog",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/catalog.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:42:20.204Z",
+      "endedAt": "2026-11-14T08:42:28.456Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-catalog.txt"
+    },
+    {
+      "name": "customer-auth-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:42:28.696Z",
+      "endedAt": "2026-11-14T08:42:35.660Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-auth-migrate.txt"
+    },
+    {
+      "name": "customer-auth",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/customer-auth.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:42:35.660Z",
+      "endedAt": "2026-11-14T08:42:56.603Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-auth.txt"
+    },
+    {
+      "name": "customer-avatar-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:42:56.712Z",
+      "endedAt": "2026-11-14T08:43:04.336Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-avatar-migrate.txt"
+    },
+    {
+      "name": "customer-avatar",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/customer-avatar.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:43:04.336Z",
+      "endedAt": "2026-11-14T08:43:09.951Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-avatar.txt"
+    },
+    {
+      "name": "customer-profile-password-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:43:10.182Z",
+      "endedAt": "2026-11-14T08:43:17.810Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-profile-password-migrate.txt"
+    },
+    {
+      "name": "customer-profile-password",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/customer-profile-password.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:43:17.810Z",
+      "endedAt": "2026-11-14T08:43:53.982Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-profile-password.txt"
+    },
+    {
+      "name": "customer-register-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:43:54.147Z",
+      "endedAt": "2026-11-14T08:44:01.310Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-register-migrate.txt"
+    },
+    {
+      "name": "customer-register",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/customer-register.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:44:01.310Z",
+      "endedAt": "2026-11-14T08:44:16.266Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customer-register.txt"
+    },
+    {
+      "name": "customers-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:44:16.604Z",
+      "endedAt": "2026-11-14T08:44:26.658Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customers-migration-migrate.txt"
+    },
+    {
+      "name": "customers-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/customers-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:44:26.659Z",
+      "endedAt": "2026-11-14T08:44:47.454Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customers-migration.txt"
+    },
+    {
+      "name": "customers-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:44:47.513Z",
+      "endedAt": "2026-11-14T08:44:54.963Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customers-migrate.txt"
+    },
+    {
+      "name": "customers",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/customers.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:44:54.963Z",
+      "endedAt": "2026-11-14T08:45:04.304Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-customers.txt"
+    },
+    {
+      "name": "database-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:45:04.693Z",
+      "endedAt": "2026-11-14T08:45:12.002Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-database-migrate.txt"
+    },
+    {
+      "name": "database",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/database.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:45:12.002Z",
+      "endedAt": "2026-11-14T08:45:15.888Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-database.txt"
+    },
+    {
+      "name": "employee-auth-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:45:16.280Z",
+      "endedAt": "2026-11-14T08:45:24.227Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-auth-migrate.txt"
+    },
+    {
+      "name": "employee-auth",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-auth.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:45:24.239Z",
+      "endedAt": "2026-11-14T08:45:37.909Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-auth.txt"
+    },
+    {
+      "name": "employee-create-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:45:38.188Z",
+      "endedAt": "2026-11-14T08:45:45.409Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-create-migrate.txt"
+    },
+    {
+      "name": "employee-create",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-create.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:45:45.409Z",
+      "endedAt": "2026-11-14T08:45:59.738Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-create.txt"
+    },
+    {
+      "name": "employee-extra-permission-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:45:59.990Z",
+      "endedAt": "2026-11-14T08:46:06.975Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-extra-permission-migrate.txt"
+    },
+    {
+      "name": "employee-extra-permission",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-extra-permission.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:46:06.975Z",
+      "endedAt": "2026-11-14T08:46:18.662Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-extra-permission.txt"
+    },
+    {
+      "name": "employee-password-reset-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:46:18.836Z",
+      "endedAt": "2026-11-14T08:46:25.901Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-password-reset-migrate.txt"
+    },
+    {
+      "name": "employee-password-reset",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-password-reset.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:46:25.901Z",
+      "endedAt": "2026-11-14T08:46:57.348Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-password-reset.txt"
+    },
+    {
+      "name": "employee-password-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:46:57.512Z",
+      "endedAt": "2026-11-14T08:47:05.002Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-password-migrate.txt"
+    },
+    {
+      "name": "employee-password",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-password.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:47:05.002Z",
+      "endedAt": "2026-11-14T08:47:27.315Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-password.txt"
+    },
+    {
+      "name": "employee-profile-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:47:27.479Z",
+      "endedAt": "2026-11-14T08:47:34.457Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-profile-migrate.txt"
+    },
+    {
+      "name": "employee-profile",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-profile.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:47:34.457Z",
+      "endedAt": "2026-11-14T08:47:42.357Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-profile.txt"
+    },
+    {
+      "name": "employee-query-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:47:42.491Z",
+      "endedAt": "2026-11-14T08:47:49.422Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-query-migrate.txt"
+    },
+    {
+      "name": "employee-query",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-query.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:47:49.422Z",
+      "endedAt": "2026-11-14T08:47:56.807Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-query.txt"
+    },
+    {
+      "name": "employee-role-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:47:56.952Z",
+      "endedAt": "2026-11-14T08:48:04.138Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-role-migrate.txt"
+    },
+    {
+      "name": "employee-role",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-role.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:48:04.138Z",
+      "endedAt": "2026-11-14T08:48:25.632Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-role.txt"
+    },
+    {
+      "name": "employee-status-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:48:25.680Z",
+      "endedAt": "2026-11-14T08:48:32.575Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-status-migrate.txt"
+    },
+    {
+      "name": "employee-status",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/employee-status.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:48:32.575Z",
+      "endedAt": "2026-11-14T08:48:51.838Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-employee-status.txt"
+    },
+    {
+      "name": "files-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:48:51.888Z",
+      "endedAt": "2026-11-14T08:48:58.951Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-files-migration-migrate.txt"
+    },
+    {
+      "name": "files-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/files-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:48:58.951Z",
+      "endedAt": "2026-11-14T08:49:27.253Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-files-migration.txt"
+    },
+    {
+      "name": "files-schema-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:49:27.376Z",
+      "endedAt": "2026-11-14T08:49:34.398Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-files-schema-migrate.txt"
+    },
+    {
+      "name": "files-schema",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/files-schema.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:49:34.400Z",
+      "endedAt": "2026-11-14T08:49:35.525Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-files-schema.txt"
+    },
+    {
+      "name": "files-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:49:35.619Z",
+      "endedAt": "2026-11-14T08:49:42.471Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-files-migrate.txt"
+    },
+    {
+      "name": "files",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/files.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:49:42.471Z",
+      "endedAt": "2026-11-14T08:49:50.373Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-files.txt"
+    },
+    {
+      "name": "fulfillment-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:49:50.512Z",
+      "endedAt": "2026-11-14T08:49:58.422Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-fulfillment-migrate.txt"
+    },
+    {
+      "name": "fulfillment",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/fulfillment.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:49:58.423Z",
+      "endedAt": "2026-11-14T08:52:02.655Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-fulfillment.txt"
+    },
+    {
+      "name": "initial-admin-seed-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:52:05.277Z",
+      "endedAt": "2026-11-14T08:52:17.741Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-initial-admin-seed-migrate.txt"
+    },
+    {
+      "name": "initial-admin-seed",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/initial-admin-seed.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:52:17.742Z",
+      "endedAt": "2026-11-14T08:53:01.896Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-initial-admin-seed.txt"
+    },
+    {
+      "name": "inventory-fact-guards-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:53:02.014Z",
+      "endedAt": "2026-11-14T08:53:09.395Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-inventory-fact-guards-migration-migrate.txt"
+    },
+    {
+      "name": "inventory-fact-guards-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/inventory-fact-guards-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:53:09.396Z",
+      "endedAt": "2026-11-14T08:53:30.327Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-inventory-fact-guards-migration.txt"
+    },
+    {
+      "name": "inventory-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:53:30.719Z",
+      "endedAt": "2026-11-14T08:53:38.978Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-inventory-migration-migrate.txt"
+    },
+    {
+      "name": "inventory-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/inventory-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:53:38.978Z",
+      "endedAt": "2026-11-14T08:54:02.235Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-inventory-migration.txt"
+    },
+    {
+      "name": "inventory-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:54:02.482Z",
+      "endedAt": "2026-11-14T08:54:12.394Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-inventory-migrate.txt"
+    },
+    {
+      "name": "inventory",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/inventory.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:54:12.394Z",
+      "endedAt": "2026-11-14T08:54:33.944Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-inventory.txt"
+    },
+    {
+      "name": "logout-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:54:34.608Z",
+      "endedAt": "2026-11-14T08:54:42.313Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-logout-migrate.txt"
+    },
+    {
+      "name": "logout",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/logout.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:54:42.313Z",
+      "endedAt": "2026-11-14T08:54:51.933Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-logout.txt"
+    },
+    {
+      "name": "orders-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:54:52.373Z",
+      "endedAt": "2026-11-14T08:55:00.856Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-orders-migration-migrate.txt"
+    },
+    {
+      "name": "orders-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/orders-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:55:00.856Z",
+      "endedAt": "2026-11-14T08:55:01.718Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-orders-migration.txt"
+    },
+    {
+      "name": "orders-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:55:02.049Z",
+      "endedAt": "2026-11-14T08:55:09.323Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-orders-migrate.txt"
+    },
+    {
+      "name": "orders",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/orders.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:55:09.323Z",
+      "endedAt": "2026-11-14T08:55:57.955Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-orders.txt"
+    },
+    {
+      "name": "permission-seed-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:55:58.521Z",
+      "endedAt": "2026-11-14T08:56:06.983Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-permission-seed-migrate.txt"
+    },
+    {
+      "name": "permission-seed",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/permission-seed.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:56:06.983Z",
+      "endedAt": "2026-11-14T08:56:09.607Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-permission-seed.txt"
+    },
+    {
+      "name": "records-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:56:10.111Z",
+      "endedAt": "2026-11-14T08:56:18.323Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-records-migrate.txt"
+    },
+    {
+      "name": "records",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/records.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:56:18.324Z",
+      "endedAt": "2026-11-14T08:56:22.353Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-records.txt"
+    },
+    {
+      "name": "settings-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:56:22.583Z",
+      "endedAt": "2026-11-14T08:56:30.068Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-settings-migrate.txt"
+    },
+    {
+      "name": "settings",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/settings.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:56:30.069Z",
+      "endedAt": "2026-11-14T08:56:46.773Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-settings.txt"
+    },
+    {
+      "name": "task-access-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:56:46.880Z",
+      "endedAt": "2026-11-14T08:56:54.002Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-access-migrate.txt"
+    },
+    {
+      "name": "task-access",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/task-access.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:56:54.003Z",
+      "endedAt": "2026-11-14T08:57:13.499Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-access.txt"
+    },
+    {
+      "name": "task-deadline-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:57:13.704Z",
+      "endedAt": "2026-11-14T08:57:21.247Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-deadline-migrate.txt"
+    },
+    {
+      "name": "task-deadline",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/task-deadline.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:57:21.247Z",
+      "endedAt": "2026-11-14T08:57:43.436Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-deadline.txt"
+    },
+    {
+      "name": "task-entry-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:57:43.544Z",
+      "endedAt": "2026-11-14T08:57:50.726Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-entry-migrate.txt"
+    },
+    {
+      "name": "task-entry",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/task-entry.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:57:50.726Z",
+      "endedAt": "2026-11-14T08:58:06.565Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-entry.txt"
+    },
+    {
+      "name": "task-kernel-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:58:06.635Z",
+      "endedAt": "2026-11-14T08:58:13.864Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-kernel-migrate.txt"
+    },
+    {
+      "name": "task-kernel",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/task-kernel.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:58:13.866Z",
+      "endedAt": "2026-11-14T08:58:40.580Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-kernel.txt"
+    },
+    {
+      "name": "task-reassign-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:58:40.670Z",
+      "endedAt": "2026-11-14T08:58:47.473Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-reassign-migrate.txt"
+    },
+    {
+      "name": "task-reassign",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/task-reassign.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:58:47.475Z",
+      "endedAt": "2026-11-14T08:59:05.577Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-task-reassign.txt"
+    },
+    {
+      "name": "tasks-migration-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:59:05.672Z",
+      "endedAt": "2026-11-14T08:59:12.809Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-tasks-migration-migrate.txt"
+    },
+    {
+      "name": "tasks-migration",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/tasks-migration.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:59:12.809Z",
+      "endedAt": "2026-11-14T08:59:39.953Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-tasks-migration.txt"
+    },
+    {
+      "name": "tasks-schema-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T08:59:40.025Z",
+      "endedAt": "2026-11-14T08:59:46.890Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-tasks-schema-migrate.txt"
+    },
+    {
+      "name": "tasks-schema",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/tasks-schema.integration.ts"
+      ],
+      "startedAt": "2026-11-14T08:59:46.890Z",
+      "endedAt": "2026-11-14T08:59:48.178Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-full1-tasks-schema.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m105_fc5fc112350d4fad8f93261b40ebc8fa_test",
+      "suite": "test/audit.integration.ts"
+    },
+    {
+      "name": "m105_688f207c11cd463889d8d90ee46dded2_test",
+      "suite": "test/auth-guard.integration.ts"
+    },
+    {
+      "name": "m105_635a8459808d4ed5a64d01c04ffaee70_test",
+      "suite": "test/auth-schema.integration.ts"
+    },
+    {
+      "name": "m105_b9640f8cda46436192229e184d33af55_test",
+      "suite": "test/auth-session.integration.ts"
+    },
+    {
+      "name": "m105_df2afa3ad8f54928a64b8a3ff479eba0_test",
+      "suite": "test/catalog-migration.integration.ts"
+    },
+    {
+      "name": "m105_3088d30e529143eea8bdc7e1e36f97df_test",
+      "suite": "test/catalog.integration.ts"
+    },
+    {
+      "name": "m105_ca2365ae3c014c5681e695ccb47c8d4c_test",
+      "suite": "test/customer-auth.integration.ts"
+    },
+    {
+      "name": "m105_8f50bf596eeb442da34255bc65ad92ee_test",
+      "suite": "test/customer-avatar.integration.ts"
+    },
+    {
+      "name": "m105_5c82384000394716b57510db237cc007_test",
+      "suite": "test/customer-profile-password.integration.ts"
+    },
+    {
+      "name": "m105_972b1f94cbba4aaf86b97a0abe15c2ef_test",
+      "suite": "test/customer-register.integration.ts"
+    },
+    {
+      "name": "m105_695998a1180a486eba7a893fac51eac3_test",
+      "suite": "test/customers-migration.integration.ts"
+    },
+    {
+      "name": "m105_6ca5785eb78943368431af8c9ba2f26c_test",
+      "suite": "test/customers.integration.ts"
+    },
+    {
+      "name": "m105_0fddf450274e4411a9187c95e9cbe420_test",
+      "suite": "test/database.integration.ts"
+    },
+    {
+      "name": "m105_44081ef10e9440a58947cb7c4d43d2a3_test",
+      "suite": "test/employee-auth.integration.ts"
+    },
+    {
+      "name": "m105_dad4152c5239483883723ec572a620c6_test",
+      "suite": "test/employee-create.integration.ts"
+    },
+    {
+      "name": "m105_abe54410e8bf4a55b5612930b157705d_test",
+      "suite": "test/employee-extra-permission.integration.ts"
+    },
+    {
+      "name": "m105_0f9722850d55436a80c01eefe916193f_test",
+      "suite": "test/employee-password-reset.integration.ts"
+    },
+    {
+      "name": "m105_2245b3ee9ac94f9189dc0126342aee18_test",
+      "suite": "test/employee-password.integration.ts"
+    },
+    {
+      "name": "m105_d02b579507054b148a0530edf08a274e_test",
+      "suite": "test/employee-profile.integration.ts"
+    },
+    {
+      "name": "m105_d0b6d83320ea41c780caa6293cc36bb5_test",
+      "suite": "test/employee-query.integration.ts"
+    },
+    {
+      "name": "m105_a608bd07cf85424b80308a8c0928a527_test",
+      "suite": "test/employee-role.integration.ts"
+    },
+    {
+      "name": "m105_c2e93772aec1406aa4afcd19565aac8e_test",
+      "suite": "test/employee-status.integration.ts"
+    },
+    {
+      "name": "m105_a52c26dfd57644408f0852ad22a2ce79_test",
+      "suite": "test/files-migration.integration.ts"
+    },
+    {
+      "name": "m105_5ff0565b537e4ecebfaa9f4ed0ee353d_test",
+      "suite": "test/files-schema.integration.ts"
+    },
+    {
+      "name": "m105_3700f2c3d1044a038fa2fff61666eed7_test",
+      "suite": "test/files.integration.ts"
+    },
+    {
+      "name": "m210_ce95cbdab71f48da8a967948addab493_test",
+      "suite": "test/fulfillment.integration.ts"
+    },
+    {
+      "name": "m105_3cc58103d9aa44e2b771e14d4128cb07_test",
+      "suite": "test/initial-admin-seed.integration.ts"
+    },
+    {
+      "name": "m105_57ef3f38480e4dc991643554c152d465_test",
+      "suite": "test/inventory-fact-guards-migration.integration.ts"
+    },
+    {
+      "name": "m105_56538399730b437b8e2a1cb3e7ff2baf_test",
+      "suite": "test/inventory-migration.integration.ts"
+    },
+    {
+      "name": "m105_6e57864a2d2940d3a9032e17214726ec_test",
+      "suite": "test/inventory.integration.ts"
+    },
+    {
+      "name": "m105_67f497eb6c764bdfa6b5bda230e03889_test",
+      "suite": "test/logout.integration.ts"
+    },
+    {
+      "name": "m108_fdd3fea5f9dd4963bf7a913eb9332636_test",
+      "suite": "test/orders-migration.integration.ts"
+    },
+    {
+      "name": "m108_54e501f82b7647f09b5fa45128a54caa_test",
+      "suite": "test/orders.integration.ts"
+    },
+    {
+      "name": "m105_ad7c284f92e247f6af7fb29a84d3aebf_test",
+      "suite": "test/permission-seed.integration.ts"
+    },
+    {
+      "name": "m105_98509cf9290c4662b54a2c436fc7f77f_test",
+      "suite": "test/records.integration.ts"
+    },
+    {
+      "name": "m105_a3e98c8a2dbe477e9b291374ac1e60f9_test",
+      "suite": "test/settings.integration.ts"
+    },
+    {
+      "name": "m105_84b22400b6094353af2ce2f51f72e692_test",
+      "suite": "test/task-access.integration.ts"
+    },
+    {
+      "name": "m105_ab8a1fb7da0445bea8de9b3424efc73a_test",
+      "suite": "test/task-deadline.integration.ts"
+    },
+    {
+      "name": "m105_df932815b47240a587d36f2f676cc3a9_test",
+      "suite": "test/task-entry.integration.ts"
+    },
+    {
+      "name": "m105_9b9c5e7c18d2451a93e48c4629fdcb66_test",
+      "suite": "test/task-kernel.integration.ts"
+    },
+    {
+      "name": "m105_47937eb86793435596952a846792468a_test",
+      "suite": "test/task-reassign.integration.ts"
+    },
+    {
+      "name": "m105_2cdf41e04d554715bb1fc21e06e3406f_test",
+      "suite": "test/tasks-migration.integration.ts"
+    },
+    {
+      "name": "m105_dbda40246a9d4204b0ea3183ac0f8d85_test",
+      "suite": "test/tasks-schema.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T08:59:48.206Z",
+  "passed": false
+}

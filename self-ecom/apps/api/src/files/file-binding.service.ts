@@ -40,6 +40,8 @@ export class FileBindingService {
     }
     // 业务锁由解析器持有，所有文件锁最后按固定升序取得。领域命令负责完整材料集合上限。
     await tx.$queryRaw(Prisma.sql`SELECT id FROM file_asset WHERE id IN (${Prisma.join([...ids].sort().map(id => Prisma.sql`${id}::uuid`))}) ORDER BY id FOR UPDATE`);
+    // 等待业务或文件锁可能跨过凭证到期；主体锁仍由本事务持有，此处只复核，不反向补锁。
+    await this.access.current(tx, access, false);
     const now = await fileNow(tx); const result = [];
     for (const id of ids) {
       const asset = await tx.fileAsset.findUnique({ where: { id }, include: { references: true } });

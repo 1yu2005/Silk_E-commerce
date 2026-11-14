@@ -1,0 +1,81 @@
+{
+  "startedAt": "2026-11-14T09:05:25.083Z",
+  "mode": "integration",
+  "label": "communication-file-compatibility",
+  "checks": [
+    {
+      "name": "files-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T09:05:25.455Z",
+      "endedAt": "2026-11-14T09:05:33.486Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-communication-file-compatibility-files-migrate.txt"
+    },
+    {
+      "name": "files",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/files.integration.ts",
+        "--testNamePattern=沟通|私有文件业务锁"
+      ],
+      "startedAt": "2026-11-14T09:05:33.486Z",
+      "endedAt": "2026-11-14T09:05:36.987Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-communication-file-compatibility-files.txt"
+    },
+    {
+      "name": "records-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T09:05:37.216Z",
+      "endedAt": "2026-11-14T09:05:44.308Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-communication-file-compatibility-records-migrate.txt"
+    },
+    {
+      "name": "records",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/records.integration.ts",
+        "--testNamePattern=沟通|私有文件业务锁"
+      ],
+      "startedAt": "2026-11-14T09:05:44.308Z",
+      "endedAt": "2026-11-14T09:05:46.450Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-communication-file-compatibility-records.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m105_d9875af7ef4149388dad1c1d5934267e_test",
+      "suite": "test/files.integration.ts"
+    },
+    {
+      "name": "m105_723072dec93f40c4860df327eb5387e2_test",
+      "suite": "test/records.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T09:05:46.456Z",
+  "passed": true
+}

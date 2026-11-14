@@ -55,7 +55,10 @@ export class CommunicationService {
       }
     }
     await this.adapters.communication(target.scopeType).lockAndAuthorize(tx, current, target.scopeId, mode);
-    return current;
+    // 主体行锁阻止撤权/停用，但JWT仍可在等待业务锁时自然到期，不能沿用等待前的认证结果。
+    const verified = await this.identities.authenticate(tx, access.token, subjectType);
+    if (verified.subjectId !== current.subjectId || verified.sessionId !== current.sessionId) throw new TokenValidationError('TOKEN_INVALID');
+    return verified;
   }
 
   async appendCommunication(tx: Prisma.TransactionClient, access: CommunicationAccess, input: CommunicationInput) {

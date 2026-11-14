@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:12592) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/orders.integration.ts (30 tests | 1 failed | 28 skipped) 1953ms
+   × 文件边界：真实订单沟通附件对他人统一隐藏存在性，订单接口仍保留领域错误 574ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/orders.integration.ts > 文件边界：真实订单沟通附件对他人统一隐藏存在性，订单接口仍保留领域错误
+AssertionError: expected 'ORDER_NOT_FOUND' to be 'FILE_NOT_FOUND' // Object.is equality
+
+Expected: "FILE_NOT_FOUND"
+Received: "ORDER_NOT_FOUND"
+
+ ❯ test/orders.integration.ts:182:28
+    180|   const denied=await http('GET','/files/'+f.fileId+suffix,other),missi…
+    181|   expect(denied.status).toBe(404);expect(missing.status).toBe(404);
+    182|   expect(denied.json.code).toBe('FILE_NOT_FOUND');expect(denied.json.m…
+       |                            ^
+    183|  }
+    184|  const communication=await http('GET','/store/orders/'+f.order.orderId…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 28 skipped (30)
+   Start at  17:03:58
+   Duration  4.67s (import 44%, tests 43%, transform 13%)
+

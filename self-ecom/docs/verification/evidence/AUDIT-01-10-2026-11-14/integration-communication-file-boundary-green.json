@@ -1,0 +1,46 @@
+{
+  "startedAt": "2026-11-14T09:04:27.427Z",
+  "mode": "integration",
+  "label": "communication-file-boundary-green",
+  "checks": [
+    {
+      "name": "orders-migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-14T09:04:28.147Z",
+      "endedAt": "2026-11-14T09:04:35.919Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-communication-file-boundary-green-orders-migrate.txt"
+    },
+    {
+      "name": "orders",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "test/verification/retained.config.mts",
+        "test/orders.integration.ts",
+        "--testNamePattern=文件边界：|IT06/08|权限、脱敏"
+      ],
+      "startedAt": "2026-11-14T09:04:35.919Z",
+      "endedAt": "2026-11-14T09:04:47.587Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "D:\\实习\\实习生全栈学习笔记\\self-ecom\\docs\\verification\\evidence\\AUDIT-01-10-2026-11-14\\integration-communication-file-boundary-green-orders.txt"
+    }
+  ],
+  "retainedDatabases": [
+    {
+      "name": "m108_b57d5247ee8e431bbead91378b00dbec_test",
+      "suite": "test/orders.integration.ts"
+    }
+  ],
+  "endedAt": "2026-11-14T09:04:47.595Z",
+  "passed": true
+}

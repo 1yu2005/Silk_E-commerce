@@ -22,6 +22,8 @@ import { FILE_CONFIG } from '../src/files/file-configuration.js';
 import { FileStorageService } from '../src/files/file-storage.service.js';
 import { FileAccessService, type FileAccess } from '../src/files/file-access.service.js';
 import { FileBusinessAdapters } from '../src/files/file-business-adapters.js';
+import { FilesService } from '../src/files/files.service.js';
+import { PermissionService } from '../src/permissions/permission.service.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
 import { BusinessRecordAdapters } from '../src/records/business-record-adapters.js';
 import { CommunicationService } from '../src/records/communication.service.js';
@@ -106,6 +108,45 @@ function bind(id: string, access = customer, ownerId = access.identity.subjectId
 async function expire(id: string) {
   await prisma.fileAsset.update({ where: { id }, data: { createdAt: new Date(Date.now() - 172800000), expiresAt: new Date(Date.now() - 86400000) } });
 }
+async function expiringAccess(account: FileAccess) {
+  let now = new Date();
+  const clock = () => new Date(now);
+  const tokens = new JwtTokenService({ secret: 'file-expiry-regression-only-'.repeat(2), ttlSeconds: 60 }, clock);
+  const identities = new CurrentIdentityService(tokens, new PermissionService(), clock);
+  const sessionId = randomUUID(); const subjectType = account.identity.subjectType; const subjectId = account.identity.subjectId;
+  const issued = await tokens.issue({ subjectType, subjectId, sessionId, tokenVersion: account.identity.tokenVersion });
+  await prisma.authSession.create({ data: { id: sessionId, subjectType, tokenVersion: account.identity.tokenVersion,
+    employeeId: subjectType === 'EMPLOYEE' ? subjectId : null, customerId: subjectType === 'CUSTOMER' ? subjectId : null,
+    createdAt: issued.issuedAt, expiresAt: issued.expiresAt } });
+  const identity = await identities.authenticate(prisma, issued.accessToken, subjectType);
+  return { identities, access: { identity, token: issued.accessToken }, expireToken() { now = new Date(issued.expiresAt); } };
+}
+
+it('文件绑定业务锁等待跨过JWT到期后拒绝引用，文件仍为STAGED', async () => {
+  const id = await created(); const f = await expiringAccess(customer); const adapters = new FileBusinessAdapters();
+  const adapter = adapters.get('CUSTOMER_AVATAR'); const authorize = adapter.authorize.bind(adapter);
+  adapter.authorize = async (...args) => { await authorize(...args); f.expireToken(); };
+  const service = new FileBindingService(new FileAccessService(f.identities), adapters);
+  await expect(prisma.$transaction(tx => service.bindFiles(tx, f.access, { ownerType: 'CUSTOMER_AVATAR',
+    ownerId: customer.identity.subjectId, slot: 'avatar', audience: 'PUBLIC', fileIds: [id], commandKey: randomUUID() })))
+    .rejects.toMatchObject({ code: 'TOKEN_EXPIRED' });
+  expect(await prisma.fileReference.count({ where: { fileAssetId: id } })).toBe(0);
+  expect((await prisma.fileAsset.findUniqueOrThrow({ where: { id } })).state).toBe('STAGED');
+});
+
+it('私有文件业务锁等待跨过JWT到期后拒绝读取元数据', async () => {
+  const id = await created(staff, 'COMMUNICATION_EVIDENCE');
+  const record = await prisma.$transaction(tx => app.get(CommunicationService).appendCommunication(tx, staff, {
+    scopeType: 'ORDER', scopeId: order, channel: 'PHONE', occurredAt: new Date(), result: '内部核对',
+    attachments: [{ fileId: id, audience: 'INTERNAL' }], requestId: randomUUID(),
+  })); communications.push(record.id);
+  const f = await expiringAccess(staff); const adapters = app.get(FileBusinessAdapters);
+  const adapter = adapters.get('COMMUNICATION'); const authorize = adapter.authorize.bind(adapter);
+  const spy = vi.spyOn(adapter, 'authorize').mockImplementation(async (...args) => { await authorize(...args); f.expireToken(); });
+  const service = new FilesService(prisma, new FileAccessService(f.identities), f.identities, adapters, storage, app.get(AuditService), config);
+  try { await expect(service.metadata(id, f.access.token)).rejects.toMatchObject({ code: 'TOKEN_EXPIRED' }); }
+  finally { spy.mockRestore(); }
+});
 
 it('上传返回安全元数据、最小审计，STAGED私有且二进制不被JSON包装', async () => {
   const { response, json } = await upload(); expect(response.status).toBe(201); const data = json.data;

@@ -1,4 +1,4 @@
-// 作用：装配板块8＋9真实交易领域，后续发货/售后能力仍由后续板块实现。
+// 作用：装配板块8＋9交易和板块10履约领域；售后/退款由后续板块接入。
 import {Module} from '@nestjs/common';
 import {AuthGuardModule} from '../auth/auth-guard.module.js';
 import {AuditModule} from '../audit/audit.module.js';

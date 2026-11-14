@@ -1,0 +1,46 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/records.integration.ts (58 tests | 1 failed | 57 skipped) 214ms
+   × 沟通业务锁等待跨过JWT到期后拒绝写入，不追加沟通或审计 116ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/records.integration.ts > 沟通业务锁等待跨过JWT到期后拒绝写入，不追加沟通或审计
+AssertionError: expected AssertionError: promise resolved "{ …(3) … { …(3) } to be Error: 本项测试主动回滚 // Object.is equality
+
+- Expected
++ Received
+
+- Error {
+-   "message": "本项测试主动回滚",
++ AssertionError {
++   "message": "promise resolved \"{ …(3) }\" instead of rejecting",
++   "showDiff": true,
++   "expected": Error {
++     "message": "rejected promise",
++   },
++   "actual": {
++     "correctsId": null,
++     "createdAt": "2026-11-14T08:34:27.822Z",
++     "id": "427aae41-50da-418a-a4e4-a0ad01bec6ad",
++   },
+  }
+
+ ❯ transaction test/records.integration.ts:96:123
+     94| type Fixture = Awaited<ReturnType<typeof fixture>>;
+     95| async function transaction(run: (tx: Prisma.TransactionClient, context…
+     96|   await expect(prisma.$transaction(async tx => { await run(tx, await f…
+       |                                                                                                                           ^
+     97| }
+     98| function input(context: Fixture, changes: Partial<CommunicationInput> …
+ ❯ test/records.integration.ts:167:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 57 skipped (58)
+   Start at  16:34:26
+   Duration  1.50s (import 74%, tests 16%, transform 9%)
+
