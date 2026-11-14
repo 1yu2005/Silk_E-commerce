@@ -1,0 +1,141 @@
+{
+  "at": "2026-11-13T17:16:27.191Z",
+  "browserEvidence": "output/playwright/M1-06/deployed-final1/result.json",
+  "checks": [
+    "API强制重建后2登记/2动作/8流水/8余额/8来源行逐行保持，两个环境公开图片摘要保持",
+    "原数据库容器及两个卷保持，常用四服务healthy，本机和Docker六入口85操作契约一致"
+  ],
+  "commands": [
+    {
+      "command": [
+        "compose",
+        "--env-file"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "inspect",
+        "--format"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "compose",
+        "--env-file"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "compose",
+        "--env-file"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "inspect",
+        "--format"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "compose",
+        "--env-file"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "beforeDatabase": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "afterDatabase": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "images": [
+    {
+      "url": "http://localhost:3000/api/v1/files/7da6c13a-0340-4a67-9a18-0daeecf3350e/content",
+      "sha256": "96b3580cafdcf819d0734c735c1dfdbc959faa86f537ac6500070a2689e45787"
+    },
+    {
+      "url": "http://localhost:3001/api/v1/files/7da6c13a-0340-4a67-9a18-0daeecf3350e/content",
+      "sha256": "96b3580cafdcf819d0734c735c1dfdbc959faa86f537ac6500070a2689e45787"
+    },
+    {
+      "url": "http://localhost:8081/api/v1/files/7da6c13a-0340-4a67-9a18-0daeecf3350e/content",
+      "sha256": "96b3580cafdcf819d0734c735c1dfdbc959faa86f537ac6500070a2689e45787"
+    },
+    {
+      "url": "http://localhost:5174/api/v1/files/7da6c13a-0340-4a67-9a18-0daeecf3350e/content",
+      "sha256": "96b3580cafdcf819d0734c735c1dfdbc959faa86f537ac6500070a2689e45787"
+    },
+    {
+      "url": "http://localhost:3000/api/v1/files/0c0985de-16bd-4d6d-a02b-689327ca5778/content",
+      "sha256": "9d781095576f3b235fbbe9fb2fd537e9c99b3bc0677a7647b540839478396f36"
+    },
+    {
+      "url": "http://localhost:3001/api/v1/files/0c0985de-16bd-4d6d-a02b-689327ca5778/content",
+      "sha256": "9d781095576f3b235fbbe9fb2fd537e9c99b3bc0677a7647b540839478396f36"
+    },
+    {
+      "url": "http://localhost:8081/api/v1/files/0c0985de-16bd-4d6d-a02b-689327ca5778/content",
+      "sha256": "9d781095576f3b235fbbe9fb2fd537e9c99b3bc0677a7647b540839478396f36"
+    },
+    {
+      "url": "http://localhost:5174/api/v1/files/0c0985de-16bd-4d6d-a02b-689327ca5778/content",
+      "sha256": "9d781095576f3b235fbbe9fb2fd537e9c99b3bc0677a7647b540839478396f36"
+    }
+  ],
+  "adjustments": [
+    {
+      "id": "2262c280-bbe1-429c-b64f-be07c16cffe7",
+      "status": "POSTED"
+    },
+    {
+      "id": "3117c544-eb7f-452d-8739-90ab2d83f9db",
+      "status": "POSTED"
+    }
+  ],
+  "ledgerCount": 8,
+  "actionCount": 2,
+  "containers": [
+    {
+      "id": "8ee45dbe157c",
+      "service": "admin-web",
+      "health": "healthy"
+    },
+    {
+      "id": "73b447a471b6",
+      "service": "api",
+      "health": "healthy"
+    },
+    {
+      "id": "bf5410398e77",
+      "service": "db",
+      "health": "healthy"
+    },
+    {
+      "id": "00d68c9931cc",
+      "service": "store-web",
+      "health": "healthy"
+    }
+  ],
+  "passed": true
+}

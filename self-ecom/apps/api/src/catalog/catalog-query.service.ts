@@ -68,6 +68,6 @@ export class CatalogQueries {
     return {id:p.id,name:p.name,brand:p.brand,description:p.description,mainImageUrl:main?imageUrl(main):null,galleryImageUrls:p.images.filter(i=>i.slot==='GALLERY').map(i=>imageUrl(i.assetId)),
       priceFromCents:prices.length?Math.min(...prices):null,availableQuantity:effective.reduce((n,s)=>n+BigInt(s.balance!.available),0n).toString(),paidSalesCount:p.paidSalesCount.toString(),purchasable:skus.some(s=>s.purchasable),
       categoryPath:path.map(({id,name})=>({id,name})),specDimensions:p.dimensions.map(d=>({...d,values:admin?d.values:d.values.filter(v=>p.skus.some(s=>s.choices.some(c=>c.valueId===v.id)))})).filter(d=>admin||d.values.length),skus,
-      ...(admin?{productCode:p.productCode,categoryId:p.categoryId,status:p.status,archivedAt:p.archivedAt,version:p.version,mainImageId:main,galleryImageIds:p.images.filter(i=>i.slot==='GALLERY').map(i=>i.assetId),initialInventoryDraft:await tx.initialInventoryDraft.findFirst({where:{productId:id},orderBy:{createdAt:'desc'},select:{id:true,status:true,version:true,conversionKey:true}})}:{})};
+      ...(admin?{productCode:p.productCode,categoryId:p.categoryId,status:p.status,archivedAt:p.archivedAt,version:p.version,mainImageId:main,galleryImageIds:p.images.filter(i=>i.slot==='GALLERY').map(i=>i.assetId),initialInventoryDraft:await tx.initialInventoryDraft.findFirst({where:{productId:id},orderBy:{createdAt:'desc'},select:{id:true,status:true,version:true,conversionKey:true,adjustmentId:true}})}:{})};
   }
 }

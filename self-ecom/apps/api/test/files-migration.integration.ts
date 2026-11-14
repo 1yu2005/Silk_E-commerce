@@ -15,7 +15,7 @@ import { PrismaService } from '../src/prisma/prisma.service.js';
 const base = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
 if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
 const previousMigrations = ['0001_bootstrap', '0002_auth_employee_permission_audit'];
-const expectedMigrations = [...previousMigrations, '0003_files_communication_history', '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts'];
+const expectedMigrations = [...previousMigrations, '0003_files_communication_history', '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger'];
 const oldTables = ['employee', 'customer', 'auth_session', 'permission_definition', 'role_permission',
   'employee_extra_permission', 'audit_log', 'system_guard'] as const;
 const newTables = ['file_asset', 'file_reference', 'communication', 'business_state_history'];
@@ -127,7 +127,8 @@ it('PostgreSQL16空库通过五条正式迁移，文件表为空且没有提前�
   const migrations = await freshClient.query('SELECT migration_name,finished_at,rolled_back_at FROM _prisma_migrations ORDER BY migration_name');
   expect(migrations.rows).toEqual(expectedMigrations.map(migration_name => ({ migration_name, finished_at: expect.any(Date), rolled_back_at: null })));
   for (const table of newTables) expect((await freshClient.query(`SELECT count(*)::int AS count FROM "${table}"`)).rows[0].count).toBe(0);
-  for (const table of ['order', 'after_sale', 'inventory_adjustment']) {
+  expect((await freshClient.query("SELECT to_regclass('public.inventory_adjustment') AS name")).rows[0].name).toBe('inventory_adjustment');
+  for (const table of ['order', 'after_sale']) {
     expect((await freshClient.query('SELECT to_regclass($1) AS relation', [`public.${table}`])).rows[0].relation).toBeNull();
   }
 });

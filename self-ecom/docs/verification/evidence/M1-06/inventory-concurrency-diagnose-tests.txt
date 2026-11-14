@@ -1,0 +1,199 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:78968) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/inventory.integration.ts > IT02：同登记串行100次和并发100次只有一个动作；不同批并发不超来源
+100并发结果诊断 [
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  },
+  {
+    code: undefined,
+    message: 'timeout exceeded when trying to connect'
+  }
+]
+
+ ❯ test/inventory.integration.ts (15 tests | 1 failed) 9006ms
+   × IT02：同登记串行100次和并发100次只有一个动作；不同批并发不超来源 2856ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/inventory.integration.ts > IT02：同登记串行100次和并发100次只有一个动作；不同批并发不超来源
+AssertionError: expected [ Array(60) ] to have a length of 100 but got 60
+
+- Expected
++ Received
+
+- 100
++ 60
+
+ ❯ test/inventory.integration.ts:122:52
+    120|  const results=await Promise.allSettled(Array.from({length:100},()=>ad…
+    121|  console.log('100并发结果诊断',results.filter(r=>r.status==='rejected').map(…
+    122|  expect(results.filter(r=>r.status==='fulfilled')).toHaveLength(100);e…
+       |                                                    ^
+    123|  const a=await pending(f,4,'A'),b=await pending(f,4,'B',peer);await ad…
+    124|  const race=await Promise.allSettled([adjustments.post(ctx(),a.id,awai…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 14 passed (15)
+   Start at  00:31:06
+   Duration  10.78s (tests 85%, import 12%, transform 3%)
+

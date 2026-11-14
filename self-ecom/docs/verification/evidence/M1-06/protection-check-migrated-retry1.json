@@ -1,0 +1,33 @@
+{
+  "at": "2026-11-13T17:10:53.688Z",
+  "mode": "migrated",
+  "checkedOldRows": 847,
+  "checks": [
+    "真实.env与0001～0005文件/数据库校验和保持，0006已增量应用",
+    "全部原员工/顾客密码摘要、角色、权限版本、状态、资料和头像保持；仅实际登录时间允许变化",
+    "0006迁移后原30表全部旧行逐行保持，草稿仅新增null外键"
+  ],
+  "stableBusiness": {
+    "product": {
+      "85cab370-f9a0-4ac7-a6f9-3106ed1dec41": "4f41dfdf1ac8f2b82387d3110d63416e775c8e9f842170e3edecb2572c8151e7",
+      "cdde35cb-472f-4f45-afda-a2807e657344": "7e14e402a9a8ff1aa714a9346ca54a6fe9a7a2d23b36732ef4f00415d779c711"
+    },
+    "initial_inventory_draft": {
+      "f026a16a-601f-42a5-8fba-0b4e3c2ed59e": "f1a264707431a4b5857a5ec204cea40c8c411572712b47d901e4af1f538dda74",
+      "18a7cea5-e1d4-4153-a7ea-8fae8bc60ad1": "8833f79b4f69e6cac0ba64b26c4fd19f30949393c97a917bf444daf4ac329544"
+    },
+    "inventory_balance": {
+      "60d3b636-d42f-467d-b517-35e3fcb0c58b": "2d7ea5d2af9bcf5ce53ba0352840e39936054306917d6fe4b2c3662d58e4947d",
+      "460f7cd9-1470-42d5-ab58-e482c4f81c46": "d49e0990e67c0bab109721c69e5a6076c01aeb338971637c37728664938d4095",
+      "12b771ff-6672-499c-8d65-b50a34ff30b6": "7632a51e2733de9ba1a18f209e383563cf17809e35a6677f7e684e8a735c02c7",
+      "5b5a314b-d7c2-4dc2-b064-7e54cae2954b": "a77bf91e58496d876b4e38d52f6c666aae16db0556ecef871496548a3c4c835c",
+      "db7cf23b-282c-4ae3-a68a-03e8382d976b": "0a431d854e67096bb877500a08635c11793e81624a59b119523c627719b6a00d",
+      "c3be086c-76ae-45c2-9aa9-af9461294621": "4201b427ab4a0c3fd0ed2e86f691a3704d0217a6f0726e16df830f83d7f4c0d3",
+      "7a2595ea-fee1-4e80-b187-13c94338bb44": "a58d50cd589b0b0ee4d38795adab510d3a1bd9f4c95c370c17dfa2af0d02e1c0",
+      "05eebafd-1505-4e67-bcaf-64810d168444": "653edc87d37247872872d2e51aee7de3bcb4d1a2ce13bdb249e6e10533f6806e",
+      "cdebb7de-1851-4966-8a93-cdb4da4bb39a": "9ef001d00f7973b6e034c4cdc599389b98d994bb5f11f61cf7ccde7585d9ab12",
+      "8d234d35-a73a-493e-adde-06a638659195": "573c39cb8898bc1a42d1752c63baad85d3a96077d6c39d8da9cc0345a280bc7b"
+    }
+  },
+  "passed": true
+}

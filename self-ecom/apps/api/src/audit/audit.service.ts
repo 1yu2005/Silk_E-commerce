@@ -3,6 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'inventory.action': { target: 'InventoryAction', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
+  'inventory.source': { target: 'InventorySource', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
+  'inventory.adjustment': { target: 'InventoryAdjustment', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
+  'inventory.threshold': { target: 'InventoryBalance', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
+  'inventory.block': { target: 'InventoryPurchaseBlock', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
   'category.change': { target: 'Category', fields: ['catalogVersion','catalogAction','affectedCount','catalogChanges'], reason: false },
   'product.change': { target: 'Product', fields: ['catalogVersion','catalogAction','affectedCount','catalogChanges'], reason: false },
   'employee.create': { target: 'Employee', fields: ['username', 'displayName', 'role', 'status', 'mustChangePassword'], reason: true },
@@ -74,7 +79,9 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
   for (const [field, item] of Object.entries(value)) {
     if (!fields.includes(field)) invalid();
     let valid = false;
-    if (field === 'catalogVersion' || field === 'affectedCount') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
+    if (field === 'inventoryVersion' || field === 'inventoryQuantity') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
+    else if(field === 'inventoryOperation') valid=typeof item==='string'&&['MANUAL_POST','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','CREATE','EDIT','VERIFY','CONVERT','POST','VOID','CHECK','RESOLVE','THRESHOLD','BLOCK','UNBLOCK'].includes(item);
+    else if (field === 'catalogVersion' || field === 'affectedCount') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
     else if (field === 'catalogAction') valid = typeof item==='string' && /^[a-z.-]{1,60}$/.test(item);
     else if (field === 'catalogChanges') valid = Array.isArray(item) && item.length<=1000 && item.every(change => {
       if (!change || typeof change!=='object' || Array.isArray(change)) return false;
@@ -145,7 +152,7 @@ export class AuditService {
     if (!actor || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(actor.type)) invalid();
     if (actor.type !== 'SYSTEM' && !uuid.test(actor.id)) invalid();
     // 系统只允许初始化及已明确实现的任务动作，不能冒用系统绕过员工管理主体约束。
-    if (actor.type === 'SYSTEM' && !['employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
+    if (actor.type === 'SYSTEM' && !['inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
       'task.stage.suspend', 'task.stage.resume', 'task.source.add', 'task.source.resolve', 'task.source.cancel',
       'order.timer.block.add', 'order.timer.block.release', 'order.timer.handover.record', 'order.timer.finish'].includes(payload.action)) invalid();
     if (['task.claim', 'task.release', 'task.transfer', 'task.qualification.lost', 'task.deadline.extend'].includes(payload.action) && actor.type !== 'EMPLOYEE') invalid();

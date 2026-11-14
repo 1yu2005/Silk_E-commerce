@@ -10,7 +10,7 @@ import { Clock } from '../common/time/clock.js';
 import { BUSINESS_TIME_ZONE, calculateDeadline, DEADLINE_ALGORITHM_VERSION } from '../common/time/deadline.js';
 import { StoreSettingsService } from '../settings/store-settings.service.js';
 import { businessKey, checkedBusiness, TaskBusinessAdapters,
-  type TaskBusinessReference, type TaskCommandActor, type TaskStageEntry } from './task-business-adapters.js';
+  type TaskBusinessReference, type TaskCommandActor, type TaskStageEntry, type TaskLockResource } from './task-business-adapters.js';
 import { TASK_STAGE_CATALOG_VERSION, taskStageDefinition } from './task-stage.catalog.js';
 import { TaskError } from './task.errors.js';
 import { TaskLockService } from './task-lock.service.js';
@@ -50,14 +50,14 @@ export class TaskEntryService {
 
   /** 调用方拥有整个事务及有限重试；必须在取得领域锁前进入本端口。回调内可更新业务再进入一个或多个阶段。 */
   async withContext<T>(tx: Prisma.TransactionClient, access: TaskActorAccess, references: readonly TaskBusinessReference[],
-    requestId: string, command: (context: TaskEntryContext) => Promise<T>): Promise<T> {
+    requestId: string, command: (context: TaskEntryContext) => Promise<T>, extraLocks: readonly TaskLockResource[] = []): Promise<T> {
     requireSessionTransaction(tx); requestId = checkedId(requestId);
     if (!access || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(access.type) || !Array.isArray(references) || !references.length) throw new TaskError('TASK_INPUT_INVALID');
     const refs = [...new Map(references.map(item => { const ref = checkedBusiness(item); return [businessKey(ref), ref]; })).values()]
       .sort((a, b) => businessKey(a) < businessKey(b) ? -1 : 1);
     const subjectId = access.type === 'SYSTEM' ? null : checkedId(access.subjectId);
     const employeeIds = await this.locks.acquire(tx, refs, access.type === 'EMPLOYEE' ? [subjectId!] : [],
-      access.type === 'CUSTOMER' ? [{ kind: 'CUSTOMER', id: subjectId! }] : []);
+      [...(access.type === 'CUSTOMER' ? [{ kind: 'CUSTOMER' as const, id: subjectId! }] : []), ...extraLocks]);
     let actor: TaskCommandActor = { subjectType: 'SYSTEM' };
     if (access.type !== 'SYSTEM') {
       actor = await this.identities.authenticate(tx, access.token, access.type);

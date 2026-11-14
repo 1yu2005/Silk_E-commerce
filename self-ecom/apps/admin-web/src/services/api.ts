@@ -6,6 +6,7 @@ import type { EmployeeDetail, EmployeeListData, EmployeeListQuery, PermissionCat
 import type { CurrentSettings, SettingsHistory, SettingsVersion } from '../settings/model';
 import type { TaskDetail, TaskHistory, TaskList, TaskSearch, TaskSummary } from '../tasks/model';
 import type { CategoryTree, Draft, Product, ProductQuery, Products } from '../catalog/model';
+import type { Adjustment,Adjustments,AdjustmentQuery,Balance,Balances,BalanceQuery,Source,Sources,SourceQuery,Ledger,LedgerQuery } from '../inventory/model';
 
 const client = createEmployeeClient({ baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
   onUnauthorized: () => employeeAuth.onUnauthorized(),
@@ -32,6 +33,19 @@ export const settingsQueries = {
 // 设置和任务共享同一个无状态生成调用器，避免重复创建整套HTTP方法；查询缓存仍各自独立。
 export const tasks = settings;
 export const catalog=settings;
+export const inventory=settings;
+export const inventoryQueries={
+ balances:new EmployeeQueryController<BalanceQuery,Balances>(session,(query,signal)=>inventory.listInventoryBalances({query,signal}),'库存余额读取失败'),
+ balance:new EmployeeQueryController<string,Balance>(session,(skuId,signal)=>inventory.getInventoryBalance({path:{skuId},signal}),'库存账户读取失败'),
+ sources:new EmployeeQueryController<SourceQuery,Sources>(session,(query,signal)=>inventory.listInventorySources({query,signal}),'库存来源读取失败'),
+ source:new EmployeeQueryController<string,Source>(session,(id,signal)=>inventory.getInventorySource({path:{id},signal}),'来源详情读取失败'),
+ adjustments:new EmployeeQueryController<AdjustmentQuery,Adjustments>(session,(query,signal)=>inventory.listInventoryAdjustments({query,signal}),'库存登记读取失败'),
+ adjustment:new EmployeeQueryController<string,Adjustment>(session,(id,signal)=>inventory.getInventoryAdjustment({path:{id},signal}),'登记详情读取失败'),
+ ledger:new EmployeeQueryController<LedgerQuery,Ledger>(session,(query,signal)=>inventory.listInventoryLedger({query,signal}),'库存流水读取失败'),
+ skuOptions:new EmployeeQueryController<BalanceQuery,Balances>(session,(query,signal)=>inventory.listInventoryBalances({query,signal}),'SKU候选读取失败'),
+ sourceOptions:new EmployeeQueryController<SourceQuery,Sources>(session,(query,signal)=>inventory.listInventorySources({query,signal}),'来源候选读取失败'),
+ selectedSource:new EmployeeQueryController<string,Source>(session,(id,signal)=>inventory.getInventorySource({path:{id},signal}),'选定来源读取失败'),
+};
 export const catalogQueries={
   categories:new EmployeeQueryController<undefined,CategoryTree>(session,(_,signal)=>catalog.getAdminCategoryTree({signal}),'分类读取失败'),
   products:new EmployeeQueryController<ProductQuery,Products>(session,(query,signal)=>catalog.listAdminProducts({query,signal}),'商品读取失败'),

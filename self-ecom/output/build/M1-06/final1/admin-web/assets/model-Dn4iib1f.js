@@ -1,0 +1,1 @@
+var e={INITIALIZATION:`初始化`,ARRIVAL:`到货`,AVAILABLE_LOSS:`可售损耗`,CORRECTION:`差额更正`},t={PENDING:`待确认`,POSTED:`已入账`,VOID:`已作废`},n=e=>e>0?`+`+e:String(e),r=e=>e?new Date(e).toLocaleString(`zh-CN`):`—`;export{r as i,e as n,n as r,t};

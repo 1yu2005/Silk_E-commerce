@@ -1,0 +1,9 @@
+{
+  "at": "2026-11-13T17:10:09.740Z",
+  "mode": "migrated",
+  "checkedOldRows": 94,
+  "checks": [
+    "真实.env与0001～0005文件/数据库校验和保持，0006已增量应用"
+  ],
+  "failure": "permission_definition旧行被修改\n+ actual - expected\n\n+ '34d26cbe02c7d65d9c0aecc28e0472fd898fe17cfce4f153da0f8e51379b4815'\n- 'ec874ae9104bc2b62db68fa0b218946a6460af445ebd1a0b6a955d426decb740'\n"
+}

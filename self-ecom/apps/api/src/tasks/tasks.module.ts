@@ -23,5 +23,5 @@ import { TaskSchedulerService } from './task-scheduler.service.js';
 @Module({ imports: [AuthGuardModule, AuditModule, TimeModule, StoreSettingsModule, PermissionModule], controllers: [TasksController],
   providers: [TaskBusinessAdapters, TaskLockService, TaskEntryService, TaskAccessService, TaskQueryService, TaskCommandService, TaskEligibilityService,
     TaskDeadlineService, TaskDeadlineEventsService, TaskLifecycleService, TaskSourceService, OrderTimerRepositories, OrderTimerService, TaskOverdueScanService, TaskSchedulerService],
-  exports: [TaskBusinessAdapters, TaskEntryService, TaskEligibilityService, TaskLifecycleService, TaskSourceService, OrderTimerRepositories, OrderTimerService, TaskOverdueScanService] })
+  exports: [TaskBusinessAdapters, TaskEntryService, TaskCommandService, TaskEligibilityService, TaskLifecycleService, TaskSourceService, OrderTimerRepositories, OrderTimerService, TaskOverdueScanService] })
 export class TasksModule {}

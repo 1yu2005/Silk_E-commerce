@@ -1,0 +1,203 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_deadline_7aed22ac24a945d6a1d49c9e89dddc0d_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_kernel_5eb8510fc5d340c796a0bc449298b650_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_entry_2e0664bf45e941c1907d2e6bcc47d2ba_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_reassign_f06a6d0dc4dc4009908a7e088dc48575_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_access_79ea4689df334c7e9ecbad1546aa4453_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+(node:69348) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:73732) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/inventory.integration.ts
+保留库存测试图片：C:\Users\20334\AppData\Local\Temp\self-ecom-inventory-OmBY3X
+
+ ❯ test/inventory.integration.ts (22 tests | 1 failed) 10887ms
+   × IT09：所有本轮SKU余额与流水、来源净量与根更正对账相等 5ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/inventory.integration.ts > IT09：所有本轮SKU余额与流水、来源净量与根更正对账相等
+AssertionError: expected [ …(4) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "sku_id": "dc2c9c52-8224-4243-9a69-426382c00b68",
++   },
++   {
++     "sku_id": "8df91f7e-c2d7-47bc-b97b-b0d5b4d226df",
++   },
++   {
++     "sku_id": "6db0a6bb-a26f-4351-abc9-2b0ccb3eaf75",
++   },
++   {
++     "sku_id": "be260802-d96b-4e17-9db5-01ffb2cbc980",
++   },
++ ]
+
+ ❯ test/inventory.integration.ts:306:19
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 7 passed (8)
+      Tests  1 failed | 267 passed (268)
+   Start at  01:07:17
+   Duration  110.91s (tests 89%, import 10%, transform 1%)
+

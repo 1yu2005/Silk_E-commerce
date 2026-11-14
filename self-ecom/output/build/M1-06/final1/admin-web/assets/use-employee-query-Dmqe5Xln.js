@@ -1,0 +1,1 @@
+import{r as e}from"./rolldown-runtime-XKyaHtl9.js";import{n as t}from"./jsx-runtime-C3cWAN_r.js";var n=e(t(),1);function r(e,t,r){let i=(0,n.useSyncExternalStore)(e.subscribe,e.getSnapshot);return(0,n.useEffect)(()=>{e.read(t,r)},[e,t,r]),i.key===t?i:{key:t,status:`loading`,data:null,error:null}}export{r as t};

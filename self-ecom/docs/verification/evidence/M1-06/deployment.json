@@ -1,0 +1,166 @@
+{
+  "startedAt": "2026-11-13T17:08:30.022Z",
+  "acceptedEvidence": "output/playwright/M1-06/docker-inventory-focus1",
+  "imagePrefix": "self-ecom-m106-acceptance-88c90b26",
+  "commands": [
+    {
+      "label": "保护快照 predeploy",
+      "exitCode": 0
+    },
+    {
+      "label": "获取原数据库容器",
+      "exitCode": 0
+    },
+    {
+      "label": "核对容器",
+      "exitCode": 0
+    },
+    {
+      "label": "部署已验收镜像标签 api",
+      "exitCode": 0
+    },
+    {
+      "label": "读取镜像ID",
+      "exitCode": 0
+    },
+    {
+      "label": "部署已验收镜像标签 admin",
+      "exitCode": 0
+    },
+    {
+      "label": "读取镜像ID",
+      "exitCode": 0
+    },
+    {
+      "label": "部署已验收镜像标签 store",
+      "exitCode": 0
+    },
+    {
+      "label": "读取镜像ID",
+      "exitCode": 0
+    },
+    {
+      "label": "原开发库只应用增量迁移",
+      "exitCode": 0
+    },
+    {
+      "label": "保护快照 migrated",
+      "exitCode": 0
+    },
+    {
+      "label": "同组镜像更新三个应用",
+      "exitCode": 0
+    },
+    {
+      "label": "复核数据库容器",
+      "exitCode": 0
+    },
+    {
+      "label": "核对容器",
+      "exitCode": 0
+    },
+    {
+      "label": "记录最终四服务状态",
+      "exitCode": 0
+    }
+  ],
+  "images": [
+    {
+      "service": "api",
+      "source": "self-ecom-m106-acceptance-88c90b26-api:local",
+      "tag": "self-ecom-api:local",
+      "id": "sha256:ef4f8a4ce8c4048c768fc4d862ca32c6f40c72b5d20c9a3973324025fb88d47f"
+    },
+    {
+      "service": "admin",
+      "source": "self-ecom-m106-acceptance-88c90b26-admin:local",
+      "tag": "self-ecom-admin-web:local",
+      "id": "sha256:ceae3817e3f62d02ae0c36522ae7e07ea88a1b525a7d9eb79e9ede9594631683"
+    },
+    {
+      "service": "store",
+      "source": "self-ecom-m106-acceptance-88c90b26-store:local",
+      "tag": "self-ecom-store-web:local",
+      "id": "sha256:ad9f239e74c32ccf66441e8fa18e0808cf25bc911d9290145be00e17582b8797"
+    }
+  ],
+  "checks": [
+    {
+      "origin": "http://localhost:3001",
+      "ready": 200,
+      "operations": 85,
+      "publicProducts": 0,
+      "requestId": "158ee9a2-eb70-4647-a9cc-f6ce2d328225"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "ready": 200,
+      "operations": 85,
+      "publicProducts": 0,
+      "requestId": "71766cbe-2485-49ad-a56f-46f5aefa54ec"
+    },
+    {
+      "origin": "http://localhost:8081",
+      "ready": 200,
+      "operations": 85,
+      "publicProducts": 0,
+      "requestId": "2d749075-cb8f-4007-842c-e4056749f6e6"
+    }
+  ],
+  "beforeDatabase": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "status": "running",
+    "health": "healthy",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "afterDatabase": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "status": "running",
+    "health": "healthy",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "containers": [
+    {
+      "service": "admin-web",
+      "id": "8ee45dbe157c",
+      "image": "self-ecom-admin-web:local",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "api",
+      "id": "f05a34299dcd",
+      "image": "self-ecom-api:local",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "db",
+      "id": "bf5410398e77",
+      "image": "postgres:16.6-bookworm",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "store-web",
+      "id": "00d68c9931cc",
+      "image": "self-ecom-store-web:local",
+      "state": "running",
+      "health": "healthy"
+    }
+  ],
+  "passed": true,
+  "endedAt": "2026-11-13T17:08:53.859Z"
+}

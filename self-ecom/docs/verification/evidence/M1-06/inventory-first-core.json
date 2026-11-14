@@ -1,0 +1,27 @@
+{
+  "at": "2026-11-13T16:19:52.452Z",
+  "mode": "inventory",
+  "label": "first-core",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T16:19:53.146Z",
+      "endedAt": "2026-11-13T16:19:59.832Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/inventory-first-core-migrate.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_06f75c836c6a426ba0d74378da3df594_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

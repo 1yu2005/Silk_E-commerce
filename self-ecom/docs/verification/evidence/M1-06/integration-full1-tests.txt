@@ -1,0 +1,749 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-m004-migrations-XQyfuA\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_c6dbf2ca74334fdc943fa1261e376644_test", schema "public" at "localhost:15432"
+
+3 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_f1e42ca45a8647d184b4085c31909ee4_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_c6dbf2ca74334fdc943fa1261e376644_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "tasks_migration_c6dbf2ca74334fdc943fa1261e376644_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+(node:21688) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-m003-migrations-MPPLGm\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_f7c5ff194f5d42e2b048fdb920ef3f91_test", schema "public" at "localhost:15432"
+
+2 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_94c04869082f4bb8bb3831228683af53_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_f7c5ff194f5d42e2b048fdb920ef3f91_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "files_migration_f7c5ff194f5d42e2b048fdb920ef3f91_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_kernel_5e7a14f4fafd4c22b65e7f431c362611_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-kernel.integration.ts
+步骤9专属内核库已删除
+
+ ❯ test/task-kernel.integration.ts (47 tests | 47 skipped) 8351ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_deadline_4bf735ba68144770928a6d203a36f0bb_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-deadline.integration.ts
+步骤8专属延期库已删除
+
+ ❯ test/task-deadline.integration.ts (57 tests | 57 skipped) 10048ms
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-migration-BKwm5d\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_42a41565eda841b9808ca61bb94c7a27_test", schema "public" at "localhost:15432"
+
+4 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_42a41565eda841b9808ca61bb94c7a27_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "catalog_migration_42a41565eda841b9808ca61bb94c7a27_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "employee_status_0640ecc7df5b4844ba9ff6fca11b0acc_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from C:\Users\20334\AppData\Local\Temp\self-ecom-inventory-migration-kqTfUU\prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_migration_9a3dd82e725a4ba49563d30feca7ad4f_test", schema "public" at "localhost:15432"
+
+5 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_migration_9a3dd82e725a4ba49563d30feca7ad4f_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "inventory_migration_9a3dd82e725a4ba49563d30feca7ad4f_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+
+No pending migrations to apply.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "employee_role_96ce5b27455f49e081ed97d932e9da5e_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "admin_seed_1c72ccc6abd1401cad212bf7ae37fd04_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_reassign_9a573ca1c9b44dab81b588d27786ff6f_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-reassign.integration.ts
+步骤7专属测试库已删除
+
+ ❯ test/task-reassign.integration.ts (44 tests | 44 skipped) 7790ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_access_d4380996195841a19130d86fa787a5ec_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-access.integration.ts
+步骤6专属测试库已删除
+
+ ❯ test/task-access.integration.ts (38 tests | 38 skipped) 6954ms
+(node:74624) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "task_entry_1ade1a7b2fbf4d2fbefbb1e39b2e21f6_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+stdout | test/task-entry.integration.ts
+步骤5本轮独占测试库已删除，未清空共享测试库或开发库
+
+ ❯ test/task-entry.integration.ts (34 tests | 34 skipped) 7952ms
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma\schema.prisma.
+Datasource "db": PostgreSQL database "settings_295201d2fd774aadac5ef40571572ae1_test", schema "public" at "localhost:15432"
+
+6 migrations found in prisma/migrations
+
+Applying migration `0001_bootstrap`
+Applying migration `0002_auth_employee_permission_audit`
+Applying migration `0003_files_communication_history`
+Applying migration `0004_store_settings_tasks_deadlines`
+Applying migration `0005_categories_products_skus_inventory_accounts`
+Applying migration `0006_inventory_sources_adjustments_ledger`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0001_bootstrap/
+    └─ migration.sql
+  └─ 0002_auth_employee_permission_audit/
+    └─ migration.sql
+  └─ 0003_files_communication_history/
+    └─ migration.sql
+  └─ 0004_store_settings_tasks_deadlines/
+    └─ migration.sql
+  └─ 0005_categories_products_skus_inventory_accounts/
+    └─ migration.sql
+  └─ 0006_inventory_sources_adjustments_ledger/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+(node:75572) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/catalog.integration.ts
+保留测试图片目录：C:\Users\20334\AppData\Local\Temp\self-ecom-catalog-bjFfIK
+
+ ❯ test/catalog.integration.ts (20 tests | 2 failed) 6068ms
+   × SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝 848ms
+   × IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败 21ms
+ ❯ test/database.integration.ts (6 tests | 1 failed) 1243ms
+   × 已应用工程、认证、文件及设置任务基础迁移，并保留完整业务表 17ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/task-access.integration.ts [ test/task-access.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureAccessAdapters.registerLocker src/tasks/task-business-adapters.ts:149:114
+    147|   }
+    148|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    149|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    150|     this.lockers.set(kind, locker);
+    151|   }
+ ❯ InventoryAdapters.onModuleInit src/inventory/inventory.adapters.ts:26:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+ FAIL  test/task-deadline.integration.ts [ test/task-deadline.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureDeadlineAdapters.registerLocker src/tasks/task-business-adapters.ts:149:114
+    147|   }
+    148|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    149|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    150|     this.lockers.set(kind, locker);
+    151|   }
+ ❯ InventoryAdapters.onModuleInit src/inventory/inventory.adapters.ts:26:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯
+
+ FAIL  test/task-entry.integration.ts [ test/task-entry.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureTaskAdapters.registerLocker src/tasks/task-business-adapters.ts:149:114
+    147|   }
+    148|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    149|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    150|     this.lockers.set(kind, locker);
+    151|   }
+ ❯ InventoryAdapters.onModuleInit src/inventory/inventory.adapters.ts:26:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯
+
+ FAIL  test/task-kernel.integration.ts [ test/task-kernel.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureKernelAdapters.registerLocker src/tasks/task-business-adapters.ts:149:114
+    147|   }
+    148|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    149|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    150|     this.lockers.set(kind, locker);
+    151|   }
+ ❯ InventoryAdapters.onModuleInit src/inventory/inventory.adapters.ts:26:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯
+
+ FAIL  test/task-reassign.integration.ts [ test/task-reassign.integration.ts ]
+Error: 任务业务锁处理器注册不合法或重复
+ ❯ FixtureReassignAdapters.registerLocker src/tasks/task-business-adapters.ts:149:114
+    147|   }
+    148|   registerLocker(kind: TaskLockKind, locker: Locker): void {
+    149|     if (!kinds.has(kind) || this.lockers.has(kind) || typeof locker !=…
+       |                                                                                                                  ^
+    150|     this.lockers.set(kind, locker);
+    151|   }
+ ❯ InventoryAdapters.onModuleInit src/inventory/inventory.adapters.ts:26:14
+ ❯ MapIterator.iteratee ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:20:43
+ ❯ MapIterator.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/map.ts:9:39
+ ❯ IteratorWithOperators.next ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:19:28
+ ❯ IteratorWithOperators.toArray ../../node_modules/.pnpm/iterare@1.2.1/node_modules/iterare/src/iterate.ts:227:22
+ ❯ callOperator ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:21:10
+ ❯ callModuleInitHook ../../node_modules/.pnpm/@nestjs+core@12.4.2_@nestjs_7f222f9107f40b963d15cd40e5dc9d0f/node_modules/@nestjs/core/hooks/on-module-init.hook.js:37:27
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/catalog.integration.ts > SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停用旧token拒绝
+AssertionError: {"status":"rejected","reason":{"code":"P2010","meta":{"driverAdapterError":{"name":"DriverAdapterError","cause":{"originalCode":"57014","originalMessage":"canceling statement due to statement timeout","kind":"postgres","code":"57014","severity":"ERROR","message":"canceling statement due to statement timeout"}}},"clientVersion":"7.10.1","name":"PrismaClientKnownRequestError"}}: expected { status: 'rejected', …(1) } to match object { Object (reason) }
+(5 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "reason": {
+-     "code": "VERSION_CONFLICT",
++   "reason": PrismaClientKnownRequestError {
++     "code": "P2010",
+    },
+  }
+
+ ❯ test/catalog.integration.ts:185:320
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯
+
+ FAIL  test/catalog.integration.ts > IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败
+CatalogError: 已安装业务领域尚未注册SKU引用检查器
+ ❯ SkuReferences.referenced src/catalog/sku-reference.service.ts:12:102
+
+ ❯ test/catalog.integration.ts:190:129
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯
+
+ FAIL  test/database.integration.ts > 已应用工程、认证、文件及设置任务基础迁移，并保留完整业务表
+AssertionError: expected [ '_prisma_migrations', …(39) ] to deeply equal [ '_prisma_migrations', …(38) ]
+
+- Expected
++ Received
+
+@@ -20,10 +20,11 @@
+    "inventory_ledger",
+    "inventory_purchase_block",
+    "inventory_receipt_batch",
+    "inventory_source",
+    "inventory_source_line",
++   "module6_test_fact",
+    "permission_definition",
+    "product",
+    "product_image",
+    "product_spec_dimension",
+    "product_spec_value",
+
+ ❯ test/database.integration.ts:46:44
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/8]⎯
+
+
+ Test Files  7 failed | 30 passed (37)
+      Tests  3 failed | 1194 passed | 220 skipped (1417)
+   Start at  00:55:11
+   Duration  473.72s (tests 90%, import 10%)
+

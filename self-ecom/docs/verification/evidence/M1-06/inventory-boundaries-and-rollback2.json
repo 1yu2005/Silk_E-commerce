@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-13T16:51:17.939Z",
+  "mode": "inventory",
+  "label": "boundaries-and-rollback2",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T16:51:18.324Z",
+      "endedAt": "2026-11-13T16:51:25.239Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/inventory-boundaries-and-rollback2-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/inventory.integration.ts"
+      ],
+      "startedAt": "2026-11-13T16:51:25.240Z",
+      "endedAt": "2026-11-13T16:51:38.823Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/inventory-boundaries-and-rollback2-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_f3481562cb6b4f8796723246b6124265_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

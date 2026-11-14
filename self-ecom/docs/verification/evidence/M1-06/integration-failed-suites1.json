@@ -1,0 +1,50 @@
+{
+  "at": "2026-11-13T17:07:09.124Z",
+  "mode": "integration",
+  "label": "failed-suites1",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T17:07:09.644Z",
+      "endedAt": "2026-11-13T17:07:16.544Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/integration-failed-suites1-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/task-entry.integration.ts",
+        "test/task-access.integration.ts",
+        "test/task-deadline.integration.ts",
+        "test/task-kernel.integration.ts",
+        "test/task-reassign.integration.ts",
+        "test/catalog.integration.ts",
+        "test/database.integration.ts",
+        "test/inventory.integration.ts"
+      ],
+      "startedAt": "2026-11-13T17:07:16.544Z",
+      "endedAt": "2026-11-13T17:09:08.132Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/integration-failed-suites1-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_f540d482a2274727b9efbb69d1278383_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

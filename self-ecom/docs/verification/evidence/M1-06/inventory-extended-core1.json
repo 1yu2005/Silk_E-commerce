@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-13T16:30:10.495Z",
+  "mode": "inventory",
+  "label": "extended-core1",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T16:30:10.851Z",
+      "endedAt": "2026-11-13T16:30:17.308Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/inventory-extended-core1-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/inventory.integration.ts"
+      ],
+      "startedAt": "2026-11-13T16:30:17.308Z",
+      "endedAt": "2026-11-13T16:30:30.187Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/inventory-extended-core1-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_b41c3c663e394d04bf3dc799902bd1f6_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

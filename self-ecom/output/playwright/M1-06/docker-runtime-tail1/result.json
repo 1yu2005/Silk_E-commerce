@@ -1,0 +1,395 @@
+{
+  "timestamp": "2026-11-13T17:26:06.833Z",
+  "status": "passed",
+  "mode": "runtime-tail",
+  "project": "self-ecom-m106-acceptance-9f4043f3",
+  "imagePrefix": "self-ecom-m106-acceptance-88c90b26",
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m106-acceptance-88c90b26-api:local",
+      "id": "sha256:ef4f8a4ce8c4048c768fc4d862ca32c6f40c72b5d20c9a3973324025fb88d47f"
+    },
+    {
+      "name": "self-ecom-m106-acceptance-88c90b26-admin:local",
+      "id": "sha256:ceae3817e3f62d02ae0c36522ae7e07ea88a1b525a7d9eb79e9ede9594631683"
+    },
+    {
+      "name": "self-ecom-m106-acceptance-88c90b26-store:local",
+      "id": "sha256:ad9f239e74c32ccf66441e8fa18e0808cf25bc911d9290145be00e17582b8797"
+    }
+  ],
+  "previousEvidence": "output/playwright/M1-06/docker1",
+  "previousChecks": [
+    "Compose强制JWT密钥，三个应用使用独立标签构建成功",
+    "空库迁移、两类seed幂等、四服务健康与两站代理/缓存/Swagger/私有目录",
+    "首管理员直接登录、主动改密及会话撤销、最终权限与最后可用管理员保护",
+    "员工创建、列表详情、改名、版本冲突、依赖授权、调岗、启停、重置密码",
+    "顾客注册/重复/校验、双域隔离、本人资料/昵称/改密与仅撤销当前会话的幂等注销",
+    "SW-03/04/05/07：私有图隔离、安全元数据、用途校验、伪装图、5MiB API及两代理6MiB JSON413",
+    "SW-01/02/06：JPEG/PNG/WebP、本人绑定、重复命令、更换/移除与历史公开图片保留",
+    "SW-08：强改密拦截、个人额外用途权限授予/实时撤销、停用后旧token拒绝上传",
+    "Swagger浏览器现场：Authorize真实Bearer、multipart上传201、头像PUT200、元数据及二进制GET200",
+    "板块4：生产HTTP设置初始化/严格校验/版本冲突/同内容幂等/不可变历史与公开联系白名单",
+    "板块4：真实员工设置/待安排权限拒绝，任务三列表和摘要真实空态，缺业务不伪造成功",
+    "板块4：Nginx生产页面实际保存设置/历史、三种任务空态、手机布局和可拨打联系方式",
+    "板块4：Swagger现场Authorize后真实设置/任务摘要GET200及Bearer核验",
+    "板块4：生产启动真实空扫描及运行记录，镜像无测试任务适配器",
+    "板块5：真实分类/六SKU/批量价格/商品图片/数量草稿全链路，A/R保持0且上架拒绝",
+    "板块5：Swagger UI执行公开详情200，真实六SKU且无需Bearer",
+    "板块5：Nginx生产构建的商品编辑、商城规格/手机布局、公开投影与两站真实图片",
+    "板块5：自然缺货仍公开且不可购、下架404、重新上架重新校验",
+    "板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务",
+    "板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页"
+  ],
+  "checks": [
+    "尾项：Nginx员工与顾客真实登录/账号页、手机布局，无浏览器运行错误",
+    "尾项：DB/API重启及API重建，原双域会话、头像/私图摘要与引用、设置/历史/审计、商品/SKU/草稿/图片均保持",
+    "尾项：真实配额/频率429、Retry-After≥1、正常本人查询200",
+    "尾项：三秒真实JWT两个登录域均本人200→自然到期401 TOKEN_EXPIRED",
+    "尾项：六迁移、API非root、生产镜像边界、镜像/前端产物/运行日志秘密扫描",
+    "定向续验：四服务健康/代理/85操作契约一致，浏览器无未捕获错误"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "eaa42c08-8a01-4495-b345-e6f6d348559c"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/register",
+      "status": 201,
+      "requestId": "f7685cd7-197a-4580-9807-937a6aeddae9"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "fa12380b-820a-4724-83ac-9d4b3412dc21"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/register",
+      "status": 201,
+      "requestId": "cbed1a7b-77ce-4ece-ad29-cb0db1f99bda"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "e15a76d8-ca58-4198-a6e7-247baa49ae6d"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "55c0f095-26e9-43ac-9774-69c41d7ce82b"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "64d7a674-2592-463f-ba8f-0ddfa7eba897"
+    },
+    {
+      "method": "PUT",
+      "path": "/store/me/avatar",
+      "status": 200,
+      "requestId": "fde0ed04-8763-4e31-9fe8-3a00ebf0d9a5"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "48c847b9-10d7-4db8-acb5-b5e168ff6324"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "e3dbd4fb-a3c2-43d5-98f9-e88d9ebd15d2"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "ec7cd011-4913-4e68-9e47-0ac8d6595d27"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/488d6ae0-6ef7-43d3-b188-302762c0b85e/images",
+      "status": 200,
+      "requestId": "4e257594-344a-426b-8ca3-599e624f6bc2"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/488d6ae0-6ef7-43d3-b188-302762c0b85e/initial-inventory-draft",
+      "status": 200,
+      "requestId": "94ee4c30-a6a2-464f-8737-745e74d0fb78"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/488d6ae0-6ef7-43d3-b188-302762c0b85e/initial-inventory-draft",
+      "status": 200,
+      "requestId": "8ab7f6e0-f193-4675-bc78-ee74f0644c52"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "e489894f-e045-4a66-a732-35db56aa716d"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings/versions/8d4ee6e6-c375-47a0-8bbd-13f34922b3c9",
+      "status": 200,
+      "requestId": "0f5a586a-ce83-459d-a8e3-e7ddbe443c9c"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "605caa14-f255-40a6-9192-c78ea0f2e05d"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/488d6ae0-6ef7-43d3-b188-302762c0b85e",
+      "status": 200,
+      "requestId": "54a69bd7-e7ff-401e-bf09-e82d598f160b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "f178aebf-ad48-4561-9678-686369a0fcd0"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "a338df99-5e46-4786-8447-17bd36beef64"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/488d6ae0-6ef7-43d3-b188-302762c0b85e",
+      "status": 200,
+      "requestId": "e98eb3c4-4519-44c2-a191-1a01fb4fa0a4"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/488d6ae0-6ef7-43d3-b188-302762c0b85e/initial-inventory-draft",
+      "status": 200,
+      "requestId": "96a26835-dde6-4431-a2e6-fa9a294485c2"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings",
+      "status": 200,
+      "requestId": "21414ca5-59af-41ca-8b39-1ae65009f384"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/settings/versions/8d4ee6e6-c375-47a0-8bbd-13f34922b3c9",
+      "status": 200,
+      "requestId": "0724dd9b-5ee8-45d6-917e-0f65889b5d27"
+    },
+    {
+      "method": "GET",
+      "path": "/store/contact",
+      "status": 200,
+      "requestId": "b40cdc17-b466-4f26-934b-704877756421"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 429,
+      "requestId": "1a6d1f83-9d7a-4be5-8e66-a8ca0ab18ade",
+      "code": "FILE_QUOTA_EXCEEDED"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 400,
+      "requestId": "6898dc38-36af-4a06-becd-30bd68db3f0c",
+      "code": "FILE_TYPE_NOT_ALLOWED"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 400,
+      "requestId": "6b006aaa-1286-49a8-9957-f8a5aeb182cb",
+      "code": "FILE_TYPE_NOT_ALLOWED"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 429,
+      "requestId": "4f4f2b5c-a7d7-414a-9631-bc9031bd64c6",
+      "code": "FILE_RATE_LIMITED"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "e7135c6b-fe2e-4a1b-b0dd-8a05a254eb5b"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "0795f0a6-620c-4134-b7d0-21b5d0716eef"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "9145a9a9-51e8-41df-88cd-5d84e668ddfc"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "014177d6-e645-4a72-95fe-38f6559401e4"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "e4fd94ec-74c4-44f0-bcfa-e07b2ae3389d"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 401,
+      "requestId": "892ac4e5-186a-4ebe-b2b6-717e1a208e74"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 401,
+      "requestId": "3605eef7-4626-4824-abc1-ac53ff7943bf"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原有卷清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "校验独占四服务",
+      "status": 0
+    },
+    {
+      "label": "仅启动随机专属数据库",
+      "status": 0
+    },
+    {
+      "label": "空库六迁移",
+      "status": 0
+    },
+    {
+      "label": "权限初始化",
+      "status": 0
+    },
+    {
+      "label": "专属管理员初始化",
+      "status": 0
+    },
+    {
+      "label": "启动四服务",
+      "status": 0
+    },
+    {
+      "label": "专属数据库和API重启",
+      "status": 0
+    },
+    {
+      "label": "等待恢复",
+      "status": 0
+    },
+    {
+      "label": "仅重建专属API",
+      "status": 0
+    },
+    {
+      "label": "独占库只读核对",
+      "status": 0
+    },
+    {
+      "label": "独占库只读核对",
+      "status": 0
+    },
+    {
+      "label": "仅专属API使用三秒JWT和小配额",
+      "status": 0
+    },
+    {
+      "label": "非root运行",
+      "status": 0
+    },
+    {
+      "label": "镜像无真实配置/证据/私有交付/测试适配器",
+      "status": 0
+    },
+    {
+      "label": "独占库只读核对",
+      "status": 0
+    },
+    {
+      "label": "镜像配置秘密扫描",
+      "status": 0
+    },
+    {
+      "label": "镜像配置秘密扫描",
+      "status": 0
+    },
+    {
+      "label": "镜像配置秘密扫描",
+      "status": 0
+    },
+    {
+      "label": "运行日志秘密扫描",
+      "status": 0
+    },
+    {
+      "label": "仅核对专属卷",
+      "status": 0
+    },
+    {
+      "label": "仅清理本次独占容器与卷",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "复核原有卷",
+      "status": 0
+    }
+  ],
+  "pageErrors": [],
+  "cleaned": true,
+  "originalResourcesPreserved": true
+}

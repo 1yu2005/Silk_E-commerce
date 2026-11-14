@@ -38,8 +38,16 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           '/api/v1/admin/products/{id}/publish','/api/v1/admin/products/{id}/unpublish','/api/v1/admin/products/{id}/sku-combinations/preview',
           '/api/v1/admin/products/{id}/sku-scheme','/api/v1/admin/products/{id}/skus/batch-fill','/api/v1/admin/products/{id}/skus/{skuId}',
           '/api/v1/admin/products/{id}/skus/{skuId}/set-enabled','/api/v1/store/categories','/api/v1/store/products','/api/v1/store/products/{id}',
+          '/api/v1/admin/inventory','/api/v1/admin/inventory/ledger','/api/v1/admin/inventory/actions/{id}',
+          '/api/v1/admin/inventory/sources','/api/v1/admin/inventory/sources/{id}','/api/v1/admin/inventory/sources/{id}/lines',
+          '/api/v1/admin/inventory/source-lines/{id}/verified-quantity','/api/v1/admin/inventory/adjustments',
+          '/api/v1/admin/inventory/adjustments/{id}','/api/v1/admin/inventory/adjustments/{id}/claim',
+          '/api/v1/admin/inventory/adjustments/{id}/post','/api/v1/admin/inventory/adjustments/{id}/void',
+          '/api/v1/admin/inventory/adjustments/{id}/corrections','/api/v1/admin/inventory/adjustments/{id}/resolve-check',
+          '/api/v1/admin/inventory/{skuId}','/api/v1/admin/inventory/{skuId}/warning-threshold',
+          '/api/v1/admin/products/{id}/initial-inventory-draft/convert',
         ]).sort());
-        for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){
+        for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products|inventory)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){
           const operation=item![key];if(operation)expect(operation.security).toEqual([{bearerAuth:[]}]);
         }
         for(const path of ['/api/v1/store/categories','/api/v1/store/products','/api/v1/store/products/{id}']){
@@ -48,6 +56,9 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
         }
         expect(JSON.stringify(doc.paths['/api/v1/admin/products/{id}/sku-scheme']!.put!.responses)).toContain('clientKeyMap');
         expect(JSON.stringify(doc.paths['/api/v1/admin/products']!.post!.requestBody)).not.toMatch(/available|reserved|status/);
+        const postInventory=doc.paths['/api/v1/admin/inventory/adjustments/{id}/post']!.post!;
+        expect(JSON.stringify(postInventory.requestBody)).not.toMatch(/deltaA|deltaR|available|reserved/);
+        expect(postInventory.responses['409']).toMatchObject({content:{'application/json':{schema:{properties:{details:{type:'object',additionalProperties:false}}}}}});
         const settings = doc.paths['/api/v1/admin/settings']!;
         for (const operation of [settings.get!, settings.put!, doc.paths['/api/v1/admin/settings/versions']!.get!,
           doc.paths['/api/v1/admin/settings/versions/{id}']!.get!]) {

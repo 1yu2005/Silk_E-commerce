@@ -1,0 +1,151 @@
+{
+  "at": "2026-11-13T17:14:11.109Z",
+  "checks": [
+    "现有仓储及管理员原密码可登录；本机与Docker两商品8SKU各A12/R0、同一动作和来源净量12",
+    "本机与Docker实际仓储登录、来源/登记/流水、手机布局、两服装颜色尺码和真实图片"
+  ],
+  "requests": [
+    {
+      "origin": "http://localhost:8080",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a4827f81-4f1a-4c0d-ad6f-5d157a93d81c"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "84ba2d78-3a76-44a9-b1ed-a17fc44ea8e6"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "aa1de1f7-f3b3-46ec-9825-4aa5ebd97f3a"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/admin/inventory/adjustments/2262c280-bbe1-429c-b64f-be07c16cffe7",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0672c304-3193-4c28-9b93-86e6c4fb9888"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/store/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a0061b65-5b03-47fc-986d-fe41d097c9aa"
+    },
+    {
+      "origin": "http://localhost:8081",
+      "path": "/store/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "be320bc7-fe02-4018-859c-d89c429a771a"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ca9042ce-60b0-4616-8ed9-ca9028f4e58e"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/admin/inventory/adjustments/3117c544-eb7f-452d-8739-90ab2d83f9db",
+      "method": "GET",
+      "status": 200,
+      "requestId": "88e15cc6-d675-4614-87a4-8210e8fedabf"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "path": "/store/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "9c179690-c0fc-4541-af1e-7453cacabb6e"
+    },
+    {
+      "origin": "http://localhost:8081",
+      "path": "/store/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2ab7a100-3f6b-49f1-8f3e-5fc4d53d6374"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "31a825ea-7c5a-4e5d-b936-2f9b7c6231b7"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "d685eb39-f58d-4939-bd65-305d8befaa4b"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ea69a85f-b8da-4da0-a6e7-cdb4213242b8"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/admin/inventory/adjustments/2262c280-bbe1-429c-b64f-be07c16cffe7",
+      "method": "GET",
+      "status": 200,
+      "requestId": "823e00c7-69bf-4023-975f-7eca0b9ae656"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/store/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "1f96a125-9ded-4b08-b125-e75153818758"
+    },
+    {
+      "origin": "http://localhost:5174",
+      "path": "/store/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ae3f4294-4cda-4d96-be5d-b9eb8384d39e"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "c7af8322-c988-43b8-b893-cac25da991bb"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/admin/inventory/adjustments/3117c544-eb7f-452d-8739-90ab2d83f9db",
+      "method": "GET",
+      "status": 200,
+      "requestId": "2e38741e-4212-45a7-9ff9-875ff0a3a536"
+    },
+    {
+      "origin": "http://localhost:3000",
+      "path": "/store/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "55f9ca59-6d06-420d-8058-f7a40d548a03"
+    },
+    {
+      "origin": "http://localhost:5174",
+      "path": "/store/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "0c72538a-9400-4744-91e7-6c403780dc27"
+    }
+  ],
+  "pageErrors": [],
+  "failure": "AssertionError [ERR_ASSERTION]: undefined\n\nnull !== 0\n\n    at compose (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/scripts/verify-module6-deployed.mjs:21:182)\n    at dbState (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/scripts/verify-module6-deployed.mjs:22:29)\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/scripts/verify-module6-deployed.mjs:48:24"
+}

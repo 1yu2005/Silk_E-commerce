@@ -1,0 +1,92 @@
+// 作用：在本次独占四服务以真实来源、草稿转换和确认命令入账，再验证生产页面与持久化；不写库存SQL夹具。
+/* global document, innerWidth */
+import assert from 'node:assert/strict';
+import { randomUUID } from 'node:crypto';
+import { createRequire } from 'node:module';
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
+export async function verifyInventory(c){
+ const {origin,storeOrigin,adminToken,browser,call,passed,requests,output,compose,env,pageErrors,adminUsername,adminPassword}=c;
+ assert.equal(env.POSTGRES_DB,'acceptance_dev');
+ const request=(url,method='GET',body,status=200,code)=>call(origin,url,method,body,adminToken,status,code);
+ const category=await request('/admin/categories','POST',{name:'库存正式流程验收'},201);
+ let p=await request('/admin/products','POST',{name:'库存真实流程双款服装',categoryId:category.id,description:'所有数量通过来源核实、草稿转换、领取确认入账'},201);
+ const dimensions=[{clientKey:randomUUID(),name:'颜色',values:['藏蓝','米白'].map(name=>({clientKey:randomUUID(),name}))}];
+ p=await request(`/admin/products/${p.id}/sku-scheme`,'PUT',{expectedVersion:p.version,mode:'REBUILD',reason:'库存验收双款',dimensions});
+ const skus=p.skus.filter(s=>!s.retiredAt);assert.equal(skus.length,2);
+ p=await request(`/admin/products/${p.id}/skus/batch-fill`,'POST',{expectedVersion:p.version,skuIds:skus.map(s=>s.id),priceCents:12900,costCents:5000});
+ const require=createRequire(new URL('../apps/api/package.json',import.meta.url));
+ const png=await require('sharp')({create:{width:320,height:420,channels:3,background:'#2b414b'}}).png().toBuffer();
+ const upload=async purpose=>{const form=new FormData();form.append('purpose',purpose);form.append('file',new Blob([png],{type:'image/png'}),'inventory-acceptance.png');
+  const r=await fetch(origin+'/api/v1/files',{method:'POST',headers:{Authorization:'Bearer '+adminToken},body:form}),j=await r.json();requests.push({method:'POST',path:'/files',status:r.status,requestId:j.requestId});assert.equal(r.status,201);return j.data;};
+ const image=await upload('PRODUCT_IMAGE'),evidence=await upload('INVENTORY_EVIDENCE');
+ p=await request(`/admin/products/${p.id}/images`,'PUT',{expectedVersion:p.version,mainImageId:image.id,galleryImageIds:[]});
+ p=await request(`/admin/products/${p.id}/initial-inventory-draft`,'PUT',{expectedProductVersion:p.version,expectedDraftVersion:null,lines:skus.map(s=>({skuId:s.id,quantity:12}))});
+ const draft=await request(`/admin/products/${p.id}/initial-inventory-draft`);
+ const sourceInput={sourceType:'RECEIPT',namespace:'DOCKER-M106',reference:randomUUID(),note:'仅独占验收的虚构实收凭据，非真实采购',evidenceFileIds:[evidence.id],lines:skus.map((s,i)=>({lineKey:String(i+1),skuId:s.id,verifiedQuantity:20}))};
+ const source=await request('/admin/inventory/sources','POST',sourceInput,201);
+ await request('/admin/inventory/sources','POST',{...sourceInput,reference:' '+source.reference.toLowerCase()+' ',evidenceFileIds:[]},409,'SOURCE_ALREADY_EXISTS');
+ assert.ok(source.lines.every(l=>l.netPostedQuantity===0));
+ const admin=await browser.newPage({viewport:{width:1440,height:1000}});admin.on('pageerror',e=>pageErrors.push(e.name));
+ await admin.goto(origin+'/login');await admin.getByLabel('员工账号',{exact:true}).fill(adminUsername);await admin.getByLabel('密码',{exact:true}).fill(adminPassword);await admin.locator('form button[type=submit]').click();await admin.waitForURL(origin+'/');
+ await admin.goto(origin+'/products/'+p.id);const section=admin.locator('#initial-draft');
+ await section.getByLabel('关联已核实来源').selectOption(source.id);await section.getByRole('button',{name:'载入此来源行'}).click();
+ const mappings=skus.map(s=>({skuId:s.id,sourceLineId:source.lines.find(l=>l.skuId===s.id).id,batchKey:'INIT-12'}));
+ for(const m of mappings){await section.locator(`select[name="source-${m.skuId}"]`).selectOption(m.sourceLineId);await section.locator(`input[name="batch-${m.skuId}"]`).fill(m.batchKey);}
+ await section.getByLabel('转换原因',{exact:true}).fill('Docker隔离草稿正式转换');
+ const conversionResponse=admin.waitForResponse(r=>r.url().endsWith('/initial-inventory-draft/convert')&&r.request().method()==='POST');
+ await section.getByRole('button',{name:'生成待确认库存登记',exact:true}).click();const converted=await conversionResponse;assert.equal(converted.status(),200);let a=(await converted.json()).data;
+ await admin.waitForURL(origin+'/inventory/adjustments/'+a.id);
+ assert.equal(a.status,'PENDING');assert.ok(a.lines.every(l=>l.available===0&&l.reserved===0));assert.equal((await request(`/admin/products/${p.id}/initial-inventory-draft`)).adjustmentId,a.id);
+ const replay=await request(`/admin/products/${p.id}/initial-inventory-draft/convert`,'POST',{expectedProductVersion:p.version,expectedDraftVersion:draft.version,sourceId:source.id,mappings,reason:'Docker隔离草稿正式转换',evidenceFileIds:[]});assert.equal(replay.id,a.id);assert.equal(replay.changed,false);
+ await admin.screenshot({path:path.join(output,'inventory-pending.png'),fullPage:true});
+ const claimResponse=admin.waitForResponse(r=>r.url().endsWith('/'+a.id+'/claim'));await admin.getByRole('button',{name:'领取入账任务',exact:true}).click();assert.equal((await claimResponse).status(),200);
+ await admin.getByRole('button',{name:'确认入账',exact:true}).waitFor();
+ const postResponse=admin.waitForResponse(r=>r.url().endsWith('/'+a.id+'/post'));await admin.getByRole('button',{name:'确认入账',exact:true}).click();const posted=await postResponse;assert.equal(posted.status(),200);a=(await posted.json()).data;
+ assert.equal(a.status,'POSTED');assert.equal(a.ledger.length,2);assert.ok(a.ledger.every(l=>l.beforeA===0&&l.deltaA===12&&l.afterA===12&&l.afterR===0));assert.equal(a.task,null);
+ await admin.getByRole('heading',{name:'已确认流水',exact:true}).waitFor();assert.equal(await admin.getByRole('button',{name:'确认入账',exact:true}).count(),0);
+ await admin.screenshot({path:path.join(output,'inventory-posted.png'),fullPage:true});passed('板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务');
+ await request(`/admin/inventory/adjustments/${a.id}`,'PATCH',{expectedVersion:a.version,type:'INITIALIZATION',reason:'禁止改旧单',lines:[]},400,'VALIDATION_FAILED');
+ await request(`/admin/inventory/adjustments/${a.id}/void`,'POST',{expectedVersion:a.version,expectedTaskVersion:0,reason:'禁止作废已入账'},409,'ADJUSTMENT_NOT_PENDING');
+ const versions=x=>({expectedVersion:x.version,expectedTaskVersion:x.task.version});
+ const duplicate=await request('/admin/inventory/adjustments','POST',{type:'ARRIVAL',reason:'重复真实批次拒绝',lines:[{skuId:skus[0].id,sourceLineId:mappings[0].sourceLineId,batchKey:'INIT-12',quantity:1}]},201);
+ const dup=await request(`/admin/inventory/adjustments/${duplicate.id}/claim`,'POST',versions(duplicate));
+ const conflict=await request(`/admin/inventory/adjustments/${dup.id}/post`,'POST',versions(dup),409,'SOURCE_BATCH_ALREADY_POSTED');assert.equal(conflict.details.adjustmentId,a.id);
+ // 差额更正从原根另开单，原初始化事实完整保留。
+ let correction=await request(`/admin/inventory/adjustments/${a.id}/corrections`,'POST',{reason:'独占验收核实原收少1',evidenceNote:'仅测试夹具核实差额',lines:[{rootLineId:a.lines[0].id,signedDeltaA:-1}]},201);
+ correction=await request(`/admin/inventory/adjustments/${correction.id}/claim`,'POST',versions(correction));correction=await request(`/admin/inventory/adjustments/${correction.id}/post`,'POST',versions(correction));assert.equal(correction.ledger[0].afterA,11);
+ const currentSource=await request('/admin/inventory/sources/'+source.id);assert.equal(currentSource.lines.find(l=>l.id===a.lines[0].sourceLineId).netPostedQuantity,11);assert.ok(currentSource.lines.some(l=>l.batches.some(b=>b.corrections.some(x=>x.id===correction.id))));
+ await admin.goto(origin+'/inventory/sources/'+source.id);await admin.getByRole('heading',{name:'来源凭据详情',exact:true}).waitFor();await admin.getByRole('link',{name:correction.number,exact:true}).waitFor();
+ await admin.screenshot({path:path.join(output,'inventory-source.png'),fullPage:true});
+ await admin.goto(origin+'/inventory/ledger');await admin.getByRole('heading',{name:'库存数量流水',exact:true}).waitFor();await admin.getByRole('link',{name:correction.number,exact:true}).waitFor();
+ await admin.setViewportSize({width:390,height:844});assert.ok(await admin.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await admin.screenshot({path:path.join(output,'inventory-ledger-mobile.png'),fullPage:true});
+ passed('板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页');
+ // 来源创建与异常核实也走真实后台，确认失败后先重读当前事实再操作。
+ await admin.setViewportSize({width:1440,height:1000});await admin.goto(origin+'/inventory/sources/new');await writeFile(path.join(output,'source-create-aria.txt'),await admin.locator('main').ariaSnapshot());
+ await admin.getByLabel('来源类型').selectOption('LOSS');await admin.getByLabel('来源范围',{exact:true}).fill('DOCKER-M106-LOSS');await admin.getByLabel('凭据编号',{exact:true}).fill('LOSS-CHECK');await admin.getByLabel('核实说明',{exact:true}).fill('独占测试的故意超出可用量损耗，验证核实闭环');
+ await admin.getByLabel('服装款式').selectOption(skus[0].id);await admin.getByLabel('核实数量',{exact:true}).fill('100');
+ const sourceResponse=admin.waitForResponse(r=>r.url().endsWith('/admin/inventory/sources')&&r.request().method()==='POST');await admin.getByRole('button',{name:'保存已核实来源',exact:true}).click();const lossResponse=await sourceResponse;assert.equal(lossResponse.status(),201);const loss=(await lossResponse.json()).data;await admin.waitForURL(origin+'/inventory/sources/'+loss.id);
+ await admin.goto(origin+'/inventory/adjustments/new');await admin.getByLabel('登记类型').selectOption('AVAILABLE_LOSS');await admin.getByLabel('关联已核实来源').selectOption(loss.id);await admin.getByRole('button',{name:'载入此来源行'}).click();
+ await admin.getByLabel('第1行 / 来源SKU').selectOption(loss.lines[0].id);await admin.getByLabel('实际损耗数量',{exact:true}).fill('100');await admin.getByLabel('登记原因',{exact:true}).fill('故意不足以验证核实，不扣R');
+ const pendingResponse=admin.waitForResponse(r=>r.url().endsWith('/admin/inventory/adjustments')&&r.request().method()==='POST');await admin.getByRole('button',{name:'保存待确认登记',exact:true}).click();const lossPending=(await(await pendingResponse).json()).data;await admin.waitForURL(origin+'/inventory/adjustments/'+lossPending.id);
+ const lossClaim=admin.waitForResponse(r=>r.url().endsWith('/'+lossPending.id+'/claim'));await admin.getByRole('button',{name:'领取入账任务',exact:true}).click();assert.equal((await lossClaim).status(),200);
+ const failedPost=admin.waitForResponse(r=>r.url().endsWith('/'+lossPending.id+'/post'));await admin.getByRole('button',{name:'确认入账',exact:true}).click();const failure=await failedPost;assert.equal(failure.status(),409);assert.equal((await failure.json()).code,'STOCK_INSUFFICIENT');
+ await admin.getByRole('button',{name:'读取最新版本',exact:true}).click();await admin.getByText('待核实：本次确认尚未入账',{exact:true}).waitFor();const reconcileClaim=admin.waitForResponse(r=>r.url().endsWith('/'+lossPending.id+'/claim'));await admin.getByRole('button',{name:'领取核实任务',exact:true}).click();assert.equal((await reconcileClaim).status(),200);
+ await admin.getByLabel('处理原因',{exact:true}).fill('不足未解决的负例');await admin.getByLabel('实际解决依据',{exact:true}).fill('仅填写说明不代表数量问题已解决');const unresolved=admin.waitForResponse(r=>r.url().endsWith('/resolve-check'));await admin.getByRole('button',{name:'校验问题并开启新入账轮',exact:true}).click();assert.equal((await unresolved).status(),409);await admin.getByRole('button',{name:'读取最新版本',exact:true}).click();
+ await admin.getByLabel('作废原因',{exact:true}).fill('故意不足测试结束，作废未入账损耗并解除其暂停');const voidResponse=admin.waitForResponse(r=>r.url().endsWith('/'+lossPending.id+'/void'));await admin.getByRole('button',{name:'作废待确认登记',exact:true}).click();const voided=(await(await voidResponse).json()).data;assert.equal(voided.status,'VOID');assert.equal(voided.ledger.length,0);assert.ok(voided.tasks.every(t=>t.status==='CANCELLED'));
+ const account=await request('/admin/inventory/'+skus[0].id);assert.equal(account.purchaseBlocked,false);
+ await admin.goto(origin+'/inventory/skus/'+skus[0].id);await admin.getByLabel('预警线',{exact:true}).fill(String(account.available));await admin.getByLabel('调整原因',{exact:true}).fill('低库存包含等号');const thresholdResponse=admin.waitForResponse(r=>r.url().endsWith('/warning-threshold'));await admin.getByRole('button',{name:'保存预警线（不改数量）',exact:true}).click();const threshold=(await(await thresholdResponse).json()).data;assert.equal(threshold.lowStock,true);assert.equal(threshold.available,account.available);assert.equal(threshold.reserved,0);await admin.screenshot({path:path.join(output,'inventory-threshold.png'),fullPage:true});
+ passed('板块6：后台来源/损耗新建、库存不足409持久化核实、无效核实拒绝、作废闭环及预警等号');
+ // 在Swagger页面真实执行库存读取，验证生产文档和路由。
+ const swagger=await browser.newPage();await swagger.goto(origin+'/api/docs');const operation=swagger.locator('.opblock').filter({has:swagger.getByText('库存不可改流水',{exact:true})});await operation.locator('.opblock-summary').click();await operation.locator('.try-out__btn').click();
+ const denied=swagger.waitForResponse(r=>r.url().includes('/api/v1/admin/inventory/ledger'));await operation.locator('.execute').click();assert.equal((await denied).status(),401);await swagger.screenshot({path:path.join(output,'inventory-swagger-auth.png'),fullPage:true});await swagger.locator('.swagger-ui .auth-wrapper .authorize').click();await swagger.locator('.dialog-ux input').fill(adminToken);await swagger.locator('.dialog-ux .auth-btn-wrapper .authorize').click();await swagger.locator('.dialog-ux .close-modal').click();const authorized=swagger.waitForResponse(r=>r.url().includes('/api/v1/admin/inventory/ledger'));await operation.locator('.execute').click();const actual=await authorized;assert.equal(actual.status(),200);assert.equal(actual.request().headers().authorization,'Bearer '+adminToken);requests.push({method:'GET',path:'/admin/inventory/ledger',status:200,requestId:actual.headers()['x-request-id'],surface:'Swagger UI',bearerChecked:true});await swagger.close();
+ p=await request('/admin/products/'+p.id);p=await request(`/admin/products/${p.id}/publish`,'POST',{expectedVersion:p.version,reason:'真实来源和流水已确认，上架浏览'});
+ const publicProduct=await call(storeOrigin,'/store/products/'+p.id);assert.equal(publicProduct.availableQuantity,'23');assert.ok(publicProduct.skus.every(s=>s.purchasable));assert.ok(!/reserved|costCents|sourceLineId|conversionFingerprint/.test(JSON.stringify(publicProduct)));
+ const store=await browser.newPage({viewport:{width:390,height:844}});store.on('pageerror',e=>pageErrors.push(e.name));await store.goto(storeOrigin+'/products/'+p.id);await store.getByRole('button',{name:'藏蓝',exact:true}).click();await store.getByText(/此款有货/).waitFor();assert.ok(await store.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));await store.screenshot({path:path.join(output,'inventory-store.png'),fullPage:true});
+ const sql=statement=>compose(['exec','-T','db','psql','-v','ON_ERROR_STOP=1','-U',env.POSTGRES_USER,'-d',env.POSTGRES_DB,'-Atc',statement],'只读核对库存账务').stdout.trim();
+ const ids=skus.map(s=>`'${s.id}'`).join(',');assert.equal(sql(`SELECT count(*) FROM (SELECT b.sku_id FROM inventory_balance b LEFT JOIN inventory_ledger l ON l.sku_id=b.sku_id WHERE b.sku_id IN (${ids}) GROUP BY b.sku_id,b.available,b.reserved HAVING b.available::bigint<>COALESCE(sum(l.delta_a::bigint),0) OR b.reserved::bigint<>COALESCE(sum(l.delta_r::bigint),0)) t`),'0');
+ const data={productId:p.id,sourceId:source.id,adjustmentId:a.id,correctionId:correction.id,skuIds:skus.map(s=>s.id),imageId:image.id,evidenceId:evidence.id,expectedAvailable:'23',method:'正式业务命令入账，无余额SQL写入'};await writeFile(path.join(output,'inventory-fixture.json'),JSON.stringify(data,null,2)+'\n');
+ passed('板块6 SW10/板块5 SW-L01：合法入账及差额更正→真实上架→商城选择SKU、真实图片与余额流水对账');
+ await admin.close();await store.close();
+ return {async verifyPersistence(){const after=await call(storeOrigin,'/store/products/'+p.id);assert.equal(after.availableQuantity,'23');const current=await request('/admin/inventory/adjustments/'+a.id);assert.equal(current.action.id,a.action.id);assert.equal(current.ledger.length,2);assert.equal((await fetch(storeOrigin+image.contentUrl)).status,200);assert.equal((await fetch(origin+evidence.contentUrl,{headers:{Authorization:'Bearer '+adminToken}})).status,200);assert.equal((await fetch(storeOrigin+evidence.contentUrl)).status,404);passed('板块6：数据库重启/API重建保留来源、已入账流水、商品、公开图片和私有凭证');}};
+}

@@ -1,4 +1,4 @@
-// 作用：只保存非记账数量，展示固定转换键和草稿状态；不提供尚未开发的入账按钮。
+// 作用：保存非记账数量并衔接正式来源转换；转换后仍需领取确认，不重复入账。
 import { useState } from 'react';
 import { Alert, Button } from 'antd';
 import { catalog,catalogQueries } from '../services/api';
@@ -7,9 +7,10 @@ import type { Product,Draft } from './model';
 import { CatalogQueryState } from './CatalogQueryState';
 import { CatalogFeedback } from './CatalogFeedback';
 import { useCatalogCommand } from './use-catalog-command';
+import { InitialConversion } from '../inventory/InitialConversion';
 export function ProductInitialDraft(props:{product:Product;onSaved:()=>void;reload:()=>void}){
   const query=useEmployeeQuery(catalogQueries.draft,props.product.id,props.product.id);
-  return <section id="initial-draft" className="catalog-card"><h2>初始数量草稿</h2><Alert type="info" title="数量草稿，确认库存登记后才生效" description="本次保存不改变可售/占用数量，不创建入账任务。库存登记与转换将在板块6接入。"/>
+  return <section id="initial-draft" className="catalog-card"><h2>初始数量草稿</h2><Alert type="info" title="数量草稿，确认库存登记后才生效" description="保存草稿不改变可用/占用数量。匹配核实来源与批次后生成待确认库存登记，再领取并确认入账。"/>
     {query.status==='ready'?<DraftForm key={query.data?.id+':'+query.data?.version} {...props} draft={query.data}/>:<CatalogQueryState error={query.error} onRetry={()=>void catalogQueries.draft.invalidate()}/>}</section>;
 }
 function DraftForm({product:p,draft,onSaved,reload}:{product:Product;draft:Draft;onSaved:()=>void;reload:()=>void}){
@@ -21,5 +22,6 @@ function DraftForm({product:p,draft,onSaved,reload}:{product:Product;draft:Draft
       <div className="catalog-grid">{active.map(s=><label key={s.id}>{s.choices.map(c=>c.value).join(' / ')||'默认款式'}（草稿数量）<input required type="number" min="0" max="2147483647" step="1" value={quantities[s.id]??'0'} onChange={e=>setQuantities(rows=>({...rows,[s.id]:e.target.value}))}/></label>)}</div><Button type="primary" htmlType="submit">保存数量草稿（不入账）</Button>
     </fieldset></form>
     {draft?.status==='EDITABLE'?<form className="catalog-batch" onSubmit={e=>{e.preventDefault();const reason=String(new FormData(e.currentTarget).get('reason'));void cmd.run(()=>catalog.voidInitialInventoryDraft({path:{id:p.id},body:{expectedProductVersion:p.version,expectedDraftVersion:draft.version,reason}}));}}><label>作废原因<input name="reason" required maxLength={500}/></label><Button htmlType="submit" disabled={cmd.busy||cmd.blocked}>作废此草稿</Button></form>:null}
+    <InitialConversion product={p} draft={draft} reload={reload}/>
   </>;
 }

@@ -1,0 +1,185 @@
+{
+  "at": "2026-11-13T17:40:59.560Z",
+  "checks": [
+    "既有成功证据、首轮失败及定向复验状态均保留，无重复累计",
+    "最近新增或修改的验收/交付脚本Lint通过",
+    "常用四服务healthy，原DB容器/启动时间/两卷保持，同组镜像及六入口85操作契约一致",
+    "六迁移已应用，8SKU各A12/R0及2登记8流水保持，两商品仍公开且介绍一致",
+    "真实.env/旧迁移摘要不变；私有说明完整且Git/Docker排除；暂存区为空，HEAD保持",
+    "变更及本轮证据/构建未发现原仓储密码、真实密钥/连接串或JWT",
+    "交付文档本地链接均存在，SW/IT矩阵和两份完整说明齐备"
+  ],
+  "commands": [
+    {
+      "label": "新增交付脚本定向Lint",
+      "exitCode": 0
+    },
+    {
+      "label": "只读常用Compose",
+      "exitCode": 0
+    },
+    {
+      "label": "只读常用Compose",
+      "exitCode": 0
+    },
+    {
+      "label": "只读数据库容器身份",
+      "exitCode": 0
+    },
+    {
+      "label": "核对当前应用镜像",
+      "exitCode": 0
+    },
+    {
+      "label": "核对当前应用镜像",
+      "exitCode": 0
+    },
+    {
+      "label": "核对当前应用镜像",
+      "exitCode": 0
+    },
+    {
+      "label": "私有说明忽略规则",
+      "exitCode": 0
+    }
+  ],
+  "runtime": [
+    {
+      "origin": "http://localhost:3000",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    },
+    {
+      "origin": "http://localhost:3001",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    },
+    {
+      "origin": "http://localhost:5173",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    },
+    {
+      "origin": "http://localhost:5174",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    },
+    {
+      "origin": "http://localhost:8080",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    },
+    {
+      "origin": "http://localhost:8081",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    }
+  ],
+  "documents": [
+    {
+      "path": "README.md",
+      "localLinkCount": 32
+    },
+    {
+      "path": "项目文档/开发进度总览.md",
+      "localLinkCount": 42
+    },
+    {
+      "path": "docs/design/M1-06.md",
+      "localLinkCount": 2
+    },
+    {
+      "path": "docs/verification/M1-06.md",
+      "localLinkCount": 34
+    },
+    {
+      "path": "docs/verification/M1-05.md",
+      "localLinkCount": 43
+    },
+    {
+      "path": "项目文档/开发进度文档/M1_商品可售/06_板块6_库存入账与记账内核.md",
+      "localLinkCount": 2
+    },
+    {
+      "path": "项目文档/开发进度文档/开发完成说明/板块6_开发完成说明.md",
+      "localLinkCount": 5
+    },
+    {
+      "path": "private-delivery/板块6_开发完成说明_含账号密码.local.md",
+      "localLinkCount": 5
+    }
+  ],
+  "git": {
+    "branch": "main",
+    "head": "d3faebdd906e5a118c128ebf33650284b03c2856",
+    "stagedFiles": 0,
+    "changedFiles": 312,
+    "status": "未暂存/提交/推送"
+  },
+  "containers": [
+    {
+      "id": "8ee45dbe157c",
+      "service": "admin-web",
+      "health": "healthy"
+    },
+    {
+      "id": "73b447a471b6",
+      "service": "api",
+      "health": "healthy"
+    },
+    {
+      "id": "bf5410398e77",
+      "service": "db",
+      "health": "healthy"
+    },
+    {
+      "id": "00d68c9931cc",
+      "service": "store-web",
+      "health": "healthy"
+    }
+  ],
+  "database": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "images": [
+    {
+      "service": "api",
+      "id": "sha256:ef4f8a4ce8c4048c768fc4d862ca32c6f40c72b5d20c9a3973324025fb88d47f"
+    },
+    {
+      "service": "admin-web",
+      "id": "sha256:ceae3817e3f62d02ae0c36522ae7e07ea88a1b525a7d9eb79e9ede9594631683"
+    },
+    {
+      "service": "store-web",
+      "id": "sha256:ad9f239e74c32ccf66441e8fa18e0808cf25bc911d9290145be00e17582b8797"
+    }
+  ],
+  "demonstration": {
+    "currentSkus": 8,
+    "available": 96,
+    "reserved": 0,
+    "postedAdjustments": 2,
+    "ledger": 8,
+    "method": "正式业务命令，来源为显式演示资料"
+  },
+  "secretScan": {
+    "fileCount": 438,
+    "foundPaths": [],
+    "originalCredentialEvidence": "docs/verification/evidence/M1-06/credential-scan.json"
+  },
+  "passed": true
+}

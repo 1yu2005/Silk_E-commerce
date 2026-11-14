@@ -1,5 +1,6 @@
 // 作用：按完整锁序领取/安全释放任务；版本、任务历史和审计同事务，不修改轮次或期限。
 import { Inject, Injectable } from '@nestjs/common';
+import type { Prisma, Task } from '@prisma/client';
 import type { CurrentIdentity } from '../auth/current-identity.service.js';
 import { runAuthTransaction } from '../auth/auth-transaction.js';
 import { AccessDeniedError } from '../auth/access-denied.error.js';
@@ -20,8 +21,9 @@ export class TaskCommandService {
     @Inject(TaskLockService) private readonly locks: TaskLockService, @Inject(AuditService) private readonly audit: AuditService,
     @Inject(Clock) private readonly clock: Clock, @Inject(TaskBusinessAdapters) private readonly adapters: TaskBusinessAdapters,
     @Inject(PermissionService) private readonly permissions: PermissionService) {}
-  claim(actor: CurrentIdentity, token: string, id: string, input: ClaimTaskDto, requestId: string) {
-    return this.execute('claim', actor, token, id, input, requestId);
+  claim(actor: CurrentIdentity, token: string, id: string, input: ClaimTaskDto, requestId: string,
+    verifyBusiness?: (tx: Prisma.TransactionClient, task: Task) => Promise<void>) {
+    return this.execute('claim', actor, token, id, input, requestId, verifyBusiness);
   }
   release(actor: CurrentIdentity, token: string, id: string, input: ReleaseTaskDto, requestId: string) {
     return this.execute('release', actor, token, id, input, requestId);
@@ -74,7 +76,8 @@ export class TaskCommandService {
       return { changed: true, task: await this.access.present(tx, current, updated, now) };
     }, error => error instanceof TaskError && error.code === 'TASK_LOCK_PLAN_CHANGED');
   }
-  private execute(action: 'claim' | 'release', actor: CurrentIdentity, token: string, id: string, input: ClaimTaskDto | ReleaseTaskDto, requestId: string) {
+  private execute(action: 'claim' | 'release', actor: CurrentIdentity, token: string, id: string, input: ClaimTaskDto | ReleaseTaskDto, requestId: string,
+    verifyBusiness?: (tx: Prisma.TransactionClient, task: Task) => Promise<void>) {
     id = checkedId(id); requestId = checkedId(requestId);
     if (!Number.isInteger(input.expectedVersion) || input.expectedVersion < 0 || input.expectedVersion > 2147483647) throw new TaskError('TASK_INPUT_INVALID');
     const reason = action === 'release' && 'reason' in input ? input.reason?.trim() : undefined;
@@ -91,6 +94,8 @@ export class TaskCommandService {
         || (task.assigneeId && !lockedEmployees.has(task.assigneeId))) throw new TaskError('TASK_LOCK_PLAN_CHANGED');
       current = await this.access.authenticate(tx, actor, token); await this.access.requireVisible(tx, current, task);
       const adapter = this.access.requireBusinessAccess(task.businessType);
+      // 领域版本检查复用本次完整锁事务，不在领取后另开事务验证。
+      if (verifyBusiness) await verifyBusiness(tx, task);
       const commandKey = `${action}:${input.expectedVersion}`;
       if (action === 'claim' && !isTaskEligible(current, task)) throw new AccessDeniedError('FORBIDDEN');
       // 只重放“同主体、同旧版本、同参数”的最后一次动作；经历释放/再领取后旧请求不能误报成功。

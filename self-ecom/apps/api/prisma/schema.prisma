@@ -234,6 +234,7 @@ enum CommunicationChannel {
 }
 
 enum BusinessAggregateType {
+  INVENTORY_ADJUSTMENT
   PRODUCT
   ORDER
   FULFILLMENT
@@ -741,6 +742,7 @@ model InitialInventoryDraft {
   id String @id @default(uuid()) @db.Uuid
   productId String @map("product_id") @db.Uuid
   conversionKey String @unique @default(uuid()) @map("conversion_key") @db.Uuid
+  adjustmentId String? @unique @map("adjustment_id") @db.Uuid
   status InitialInventoryDraftStatus @default(EDITABLE)
   version Int @default(0)
   createdById String @map("created_by_id") @db.Uuid
@@ -749,6 +751,163 @@ model InitialInventoryDraft {
   product Product @relation(fields: [productId], references: [id], onDelete: Restrict)
   lines InitialInventoryDraftLine[]
   @@map("initial_inventory_draft")
+}
+
+// 库存来源和登记均保留历史身份；外键及跨字段约束见0006，不提供物理删除命令。
+enum InventorySourceType {
+  RECEIPT
+  LOSS
+}
+enum InventoryAdjustmentType {
+  INITIALIZATION
+  ARRIVAL
+  AVAILABLE_LOSS
+  CORRECTION
+}
+enum InventoryAdjustmentStatus {
+  PENDING
+  POSTED
+  VOID
+}
+model InventorySource {
+  id String @id @default(uuid()) @db.Uuid
+  sourceType InventorySourceType @map("source_type")
+  namespace String @db.VarChar(80)
+  reference String @db.VarChar(100)
+  normalizedReference String @map("normalized_reference") @db.VarChar(150)
+  note String? @db.VarChar(2000)
+  version Int @default(0)
+  createdById String @map("created_by_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  @@unique([namespace, normalizedReference])
+  @@map("inventory_source")
+}
+model InventorySourceLine {
+  id String @id @default(uuid()) @db.Uuid
+  sourceId String @map("source_id") @db.Uuid
+  lineKey String @map("line_key") @db.VarChar(64)
+  skuId String @map("sku_id") @db.Uuid
+  verifiedQuantity Int @map("verified_quantity")
+  netPostedQuantity Int @default(0) @map("net_posted_quantity")
+  version Int @default(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  @@unique([sourceId, lineKey])
+  @@unique([id, skuId])
+  @@index([skuId])
+  @@map("inventory_source_line")
+}
+model InventoryAdjustment {
+  id String @id @default(uuid()) @db.Uuid
+  number String @unique @db.VarChar(64)
+  type InventoryAdjustmentType
+  status InventoryAdjustmentStatus @default(PENDING)
+  reason String @db.VarChar(500)
+  evidenceNote String? @map("evidence_note") @db.VarChar(2000)
+  createdById String @map("created_by_id") @db.Uuid
+  postedById String? @map("posted_by_id") @db.Uuid
+  voidedById String? @map("voided_by_id") @db.Uuid
+  postedAt DateTime? @map("posted_at") @db.Timestamptz(3)
+  voidedAt DateTime? @map("voided_at") @db.Timestamptz(3)
+  version Int @default(0)
+  conversionKey String? @unique @map("conversion_key") @db.Uuid
+  conversionFingerprint String? @map("conversion_fingerprint") @db.Char(64)
+  conversionSnapshot Json? @map("conversion_snapshot")
+  checkRequired Boolean @default(false) @map("check_required")
+  checkReasonCode String? @map("check_reason_code") @db.VarChar(80)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+  @@unique([id, type])
+  @@index([status, createdAt, id])
+  @@map("inventory_adjustment")
+}
+model InventoryAdjustmentLine {
+  id String @id @default(uuid()) @db.Uuid
+  adjustmentId String @map("adjustment_id") @db.Uuid
+  type InventoryAdjustmentType
+  skuId String @map("sku_id") @db.Uuid
+  sourceLineId String @map("source_line_id") @db.Uuid
+  batchKey String? @map("batch_key") @db.VarChar(80)
+  quantity Int?
+  signedDeltaA Int? @map("signed_delta_a")
+  rootLineId String? @map("root_line_id") @db.Uuid
+  @@index([adjustmentId])
+  @@index([rootLineId])
+  @@index([skuId])
+  @@map("inventory_adjustment_line")
+}
+model InventoryReceiptBatch {
+  id String @id @default(uuid()) @db.Uuid
+  sourceLineId String @map("source_line_id") @db.Uuid
+  batchKey String @map("batch_key") @db.VarChar(80)
+  rootAdjustmentLineId String @unique @map("root_adjustment_line_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@unique([sourceLineId, batchKey])
+  @@map("inventory_receipt_batch")
+}
+model InventoryAction {
+  id String @id @default(uuid()) @db.Uuid
+  businessType String @map("business_type") @db.VarChar(40)
+  businessId String @map("business_id") @db.Uuid
+  actionType String @map("action_type") @db.VarChar(50)
+  actionKey String @unique @map("action_key") @db.VarChar(180)
+  requestFingerprint String @map("request_fingerprint") @db.Char(64)
+  adjustmentId String? @unique @map("adjustment_id") @db.Uuid
+  resultSummary Json @map("result_summary")
+  actorType AuditActorType @map("actor_type")
+  actorEmployeeId String? @map("actor_employee_id") @db.Uuid
+  actorCustomerId String? @map("actor_customer_id") @db.Uuid
+  requestId String @map("request_id") @db.VarChar(64)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@index([businessType, businessId])
+  @@map("inventory_action")
+}
+model InventoryLedger {
+  id String @id @default(uuid()) @db.Uuid
+  actionId String @map("action_id") @db.Uuid
+  skuId String @map("sku_id") @db.Uuid
+  sequence Int
+  eventType String @map("event_type") @db.VarChar(50)
+  beforeA Int @map("before_a")
+  beforeR Int @map("before_r")
+  afterA Int @map("after_a")
+  afterR Int @map("after_r")
+  deltaA Int @map("delta_a")
+  deltaR Int @map("delta_r")
+  quantityReleased Int? @map("quantity_released")
+  quantityDamaged Int? @map("quantity_damaged")
+  sourceLineId String? @map("source_line_id") @db.Uuid
+  rootAdjustmentLineId String? @map("root_adjustment_line_id") @db.Uuid
+  businessType String @map("business_type") @db.VarChar(40)
+  businessId String @map("business_id") @db.Uuid
+  businessNumber String @map("business_number") @db.VarChar(64)
+  reason String @db.VarChar(500)
+  actorType AuditActorType @map("actor_type")
+  actorEmployeeId String? @map("actor_employee_id") @db.Uuid
+  actorCustomerId String? @map("actor_customer_id") @db.Uuid
+  requestId String @map("request_id") @db.VarChar(64)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@unique([actionId, skuId, sequence])
+  @@index([skuId, createdAt, id])
+  @@index([businessType, businessId])
+  @@index([eventType, createdAt])
+  @@index([sourceLineId])
+  @@map("inventory_ledger")
+}
+model InventoryPurchaseBlock {
+  id String @id @default(uuid()) @db.Uuid
+  skuId String @map("sku_id") @db.Uuid
+  sourceType String @map("source_type") @db.VarChar(40)
+  sourceId String @map("source_id") @db.Uuid
+  reasonCode String @map("reason_code") @db.VarChar(80)
+  active Boolean @default(true)
+  createdByEmployeeId String? @map("created_by_employee_id") @db.Uuid
+  releasedAt DateTime? @map("released_at") @db.Timestamptz(3)
+  version Int @default(0)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+  @@index([skuId, active])
+  @@map("inventory_purchase_block")
 }
 model InitialInventoryDraftLine {
   draftId String @map("draft_id") @db.Uuid

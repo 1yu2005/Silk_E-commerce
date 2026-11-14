@@ -9,6 +9,7 @@ import { afterAll, beforeAll, beforeEach, expect, it } from 'vitest';
 import { assertSafeTestDatabase } from '../scripts/database-env.js';
 import { runPrisma } from '../scripts/database.js';
 import { AppModule } from '../src/app.module.js';
+import { InventoryAdapters } from '../src/inventory/inventory.adapters.js';
 import { AuditService, type AuditAction, type AuditPayload } from '../src/audit/audit.service.js';
 import { AuthSessionService } from '../src/auth/auth-session.service.js';
 import { CurrentIdentityService } from '../src/auth/current-identity.service.js';
@@ -53,7 +54,7 @@ beforeAll(async () => {
   const module = await Test.createTestingModule({ imports: [AppModule] }).overrideProvider(APP_CONFIG).useValue(config)
     .overrideProvider(JwtTokenService).useValue(tokens).overrideProvider(AuthSessionService).useValue(sessions)
     .overrideProvider(CurrentIdentityService).useValue(new CurrentIdentityService(tokens, new PermissionService(), clock))
-    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(AuditService).useValue(audit).overrideProvider(TaskBusinessAdapters).useValue(adapters).compile();
+    .overrideProvider(Clock).useValue({ now: clock }).overrideProvider(AuditService).useValue(audit).overrideProvider(TaskBusinessAdapters).useValue(adapters).overrideProvider(InventoryAdapters).useValue({onModuleInit(){ /* 本文件用真实SQL父事实夹具统一替代业务适配器，库存正式注册由库存集成测试验证。 */ }}).compile();
   app = module.createNestApplication(); await app.init(); prisma = app.get(PrismaService); service = app.get(TaskEntryService);
   peer = new PrismaService(config); await peer.onModuleInit(); await holder.connect();
   await prisma.$transaction(installFixtureTables); await seedPermissionCatalog(prisma); passwordHash = await new PasswordService().hash('IsolatedEntry#2026');

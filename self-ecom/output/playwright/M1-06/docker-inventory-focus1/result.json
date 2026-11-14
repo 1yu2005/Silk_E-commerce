@@ -1,0 +1,320 @@
+{
+  "timestamp": "2026-11-13T17:06:09.986Z",
+  "status": "passed",
+  "project": "self-ecom-m106-acceptance-b0c0399f",
+  "imagePrefix": "self-ecom-m106-acceptance-88c90b26",
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m106-acceptance-88c90b26-api:local",
+      "id": "sha256:ef4f8a4ce8c4048c768fc4d862ca32c6f40c72b5d20c9a3973324025fb88d47f"
+    },
+    {
+      "name": "self-ecom-m106-acceptance-88c90b26-admin:local",
+      "id": "sha256:ceae3817e3f62d02ae0c36522ae7e07ea88a1b525a7d9eb79e9ede9594631683"
+    },
+    {
+      "name": "self-ecom-m106-acceptance-88c90b26-store:local",
+      "id": "sha256:ad9f239e74c32ccf66441e8fa18e0808cf25bc911d9290145be00e17582b8797"
+    }
+  ],
+  "previousEvidence": "output/playwright/M1-06/docker1",
+  "previousChecks": [
+    "Compose强制JWT密钥，三个应用使用独立标签构建成功",
+    "空库迁移、两类seed幂等、四服务健康与两站代理/缓存/Swagger/私有目录",
+    "首管理员直接登录、主动改密及会话撤销、最终权限与最后可用管理员保护",
+    "员工创建、列表详情、改名、版本冲突、依赖授权、调岗、启停、重置密码",
+    "顾客注册/重复/校验、双域隔离、本人资料/昵称/改密与仅撤销当前会话的幂等注销",
+    "SW-03/04/05/07：私有图隔离、安全元数据、用途校验、伪装图、5MiB API及两代理6MiB JSON413",
+    "SW-01/02/06：JPEG/PNG/WebP、本人绑定、重复命令、更换/移除与历史公开图片保留",
+    "SW-08：强改密拦截、个人额外用途权限授予/实时撤销、停用后旧token拒绝上传",
+    "Swagger浏览器现场：Authorize真实Bearer、multipart上传201、头像PUT200、元数据及二进制GET200",
+    "板块4：生产HTTP设置初始化/严格校验/版本冲突/同内容幂等/不可变历史与公开联系白名单",
+    "板块4：真实员工设置/待安排权限拒绝，任务三列表和摘要真实空态，缺业务不伪造成功",
+    "板块4：Nginx生产页面实际保存设置/历史、三种任务空态、手机布局和可拨打联系方式",
+    "板块4：Swagger现场Authorize后真实设置/任务摘要GET200及Bearer核验",
+    "板块4：生产启动真实空扫描及运行记录，镜像无测试任务适配器",
+    "板块5：真实分类/六SKU/批量价格/商品图片/数量草稿全链路，A/R保持0且上架拒绝",
+    "板块5：Swagger UI执行公开详情200，真实六SKU且无需Bearer",
+    "板块5：Nginx生产构建的商品编辑、商城规格/手机布局、公开投影与两站真实图片",
+    "板块5：自然缺货仍公开且不可购、下架404、重新上架重新校验",
+    "板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务",
+    "板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页"
+  ],
+  "checks": [
+    "板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务",
+    "板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页",
+    "板块6：后台来源/损耗新建、库存不足409持久化核实、无效核实拒绝、作废闭环及预警等号",
+    "板块6 SW10/板块5 SW-L01：合法入账及差额更正→真实上架→商城选择SKU、真实图片与余额流水对账",
+    "板块6：数据库重启/API重建保留来源、已入账流水、商品、公开图片和私有凭证",
+    "库存续验：四服务健康/代理/85操作契约一致，浏览器无未捕获错误"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "0a32ef0a-3b5d-439a-a658-4fbb2fcbb573"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "401f160c-adb8-46ca-a6bb-9d31b935744a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "19ac0f77-e092-4dca-8d9e-749448c02e3e"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/sku-scheme",
+      "status": 200,
+      "requestId": "3d2ebab5-972f-429d-ad4e-94c4f5eca13a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/skus/batch-fill",
+      "status": 200,
+      "requestId": "bc64f2de-d03e-41ba-b671-a897d1b8aa2c"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "13ab0968-1d43-4fb7-ab3d-8d9e2196702d"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "098e2586-bcbb-4cc6-85d1-6d0e0ea898bd"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/images",
+      "status": 200,
+      "requestId": "9e314617-f2cb-4a85-b03c-99e2dc18fb12"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/initial-inventory-draft",
+      "status": 200,
+      "requestId": "f30f6891-4928-4a48-833c-739ece9f09ac"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/initial-inventory-draft",
+      "status": 200,
+      "requestId": "a510a059-1744-4180-8f44-1d67aadf2452"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "edfbecf1-3e10-4b3b-b509-52cfba220516"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 409,
+      "requestId": "bd6e7dcd-5f13-4fc0-9200-f850a77b866f"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/initial-inventory-draft",
+      "status": 200,
+      "requestId": "e4cd6513-efa2-43e6-b551-9cc6afe39b76"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/initial-inventory-draft/convert",
+      "status": 200,
+      "requestId": "b227c852-a513-4181-b466-a5ab2acbd5ae"
+    },
+    {
+      "method": "PATCH",
+      "path": "/admin/inventory/adjustments/8e663d9d-1b63-4fcd-8f70-6694ccbfe3c8",
+      "status": 400,
+      "requestId": "453e5417-4e61-4f20-967e-4c2ad0d94b03"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/8e663d9d-1b63-4fcd-8f70-6694ccbfe3c8/void",
+      "status": 409,
+      "requestId": "40eea5a7-6558-4f57-939a-b7417dc5482d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "400a0473-eef5-4ec7-9804-1a67c9e11b70"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/a4966476-2986-4e29-b10b-598c5119307f/claim",
+      "status": 200,
+      "requestId": "94148f25-ce36-4ae5-ad2c-64e59c99573a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/a4966476-2986-4e29-b10b-598c5119307f/post",
+      "status": 409,
+      "requestId": "18413c01-73bb-4db6-8518-66dae31c4843"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/8e663d9d-1b63-4fcd-8f70-6694ccbfe3c8/corrections",
+      "status": 201,
+      "requestId": "b8fb3164-6fab-4625-8367-15ca3dcd0e83"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/2bf5d1d2-785b-46bc-890a-aee3b720063e/claim",
+      "status": 200,
+      "requestId": "b0d51d6b-88d7-4b2b-8469-fa26be29612e"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/2bf5d1d2-785b-46bc-890a-aee3b720063e/post",
+      "status": 200,
+      "requestId": "098c88c6-6cc7-47f0-8318-1a499a75e09b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/sources/9672d3f6-7837-453d-8fa5-806eccd57891",
+      "status": 200,
+      "requestId": "b1af3b57-08d6-47ec-b839-7d3ffd2f1a21"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/5bd27220-c453-475d-a294-a38458b1b9d9",
+      "status": 200,
+      "requestId": "2dd50878-004f-400e-8343-9d9ea494d4e3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/ledger",
+      "status": 200,
+      "requestId": "988d0cde-a541-4610-9b03-f2b905ba0e17",
+      "surface": "Swagger UI",
+      "bearerChecked": true
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7",
+      "status": 200,
+      "requestId": "754ab176-0331-4694-9a0f-284c8090bc7e"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/85a0f20b-b782-4fa4-b654-87fe342bebb7/publish",
+      "status": 200,
+      "requestId": "43f9ab1d-d520-45da-b00f-e95b95f47b78"
+    },
+    {
+      "method": "GET",
+      "path": "/store/products/85a0f20b-b782-4fa4-b654-87fe342bebb7",
+      "status": 200,
+      "requestId": "8a197f16-7572-41a9-a5d7-5e097cf9df20"
+    },
+    {
+      "method": "GET",
+      "path": "/store/products/85a0f20b-b782-4fa4-b654-87fe342bebb7",
+      "status": 200,
+      "requestId": "dc20df02-34f6-46b5-834b-e76c27de68b3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/adjustments/8e663d9d-1b63-4fcd-8f70-6694ccbfe3c8",
+      "status": 200,
+      "requestId": "41f00078-bcab-44b3-8714-f4ad9d449973"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原有卷清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "校验独占四服务",
+      "status": 0
+    },
+    {
+      "label": "仅启动随机专属数据库",
+      "status": 0
+    },
+    {
+      "label": "空库六迁移",
+      "status": 0
+    },
+    {
+      "label": "权限初始化",
+      "status": 0
+    },
+    {
+      "label": "专属管理员初始化",
+      "status": 0
+    },
+    {
+      "label": "启动四服务",
+      "status": 0
+    },
+    {
+      "label": "只读核对库存账务",
+      "status": 0
+    },
+    {
+      "label": "专属数据库和API重启",
+      "status": 0
+    },
+    {
+      "label": "等待恢复",
+      "status": 0
+    },
+    {
+      "label": "仅重建专属API",
+      "status": 0
+    },
+    {
+      "label": "仅核对专属卷",
+      "status": 0
+    },
+    {
+      "label": "仅清理本次独占容器与卷",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "复核原有卷",
+      "status": 0
+    }
+  ],
+  "pageErrors": [],
+  "cleaned": true,
+  "originalResourcesPreserved": true
+}

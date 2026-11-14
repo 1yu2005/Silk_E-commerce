@@ -31,7 +31,7 @@ it('0004真实配置/任务/账号升级0005逐行保持、旧迁移checksum保�
     runPrisma(['migrate','deploy'],variables);expect(await snapshot()).toEqual(before);
     expect((await client.query('SELECT key FROM system_guard ORDER BY key')).rows).toEqual([{key:'ADMIN_AVAILABILITY'},{key:'CATEGORY_TREE'}]);
     for(const row of checksums){expect(row.checksum).toBe(createHash('sha256').update(readFileSync(resolve(__dirname,'../prisma/migrations',row.migration_name,'migration.sql'))).digest('hex'));}
-    expect((await client.query("SELECT migration_name,checksum FROM _prisma_migrations WHERE migration_name<>'0005_categories_products_skus_inventory_accounts' ORDER BY migration_name")).rows).toEqual(checksums);
+    expect((await client.query("SELECT migration_name,checksum FROM _prisma_migrations WHERE migration_name<'0005_categories_products_skus_inventory_accounts' ORDER BY migration_name")).rows).toEqual(checksums);
     const applied=(await client.query('SELECT * FROM _prisma_migrations ORDER BY migration_name')).rows;runPrisma(['migrate','deploy'],variables);expect(await snapshot()).toEqual(before);expect((await client.query('SELECT * FROM _prisma_migrations ORDER BY migration_name')).rows).toEqual(applied);
   }finally{if(connected)await client.end();if(created)await admin.query(`DROP DATABASE "${name}"`);await admin.end();console.log('保留0005升级测试目录：'+scratch);}
 },60000);

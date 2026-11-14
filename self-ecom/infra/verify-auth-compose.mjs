@@ -11,15 +11,16 @@ import { parseEnv } from 'node:util';
 import { readdirSync, writeFileSync } from 'node:fs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
-const catalogMode = process.argv.includes('--catalog');
+const inventoryMode = process.argv.includes('--inventory');
+const catalogMode = process.argv.includes('--catalog') || inventoryMode;
 const settingsMode = process.argv.includes('--settings') || catalogMode;
 const filesMode = process.argv.includes('--files') || settingsMode;
 const outputArgument = process.argv.find(arg => arg.startsWith('--output='))?.slice(9);
 const output = path.resolve(root, outputArgument ?? (filesMode ? 'output/playwright/M0-03-final/docker' : 'output/playwright/final-acceptance/docker'));
 await mkdir(output, { recursive: true });
-const project = `self-ecom-${catalogMode ? 'm105' : settingsMode ? 'm004' : filesMode ? 'm003' : 'm002'}-acceptance-${randomUUID().slice(0, 8)}`;
+const project = `self-ecom-${inventoryMode ? 'm106' : catalogMode ? 'm105' : settingsMode ? 'm004' : filesMode ? 'm003' : 'm002'}-acceptance-${randomUUID().slice(0, 8)}`;
 const imagePrefix = process.argv.find(arg => arg.startsWith('--reuse-images-from='))?.slice(20) ?? project;
-assert.match(imagePrefix, /^self-ecom-(m00[234]|m105)-acceptance-[0-9a-f]{8}$/);
+assert.match(imagePrefix, /^self-ecom-(m00[234]|m10[56])-acceptance-[0-9a-f]{8}$/);
 const docker = process.env.DOCKER_EXECUTABLE ?? 'docker';
 const configured = parseEnv(await readFile(path.join(root, '.env'), 'utf8'));
 const secret = randomBytes(48).toString('hex'); const dbPassword = randomBytes(24).toString('hex');
@@ -47,7 +48,7 @@ const env = { ...process.env, POSTGRES_DB: 'acceptance_dev', POSTGRES_USER: 'acc
 const override = path.join(output, 'compose.override.yaml');
 await writeFile(override, `# 本次验收只使用独立镜像标签，不改变原有开发镜像。\nservices:\n  api:\n    image: ${imagePrefix}-api:local\n  admin-web:\n    image: ${imagePrefix}-admin:local\n  store-web:\n    image: ${imagePrefix}-store:local\n`);
 const base = ['compose', '--project-name', project, '--env-file', path.join(root, '.env'), '-f', path.join(root, 'infra/compose.yaml'), '-f', override];
-const checks = []; const requests = []; const commands = []; const pageErrors = []; let browser; let owned = false; let failure;
+const acceptedImages = []; const checks = []; const requests = []; const commands = []; const pageErrors = []; let browser; let owned = false; let failure;
 function run(args, label, { variables = env, allowFailure = false, input } = {}) {
   const result = spawnSync(docker, args, { cwd: root, env: variables, input, encoding: 'utf8', windowsHide: true, maxBuffer: 32 * 1024 * 1024 });
   const text = (result.stdout ?? '') + (result.stderr ?? '');
@@ -194,6 +195,7 @@ try {
   const catalog = catalogMode ? await (await import('./verify-catalog-http.mjs')).verifyCatalog({ origin,storeOrigin,
     adminToken:otherAdmin.accessToken,browser,call,passed,requests,output,compose,env,pageErrors,
     adminUsername:env.INIT_ADMIN_USERNAME,adminPassword }) : null;
+  const inventory = inventoryMode ? await (await import('./verify-inventory-http.mjs')).verifyInventory({ origin,storeOrigin,adminToken:otherAdmin.accessToken,browser,call,passed,requests,output,compose,env,pageErrors,adminUsername:env.INIT_ADMIN_USERNAME,adminPassword }) : null;
   const adminPage = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
   const storePage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   for (const page of [adminPage, storePage]) page.on('pageerror', error => pageErrors.push(error.name));
@@ -220,6 +222,7 @@ try {
   if (files) await files.verifyPersistence();
   if (settings) await settings.verifyPersistence();
   if (catalog) await catalog.verifyPersistence();
+  if (inventory) await inventory.verifyPersistence();
   await call(storeOrigin, '/store/me', 'GET', undefined, survivingCustomer.accessToken);
   assert.equal((await fetch(`${storeOrigin}/uploads/acceptance-probe.txt`)).status, 404);
   passed('数据库/会话在重启后持久化，API重建保留上传卷且Nginx仍禁止直读');
@@ -245,6 +248,7 @@ try {
   for (const imageName of [`${imagePrefix}-api:local`, `${imagePrefix}-admin:local`, `${imagePrefix}-store:local`]) {
     const imageEnv = run(['image', 'inspect', '--format', '{{json .Config.Env}}', imageName], '检查镜像配置未固化秘密').stdout;
     assert.ok(!secrets.some(value => imageEnv.includes(value)));
+    acceptedImages.push({name:imageName,id:run(['image','inspect','--format','{{.Id}}',imageName],'保存验收镜像ID').stdout.trim()});
   }
   for (const site of [origin, storeOrigin]) {
     const html = await (await fetch(site)).text();
@@ -278,7 +282,7 @@ try {
     originalResourcesPreserved = true;
   } catch (error) { failure = failure ?? redact(error instanceof Error ? error.stack : String(error)); }
   const report = { timestamp: new Date().toISOString(), status: failure ? 'failed' : 'passed', project, imagePrefix,
-    ports: { api: apiPort, admin: adminPort, store: storePort, database: dbPort }, checks, requests, commands, pageErrors,
+    acceptedImages, ports: { api: apiPort, admin: adminPort, store: storePort, database: dbPort }, checks, requests, commands, pageErrors,
     cleaned, originalResourcesPreserved, ...(failure ? { failure } : {}) };
   await writeFile(path.join(output, 'result.json'), JSON.stringify(report, null, 2) + '\n');
   console.log(JSON.stringify({ status: report.status, checks: checks.length, httpRequests: requests.length, cleaned, originalResourcesPreserved }));

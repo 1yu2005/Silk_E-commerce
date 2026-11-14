@@ -1,0 +1,35 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:4764) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/inventory.integration.ts
+保留库存测试图片：C:\Users\20334\AppData\Local\Temp\self-ecom-inventory-V6JcUC
+
+ ❯ test/inventory.integration.ts (22 tests | 1 failed) 10550ms
+   × IT04：损耗更正最多归还已扣数量，来源净量与根流水可复算 337ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/inventory.integration.ts > IT04：损耗更正最多归还已扣数量，来源净量与根流水可复算
+InventoryError: 请求参数不合法
+ ❯ InventoryAdjustments.createInTransaction src/inventory/inventory-adjustment.service.ts:58:81
+     56|   conversion?:{key:string;fingerprint:string;snapshot:Prisma.InputJson…
+     57|   await this.lines(tx,type,lines,conversion?200:100);
+     58|   if(type==='CORRECTION'&&!text(evidenceNote,2000,true)&&!fileIds?.len…
+       |                                                                                 ^
+     59|   const row=await tx.inventoryAdjustment.create({data:{number:'INV-'+r…
+     60|    createdById:ctx.actor.subjectId,...(conversion?{conversionKey:conve…
+ ❯ src/inventory/inventory-adjustment.service.ts:80:13
+ ❯ Proxy._transactionWithCallback ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:859:18
+ ❯ runAuthTransaction src/auth/auth-transaction.ts:9:18
+ ❯ test/inventory.integration.ts:286:19
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 21 passed (22)
+   Start at  00:51:25
+   Duration  12.97s (tests 82%, import 13%, transform 5%)
+

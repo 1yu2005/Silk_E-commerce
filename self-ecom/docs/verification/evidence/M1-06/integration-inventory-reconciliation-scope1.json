@@ -1,0 +1,44 @@
+{
+  "at": "2026-11-13T17:11:36.737Z",
+  "mode": "integration",
+  "label": "inventory-reconciliation-scope1",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T17:11:37.107Z",
+      "endedAt": "2026-11-13T17:11:43.635Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/integration-inventory-reconciliation-scope1-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts",
+        "test/inventory.integration.ts",
+        "test/database.integration.ts"
+      ],
+      "startedAt": "2026-11-13T17:11:43.635Z",
+      "endedAt": "2026-11-13T17:12:00.832Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/integration-inventory-reconciliation-scope1-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_e770e25ada9a4e7395bb1c1c490cc0cc_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": true
+}

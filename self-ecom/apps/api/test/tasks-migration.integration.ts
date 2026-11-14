@@ -17,7 +17,7 @@ import { cursorRow, deadlineRow, fixtureDue, fixtureTime, insertSchemaRow, setti
 const base = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
 if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
 const previousMigrations = ['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history'];
-const expectedMigrations = [...previousMigrations, '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts'];
+const expectedMigrations = [...previousMigrations, '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger'];
 const oldTables = ['employee', 'customer', 'auth_session', 'permission_definition', 'role_permission',
   'employee_extra_permission', 'audit_log', 'system_guard', 'file_asset', 'file_reference',
   'communication', 'business_state_history'] as const;
@@ -140,7 +140,8 @@ it('空库通过五条正式迁移，仅Head有未配置行，不提前建立订
   for (const table of taskTables) expect((await freshClient.query(`SELECT count(*)::int AS count FROM "${table}"`)).rows[0].count)
     .toBe(table === 'store_setting_head' ? 1 : 0);
   expect((await freshClient.query('SELECT * FROM store_setting_head')).rows).toEqual([{ id: 1, current_version_id: null, version: 0 }]);
-  for (const table of ['order', 'after_sale', 'inventory_adjustment', 'task_business_source', 'order_block', 'timer_pause']) {
+  expect((await freshClient.query("SELECT to_regclass('public.inventory_adjustment') AS name")).rows[0].name).toBe('inventory_adjustment');
+  for (const table of ['order', 'after_sale', 'task_business_source', 'order_block', 'timer_pause']) {
     expect((await freshClient.query('SELECT to_regclass($1) AS relation', [`public.${table}`])).rows[0].relation).toBeNull();
   }
 });

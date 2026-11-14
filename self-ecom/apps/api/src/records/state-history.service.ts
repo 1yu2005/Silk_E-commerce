@@ -13,7 +13,7 @@ export class StateHistoryService {
     requireRecordTransaction(tx);
     recordObject(input, ['aggregateType', 'aggregateId', 'dimension', 'commandKey', 'fromState', 'toState', 'requestId', 'reason', 'publicText']);
     if (!actor || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(actor.type)
-      || !['PRODUCT', 'ORDER', 'FULFILLMENT', 'AFTER_SALE'].includes(input.aggregateType)) throw new RecordInputError();
+      || !['INVENTORY_ADJUSTMENT', 'PRODUCT', 'ORDER', 'FULFILLMENT', 'AFTER_SALE'].includes(input.aggregateType)) throw new RecordInputError();
     recordObject(actor, actor.type === 'SYSTEM' ? ['type'] : ['type', 'id']);
     const checkedActor: AuditActor = actor.type === 'SYSTEM' ? { type: 'SYSTEM' } : { type: actor.type, id: recordId(actor.id) };
     const transition = Object.freeze({ aggregateType: input.aggregateType, aggregateId: recordId(input.aggregateId),

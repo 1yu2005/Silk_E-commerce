@@ -16,6 +16,7 @@ export function AppLayout() {
       {state.status === 'ready' && canManageSettings(state.permissions) ? <Link to="/settings">全店设置</Link> : null}
       {state.status==='ready'&&state.permissions?.effectivePermissions.includes('category.read')?<Link to="/categories">分类</Link>:null}
       {state.status==='ready'&&state.permissions?.effectivePermissions.includes('product.read')?<Link to="/products">商品</Link>:null}
+      {state.status==='ready'&&state.permissions?.effectivePermissions.includes('inventory.read')?<Link to="/inventory">库存</Link>:null}
       {signedIn ? <><span>{state.employee?.displayName ?? '当前员工'}</span><Button onClick={() => void employeeAuth.logout()}>退出登录</Button></> : null}
     </nav></header>
     <main className="page-content">{state.notice ? <Alert className="auth-notice" title={state.notice} type="info" showIcon /> : null}<Outlet /></main>

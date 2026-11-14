@@ -1,0 +1,42 @@
+{
+  "at": "2026-11-13T16:55:04.150Z",
+  "mode": "integration",
+  "label": "full1",
+  "checks": [
+    {
+      "name": "migrate",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\prisma@7.10.1_@types+node@2_7320cc4c34b02adac5449fe5f27f7ec2\\node_modules\\prisma\\build\\index.js",
+        "migrate",
+        "deploy"
+      ],
+      "startedAt": "2026-11-13T16:55:04.423Z",
+      "endedAt": "2026-11-13T16:55:10.927Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/integration-full1-migrate.txt"
+    },
+    {
+      "name": "tests",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\.pnpm\\vitest@5.1.0_@types+node@24_29ae317658306d35f18063b97bd9f3c8\\node_modules\\vitest\\vitest.mjs",
+        "run",
+        "--config",
+        "vitest.integration.config.mts"
+      ],
+      "startedAt": "2026-11-13T16:55:10.927Z",
+      "endedAt": "2026-11-13T17:03:05.136Z",
+      "exitCode": 1,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/integration-full1-tests.txt"
+    }
+  ],
+  "database": {
+    "name": "m105_b2aece99b66d449ea9b5f2e567cc0db4_test",
+    "created": true,
+    "removed": true
+  },
+  "passed": false
+}

@@ -21,6 +21,17 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
       {path:'/products',lazy:async()=>({Component:(await import('../pages/ProductListPage')).ProductListPage})},
       {path:'/products/:id',lazy:async()=>({Component:(await import('../pages/ProductEditPage')).ProductEditPage})},
     ]},
+    {element:<CatalogGuard permission="inventory.read"/>,children:[
+      {path:'/inventory',lazy:async()=>({Component:(await import('../pages/InventoryListPage')).InventoryListPage})},
+      {path:'/inventory/ledger',lazy:async()=>({Component:(await import('../pages/InventoryListPage')).InventoryLedgerPage})},
+      {path:'/inventory/sources',lazy:async()=>({Component:(await import('../pages/InventoryListPage')).InventorySourcesPage})},
+      {path:'/inventory/sources/new',lazy:async()=>({Component:(await import('../pages/InventorySourcePage')).InventorySourceCreatePage})},
+      {path:'/inventory/sources/:id',lazy:async()=>({Component:(await import('../pages/InventorySourcePage')).InventorySourcePage})},
+      {path:'/inventory/adjustments',lazy:async()=>({Component:(await import('../pages/InventoryListPage')).InventoryAdjustmentsPage})},
+      {path:'/inventory/adjustments/new',lazy:async()=>({Component:(await import('../pages/InventoryAdjustmentPage')).InventoryAdjustmentCreatePage})},
+      {path:'/inventory/adjustments/:id',lazy:async()=>({Component:(await import('../pages/InventoryAdjustmentPage')).InventoryAdjustmentPage})},
+      {path:'/inventory/skus/:id',lazy:async()=>({Component:(await import('../pages/InventoryBalancePage')).InventoryBalancePage})},
+    ]},
     { path: '/tasks', lazy: async () => ({ Component: (await import('../pages/TaskListPage')).TaskListPage }) },
     { path: '/tasks/:id', lazy: async () => ({ Component: (await import('../pages/TaskDetailPage')).TaskDetailPage }) },
     { element: <SettingsGuard />, children: [

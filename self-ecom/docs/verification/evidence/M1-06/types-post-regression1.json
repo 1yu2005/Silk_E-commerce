@@ -1,0 +1,98 @@
+{
+  "at": "2026-11-13T17:14:12.798Z",
+  "mode": "types",
+  "label": "post-regression1",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T17:14:12.799Z",
+      "endedAt": "2026-11-13T17:14:13.279Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/types-post-regression1-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T17:14:13.279Z",
+      "endedAt": "2026-11-13T17:14:14.038Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/types-post-regression1-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T17:14:14.038Z",
+      "endedAt": "2026-11-13T17:14:14.980Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/types-post-regression1-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T17:14:14.980Z",
+      "endedAt": "2026-11-13T17:14:22.048Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/types-post-regression1-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T17:14:22.048Z",
+      "endedAt": "2026-11-13T17:14:26.182Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/types-post-regression1-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-13T17:14:26.182Z",
+      "endedAt": "2026-11-13T17:14:28.634Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/types-post-regression1-apps-store-web.txt"
+    }
+  ],
+  "passed": true
+}

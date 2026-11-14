@@ -1,0 +1,369 @@
+{
+  "at": "2026-11-13T17:12:59.903Z",
+  "account": {
+    "username": "m105_warehouse",
+    "role": "MERCH_WAREHOUSE",
+    "newMember": false
+  },
+  "requests": [
+    {
+      "path": "/admin/auth/login",
+      "method": "POST",
+      "status": 200,
+      "requestId": "245cf4bb-83d9-4814-baec-bc72c24bb4ca"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "461648e2-c207-4f0f-a7f1-be79fb018c1c"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "e897c336-4293-4aab-84e3-96e48756e8e8"
+    },
+    {
+      "path": "/admin/inventory/sources?keyword=M106-LOCAL-DEMO",
+      "method": "GET",
+      "status": 200,
+      "requestId": "ab63ae1f-bc63-4f59-a8ad-718545dad405"
+    },
+    {
+      "path": "/admin/inventory/sources",
+      "method": "POST",
+      "status": 201,
+      "requestId": "8c665efe-630b-4306-91a7-4bf330a2cca1"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/initial-inventory-draft/convert",
+      "method": "POST",
+      "status": 200,
+      "requestId": "6a03264d-dc00-4f68-a22d-db1560e4cd0a"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/initial-inventory-draft/convert",
+      "method": "POST",
+      "status": 200,
+      "requestId": "3865487d-b71c-42c2-ad60-24e3bb7a97d8"
+    },
+    {
+      "path": "/admin/inventory/adjustments/2262c280-bbe1-429c-b64f-be07c16cffe7/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a1474539-297c-4191-ba53-fceb55542bd4"
+    },
+    {
+      "path": "/admin/inventory/adjustments/2262c280-bbe1-429c-b64f-be07c16cffe7/post",
+      "method": "POST",
+      "status": 200,
+      "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802"
+    },
+    {
+      "path": "/admin/inventory/adjustments/2262c280-bbe1-429c-b64f-be07c16cffe7/post",
+      "method": "POST",
+      "status": 200,
+      "requestId": "5f981e8f-4412-4b7a-b544-6359a18c559f"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "76e33cde-a064-4e5f-850e-999f9473739e"
+    },
+    {
+      "path": "/admin/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41/publish",
+      "method": "POST",
+      "status": 200,
+      "requestId": "f6d0d0d9-35c6-4b5a-884f-c380af634786"
+    },
+    {
+      "path": "/store/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "method": "GET",
+      "status": 200,
+      "requestId": "cabb769d-5074-4b11-8f2a-d87dc5422539"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "bc2d456d-d392-4a7e-a58e-3759fc1f7ac7"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/initial-inventory-draft",
+      "method": "GET",
+      "status": 200,
+      "requestId": "dd3d3f52-874f-4aa0-a792-1e8cf4fb1619"
+    },
+    {
+      "path": "/admin/inventory/sources?keyword=M106-LOCAL-DEMO",
+      "method": "GET",
+      "status": 200,
+      "requestId": "a8b38ecc-58ef-4f55-b18d-0642c114a17e"
+    },
+    {
+      "path": "/admin/inventory/sources",
+      "method": "POST",
+      "status": 201,
+      "requestId": "1878e90f-9cd6-404e-83b6-0162e01af59c"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/initial-inventory-draft/convert",
+      "method": "POST",
+      "status": 200,
+      "requestId": "3d37a979-cd51-4075-b880-9efd4127184a"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/initial-inventory-draft/convert",
+      "method": "POST",
+      "status": 200,
+      "requestId": "40228863-d1b3-46fe-9a0f-c35ba9e39383"
+    },
+    {
+      "path": "/admin/inventory/adjustments/3117c544-eb7f-452d-8739-90ab2d83f9db/claim",
+      "method": "POST",
+      "status": 200,
+      "requestId": "a1a3a0e8-b1cf-4fb4-b901-f2e61343e46d"
+    },
+    {
+      "path": "/admin/inventory/adjustments/3117c544-eb7f-452d-8739-90ab2d83f9db/post",
+      "method": "POST",
+      "status": 200,
+      "requestId": "92c7a911-a4de-49de-bc31-d725f49e1456"
+    },
+    {
+      "path": "/admin/inventory/adjustments/3117c544-eb7f-452d-8739-90ab2d83f9db/post",
+      "method": "POST",
+      "status": 200,
+      "requestId": "8d25e4da-95bb-4d32-9c75-ea9e429c32d3"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "29584053-d261-429a-a054-107f2c1fbec8"
+    },
+    {
+      "path": "/admin/products/cdde35cb-472f-4f45-afda-a2807e657344/publish",
+      "method": "POST",
+      "status": 200,
+      "requestId": "49edfe6d-5460-40eb-8b2f-b3833952efae"
+    },
+    {
+      "path": "/store/products/cdde35cb-472f-4f45-afda-a2807e657344",
+      "method": "GET",
+      "status": 200,
+      "requestId": "eb2e18b1-70e1-401a-bac2-0565bed6e43f"
+    }
+  ],
+  "products": [
+    {
+      "id": "85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+      "name": "日常纯棉T恤",
+      "status": "ON_SALE",
+      "version": 6,
+      "draftId": "f026a16a-601f-42a5-8fba-0b4e3c2ed59e",
+      "adjustmentId": "2262c280-bbe1-429c-b64f-be07c16cffe7",
+      "adjustmentNumber": "INV-FD15CB4F6565446B855BEE62C4A3CD7E",
+      "actionId": "e894db37-e1e8-4f50-b4d7-c0f444546513",
+      "sourceIds": [
+        "a6155c80-ed3c-4722-8f89-2578196678b1"
+      ],
+      "taskIds": [
+        {
+          "id": "ac0f869a-cb02-4d79-82b4-def8ed18df36",
+          "status": "COMPLETED",
+          "stage": "INVENTORY_POST"
+        }
+      ],
+      "before": [
+        {
+          "id": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+          "available": 0,
+          "reserved": 0
+        },
+        {
+          "id": "7a2595ea-fee1-4e80-b187-13c94338bb44",
+          "available": 0,
+          "reserved": 0
+        },
+        {
+          "id": "460f7cd9-1470-42d5-ab58-e482c4f81c46",
+          "available": 0,
+          "reserved": 0
+        },
+        {
+          "id": "12b771ff-6672-499c-8d65-b50a34ff30b6",
+          "available": 0,
+          "reserved": 0
+        },
+        {
+          "id": "c3be086c-76ae-45c2-9aa9-af9461294621",
+          "available": 0,
+          "reserved": 0
+        },
+        {
+          "id": "db7cf23b-282c-4ae3-a68a-03e8382d976b",
+          "available": 0,
+          "reserved": 0
+        }
+      ],
+      "after": [
+        {
+          "id": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+          "available": 12,
+          "reserved": 0
+        },
+        {
+          "id": "7a2595ea-fee1-4e80-b187-13c94338bb44",
+          "available": 12,
+          "reserved": 0
+        },
+        {
+          "id": "460f7cd9-1470-42d5-ab58-e482c4f81c46",
+          "available": 12,
+          "reserved": 0
+        },
+        {
+          "id": "12b771ff-6672-499c-8d65-b50a34ff30b6",
+          "available": 12,
+          "reserved": 0
+        },
+        {
+          "id": "c3be086c-76ae-45c2-9aa9-af9461294621",
+          "available": 12,
+          "reserved": 0
+        },
+        {
+          "id": "db7cf23b-282c-4ae3-a68a-03e8382d976b",
+          "available": 12,
+          "reserved": 0
+        }
+      ],
+      "ledger": [
+        {
+          "id": "3ac7308e-34e9-448c-84a7-c73e05b30571",
+          "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802",
+          "skuId": "12b771ff-6672-499c-8d65-b50a34ff30b6",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        },
+        {
+          "id": "168052ad-c674-4731-a2fc-8de3847147a0",
+          "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802",
+          "skuId": "460f7cd9-1470-42d5-ab58-e482c4f81c46",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        },
+        {
+          "id": "d7042dd7-3aca-4e69-a569-9a5c67dc66b5",
+          "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802",
+          "skuId": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        },
+        {
+          "id": "416f87d9-fbcf-402a-857a-7c6e07dd45ba",
+          "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802",
+          "skuId": "7a2595ea-fee1-4e80-b187-13c94338bb44",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        },
+        {
+          "id": "ea6bd67f-36d4-49f4-9da3-063a9bc4ea1d",
+          "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802",
+          "skuId": "c3be086c-76ae-45c2-9aa9-af9461294621",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        },
+        {
+          "id": "e861d042-91d1-407d-869b-41ba675593bd",
+          "requestId": "88a688f1-3939-40da-9fd4-1cc83b426802",
+          "skuId": "db7cf23b-282c-4ae3-a68a-03e8382d976b",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        }
+      ],
+      "publicUrl": "http://localhost:8081/products/85cab370-f9a0-4ac7-a6f9-3106ed1dec41"
+    },
+    {
+      "id": "cdde35cb-472f-4f45-afda-a2807e657344",
+      "name": "简约拉链外套",
+      "status": "ON_SALE",
+      "version": 6,
+      "draftId": "18a7cea5-e1d4-4153-a7ea-8fae8bc60ad1",
+      "adjustmentId": "3117c544-eb7f-452d-8739-90ab2d83f9db",
+      "adjustmentNumber": "INV-9C9033EECB834AE9A20D9A79B8048B1F",
+      "actionId": "8096488c-3468-4b27-b0bb-f77554e53026",
+      "sourceIds": [
+        "eaf650e5-8c2b-4178-8295-6091e37a9cc5"
+      ],
+      "taskIds": [
+        {
+          "id": "ba669811-3a75-482a-af8d-682170098621",
+          "status": "COMPLETED",
+          "stage": "INVENTORY_POST"
+        }
+      ],
+      "before": [
+        {
+          "id": "8d234d35-a73a-493e-adde-06a638659195",
+          "available": 0,
+          "reserved": 0
+        },
+        {
+          "id": "cdebb7de-1851-4966-8a93-cdb4da4bb39a",
+          "available": 0,
+          "reserved": 0
+        }
+      ],
+      "after": [
+        {
+          "id": "8d234d35-a73a-493e-adde-06a638659195",
+          "available": 12,
+          "reserved": 0
+        },
+        {
+          "id": "cdebb7de-1851-4966-8a93-cdb4da4bb39a",
+          "available": 12,
+          "reserved": 0
+        }
+      ],
+      "ledger": [
+        {
+          "id": "abd5894d-c952-40e1-b74a-f6604dce82eb",
+          "requestId": "92c7a911-a4de-49de-bc31-d725f49e1456",
+          "skuId": "8d234d35-a73a-493e-adde-06a638659195",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        },
+        {
+          "id": "03160cbf-41ed-4f04-8f5e-c4c83af85643",
+          "requestId": "92c7a911-a4de-49de-bc31-d725f49e1456",
+          "skuId": "cdebb7de-1851-4966-8a93-cdb4da4bb39a",
+          "beforeA": 0,
+          "deltaA": 12,
+          "afterA": 12,
+          "afterR": 0
+        }
+      ],
+      "publicUrl": "http://localhost:8081/products/cdde35cb-472f-4f45-afda-a2807e657344"
+    }
+  ],
+  "passed": true
+}

@@ -30,7 +30,7 @@ const choice=object({dimensionId:uuid,valueId:uuid,dimension:text(30,1),value:te
 const skuBase={id:uuid,code:{...text(64,1),pattern:'^[A-Z0-9_-]+$'},priceCents:nullable(int(1000000,1)),available:int(),purchasable:bool,choices:array(choice,3)};
 const skuAdmin={enabled:bool,retiredAt:nullable(date),costCents:nullable(int(1000000)),reserved:int(),purchaseBlocked:bool,warningThreshold:int()};
 const summary={id:uuid,name:text(120,1),brand:nullable(text(80)),mainImageUrl:nullable(text(200)),priceFromCents:nullable(int(1000000,1)),availableQuantity:decimal,paidSalesCount:decimal,purchasable:bool};
-const draftSummary={id:uuid,status:{type:'string',enum:['EDITABLE','CONVERTED','VOID']} as Schema,version:int(),conversionKey:uuid};
+const draftSummary={id:uuid,status:{type:'string',enum:['EDITABLE','CONVERTED','VOID']} as Schema,version:int(),conversionKey:uuid,adjustmentId:nullable(uuid)};
 export const draftSchema=object({...draftSummary,productId:uuid,createdById:uuid,createdAt:date,updatedAt:date,lines:array(object({skuId:uuid,quantity:int()}),200)});
 export function detailSchema(admin:boolean,command=false):Schema{return object({...summary,description:nullable(text(20000)),galleryImageUrls:array(text(200),10),categoryPath:array(object({id:uuid,name:text(50,1)}),3),specDimensions:array(dimensionResponse,3),skus:array(object({...skuBase,...(admin?skuAdmin:{})},Object.keys({...skuBase,...(admin?{enabled:bool,retiredAt:date}:{})}))),
   ...(admin?{productCode:text(64,1),categoryId:nullable(uuid),status,archivedAt:nullable(date),version:int(),mainImageId:nullable(uuid),galleryImageIds:array(uuid,10),initialInventoryDraft:nullable(object(draftSummary))}:{}),

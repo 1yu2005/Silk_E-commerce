@@ -1,0 +1,7 @@
+services:
+  api:
+    image: self-ecom-m106-acceptance-88c90b26-api:local
+  admin-web:
+    image: self-ecom-m106-acceptance-88c90b26-admin:local
+  store-web:
+    image: self-ecom-m106-acceptance-88c90b26-store:local

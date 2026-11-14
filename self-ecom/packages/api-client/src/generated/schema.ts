@@ -288,6 +288,338 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v1/admin/inventory": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 筛选SKU可用量和待付款占用
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["listInventoryBalances"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/{skuId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * SKU余额及有效暂停摘要
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["getInventoryBalance"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/{skuId}/warning-threshold": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * 修改预警线，不产生数量流水
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        put: operations["setInventoryWarningThreshold"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/actions/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 库存成功动作及关联流水
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["getInventoryAction"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 筛选库存登记
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["listInventoryAdjustments"];
+        put?: never;
+        /**
+         * 创建待确认登记，不改变余额
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["createInventoryAdjustment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 登记、经办、核实和账务事实
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["getInventoryAdjustment"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /**
+         * 保存待确认登记，保持任务轮次
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        patch: operations["editInventoryAdjustment"];
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments/{id}/claim": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 领取当前入账或核实任务
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["claimInventoryAdjustment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments/{id}/corrections": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 针对已入账原根另开差额更正
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["createInventoryCorrection"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments/{id}/post": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 当前经办确认并原子入账
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["postInventoryAdjustment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments/{id}/resolve-check": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 校验问题已解决后开启新入账轮
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["resolveInventoryCheck"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/adjustments/{id}/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 当前经办作废待确认登记
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["voidInventoryAdjustment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/ledger": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 库存不可改流水
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["listInventoryLedger"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/source-lines/{id}/verified-quantity": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        /**
+         * 有证据地修订核实数量
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        put: operations["verifyInventorySourceLine"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 库存来源凭据
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["listInventorySources"];
+        put?: never;
+        /**
+         * 创建核实来源凭据
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["createInventorySource"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/sources/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * 来源行净量和实际批次
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        get: operations["getInventorySource"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/inventory/sources/{id}/lines": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 追加固定SKU的核实来源行
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["addInventorySourceLine"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v1/admin/me": {
         parameters: {
             query?: never;
@@ -454,6 +786,26 @@ export interface paths {
          */
         put: operations["saveInitialInventoryDraft"];
         post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v1/admin/products/{id}/initial-inventory-draft/convert": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 数量草稿生成待确认登记
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        post: operations["convertInitialInventoryDraft"];
         delete?: never;
         options?: never;
         head?: never;
@@ -3498,6 +3850,5032 @@ export interface operations {
             };
         };
     };
+    listInventoryBalances: {
+        parameters: {
+            query?: {
+                keyword?: string;
+                lowStock?: "true" | "false";
+                page?: number;
+                pageSize?: number;
+                purchaseBlocked?: "true" | "false";
+                skuId?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            availableTotal: string;
+                            items: {
+                                available: number;
+                                blocks: {
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    reasonCode: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    sourceType: string;
+                                }[];
+                                changed?: boolean;
+                                choices: string[];
+                                code: string;
+                                lowStock: boolean;
+                                /** Format: uuid */
+                                productId: string;
+                                productName: string;
+                                purchaseBlocked: boolean;
+                                reserved: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                version: number;
+                                warningThreshold: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            reservedTotal: string;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getInventoryBalance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                skuId: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            available: number;
+                            blocks: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                reasonCode: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                sourceType: string;
+                            }[];
+                            changed?: boolean;
+                            choices: string[];
+                            code: string;
+                            lowStock: boolean;
+                            /** Format: uuid */
+                            productId: string;
+                            productName: string;
+                            purchaseBlocked: boolean;
+                            reserved: number;
+                            /** Format: uuid */
+                            skuId: string;
+                            version: number;
+                            warningThreshold: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    setInventoryWarningThreshold: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                skuId: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                    threshold: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            available: number;
+                            blocks: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                reasonCode: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                sourceType: string;
+                            }[];
+                            changed?: boolean;
+                            choices: string[];
+                            code: string;
+                            lowStock: boolean;
+                            /** Format: uuid */
+                            productId: string;
+                            productName: string;
+                            purchaseBlocked: boolean;
+                            reserved: number;
+                            /** Format: uuid */
+                            skuId: string;
+                            version: number;
+                            warningThreshold: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getInventoryAction: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            actionKey: string;
+                            actionType: string;
+                            /** Format: uuid */
+                            actorCustomerId: string | null;
+                            /** Format: uuid */
+                            actorEmployeeId: string | null;
+                            /** @enum {string} */
+                            actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                            /** Format: uuid */
+                            adjustmentId: string | null;
+                            /** Format: uuid */
+                            businessId: string;
+                            businessType: string;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            requestFingerprint: string;
+                            /** Format: uuid */
+                            requestId: string;
+                            resultSummary: {
+                                /** Format: uuid */
+                                actionId: string;
+                                ledgerIds: string[];
+                            };
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listInventoryAdjustments: {
+        parameters: {
+            query?: {
+                assigneeId?: string;
+                from?: string;
+                keyword?: string;
+                page?: number;
+                pageSize?: number;
+                status?: "PENDING" | "POSTED" | "VOID";
+                to?: string;
+                type?: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                checkReasonCode: string | null;
+                                checkRequired: boolean;
+                                conversionFingerprint: string | null;
+                                /** Format: uuid */
+                                conversionKey: string | null;
+                                conversionSnapshot: {
+                                    /** Format: uuid */
+                                    draftId: string;
+                                    evidenceFileIds: string[];
+                                    evidenceNote: string;
+                                    mappings: {
+                                        batchKey: string;
+                                        /** Format: uuid */
+                                        skuId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    quantities: {
+                                        quantity: number;
+                                        /** Format: uuid */
+                                        skuId: string;
+                                    }[];
+                                    reason: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                } | null;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidenceNote: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                number: string;
+                                /** Format: date-time */
+                                postedAt: string | null;
+                                /** Format: uuid */
+                                postedById: string | null;
+                                reason: string;
+                                /** @enum {string} */
+                                status: "PENDING" | "POSTED" | "VOID";
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                                /** Format: date-time */
+                                voidedAt: string | null;
+                                /** Format: uuid */
+                                voidedById: string | null;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createInventoryAdjustment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote?: string;
+                    lines: {
+                        batchKey?: string;
+                        quantity: number;
+                        /** Format: uuid */
+                        skuId: string;
+                        /** Format: uuid */
+                        sourceLineId: string;
+                    }[];
+                    reason: string;
+                    /** @enum {string} */
+                    type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS";
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getInventoryAdjustment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    editInventoryAdjustment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote?: string;
+                    expectedVersion: number;
+                    lines: ({
+                        batchKey?: string;
+                        quantity: number;
+                        /** Format: uuid */
+                        skuId: string;
+                        /** Format: uuid */
+                        sourceLineId: string;
+                    } | {
+                        /** Format: uuid */
+                        rootLineId: string;
+                        signedDeltaA: number;
+                    })[];
+                    reason: string;
+                    /** @enum {string} */
+                    type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    claimInventoryAdjustment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedTaskVersion: number;
+                    expectedVersion: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createInventoryCorrection: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote?: string;
+                    lines: {
+                        /** Format: uuid */
+                        rootLineId: string;
+                        signedDeltaA: number;
+                    }[];
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    postInventoryAdjustment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedTaskVersion: number;
+                    expectedVersion: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    resolveInventoryCheck: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote: string;
+                    expectedTaskVersion: number;
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    voidInventoryAdjustment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedTaskVersion: number;
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listInventoryLedger: {
+        parameters: {
+            query?: {
+                actorEmployeeId?: string;
+                businessNumber?: string;
+                eventType?: string;
+                from?: string;
+                page?: number;
+                pageSize?: number;
+                skuId?: string;
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    verifyInventorySourceLine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote: string;
+                    expectedVersion: number;
+                    reason: string;
+                    verifiedQuantity: number;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            lines: {
+                                batches: {
+                                    /** Format: uuid */
+                                    adjustmentId: string;
+                                    adjustmentNumber: string;
+                                    batchKey: string;
+                                    corrections: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        number: string;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "POSTED" | "VOID";
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    rootAdjustmentLineId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                lineKey: string;
+                                netPostedQuantity: number;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                verifiedQuantity: number;
+                                version: number;
+                            }[];
+                            namespace: string;
+                            normalizedReference: string;
+                            note: string | null;
+                            reference: string;
+                            /** @enum {string} */
+                            sourceType: "RECEIPT" | "LOSS";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    listInventorySources: {
+        parameters: {
+            query?: {
+                keyword?: string;
+                page?: number;
+                pageSize?: number;
+                sourceType?: "RECEIPT" | "LOSS";
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            items: {
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                /** Format: uuid */
+                                id: string;
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            page: number;
+                            pageSize: number;
+                            total: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    createInventorySource: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    lines: {
+                        lineKey: string;
+                        /** Format: uuid */
+                        skuId: string;
+                        verifiedQuantity: number;
+                    }[];
+                    namespace: string;
+                    note?: string;
+                    reference?: string;
+                    /** @enum {string} */
+                    sourceType: "RECEIPT" | "LOSS";
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            lines: {
+                                batches: {
+                                    /** Format: uuid */
+                                    adjustmentId: string;
+                                    adjustmentNumber: string;
+                                    batchKey: string;
+                                    corrections: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        number: string;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "POSTED" | "VOID";
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    rootAdjustmentLineId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                lineKey: string;
+                                netPostedQuantity: number;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                verifiedQuantity: number;
+                                version: number;
+                            }[];
+                            namespace: string;
+                            normalizedReference: string;
+                            note: string | null;
+                            reference: string;
+                            /** @enum {string} */
+                            sourceType: "RECEIPT" | "LOSS";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    getInventorySource: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            lines: {
+                                batches: {
+                                    /** Format: uuid */
+                                    adjustmentId: string;
+                                    adjustmentNumber: string;
+                                    batchKey: string;
+                                    corrections: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        number: string;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "POSTED" | "VOID";
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    rootAdjustmentLineId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                lineKey: string;
+                                netPostedQuantity: number;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                verifiedQuantity: number;
+                                version: number;
+                            }[];
+                            namespace: string;
+                            normalizedReference: string;
+                            note: string | null;
+                            reference: string;
+                            /** @enum {string} */
+                            sourceType: "RECEIPT" | "LOSS";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    addInventorySourceLine: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedSourceVersion: number;
+                    lineKey: string;
+                    reason: string;
+                    /** Format: uuid */
+                    skuId: string;
+                    verifiedQuantity: number;
+                };
+            };
+        };
+        responses: {
+            201: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            changed?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            lines: {
+                                batches: {
+                                    /** Format: uuid */
+                                    adjustmentId: string;
+                                    adjustmentNumber: string;
+                                    batchKey: string;
+                                    corrections: {
+                                        /** Format: uuid */
+                                        id: string;
+                                        number: string;
+                                        /** @enum {string} */
+                                        status: "PENDING" | "POSTED" | "VOID";
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** Format: uuid */
+                                    rootAdjustmentLineId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                lineKey: string;
+                                netPostedQuantity: number;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: date-time */
+                                updatedAt: string;
+                                verifiedQuantity: number;
+                                version: number;
+                            }[];
+                            namespace: string;
+                            normalizedReference: string;
+                            note: string | null;
+                            reference: string;
+                            /** @enum {string} */
+                            sourceType: "RECEIPT" | "LOSS";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
     getEmployeeMe: {
         parameters: {
             query?: never;
@@ -3912,6 +9290,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -3937,6 +9317,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -4136,6 +9518,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -4347,6 +9731,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -4372,6 +9758,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -4579,6 +9967,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -4604,6 +9994,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -4813,6 +10205,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -4838,6 +10232,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -5020,6 +10416,8 @@ export interface operations {
                     "application/json": {
                         data: {
                             /** Format: uuid */
+                            adjustmentId: string | null;
+                            /** Format: uuid */
                             conversionKey: string;
                             /** Format: date-time */
                             createdAt: string;
@@ -5198,6 +10596,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -5223,6 +10623,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -5384,6 +10786,408 @@ export interface operations {
             };
         };
     };
+    convertInitialInventoryDraft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    evidenceFileIds?: string[];
+                    evidenceNote?: string;
+                    expectedDraftVersion: number;
+                    expectedProductVersion: number;
+                    mappings: {
+                        batchKey: string;
+                        /** Format: uuid */
+                        skuId: string;
+                        /** Format: uuid */
+                        sourceLineId: string;
+                    }[];
+                    reason: string;
+                    /** Format: uuid */
+                    sourceId: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            action: {
+                                actionKey: string;
+                                actionType: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                id: string;
+                                requestFingerprint: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                resultSummary: {
+                                    /** Format: uuid */
+                                    actionId: string;
+                                    ledgerIds: string[];
+                                };
+                            } | null;
+                            adjustmentVersion: number;
+                            changed?: boolean;
+                            checkReasonCode: string | null;
+                            checkRequired: boolean;
+                            conversionFingerprint: string | null;
+                            /** Format: uuid */
+                            conversionKey: string | null;
+                            conversionSnapshot: {
+                                /** Format: uuid */
+                                draftId: string;
+                                evidenceFileIds: string[];
+                                evidenceNote: string;
+                                mappings: {
+                                    batchKey: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceLineId: string;
+                                }[];
+                                quantities: {
+                                    quantity: number;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                }[];
+                                reason: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                            } | null;
+                            converted?: boolean;
+                            /** Format: date-time */
+                            createdAt: string;
+                            /** Format: uuid */
+                            createdById: string;
+                            evidence: {
+                                contentUrl: string;
+                                /** Format: uuid */
+                                id: string;
+                            }[];
+                            evidenceNote: string | null;
+                            history: {
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                /** Format: uuid */
+                                aggregateId: string;
+                                /** @enum {string} */
+                                aggregateType: "INVENTORY_ADJUSTMENT";
+                                commandKey: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                dimension: string;
+                                fromState: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                publicText: string | null;
+                                reason: string | null;
+                                /** Format: uuid */
+                                requestId: string;
+                                toState: string;
+                            }[];
+                            /** Format: uuid */
+                            id: string;
+                            ledger: {
+                                /** Format: uuid */
+                                actionId: string;
+                                /** Format: uuid */
+                                actorCustomerId: string | null;
+                                /** Format: uuid */
+                                actorEmployeeId: string | null;
+                                /** @enum {string} */
+                                actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
+                                afterA: number;
+                                afterR: number;
+                                beforeA: number;
+                                beforeR: number;
+                                /** Format: uuid */
+                                businessId: string;
+                                businessNumber: string;
+                                businessType: string;
+                                /** Format: date-time */
+                                createdAt: string;
+                                deltaA: number;
+                                deltaR: number;
+                                eventType: string;
+                                /** Format: uuid */
+                                id: string;
+                                quantityDamaged: number | null;
+                                quantityReleased: number | null;
+                                reason: string;
+                                /** Format: uuid */
+                                requestId: string;
+                                /** Format: uuid */
+                                rootAdjustmentLineId: string | null;
+                                sequence: number;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceLineId: string | null;
+                            }[];
+                            lines: {
+                                /** Format: uuid */
+                                adjustmentId: string;
+                                available: number;
+                                batchKey: string | null;
+                                deltaA: number;
+                                /** Format: uuid */
+                                id: string;
+                                quantity: number | null;
+                                reserved: number;
+                                /** Format: uuid */
+                                rootAdjustmentId: string | null;
+                                /** Format: uuid */
+                                rootLineId: string | null;
+                                signedDeltaA: number | null;
+                                skuCode: string;
+                                /** Format: uuid */
+                                skuId: string;
+                                /** Format: uuid */
+                                sourceId: string;
+                                /** Format: uuid */
+                                sourceLineId: string;
+                                /** @enum {string} */
+                                type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            }[];
+                            number: string;
+                            /** Format: date-time */
+                            postedAt: string | null;
+                            /** Format: uuid */
+                            postedById: string | null;
+                            reason: string;
+                            sources: {
+                                changed?: boolean;
+                                /** Format: date-time */
+                                createdAt: string;
+                                /** Format: uuid */
+                                createdById: string;
+                                evidence: {
+                                    contentUrl: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                }[];
+                                /** Format: uuid */
+                                id: string;
+                                lines: {
+                                    batches: {
+                                        /** Format: uuid */
+                                        adjustmentId: string;
+                                        adjustmentNumber: string;
+                                        batchKey: string;
+                                        corrections: {
+                                            /** Format: uuid */
+                                            id: string;
+                                            number: string;
+                                            /** @enum {string} */
+                                            status: "PENDING" | "POSTED" | "VOID";
+                                        }[];
+                                        /** Format: date-time */
+                                        createdAt: string;
+                                        /** Format: uuid */
+                                        id: string;
+                                        /** Format: uuid */
+                                        rootAdjustmentLineId: string;
+                                        /** Format: uuid */
+                                        sourceLineId: string;
+                                    }[];
+                                    /** Format: date-time */
+                                    createdAt: string;
+                                    /** Format: uuid */
+                                    id: string;
+                                    lineKey: string;
+                                    netPostedQuantity: number;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    /** Format: uuid */
+                                    sourceId: string;
+                                    /** Format: date-time */
+                                    updatedAt: string;
+                                    verifiedQuantity: number;
+                                    version: number;
+                                }[];
+                                namespace: string;
+                                normalizedReference: string;
+                                note: string | null;
+                                reference: string;
+                                /** @enum {string} */
+                                sourceType: "RECEIPT" | "LOSS";
+                                /** Format: date-time */
+                                updatedAt: string;
+                                version: number;
+                            }[];
+                            /** @enum {string} */
+                            status: "PENDING" | "POSTED" | "VOID";
+                            task: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            } | null;
+                            tasks: {
+                                /** Format: uuid */
+                                assigneeId: string | null;
+                                /** Format: date-time */
+                                dueAt: string | null;
+                                /** Format: uuid */
+                                id: string;
+                                reassignNeeded: boolean;
+                                round: number;
+                                /** @enum {string} */
+                                stage: "INVENTORY_POST" | "INVENTORY_RECONCILE";
+                                /** @enum {string} */
+                                status: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
+                                version: number;
+                            }[];
+                            taskVersion: number | null;
+                            /** @enum {string} */
+                            type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
+                            /** Format: date-time */
+                            updatedAt: string;
+                            version: number;
+                            /** Format: date-time */
+                            voidedAt: string | null;
+                            /** Format: uuid */
+                            voidedById: string | null;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
     voidInitialInventoryDraft: {
         parameters: {
             query?: never;
@@ -5431,6 +11235,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -5456,6 +11262,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -5663,6 +11471,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -5688,6 +11498,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -6070,6 +11882,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -6095,6 +11909,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -6305,6 +12121,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -6330,6 +12148,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -6539,6 +12359,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -6564,6 +12386,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -6773,6 +12597,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -6798,6 +12624,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */
@@ -7005,6 +12833,8 @@ export interface operations {
                             description: string | null;
                             draft?: {
                                 /** Format: uuid */
+                                adjustmentId: string | null;
+                                /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: date-time */
                                 createdAt: string;
@@ -7030,6 +12860,8 @@ export interface operations {
                             /** Format: uuid */
                             id: string;
                             initialInventoryDraft: {
+                                /** Format: uuid */
+                                adjustmentId: string | null;
                                 /** Format: uuid */
                                 conversionKey: string;
                                 /** Format: uuid */

@@ -1,0 +1,30 @@
+{
+  "at": "2026-11-13T17:39:47.731Z",
+  "checks": [
+    "既有成功证据、首轮失败及定向复验状态均保留，无重复累计",
+    "最近新增或修改的验收/交付脚本Lint通过"
+  ],
+  "commands": [
+    {
+      "label": "新增交付脚本定向Lint",
+      "exitCode": 0
+    }
+  ],
+  "runtime": [
+    {
+      "origin": "http://localhost:3000",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    },
+    {
+      "origin": "http://localhost:3001",
+      "readyStatus": 200,
+      "operations": 85,
+      "contractEqual": true
+    }
+  ],
+  "documents": [],
+  "git": {},
+  "failure": "Expected values to be strictly equal:\n\n502 !== 200\n"
+}

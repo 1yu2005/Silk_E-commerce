@@ -1,0 +1,84 @@
+{
+  "at": "2026-11-13T17:41:04.537Z",
+  "status": "passed",
+  "module": "M1-06",
+  "ordinaryTests": {
+    "unique": 756,
+    "api": 492,
+    "shared": 19,
+    "apiClient": 133,
+    "admin": 75,
+    "store": 37,
+    "firstRunApiFailed": true,
+    "finalApiPassed": true
+  },
+  "integration": {
+    "unique": 1417,
+    "initial": {
+      "passed": 1194,
+      "failed": 3,
+      "notExecuted": 220
+    },
+    "targetedFirst": {
+      "passed": 267,
+      "failed": 1,
+      "total": 268
+    },
+    "targetedFinal": {
+      "passed": 28,
+      "total": 28
+    },
+    "allUniqueHavePassingEvidence": true,
+    "fullRunRepeated": false
+  },
+  "docker": {
+    "initial": {
+      "passedGroups": 20,
+      "http": 183,
+      "status": "failed"
+    },
+    "inventoryContinuation": {
+      "groups": 6,
+      "http": 30,
+      "status": "passed"
+    },
+    "runtimeContinuation": {
+      "groups": 6,
+      "http": 36,
+      "status": "passed"
+    },
+    "overlapNotSummed": true
+  },
+  "demonstration": {
+    "currentSkus": 8,
+    "available": 96,
+    "reserved": 0,
+    "postedAdjustments": 2,
+    "ledger": 8,
+    "method": "正式业务命令，来源为显式演示资料"
+  },
+  "originalMembersPreserved": true,
+  "newRetainedMembers": 0,
+  "appliedMigration": "0006_inventory_sources_adjustments_ledger",
+  "operations": 85,
+  "generatedJsonCallers": 83,
+  "git": {
+    "branch": "main",
+    "head": "d3faebdd906e5a118c128ebf33650284b03c2856",
+    "stagedFiles": 0,
+    "changedFiles": 312,
+    "status": "未暂存/提交/推送"
+  },
+  "verification": "docs/verification/M1-06.md",
+  "deliveryChecks": "docs/verification/evidence/M1-06/delivery-checks.json",
+  "notExecuted": [
+    "本轮板块6远程CI",
+    "失败处理后再次整套集成重跑"
+  ],
+  "future": [
+    "板块6 SW-L01在8～9",
+    "板块6 SW-L02在12",
+    "板块5 SW-L02在8＋9",
+    "完整购买闭环、性能与备份恢复"
+  ]
+}
