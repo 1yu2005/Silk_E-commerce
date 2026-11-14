@@ -13,7 +13,7 @@ import { TaskError } from './task.errors.js';
 export interface OrderTimerRepository {
   /** 验证真实订单状态和动作资格；来源必须解析真实实体及其所属订单，不能只收浏览器UUID。 */
   assertAllowed(tx: Prisma.TransactionClient, actor: TaskCommandActor, orderId: string, command: OrderTimerCommand): Promise<void>;
-  load(tx: Prisma.TransactionClient, orderId: string): Promise<OrderTimerState>;
+  load(tx: Prisma.TransactionClient, orderId: string, command?: OrderTimerCommand): Promise<OrderTimerState>;
   /** 订单已由上下文锁定；须按expectedVersion保存状态、周期、阻塞、命令回执及只追加领域历史，失败抛错。 */
   save(tx: Prisma.TransactionClient, state: OrderTimerState, expectedVersion: number, command: OrderTimerCommand, actor: TaskCommandActor, requestId: string): Promise<void>;
 }
@@ -46,7 +46,7 @@ export class OrderTimerService {
     orderId = checkedId(orderId);
     return this.entry.inContext(context, { businessType: 'ORDER', businessId: orderId }, async scope => {
       const port = this.repositories.require(); await port.assertAllowed(scope.tx, scope.actor, orderId, command);
-      const before = await port.load(scope.tx, orderId);
+      const before = await port.load(scope.tx, orderId, command);
       if (before.orderId !== orderId) throw new TaskError('ORDER_TIMER_STATE_INVALID');
       let actor = await scope.revalidate();
       const result = applyOrderTimer(before, command, this.clock.now(), taskActorKey(actor)); if (!result.changed) return result;

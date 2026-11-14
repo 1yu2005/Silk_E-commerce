@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-14T07:29:42.191Z",
+  "mode": "build",
+  "label": "final-1",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T07:29:42.193Z",
+      "endedAt": "2026-11-14T07:29:42.714Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T07:29:42.714Z",
+      "endedAt": "2026-11-14T07:29:43.708Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T07:29:43.708Z",
+      "endedAt": "2026-11-14T07:29:44.479Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.build.json"
+      ],
+      "startedAt": "2026-11-14T07:29:44.479Z",
+      "endedAt": "2026-11-14T07:29:48.902Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T07:29:48.902Z",
+      "endedAt": "2026-11-14T07:29:54.880Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T07:29:54.880Z",
+      "endedAt": "2026-11-14T07:29:58.000Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-apps-store-web.txt"
+    },
+    {
+      "name": "admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M2-10\\final-1\\admin-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T07:29:58.000Z",
+      "endedAt": "2026-11-14T07:29:58.970Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-admin-web.txt"
+    },
+    {
+      "name": "store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M2-10\\final-1\\store-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T07:29:58.970Z",
+      "endedAt": "2026-11-14T07:29:59.698Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/build-final-1-store-web.txt"
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,27 @@
+✔ 对象键排序、数组保序、中文和空值稳定，重复对象引用合法 (1.1149ms)
+✔ 非法规范输入被拒绝：number/[object Number] (1.6826ms)
+✔ 非法规范输入被拒绝：number/[object Number] (0.0968ms)
+✔ 非法规范输入被拒绝：number/[object Number] (0.061ms)
+✔ 非法规范输入被拒绝：number/[object Number] (0.497ms)
+✔ 非法规范输入被拒绝：bigint/[object BigInt] (0.2988ms)
+✔ 非法规范输入被拒绝：undefined/[object Undefined] (0.2403ms)
+✔ 非法规范输入被拒绝：function/[object Function] (0.1445ms)
+✔ 非法规范输入被拒绝：object/[object Date] (0.1683ms)
+✔ 非法规范输入被拒绝：object/[object Set] (0.2374ms)
+✔ 非法规范输入被拒绝：object/[object Array] (0.0934ms)
+✔ 非法规范输入被拒绝：object/[object Array] (0.0753ms)
+✔ 非法规范输入被拒绝：object/[object Object] (0.0648ms)
+✔ 非法规范输入被拒绝：object/[object Object] (0.0629ms)
+✔ 非法规范输入被拒绝：object/[object Object] (0.9463ms)
+✔ 拒绝循环、访问器、symbol、额外数组属性与超深/超大输入 (3.9502ms)
+✔ 集合拒绝规范重复，返回稳定新数组并保留元素；稀疏数组拒绝 (1.6505ms)
+✔ 幂等键16/128边界合法，拒绝空白、中文、换行、过短和超长 (0.2632ms)
+✔ 分页默认20、最大100，巨大页码为空而不发生乘法溢出 (0.2143ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 19
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 157.9362

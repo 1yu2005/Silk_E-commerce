@@ -20,7 +20,13 @@ import {StockIncidents} from './stock-incident.service.js';
 import {OrderScanner,OrderScheduler} from './order-scanner.service.js';
 import {CheckoutController,StoreOrdersController,AdminOrdersController,StockIncidentsController} from './order.controller.js';
 import {OrderCommunicationController,StoreOrderCommunicationController} from './order-communication.controller.js';
+import {FulfillmentService} from './fulfillment.service.js';
+import {FulfillmentTaskPolicy} from './fulfillment-task.policy.js';
+import {FulfillmentAfterSales} from './fulfillment-after-sales.js';
+import {FulfillmentController,ReceiptController} from './fulfillment.controller.js';
+import {FulfillmentQueries} from './fulfillment-query.service.js';
+import {FulfillmentScanner,FulfillmentScheduler} from './fulfillment-scanner.service.js';
 @Module({imports:[AuthGuardModule,AuditModule,TimeModule,CustomersModule,StoreSettingsModule,InventoryModule,TasksModule,FilesModule,RecordsModule,CatalogModule],
- controllers:[CheckoutController,StoreOrdersController,AdminOrdersController,StockIncidentsController,OrderCommunicationController,StoreOrderCommunicationController],
- providers:[OrderService,OrderAccess,OrderAdapters,OrderTimerAdapter,OrderCommands,OrderQueries,StockIncidents,OrderScanner,OrderScheduler],exports:[OrderService,OrderCommands,OrderQueries,StockIncidents,OrderScanner]})
+ controllers:[CheckoutController,StoreOrdersController,AdminOrdersController,StockIncidentsController,OrderCommunicationController,StoreOrderCommunicationController,FulfillmentController,ReceiptController],
+ providers:[OrderService,OrderAccess,OrderAdapters,OrderTimerAdapter,OrderCommands,OrderQueries,StockIncidents,OrderScanner,OrderScheduler,FulfillmentService,FulfillmentTaskPolicy,FulfillmentAfterSales,FulfillmentQueries,FulfillmentScanner,FulfillmentScheduler],exports:[OrderService,OrderCommands,OrderQueries,StockIncidents,OrderScanner,FulfillmentService,FulfillmentAfterSales,FulfillmentQueries,FulfillmentScanner]})
 export class OrdersModule{}

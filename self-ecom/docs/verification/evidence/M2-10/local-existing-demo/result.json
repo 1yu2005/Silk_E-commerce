@@ -1,0 +1,198 @@
+{
+  "startedAt": "2026-11-14T08:00:24.548Z",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "beb6c15a-c63a-46da-929e-cf8916fb65da"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "72416ce2-ba83-4cba-a60c-94bdcd2b68fc"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "8c2ce22e-c75a-401a-ad0e-ffc9be42b7b2"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me/permissions",
+      "status": 200,
+      "requestId": "f7dfff8d-89ba-4a3c-a2cb-1b5778e60f88"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "eb1e2fe1-93b2-430c-917b-b02f36c0776c"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "ee752ed2-c7c8-4c9b-83b4-4f833c9a7c94"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "403af9f4-8769-4711-a469-b7700886bb29"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "9e075163-4fb7-4124-90fc-154d6def0af9"
+    },
+    {
+      "method": "POST",
+      "path": "/store/checkout/preview",
+      "status": 201,
+      "requestId": "6ee4f22c-c4ca-45ff-b66b-b951e94aa495"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders",
+      "status": 201,
+      "requestId": "7766172e-eda9-4c4b-9199-99f4550f1701"
+    },
+    {
+      "method": "POST",
+      "path": "/store/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/pay",
+      "status": 200,
+      "requestId": "443e8d68-e864-48fa-ad42-b78130656855"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment",
+      "status": 200,
+      "requestId": "b8dd94e1-eb9e-4daa-9c7a-5ca994c6897a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/tasks/47cb9961-cdf6-4df6-8a3f-a9a00285f0f1/claim",
+      "status": 200,
+      "requestId": "1effdb98-cc13-4fb5-8963-bc05c82af4b5"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c",
+      "status": 200,
+      "requestId": "3d013ff5-2ee5-4b46-a358-786e35650e54"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment",
+      "status": 200,
+      "requestId": "79e28aad-8feb-4506-a252-ac5218153fae"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment/pack",
+      "status": 200,
+      "requestId": "4eca3552-a073-4ba2-8b75-34b2dbaae799"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment",
+      "status": 200,
+      "requestId": "4f62c25d-4077-4df3-8fa5-ebbef08fce97"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment/prepare",
+      "status": 200,
+      "requestId": "1525a1d9-76d6-4c26-9511-cda0020089df"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment",
+      "status": 200,
+      "requestId": "abbd3ec4-0853-4818-a8bd-b7936844c3f7"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment",
+      "status": 200,
+      "requestId": "e87eb7c5-f952-4be9-bd9a-70bd97f87524"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment/start-handover",
+      "status": 200,
+      "requestId": "352678ab-2c58-4f5c-9b9d-bd66a628a0e3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment",
+      "status": 200,
+      "requestId": "69f3a424-f272-4a64-90a5-04e6267255a0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c/fulfillment/confirm-handover",
+      "status": 200,
+      "requestId": "e39f600d-ea61-4be7-92d2-16ca6a95c4f0"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c",
+      "status": 200,
+      "requestId": "125a2379-60ae-41d6-b319-2ccd79987754"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "0f029f1c-0cf7-4dd5-9773-68ff079c53d0"
+    },
+    {
+      "method": "GET",
+      "path": "/store/orders/7fe5fcf0-060a-4681-9bf1-53f55be4a57c",
+      "status": 200,
+      "requestId": "c9a45f05-9ae0-496e-8ca0-ade5ec8801ee"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/4a747851-50ae-484c-84f6-cf6f7070b574/consumption",
+      "status": 200,
+      "requestId": "a9010657-a685-424d-8ce1-a7dd96c74d04"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart?page=1&pageSize=100",
+      "status": 200,
+      "requestId": "31159d4b-3e9c-4210-a31e-1afa5871a572"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "5bb3ad6a-63a4-4822-a1e2-5ec3d8798c80"
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "newMembers": 0,
+  "orderId": "7fe5fcf0-060a-4681-9bf1-53f55be4a57c",
+  "demo": {
+    "purpose": "板块10开发演示，不用于真实经营、寄件或收款",
+    "employeeId": "c5fe1bb5-b07a-4036-ba04-9d8620b5d956",
+    "customerId": "4a747851-50ae-484c-84f6-cf6f7070b574",
+    "skuId": "5b5a314b-d7c2-4dc2-b064-7e54cae2954b",
+    "productId": "85cab370-f9a0-4ac7-a6f9-3106ed1dec41",
+    "orderNumber": "OMWG48NJFE6479483879C",
+    "payableCents": 10700,
+    "trackingNumber": "DEMO-M210-23115018",
+    "completedAt": "2026-11-14T08:00:29.438Z",
+    "afterSaleDeadline": "2026-11-21T08:00:29.438Z"
+  },
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: 原员工密码、权限和资料保持 原字段改变 updated_at,last_login_at\n    at unchanged (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-fulfillment-local.mjs:16:153)\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-fulfillment-local.mjs:28:166\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "endedAt": "2026-11-14T08:00:31.386Z"
+}

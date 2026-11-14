@@ -209,6 +209,10 @@ enum FileVisibility {
 }
 
 enum FileOwnerType {
+  HANDOVER_VERIFICATION
+  SHIPMENT_EXCEPTION
+  SHIPMENT_EXCEPTION_DECISION
+  SHIPMENT_TRACKING_REVISION
   ORDER_ITEM
   STOCK_INCIDENT
   CUSTOMER_AVATAR
@@ -1097,6 +1101,11 @@ model Order {
   autoReceiptDueAt     DateTime?           @map("auto_receipt_due_at") @db.Timestamptz(3)
   completedAt          DateTime?           @map("completed_at") @db.Timestamptz(3)
   afterSaleDeadline    DateTime?           @map("after_sale_deadline") @db.Timestamptz(3)
+  receiptRuleSnapshot Json? @map("receipt_rule_snapshot")
+  receiptSettingVersionId String? @map("receipt_setting_version_id") @db.Uuid
+  receiptSource String? @map("receipt_source") @db.VarChar(20)
+  afterSaleRuleSnapshot Json? @map("after_sale_rule_snapshot")
+  completionSettingVersionId String? @map("completion_setting_version_id") @db.Uuid
   createdAt            DateTime            @default(now()) @map("created_at") @db.Timestamptz(3)
   updatedAt            DateTime            @updatedAt @map("updated_at") @db.Timestamptz(3)
   quote                CheckoutQuote       @relation(fields: [quoteId], references: [id], onDelete: Restrict)
@@ -1335,4 +1344,161 @@ model StockIncidentCommand {
 
   @@unique([incidentId, commandKey])
   @@map("stock_incident_command")
+}
+
+// 板块10：履约阶段只使用Order.fulfillmentStage；附属事实不可替代订单主状态。
+model Fulfillment {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @unique @map("order_id") @db.Uuid
+ currentPackingCheckId String? @map("current_packing_check_id") @db.Uuid
+ version Int @default(0)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+ @@map("fulfillment")
+}
+model PackingCheck {
+ id String @id @default(uuid()) @db.Uuid
+ fulfillmentId String @map("fulfillment_id") @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ checkedPhysicalVersion Int @map("checked_physical_version")
+ checkedItems Json @map("checked_items")
+ goodsLocation String @map("goods_location") @db.VarChar(200)
+ checkedById String @map("checked_by_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([orderId,commandKey])
+ @@map("packing_check")
+}
+model Shipment {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @unique @map("order_id") @db.Uuid
+ carrierName String @map("carrier_name") @db.VarChar(60)
+ trackingNumber String @map("tracking_number") @db.VarChar(100)
+ status String @default("PREPARED") @db.VarChar(20)
+ confirmedAttemptId String? @unique @map("confirmed_attempt_id") @db.Uuid
+ actualHandoverAt DateTime? @map("actual_handover_at") @db.Timestamptz(3)
+ preparedById String @map("prepared_by_id") @db.Uuid
+ confirmedById String? @map("confirmed_by_id") @db.Uuid
+ version Int @default(0)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ updatedAt DateTime @updatedAt @map("updated_at") @db.Timestamptz(3)
+ @@map("shipment")
+}
+model HandoverAttempt {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ shipmentId String @map("shipment_id") @db.Uuid
+ attemptNo Int @map("attempt_no")
+ startCommandKey String @map("start_command_key") @db.Uuid
+ fingerprint String @db.Char(64)
+ status String @default("IN_PROGRESS") @db.VarChar(30)
+ carrierSnapshot String @map("carrier_snapshot") @db.VarChar(60)
+ trackingSnapshot String @map("tracking_snapshot") @db.VarChar(100)
+ packingCheckId String @map("packing_check_id") @db.Uuid
+ physicalVersion Int @map("physical_version")
+ startedById String @map("started_by_id") @db.Uuid
+ startedAt DateTime @map("started_at") @db.Timestamptz(3)
+ uncertainAfter DateTime @map("uncertain_after") @db.Timestamptz(3)
+ resolvedById String? @map("resolved_by_id") @db.Uuid
+ resolvedAt DateTime? @map("resolved_at") @db.Timestamptz(3)
+ actualHandoverAt DateTime? @map("actual_handover_at") @db.Timestamptz(3)
+ procedureViolation Boolean @default(false) @map("procedure_violation")
+ resolutionReason String? @map("resolution_reason") @db.VarChar(500)
+ version Int @default(0)
+ @@unique([orderId,attemptNo])
+ @@unique([orderId,startCommandKey])
+ @@unique([id,orderId,shipmentId])
+ @@index([status,uncertainAfter,id])
+ @@map("handover_attempt")
+}
+model HandoverVerification {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ attemptId String @map("attempt_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.Char(64)
+ conclusion String @db.VarChar(30)
+ actualHandoverAt DateTime? @map("actual_handover_at") @db.Timestamptz(3)
+ goodsLocation String? @map("goods_location") @db.VarChar(200)
+ checkedItems Json? @map("checked_items")
+ physicalVersion Int? @map("physical_version")
+ reason String @db.VarChar(500)
+ evidenceNote String? @map("evidence_note") @db.VarChar(2000)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([attemptId,commandKey])
+ @@index([attemptId,createdAt,id])
+ @@map("handover_verification")
+}
+model ShipmentTrackingRevision {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ shipmentId String @map("shipment_id") @db.Uuid
+ oldCarrier String @map("old_carrier") @db.VarChar(60)
+ oldTracking String @map("old_tracking") @db.VarChar(100)
+ newCarrier String @map("new_carrier") @db.VarChar(60)
+ newTracking String @map("new_tracking") @db.VarChar(100)
+ reason String @db.VarChar(500)
+ evidenceNote String? @map("evidence_note") @db.VarChar(2000)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ historical Boolean @default(false) @map("is_historical_correction")
+ commandKey String @map("command_key") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([shipmentId,commandKey])
+ @@map("shipment_tracking_revision")
+}
+model ShipmentException {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ type String @db.VarChar(30)
+ status String @default("OPEN") @db.VarChar(20)
+ incidentKey String @unique @map("incident_key") @db.VarChar(128)
+ fingerprint String @db.Char(64)
+ reason String @db.VarChar(500)
+ evidenceNote String @map("evidence_note") @db.VarChar(2000)
+ goodsLocation String @map("goods_location") @db.VarChar(200)
+ orderItemIds Json @map("order_item_ids")
+ physicalVersionAtOpen Int @map("physical_version_at_open")
+ currentVerifiedPhysicalVersion Int? @map("current_verified_physical_version")
+ stockIncidentId String? @map("stock_incident_id") @db.Uuid
+ version Int @default(0)
+ createdById String @map("created_by_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ resolvedAt DateTime? @map("resolved_at") @db.Timestamptz(3)
+ @@index([orderId,status])
+ @@map("shipment_exception")
+}
+model ShipmentExceptionDecision {
+ id String @id @default(uuid()) @db.Uuid
+ exceptionId String @map("exception_id") @db.Uuid
+ kind String @db.VarChar(40)
+ physicalVersion Int @map("physical_version")
+ description String @db.VarChar(2000)
+ actorEmployeeId String @map("actor_employee_id") @db.Uuid
+ commandKey String @map("command_key") @db.Uuid
+ requestId String @map("request_id") @db.VarChar(64)
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([exceptionId,commandKey])
+ @@map("shipment_exception_decision")
+}
+model FulfillmentCommandResult {
+ id String @id @default(uuid()) @db.Uuid
+ orderId String @map("order_id") @db.Uuid
+ action String @db.VarChar(50)
+ commandKey String @map("command_key") @db.Uuid
+ fingerprint String @db.Char(64)
+ result Json
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([orderId,action,commandKey])
+ @@map("fulfillment_command_result")
+}
+model TimerPauseBlock {
+ id String @id @default(uuid()) @db.Uuid
+ pauseId String @map("pause_id") @db.Uuid
+ blockId String @map("block_id") @db.Uuid
+ createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(3)
+ @@unique([pauseId,blockId])
+ @@map("timer_pause_block")
 }

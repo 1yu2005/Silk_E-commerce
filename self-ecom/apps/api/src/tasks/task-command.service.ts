@@ -61,7 +61,7 @@ export class TaskCommandService {
       if (task.version !== input.expectedVersion) throw new TaskError('VERSION_CONFLICT');
       if (!['OPEN', 'CLAIMED'].includes(task.status) || task.assigneeId === targetId) throw new TaskError('TASK_TRANSFER_BLOCKED');
       if (task.version >= 2147483647) throw new TaskError('TASK_VERSION_EXHAUSTED');
-      await this.adapters.requireHandoff(task.businessType).transfer(tx, current, assignee, task);
+      await this.adapters.requireHandoff(task.businessType).transfer(tx, current, assignee, task, input.physicalHandoff?{...input.physicalHandoff,requestId,now:this.clock.now()}:undefined);
       // 领域交接仍在当前事务；等待期间凭证到期也必须连同领域写入一起回滚。
       current = await this.access.authenticate(tx, actor, token); await this.access.requireVisible(tx, current, task);
       if (!canReassign(current)) throw new AccessDeniedError('FORBIDDEN');
@@ -120,6 +120,7 @@ export class TaskCommandService {
       const now = this.clock.now();
       const updated = await tx.task.update({ where: { id }, data: { status: afterStatus, assigneeId, version: { increment: 1 },
         ...(action === 'claim' ? { reassignNeeded: false } : {}), updatedAt: now } });
+      if (action === 'claim') await adapter.claimed?.(tx, current, updated, requestId, now);
       await tx.taskHistory.create({ data: { taskId: id, action: action === 'claim' ? 'CLAIMED' : 'RELEASED', actorType: 'EMPLOYEE', actorEmployeeId: current.subjectId,
         fromAssigneeId: task.assigneeId, toAssigneeId: assigneeId, beforeStatus: task.status, afterStatus, reason: reason ?? null, commandKey, requestId, createdAt: now } });
       await this.audit.appendAudit(tx, { actor: { type: 'EMPLOYEE', id: current.subjectId }, action: action === 'claim' ? 'task.claim' : 'task.release',

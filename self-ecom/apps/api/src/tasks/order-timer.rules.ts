@@ -3,7 +3,7 @@ import { calculateDeadline } from '../common/time/deadline.js';
 import { checkedId } from '../auth/session-support.js';
 import { TaskError } from './task.errors.js';
 import { TASK_SOURCE_TYPES, type TaskSourceReference } from './task-source.contract.js';
-export interface TimerBlock extends TaskSourceReference { active: boolean; createdAt: Date; releasedAt: Date | null }
+export interface TimerBlock extends TaskSourceReference { active: boolean; createdAt: Date; releasedAt: Date | null; blocksShipment?:boolean; blocksReceipt?:boolean }
 export interface TimerPause {
   cycleNo: number; status: 'ACTIVE' | 'RESUMED' | 'TERMINATED'; pausedAt: Date; remainingMs: number; baseDueAt: Date;
   resumedAt: Date | null; newDueAt: Date | null; endReason: string | null;
@@ -25,6 +25,7 @@ function text(value: string, max: number): string {
   if (typeof value !== 'string' || !value.trim() || [...value.trim()].length > max) throw new TaskError('TASK_INPUT_INVALID'); return value.trim();
 }
 const terminal = (state: OrderTimerState) => state.status === 'COMPLETED' || state.status === 'REFUNDED';
+const receiptBlocking=(block:TimerBlock)=>block.active&&block.blocksReceipt!==false;
 function freeze(state: OrderTimerState, now: Date) {
   if (!state.dueAt || state.pauses.some(row => row.status === 'ACTIVE')) throw new TaskError('ORDER_TIMER_STATE_INVALID');
   const baseDueAt = new Date(state.dueAt);
@@ -40,7 +41,7 @@ export function applyOrderTimer(input: OrderTimerState, command: OrderTimerComma
   const activePauses = input.pauses.filter(row => row.status === 'ACTIVE');
   if (activePauses.length > 1 || (terminal(input) && (input.dueAt || activePauses.length))
     || (input.status !== 'SHIPPED' && !terminal(input) && (input.dueAt || input.actualHandoverAt || input.baseDueAt || activePauses.length))
-    || (input.status === 'SHIPPED' && (!input.actualHandoverAt || !input.baseDueAt || (input.blocks.some(row => row.active) ? !!input.dueAt || activePauses.length !== 1 : !input.dueAt || activePauses.length > 0)))) throw new TaskError('ORDER_TIMER_STATE_INVALID');
+    || (input.status === 'SHIPPED' && (!input.actualHandoverAt || !input.baseDueAt || (input.blocks.some(receiptBlocking) ? !!input.dueAt || activePauses.length !== 1 : !input.dueAt || activePauses.length > 0)))) throw new TaskError('ORDER_TIMER_STATE_INVALID');
   for (const date of [input.actualHandoverAt, input.baseDueAt, input.dueAt]) if (date) millis(date);
   for (const pause of input.pauses) if (!Number.isSafeInteger(pause.remainingMs) || pause.remainingMs < 0 || millis(pause.pausedAt) > at) throw new TaskError('ORDER_TIMER_STATE_INVALID');
   let signature: string;
@@ -59,13 +60,13 @@ export function applyOrderTimer(input: OrderTimerState, command: OrderTimerComma
     if (command.action === 'ADD_BLOCK') {
       if (terminal(state)) throw new TaskError('ORDER_TIMER_BLOCKED');
       if (block) { if (block.active) return { changed: false, state }; throw new TaskError('ORDER_TIMER_COMMAND_CONFLICT'); }
-      const alreadyBlocked = state.blocks.some(row => row.active);
+      const alreadyBlocked = state.blocks.some(receiptBlocking);
       state.blocks.push({ sourceType: command.source.sourceType, sourceId: command.source.sourceId.toLowerCase(), active: true, createdAt: new Date(now), releasedAt: null });
       if (state.status === 'SHIPPED' && !alreadyBlocked) freeze(state, now);
     } else {
       if (!block) throw new TaskError('ORDER_TIMER_BLOCKED'); if (!block.active) return { changed: false, state };
       block.active = false; block.releasedAt = new Date(now);
-      if (state.status === 'SHIPPED' && !state.blocks.some(row => row.active)) {
+      if (state.status === 'SHIPPED' && block.blocksReceipt!==false && !state.blocks.some(receiptBlocking)) {
         const pause = state.pauses.find(row => row.status === 'ACTIVE'); if (!pause) throw new TaskError('ORDER_TIMER_STATE_INVALID');
         const minimum = calculateDeadline(now, { unit: 'NATURAL_DAY', amount: 3 });
         const dueAt = new Date(at + Math.max(pause.remainingMs, +minimum - at)); millis(dueAt);
@@ -77,7 +78,7 @@ export function applyOrderTimer(input: OrderTimerState, command: OrderTimerComma
     if (state.actualHandoverAt) { if (+state.actualHandoverAt === +command.actualAt) return { changed: false, state }; throw new TaskError('ORDER_TIMER_COMMAND_CONFLICT'); }
     state.actualHandoverAt = new Date(command.actualAt); state.status = 'SHIPPED';
     state.baseDueAt = calculateDeadline(command.actualAt, { unit: 'NATURAL_DAY', amount: state.autoReceiptDays }); state.dueAt = new Date(state.baseDueAt);
-    if (state.blocks.some(row => row.active)) freeze(state, now);
+    if (state.blocks.some(receiptBlocking)) freeze(state, now);
   } else if (command.action === 'FINISH') {
     if (state.status === command.terminal) return { changed: false, state };
     if (state.status === 'REFUNDED' || (state.status === 'COMPLETED' && command.terminal !== 'REFUNDED')) throw new TaskError('ORDER_TIMER_BLOCKED');

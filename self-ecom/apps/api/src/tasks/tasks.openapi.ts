@@ -32,6 +32,7 @@ const change = object({ id: uuid, kind: enumeration(['TASK_CHANGE']), occurredAt
 export const claimTaskBody = object({ expectedVersion: integer() });
 export const releaseTaskBody = object({ expectedVersion: integer(), reason: text(500) });
 export const transferTaskBody = object({ targetEmployeeId: uuid, expectedVersion: integer(), reason: text(500) });
+transferTaskBody.properties.physicalHandoff=object({physicalVersion:integer(),goodsLocation:text(200),items:{type:'array',minItems:1,maxItems:100,items:object({orderItemId:uuid,checkedQuantity:integer(1,99)})}});
 export const extendTaskDeadlineBody = object({ newDueAt: { ...date, pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z$',
   description: '真实有效的ISO UTC时刻，必须带Z，精度最多毫秒；必须晚于当前截止及服务器当前时间' }, expectedVersion: integer(), reason: text(500) });
 export const taskListSchema = envelope(object({ items: { type: 'array', maxItems: 100, items: task }, ...pageFields }));

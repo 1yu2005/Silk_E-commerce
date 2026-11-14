@@ -1,0 +1,22 @@
+Datasource "db": PostgreSQL database "shop_dev", schema "public" at "db:5432"
+
+12 migrations found in prisma/migrations
+
+Applying migration `0011_fulfillment_shipments_handover`
+Applying migration `0012_fulfillment_fact_guards`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 0011_fulfillment_shipments_handover/
+    └─ migration.sql
+  └─ 0012_fulfillment_fact_guards/
+    └─ migration.sql
+
+All migrations have been successfully applied.
+ Container self-ecom-api-run-b24ef31da2b2 Creating 
+ Container self-ecom-api-run-b24ef31da2b2 Created 
+$ tsx scripts/database.ts migrate-deploy
+Loaded Prisma config from prisma.config.ts.
+
+Prisma schema loaded from prisma/schema.prisma.

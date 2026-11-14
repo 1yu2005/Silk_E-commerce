@@ -1,0 +1,41 @@
+{
+  "startedAt": "2026-11-14T07:59:44.402Z",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "ed7b84c9-44fe-4b61-a618-b2353658d286"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "6d055400-121e-427d-bf8f-2d4ca537a871"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "dc4f716c-062d-4318-b27d-a8daf1914023"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me/permissions",
+      "status": 200,
+      "requestId": "bf9c81c3-aa52-4de3-9948-dfc633e967fa"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "ceb3a758-e31a-4019-8586-4598459d032e"
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "newMembers": 0,
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: 复用已有地址，不新增或更改原地址\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-fulfillment-local.mjs:21:125\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "endedAt": "2026-11-14T07:59:45.175Z"
+}

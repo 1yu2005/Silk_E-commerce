@@ -1,0 +1,35 @@
+{
+  "startedAt": "2026-11-14T07:54:50.805Z",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "5cbb1406-d415-4a55-b0e9-cf4b7df83ac3"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "4272e3d0-8bb9-4579-951d-81d85a4dcf1a"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me",
+      "status": 200,
+      "requestId": "a86114db-18c1-4c12-aea8-33f9cbd19531"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/me/permissions",
+      "status": 200,
+      "requestId": "2c531608-21eb-4a5d-802d-f0fbec643e11"
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "newMembers": 0,
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(me.effectivePermissions?.includes('shipment.handover')|| (await admin('/admin/me/permissions')).effectivePermissions?.includes('shipment.handover'))\n\n    at file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-fulfillment-local.mjs:20:43\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)",
+  "endedAt": "2026-11-14T07:54:52.022Z"
+}

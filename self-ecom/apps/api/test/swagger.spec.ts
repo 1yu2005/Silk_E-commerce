@@ -56,6 +56,10 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           '/api/v1/admin/inventory/stock-incidents','/api/v1/admin/inventory/stock-incidents/candidates/{skuId}',
           '/api/v1/admin/inventory/stock-incidents/{id}','/api/v1/admin/inventory/stock-incidents/{id}/replenishments',
           '/api/v1/admin/inventory/stock-incidents/{id}/resolve','/api/v1/admin/inventory/stock-incidents/{id}/verify',
+          '/api/v1/admin/orders/{id}/fulfillment',
+          ...['claim','pack','physical-check','prepare','start-handover','confirm-handover','declare-uncertain','resolve-handover','exceptions','tracking','historical-tracking'].map(action=>'/api/v1/admin/orders/{id}/fulfillment/'+action),
+          ...['warehouse-ready','customer-choice','resolve'].map(action=>'/api/v1/admin/orders/{id}/fulfillment/exceptions/{exceptionId}/'+action),
+          '/api/v1/store/orders/{id}/confirm-receipt',
           '/api/v1/store/checkout/preview','/api/v1/store/orders','/api/v1/store/orders/{id}',
           '/api/v1/store/orders/{id}/cancel','/api/v1/store/orders/{id}/communications','/api/v1/store/orders/{id}/pay',
         ]).sort());

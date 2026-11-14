@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-14T07:29:42.953Z",
+  "mode": "contracts",
+  "label": "final-1",
+  "checks": [
+    {
+      "name": "consistency",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\scripts\\check-contracts.mjs"
+      ],
+      "startedAt": "2026-11-14T07:29:42.954Z",
+      "endedAt": "2026-11-14T07:29:53.605Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/contracts-final-1-consistency.txt"
+    },
+    {
+      "name": "drift",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\scripts\\test-contract-drift.mjs"
+      ],
+      "startedAt": "2026-11-14T07:29:53.605Z",
+      "endedAt": "2026-11-14T07:30:01.930Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-10/contracts-final-1-drift.txt"
+    }
+  ],
+  "passed": true
+}

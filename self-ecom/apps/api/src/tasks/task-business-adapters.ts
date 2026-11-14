@@ -33,7 +33,7 @@ export interface TaskBusinessDeadline {
 }
 /** 真实领域必须同事务同步经办信息；回池只解除经办，不得把交运未知等事实改成普通待处理。 */
 export interface TaskBusinessHandoff {
-  transfer(tx: Prisma.TransactionClient, actor: TaskEmployee, target: TaskAssignee, task: Task): Promise<void>;
+  transfer(tx: Prisma.TransactionClient, actor: TaskEmployee, target: TaskAssignee, task: Task, evidence?: {physicalVersion:number;goodsLocation:string;items:{orderItemId:string;checkedQuantity:number}[];requestId:string;now:Date}): Promise<void>;
   qualificationLost(tx: Prisma.TransactionClient, actorId: string, task: Task, reason: string): Promise<void>;
 }
 /** 独立于阶段进入的读取/交接端口；缺失时不展示任务，也不允许领取或释放。 */
@@ -43,6 +43,8 @@ export interface TaskBusinessAccess {
   describe(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<TaskBusinessView>;
   assertClaim(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<void>;
   assertRelease(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<void>;
+  /** 可选的同事务领域同步；通用领取入口与专用入口共享，不能在领取提交后补写。 */
+  claimed?(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task, requestId: string, now: Date): Promise<void>;
 }
 // SKU与其库存余额作为同一锁资源，由真实库存模块按既有顺序取锁，不另造通用库存表。
 export const TASK_LOCK_ORDER = Object.freeze(['CUSTOMER', 'CATEGORY_TREE', 'ORDER', 'PRODUCT', 'SKU_STOCK', 'INVENTORY_SOURCE',

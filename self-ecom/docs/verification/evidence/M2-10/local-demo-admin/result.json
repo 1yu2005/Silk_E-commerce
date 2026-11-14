@@ -1,0 +1,17 @@
+{
+  "startedAt": "2026-11-14T07:56:47.199Z",
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 401,
+      "requestId": "d16fb5da-075e-42b7-a2e6-e06560482666"
+    }
+  ],
+  "checks": [],
+  "pageErrors": [],
+  "newMembers": 0,
+  "status": "failed",
+  "failure": "AssertionError [ERR_ASSERTION]: /admin/auth/login HTTP 401 INVALID_CREDENTIALS\n    at call (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-fulfillment-local.mjs:14:462)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-fulfillment-local.mjs:19:20",
+  "endedAt": "2026-11-14T07:56:47.429Z"
+}

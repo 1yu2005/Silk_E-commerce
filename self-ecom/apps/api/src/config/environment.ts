@@ -7,6 +7,7 @@ export const APP_CONFIG = Symbol('APP_CONFIG');
 export const projectRoot = resolve(__dirname, '../../../..');
 
 export interface EnvironmentConfig {
+  handoverTimeoutMs?:number;
   nodeEnv: 'development' | 'test' | 'production';
   port: number;
   databaseUrl: string;
@@ -19,6 +20,8 @@ export interface EnvironmentConfig {
 /** 只报告变量名和校验规则，不在错误信息中插入传入值。 */
 export function validateEnvironment(env: NodeJS.ProcessEnv): EnvironmentConfig {
   const issues: string[] = [];
+  const handoverMinutes=Number(env.HANDOVER_TIMEOUT_MINUTES??'5');
+  if(!Number.isInteger(handoverMinutes)||handoverMinutes<1||handoverMinutes>120)issues.push('HANDOVER_TIMEOUT_MINUTES: 必须为1～120的整数');
   const nodeEnv = env.NODE_ENV ?? 'development';
   if (!['development', 'test', 'production'].includes(nodeEnv)) {
     issues.push('NODE_ENV: 必须为 development、test 或 production');
@@ -73,6 +76,7 @@ export function validateEnvironment(env: NodeJS.ProcessEnv): EnvironmentConfig {
   if (issues.length) throw new Error(`环境配置不合法：\n${issues.join('\n')}`);
 
   return {
+    handoverTimeoutMs:handoverMinutes*60000,
     nodeEnv: nodeEnv as EnvironmentConfig['nodeEnv'],
     port,
     databaseUrl,

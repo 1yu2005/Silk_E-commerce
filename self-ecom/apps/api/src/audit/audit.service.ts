@@ -3,6 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'order.fulfillment': { target: 'Order', fields: ['orderStatus','orderVersion','fulfillmentAction','fulfillmentStage','sourceId'], reason: true },
+  'order.receipt': { target: 'Order', fields: ['orderStatus','orderVersion','receiptSource','dueAt'], reason: true },
   'order.create': { target: 'Order', fields: ['orderStatus','orderVersion','amountCents'], reason: false },
   'order.pay': { target: 'Order', fields: ['orderStatus','orderVersion','amountCents','paymentId'], reason: false },
   'order.close': { target: 'Order', fields: ['orderStatus','orderVersion','closeReasonCode'], reason: true },
@@ -86,7 +88,10 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
   for (const [field, item] of Object.entries(value)) {
     if (!fields.includes(field)) invalid();
     let valid = false;
-    if (['orderVersion','incidentVersion','amountCents'].includes(field)) valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=(field==='amountCents'?100000000:2147483647);
+    if(field==='fulfillmentAction') valid=typeof item==='string'&&['PACK','PREPARE','START','CONFIRM','UNCERTAIN','RESOLVE','EXCEPTION','WAREHOUSE_READY','CUSTOMER_WAIT','CUSTOMER_CONTINUE','CUSTOMER_REQUEST_REFUND','RELEASE_EXCEPTION','TRACKING','PHYSICAL_CHECK','CLAIM'].includes(item);
+    else if(field==='fulfillmentStage') valid=typeof item==='string'&&['UNCLAIMED','PREPARING','READY','HANDOVER_IN_PROGRESS','HANDOVER_UNCERTAIN','SHIPPED'].includes(item);
+    else if(field==='receiptSource') valid=item==='CUSTOMER'||item==='SYSTEM';
+    else if (['orderVersion','incidentVersion','amountCents'].includes(field)) valid=Number.isInteger(item)&&(item as number)>=0&&(item as number)<=(field==='amountCents'?100000000:2147483647);
     else if(field==='orderStatus') valid=typeof item==='string'&&['WAIT_PAYMENT','WAIT_SHIPMENT','SHIPPED','COMPLETED','CLOSED','REFUNDED'].includes(item);
     else if(field==='paymentId') valid=typeof item==='string'&&uuid.test(item);
     else if(field==='closeReasonCode') valid=typeof item==='string'&&['USER_CANCELLED','ADMIN_CLOSED','PAYMENT_TIMEOUT'].includes(item);
@@ -169,7 +174,7 @@ export class AuditService {
     if (!actor || !['EMPLOYEE', 'CUSTOMER', 'SYSTEM'].includes(actor.type)) invalid();
     if (actor.type !== 'SYSTEM' && !uuid.test(actor.id)) invalid();
     // 系统只允许初始化及已明确实现的任务动作，不能冒用系统绕过员工管理主体约束。
-    if (actor.type === 'SYSTEM' && !['order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
+    if (actor.type === 'SYSTEM' && !['order.fulfillment','order.receipt','order.close','stock.incident','inventory.action','inventory.block','employee.create', 'task.create', 'task.stage.complete', 'task.stage.cancel', 'task.overdue.record',
       'task.stage.suspend', 'task.stage.resume', 'task.source.add', 'task.source.resolve', 'task.source.cancel',
       'order.timer.block.add', 'order.timer.block.release', 'order.timer.handover.record', 'order.timer.finish'].includes(payload.action)) invalid();
     if (['task.claim', 'task.release', 'task.transfer', 'task.qualification.lost', 'task.deadline.extend'].includes(payload.action) && actor.type !== 'EMPLOYEE') invalid();
@@ -180,6 +185,7 @@ export class AuditService {
     if ((payload.action === 'store.setting.update' || payload.action === 'category.change' || payload.action === 'product.change') && actor.type !== 'EMPLOYEE') invalid();
     if ((payload.action==='order.create'||payload.action==='order.pay')&&actor.type!=='CUSTOMER') invalid();
     if(payload.action==='stock.incident'&&actor.type==='CUSTOMER') invalid();
+    if(payload.action==='order.fulfillment'&&actor.type==='CUSTOMER') invalid();
     const reason = payload.reason?.trim();
     if ((policy.reason && !reason) || (reason !== undefined && [...reason].length > 500)) invalid();
     const beforeData = snapshot(payload.before, policy.fields);

@@ -24,6 +24,10 @@ export class CommunicationDto {
 export class CancelOrderDto {@ValidateIf(optional) @Transform(trim) @IsString() @Length(1,500) reason?:string;}
 export class CloseOrderDto {@IsInt() @Min(0) @Max(2147483646) expectedVersion!:number;@Transform(trim) @IsString() @Length(1,500) reason!:string;}
 export class OrderQueryDto extends PaginationDto {
+ @ValidateIf(optional) @Transform(({value}:{value:unknown})=>value==='true'?true:value==='false'?false:value) @IsBoolean() shipmentException?:boolean;
+ @ValidateIf(optional) @IsIn(['UNCLAIMED','PREPARING','READY','HANDOVER_IN_PROGRESS','HANDOVER_UNCERTAIN','SHIPPED']) fulfillmentStage?:string;
+ @ValidateIf(optional) @IsUUID() assigneeId?:string;
+ @ValidateIf(optional) @Transform(({value}:{value:unknown})=>value==='true'?true:value==='false'?false:value) @IsBoolean() unresolvedHandover?:boolean;
  @ValidateIf(optional) @IsIn(ORDER_STATUSES) status?:string;
  @ValidateIf(optional) @Transform(({value}:{value:unknown})=>value==='true'?true:value==='false'?false:value) @IsBoolean() afterSaleOnly?:boolean;
  @ValidateIf(optional) @IsString() @Length(1,64) number?:string;

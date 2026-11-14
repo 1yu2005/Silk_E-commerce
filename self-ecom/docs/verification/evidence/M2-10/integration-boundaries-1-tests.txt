@@ -1,0 +1,45 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:16848) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/fulfillment.integration.ts (24 tests | 2 failed) 69346ms
+   × 数据库交运/快照/终局不可变、packing指针不能串单；非法DTO和顾客权限拒绝 871ms
+   × 私有履约照片真实上传/绑定；顾客与匿名不可读，跨订单不可复用；决定证据独立保留 888ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/fulfillment.integration.ts > 数据库交运/快照/终局不可变、packing指针不能串单；非法DTO和顾客权限拒绝
+AssertionError: expected 403 to be 400 // Object.is equality
+
+- Expected
++ Received
+
+- 400
++ 403
+
+ ❯ test/fulfillment.integration.ts:113:1140
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/fulfillment.integration.ts > 私有履约照片真实上传/绑定；顾客与匿名不可读，跨订单不可复用；决定证据独立保留
+AssertionError: expected 404 to be 401 // Object.is equality
+
+- Expected
++ Received
+
+- 401
++ 404
+
+ ❯ test/fulfillment.integration.ts:114:878
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 22 passed (24)
+   Start at  15:22:24
+   Duration  71.53s (tests 97%, import 2%, transform 1%)
+

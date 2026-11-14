@@ -18,6 +18,7 @@ import {AuditService} from '../audit/audit.service.js';
 import {OrderAccess,requireOrderPermission} from './order-access.service.js';
 import {refreshDamage} from './order-stock.js';
 import {OrderError} from './order.errors.js';
+import {FulfillmentService} from './fulfillment.service.js';
 import type {IncidentCreateDto,IncidentVerifyDto,IncidentCommandDto,ReplenishmentDto} from './order.dto.js';
 const live=['WAIT_PAYMENT','WAIT_SHIPMENT'];
 const retryPlan=(e:unknown)=>e instanceof TaskError&&e.code==='TASK_LOCK_PLAN_CHANGED';
@@ -25,7 +26,7 @@ const retryPlan=(e:unknown)=>e instanceof TaskError&&e.code==='TASK_LOCK_PLAN_CH
 export class StockIncidents {
  constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(OrderAccess)private readonly access:OrderAccess,@Inject(Clock)private readonly clock:Clock,
  @Inject(TaskEntryService)private readonly entry:TaskEntryService,@Inject(TaskSourceService)private readonly sources:TaskSourceService,@Inject(OrderTimerService)private readonly timer:OrderTimerService,
- @Inject(InventoryKernel)private readonly stock:InventoryKernel,@Inject(InventoryBlocks)private readonly blocks:InventoryBlocks,@Inject(FileBindingService)private readonly files:FileBindingService,@Inject(AuditService)private readonly audit:AuditService){}
+ @Inject(InventoryKernel)private readonly stock:InventoryKernel,@Inject(InventoryBlocks)private readonly blocks:InventoryBlocks,@Inject(FileBindingService)private readonly files:FileBindingService,@Inject(AuditService)private readonly audit:AuditService,@Inject(FulfillmentService)private readonly fulfillment:FulfillmentService){}
  private fingerprint(ctx:CustomerContext,command:string,payload:unknown){return commandFingerprint({command,version:1,actor:{type:ctx.actor.subjectType,id:ctx.actor.subjectId},payload});}
  private candidates(tx:Prisma.TransactionClient,skuId:string,ids?:string[]){return tx.orderItem.findMany({where:{skuId,...(ids?{id:{in:ids}}:{}),order:{status:{in:live},actualHandoverAt:null}},orderBy:{id:'asc'}});}
  create(ctx:CustomerContext,input:IncidentCreateDto){const normalized={incidentKey:input.incidentKey,skuId:input.skuId,reason:input.reason,evidenceNote:input.evidenceNote,...(input.items?{items:input.items.map(i=>({orderItemId:i.orderItemId,...(i.damagedQuantity!==undefined?{damagedQuantity:i.damagedQuantity}:{})})).sort((a,b)=>a.orderItemId.localeCompare(b.orderItemId))}:{}),evidenceFileIds:[...(input.evidenceFileIds??[])].sort()};
@@ -53,7 +54,7 @@ export class StockIncidents {
     }
     await this.blocks.open(tx,input.skuId,'ORDER_STOCK_EXCEPTION',incident.id,'ORDER_STOCK_CHECK', {type:'EMPLOYEE',id:actor.subjectId},ctx.requestId);
     if(context)for(const ref of refs){for(const stage of ['STOCK_EXCEPTION_VERIFY','PHYSICAL_VERIFY','ADMIN_STOCK_REVIEW','CUSTOMER_CONTACT'] as const)await this.sources.attach(context,{...ref,stage,sourceType:'STOCK_EXCEPTION',sourceId:incident.id,entryKey:'incident:'+incident.id,reason:input.reason});
-     await this.timer.addBlock(context,ref.businessId,{sourceType:'STOCK_EXCEPTION',sourceId:incident.id},{commandKey:'incident:'+incident.id,reason:input.reason});}
+     await this.timer.addBlock(context,ref.businessId,{sourceType:'STOCK_EXCEPTION',sourceId:incident.id},{commandKey:'incident:'+incident.id,reason:input.reason});await this.fulfillment.stockBlocked(context,ref.businessId,'incident:'+incident.id,input.reason);}
     for(const fileId of normalized.evidenceFileIds)await this.files.bindFiles(tx,{identity:actor,token:ctx.token},{ownerType:'STOCK_INCIDENT',ownerId:incident.id,slot:'evidence',audience:'INTERNAL',fileIds:[fileId],commandKey:incident.id});
     await this.record(tx,ctx,incident.id,'CREATE',input.reason,input.incidentKey,{affectedCount:nowCandidate.length,evidenceNote:input.evidenceNote});return {id:incident.id,version:incident.version,status:incident.status,replayed:false};
    };
@@ -109,6 +110,7 @@ export class StockIncidents {
   const orderIds=[...new Set(incident.items.map(f=>f.orderItem.orderId))].sort();for(const orderId of orderIds){await refreshDamage(tx,orderId);if(context){await this.timer.releaseBlock(context,orderId,{sourceType:'STOCK_EXCEPTION',sourceId:id},{commandKey:input.commandKey,reason:input.reason});
     const rows=await tx.taskBusinessSource.findMany({where:{sourceType:'STOCK_EXCEPTION',sourceId:id,status:'ACTIVE',taskId:{in:(await tx.task.findMany({where:{businessType:'ORDER',businessId:orderId},select:{id:true}})).map(t=>t.id)}},orderBy:{taskId:'asc'}});
     for(const row of rows){const t=await tx.task.findUniqueOrThrow({where:{id:row.taskId}});await this.sources.cancel(context,{businessType:'ORDER',businessId:orderId,taskId:t.id,expectedVersion:t.version,sourceType:'STOCK_EXCEPTION',sourceId:id,commandKey:input.commandKey,reason:'来源已处理：'+input.reason});}
+    await this.fulfillment.stockReleased(context,orderId,input.commandKey,input.reason);
    }}
   await this.blocks.resolve(tx,incident.skuId,'ORDER_STOCK_EXCEPTION',id,{type:'EMPLOYEE',id:ctx.actor.subjectId},ctx.requestId,input.reason);await this.record(tx,ctx,id,'RESOLVE',input.reason,input.commandKey,{evidenceNote:input.evidenceNote});return this.receipt(tx,id,input.commandKey,fingerprint,'RESOLVE',{id,status:updated.status,version:updated.version,replayed:false});
  });}

@@ -1,6 +1,6 @@
 /** 文件作用：按后端动作提示提交领取/释放/转交/延期，保留显示时版本并在成功后刷新详情、历史和摘要。 */
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react';
-import { Alert, Button, Form, Input, Modal, Pagination, Select, Space } from 'antd';
+import { Alert, Button, Checkbox, Form, Input, InputNumber, Modal, Pagination, Select, Space } from 'antd';
 import { AuthError } from '../auth/AuthError';
 import { useEmployeeQuery } from '../employees/use-employee-query';
 import { managementReasonIssue, runEmployeeMutation } from '../employees/management';
@@ -9,6 +9,7 @@ import { session, taskQueries, tasks } from '../services/api';
 import { beijingDeadline, taskActions, type TaskAction, type TaskDetail } from './model';
 import { TaskQueryState } from './TaskQueryState';
 import { TaskMutationController } from './mutation-controller';
+import {orderQueries} from '../orders/data';
 
 function TransferTargets({ task }: { task: TaskDetail }) {
   const [keyword, setKeyword] = useState(''); const [page, setPage] = useState(1);
@@ -24,7 +25,13 @@ function TransferTargets({ task }: { task: TaskDetail }) {
     </>}
   </>;
 }
-interface CommandForm { reason?: string; targetEmployeeId?: string; deadline?: string }
+interface CommandForm { reason?: string; targetEmployeeId?: string; deadline?: string; physicalHandoff?:{physicalVersion:number;goodsLocation:string;items:{orderItemId:string;checkedQuantity:number}[]} }
+function PhysicalHandoff({id}:{id:string}){const state=useEmployeeQuery(orderQueries.detail,id,id),o=state.data;return <><Alert type="info" title="转交前必须现场核对整单实物与位置"/>{o?<>
+ <Form.Item name={['physicalHandoff','physicalVersion']} initialValue={o.stockPhysicalVersion} label="当前实物版本"><InputNumber readOnly/></Form.Item>
+ <Form.Item name={['physicalHandoff','goodsLocation']} label="交接后的货物位置" rules={[{required:true,whitespace:true,max:200}]}><Input maxLength={200}/></Form.Item>
+ {o.items.map((i,n)=><div key={i.id}><Form.Item hidden name={['physicalHandoff','items',n,'orderItemId']} initialValue={i.id}><Input/></Form.Item><Form.Item name={['physicalHandoff','items',n,'checkedQuantity']} label={i.productName+' / '+i.skuCode+' · 应有 '+i.quantity+'件'} initialValue={i.quantity} rules={[{required:true,type:'integer',min:1,max:99}]}><InputNumber/></Form.Item></div>)}
+ <Form.Item name="physicalChecked" valuePropName="checked" rules={[{validator:(_rule,value)=>value?Promise.resolve():Promise.reject(new Error('请现场逐件核对实物'))}]}><Checkbox>已逐件核对全部款式、规格、数量及位置</Checkbox></Form.Item>
+ </>:<TaskQueryState error={state.error} retry={()=>void orderQueries.detail.read(id,id,true)}/>}</>;}
 function TaskActionDialog({ task, action, close, saved, reload }: { task: TaskDetail; action: TaskAction; close: () => void; saved: (message: string) => void; reload: () => void }) {
   const [form] = Form.useForm<CommandForm>();
   // StrictMode的清理会销毁订阅，控制器在effect外保留但不永久dispose；用组件存活标记屏蔽旧回调。
@@ -36,7 +43,7 @@ function TaskActionDialog({ task, action, close, saved, reload }: { task: TaskDe
     const common = { expectedVersion: task.version, reason: values.reason?.trim() ?? '' }; const path = { id: task.id };
     const send = () => action === 'claim' ? tasks.claimTask({ path, body: { expectedVersion: task.version } })
       : action === 'release' ? tasks.releaseTask({ path, body: common })
-      : action === 'transfer' ? tasks.transferTask({ path, body: { ...common, targetEmployeeId: values.targetEmployeeId! } })
+      : action === 'transfer' ? tasks.transferTask({ path, body: { ...common, targetEmployeeId: values.targetEmployeeId!,...(task.businessType==='ORDER'&&task.stage==='SHIPMENT_PROCESS'?{physicalHandoff:values.physicalHandoff}:{}) } })
       : tasks.extendTaskDeadline({ path, body: { ...common, newDueAt: beijingDeadline(values.deadline)! } });
     void controller.submit(send, result => { if (activeRef.current) saved(result.changed ? `${taskActions[action]}成功。` : '该操作已生效，未重复写入。'); });
   };
@@ -49,6 +56,8 @@ function TaskActionDialog({ task, action, close, saved, reload }: { task: TaskDe
     <Form<CommandForm> form={form} layout="vertical" onFinish={submit} disabled={state.sending || blocked} preserve={false}>
       {action === 'claim' ? <p>确认由你领取并处理此任务。领取后可在“我的待办”查看。</p> : null}
       {action === 'transfer' ? <TransferTargets task={task} /> : null}
+      {action==='transfer'&&task.businessType==='ORDER'&&task.stage==='SHIPMENT_PROCESS'?<PhysicalHandoff id={task.businessId}/>:null}
+      {action==='release'&&task.businessType==='ORDER'&&task.stage==='SHIPMENT_PROCESS'?<p>请先到订单履约页面完成当前轮整单核对并记录位置，再释放。交运中或待核实不能按普通任务释放。</p>:null}
       {action === 'extendDeadline' ? <><p className="task-hint">{task.dueAt ? '新截止须晚于原截止和服务器当前时间。' : '本次是首次指定人工截止，原始截止仍为空。'}原截止与曾逾期记录会保留。</p>
         <Form.Item name="deadline" label="新截止时间（北京时间）" rules={[{ validator: (_, value: unknown) => {
           const utc = beijingDeadline(value); return utc && (!task.dueAt || Date.parse(utc) > Date.parse(task.dueAt)) ? Promise.resolve() : Promise.reject(new Error('请输入有效的北京时间，且晚于当前截止'));

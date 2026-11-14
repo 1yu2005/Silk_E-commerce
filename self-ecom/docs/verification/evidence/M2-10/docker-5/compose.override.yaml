@@ -1,0 +1,7 @@
+services:
+  api:
+    image: self-ecom-m210-acceptance-32411992-api:local
+  admin-web:
+    image: self-ecom-m210-acceptance-32411992-admin:local
+  store-web:
+    image: self-ecom-m210-acceptance-32411992-store:local
