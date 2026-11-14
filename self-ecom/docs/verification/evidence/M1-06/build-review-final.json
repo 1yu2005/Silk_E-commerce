@@ -1,0 +1,126 @@
+{
+  "at": "2026-11-14T01:13:03.150Z",
+  "mode": "build",
+  "label": "review-final",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T01:13:03.151Z",
+      "endedAt": "2026-11-14T01:13:03.572Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T01:13:03.572Z",
+      "endedAt": "2026-11-14T01:13:05.585Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T01:13:05.586Z",
+      "endedAt": "2026-11-14T01:13:06.904Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.build.json"
+      ],
+      "startedAt": "2026-11-14T01:13:06.904Z",
+      "endedAt": "2026-11-14T01:13:10.862Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T01:13:10.862Z",
+      "endedAt": "2026-11-14T01:13:14.431Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json"
+      ],
+      "startedAt": "2026-11-14T01:13:14.431Z",
+      "endedAt": "2026-11-14T01:13:16.801Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-apps-store-web.txt"
+    },
+    {
+      "name": "admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\admin-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M1-06\\review-final\\admin-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T01:13:16.801Z",
+      "endedAt": "2026-11-14T01:13:17.607Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-admin-web.txt"
+    },
+    {
+      "name": "store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\apps\\store-web\\node_modules\\vite\\bin\\vite.js",
+        "build",
+        "--outDir",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\output\\build\\M1-06\\review-final\\store-web",
+        "--emptyOutDir",
+        "false"
+      ],
+      "startedAt": "2026-11-14T01:13:17.607Z",
+      "endedAt": "2026-11-14T01:13:18.228Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M1-06/build-review-final-store-web.txt"
+    }
+  ],
+  "passed": true
+}

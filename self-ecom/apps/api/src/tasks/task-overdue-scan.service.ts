@@ -91,7 +91,7 @@ export class TaskOverdueScanService {
       await tx.$queryRaw`SELECT id FROM task WHERE id=${id}::uuid FOR UPDATE`;
       const task = await tx.task.findUniqueOrThrow({ where: { id } });
       if (task.assigneeId && !employees.has(task.assigneeId)) throw new TaskError('TASK_LOCK_PLAN_CHANGED');
-      await this.adapters.require(task.businessType).authorize(tx, task, { subjectType: 'SYSTEM' });
+      await this.adapters.require(task.businessType).authorize(tx, task, { subjectType: 'SYSTEM' }, 'OVERDUE_SCAN');
       if (!task.dueAt || task.dueAt > asOf) return false;
       return this.events.recordOverdue(tx, task, { type: 'SYSTEM' }, requestId, this.clock.now());
     }, error => error instanceof TaskError && error.code === 'TASK_LOCK_PLAN_CHANGED');

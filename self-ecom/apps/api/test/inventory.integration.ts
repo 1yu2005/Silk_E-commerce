@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import sharp from 'sharp';
 import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
-import { afterAll, beforeAll, expect, it } from 'vitest';
+import { afterAll, beforeAll, expect, it, vi } from 'vitest';
 import type { Prisma } from '@prisma/client';
 import { assertSafeTestDatabase } from '../scripts/database-env.js';
 import { AppModule } from '../src/app.module.js';
@@ -31,6 +31,10 @@ import { configureApp } from '../src/common/configure-app.js';
 import { InventoryController, InventoryConversionController } from '../src/inventory/inventory.controller.js';
 import * as D from '../src/inventory/inventory.dto.js';
 import { CategoryService } from '../src/catalog/category.service.js';
+import { Clock } from '../src/common/time/clock.js';
+import { TaskDeadlineService } from '../src/tasks/task-deadline.service.js';
+import { TaskOverdueScanService } from '../src/tasks/task-overdue-scan.service.js';
+import { TaskEntryService } from '../src/tasks/task-entry.service.js';
 const metadata=(controller:object,rows:Record<string,unknown[]>)=>{for(const [key,types]of Object.entries(rows))Reflect.defineMetadata('design:paramtypes',types,controller,key);};
 metadata(InventoryController.prototype,{list:[D.InventoryQueryDto],ledger:[D.InventoryQueryDto],action:[D.InventoryIdDto],sourceList:[D.InventoryQueryDto],sourceDetail:[D.InventoryIdDto],sourceCreate:[D.SourceCreateDto,Object,Object],sourceAdd:[D.InventoryIdDto,D.SourceAddLineDto,Object,Object],verify:[D.InventoryIdDto,D.SourceVerifyDto,Object,Object],adjustmentList:[D.InventoryQueryDto],adjustmentDetail:[D.InventoryIdDto],create:[D.AdjustmentCreateDto,Object,Object],edit:[D.InventoryIdDto,D.AdjustmentEditDto,Object,Object],claim:[D.InventoryIdDto,D.AdjustmentCommandDto,Object,Object],post:[D.InventoryIdDto,D.AdjustmentCommandDto,Object,Object],void:[D.InventoryIdDto,D.AdjustmentVoidDto,Object,Object],corrections:[D.InventoryIdDto,D.CorrectionCreateDto,Object,Object],resolve:[D.InventoryIdDto,D.AdjustmentResolveDto,Object,Object],balance:[D.InventorySkuIdDto],threshold:[D.InventorySkuIdDto,D.InventoryThresholdDto,Object,Object]});
 metadata(InventoryConversionController.prototype,{convert:[D.InventoryIdDto,D.InitialConvertDto,Object,Object]});
@@ -300,6 +304,45 @@ it('IT05/06：补齐只扣A；最终验收独立于退款，少件需批准且�
  const zero=await automaticFixture(f.skuId,{...base,handover:'NONE',refundSucceeded:true,finalPhysicalCheck:true,lines:[{...base.lines[0]!,saleable:0,received:2,damaged:2}]});
  const results=await Promise.all(Array.from({length:20},()=>autoRun('UNSHIPPED_REFUND_RESTOCK',zero)));expect(results.filter(r=>r.changed)).toHaveLength(1);
  expect(await db.inventoryLedger.count({where:{businessId:zero.businessId}})).toBe(0);expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:10});
+});
+it('审查回归：库存任务人工指定截止后可扫描逾期，系统仍不能进入人工阶段',async()=>{
+ const f=await fixture(10),p=await pending(f,10),admin=await actor('SUPER_ADMIN');
+ const task=await db.task.findFirstOrThrow({where:{businessId:p.id,stage:'INVENTORY_POST'}});
+ const now=Date.now(),clock=vi.spyOn(app.get(Clock),'now').mockReturnValue(new Date(now));
+ try{
+  await app.get(TaskDeadlineService).extend(admin.actor,admin.token,task.id,{expectedVersion:task.version,newDueAt:new Date(now+60000).toISOString(),reason:'明确库存人工处理截止'},randomUUID());
+  clock.mockReturnValue(new Date(now+60000));
+  const scan=await app.get(TaskOverdueScanService).scan();
+  expect(scan).toMatchObject({status:'SUCCEEDED',changedCount:1,failedCount:0});
+  expect(await db.task.findUniqueOrThrow({where:{id:task.id}})).toMatchObject({status:'OPEN',everOverdue:true,firstOverdueAt:new Date(now+60000)});
+  expect(await db.deadlineEvent.count({where:{taskId:task.id,eventType:'OVERDUE'}})).toBe(1);
+  expect(await db.auditLog.count({where:{targetId:task.id,action:'task.overdue.record',actorType:'SYSTEM'}})).toBe(1);
+  expect(await app.get(TaskOverdueScanService).scan()).toMatchObject({status:'SUCCEEDED',changedCount:0,failedCount:0});
+  expect(await db.inventoryBalance.findUniqueOrThrow({where:{skuId:f.skuId}})).toMatchObject({available:0,reserved:0});
+  expect(await db.inventoryAdjustment.findUniqueOrThrow({where:{id:p.id}})).toMatchObject({status:'PENDING'});
+  await expect(db.$transaction(tx=>app.get(TaskEntryService).withContext(tx,{type:'SYSTEM'},[{businessType:'INVENTORY_ADJUSTMENT',businessId:p.id}],randomUUID(),async()=>undefined))).rejects.toMatchObject({code:'INVENTORY_DOMAIN_NOT_READY'});
+ }finally{clock.mockRestore();}
+});
+it('审查回归：读取登记期间并发入账，返回同一快照的状态、余额、来源、任务和流水',async()=>{
+ const f=await fixture(10),p=await pending(f,10),original=db.$transaction.bind(db);let observed=false;
+ const spy=vi.spyOn(db,'$transaction').mockImplementation(((command:(tx:Prisma.TransactionClient)=>Promise<unknown>,options:object)=>{
+  // 仅拦截这次详情读取；并发入账仍运行完整的真实事务与锁序。
+  spy.mockRestore();return original(async tx=>command(new Proxy(tx,{get(client,key){
+   if(key!=='inventoryAdjustment')return Reflect.get(client,key);
+   return new Proxy(tx.inventoryAdjustment,{get(delegate,method){
+    if(method!=='findUnique')return Reflect.get(delegate,method);
+    return async(input:Prisma.InventoryAdjustmentFindUniqueArgs)=>{const row=await delegate.findUnique(input);
+     if(!observed&&row?.id===p.id){observed=true;await post(p.id);}return row;};
+   }});
+  }})),options);
+ }) as typeof db.$transaction);
+ try{
+  const view=await app.get(InventoryQueries).adjustment(p.id);
+  expect(observed).toBe(true);expect(view).toMatchObject({status:'PENDING',version:0,action:null,task:{status:'OPEN',version:0}});
+  expect(view.lines[0]).toMatchObject({available:0,reserved:0});expect(view.sources[0]!.lines[0]).toMatchObject({netPostedQuantity:0,batches:[]});expect(view.ledger).toEqual([]);
+  expect(await db.inventoryAdjustment.findUniqueOrThrow({where:{id:p.id}})).toMatchObject({status:'POSTED'});
+  expect(await db.inventoryBalance.findUniqueOrThrow({where:{skuId:f.skuId}})).toMatchObject({available:10});
+ }finally{spy.mockRestore();}
 });
 it('IT09：所有本轮SKU余额与流水、来源净量与根更正对账相等',async()=>{
  const balances=await db.$queryRaw<{sku_id:string}[]>`SELECT b.sku_id FROM inventory_balance b LEFT JOIN inventory_ledger l ON l.sku_id=b.sku_id WHERE b.sku_id IN (SELECT own.sku_id FROM inventory_source_line own JOIN inventory_source src ON src.id=own.source_id WHERE src.created_by_id=${staff.actor.subjectId}::uuid) GROUP BY b.sku_id,b.available,b.reserved HAVING b.available::bigint<>COALESCE(sum(l.delta_a::bigint),0) OR b.reserved::bigint<>COALESCE(sum(l.delta_r::bigint),0)`;

@@ -60,7 +60,8 @@ export interface TaskBusinessAdapter {
   /** 只读定位所有上游锁；本方法禁止取行锁、写入或发外部请求。 */
   planLocks(tx: Prisma.TransactionClient, reference: TaskBusinessReference): Promise<readonly TaskLockResource[]>;
   /** 持有完整锁计划后核对真实实体、归属与当前主体；幂等重放也必须授权。 */
-  authorize(tx: Prisma.TransactionClient, reference: TaskBusinessReference, actor: TaskCommandActor): Promise<void>;
+  // 扫描只补记逾期；领域可单独允许该意图，不能因此开放SYSTEM进入人工业务阶段。
+  authorize(tx: Prisma.TransactionClient, reference: TaskBusinessReference, actor: TaskCommandActor, intent?: 'OVERDUE_SCAN'): Promise<void>;
   /** 首次动作须检查真实领域前提及动作键；返回受信任起算和被替代的任务，不接收客户端资格/截止。 */
   resolveEntry(tx: Prisma.TransactionClient, entry: TaskStageEntry, actor: TaskCommandActor, active: Task | null): Promise<TaskEntryDecision>;
 }

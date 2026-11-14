@@ -1,0 +1,94 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:22436) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+stdout | test/inventory.integration.ts
+保留库存测试图片：C:\Users\20334\AppData\Local\Temp\self-ecom-inventory-Sal2Mt
+
+ ❯ test/inventory.integration.ts (24 tests | 2 failed | 22 skipped) 1370ms
+   × 审查回归：库存任务人工指定截止后可扫描逾期，系统仍不能进入人工阶段 340ms
+   × 审查回归：读取登记期间并发入账，返回同一快照的状态、余额、来源、任务和流水 328ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/inventory.integration.ts > 审查回归：库存任务人工指定截止后可扫描逾期，系统仍不能进入人工阶段
+AssertionError: expected { …(6) } to match object { status: 'SUCCEEDED', …(2) }
+(3 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "changedCount": 1,
+-   "failedCount": 0,
+-   "status": "SUCCEEDED",
++   "changedCount": 0,
++   "failedCount": 1,
++   "status": "FAILED",
+  }
+
+ ❯ test/inventory.integration.ts:316:16
+    314|   clock.mockReturnValue(new Date(now+60000));
+    315|   const scan=await app.get(TaskOverdueScanService).scan();
+    316|   expect(scan).toMatchObject({status:'SUCCEEDED',changedCount:1,failed…
+       |                ^
+    317|   expect(await db.task.findUniqueOrThrow({where:{id:task.id}})).toMatc…
+    318|   expect(await db.deadlineEvent.count({where:{taskId:task.id,eventType…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  test/inventory.integration.ts > 审查回归：读取登记期间并发入账，返回同一快照的状态、余额、来源、任务和流水
+AssertionError: expected { …(29) } to match object { Object (status, version, ...) }
+(25 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "action": null,
+-   "status": "PENDING",
+-   "task": {
+-     "status": "OPEN",
+-     "version": 0,
++   "action": {
++     "actionKey": "ADJUSTMENT:ab4d52ff-d831-4f13-92c2-d184a841181b:POST",
++     "actionType": "MANUAL_POST",
++     "actorCustomerId": null,
++     "actorEmployeeId": "4403ad23-6bef-45e5-9554-0982d2488577",
++     "actorType": "EMPLOYEE",
++     "adjustmentId": "ab4d52ff-d831-4f13-92c2-d184a841181b",
++     "businessId": "ab4d52ff-d831-4f13-92c2-d184a841181b",
++     "businessType": "ADJUSTMENT",
++     "createdAt": 2026-11-14T01:04:22.719Z,
++     "id": "7b3ca61a-60ad-48e0-bf66-7eb9c50e3260",
++     "requestFingerprint": "ed37d6d654e2ec85005f716d645cd48e01fba1586e30b220b4476075af3dfbfc",
++     "requestId": "c2c85b99-6ff8-4270-8a4c-96286ca8ecbf",
++     "resultSummary": {
++       "actionId": "7b3ca61a-60ad-48e0-bf66-7eb9c50e3260",
++       "ledgerIds": [
++         "bf35ea06-3927-45e4-8dfa-f79d66dbe9bb",
++       ],
+      },
++   },
++   "status": "PENDING",
++   "task": null,
+    "version": 0,
+  }
+
+ ❯ test/inventory.integration.ts:341:44
+    339|  try{
+    340|   const view=await app.get(InventoryQueries).adjustment(p.id);
+    341|   expect(observed).toBe(true);expect(view).toMatchObject({status:'PEND…
+       |                                            ^
+    342|   expect(view.lines[0]).toMatchObject({available:0,reserved:0});expect…
+    343|   expect(await db.inventoryAdjustment.findUniqueOrThrow({where:{id:p.i…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 22 skipped (24)
+   Start at  09:04:18
+   Duration  3.98s (import 49%, tests 36%, transform 15%)
+

@@ -1,0 +1,91 @@
+[
+  {
+    "path": "/admin/inventory",
+    "method": "GET",
+    "status": 200,
+    "requestId": "ff20872e-030c-454c-bdf4-5e9e4d5d92a2"
+  },
+  {
+    "path": "/admin/inventory/ledger",
+    "method": "GET",
+    "status": 200,
+    "requestId": "fbe343e6-6e57-412a-9840-f20d5f60d9d6"
+  },
+  {
+    "path": "/admin/inventory/sources",
+    "method": "GET",
+    "status": 200,
+    "requestId": "256dfe24-a4b9-4edb-81a7-f965dea2a74a"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "GET",
+    "status": 200,
+    "requestId": "8efe3ab7-9b67-4968-9a2b-c4bb437d3d97"
+  },
+  {
+    "path": "/admin/inventory/not-a-uuid",
+    "method": "GET",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "1713ead3-2e7d-49cb-a6a4-22454b051831"
+  },
+  {
+    "path": "/admin/inventory?lowStock=1",
+    "method": "GET",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "78c2bc3e-3e43-4bc4-a43a-a8189bc2ef13"
+  },
+  {
+    "path": "/admin/inventory?lowStock=true",
+    "method": "GET",
+    "status": 200,
+    "requestId": "ba9408d3-f484-4fe9-9eed-ae3b7faee6b6"
+  },
+  {
+    "path": "/admin/inventory",
+    "method": "GET",
+    "status": 403,
+    "code": "FORBIDDEN",
+    "requestId": "aebee3de-15ab-4dc7-b7bc-7cc38d543d90"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "POST",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "73143470-d666-464a-91e6-d98dab6d2721"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "POST",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "6aa4f19e-ee8e-49b9-beca-992a605b9114"
+  },
+  {
+    "path": "/admin/inventory/adjustments",
+    "method": "POST",
+    "status": 201,
+    "requestId": "1db20199-4237-4ddf-99b9-aab9d781dbdf"
+  },
+  {
+    "path": "/admin/inventory/adjustments/9b230824-7cf8-44e3-b86f-2bb80304597e/claim",
+    "method": "POST",
+    "status": 200,
+    "requestId": "cc658405-f62a-41db-8e7c-b3d39af097c8"
+  },
+  {
+    "path": "/admin/inventory/adjustments/9b230824-7cf8-44e3-b86f-2bb80304597e/post",
+    "method": "POST",
+    "status": 200,
+    "requestId": "54c3ca09-ae61-4b52-ae74-0e6249685b72"
+  },
+  {
+    "path": "/store/products/56b1a014-b34f-44ac-a6d3-b14a25c726ea",
+    "method": "GET",
+    "status": 200,
+    "requestId": "16f78d17-473b-45dd-9f0b-7c5e0a5103fb"
+  }
+]

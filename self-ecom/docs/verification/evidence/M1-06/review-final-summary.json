@@ -1,0 +1,76 @@
+{
+  "at": "2026-11-14T01:22:59.714Z",
+  "baseline": "397ae936a6b015f2b40051a99e0c815e4640c8b5",
+  "scope": "板块1～6",
+  "fixed": [
+    "R01库存任务逾期扫描",
+    "R02库存读取快照一致性",
+    "R03来源选择器冗余必填",
+    "R04提交期间表单卸载"
+  ],
+  "unit": {
+    "passed": 756,
+    "total": 756
+  },
+  "integration": {
+    "totalDistinct": 1419,
+    "fullRunPassed": false,
+    "fullRun": {
+      "passed": 1418,
+      "failed": 1
+    },
+    "failedSuiteHostRetest": {
+      "passed": 12,
+      "failed": 0
+    },
+    "allDistinctCasesHavePassingEvidence": true,
+    "secondFullRun": false
+  },
+  "checks": [
+    {
+      "name": "unit-review-final",
+      "passed": true
+    },
+    {
+      "name": "types-review-final",
+      "passed": true
+    },
+    {
+      "name": "lint-review-final",
+      "passed": true
+    },
+    {
+      "name": "build-review-final",
+      "passed": true
+    },
+    {
+      "name": "contracts-review-final",
+      "passed": true
+    },
+    {
+      "name": "inventory-review-inventory",
+      "passed": true
+    },
+    {
+      "name": "integration-review-admin-host",
+      "passed": true
+    }
+  ],
+  "browser": true,
+  "configurationSecretScan": {
+    "scannedFiles": 144,
+    "hits": []
+  },
+  "documentLinks": {
+    "missing": []
+  },
+  "baselineCi": {
+    "id": 43537035885,
+    "status": "completed",
+    "conclusion": "success",
+    "headSha": "397ae936a6b015f2b40051a99e0c815e4640c8b5"
+  },
+  "committed": false,
+  "pushed": false,
+  "deployed": false
+}

@@ -1,0 +1,1 @@
+import{r as e}from"./CatalogFeedback-C2gACgUq.js";function t(t){return e(t,{blockConflicts:!0})}export{t};

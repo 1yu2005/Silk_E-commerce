@@ -18,8 +18,9 @@ export class InventoryAdapters implements OnModuleInit {
  onModuleInit(){
   const requirePending=async(tx:Prisma.TransactionClient,task:Task)=>{const row=await tx.inventoryAdjustment.findUnique({where:{id:task.businessId}});
    if(!row||row.status!=='PENDING'||task.stage!==(row.checkRequired?'INVENTORY_RECONCILE':'INVENTORY_POST'))throw new TaskError('TASK_ENTRY_BLOCKED');return row;};
-  const authorize=async(tx:Prisma.TransactionClient,id:string,actor:TaskCommandActor)=>{
-   if(actor.subjectType==='SYSTEM')throw new InventoryError('INVENTORY_DOMAIN_NOT_READY');permission(actor,['inventory.read']);
+  const authorize=async(tx:Prisma.TransactionClient,id:string,actor:TaskCommandActor,intent?:'OVERDUE_SCAN')=>{
+   if(actor.subjectType==='SYSTEM'){if(intent!=='OVERDUE_SCAN')throw new InventoryError('INVENTORY_DOMAIN_NOT_READY');}
+   else permission(actor,['inventory.read']);
    if(!await tx.inventoryAdjustment.count({where:{id}}))throw new InventoryError('ADJUSTMENT_NOT_FOUND');
   };
   this.tasks.registerLocker('PRODUCT',async(tx,id)=>{await tx.$queryRaw`SELECT id FROM product WHERE id=${id}::uuid FOR UPDATE`;});
@@ -35,7 +36,7 @@ export class InventoryAdapters implements OnModuleInit {
     const resources:TaskLockResource[]=[{kind:'INVENTORY_ADJUSTMENT',id:ref.businessId},...roots.map(r=>({kind:'INVENTORY_ADJUSTMENT' as const,id:r.adjustmentId})),
      ...skus.flatMap(s=>[{kind:'PRODUCT' as const,id:s.productId},{kind:'SKU_STOCK' as const,id:s.id}]),...lines.map(l=>({kind:'INVENTORY_SOURCE' as const,id:l.sourceLineId}))];return resources;
    },
-   authorize:(tx,ref,actor)=>authorize(tx,ref.businessId,actor),
+   authorize:(tx,ref,actor,intent)=>authorize(tx,ref.businessId,actor,intent),
    async resolveEntry(tx,entry,_actor,active){
     const row=await tx.inventoryAdjustment.findUniqueOrThrow({where:{id:entry.businessId}});
     if(row.status!=='PENDING'||entry.stage!==(row.checkRequired?'INVENTORY_RECONCILE':'INVENTORY_POST'))throw new TaskError('TASK_ENTRY_BLOCKED');

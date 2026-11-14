@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-14T01:20:28.849Z",
+  "method": "TypeScript AST静态导入、再导出、字符串动态导入；CLI和已声明后续端口另行人工核对",
+  "results": [
+    {
+      "root": "apps/api",
+      "entry": "apps\\api\\src\\main.ts",
+      "sourceFiles": 200,
+      "unreachableFromEntry": [
+        "src\\auth\\initial-admin-seed.ts",
+        "src\\common\\command-fingerprint.ts",
+        "src\\permissions\\permission-seed.ts"
+      ]
+    },
+    {
+      "root": "apps/admin-web",
+      "entry": "apps\\admin-web\\src\\main.tsx",
+      "sourceFiles": 62,
+      "unreachableFromEntry": []
+    },
+    {
+      "root": "apps/store-web",
+      "entry": "apps\\store-web\\src\\main.tsx",
+      "sourceFiles": 21,
+      "unreachableFromEntry": []
+    },
+    {
+      "root": "packages/shared",
+      "entry": "packages\\shared\\src\\index.ts",
+      "sourceFiles": 7,
+      "unreachableFromEntry": []
+    },
+    {
+      "root": "packages/ui",
+      "entry": "packages\\ui\\src\\index.ts",
+      "sourceFiles": 4,
+      "unreachableFromEntry": []
+    },
+    {
+      "root": "packages/api-client",
+      "entry": "packages\\api-client\\src\\index.ts",
+      "sourceFiles": 8,
+      "unreachableFromEntry": []
+    }
+  ]
+}

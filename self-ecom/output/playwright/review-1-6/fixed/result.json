@@ -1,0 +1,51 @@
+{
+  "at": "2026-11-14T01:11:54.523Z",
+  "fixture": "仅模拟HTTP，未连接或写入数据库",
+  "checks": [
+    {
+      "name": "已有有效来源明细，编辑无需重新选择额外来源",
+      "passed": true
+    },
+    {
+      "name": "请求进行中，收起表单按钮不可操作",
+      "passed": true
+    },
+    {
+      "name": "保存后重读最新版本并解除页面忙碌",
+      "passed": true
+    },
+    {
+      "name": "页面无脚本或意外请求错误",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "path": "/admin/me",
+      "method": "GET"
+    },
+    {
+      "path": "/admin/me/permissions",
+      "method": "GET"
+    },
+    {
+      "path": "/admin/inventory/adjustments/11111111-1111-4111-8111-111111111111",
+      "method": "GET"
+    },
+    {
+      "path": "/admin/inventory/sources",
+      "method": "GET"
+    },
+    {
+      "path": "/admin/inventory/adjustments/11111111-1111-4111-8111-111111111111",
+      "method": "PATCH"
+    },
+    {
+      "path": "/admin/inventory/adjustments/11111111-1111-4111-8111-111111111111",
+      "method": "GET"
+    }
+  ],
+  "detailReads": 2,
+  "passed": true
+}
