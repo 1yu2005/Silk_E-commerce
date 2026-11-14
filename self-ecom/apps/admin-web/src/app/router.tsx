@@ -16,6 +16,10 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
   ] },
   { element: <RequireEmployee />, children: [
     { path: '/', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
+    {element:<CatalogGuard permission="customer.read"/>,children:[
+      {path:'/customers',lazy:async()=>({Component:(await import('../pages/CustomerListPage')).CustomerListPage})},
+      {path:'/customers/:id',lazy:async()=>({Component:(await import('../pages/CustomerDetailPage')).CustomerDetailPage})},
+    ]},
     {element:<CatalogGuard permission="category.read"/>,children:[{path:'/categories',lazy:async()=>({Component:(await import('../pages/CategoryPage')).CategoryPage})}]},
     {element:<CatalogGuard permission="product.read"/>,children:[
       {path:'/products',lazy:async()=>({Component:(await import('../pages/ProductListPage')).ProductListPage})},

@@ -17,7 +17,7 @@ import { cursorRow, deadlineRow, fixtureDue, fixtureTime, insertSchemaRow, setti
 const base = assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL, process.env.DATABASE_URL);
 if (process.env.NODE_ENV !== 'test') throw new Error('集成测试仅可在test环境执行');
 const previousMigrations = ['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history'];
-const expectedMigrations = [...previousMigrations, '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger'];
+const expectedMigrations = [...previousMigrations, '0004_store_settings_tasks_deadlines','0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart'];
 const oldTables = ['employee', 'customer', 'auth_session', 'permission_definition', 'role_permission',
   'employee_extra_permission', 'audit_log', 'system_guard', 'file_asset', 'file_reference',
   'communication', 'business_state_history'] as const;
@@ -100,7 +100,7 @@ beforeAll(async () => {
     await prisma.fileAsset.create({ data: { id, uploaderType: 'CUSTOMER', uploaderCustomerId: customerId,
       purpose: 'CUSTOMER_AVATAR', state: 'RETAINED', visibility: 'PUBLIC', storageKey: `${id}.png`, originalName: '隔离测试.png',
       mimeType: 'image/png', byteSize: 1, width: 1, height: 1, sha256: 'a'.repeat(64) } });
-    await prisma.customer.update({ where: { id: customerId }, data: { avatarAssetId: id } });
+    await prisma.customer.update({ where: { id: customerId }, data: { avatarAssetId: id }, select: { id: true } });
     await prisma.fileReference.create({ data: { fileAssetId: id, ownerType: 'CUSTOMER_AVATAR', ownerId: customerId,
       slot: 'avatar', audience: 'PUBLIC', createdByType: 'CUSTOMER', createdByCustomerId: customerId } });
     const original = await prisma.communication.create({ data: { scopeType: 'ORDER', scopeId: randomUUID(),
@@ -147,6 +147,7 @@ it('空库通过五条正式迁移，仅Head有未配置行，不提前建立订
 });
 it('0003升级保留12张旧表的每一行、真实密码哈希、会话、权限、头像引用和历史', async () => {
   const after = await snapshot(upgradeClient);
+  after.customer=after.customer!.map(({status_version:statusVersion,...row})=>{expect(statusVersion).toBe(0);return row;});
   expect(after.system_guard?.find(row=>row.key==='CATEGORY_TREE')).toEqual({key:'CATEGORY_TREE',created_at:expect.any(Date)});
   after.system_guard=after.system_guard!.filter(row=>row.key!=='CATEGORY_TREE');expect(after).toEqual(before);
   expect(after.permission_definition).toHaveLength(52); expect(after.role_permission).toHaveLength(89);

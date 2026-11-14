@@ -1,0 +1,153 @@
+[
+  {
+    "path": "/admin/products/1a86b3b5-e3cc-45d8-a5db-66203e14268c/skus/936806e0-7f33-4b6e-ac49-8ac2619ca8a9",
+    "method": "PATCH",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "63f03775-e2c2-4a9d-840d-cd5a05b1ed6d"
+  },
+  {
+    "path": "/admin/products/1a86b3b5-e3cc-45d8-a5db-66203e14268c/skus/936806e0-7f33-4b6e-ac49-8ac2619ca8a9",
+    "method": "PATCH",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "cf58827a-4b75-4481-9e32-5aac9a130103"
+  },
+  {
+    "path": "/admin/products/1a86b3b5-e3cc-45d8-a5db-66203e14268c/skus/936806e0-7f33-4b6e-ac49-8ac2619ca8a9",
+    "method": "PATCH",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "3aecbbe1-cd44-42a0-9951-611b9d5f56fb"
+  },
+  {
+    "path": "/admin/products/1a86b3b5-e3cc-45d8-a5db-66203e14268c/skus/936806e0-7f33-4b6e-ac49-8ac2619ca8a9",
+    "method": "PATCH",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "3881733a-d2be-45da-8c54-4df990035e9b"
+  },
+  {
+    "path": "/admin/products/1a86b3b5-e3cc-45d8-a5db-66203e14268c/skus/936806e0-7f33-4b6e-ac49-8ac2619ca8a9",
+    "method": "PATCH",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "10a3f3f3-3e6c-4d67-8bcd-38c811136de5"
+  },
+  {
+    "path": "/admin/products/1a86b3b5-e3cc-45d8-a5db-66203e14268c",
+    "method": "PATCH",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "bcfdc9db-2332-48cf-9a30-416ff75c46a5"
+  },
+  {
+    "path": "/admin/products/9c570167-4ae5-4026-a8a2-76a7af3196b1/images",
+    "method": "PUT",
+    "status": 404,
+    "code": "FILE_NOT_FOUND",
+    "requestId": "5c91584b-43b1-4942-91f6-9d6188571bef"
+  },
+  {
+    "path": "/store/products/9c570167-4ae5-4026-a8a2-76a7af3196b1",
+    "method": "GET",
+    "status": 404,
+    "code": "PRODUCT_NOT_FOUND",
+    "requestId": "fd225cad-6f6a-480e-b669-46c110d81244"
+  },
+  {
+    "path": "/admin/products/9c570167-4ae5-4026-a8a2-76a7af3196b1/images",
+    "method": "PUT",
+    "status": 400,
+    "code": "VALIDATION_FAILED",
+    "requestId": "771e4589-221f-4a85-b050-32da597c2150"
+  },
+  {
+    "path": "/admin/products/67f1984e-88c3-4fb8-852a-96bab91dbf0f/publish",
+    "method": "POST",
+    "status": 409,
+    "code": "PRODUCT_NOT_PUBLISHABLE",
+    "requestId": "64eec0f1-e4b6-48aa-8093-200a10233bbb"
+  },
+  {
+    "path": "/admin/products/f5c07963-67da-4e42-8a86-97b9759ebed3/publish",
+    "method": "POST",
+    "status": 409,
+    "code": "PRODUCT_NOT_PUBLISHABLE",
+    "requestId": "0707577c-5ce5-47d7-8dd8-095e0369512e"
+  },
+  {
+    "path": "/admin/products/f5c07963-67da-4e42-8a86-97b9759ebed3/images",
+    "method": "PUT",
+    "status": 409,
+    "code": "PRODUCT_MUST_UNPUBLISH",
+    "requestId": "c3611279-4274-41f4-be68-f7c8ac486186"
+  },
+  {
+    "path": "/admin/products/f5c07963-67da-4e42-8a86-97b9759ebed3",
+    "method": "PATCH",
+    "status": 409,
+    "code": "PRODUCT_MUST_UNPUBLISH",
+    "requestId": "9e4bdff8-dce3-4391-bb4e-b96479575f7c"
+  },
+  {
+    "path": "/admin/products/f5c07963-67da-4e42-8a86-97b9759ebed3/skus/676bacfc-54d9-4bad-9af7-7c6bc4c84514",
+    "method": "PATCH",
+    "status": 409,
+    "code": "SKU_PRICE_REQUIRED",
+    "requestId": "64de0130-44a1-486d-8104-6c68e8ee1112"
+  },
+  {
+    "path": "/store/products/f5c07963-67da-4e42-8a86-97b9759ebed3",
+    "method": "GET",
+    "status": 200,
+    "requestId": "731c643c-3459-4487-a2ed-bfdb369d78bd"
+  },
+  {
+    "path": "/admin/products/batch-status",
+    "method": "POST",
+    "status": 200,
+    "requestId": "954474a5-3957-4615-a138-401e7acd10ca"
+  },
+  {
+    "path": "/store/products/bd919ba0-f32d-4638-84ed-153076e5a9df",
+    "method": "GET",
+    "status": 404,
+    "code": "PRODUCT_NOT_FOUND",
+    "requestId": "96fef9d0-87af-4dc2-b782-2b907a5f4000"
+  },
+  {
+    "path": "/admin/products/d410472f-23ed-4af0-be23-4b6ded121d32/initial-inventory-draft",
+    "method": "PUT",
+    "status": 409,
+    "code": "VERSION_CONFLICT",
+    "requestId": "0d5e8d16-2117-4791-817d-cc4802b36e24"
+  },
+  {
+    "path": "/admin/products",
+    "method": "GET",
+    "status": 403,
+    "code": "FORBIDDEN",
+    "requestId": "397a6aea-8ecc-4253-9cca-0ca5d23c6f26"
+  },
+  {
+    "path": "/admin/categories/tree",
+    "method": "GET",
+    "status": 403,
+    "code": "FORBIDDEN",
+    "requestId": "84dc0153-e097-4c85-8ade-30d6f9db42b6"
+  },
+  {
+    "path": "/admin/products/db498786-12d6-4bd2-b76b-77e0ee5b71bc",
+    "method": "GET",
+    "status": 200,
+    "requestId": "61f6c0e2-7f23-4079-966e-feaf8bf31a80"
+  },
+  {
+    "path": "/admin/products/db498786-12d6-4bd2-b76b-77e0ee5b71bc",
+    "method": "PATCH",
+    "status": 401,
+    "code": "ACCOUNT_UNAVAILABLE",
+    "requestId": "057d45cf-f681-4a6f-811f-90c0fae4e704"
+  }
+]

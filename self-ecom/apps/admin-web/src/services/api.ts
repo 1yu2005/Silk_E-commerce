@@ -7,6 +7,7 @@ import type { CurrentSettings, SettingsHistory, SettingsVersion } from '../setti
 import type { TaskDetail, TaskHistory, TaskList, TaskSearch, TaskSummary } from '../tasks/model';
 import type { CategoryTree, Draft, Product, ProductQuery, Products } from '../catalog/model';
 import type { Adjustment,Adjustments,AdjustmentQuery,Balance,Balances,BalanceQuery,Source,Sources,SourceQuery,Ledger,LedgerQuery } from '../inventory/model';
+import type {Customer,Customers,CustomerQuery,Addresses,History,Consumption} from '../customers/model';
 
 const client = createEmployeeClient({ baseURL: import.meta.env.VITE_API_BASE_URL || '/api/v1',
   onUnauthorized: () => employeeAuth.onUnauthorized(),
@@ -34,6 +35,14 @@ export const settingsQueries = {
 export const tasks = settings;
 export const catalog=settings;
 export const inventory=settings;
+export const customers=settings;
+export const customerQueries={
+ list:new EmployeeQueryController<CustomerQuery,Customers>(session,(query,signal)=>customers.listCustomers({query,signal}),'顾客列表读取失败'),
+ detail:new EmployeeQueryController<string,Customer>(session,(id,signal)=>customers.getCustomer({path:{id},signal}),'顾客资料读取失败'),
+ addresses:new EmployeeQueryController<string,Addresses>(session,(id,signal)=>customers.getCustomerAddresses({path:{id},signal}),'顾客地址读取失败'),
+ history:new EmployeeQueryController<{id:string;page:number},History>(session,({id,page},signal)=>customers.getCustomerStatusHistory({path:{id},query:{page,pageSize:10},signal}),'顾客状态历史读取失败'),
+ consumption:new EmployeeQueryController<string,Consumption>(session,(id,signal)=>customers.getCustomerConsumption({path:{id},signal}),'消费统计读取失败'),
+};
 export const inventoryQueries={
  balances:new EmployeeQueryController<BalanceQuery,Balances>(session,(query,signal)=>inventory.listInventoryBalances({query,signal}),'库存余额读取失败'),
  balance:new EmployeeQueryController<string,Balance>(session,(skuId,signal)=>inventory.getInventoryBalance({path:{skuId},signal}),'库存账户读取失败'),

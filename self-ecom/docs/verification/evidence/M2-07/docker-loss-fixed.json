@@ -1,0 +1,714 @@
+{
+  "timestamp": "2026-11-14T02:50:21.221Z",
+  "status": "failed",
+  "mode": "customers",
+  "project": "self-ecom-m207-acceptance-16702ebb",
+  "imagePrefix": "self-ecom-m207-acceptance-3ead21bc",
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-api:local",
+      "id": "sha256:4ab1e56ca856fc3890c08106c9bfb45f691d7063377aa850d57384a5cfd3b694"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-admin:local",
+      "id": "sha256:9e9b21372c7fd1fad3ad704fa96d1a1f7198e3fa757534521aefd5069ab94179"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-store:local",
+      "id": "sha256:4e46ceb0f1769cc33ec60de91f1af831f04b78b19326f3aa79bbb1175c2561e4"
+    }
+  ],
+  "previousEvidence": "output/playwright/M2-07/docker-fixtures-fixed",
+  "previousChecks": [
+    "复用本轮首次已构建镜像；仅验收脚本/测试变更，业务源码无变更",
+    "空库迁移、两类seed幂等、四服务健康与两站代理/缓存/Swagger/私有目录",
+    "首管理员直接登录、主动改密及会话撤销、最终权限与最后可用管理员保护",
+    "员工创建、列表详情、改名、版本冲突、依赖授权、调岗、启停、重置密码",
+    "顾客注册/重复/校验、双域隔离、本人资料/昵称/改密与仅撤销当前会话的幂等注销",
+    "SW-03/04/05/07：私有图隔离、安全元数据、用途校验、伪装图、5MiB API及两代理6MiB JSON413",
+    "SW-01/02/06：JPEG/PNG/WebP、本人绑定、重复命令、更换/移除与历史公开图片保留",
+    "SW-08：强改密拦截、个人额外用途权限授予/实时撤销、停用后旧token拒绝上传",
+    "Swagger浏览器现场：Authorize真实Bearer、multipart上传201、头像PUT200、元数据及二进制GET200",
+    "板块4：生产HTTP设置初始化/严格校验/版本冲突/同内容幂等/不可变历史与公开联系白名单",
+    "板块4：真实员工设置/待安排权限拒绝，任务三列表和摘要真实空态，缺业务不伪造成功",
+    "板块4：Nginx生产页面实际保存设置/历史、三种任务空态、手机布局和可拨打联系方式",
+    "板块4：Swagger现场Authorize后真实设置/任务摘要GET200及Bearer核验",
+    "板块4：生产启动真实空扫描及运行记录，镜像无测试任务适配器",
+    "板块5：真实分类/六SKU/批量价格/商品图片/数量草稿全链路，A/R保持0且上架拒绝",
+    "板块5：Swagger UI执行公开详情200，真实六SKU且无需Bearer",
+    "板块5：Nginx生产构建的商品编辑、商城规格/手机布局、公开投影与两站真实图片",
+    "板块5：自然缺货仍公开且不可购、下架404、重新上架重新校验",
+    "板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务",
+    "板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页",
+    "板块6：后台来源/损耗新建、库存不足409持久化核实、无效核实拒绝、作废闭环及预警等号",
+    "板块6 SW10/板块5 SW-L01：合法入账及差额更正→真实上架→商城选择SKU、真实图片与余额流水对账"
+  ],
+  "checks": [
+    "板块7 SW02/IT07：手机注册登录→新增两地址→切默认双方版本→真实旧版本409重读，不覆盖最新地址",
+    "板块7 SW04：正式来源入账商品→真实浏览器加购→PATCH替换总数→取消后增量保留selected=false，A/R/动作/流水不变",
+    "板块7 SW05/IT03/04：POST已提交但响应丢失只发一次；正式损耗流水降A3→失效选中小计null→减4仍不足→减3恢复，手机无横向溢出",
+    "板块7 SW03/06/07：真实20条上限、下架失效整理、恢复销售、两行旧版本/无权ID批量整批回滚"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "8d6e6a90-a192-4d54-b50e-c3f87a602376"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "c84cd22a-fea8-41c2-bf72-af872786bc63"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "1a148cbf-3013-429e-ae13-901d08a11583"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "c1b53494-a3d5-4ede-aad4-c243613cca01"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "20100101-6c0a-493c-8a73-b443b25b34f8"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e/sku-scheme",
+      "status": 200,
+      "requestId": "db934a59-bf31-473b-b64e-4e2f72b35d79"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e/skus/batch-fill",
+      "status": 200,
+      "requestId": "5c2e5d3d-ede6-4b6c-936e-d4bc16c919f2"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e/images",
+      "status": 200,
+      "requestId": "8d28ae89-0df5-4a15-97cc-1d453de632d1"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "1993d464-4ba9-4774-8ba6-a492447c8e4c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "c99edfaf-5365-42ea-a8a7-f7af70b0aa71"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/0b39bb00-e50a-4172-b275-e0c732f7561f/claim",
+      "status": 200,
+      "requestId": "c46ca584-3332-4b12-a11c-f5c009b1ce94"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/0b39bb00-e50a-4172-b275-e0c732f7561f/post",
+      "status": 200,
+      "requestId": "68fb9b03-547a-4622-ab71-c4d5bf9a7f96"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e/publish",
+      "status": 200,
+      "requestId": "d1cab7da-5548-433a-8825-a34a91084b2a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "8244a9b6-e689-4732-847e-6ae8586885ba"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "93ccf000-5457-4f9b-b83b-f2940436973a"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "550079a1-01cf-4720-a374-3e2648493a4d"
+    },
+    {
+      "method": "PATCH",
+      "path": "/store/addresses/41d20760-b9fd-49ab-984f-e039f9824a4f",
+      "status": 200,
+      "requestId": "65ab138c-a548-4ee8-8a20-6022316c6e6b"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses/41d20760-b9fd-49ab-984f-e039f9824a4f",
+      "status": 200,
+      "requestId": "bf73d11f-6218-47d0-a041-26c6f23bf386"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/d21f550e-ad2b-4e86-886c-7f34fd5018d5",
+      "status": 200,
+      "requestId": "fc9c1c62-03bf-430b-b207-10fd9bbd8d95"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/2c7ff2dd-55e8-4751-9918-4126dd400d39",
+      "status": 200,
+      "requestId": "bc882f11-6cc6-4fb8-91d8-9e4a0dd40105"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "9f970a0e-f5c7-47d9-8342-fd8ccf54e59e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 200,
+      "requestId": "4be29a5f-b4a6-40a5-afd6-84958ac1c1a6"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "d8a70a49-30ce-4aac-ab4c-117ccf03ad46"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/d21f550e-ad2b-4e86-886c-7f34fd5018d5",
+      "status": 200,
+      "requestId": "07d754e4-bff9-48fc-ae2a-1d0e3282b149"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/2c7ff2dd-55e8-4751-9918-4126dd400d39",
+      "status": 200,
+      "requestId": "5162429c-3d96-47fb-a0f8-3fafffbf615a"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "049519f6-3e9f-499f-ad5d-074fecadb55a"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "fddb4deb-04af-4f90-b9a2-7004bdb3cac5"
+    },
+    {
+      "method": "PATCH",
+      "path": "/store/cart/items/330f4430-1352-402d-a2d7-1ddf0f4a7e4c",
+      "status": 200,
+      "requestId": "ddae1cfc-0ce5-4ef8-ba65-ffa13dc95c5c"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "cc5bf91e-2cae-48ca-9454-581b23a85b8d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "b728002b-ee65-4064-8e81-70804537eb33"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "a715b3d0-1044-4b82-9b96-7e85a643e5f5"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/128a28b8-d762-43e4-8cca-2bfe2256e99b/claim",
+      "status": 200,
+      "requestId": "50b9cf2f-8ea7-46de-a28c-578fd661b0eb"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/128a28b8-d762-43e4-8cca-2bfe2256e99b/post",
+      "status": 200,
+      "requestId": "818c39ef-af1b-4b36-88b7-8de81d0b1700"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "be21abc3-f081-4bc7-a5c4-3a0c38e201d9"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "1c405c97-0f98-489d-9d4f-07d822cc993c"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e",
+      "status": 200,
+      "requestId": "d2543eec-f70d-49e5-9448-e21f083ffbe0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e/unpublish",
+      "status": 200,
+      "requestId": "84513e8b-a757-418a-af6c-4b512e58d86b"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "e2eaf5eb-030e-464c-bf0c-a1d3b1b30682"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 409,
+      "requestId": "f38cb2e8-b04f-4eb8-ac97-a19dedbb5dff"
+    },
+    {
+      "method": "PATCH",
+      "path": "/store/cart/items/330f4430-1352-402d-a2d7-1ddf0f4a7e4c",
+      "status": 200,
+      "requestId": "c3314eda-6802-4416-95df-13b20c4f9c1f"
+    },
+    {
+      "method": "PATCH",
+      "path": "/store/cart/items/330f4430-1352-402d-a2d7-1ddf0f4a7e4c",
+      "status": 409,
+      "requestId": "b197fb2b-1cea-4f3b-aba5-bd9bca1e0025"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/5fd8aa98-e67f-44a4-be08-3471a610f15e/publish",
+      "status": 200,
+      "requestId": "2f08b9cd-311c-457e-b8cf-b8a65cecc1e0"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 201,
+      "requestId": "7635b427-2bf9-4139-bc63-2a16b6ca3cb9"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "242b4e02-7980-40e8-b0dd-17e5f64751fa"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/selection",
+      "status": 409,
+      "requestId": "3b9a64af-99e5-411b-9a60-fd4daf76a1b7"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "764ace1d-6c13-4d65-887a-62bd5eaefb70"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items/batch-delete",
+      "status": 404,
+      "requestId": "597e854d-f9fc-4197-b67e-ff45be3e1ab9"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "6774f7fc-9209-43e7-9c6b-eb77087d8ec5"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "d67aff73-e02c-49fa-8040-0d9349c3e717"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "e59abc4f-c4d6-4c14-8850-e1c39b342828"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "530e8809-3baf-4495-b384-3b6c9684e0a3"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "e49f3281-def1-4093-afde-7318be732d1c"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "31d93295-8e04-463e-98ad-619e6ba88375"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "990c6616-ed52-4f28-8871-2f10dd312461"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "5e883e06-b3e9-44da-b234-6da63c271672"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "83ec66db-41bd-4036-92e8-dba5321be270"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "0a52a996-39c9-41db-80fd-71018a8d323a"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "9b57c3a1-be83-4363-98fe-37d33f05a1c4"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "d687b56f-295d-43e3-860a-0813dbaad76c"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "771702c7-99c1-456f-a699-835761d25345"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "2300d466-0310-4581-8737-8287f2de235e"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "4f4536d6-94d5-4c69-95cd-321c3a36ab54"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "71bafcef-7f33-4183-9cd3-4c8f32d7f5b7"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "c42ead91-bbbb-4769-83eb-aeefd2e16377"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "571e4b00-18d3-4dfb-8ac8-36343f98f628"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 201,
+      "requestId": "92df6192-bc47-4d47-ae53-0fadd2695a55"
+    },
+    {
+      "method": "POST",
+      "path": "/store/addresses",
+      "status": 409,
+      "requestId": "1eae40f3-12b1-4963-983c-7044060b6572"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "e2ec85ce-d5f7-4bd1-9dfc-c5efc068c4fa"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/22bbbfb1-fa56-4e91-a43a-d4afee3bc196",
+      "status": 200,
+      "requestId": "02d3b819-43d6-4267-91d1-a85d4ec9cf88"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/92a826db-cd5c-4ea3-bd1d-bedd5325fdf2",
+      "status": 200,
+      "requestId": "d8c875ac-92a8-4d66-bb64-1cc25eae6370"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/5bfca991-a9e9-4101-8ec8-c3d9139dff17",
+      "status": 200,
+      "requestId": "3e7ed02d-85dd-411b-9eab-28a691fe8819"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/ee354703-0549-460f-a612-174da688f094",
+      "status": 200,
+      "requestId": "9d69bbff-3d2b-40e9-a086-2c5e201ca3e4"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/8487b134-70f7-4796-9589-aecb7257402b",
+      "status": 200,
+      "requestId": "e84389a7-d996-4339-82a7-2e6aea4b4182"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/a0c38860-757b-45e2-8323-ff7bd5a6d83e",
+      "status": 200,
+      "requestId": "05fb117b-7641-4f71-9c1f-b30e10a1eb52"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/0708128b-76ed-463e-bb9e-b1db36df8690",
+      "status": 200,
+      "requestId": "fd166caf-6d50-4084-b491-494e41f8f10c"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/6e59756c-7e5b-4985-a0ca-819448867fca",
+      "status": 200,
+      "requestId": "112cded3-add1-4dc0-bdf4-8db96e3dc561"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/6fdfaf24-ad8d-4290-8ff0-364013bfc0e7",
+      "status": 200,
+      "requestId": "802eb941-6477-4884-8248-cd5d66ef0b21"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/21d01b9d-9cf3-4827-90d7-d002361f5168",
+      "status": 200,
+      "requestId": "98cd3d50-13b5-4f8d-8ae8-bf4a1c3158f8"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/1ff82778-157f-4629-8c18-b12ec80d7b80",
+      "status": 200,
+      "requestId": "5d21d65a-5413-41d5-a92f-8714f03177b8"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/ec5563a9-9bb6-42d4-835e-c80cc7c66f80",
+      "status": 200,
+      "requestId": "d2c96ec7-92f9-4a74-8cf4-8f4373b021c0"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/d14cbda4-d3e6-403d-9b38-4554691b8768",
+      "status": 200,
+      "requestId": "29599b8b-18ea-4f31-a937-d4d07d9c87d7"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/343b875f-7564-46a9-ad41-d2f99b36a69c",
+      "status": 200,
+      "requestId": "0b53f5ee-d0c5-40a0-a526-53966cb333eb"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/a1c242b0-be31-4582-93d9-734f89698cd2",
+      "status": 200,
+      "requestId": "5ccab717-24f0-4564-b545-952e30428407"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/242dcc06-6847-4992-87db-883809df4980",
+      "status": 200,
+      "requestId": "871640c1-ae5b-4e98-834c-886d08331eb8"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/9e91613e-0c58-4073-88c8-0bf862cfd484",
+      "status": 200,
+      "requestId": "41447da4-eaeb-445a-bfb1-a13d2c8962a1"
+    },
+    {
+      "method": "DELETE",
+      "path": "/store/addresses/4ca47a37-c8f7-492a-ba23-46ec718433fb",
+      "status": 200,
+      "requestId": "995038fb-6e03-44d2-90c4-4f7ca77aec5c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees",
+      "status": 201,
+      "requestId": "49f79d89-5c22-4dd8-968d-acaafbab7302"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "f45681f7-f2a4-4e36-9339-95122b5c9f7e"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "3093137e-4bc5-40b0-b57a-7805b9096a92"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "c42af041-528c-4800-a442-cd879594d92c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/employees",
+      "status": 201,
+      "requestId": "40046368-1b3f-4007-a61c-0aae09429c90"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "cb9bc2fe-630e-4c2e-8561-236b4d352874"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/change-password",
+      "status": 200,
+      "requestId": "a821fbe5-4452-473d-9af1-57e4b3115b93"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "ca187ee7-b30f-4384-ac51-d9143bd8c668"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers",
+      "status": 403,
+      "requestId": "9894ad4a-a5a5-4c7b-ab20-c5b9ca19c85d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/customers/c2258923-a293-48a2-8465-e5fd90fb2e3b/freeze-login",
+      "status": 403,
+      "requestId": "07c276e5-f1ba-4b49-b41a-e2201bc3c038"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/customers/c2258923-a293-48a2-8465-e5fd90fb2e3b/consumption",
+      "status": 200,
+      "requestId": "e0bd08c6-e7b6-42e7-afcc-871ada125911"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原有卷清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "校验独占四服务",
+      "status": 0
+    },
+    {
+      "label": "仅启动随机专属数据库",
+      "status": 0
+    },
+    {
+      "label": "空库七迁移",
+      "status": 0
+    },
+    {
+      "label": "权限初始化",
+      "status": 0
+    },
+    {
+      "label": "专属管理员初始化",
+      "status": 0
+    },
+    {
+      "label": "启动四服务",
+      "status": 0
+    },
+    {
+      "label": "板块7只读数据核对",
+      "status": 0
+    },
+    {
+      "label": "板块7只读数据核对",
+      "status": 0
+    },
+    {
+      "label": "仅核对专属卷",
+      "status": 0
+    },
+    {
+      "label": "仅清理本次独占容器与卷",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "复核原有卷",
+      "status": 0
+    }
+  ],
+  "pageErrors": [],
+  "cleaned": true,
+  "originalResourcesPreserved": true,
+  "failure": "locator.fill: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByLabel('员工账号', { exact: true })\u001b[22m\n\n    at verifyCustomers (D:\\实习\\实习生全栈学习笔记\\self-ecom\\infra\\verify-customers-http.mjs:74:773)\n    at async file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-customers-compose.mjs:37:65"
+}

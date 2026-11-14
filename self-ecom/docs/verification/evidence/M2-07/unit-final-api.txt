@@ -1,0 +1,68 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+stdout | test/files.spec.ts
+保留测试临时目录：C:\Users\20334\AppData\Local\Temp\self-ecom-files-unit-sXzRMb
+
+ ❯ test/files.spec.ts (21 tests | 21 skipped) 14ms
+(node:31500) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:67348) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:50968) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/apps/api/src/common/time/deadline.ts is not specified and it doesn't parse as CommonJS.
+Reparsing as ES module because module syntax was detected. This incurs a performance overhead.
+To eliminate this warning, add "type": "module" to \\?\D:\实习\实习生全栈学习笔记\self-ecom\apps\api\package.json.
+(Use `node --trace-warnings ...` to show where the warning was created)
+{"level":30,"time":1794623272582,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6aaaa386-15c5-493c-8d12-9d0200e37663","res":{"statusCode":200},"responseTime":5,"msg":"request completed"}
+{"level":30,"time":1794623272593,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"d9a06499-6f84-48ee-9b6b-7d7fe5de2abb","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":50,"time":1794623272607,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/ready"},"requestId":"f9a02f46-95fe-4010-8e7a-74675846e4bd","res":{"statusCode":503},"err":{"type":"RequestError"},"responseTime":2,"msg":"request failed"}
+{"level":30,"time":1794623272611,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3b0c00e4-0dc3-4190-b3d9-038a5d0e8da2","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794623272643,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/guard-public"},"requestId":"1361284f-3a66-49c8-b669-9b2ae58bbaa0","res":{"statusCode":404},"responseTime":3,"msg":"request completed"}
+{"level":40,"time":1794623272648,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/store/me"},"requestId":"97fadcba-a7ed-498a-b306-260ffa248090","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794623272656,"pid":55992,"hostname":"YHY","req":{"method":"POST","path":"/api/v1/auth/logout"},"requestId":"e27449af-6a82-4aef-9617-6bdae416aade","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794623272675,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/admin/me"},"requestId":"e3743296-278a-4c04-b1f4-b854197cd113","res":{"statusCode":401},"responseTime":1,"msg":"request completed"}
+{"level":40,"time":1794623272679,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/not-implemented"},"requestId":"eabd0cf5-ae0e-46b4-a562-40f01b21b124","res":{"statusCode":404},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272689,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3841623d-739a-43c3-acd6-a429856fc66e","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272690,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"9a1c9f63-8212-455a-9f73-41dd37c46b4c","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272690,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"ade8c9df-f1e4-4c70-93e2-5b56d3efc1be","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272691,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"bcee5fc4-3230-41dc-a600-6cd38fe2276b","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272691,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"dea75d70-55de-47bb-9687-da516cd823ed","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272692,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"b5496e6b-c798-4cb1-9a02-7247fa00c19c","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272692,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"ecfff43b-7e10-4454-ab43-fe29741ade1b","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272692,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"3ba2f088-ccf1-43f6-b142-6e06b5dbd6bb","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272693,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"945f2fd8-d7be-4b45-85d2-ec9ca8a27c60","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272693,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"6f20a88a-6e17-4081-b93d-7ae4c2b9490a","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272703,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/data-field"},"requestId":"756a86bd-b576-4942-9bc2-3ae5c5b1ae58","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":50,"time":1794623272705,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/failure"},"requestId":"f49c3ad5-343f-4baa-9a22-357df0a57481","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":0,"msg":"request failed"}
+{"level":50,"time":1794623272707,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/http-failure"},"requestId":"52803987-f9e9-4466-8fe5-6e1455561d75","res":{"statusCode":500},"err":{"type":"RequestError"},"responseTime":0,"msg":"request failed"}
+{"level":30,"time":1794623272710,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/contract-test/file"},"requestId":"0f546686-208a-4096-94cd-9706b868f0f1","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272712,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"765e0bc8-e753-4ff7-b8cb-fb034053af08","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+{"level":30,"time":1794623272719,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"787c648c-3fc3-4c11-839d-cd34b25f139b","res":{"statusCode":200},"responseTime":1,"msg":"request completed"}
+{"level":30,"time":1794623272723,"pid":55992,"hostname":"YHY","req":{"method":"GET","path":"/api/v1/health/live"},"requestId":"ab8f5143-2e9c-4bae-b04b-1be0480c0173","res":{"statusCode":200},"responseTime":0,"msg":"request completed"}
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/files.spec.ts [ test/files.spec.ts ]
+Error: EPERM: operation not permitted, lstat 'C:\Users\20334\AppData'
+ ❯ FileStorageService.assertDirectory src/files/file-storage.service.ts:26:26
+     24|     for (const part of parts) {
+     25|       current = join(current, part);
+     26|       try { const stat = await lstat(current); if (stat.isSymbolicLink…
+       |                          ^
+     27|       catch (error) {
+     28|         if (create && isMissing(error)) await mkdir(current, { mode: 0…
+ ❯ FileStorageService.initialize src/files/file-storage.service.ts:18:5
+ ❯ test/files.spec.ts:15:87
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 24 passed (25)
+      Tests  471 passed | 21 skipped (492)
+   Start at  10:27:47
+   Duration  5.87s (import 74%, tests 17%, transform 8%, worker 1%)
+

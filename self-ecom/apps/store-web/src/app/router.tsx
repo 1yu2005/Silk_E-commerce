@@ -12,6 +12,8 @@ export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{
     { path: '/register', lazy: async () => ({ Component: (await import('../pages/RegisterPage')).RegisterPage }) },
   ] },
   { element: <RequireCustomer />, children: [
+    { path: '/addresses', lazy: async () => ({ Component: (await import('../pages/AddressPage')).AddressPage }) },
+    { path: '/cart', lazy: async () => ({ Component: (await import('../pages/CartPage')).CartPage }) },
     { path: '/account', lazy: async () => ({ Component: (await import('../pages/AccountPage')).AccountPage }) },
     { path: '/change-password', lazy: async () => ({ Component: (await import('../pages/ChangePasswordPage')).ChangePasswordPage }) },
   ] },

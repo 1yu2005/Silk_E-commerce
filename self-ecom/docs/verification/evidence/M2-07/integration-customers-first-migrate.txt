@@ -1,0 +1,22 @@
+node:fs:2787
+      const stats = binding.lstat(base, true, undefined, true /* throwIfNoEntry */);
+                            ^
+
+Error: EPERM: operation not permitted, lstat 'C:\Users\20334\AppData'
+    at Object.realpathSync (node:fs:2787:29)
+    at ../../node_modules/.pnpm/temp-dir@2.0.0/node_modules/temp-dir/index.js (D:\实习\实习生全栈学习笔记\self-ecom\node_modules\.pnpm\@prisma+fetch-engine@7.10.1\node_modules\@prisma\fetch-engine\dist\chunk-PPPJF3PE.js:512:20)
+    at __require2 (D:\实习\实习生全栈学习笔记\self-ecom\node_modules\.pnpm\@prisma+fetch-engine@7.10.1\node_modules\@prisma\fetch-engine\dist\chunk-2ESYSVXG.js:45:51)
+    at ../../node_modules/.pnpm/tempy@1.0.1/node_modules/tempy/index.js (D:\实习\实习生全栈学习笔记\self-ecom\node_modules\.pnpm\@prisma+fetch-engine@7.10.1\node_modules\@prisma\fetch-engine\dist\chunk-PPPJF3PE.js:10476:19)
+    at __require2 (D:\实习\实习生全栈学习笔记\self-ecom\node_modules\.pnpm\@prisma+fetch-engine@7.10.1\node_modules\@prisma\fetch-engine\dist\chunk-2ESYSVXG.js:45:51)
+    at Object.<anonymous> (D:\实习\实习生全栈学习笔记\self-ecom\node_modules\.pnpm\@prisma+fetch-engine@7.10.1\node_modules\@prisma\fetch-engine\dist\chunk-PPPJF3PE.js:11766:55)
+    at Module._compile (node:internal/modules/cjs/loader:1871:14)
+    at Object..js (node:internal/modules/cjs/loader:2002:10)
+    at Module.load (node:internal/modules/cjs/loader:1594:32)
+    at Module._load (node:internal/modules/cjs/loader:1396:12) {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'lstat',
+  path: 'C:\\Users\\20334\\AppData'
+}
+
+Node.js v24.18.0

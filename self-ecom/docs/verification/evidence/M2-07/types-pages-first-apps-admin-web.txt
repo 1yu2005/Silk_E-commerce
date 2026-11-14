@@ -1,0 +1,48 @@
+apps/admin-web/src/customers/model.ts(4,28): error TS2344: Type '"listCustomers"' does not satisfy the constraint 'keyof operations'.
+apps/admin-web/src/customers/model.ts(5,27): error TS2344: Type '"getCustomer"' does not satisfy the constraint 'keyof operations'.
+apps/admin-web/src/customers/model.ts(6,28): error TS2344: Type '"getCustomerAddresses"' does not satisfy the constraint 'keyof operations'.
+apps/admin-web/src/customers/model.ts(7,26): error TS2344: Type '"getCustomerStatusHistory"' does not satisfy the constraint 'keyof operations'.
+apps/admin-web/src/customers/model.ts(8,30): error TS2344: Type '"getCustomerConsumption"' does not satisfy the constraint 'keyof operations'.
+apps/admin-web/src/customers/model.ts(9,53): error TS2339: Property 'listCustomers' does not exist on type 'operations'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(18,45): error TS2339: Property 'avatarUrl' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(18,101): error TS2339: Property 'avatarUrl' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(18,137): error TS2339: Property 'nickname' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(18,165): error TS2339: Property 'status' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(18,202): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ NORMAL: string; TRADE_RESTRICTED: string; LOGIN_FROZEN: string; }'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(18,213): error TS2339: Property 'status' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(19,90): error TS2339: Property 'phone' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(19,142): error TS2339: Property 'statusVersion' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(19,201): error TS2339: Property 'createdAt' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(19,255): error TS2339: Property 'lastLoginAt' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(21,101): error TS2339: Property 'availability' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(21,160): error TS2339: Property 'amountCents' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(22,142): error TS2339: Property 'items' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(22,213): error TS2339: Property 'items' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(22,223): error TS7006: Parameter 'a' implicitly has an 'any' type.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(23,131): error TS2339: Property 'items' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(23,141): error TS7006: Parameter 'h' implicitly has an 'any' type.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(23,168): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ NORMAL: string; TRADE_RESTRICTED: string; LOGIN_FROZEN: string; }'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(23,195): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ NORMAL: string; TRADE_RESTRICTED: string; LOGIN_FROZEN: string; }'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(23,394): error TS2339: Property 'total' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(23,496): error TS2339: Property 'total' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,322): error TS2339: Property 'statusVersion' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,448): error TS2339: Property 'freezeCustomerLogin' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,480): error TS2339: Property 'id' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,520): error TS2551: Property 'restoreCustomer' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'. Did you mean 'registerCustomer'?
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,548): error TS2339: Property 'id' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,569): error TS2339: Property 'restrictCustomerTrade' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'.
+apps/admin-web/src/pages/CustomerDetailPage.tsx(30,603): error TS2339: Property 'id' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,119): error TS2339: Property 'id' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,126): error TS2339: Property 'nickname' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,270): error TS2339: Property 'status' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,307): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ NORMAL: string; TRADE_RESTRICTED: string; LOGIN_FROZEN: string; }'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,318): error TS2339: Property 'status' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,420): error TS2339: Property 'createdAt' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(23,520): error TS2339: Property 'lastLoginAt' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(25,206): error TS2339: Property 'items' does not exist on type 'never'.
+apps/admin-web/src/pages/CustomerListPage.tsx(25,301): error TS2339: Property 'total' does not exist on type 'never'.
+apps/admin-web/src/services/api.ts(40,94): error TS2339: Property 'listCustomers' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'.
+apps/admin-web/src/services/api.ts(41,85): error TS2551: Property 'getCustomer' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'. Did you mean 'getCustomerMe'?
+apps/admin-web/src/services/api.ts(42,89): error TS2339: Property 'getCustomerAddresses' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'.
+apps/admin-web/src/services/api.ts(43,109): error TS2339: Property 'getCustomerStatusHistory' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'.
+apps/admin-web/src/services/api.ts(44,93): error TS2339: Property 'getCustomerConsumption' does not exist on type '{ addInventorySourceLine: (input: { signal?: AbortSignal | undefined; path: { id: unknown; }; body: { expectedSourceVersion: number; lineKey: string; reason: string; skuId: string; verifiedQuantity: number; }; }) => Promise<...>; ... 81 more ...; voidInventoryAdjustment: (input: { ...; }) => Promise<...>; }'.

@@ -1,0 +1,196 @@
+{
+  "startedAt": "2026-11-14T02:59:55.556Z",
+  "acceptedEvidence": "output/playwright/M2-07/docker-final",
+  "imagePrefix": "self-ecom-m207-acceptance-3ead21bc",
+  "commands": [
+    {
+      "label": "保护快照 predeploy",
+      "exitCode": 0
+    },
+    {
+      "label": "获取原数据库容器",
+      "exitCode": 0
+    },
+    {
+      "label": "核对容器",
+      "exitCode": 0
+    },
+    {
+      "label": "部署已验收镜像标签 api",
+      "exitCode": 0
+    },
+    {
+      "label": "读取镜像ID",
+      "exitCode": 0
+    },
+    {
+      "label": "部署已验收镜像标签 admin",
+      "exitCode": 0
+    },
+    {
+      "label": "读取镜像ID",
+      "exitCode": 0
+    },
+    {
+      "label": "部署已验收镜像标签 store",
+      "exitCode": 0
+    },
+    {
+      "label": "读取镜像ID",
+      "exitCode": 0
+    },
+    {
+      "label": "原开发库只应用增量迁移",
+      "exitCode": 0
+    },
+    {
+      "label": "保护快照 migrated",
+      "exitCode": 0
+    },
+    {
+      "label": "同组镜像更新三个应用",
+      "exitCode": 0
+    },
+    {
+      "label": "核实前置库存一致性读取和逾期扫描修复已进入生产",
+      "exitCode": 0
+    },
+    {
+      "label": "复核数据库容器",
+      "exitCode": 0
+    },
+    {
+      "label": "核对容器",
+      "exitCode": 0
+    },
+    {
+      "label": "记录最终四服务状态",
+      "exitCode": 0
+    }
+  ],
+  "images": [
+    {
+      "service": "api",
+      "source": "self-ecom-m207-acceptance-3ead21bc-api:local",
+      "tag": "self-ecom-api:local",
+      "id": "sha256:2bd18b29c9e2966f21a4de20f93d7e44f30f867a55142858a5008cc643aeef75"
+    },
+    {
+      "service": "admin",
+      "source": "self-ecom-m207-acceptance-3ead21bc-admin:local",
+      "tag": "self-ecom-admin-web:local",
+      "id": "sha256:eb7231193c21c5f2a95478eba087db6553a1499bd4dff58b1d5c85c5dd813643"
+    },
+    {
+      "service": "store",
+      "source": "self-ecom-m207-acceptance-3ead21bc-store:local",
+      "tag": "self-ecom-store-web:local",
+      "id": "sha256:75f9ac048821b27ca25bde4c089297a552ec3581adb68626ceb3cff084ed0e1e"
+    }
+  ],
+  "checks": [
+    {
+      "origin": "http://localhost:3001",
+      "ready": 200,
+      "operations": 105,
+      "publicProducts": 2,
+      "requestId": "4f7f735f-f322-4009-be2c-e4d2f000442a"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "ready": 200,
+      "operations": 105,
+      "publicProducts": 2,
+      "requestId": "20c50e0a-482b-451e-8fb8-afd8dfa3053e"
+    },
+    {
+      "origin": "http://localhost:8081",
+      "ready": 200,
+      "operations": 105,
+      "publicProducts": 2,
+      "requestId": "632eefb2-2b83-47b1-ad25-6c56da75700e"
+    }
+  ],
+  "beforeDatabase": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "status": "running",
+    "health": "healthy",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "afterDatabase": {
+    "id": "bf5410398e77ba1b73a37531ac38eef162971239bc7f1746eeb2583e42367706",
+    "startedAt": "2026-11-12T10:13:54.461500349Z",
+    "status": "running",
+    "health": "healthy",
+    "mounts": [
+      {
+        "name": "self-ecom_db_data",
+        "destination": "/var/lib/postgresql/data"
+      }
+    ]
+  },
+  "containers": [
+    {
+      "service": "admin-web",
+      "id": "b7ed8bac39ae",
+      "image": "self-ecom-admin-web:local",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "api",
+      "id": "a36e095b4030",
+      "image": "self-ecom-api:local",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "db",
+      "id": "bf5410398e77",
+      "image": "postgres:16.6-bookworm",
+      "state": "running",
+      "health": "healthy"
+    },
+    {
+      "service": "store-web",
+      "id": "51c3c48f0b68",
+      "image": "self-ecom-store-web:local",
+      "state": "running",
+      "health": "healthy"
+    }
+  ],
+  "retainedImages": [
+    {
+      "assetId": "0c0985de-16bd-4d6d-a02b-689327ca5778",
+      "port": 8080,
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "assetId": "0c0985de-16bd-4d6d-a02b-689327ca5778",
+      "port": 8081,
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "assetId": "7da6c13a-0340-4a67-9a18-0daeecf3350e",
+      "port": 8080,
+      "status": 200,
+      "hashMatched": true
+    },
+    {
+      "assetId": "7da6c13a-0340-4a67-9a18-0daeecf3350e",
+      "port": 8081,
+      "status": 200,
+      "hashMatched": true
+    }
+  ],
+  "failure": "Expected values to be strictly equal:\n\n503 !== 200\n",
+  "endedAt": "2026-11-14T03:00:16.693Z"
+}

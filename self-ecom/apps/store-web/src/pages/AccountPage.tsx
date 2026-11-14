@@ -45,6 +45,6 @@ export function AccountPage() {
     ]} />
     {editing ? <NicknameEditor nickname={customer.nickname} onClose={() => setEditing(false)} /> :
       <div className="auth-actions"><Button onClick={() => setEditing(true)}>编辑昵称</Button></div>}
-    <p className="form-link"><Link to="/change-password">修改密码</Link></p>
+    <p className="form-link"><Link to="/addresses">管理收货地址</Link> · <Link to="/cart">查看购物车</Link> · <Link to="/change-password">修改密码</Link></p>
   </section>;
 }

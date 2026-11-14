@@ -1,0 +1,215 @@
+{
+  "timestamp": "2026-11-14T02:44:10.367Z",
+  "status": "failed",
+  "mode": "customers",
+  "project": "self-ecom-m207-acceptance-a993c5b1",
+  "imagePrefix": "self-ecom-m207-acceptance-3ead21bc",
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-api:local",
+      "id": "sha256:4ab1e56ca856fc3890c08106c9bfb45f691d7063377aa850d57384a5cfd3b694"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-admin:local",
+      "id": "sha256:9e9b21372c7fd1fad3ad704fa96d1a1f7198e3fa757534521aefd5069ab94179"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-store:local",
+      "id": "sha256:4e46ceb0f1769cc33ec60de91f1af831f04b78b19326f3aa79bbb1175c2561e4"
+    }
+  ],
+  "previousEvidence": "output/playwright/M2-07/docker-fixtures-fixed",
+  "previousChecks": [
+    "复用本轮首次已构建镜像；仅验收脚本/测试变更，业务源码无变更",
+    "空库迁移、两类seed幂等、四服务健康与两站代理/缓存/Swagger/私有目录",
+    "首管理员直接登录、主动改密及会话撤销、最终权限与最后可用管理员保护",
+    "员工创建、列表详情、改名、版本冲突、依赖授权、调岗、启停、重置密码",
+    "顾客注册/重复/校验、双域隔离、本人资料/昵称/改密与仅撤销当前会话的幂等注销",
+    "SW-03/04/05/07：私有图隔离、安全元数据、用途校验、伪装图、5MiB API及两代理6MiB JSON413",
+    "SW-01/02/06：JPEG/PNG/WebP、本人绑定、重复命令、更换/移除与历史公开图片保留",
+    "SW-08：强改密拦截、个人额外用途权限授予/实时撤销、停用后旧token拒绝上传",
+    "Swagger浏览器现场：Authorize真实Bearer、multipart上传201、头像PUT200、元数据及二进制GET200",
+    "板块4：生产HTTP设置初始化/严格校验/版本冲突/同内容幂等/不可变历史与公开联系白名单",
+    "板块4：真实员工设置/待安排权限拒绝，任务三列表和摘要真实空态，缺业务不伪造成功",
+    "板块4：Nginx生产页面实际保存设置/历史、三种任务空态、手机布局和可拨打联系方式",
+    "板块4：Swagger现场Authorize后真实设置/任务摘要GET200及Bearer核验",
+    "板块4：生产启动真实空扫描及运行记录，镜像无测试任务适配器",
+    "板块5：真实分类/六SKU/批量价格/商品图片/数量草稿全链路，A/R保持0且上架拒绝",
+    "板块5：Swagger UI执行公开详情200，真实六SKU且无需Bearer",
+    "板块5：Nginx生产构建的商品编辑、商城规格/手机布局、公开投影与两站真实图片",
+    "板块5：自然缺货仍公开且不可购、下架404、重新上架重新校验",
+    "板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务",
+    "板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页",
+    "板块6：后台来源/损耗新建、库存不足409持久化核实、无效核实拒绝、作废闭环及预警等号",
+    "板块6 SW10/板块5 SW-L01：合法入账及差额更正→真实上架→商城选择SKU、真实图片与余额流水对账"
+  ],
+  "checks": [],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "d9cc1f44-a76b-406d-a06d-bcd905079069"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "9fc7b7d6-27d2-4627-87ef-4bd1f66c281f"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "269f031f-ced4-4048-b59f-335980e2fb40"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "7c542009-da59-45c5-b531-4175146973ca"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "0500fcde-7c4b-49eb-9036-cd47b9a278b3"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/daacd59d-0e03-4ba5-8cb1-d1aeed65e853/sku-scheme",
+      "status": 200,
+      "requestId": "7cc958ac-d232-4034-8a88-62de664ce12c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/daacd59d-0e03-4ba5-8cb1-d1aeed65e853/skus/batch-fill",
+      "status": 200,
+      "requestId": "9e482849-4814-4ee1-9c44-4ba300a9ec5f"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/daacd59d-0e03-4ba5-8cb1-d1aeed65e853/images",
+      "status": 200,
+      "requestId": "b974fafe-62ce-481e-ad9e-6d1bbde3848a"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "d237a9c7-3442-45b8-91a0-3da63d9914af"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "383e3cf3-aa01-4cef-8b51-741ebf04b980"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/0344bb77-9c8c-401d-9edb-1feec755974f/claim",
+      "status": 200,
+      "requestId": "8db9b03b-fb5b-4256-98d5-eff8f0f5e40c"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/0344bb77-9c8c-401d-9edb-1feec755974f/post",
+      "status": 200,
+      "requestId": "e7cf2fa0-e4d9-4625-b104-76c64350dc1f"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/daacd59d-0e03-4ba5-8cb1-d1aeed65e853/publish",
+      "status": 200,
+      "requestId": "4b4c67e7-5b14-4890-bd60-3f5413af4b9b"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "24351e56-69e2-4365-a54f-94e179ccd0bb"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "63c4c552-81be-4087-bed2-a4d67ba6a1ec"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "04f6e76b-53e4-4b06-bbf1-e802a53e8482"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原有卷清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "校验独占四服务",
+      "status": 0
+    },
+    {
+      "label": "仅启动随机专属数据库",
+      "status": 0
+    },
+    {
+      "label": "空库七迁移",
+      "status": 0
+    },
+    {
+      "label": "权限初始化",
+      "status": 0
+    },
+    {
+      "label": "专属管理员初始化",
+      "status": 0
+    },
+    {
+      "label": "启动四服务",
+      "status": 0
+    },
+    {
+      "label": "仅核对专属卷",
+      "status": 0
+    },
+    {
+      "label": "仅清理本次独占容器与卷",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "复核原有卷",
+      "status": 0
+    }
+  ],
+  "pageErrors": [],
+  "cleaned": true,
+  "originalResourcesPreserved": true,
+  "failure": "locator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('.address-card').filter({ hasText: '浏览器第二条' }).getByRole('button', { name: '编辑', exact: true })\u001b[22m\n\n    at verifyCustomers (D:\\实习\\实习生全栈学习笔记\\self-ecom\\infra\\verify-customers-http.mjs:42:169)\n    at async file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-customers-compose.mjs:37:65"
+}

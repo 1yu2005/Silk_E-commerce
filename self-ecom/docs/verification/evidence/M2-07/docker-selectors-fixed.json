@@ -1,0 +1,316 @@
+{
+  "timestamp": "2026-11-14T02:47:58.133Z",
+  "status": "failed",
+  "mode": "customers",
+  "project": "self-ecom-m207-acceptance-f36513ca",
+  "imagePrefix": "self-ecom-m207-acceptance-3ead21bc",
+  "acceptedImages": [
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-api:local",
+      "id": "sha256:4ab1e56ca856fc3890c08106c9bfb45f691d7063377aa850d57384a5cfd3b694"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-admin:local",
+      "id": "sha256:9e9b21372c7fd1fad3ad704fa96d1a1f7198e3fa757534521aefd5069ab94179"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-store:local",
+      "id": "sha256:4e46ceb0f1769cc33ec60de91f1af831f04b78b19326f3aa79bbb1175c2561e4"
+    }
+  ],
+  "previousEvidence": "output/playwright/M2-07/docker-fixtures-fixed",
+  "previousChecks": [
+    "复用本轮首次已构建镜像；仅验收脚本/测试变更，业务源码无变更",
+    "空库迁移、两类seed幂等、四服务健康与两站代理/缓存/Swagger/私有目录",
+    "首管理员直接登录、主动改密及会话撤销、最终权限与最后可用管理员保护",
+    "员工创建、列表详情、改名、版本冲突、依赖授权、调岗、启停、重置密码",
+    "顾客注册/重复/校验、双域隔离、本人资料/昵称/改密与仅撤销当前会话的幂等注销",
+    "SW-03/04/05/07：私有图隔离、安全元数据、用途校验、伪装图、5MiB API及两代理6MiB JSON413",
+    "SW-01/02/06：JPEG/PNG/WebP、本人绑定、重复命令、更换/移除与历史公开图片保留",
+    "SW-08：强改密拦截、个人额外用途权限授予/实时撤销、停用后旧token拒绝上传",
+    "Swagger浏览器现场：Authorize真实Bearer、multipart上传201、头像PUT200、元数据及二进制GET200",
+    "板块4：生产HTTP设置初始化/严格校验/版本冲突/同内容幂等/不可变历史与公开联系白名单",
+    "板块4：真实员工设置/待安排权限拒绝，任务三列表和摘要真实空态，缺业务不伪造成功",
+    "板块4：Nginx生产页面实际保存设置/历史、三种任务空态、手机布局和可拨打联系方式",
+    "板块4：Swagger现场Authorize后真实设置/任务摘要GET200及Bearer核验",
+    "板块4：生产启动真实空扫描及运行记录，镜像无测试任务适配器",
+    "板块5：真实分类/六SKU/批量价格/商品图片/数量草稿全链路，A/R保持0且上架拒绝",
+    "板块5：Swagger UI执行公开详情200，真实六SKU且无需Bearer",
+    "板块5：Nginx生产构建的商品编辑、商城规格/手机布局、公开投影与两站真实图片",
+    "板块5：自然缺货仍公开且不可购、下架404、重新上架重新校验",
+    "板块6：生产后台草稿映射→转换PENDING且A0→同人领取→确认双SKU各12，动作/流水/任务同事务",
+    "板块6：同源批次409并指原单、更正原根净量/源净量一致、来源更正链与手机流水页",
+    "板块6：后台来源/损耗新建、库存不足409持久化核实、无效核实拒绝、作废闭环及预警等号",
+    "板块6 SW10/板块5 SW-L01：合法入账及差额更正→真实上架→商城选择SKU、真实图片与余额流水对账"
+  ],
+  "checks": [
+    "板块7 SW02/IT07：手机注册登录→新增两地址→切默认双方版本→真实旧版本409重读，不覆盖最新地址",
+    "板块7 SW04：正式来源入账商品→真实浏览器加购→PATCH替换总数→取消后增量保留selected=false，A/R/动作/流水不变"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/admin/auth/login",
+      "status": 200,
+      "requestId": "84a89d4b-8f82-43e2-b055-667ae8ddde17"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "9705db22-942e-46a7-8763-6ec8e46db49a"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "5b5c2a27-16ea-460e-aa20-95d3dc4ec463"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/categories",
+      "status": 201,
+      "requestId": "7d39cd25-4b88-4303-bd6f-859e760918b0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products",
+      "status": 201,
+      "requestId": "6cf04ab3-c798-49ae-b8c0-83c3355ec3c4"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/5ddb7489-d8a3-4b92-9133-c3d8b1646b86/sku-scheme",
+      "status": 200,
+      "requestId": "edb719a0-c770-435f-a99e-38f046e4ff0d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/5ddb7489-d8a3-4b92-9133-c3d8b1646b86/skus/batch-fill",
+      "status": 200,
+      "requestId": "da99bb06-9de3-4f4c-a0e1-90a1a07f4c67"
+    },
+    {
+      "method": "PUT",
+      "path": "/admin/products/5ddb7489-d8a3-4b92-9133-c3d8b1646b86/images",
+      "status": 200,
+      "requestId": "0b562990-a192-4c6b-9038-19dc92637615"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "e53b4eea-3afc-4ecf-83fc-e98ca44f1b4d"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 201,
+      "requestId": "e320323b-17af-4ec0-b63f-fcc5b9989dc1"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/51a14c64-ccc4-4ddc-a6b6-b6c77bab6c47/claim",
+      "status": 200,
+      "requestId": "3bab5261-108a-45ec-868b-ece35d5e13b0"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments/51a14c64-ccc4-4ddc-a6b6-b6c77bab6c47/post",
+      "status": 200,
+      "requestId": "895d58fc-e892-4bfe-8c74-008ebaad0425"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/products/5ddb7489-d8a3-4b92-9133-c3d8b1646b86/publish",
+      "status": 200,
+      "requestId": "43def89b-a924-4446-989c-251b8064bc75"
+    },
+    {
+      "method": "POST",
+      "path": "/store/auth/login",
+      "status": 200,
+      "requestId": "85088524-07d1-4a83-92c1-e7db666e1e3f"
+    },
+    {
+      "method": "GET",
+      "path": "/store/me",
+      "status": 200,
+      "requestId": "03bff7cc-dff2-4652-b3ac-3e5526188218"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses",
+      "status": 200,
+      "requestId": "73e38f89-b64a-47fa-996c-4f1895174436"
+    },
+    {
+      "method": "PATCH",
+      "path": "/store/addresses/1cbbd950-4a23-4da8-801a-e2bdcd6ba233",
+      "status": 200,
+      "requestId": "53786816-1c87-4c18-b560-066821d0b9e8"
+    },
+    {
+      "method": "GET",
+      "path": "/store/addresses/1cbbd950-4a23-4da8-801a-e2bdcd6ba233",
+      "status": 200,
+      "requestId": "0afcd01d-6039-406e-b979-a6ea6198abe3"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/d6c01e12-c951-450a-9a77-9babedf2248e",
+      "status": 200,
+      "requestId": "f3fc2417-a272-4a8e-a4b9-b5bc7b63c7a2"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/ce3a4676-e8d3-483d-9c15-3ecfd181438c",
+      "status": 200,
+      "requestId": "86b66270-6f15-445b-acd7-5db2df2ce196"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "7c96cefc-becd-4603-afa9-44dd0878b8d6"
+    },
+    {
+      "method": "POST",
+      "path": "/store/cart/items",
+      "status": 200,
+      "requestId": "b00cda63-c6ad-4d44-9fa0-46720ec1cb75"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "3356defb-8e3d-48e0-99c3-a8a343e90cf8"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/d6c01e12-c951-450a-9a77-9babedf2248e",
+      "status": 200,
+      "requestId": "5b2e6be5-eb86-47f7-9e94-850a8a356a5b"
+    },
+    {
+      "method": "GET",
+      "path": "/admin/inventory/ce3a4676-e8d3-483d-9c15-3ecfd181438c",
+      "status": 200,
+      "requestId": "68a9ab8b-9623-45cf-b676-74f608028fe3"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "eb940ee2-f162-482f-9e12-184251829556"
+    },
+    {
+      "method": "GET",
+      "path": "/store/cart",
+      "status": 200,
+      "requestId": "d6d60f42-01fc-47a5-bdc0-eb1d3b257bb4"
+    },
+    {
+      "method": "PATCH",
+      "path": "/store/cart/items/1dd1a955-267c-4da7-9ba7-900882c35abc",
+      "status": 200,
+      "requestId": "35c91f4f-de02-495a-b218-c00cc22d5199"
+    },
+    {
+      "method": "POST",
+      "path": "/files",
+      "status": 201,
+      "requestId": "b7deadc7-4e5b-4b81-b9bd-d3551c3845c4"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/sources",
+      "status": 201,
+      "requestId": "53b19294-0c3d-4247-8af6-c78cc242febc"
+    },
+    {
+      "method": "POST",
+      "path": "/admin/inventory/adjustments",
+      "status": 400,
+      "requestId": "ac17f8d1-59e0-404f-a06a-bf26ac04cbf9"
+    }
+  ],
+  "commands": [
+    {
+      "label": "原有卷清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器清单",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "冻结本轮生产镜像ID",
+      "status": 0
+    },
+    {
+      "label": "校验独占四服务",
+      "status": 0
+    },
+    {
+      "label": "仅启动随机专属数据库",
+      "status": 0
+    },
+    {
+      "label": "空库七迁移",
+      "status": 0
+    },
+    {
+      "label": "权限初始化",
+      "status": 0
+    },
+    {
+      "label": "专属管理员初始化",
+      "status": 0
+    },
+    {
+      "label": "启动四服务",
+      "status": 0
+    },
+    {
+      "label": "板块7只读数据核对",
+      "status": 0
+    },
+    {
+      "label": "板块7只读数据核对",
+      "status": 0
+    },
+    {
+      "label": "仅核对专属卷",
+      "status": 0
+    },
+    {
+      "label": "仅清理本次独占容器与卷",
+      "status": 0
+    },
+    {
+      "label": "原有容器状态",
+      "status": 0
+    },
+    {
+      "label": "复核原有卷",
+      "status": 0
+    }
+  ],
+  "pageErrors": [],
+  "cleaned": true,
+  "originalResourcesPreserved": true,
+  "failure": "AssertionError [ERR_ASSERTION]: /admin/inventory/adjustments VALIDATION_FAILED\n\n400 !== 201\n\n    at call (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-customers-compose.mjs:29:401)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async verifyCustomers (file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-customers-http.mjs:60:17)\n    at async file:///D:/%E5%AE%9E%E4%B9%A0/%E5%AE%9E%E4%B9%A0%E7%94%9F%E5%85%A8%E6%A0%88%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/self-ecom/infra/verify-customers-compose.mjs:37:65"
+}

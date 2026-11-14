@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-14T02:55:42.763Z",
+  "paths": {
+    "apps/api/src/customers/customer.controller.ts": "035e559a0c301be1f5b4082d2fb0d618aa93a4f9302255c77b33b00587a9b3ae",
+    "apps/api/src/customers/customer.service.ts": "f5ffc243a759d87b53edb8c441ae841382d0e4b1fa4ba63c688e4093059cde4a",
+    "apps/api/src/customers/customer-access.service.ts": "091d861d847553ba233c24c79ee7c47174b59553148b27a53ecbdf564e2bd52d",
+    "apps/api/src/customers/customer-consumption.service.ts": "bdb8b575ba970d943c81599db98f158d78e97d0dc8370809b9ffb1fd6992939c",
+    "apps/api/src/customers/address.service.ts": "6c138e72cbe2721914582cd2ded60c85bdc5e151acd17569e74aa9e06566d882",
+    "apps/api/src/customers/cart.service.ts": "572aeb595ce0013b6707961310e3eaea0bea45021f860a2245d36080f064ec17",
+    "apps/api/src/customers/customer.dto.ts": "b1258fffe918c4c5381c47bfcd72f60848db8d2898bc2b0046c311cedd6e56ba",
+    "apps/api/prisma/migrations/0007_customer_status_addresses_cart/migration.sql": "23faedce87f04ac833d2455de0a7d30f8788eb7a3c0cc2ff21baa52129553da6",
+    "apps/store-web/src/pages/AddressPage.tsx": "17c6c61248e29fdd6b8ed26ff1da9284f4123f4f50843fb1f105b90fa5de8aed",
+    "apps/store-web/src/pages/CartPage.tsx": "2cecaedd3578f628a577d30587c1d5091742d9ab87292d1265d2699b59d60b5e",
+    "apps/store-web/src/pages/ProductDetailPage.tsx": "4254064d5c702f5d035f46c10438b5222988a9aa413945a62d3b7ada11a8b882",
+    "apps/store-web/src/styles.css": "854480ef26da1df81f5720c8f1b114ff8d2c158bffdc3e6abfa922f8022b8866",
+    "apps/admin-web/src/pages/CustomerListPage.tsx": "527850ab285125f147ab22854fd11eecef36b9d705386f115c0a72a973db0bf8",
+    "apps/admin-web/src/pages/CustomerDetailPage.tsx": "f7ac24ffd513d2874e7805288314b57d7d7df5895c356c3f7d399fac18a04a95"
+  },
+  "cleanup": {
+    "removedCss": "purchase-coming",
+    "evidence": "全仓仅剩旧CSS声明，无静态引用、动态选择器、路由或导出；原占位元素已被AddToCart替代",
+    "deletedFiles": [],
+    "recursiveDeletion": false
+  },
+  "gitOperations": []
+}

@@ -1,0 +1,24 @@
+{
+  "startedAt": "2026-11-14T02:51:36.842Z",
+  "reason": "移除已无静态或动态使用入口的purchase-coming旧样式",
+  "command": [
+    "compose",
+    "build"
+  ],
+  "images": [
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-api:local",
+      "id": "sha256:2bd18b29c9e2966f21a4de20f93d7e44f30f867a55142858a5008cc643aeef75"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-admin:local",
+      "id": "sha256:eb7231193c21c5f2a95478eba087db6553a1499bd4dff58b1d5c85c5dd813643"
+    },
+    {
+      "name": "self-ecom-m207-acceptance-3ead21bc-store:local",
+      "id": "sha256:75f9ac048821b27ca25bde4c089297a552ec3581adb68626ceb3cff084ed0e1e"
+    }
+  ],
+  "exitCode": 0,
+  "endedAt": "2026-11-14T02:55:30.738Z"
+}

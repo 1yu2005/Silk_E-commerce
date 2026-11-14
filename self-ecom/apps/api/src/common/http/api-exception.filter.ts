@@ -12,6 +12,7 @@ import { TaskError } from '../../tasks/task.errors.js';
 import { ContractError } from '@shop/shared';
 import { CatalogError } from '../../catalog/catalog.errors.js';
 import { InventoryError } from '../../inventory/inventory.errors.js';
+import { CustomerError } from '../../customers/customer.errors.js';
 
 const errors: Record<number, { code: string; message: string }> = {
   400: { code: 'VALIDATION_FAILED', message: '请求参数不合法' },
@@ -36,7 +37,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
     }
 
     const knownError: ReturnType<typeof authHttpError> = authHttpError(exception) ?? employeeCommandHttpError(exception)
-      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError || exception instanceof InventoryError ? exception : undefined);
+      ?? (exception instanceof FileError || exception instanceof ContractError || exception instanceof StoreSettingsError || exception instanceof TaskError || exception instanceof CatalogError || exception instanceof InventoryError || exception instanceof CustomerError ? exception : undefined);
     const status = knownError?.status ?? (exception instanceof HttpException ? exception.getStatus() : 500);
     const error = knownError ? { code: knownError.code, message: knownError.message }
       : errors[status] ?? { code: 'INTERNAL_ERROR', message: '系统暂时异常，请稍后重试' };

@@ -1,0 +1,127 @@
+{
+  "startedAt": "2026-11-14T03:13:29.546Z",
+  "endedAt": "2026-11-14T03:13:30.311Z",
+  "command": [
+    "node",
+    "--input-type=module"
+  ],
+  "mode": "delivery-closure",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--name-only"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "--diff-filter=D",
+        "--relative"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "check-ignore",
+        "--quiet",
+        "--",
+        "private-delivery/板块7_开发完成说明_含账号密码.local.md"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--",
+        "private-delivery"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--name-only",
+        "--relative",
+        "-z"
+      ],
+      "exitCode": 0
+    },
+    {
+      "command": [
+        "git",
+        "ls-files",
+        "--others",
+        "--exclude-standard",
+        "-z"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "git": {
+    "branch": "main",
+    "head": "836079bb4a524bf1ad09e8eac6a4741e431f7f1e",
+    "stagedFiles": [],
+    "deletedFiles": [],
+    "writeOperations": []
+  },
+  "sourceFilesUnchanged": 14,
+  "configurationAndOldMigrationsUnchanged": true,
+  "privateDelivery": {
+    "path": "private-delivery/板块7_开发完成说明_含账号密码.local.md",
+    "ignored": true,
+    "tracked": false,
+    "dockerExcluded": true,
+    "containsCompletePublicDelivery": true,
+    "newRetainedMembers": 0,
+    "existingPasswordsUnchanged": true
+  },
+  "secretScan": {
+    "scope": "本轮修改及未跟踪的非忽略文件",
+    "files": 161,
+    "secretValueHits": []
+  },
+  "lintEvidence": "lint-closure.json",
+  "deploymentEvidence": "deployment-final.json",
+  "previousRunsPreserved": true,
+  "repeatedTestSuites": false,
+  "firstLintProcessLaunch": {
+    "executed": false,
+    "error": "Windows CreateProcessWithLogonW 1253",
+    "retry": "lint-closure.json exit 0"
+  },
+  "exitCode": 0,
+  "passed": true
+}

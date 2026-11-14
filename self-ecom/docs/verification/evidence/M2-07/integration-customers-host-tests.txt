@@ -1,0 +1,297 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+ ❯ test/customers.integration.ts (43 tests | 25 failed) 3316ms
+   × SW04/IT03：加购增量同SKU合并、PATCH替换总数、保留未勾选、不预占 29ms
+   × IT03：同顾客SKU并发累加正确，库存边界竞争不超量且不产生两行 28ms
+   × SW05：quantity=0严格拒绝 28ms
+   × SW05：quantity=100严格拒绝 26ms
+   × SW05：quantity=1.5严格拒绝 22ms
+   × SW05：quantity=1严格拒绝 20ms
+   × SW05：quantity=null严格拒绝 25ms
+   × SW05：99上限与超A拒绝，库存下降允许减量整理但仍不足 30ms
+   × IT04：unpublish后GET实时失效、不能增加/选中但可取消/删除 25ms
+   × IT04：archive后GET实时失效、不能增加/选中但可取消/删除 21ms
+   × IT04：disabled后GET实时失效、不能增加/选中但可取消/删除 22ms
+   × IT04：retired后GET实时失效、不能增加/选中但可取消/删除 24ms
+   × IT04：price后GET实时失效、不能增加/选中但可取消/删除 22ms
+   × IT04：stock后GET实时失效、不能增加/选中但可取消/删除 20ms
+   × IT04：blocked后GET实时失效、不能增加/选中但可取消/删除 19ms
+   × 实时价格、全车分页汇总、字段白名单与恢复可售 24ms
+   × SW07：批量旧版本/他人/重复ID整批拒绝，合法批量返回版本 36ms
+   × 同版本PATCH竞争只有一个成功，删除重加生成新ID且旧ID404 22ms
+   × SW08：限制交易不撤销会话、不阻止资料地址购物车，状态版本独立 22ms
+   × IT05：address.change审计写后失败使数据及版本/会话一起回滚 17ms
+   × IT05：cart.change审计写后失败使数据及版本/会话一起回滚 17ms
+   × IT05：customer.status.change审计写后失败使数据及版本/会话一起回滚 20ms
+   × IT05：批量第二项审计失败，第一项已执行删除也完整回滚 16ms
+   × IT01：地址先合法提交可保留，冻结先提交的后续地址/购物车写401 26ms
+   × IT06：同事务按购买量扣减、保留新增加购，量不足整单回滚，取消不自动恢复 22ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 25 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/customers.integration.ts > SW04/IT03：加购增量同SKU合并、PATCH替换总数、保留未勾选、不预占
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:62:84
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/25]⎯
+
+ FAIL  test/customers.integration.ts > IT03：同顾客SKU并发累加正确，库存边界竞争不超量且不产生两行
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:63:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/25]⎯
+
+ FAIL  test/customers.integration.ts > SW05：quantity=0严格拒绝
+ FAIL  test/customers.integration.ts > SW05：quantity=100严格拒绝
+ FAIL  test/customers.integration.ts > SW05：quantity=1.5严格拒绝
+ FAIL  test/customers.integration.ts > SW05：quantity=1严格拒绝
+ FAIL  test/customers.integration.ts > SW05：quantity=null严格拒绝
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:64:98
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/25]⎯
+
+ FAIL  test/customers.integration.ts > SW05：99上限与超A拒绝，库存下降允许减量整理但仍不足
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:65:73
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/25]⎯
+
+ FAIL  test/customers.integration.ts > IT04：unpublish后GET实时失效、不能增加/选中但可取消/删除
+ FAIL  test/customers.integration.ts > IT04：archive后GET实时失效、不能增加/选中但可取消/删除
+ FAIL  test/customers.integration.ts > IT04：disabled后GET实时失效、不能增加/选中但可取消/删除
+ FAIL  test/customers.integration.ts > IT04：retired后GET实时失效、不能增加/选中但可取消/删除
+ FAIL  test/customers.integration.ts > IT04：price后GET实时失效、不能增加/选中但可取消/删除
+ FAIL  test/customers.integration.ts > IT04：stock后GET实时失效、不能增加/选中但可取消/删除
+ FAIL  test/customers.integration.ts > IT04：blocked后GET实时失效、不能增加/选中但可取消/删除
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:66:167
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/25]⎯
+
+ FAIL  test/customers.integration.ts > 实时价格、全车分页汇总、字段白名单与恢复可售
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:67:66
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/25]⎯
+
+ FAIL  test/customers.integration.ts > SW07：批量旧版本/他人/重复ID整批拒绝，合法批量返回版本
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:68:98
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/25]⎯
+
+ FAIL  test/customers.integration.ts > 同版本PATCH竞争只有一个成功，删除重加生成新ID且旧ID404
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:69:77
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/25]⎯
+
+ FAIL  test/customers.integration.ts > SW08：限制交易不撤销会话、不阻止资料地址购物车，状态版本独立
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:70:76
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/25]⎯
+
+ FAIL  test/customers.integration.ts > IT05：address.change审计写后失败使数据及版本/会话一起回滚
+ FAIL  test/customers.integration.ts > IT05：cart.change审计写后失败使数据及版本/会话一起回滚
+ FAIL  test/customers.integration.ts > IT05：customer.status.change审计写后失败使数据及版本/会话一起回滚
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:72:139
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/25]⎯
+
+ FAIL  test/customers.integration.ts > IT05：批量第二项审计失败，第一项已执行删除也完整回滚
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:73:72
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/25]⎯
+
+ FAIL  test/customers.integration.ts > IT01：地址先合法提交可保留，冻结先提交的后续地址/购物车写401
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:75:78
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/25]⎯
+
+ FAIL  test/customers.integration.ts > IT06：同事务按购买量扣减、保留新增加购，量不足整单回滚，取消不自动恢复
+PrismaClientKnownRequestError: 
+Invalid `db.product.create()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:47:226
+
+  44 async function session(subjectType:'EMPLOYEE'|'CUSTOMER',id:string):Promise<CustomerContext>{const row=subjectType==='CUSTOMER'?await db.customer.findUniqueOrThrow({where:{id}}):await db.employee.findUniqueOrThrow({where:{id}});const issued=await db.$transaction(tx=>app.get(AuthSessionService).createAfterPasswordVerified(tx,{subjectType,subjectId:id,expectedPasswordHash:row.passwordHash,expectedTokenVersion:row.tokenVersion}));return {actor:await app.get(CurrentIdentityService).authenticate(db,issued.accessToken,subjectType),token:issued.accessToken,requestId:randomUUID()};}
+  45 async function employee(role:'SUPER_ADMIN'|'CUSTOMER_SERVICE'|'MERCH_WAREHOUSE'){const row=await db.employee.create({data:{username:'c7_'+randomUUID().replaceAll('-','').slice(0,20),displayName:'顾客隔离测试员工',role,passwordHash:hash,mustChangePassword:false}});return session('EMPLOYEE',row.id);}
+  46 async function customer(status:CustomerStatus='NORMAL'){const row=await db.customer.create({data:{phone:'139'+String(randomInt(100000000)).padStart(8,'0'),nickname:'板块7隔离顾客',status,passwordHash:hash}});return session('CUSTOMER',row.id);}
+→ 47 async function sku(available=10){const product=await db.product.create(
+Database error. Code: `23514`. Message: `new row for relation "sku" violates check constraint "sku_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:77:81
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/25]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  25 failed | 18 passed (43)
+   Start at  10:14:11
+   Duration  5.52s (tests 63%, import 27%, transform 10%)
+

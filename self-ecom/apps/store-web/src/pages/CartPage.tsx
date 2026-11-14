@@ -1,0 +1,23 @@
+// 作用：分页购物车与全车真实商品金额；失效选中项不静默跳过，购物车操作不预占库存。
+import {useCallback,useState,useSyncExternalStore} from 'react';
+import {Alert,Button,Empty,Pagination,Spin,Tag} from 'antd';
+import {Link} from 'react-router-dom';
+import {catalog,session} from '../services/api';
+import {AuthError} from '../auth/AuthError';
+import {useStoreCommand,useStoreQuery} from '../customers/use-store-data';
+import {money,type CartItem} from '../customers/model';
+export function CartPage(){const {revision}=useSyncExternalStore(session.subscribe,session.getSnapshot);const [epoch,setEpoch]=useState(0),[page,setPage]=useState(1);return <CartView key={revision+':'+page+':'+epoch} page={page} setPage={setPage} reload={()=>setEpoch(n=>n+1)}/>;}
+function CartView({page,setPage,reload}:{page:number;setPage:(n:number)=>void;reload:()=>void}){
+ const load=useCallback(async(signal:AbortSignal)=>(await catalog.getCart({query:{page,pageSize:20},signal})).data,[page]);const state=useStoreQuery(load,'cart:'+page);const cmd=useStoreCommand(reload);const disabled=cmd.busy||cmd.blocked;
+ const data=state?.data;const rows=data?.items??[];const items=rows.map(r=>({id:r.id,expectedVersion:r.version}));
+ return <section className="customer-workspace"><div className="customer-heading"><div><span className="store-kicker">YOUR EVERYDAY PICKS</span><h1>购物车</h1><p>挑选合适的颜色与尺码，库存和价格以当前信息为准。</p></div><Link to="/products">继续挑选 →</Link></div><Alert type="info" title="加入购物车不留货。商品金额不含运费，也不是最终应付。"/><AuthError error={cmd.error}/>
+ {cmd.blocked?<Alert type="warning" title="请先核对最新购物车" description="版本可能冲突或提交结果尚未确认，不会自动重发。" action={<Button onClick={reload}>读取最新购物车</Button>}/>:null}
+ {!data?<>{state?.error?<AuthError error={state.error}/>:<Spin/>}<Button onClick={reload}>重新读取购物车</Button></>:<>
+ {rows.length?<><div className="customer-actions"><Button disabled={disabled} onClick={()=>void cmd.run(()=>catalog.selectCartItems({body:{items,selected:true}}))}>勾选本页</Button><Button disabled={disabled} onClick={()=>void cmd.run(()=>catalog.selectCartItems({body:{items,selected:false}}))}>取消本页勾选</Button><Button danger disabled={disabled||!rows.some(r=>r.selected)} onClick={()=>{if(window.confirm('删除本页已勾选商品？其他页不受影响。'))void cmd.run(()=>catalog.deleteCartItems({body:{items:items.filter(i=>rows.find(r=>r.id===i.id)?.selected)}}));}}>删除本页已勾选</Button></div>
+ <div className="cart-items">{rows.map(row=><CartRow key={row.id+':'+row.version} row={row} disabled={disabled} change={body=>void cmd.run(()=>catalog.updateCartItem({path:{id:row.id},body:{...body,expectedVersion:row.version}}))} remove={()=>void cmd.run(()=>catalog.deleteCartItem({path:{id:row.id},body:{expectedVersion:row.version}}))}/>)}</div></>:<Empty description={data.total?'本页已没有项目，请返回上一页':'购物车还是空的，去看看喜欢的衣服吧'}/>}
+ <Pagination current={page} total={data.total} pageSize={20} showSizeChanger={false} onChange={setPage}/><aside className="cart-summary"><div><span>全车已选 {data.summary.selectedItemCount} 项 / 共 {data.summary.totalItemCount} 项</span><strong>商品金额 {data.summary.selectedSubtotalCents===null?'待处理失效项目':money(data.summary.selectedSubtotalCents)}</strong></div>{data.summary.invalidSelectedCount?<Alert type="warning" title={'有 '+data.summary.invalidSelectedCount+' 项已选商品失效或库存不足，请处理后再确认。'}/>:null}<p>{data.summary.canCheckout?'所选商品当前可购买。报价和下单服务尚未开放。':'请选择有效商品；失效项目可减少数量、取消勾选或删除。'}</p><Link to="/addresses">管理收货地址 →</Link></aside>
+ </>}</section>;
+}
+function CartRow({row:r,disabled,change,remove}:{row:CartItem;disabled:boolean;change:(body:{quantity?:number;selected?:boolean})=>void;remove:()=>void}){
+ return <article className={'cart-item '+(!r.purchasable?'cart-invalid':'')}><label className="cart-select"><input type="checkbox" aria-label={'勾选 '+r.productName+' '+r.skuCode} checked={r.selected} disabled={disabled} onChange={e=>change({selected:e.target.checked})}/></label>{r.mainImageUrl?<img src={r.mainImageUrl} alt={r.productName}/>:<span className="cart-placeholder">衣</span>}<div className="cart-copy"><Link to={'/products/'+r.productId}>{r.productName}</Link><p>{r.choices.map(c=>c.dimension+'：'+c.value).join(' / ')||'默认规格'}</p><small>规格编号 {r.skuCode}</small><p>{money(r.unitPriceCents)} · 可售 {r.available} 件</p>{!r.purchasable?<Tag color="orange">{r.validityMessage}</Tag>:null}</div><form className="cart-quantity" onSubmit={e=>{e.preventDefault();change({quantity:Number(new FormData(e.currentTarget).get('quantity'))});}}><label>数量<input type="number" name="quantity" aria-label={'数量 '+r.skuCode} min={1} max={99} step={1} required defaultValue={r.quantity} disabled={disabled}/></label><Button htmlType="submit" disabled={disabled}>更新数量</Button></form><div className="cart-line-total"><strong>{money(r.lineAmountCents)}</strong><Button danger disabled={disabled} onClick={remove}>移除</Button></div></article>;
+}

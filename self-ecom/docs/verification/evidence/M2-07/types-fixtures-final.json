@@ -1,0 +1,98 @@
+{
+  "at": "2026-11-14T02:54:20.254Z",
+  "mode": "types",
+  "label": "fixtures-final",
+  "checks": [
+    {
+      "name": "packages-shared",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/shared/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T02:54:20.265Z",
+      "endedAt": "2026-11-14T02:54:20.824Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-07/types-fixtures-final-packages-shared.txt"
+    },
+    {
+      "name": "packages-api-client",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/api-client/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T02:54:20.825Z",
+      "endedAt": "2026-11-14T02:54:21.529Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-07/types-fixtures-final-packages-api-client.txt"
+    },
+    {
+      "name": "packages-ui",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "packages/ui/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T02:54:21.529Z",
+      "endedAt": "2026-11-14T02:54:22.309Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-07/types-fixtures-final-packages-ui.txt"
+    },
+    {
+      "name": "apps-api",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/api/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T02:54:22.310Z",
+      "endedAt": "2026-11-14T02:54:28.441Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-07/types-fixtures-final-apps-api.txt"
+    },
+    {
+      "name": "apps-admin-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/admin-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T02:54:28.441Z",
+      "endedAt": "2026-11-14T02:54:33.342Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-07/types-fixtures-final-apps-admin-web.txt"
+    },
+    {
+      "name": "apps-store-web",
+      "command": [
+        "D:\\develop\\nodejs\\node.exe",
+        "D:\\实习\\实习生全栈学习笔记\\self-ecom\\node_modules\\typescript\\bin\\tsc",
+        "-p",
+        "apps/store-web/tsconfig.json",
+        "--noEmit"
+      ],
+      "startedAt": "2026-11-14T02:54:33.342Z",
+      "endedAt": "2026-11-14T02:54:39.712Z",
+      "exitCode": 0,
+      "error": null,
+      "log": "docs/verification/evidence/M2-07/types-fixtures-final-apps-store-web.txt"
+    }
+  ],
+  "passed": true
+}

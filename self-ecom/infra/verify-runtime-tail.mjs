@@ -80,13 +80,13 @@ export async function verifyRuntimeTail(c) {
       passed('尾项：三秒真实JWT两个登录域均本人200→自然到期401 TOKEN_EXPIRED');
       assert.equal(compose(['exec','-T','api','id','-u'],'非root运行').stdout.trim(),'1000');
       compose(['exec','-T','api','node','-e',"const f=require('node:fs');for(const p of ['/app/.env','/app/output','/app/private-delivery','/app/test','/app/dist/acceptance'])if(f.existsSync(p))process.exit(1)"],'镜像无真实配置/证据/私有交付/测试适配器');
-      const migrations=(await readdir('apps/api/prisma/migrations',{withFileTypes:true})).filter(e=>e.isDirectory()).length;assert.equal(migrations,6);
+      const migrations=(await readdir('apps/api/prisma/migrations',{withFileTypes:true})).filter(e=>e.isDirectory()).length;assert.equal(migrations,7);
       assert.equal(query('SELECT count(*) FROM "_prisma_migrations" WHERE finished_at IS NOT NULL AND rolled_back_at IS NULL'),String(migrations));
       for(const suffix of ['api','admin','store']){const imageEnv=run(['image','inspect','--format','{{json .Config.Env}}',imagePrefix+'-'+suffix+':local'],'镜像配置秘密扫描').stdout;assert.ok(!secrets.some(s=>imageEnv.includes(s)));}
       for(const site of [origin,storeOrigin]){const html=await(await fetch(site)).text();for(const asset of [...html.matchAll(/(?:src|href)="(\/assets\/[^"?#]+)"/g)].map(m=>m[1])){const body=await(await fetch(site+asset)).text();assert.ok(!secrets.some(s=>body.includes(s)));}}
       const logs=compose(['logs','--no-color','api'],'运行日志秘密扫描');const text=(logs.stdout??'')+(logs.stderr??'');assert.ok(!secrets.some(s=>text.includes(s)));await writeFile(path.join(output,'runtime.log'),redact(text));
-      const doc=JSON.parse(await readFile('docs/openapi/openapi.json','utf8'));assert.equal(Object.values(doc.paths).reduce((n,p)=>n+Object.keys(p).length,0),85);
-      passed('尾项：六迁移、API非root、生产镜像边界、镜像/前端产物/运行日志秘密扫描');
+      const doc=JSON.parse(await readFile('docs/openapi/openapi.json','utf8'));assert.equal(Object.values(doc.paths).reduce((n,p)=>n+Object.keys(p).length,0),105);
+      passed('尾项：七迁移、API非root、生产镜像边界、镜像/前端产物/运行日志秘密扫描');
     }
   };
 }

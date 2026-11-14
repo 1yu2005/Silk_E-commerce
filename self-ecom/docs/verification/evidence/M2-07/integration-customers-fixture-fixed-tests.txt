@@ -1,0 +1,35 @@
+
+ RUN  v5.1.0 D:/实习/实习生全栈学习笔记/self-ecom/apps/api
+
+(node:15584) DeprecationWarning: Calling client.query() when the client is already executing a query is deprecated and will be removed in pg@9.0. Use async/await or an external async flow control mechanism instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+ ❯ test/customers.integration.ts (43 tests | 1 failed) 4996ms
+   × IT04：archive后GET实时失效、不能增加/选中但可取消/删除 45ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  test/customers.integration.ts > IT04：archive后GET实时失效、不能增加/选中但可取消/删除
+PrismaClientKnownRequestError: 
+Invalid `db.product.update()` invocation in
+D:/实习/实习生全栈学习笔记/self-ecom/apps/api/test/customers.integration.ts:66:371
+
+  63 it('IT03：同顾客SKU并发累加正确，库存边界竞争不超量且不产生两行',async()=>{const c=await customer(),s=await sku(10);const results=await Promise.allSettled(Array.from({length:12},()=>cart.add(fresh(c),{skuId:s.id,quantity:1})));expect(results.filter(r=>r.status==='fulfilled')).toHaveLength(10);expect(results.filter(r=>r.status==='rejected')).toHaveLength(2);expect(await db.cartItem.findMany({where:{customerId:c.actor.subjectId}})).toMatchObject([{quantity:10,version:9}]);});
+  64 it.each([0,100,1.5,'1',null])('SW05：quantity=%s严格拒绝',async quantity=>{const c=await customer(),s=await sku();expect((await http('POST','/store/cart/items',c,{skuId:s.id,quantity})).status).toBe(400);});
+  65 it('SW05：99上限与超A拒绝，库存下降允许减量整理但仍不足',async()=>{const c=await customer(),s=await sku(100);const a=await cart.add(c,{skuId:s.id,quantity:99});await expect(cart.add(c,{skuId:s.id,quantity:1})).rejects.toMatchObject({code:'CART_QUANTITY_LIMIT'});await db.inventoryBalance.update({where:{skuId:s.id},data:{available:3}});let list=await cart.list(c,{page:1,pageSize:20});expect(list.items[0]).toMatchObject({validity:'STOCK_INSUFFICIENT',quantity:99});expect(list.summary).toMatchObject({selectedSubtotalCents:null,canCheckout:false,invalidSelectedCount:1});const reduced=await cart.update(c,a.item.id,{expectedVersion:0,quantity:4});expect(reduced.item.validity).toBe('STOCK_INSUFFICIENT');const valid=await cart.update(c,a.item.id,{expectedVersion:1,quantity:3});expect(valid.item.validity).toBe('VALID');await expect(cart.update(c,a.item.id,{expectedVersion:2,quantity:4})).rejects.toMatchObject({code:'STOCK_INSUFFICIENT'});list=await cart.list(c,{page:1,pageSize:20});expect(list.summary.selectedSubtotalCents).toBe('29700');});
+→ 66 it.each(['unpublish','archive','disabled','retired','price','stock','blocked'] as const)('IT04：%s后GET实时失效、不能增加/选中但可取消/删除',async scenario=>{const c=await customer(),s=await sku();const a=await cart.add(c,{skuId:s.id,quantity:2});if(scenario==='unpublish')await db.product.update(
+Database error. Code: `23514`. Message: `new row for relation "product" violates check constraint "product_values"`
+ ❯ vn.handleRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:238:13
+ ❯ vn.handleAndLogRequestError ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:184:12
+ ❯ vn.request ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/RequestHandler.ts:153:12
+ ❯ a ../../node_modules/.pnpm/@prisma+client@7.10.1_prism_f29308a4d7ad013be37d690f9ce8ab9c/node_modules/@prisma/client/src/runtime/getPrismaClient.ts:1012:24
+ ❯ test/customers.integration.ts:66:354
+
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 42 passed (43)
+   Start at  10:15:11
+   Duration  7.25s (tests 70%, import 24%, transform 6%)
+

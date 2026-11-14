@@ -1,0 +1,88 @@
+{
+  "startedAt": "2026-11-14T03:04:01.124Z",
+  "checks": [
+    {
+      "origin": "http://localhost:3001",
+      "operations": 105,
+      "publicProducts": 2,
+      "retainedImagesMatched": 3,
+      "anonymousPrivateEndpoints": 401,
+      "requestId": "1c25f5e6-1594-486f-90d5-8ee0963e571c"
+    },
+    {
+      "origin": "http://localhost:8080",
+      "operations": 105,
+      "publicProducts": 2,
+      "retainedImagesMatched": 3,
+      "anonymousPrivateEndpoints": 401,
+      "requestId": "db881030-f3b2-4daa-8a37-8c0fa398d1cb"
+    },
+    {
+      "origin": "http://localhost:8081",
+      "operations": 105,
+      "publicProducts": 2,
+      "retainedImagesMatched": 3,
+      "anonymousPrivateEndpoints": 401,
+      "requestId": "9e440524-e2d1-4089-b14a-da7c052c959e"
+    }
+  ],
+  "commands": [
+    {
+      "label": "运行镜像 api",
+      "exitCode": 0
+    },
+    {
+      "label": "运行镜像 admin-web",
+      "exitCode": 0
+    },
+    {
+      "label": "运行镜像 store-web",
+      "exitCode": 0
+    },
+    {
+      "label": "原数据库容器保持",
+      "exitCode": 0
+    },
+    {
+      "label": "原上传卷保持",
+      "exitCode": 0
+    }
+  ],
+  "images": [
+    {
+      "service": "api",
+      "id": "sha256:2bd18b29c9e2966f21a4de20f93d7e44f30f867a55142858a5008cc643aeef75"
+    },
+    {
+      "service": "admin-web",
+      "id": "sha256:eb7231193c21c5f2a95478eba087db6553a1499bd4dff58b1d5c85c5dd813643"
+    },
+    {
+      "service": "store-web",
+      "id": "sha256:75f9ac048821b27ca25bde4c089297a552ec3581adb68626ceb3cff084ed0e1e"
+    }
+  ],
+  "pageErrors": [],
+  "authenticatedProductionWrites": false,
+  "databasePreserved": true,
+  "uploadVolumePreserved": true,
+  "migrations": 7,
+  "business": {
+    "customers": 2,
+    "employees": 3,
+    "addresses": 0,
+    "cart_items": 0,
+    "available": "96",
+    "reserved": "0",
+    "actions": 2,
+    "ledger": 8
+  },
+  "browser": {
+    "productSelection": true,
+    "anonymousCartAddressAndAdminRedirects": true,
+    "mobileNoOverflow": true,
+    "authenticatedCoreFlows": "独占四服务docker-final已通过；常用环境保持原账号，不新增或重置凭据"
+  },
+  "passed": true,
+  "endedAt": "2026-11-14T03:04:05.790Z"
+}

@@ -46,6 +46,12 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           '/api/v1/admin/inventory/adjustments/{id}/corrections','/api/v1/admin/inventory/adjustments/{id}/resolve-check',
           '/api/v1/admin/inventory/{skuId}','/api/v1/admin/inventory/{skuId}/warning-threshold',
           '/api/v1/admin/products/{id}/initial-inventory-draft/convert',
+          '/api/v1/admin/customers','/api/v1/admin/customers/{id}','/api/v1/admin/customers/{id}/addresses',
+          '/api/v1/admin/customers/{id}/status-history','/api/v1/admin/customers/{id}/consumption',
+          '/api/v1/admin/customers/{id}/restrict-trade','/api/v1/admin/customers/{id}/freeze-login','/api/v1/admin/customers/{id}/restore',
+          '/api/v1/store/addresses','/api/v1/store/addresses/{id}','/api/v1/store/addresses/{id}/set-default',
+          '/api/v1/store/cart','/api/v1/store/cart/items','/api/v1/store/cart/items/{id}',
+          '/api/v1/store/cart/selection','/api/v1/store/cart/items/batch-delete',
         ]).sort());
         for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products|inventory)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){
           const operation=item![key];if(operation)expect(operation.security).toEqual([{bearerAuth:[]}]);

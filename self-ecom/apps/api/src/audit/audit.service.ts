@@ -3,6 +3,9 @@ import { Injectable } from '@nestjs/common';
 import { Prisma, TaskBusinessType, TaskStage, TaskStatus, type AuditActorType } from '@prisma/client';
 
 const policies = {
+  'customer.status.change': { target: 'Customer', fields: ['status','customerStatusVersion'], reason: true },
+  'address.change': { target: 'Address', fields: ['addressFields','isDefault','addressVersion'], reason: false },
+  'cart.change': { target: 'CartItem', fields: ['skuId','quantity','selected','cartVersion','deleted'], reason: false },
   'inventory.action': { target: 'InventoryAction', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
   'inventory.source': { target: 'InventorySource', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
   'inventory.adjustment': { target: 'InventoryAdjustment', fields: ['inventoryOperation','inventoryVersion','inventoryQuantity'], reason: true },
@@ -91,7 +94,12 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
         && ['name','parentId','pathIds','categoryId','status','archivedAt','code','priceCents','costCents','enabled','retiredAt','images','dimensions','quantity','sortOrder','iconKey','brand','description'].includes(row.field)
         && [row.before,row.after].every(v=>v===null || typeof v==='boolean' || (typeof v==='number' && Number.isSafeInteger(v)) || (typeof v==='string' && v.length<=30000));
     });
-    else if (field === 'passwordChanged' || field === 'loggedOut') valid = item === true;
+    else if (field === 'customerStatusVersion' || field === 'addressVersion' || field === 'cartVersion') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
+    else if (field === 'addressFields') valid = Array.isArray(item) && item.length>=1 && item.length<=7 && new Set(item).size===item.length && item.every(k=>['receiver','phone','province','city','district','detail','isDefault','deleted'].includes(k));
+    else if (field === 'skuId') valid = typeof item==='string' && uuid.test(item);
+    else if (field === 'quantity') valid = Number.isInteger(item) && (item as number)>=1 && (item as number)<=99;
+    else if (field === 'selected' || field === 'isDefault') valid = typeof item==='boolean';
+    else if (field === 'passwordChanged' || field === 'loggedOut' || field === 'deleted') valid = item === true;
     else if (field === 'mustChangePassword' || field === 'reassignNeeded') valid = typeof item === 'boolean';
     else if (field === 'role') valid = typeof item === 'string' && roles.has(item);
     else if (field === 'status') valid = typeof item === 'string'
@@ -157,7 +165,8 @@ export class AuditService {
       'order.timer.block.add', 'order.timer.block.release', 'order.timer.handover.record', 'order.timer.finish'].includes(payload.action)) invalid();
     if (['task.claim', 'task.release', 'task.transfer', 'task.qualification.lost', 'task.deadline.extend'].includes(payload.action) && actor.type !== 'EMPLOYEE') invalid();
     if (payload.action.startsWith('employee.') && actor.type === 'CUSTOMER') invalid();
-    if (payload.action.startsWith('customer.') && actor.type !== 'CUSTOMER') invalid();
+    if (payload.action === 'customer.status.change' ? actor.type !== 'EMPLOYEE' : payload.action.startsWith('customer.') && actor.type !== 'CUSTOMER') invalid();
+    if ((payload.action==='address.change'||payload.action==='cart.change') && actor.type!=='CUSTOMER') invalid();
     if (payload.action.startsWith('communication.') && actor.type !== 'EMPLOYEE') invalid();
     if ((payload.action === 'store.setting.update' || payload.action === 'category.change' || payload.action === 'product.change') && actor.type !== 'EMPLOYEE') invalid();
     const reason = payload.reason?.trim();
