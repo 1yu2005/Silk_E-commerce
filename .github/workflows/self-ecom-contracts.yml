@@ -96,7 +96,6 @@ jobs:
         working-directory: self-ecom
     env:
       NODE_ENV: test
-      TMPDIR: ${{ runner.temp }}
       DATABASE_URL: postgresql://integration@127.0.0.1:25432/m415_ci_dev
       TEST_DATABASE_URL: postgresql://integration@127.0.0.1:25432/m415_ci_template_test
       CORS_ORIGINS: http://localhost:5173,http://localhost:5174
@@ -131,6 +130,8 @@ jobs:
       - run: pnpm --filter @shop/shared build
       - run: pnpm --filter @shop/api build
       - name: Every correctness integration suite against its own newly migrated random database
+        env:
+          TMPDIR: ${{ runner.temp }}
         run: node scripts/record-module15.mjs ci-postgresql-integration apps/api apps/api/node_modules/tsx/dist/cli.mjs scripts/integration.ts
       - uses: actions/upload-artifact@v4
         if: always()
