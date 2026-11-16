@@ -61,7 +61,10 @@ export async function verifyCustodyBrowser({origin,browser,username,password,arr
    await form.getByLabel('实际动作').selectOption(kind);
    // 毫秒级输入须通过原生校验；不等待凑过创建时间，也不填写未来时间。
    const now=new Date(),localTime=new Date(+now-now.getTimezoneOffset()*60000).toISOString().slice(0,23),at=form.getByLabel('实际发生时间',{exact:true});
-   await at.fill(localTime);
+   // datetime-local会省略无意义的末尾零；fill要求传入其原生规范格式。
+   const canonicalTime=await at.evaluate((input,value)=>{const probe=input.ownerDocument.createElement('input');probe.type='datetime-local';probe.step=input.step;probe.value=value;return probe.value;},localTime);
+   assert.ok(canonicalTime,'浏览器必须接受当前实际发生时间');
+   await at.fill(canonicalTime);
    assert.equal(await at.evaluate(input=>input.validity.valid),true,'实际发生时间须允许合法毫秒级输入');
    await form.getByLabel('此次实际数量',{exact:true}).fill(String(initial.quantity));
    await form.getByLabel('此次实际位置',{exact:true}).fill(kind==='RETURN_DISPATCH'?'本轮隔离验收：已交开发演示承运人':'本轮隔离验收：已核实顾客收到寄还物品');

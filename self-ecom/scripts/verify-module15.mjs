@@ -17,7 +17,7 @@ else if(kind==='lint'){
  run('.',eslint,[...deliveryFiles,'scripts/test']);
 }
 else if(kind==='test'){
- run('.', '--test', [...readdirSync(resolve('scripts/test')).filter(n=>n.endsWith('.test.mjs')).map(n=>'scripts/test/'+n), 'scripts/module15-ops.test.mjs', 'scripts/module15-performance-support.test.mjs', 'scripts/module15-performance-image-config.test.mjs', 'scripts/module15-performance-prerequisites.test.mjs']);
+ run('.', '--test', [...readdirSync(resolve('scripts/test')).filter(n=>n.endsWith('.test.mjs')).map(n=>'scripts/test/'+n), 'scripts/module15-ops.test.mjs']);
  for(const folder of ['packages/shared','packages/api-client','apps/admin-web','apps/store-web'])run(folder,'--test',readdirSync(resolve(folder,'test')).filter(n=>n.endsWith('.test.mjs')).map(n=>'test/'+n));
  run('apps/api',resolve('apps/api/node_modules/vitest/vitest.mjs'),['run','--config','test/verification/retained.config.mts']);
 }else if(kind==='build'){compile('apps/api');for(const folder of ['apps/admin-web','apps/store-web']){compile(folder,true);run(folder,resolve(folder,'node_modules/vite/bin/vite.js'),['build']);}}

@@ -12,8 +12,8 @@ async function main() {
   // 尝试连接管理数据库之前，先完成校验。
   const safe = assertSafeTestDatabase(env.DATABASE_URL, env.TEST_DATABASE_URL);
   const all = readdirSync(resolve(__dirname, '../test')).filter(n => n.endsWith('.integration.ts')).map(n => 'test/' + n);
-  // 压力测试需要预构建API且独占资源，只由明确入口/名单触发；普通DB回归不隐含启动压力。
-  const requested = process.argv.slice(2), files = requested.length ? requested : all.filter(file => !['test/reporting-performance.integration.ts','test/module15-performance.integration.ts','test/module15-browser.integration.ts'].includes(file));
+  // 受控浏览器需要独立入口；默认仅运行数据库功能回归。
+  const requested = process.argv.slice(2), files = requested.length ? requested : all.filter(file => file !== 'test/module15-browser.integration.ts');
   if (files.some(f => !all.includes(f))) throw new Error('仅允许运行仓库中的明确集成测试文件');
   const adminUrl = new URL(safe.testUrl); adminUrl.pathname = '/postgres';
   const admin = new Client({ connectionString: adminUrl.toString(), connectionTimeoutMillis: 3000 });

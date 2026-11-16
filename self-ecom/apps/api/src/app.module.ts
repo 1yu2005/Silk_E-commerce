@@ -24,7 +24,7 @@ import { FilesModule } from './files/files.module.js';
 import { StoreSettingsModule } from './settings/store-settings.module.js';
 import { TasksModule } from './tasks/tasks.module.js';
 import { CatalogModule } from './catalog/catalog.module.js';
-import { InventoryModule } from './inventory/inventory.module.js';
+import { InventoryModule, InventorySkuRoutesModule } from './inventory/inventory.module.js';
 import { CustomersModule } from './customers/customers.module.js';
 import { OrdersModule } from './orders/orders.module.js';
 import { AfterSalesModule } from './after-sales/after-sales.module.js';
@@ -37,5 +37,5 @@ import { BusinessHistoryModule } from './timeline/business-history.module.js';
   imports: [ConfigModule],
   inject: [APP_CONFIG],
   useFactory: (config: EnvironmentConfig) => ({ pinoHttp: httpLogOptions(config) }),
-}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule, CatalogModule, InventoryModule, CustomersModule, OrdersModule, AfterSalesModule, CoordinationModule, ReportingModule, AuditQueryModule, BusinessHistoryModule] })
+}), PrismaModule, PermissionModule, HealthModule, EmployeeAuthModule, LogoutModule, EmployeeQueryModule, PermissionQueryModule, EmployeeCreateModule, EmployeeProfileModule, EmployeeStatusModule, EmployeePasswordResetModule, EmployeeRoleModule, EmployeeExtraPermissionModule, CustomerRegisterModule, CustomerAuthModule, FilesModule, RecordsModule, StoreSettingsModule, TasksModule, CatalogModule, InventoryModule, CustomersModule, OrdersModule, AfterSalesModule, CoordinationModule, ReportingModule, AuditQueryModule, BusinessHistoryModule, InventorySkuRoutesModule] })
 export class AppModule {}

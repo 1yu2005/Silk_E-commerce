@@ -15,3 +15,8 @@ export const inventoryTypes={INITIALIZATION:'初始化',ARRIVAL:'到货',AVAILAB
 export const inventoryStatuses={PENDING:'待确认',POSTED:'已入账',VOID:'已作废'} as const;
 export const signed=(n:number)=>n>0?'+'+n:String(n);
 export const time=(value:string|null)=>value?new Date(value).toLocaleString('zh-CN'):'—';
+export function nextSourceLineKey(lines:readonly {lineKey:string}[]){
+ const used=new Set(lines.map(line=>line.lineKey.trim()));
+ let next=1;while(used.has(String(next)))next++;
+ return String(next);
+}

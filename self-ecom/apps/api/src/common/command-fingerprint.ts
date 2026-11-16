@@ -18,6 +18,3 @@ function namespace(input: FingerprintCommand) {
 export function commandFingerprint(input: FingerprintCommand): string {
   return createHash('sha256').update(canonicalJson({ ...namespace(input), payload: input.payload })).digest('hex');
 }
-export function commandNamespace(input: Omit<FingerprintCommand, 'payload'>): string {
-  return createHash('sha256').update(canonicalJson(namespace({ ...input, payload: null }))).digest('hex');
-}

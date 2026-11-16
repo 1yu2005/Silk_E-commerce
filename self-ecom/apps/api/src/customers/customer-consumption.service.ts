@@ -4,12 +4,6 @@ import type {Prisma} from '@prisma/client';
 import {CustomerError} from './customer.errors.js';
 import {Clock,SystemClock} from '../common/time/clock.js';
 export interface CustomerConsumptionReader {read(tx:Prisma.TransactionClient,customerId:string):Promise<string>;readMany?(tx:Prisma.TransactionClient,customerIds:readonly string[]):Promise<Map<string,string>>}
-/** 纯口径契约；生产查询由OrderAdapters注册成功Payment/Refund事实聚合。 */
-export function completedConsumption(facts:readonly {status:string;paidCents:number;fullyRefunded:boolean}[]):string {
- let sum=0n;for(const fact of facts){if(!Number.isSafeInteger(fact.paidCents)||fact.paidCents<0)throw new CustomerError('CUSTOMER_CONSUMPTION_UNAVAILABLE');
- if(fact.status==='COMPLETED'&&!fact.fullyRefunded)sum+=BigInt(fact.paidCents);}
- return sum.toString();
-}
 @Injectable()
 export class CustomerConsumptionService {
  private reader:CustomerConsumptionReader|undefined;

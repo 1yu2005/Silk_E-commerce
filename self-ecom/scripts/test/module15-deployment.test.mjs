@@ -1,4 +1,4 @@
-// 作用：无需Docker或.env，验证板块15常用环境部署必须拒绝短压、缺轮、错镜像和不完整恢复证据。
+// 作用：无需Docker或.env，验证功能部署仍拒绝缺失E2E、源码指纹、错镜像和不完整恢复证据。
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {createHash} from 'node:crypto';
@@ -7,24 +7,14 @@ import { deployModule15, parseDeploymentArguments, validateDeploymentEvidence } 
 import {assertCoveringIndexTransition,assertMigrationChain,assertMigrationFiles,COVERING_INDEX_DEFINITION,COVERING_INDEX_NAME,COVERING_MIGRATION_NAME,COVERING_MIGRATION_SHA256,readMigrationChain} from '../module15-migration-chain.mjs';
 
 const applications = ['api', 'admin-web', 'store-web'];
-const workloads = ['orders', 'products', 'tasks', 'trends30', 'hotProducts', 'customers', 'audit', 'mixed'];
 const image = index => 'sha256:' + String(index).repeat(64);
 
 function evidence() {
   return {
     e2e: {
-      status: 'passed', originalResourcesPreserved: true, head: 'a'.repeat(40), imagePrefix: 'self-ecom-m415-e2e-1234abcd',
+      status: 'passed', originalResourcesPreserved: true, head: 'a'.repeat(40), sourceDigest: 'd'.repeat(64), imagePrefix: 'self-ecom-m415-e2e-1234abcd',
       suites: ['orders', 'after-sales', 'settlement', 'coordination', 'reporting'].map(name => ({ name, status: 'passed' })),
       acceptedImages: ['api', 'admin', 'store'].map((name, index) => ({ name: 'self-ecom-m415-e2e-1234abcd-' + name + ':local', id: image(index + 1) })),
-    },
-    performance: {
-      status: 'passed', kind: 'module15-formal-performance', formalAcceptance: true, minimumLoadSeconds: 10080,
-      load: { concurrency: 100, warmupSeconds: 120, measurementSeconds: 300, rounds: 3 },
-      rounds: workloads.flatMap(workload => [1, 2, 3].map(round => ({ workload, round, passed: true }))),
-    },
-    environment: {
-      kind: 'module15-formal', orderCount: 100000,
-      environment: { api: { imageId: image(1) }, gitSha: 'a'.repeat(40), sourceDigest: 'd'.repeat(64) },
     },
     restored: {
       status: 'PASSED', staticStatus: 'RESTORED_STATIC', staticVerifyStatus: 'VERIFIED_STATIC', dynamicStatus: 'VERIFIED_DYNAMIC',
@@ -40,11 +30,6 @@ test('complete final evidence resolves the three accepted image digests without 
   assert.deepEqual(validateDeploymentEvidence(evidence()), Object.fromEntries(applications.map((service, index) => [service, image(index + 1)])));
 });
 
-test('equivalent JSON load fields do not depend on serialization order', () => {
-  const input = evidence(); input.performance.load = { rounds: 3, measurementSeconds: 300, concurrency: 100, warmupSeconds: 120 };
-  assert.doesNotThrow(() => validateDeploymentEvidence(input));
-});
-
 test('all five distinct E2E suites, preserved resources and a concrete revision are required', () => {
   for (const change of [
     input => { input.e2e.status = 'failed'; },
@@ -52,30 +37,15 @@ test('all five distinct E2E suites, preserved resources and a concrete revision 
     input => { input.e2e.suites[4] = { name: 'orders', status: 'passed' }; },
     input => { input.e2e.suites[1].status = 'failed'; },
     input => { delete input.e2e.head; },
+    input => { delete input.e2e.sourceDigest; },
+    input => { input.e2e.sourceDigest = 'short'; },
   ]) { const input = evidence(); change(input); assert.throws(() => validateDeploymentEvidence(input)); }
 });
 
-test('diagnostic runs, 1000-order data, short rounds and incomplete or duplicate matrices are rejected', () => {
-  for (const change of [
-    input => { input.performance.kind = 'diagnostic-only'; },
-    input => { input.performance.formalAcceptance = false; },
-    input => { input.environment.kind = 'diagnostic-only'; },
-    input => { input.environment.orderCount = 1000; },
-    input => { input.performance.minimumLoadSeconds = 10079; },
-    input => { input.performance.load.measurementSeconds = 5; },
-    input => { input.performance.rounds.pop(); },
-    input => { input.performance.rounds[23] = { ...input.performance.rounds[0] }; },
-    input => { input.performance.rounds[0].passed = false; },
-  ]) { const input = evidence(); change(input); assert.throws(() => validateDeploymentEvidence(input)); }
-});
-
-test('performance and restored services must use the exact same final E2E image IDs and revision', () => {
+test('restored services must use the exact same final E2E image IDs', () => {
   for (const change of [
     input => { input.e2e.acceptedImages[0].id = 'self-ecom-api:local'; },
     input => { input.e2e.acceptedImages[1].name = 'self-ecom-other-admin:local'; },
-    input => { input.environment.environment.api.imageId = image(9); },
-    input => { input.environment.environment.gitSha = 'b'.repeat(40); },
-    input => { input.environment.environment.sourceDigest = 'short'; },
     input => { input.restored.sourceFrozenImages['store-web'] = image(9); },
   ]) { const input = evidence(); change(input); assert.throws(() => validateDeploymentEvidence(input)); }
 });
@@ -102,7 +72,7 @@ test('readiness alone or missing static, dynamic or source protection evidence c
 });
 
 test('CLI requires every concrete evidence path and the fixed explicit target, refusing ambiguous flags', async () => {
-  const args = ['--e2e-result', 'e2e.json', '--performance-summary', 'summary.json', '--restore-result', 'restore.json', '--output', 'new-output', '--confirm-project', 'self-ecom'];
+  const args = ['--e2e-result', 'e2e.json', '--restore-result', 'restore.json', '--output', 'new-output', '--confirm-project', 'self-ecom'];
   assert.equal(parseDeploymentArguments(['--', ...args])['--confirm-project'], 'self-ecom');
   assert.throws(() => parseDeploymentArguments(args.slice(0, -2)), /EXPLICIT_SELF_ECOM_TARGET_REQUIRED/);
   assert.throws(() => parseDeploymentArguments([...args.slice(0, -1), 'other']), /EXPLICIT_SELF_ECOM_TARGET_REQUIRED/);

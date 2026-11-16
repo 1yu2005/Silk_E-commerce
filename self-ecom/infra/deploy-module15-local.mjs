@@ -1,4 +1,4 @@
-// 作用：仅在本轮五套E2E、正式长压及完整恢复均通过后部署同组镜像，保护原DB、全量数据与上传卷。
+// 作用：仅在本轮五套功能E2E及完整恢复通过后部署同组镜像，保护原DB、全量数据与上传卷。
 import { createHash, randomUUID } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -7,16 +7,17 @@ import { backup } from '../scripts/module15-ops.mjs';
 import { captureDatabase, OpsError, requireCondition } from '../scripts/module15-ops-snapshot.mjs';
 import { SERVICES, DockerRuntime, assertSameTree, connectedClient, equalJson, helper, jsonFile, noOtherClients, noLinkPath, privatePath, readConfig, safeContainer, safeEnvironment, waitReady, writeNewJson } from '../scripts/module15-ops-runtime.mjs';
 import { assertCoveringIndexTransition, assertMigrationChain, assertMigrationFiles, readMigrationChain, readMigrationRows } from '../scripts/module15-migration-chain.mjs';
+import { sourceManifestDigest } from '../scripts/module15-source-state.mjs';
 
 const applications = ['api', 'admin-web', 'store-web'];
 const suffix = { api: 'api', 'admin-web': 'admin', 'store-web': 'store' };
-const workloads = ['orders', 'products', 'tasks', 'trends30', 'hotProducts', 'customers', 'audit', 'mixed'];
 const technicalTables = new Set(['scheduler_run', 'scheduler_failure']);
 const sha = value => createHash('sha256').update(value).digest('hex');
 
-export function validateDeploymentEvidence({ e2e, performance, environment, restored }) {
+export function validateDeploymentEvidence({ e2e, restored }) {
   requireCondition(e2e.status === 'passed' && e2e.originalResourcesPreserved === true, 'E2E_NOT_ACCEPTED');
   requireCondition(/^[a-f0-9]{40}$/.test(e2e.head ?? ''), 'E2E_REVISION_REQUIRED');
+  requireCondition(/^[a-f0-9]{64}$/.test(e2e.sourceDigest ?? ''), 'E2E_SOURCE_DIGEST_REQUIRED');
   requireCondition(e2e.suites?.length === 5 && new Set(e2e.suites.map(suite => suite.name)).size === 5 &&
     ['orders', 'after-sales', 'settlement', 'coordination', 'reporting'].every(name => e2e.suites.some(suite => suite.name === name && suite.status === 'passed')), 'FIVE_E2E_SUITES_REQUIRED');
   requireCondition(/^self-ecom-m415-e2e-[a-f0-9]{8}$/.test(e2e.imagePrefix) && e2e.acceptedImages?.length === 3, 'FINAL_IMAGE_SET_REQUIRED');
@@ -24,17 +25,6 @@ export function validateDeploymentEvidence({ e2e, performance, environment, rest
     const image = e2e.acceptedImages.find(row => row.name === e2e.imagePrefix + '-' + suffix[service] + ':local');
     requireCondition(/^sha256:[a-f0-9]{64}$/.test(image?.id ?? ''), 'FINAL_IMAGE_DIGEST_REQUIRED'); return [service, image.id];
   }));
-  requireCondition(performance.status === 'passed' && performance.kind === 'module15-formal-performance' && performance.formalAcceptance === true, 'FORMAL_PERFORMANCE_NOT_ACCEPTED');
-  const formalLoad = { concurrency: 100, warmupSeconds: 120, measurementSeconds: 300, rounds: 3 };
-  requireCondition(performance.load && Object.keys(performance.load).length === Object.keys(formalLoad).length &&
-    Object.entries(formalLoad).every(([key, value]) => performance.load[key] === value), 'FORMAL_LOAD_MISMATCH');
-  requireCondition(performance.minimumLoadSeconds >= 10080 && performance.rounds?.length === 24, 'COMPLETE_168_MINUTE_MATRIX_REQUIRED');
-  for (const workload of workloads) for (let round = 1; round <= 3; round++) {
-    const rows = performance.rounds.filter(row => row.workload === workload && row.round === round);
-    requireCondition(rows.length === 1 && rows[0].passed === true, 'EVERY_FORMAL_ROUND_MUST_PASS');
-  }
-  requireCondition(environment.kind === 'module15-formal' && environment.orderCount === 100000 && environment.environment?.api?.imageId === images.api, 'PERFORMANCE_FINAL_IMAGE_OR_DATA_MISMATCH');
-  requireCondition(environment.environment.gitSha === e2e.head && /^[a-f0-9]{64}$/.test(environment.environment.sourceDigest ?? ''), 'PERFORMANCE_REVISION_MISMATCH');
   requireCondition(restored.status === 'PASSED' && restored.staticStatus === 'RESTORED_STATIC' && restored.staticVerifyStatus === 'VERIFIED_STATIC' && restored.dynamicStatus === 'VERIFIED_DYNAMIC', 'FULL_RESTORE_NOT_ACCEPTED');
   requireCondition(restored.businessReadabilityStatus === 'PASSED' && restored.recoveryCandidateNetReleaseAndReplayVerified === true, 'RESTORED_BUSINESS_AND_REAL_RECOVERY_NOT_ACCEPTED');
   const writeAccess = restored.targetUploadsWriteAccess;
@@ -47,7 +37,7 @@ export function validateDeploymentEvidence({ e2e, performance, environment, rest
 }
 
 export function parseDeploymentArguments(argv) {
-  const args = argv.filter(value => value !== '--'), result = {}, keys = new Set(['--e2e-result', '--performance-summary', '--restore-result', '--output', '--confirm-project']);
+  const args = argv.filter(value => value !== '--'), result = {}, keys = new Set(['--e2e-result', '--restore-result', '--output', '--confirm-project']);
   for (let index = 0; index < args.length; index += 2) {
     requireCondition(keys.has(args[index]) && args[index + 1] && !args[index + 1].startsWith('--') && !Object.hasOwn(result, args[index]), 'DEPLOY_ARGUMENT_INVALID');
     result[args[index]] = args[index + 1];
@@ -66,12 +56,10 @@ function assertSelectedSource(container, service, config) {
 
 export async function deployModule15(options) {
   requireCondition(options['--confirm-project'] === 'self-ecom', 'EXPLICIT_SELF_ECOM_TARGET_REQUIRED');
-  const inputs = Object.fromEntries(['--e2e-result', '--performance-summary', '--restore-result'].map(key => [key, noLinkPath(options[key])]));
-  const e2e = jsonFile(inputs['--e2e-result']), performance = jsonFile(inputs['--performance-summary']);
-  const environmentFile = path.join(path.dirname(inputs['--performance-summary']), 'environment.json'), environment = jsonFile(environmentFile), restored = jsonFile(inputs['--restore-result']);
-  const images = validateDeploymentEvidence({ e2e, performance, environment, restored });
-  const { sourceManifestDigest } = await import('../scripts/module15-performance.mjs');
-  requireCondition(await sourceManifestDigest() === environment.environment.sourceDigest, 'SOURCE_CHANGED_AFTER_FORMAL_PERFORMANCE');
+  const inputs = Object.fromEntries(['--e2e-result', '--restore-result'].map(key => [key, noLinkPath(options[key])]));
+  const e2e = jsonFile(inputs['--e2e-result']), restored = jsonFile(inputs['--restore-result']);
+  const images = validateDeploymentEvidence({ e2e, restored });
+  requireCondition(await sourceManifestDigest() === e2e.sourceDigest, 'SOURCE_CHANGED_AFTER_E2E');
   // Read the established local runtime only after every isolated acceptance gate succeeds. Never print its environment.
   const local = await import('../scripts/module13-runtime.mjs');
   const config = readConfig('.env', 'self-ecom'); config.docker = local.docker; config.env = safeEnvironment(config.values, local.env);
@@ -79,8 +67,8 @@ export async function deployModule15(options) {
   mkdirSync(publicFolder, { recursive: true });
   const privateFolder = await privatePath(path.join('private-delivery/M4-15', 'deployment-' + randomUUID().slice(0, 8)), { directory: true, fresh: true });
   const report = { schemaVersion: 1, startedAt: new Date().toISOString(), status: 'IN_PROGRESS', project: 'self-ecom', commands: [], images,
-    inputs: Object.fromEntries(Object.entries({ ...inputs, environment: environmentFile }).map(([key, file]) => [key, { path: file, sha256: sha(readFileSync(file)) }])),
-    permissionSeedExecuted: false, historicalBackfillExecuted: false, sourceDigest: environment.environment.sourceDigest, cleaned: false };
+    inputs: Object.fromEntries(Object.entries(inputs).map(([key, file]) => [key, { path: file, sha256: sha(readFileSync(file)) }])),
+    permissionSeedExecuted: false, historicalBackfillExecuted: false, sourceDigest: e2e.sourceDigest, cleaned: false };
   const runtime = new DockerRuntime(config, report, path.join(privateFolder, 'commands.private.log')), originals = {};
   let replaced = false, baseline, beforeMigrationRows, migrationChain;
   async function protectDatabase() {

@@ -18,9 +18,13 @@ import { InventoryConversion } from './inventory-conversion.service.js';
 import { InventoryAdapters } from './inventory.adapters.js';
 import { InventoryAutomatic, InventoryDomainPorts } from './inventory-automatic.service.js';
 import { InventoryQueries } from './inventory-query.service.js';
-import { InventoryController, InventoryConversionController } from './inventory.controller.js';
+import { InventoryController, InventoryConversionController, InventorySkuController } from './inventory.controller.js';
 @Module({imports:[AuthGuardModule,AuditModule,CatalogModule,FilesModule,RecordsModule,TasksModule,TimeModule],
  controllers:[InventoryController,InventoryConversionController],
  providers:[InventoryAccess,InventoryEvidence,InventoryKernel,InventorySources,InventoryAdjustments,InventoryPosting,InventoryBlocks,InventoryConversion,InventoryAdapters,InventoryAutomatic,InventoryDomainPorts,InventoryQueries],
- exports:[InventoryKernel,InventoryBlocks,InventoryAutomatic,InventoryDomainPorts]})
+ exports:[InventoryKernel,InventoryBlocks,InventoryAutomatic,InventoryDomainPorts,InventoryQueries]})
 export class InventoryModule{}
+
+// 仅由AppModule在各领域静态入口之后导入；不让OrdersModule依赖的库存内核提前注册泛参数入口。
+@Module({imports:[AuthGuardModule,InventoryModule],controllers:[InventorySkuController]})
+export class InventorySkuRoutesModule{}

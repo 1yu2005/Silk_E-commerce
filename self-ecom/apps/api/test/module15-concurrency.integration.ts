@@ -76,15 +76,39 @@ for (const route of ['UNSHIPPED', 'SHIPPED_ONLY', 'RETURN'] as const) {
       h.simulator.mode = 'FAIL_ONCE';
       const bodies = Array.from({ length: 100 }, () => ({ ...body, commandKey: keys === 'SAME' ? body.commandKey : randomUUID() }));
       const barrier = await transactionBarrier(h, `SELECT id FROM "order" WHERE id='${f.id}'::uuid FOR UPDATE`, bodies.map(b => () => h.refunds.execute(h.context(h.support), f.afterSaleId, b)));
+      const initialErrorCounts: Record<string, number> = {};
+      for (const result of barrier.results) if (result.status === 'rejected') initialErrorCounts[result.reason.code ?? 'UNCLASSIFIED'] = (initialErrorCounts[result.reason.code ?? 'UNCLASSIFIED'] ?? 0) + 1;
+      const originalInProgress = initialErrorCounts.REQUEST_IN_PROGRESS ?? 0;
       const successful = barrier.results.flatMap((r, index) => r.status === 'fulfilled' ? [{ index, value: r.value }] : []);
       expect(successful.length).toBeGreaterThanOrEqual(1);
       if (keys === 'DIFFERENT') expect(successful).toHaveLength(1);
-      for (const rejected of barrier.results.flatMap(r => r.status === 'rejected' ? [r.reason.code as string] : [])) expect(keys === 'SAME' ? ['REQUEST_IN_PROGRESS'] : ['VERSION_CONFLICT']).toContain(rejected);
+      for (const rejected of barrier.results.flatMap(r => r.status === 'rejected' ? [r.reason.code as string] : [])) {
+        if (keys === 'SAME') expect(rejected).toBe('REQUEST_IN_PROGRESS');
+        else if (rejected !== 'REQUEST_IN_PROGRESS') expect(rejected).toBe('VERSION_CONFLICT');
+      }
       const first = successful[0]!, refundId = first.value.refundId!;
       expect(first.value).toMatchObject({ attemptOutcome: 'FAILED', refundStatus: 'FAILED' });
       expect(await h.db.refund.count({ where: { orderId: f.id } })).toBe(1);
       expect(await h.db.refundAttempt.count({ where: { refundId } })).toBe(1);
       expect(await h.db.inventoryBalance.findUniqueOrThrow({ where: { skuId: f.skuId } })).toEqual(initial);
+      if (keys === 'DIFFERENT') {
+        // Recover only bounded contention, using the complete original key, versions and references.
+        // A stale different key must end in VERSION_CONFLICT, never create another refund attempt.
+        for (const [index, pending] of barrier.results.entries()) {
+          if (pending.status !== 'rejected' || pending.reason.code !== 'REQUEST_IN_PROGRESS') continue;
+          for (let attempt = 2; attempt <= 3; attempt++) {
+            try { barrier.results[index] = { status: 'fulfilled', value: await h.refunds.execute(h.context(h.support), f.afterSaleId, bodies[index]!, false) }; }
+            catch (reason) { barrier.results[index] = { status: 'rejected', reason }; }
+            const recovered = barrier.results[index]!;
+            if (recovered.status !== 'rejected' || recovered.reason.code !== 'REQUEST_IN_PROGRESS') break;
+          }
+        }
+        expect(barrier.results.filter(r => r.status === 'fulfilled')).toHaveLength(1);
+        expect(barrier.results.flatMap(r => r.status === 'rejected' ? [r.reason.code] : [])).toEqual(Array(99).fill('VERSION_CONFLICT'));
+        expect(await h.db.refund.count({ where: { orderId: f.id } })).toBe(1);
+        expect(await h.db.refundAttempt.count({ where: { refundId } })).toBe(1);
+        expect(await h.db.inventoryBalance.findUniqueOrThrow({ where: { skuId: f.skuId } })).toEqual(initial);
+      }
       const failedKey = bodies[first.index]!;
       if (keys === 'SAME') {
         // Each in-progress caller recovers its original command after the winner commits.
@@ -101,7 +125,7 @@ for (const route of ['UNSHIPPED', 'SHIPPED_ONLY', 'RETURN'] as const) {
       expect(final.available).toBe(route === 'UNSHIPPED' ? 10 : initial.available); expect(final.reserved).toBe(0);
       expect(await h.db.inventoryAction.count({ where: { actionKey: 'RESTOCK_UNSHIPPED_REFUND:' + refundId } })).toBe(route === 'UNSHIPPED' ? 1 : 0);
       expect(await h.db.inventoryAction.count({ where: { actionKey: 'RESTOCK_FINAL_INSPECTION:' + f.afterSaleId } })).toBe(route === 'RETURN' ? 1 : 0);
-      evidence.push({ id: 'IT03', route, keys, contenders: 100, observedDatabaseWaiters: barrier.observed, initialBusinessAttempts: 1, initialFailedAttemptRetained: true, finalSuccessfulAttempts: 1, totalAttempts: 2, stockReturnedExactlyOnce: true, technicalRejected: 0 });
+      evidence.push({ id: 'IT03', route, keys, contenders: 100, observedDatabaseWaiters: barrier.observed, initialErrorCounts, originalInProgress, maximumCompleteCommandAttempts: keys === 'DIFFERENT' ? 3 : 2, unrecoveredTechnicalFailures: 0, initialBusinessAttempts: 1, initialFailedAttemptRetained: true, finalSuccessfulAttempts: 1, totalAttempts: 2, stockReturnedExactlyOnce: true });
     }, 180000);
   }
 }

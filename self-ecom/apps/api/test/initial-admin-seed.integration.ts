@@ -50,6 +50,10 @@ afterEach(async () => {
 afterAll(async () => {
   await Promise.all([prisma.$disconnect(), peer.$disconnect()]);
   if (!databaseCreated) return;
+  if (process.env.FULL_VERIFICATION_KIND === 'integration') {
+    console.log(JSON.stringify({ retainedNestedTestDatabase: databaseName }));
+    return;
+  }
   // 删除前再次验证随机名称和完整URL，绝不FORCE或清理已有数据库。
   const checked = assertSafeTestDatabase(base.developmentUrl, safe.testUrl);
   if (!/^admin_seed_[a-f0-9]{32}_test$/.test(databaseName) || checked.testName !== databaseName) {

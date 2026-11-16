@@ -58,9 +58,9 @@ export class TaskQueryService {
           ORDER BY e.due_at ASC NULLS LAST,e.created_at ASC,e.id ASC
           LIMIT (SELECT take FROM bounds) OFFSET (SELECT skip FROM bounds)) AS ids FROM bounds`;
       const total = Number(selection!.total); const window = paginationWindow(query, total);
-      const rows = window.skip === null ? [] : selection!.ids.map(id => ({ id }));
-      const tasks = await tx.task.findMany({ where: { id: { in: rows.map(row => row.id) } } }); const byId = new Map(tasks.map(task => [task.id, task]));
-      const items = await this.access.presentMany(tx, current, rows.map(row => byId.get(row.id)!), now);
+      const ids = window.skip === null ? [] : selection!.ids;
+      const tasks = await tx.task.findMany({ where: { id: { in: ids } } }); const byId = new Map(tasks.map(task => [task.id, task]));
+      const items = await this.access.presentMany(tx, current, ids.map(id => byId.get(id)!), now);
       return { items, total, page: query.page, pageSize: query.pageSize };
     }, readOptions);
   }

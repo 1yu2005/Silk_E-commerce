@@ -49,6 +49,11 @@ export class InventoryController {
  async corrections(@Param() p:D.InventoryIdDto,@Body() b:D.CorrectionCreateDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){const result=await this.adjustments.corrections(ctx(a,r),p.id,b);return {...await this.queries.adjustment(result.id),changed:result.changed};}
  @Post('adjustments/:id/resolve-check') @HttpCode(200) @EmployeeAccess('inventory.adjustment.post') @O.Params() @O.Endpoint('resolveInventoryCheck','校验问题已解决后开启新入账轮',O.adjustmentDetail,O.resolveBody)
  async resolve(@Param() p:D.InventoryIdDto,@Body() b:D.AdjustmentResolveDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){const result=await this.adjustments.resolve(ctx(a,r),p.id,b);return {...await this.queries.adjustment(p.id),changed:result.changed};}
+}
+// SKU参数入口由InventorySkuRoutesModule最后装配，避免吞掉其他领域的stock-incidents静态入口。
+@Controller('admin/inventory') @ApiTags('Inventory') @O.Protected()
+export class InventorySkuController {
+ constructor(@Inject(InventoryQueries) private readonly queries:InventoryQueries){}
  @Get(':skuId') @EmployeeAccess('inventory.read') @O.Params('skuId') @O.Endpoint('getInventoryBalance','SKU余额及有效暂停摘要',O.balance)
  balance(@Param() p:D.InventorySkuIdDto){return this.queries.balance(p.skuId);}
  @Put(':skuId/warning-threshold') @EmployeeAccess('inventory.alert.manage') @O.Params('skuId') @O.Endpoint('setInventoryWarningThreshold','修改预警线，不产生数量流水',O.balance,object({...O.version,threshold:int(),reason:text(500,1)}))

@@ -16,6 +16,7 @@ import {verifyModule14Http} from './verify-module14-http.mjs';
 import {originalContainerTemplate,protectOriginalContainers} from '../scripts/module15-resource-protection.mjs';
 import {safeHttpEvidence} from '../scripts/module15-http-evidence.mjs';
 import {module15FreeSubnet} from '../scripts/module15-docker-network.mjs';
+import {sourceManifestDigest} from '../scripts/module15-source-state.mjs';
 
 const args=process.argv.slice(2).filter(arg=>arg!=='--');
 const output=path.resolve(args.find(arg=>!arg.startsWith('--'))??'docs/verification/M4-15/e2e/'+new Date().toISOString().replaceAll(':','-'));
@@ -30,7 +31,8 @@ const privateRoot=path.resolve('private-delivery/M4-15/e2e-'+runId);mkdirSync(pr
 execFileSync('git',['check-ignore','--quiet',path.join(privateRoot,'accounts.local.json')],{windowsHide:true,stdio:'pipe'});
 assert.match(readFileSync('.dockerignore','utf8'),/^private-delivery\s*$/m);
 const secrets=[],tokenAccounts=new Map(),accounts=[];
-const report={schemaVersion:1,operation:buildOnly?'build-only':'e2e',startedAt:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),imagePrefix,checks:[],requests:[],commands:[],acceptedImages:[],pageErrors:[],suites:[],desktopViewport:{width:1366,height:768},privateAccountLedger:path.relative(process.cwd(),path.join(privateRoot,'accounts.local.json'))};
+// 复用既有镜像的检查不声明其来自当前源码；部署须使用本轮新构建的功能验收结果。
+const report={schemaVersion:1,operation:buildOnly?'build-only':'e2e',startedAt:new Date().toISOString(),head:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),sourceDigest:reuse?null:await sourceManifestDigest(),imagePrefix,checks:[],requests:[],commands:[],acceptedImages:[],pageErrors:[],suites:[],desktopViewport:{width:1366,height:768},privateAccountLedger:path.relative(process.cwd(),path.join(privateRoot,'accounts.local.json'))};
 const redact=value=>secrets.filter(Boolean).reduce((text,secret)=>text.replaceAll(secret,'[REDACTED]'),String(value)).replace(/postgres(?:ql)?:\/\/[^\s"'`]+/g,'[REDACTED_DATABASE_URL]');
 const baseSystem=Object.fromEntries(Object.entries(process.env).filter(([key])=>/^(PATH|PATHEXT|SYSTEMROOT|WINDIR|USERPROFILE|APPDATA|LOCALAPPDATA|TEMP|TMP|DOCKER_CONFIG|DOCKER_HOST|DOCKER_CONTEXT|PLAYWRIGHT_MODULE_PATH|PLAYWRIGHT_CHROMIUM_EXECUTABLE)$/i.test(key)));
 function run(command,label,env=baseSystem){console.log(JSON.stringify({started:label}));const startedAt=new Date().toISOString(),result=spawnSync(docker,command,{env,encoding:'utf8',windowsHide:true,maxBuffer:64*1024*1024}),log=path.join(output,'command-'+report.commands.length+'.redacted.txt');writeFileSync(log,redact((result.stdout??'')+(result.stderr??'')+(result.error?.message??'')));report.commands.push({label,command:['docker',...command],startedAt,endedAt:new Date().toISOString(),exitCode:result.status,log:path.relative(process.cwd(),log)});assert.equal(result.status,0,label+' '+redact((result.stderr??'').slice(-500)));return result.stdout??'';}

@@ -3,7 +3,6 @@ import type { ApiOperations } from '@shop/api-client';
 export type Products=ApiOperations['listStoreProducts']['responses'][200]['content']['application/json']['data'];
 export type Product=ApiOperations['getStoreProduct']['responses'][200]['content']['application/json']['data'];
 export type ProductQuery=NonNullable<ApiOperations['listStoreProducts']['parameters']['query']>;
-export type Categories=ApiOperations['getStoreCategoryTree']['responses'][200]['content']['application/json']['data'];
 export interface Category{id:string;name:string;parentId:string|null;children:Category[]}
 export const flatten=(nodes:Category[],level=0):{id:string;name:string;level:number}[]=>nodes.flatMap(n=>[{id:n.id,name:n.name,level},...flatten(n.children,level+1)]);
 export const price=(cents:number|null)=>cents===null?'暂无可售规格':'¥'+(cents/100).toFixed(2);

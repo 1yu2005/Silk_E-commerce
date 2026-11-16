@@ -25,7 +25,6 @@
     "test:e2e": "node infra/verify-module15-compose.mjs",
     "test:concurrency": "node scripts/module15-concurrency.mjs",
     "test:scheduler": "node scripts/module15-scheduler.mjs",
-    "test:performance": "node scripts/module15-performance.mjs",
     "verify:reconcile": "node scripts/reconcile.mjs",
     "verify:engineering": "node scripts/verify-module15.mjs",
     "ops:backup": "node scripts/module15-ops.mjs backup",

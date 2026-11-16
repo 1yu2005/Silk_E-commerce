@@ -1,7 +1,7 @@
 // 作用：验证业务字段变化、主体/命令隔离及瞬时HTTP上下文不参与指纹，不冒充真实订单幂等事务。
 import { expect, it } from 'vitest';
 import { canonicalSet } from '@shop/shared';
-import { commandFingerprint, commandNamespace, type FingerprintCommand } from '../src/common/command-fingerprint.js';
+import { commandFingerprint, type FingerprintCommand } from '../src/common/command-fingerprint.js';
 const command: FingerprintCommand = { command: 'order.create', version: 1, actor: { type: 'CUSTOMER', id: 'customer-1' },
   payload: { quoteId: 'quote-1', address: { city: '上海', detail: '测试路' }, items: [{ skuId: 'style-red-M', quantity: 2 }], fileIds: ['main', 'detail'] } };
 it('对象字段不同次序语义相同，SHA-256为固定64位；瞬时requestId/token不同仍相同', () => {
@@ -17,7 +17,7 @@ it.each([
 it('主体类型、主体ID、动作及版本隔离；集合语义由命令显式声明', () => {
   for (const input of [{ ...command, actor: { type: 'EMPLOYEE' as const, id: 'customer-1' } }, { ...command, actor: { ...command.actor, id: 'customer-2' } },
     { ...command, command: 'order.cancel' }, { ...command, version: 2 }]) {
-    expect(commandNamespace(input)).not.toBe(commandNamespace(command)); expect(commandFingerprint(input)).not.toBe(commandFingerprint(command));
+    expect(commandFingerprint(input)).not.toBe(commandFingerprint(command));
   }
   expect(commandFingerprint({ ...command, payload: canonicalSet(['b', 'a']) })).toBe(commandFingerprint({ ...command, payload: canonicalSet(['a', 'b']) }));
 });
