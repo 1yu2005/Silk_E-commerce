@@ -1,6 +1,6 @@
 // 作用：板块14独占真实PostgreSQL验证审计HTTP权限、引用去重、稳定快照和安全投影。
 import {randomUUID} from 'node:crypto';
-import type {Prisma} from '@prisma/client';
+import {Prisma} from '@prisma/client';
 import {Client} from 'pg';
 import {beforeEach,expect,it,vi} from 'vitest';
 import {AuditQueryController} from '../src/audit-query/audit-query.controller.js';
@@ -39,6 +39,24 @@ it('同createdAt多行以id稳定分页，重复读取不漏不重，total取真
   const first=await good<List>(list({targetId,...range})),second=await good<List>(list({targetId,...range,page:2})),again=await good<List>(list({targetId,...range}));
   const ids=rows.map(r=>r.id).sort().reverse();expect(first.total).toBe(23);expect(first.items.map(r=>r.id)).toEqual(ids.slice(0,20));expect(second.items.map(r=>r.id)).toEqual(ids.slice(20));expect(again.items).toEqual(first.items);
 });
+it('仅日期筛选真实边界与20/100分页一致，越界页保留number total，空范围返回0',async()=>{
+  const from=new Date(+now-100*86_400_000),to=new Date(+from+1000),window={from:from.toISOString(),to:to.toISOString()};
+  expect(await f.db.auditLog.count({where:{createdAt:{gte:from,lt:new Date(+to+4)}}})).toBe(0);
+  await audit({createdAt:new Date(+from-1)});
+  const atFrom=await audit({createdAt:from}),middle=[];
+  for(let i=0;i<21;i++)middle.push(await audit({createdAt:new Date(+from+1)}));
+  const beforeTo=await audit({createdAt:new Date(+to-1)});
+  await audit({createdAt:to});await audit({createdAt:new Date(+to+1)});
+  const ids=[beforeTo.id,...middle.map(row=>row.id).sort().reverse(),atFrom.id];
+  const first=await good<List>(list({...window,pageSize:20})),second=await good<List>(list({...window,page:2,pageSize:20}));
+  const all=await good<List>(list({...window,pageSize:100})),emptyPage=await good<List>(list({...window,page:3,pageSize:20}));
+  const empty=await good<List>(list({from:new Date(+to+2).toISOString(),to:new Date(+to+3).toISOString()}));
+  expect(first).toMatchObject({total:23,page:1,pageSize:20,...window,asOf:now.toISOString()});
+  expect(first.items.map(row=>row.id)).toEqual(ids.slice(0,20));expect(second.items.map(row=>row.id)).toEqual(ids.slice(20));
+  expect(all.items.map(row=>row.id)).toEqual(ids);expect(emptyPage.items).toEqual([]);expect(empty.items).toEqual([]);
+  for(const result of [first,second,all,emptyPage]){expect(result.total).toBe(23);expect(typeof result.total).toBe('number');expect(Number.isSafeInteger(result.total)).toBe(true);}
+  expect(empty.total).toBe(0);expect(typeof empty.total).toBe('number');
+});
 it('组合主体/动作/对象/请求/业务号筛选，EXISTS多引用不放大items或count',async()=>{
   const targetId=randomUUID(),requestId=randomUUID(),orderNo='O'+randomUUID().replaceAll('-','').toUpperCase(),saleNo='AS'+randomUUID().replaceAll('-','').toUpperCase();
   const row=await audit({targetId,requestId});await f.db.auditBusinessReference.createMany({data:[
@@ -50,6 +68,36 @@ it('组合主体/动作/对象/请求/业务号筛选，EXISTS多引用不放大
   expect((await good<List>(list({...range,businessNo:saleNo}))).items.map(r=>r.id)).toEqual([row.id]);
   expect((await good<List>(list({...range,businessNo:orderNo+"' OR 1=1 --"}))).total).toBe(0);
   expect((await good<List>(list({...range,businessNo:'O-NOT-EXISTS'}))).items).toEqual([]);
+});
+it('单页关联保留顾客/系统主体、JSON空值、空引用及枚举/业务编号排序，列表与详情投影一致',async()=>{
+  const buyer=await customer(),targetId=randomUUID(),input={targetType:'Customer',targetId,action:'customer.status.change'};
+  const changed=await audit({...input,actorType:'CUSTOMER',actorEmployeeId:null,actorCustomerId:buyer.actor.subjectId,
+    beforeData:Prisma.DbNull,afterData:{status:'TRADE_RESTRICTED',customerStatusVersion:2}});
+  const empty=await audit({...input,actorType:'CUSTOMER',actorEmployeeId:null,actorCustomerId:buyer.actor.subjectId,
+    beforeData:Prisma.JsonNull,afterData:Prisma.DbNull,reason:null});
+  const system=await audit({...input,actorType:'SYSTEM',actorEmployeeId:null,beforeData:Prisma.DbNull,afterData:Prisma.JsonNull});
+  const first='00000000-0000-4000-8000-000000000001',second='00000000-0000-4000-8000-000000000002';
+  const references=[{businessType:'REFUND' as const,businessId:first,businessNo:'RF1'},
+    {businessType:'ORDER' as const,businessId:second,businessNo:null},
+    {businessType:'AFTER_SALE' as const,businessId:first,businessNo:'AS1'},
+    {businessType:'ORDER' as const,businessId:first,businessNo:'O1'}];
+  await f.db.auditBusinessReference.createMany({data:references.map(ref=>({...ref,auditLogId:changed.id}))});
+  const filtered=await good<List>(list({...range,targetId,actorType:'CUSTOMER',actorCustomerId:buyer.actor.subjectId,pageSize:100}));
+  expect(filtered.total).toBe(2);expect(filtered.items.map(row=>row.id)).toEqual([changed.id,empty.id].sort().reverse());
+  for(const item of filtered.items){
+    expect(item.actor).toEqual({type:'CUSTOMER',id:buyer.actor.subjectId,employee:null});expect(item.createdAt).toBe(stamp.toISOString());
+    const {asOf,...detail}=await good<Row>(http('GET','/admin/audit-logs/'+item.id,f.admin));expect(asOf).toBe(now.toISOString());expect(item).toEqual(detail);
+  }
+  const found=filtered.items.find(row=>row.id===changed.id)!;
+  expect(found.businessReferences).toEqual([references[3],references[1],references[2],references[0]]);
+  expect(found.changes).toEqual([{field:'status',label:'账号状态',before:null,after:'TRADE_RESTRICTED'},
+    {field:'customerStatusVersion',label:'顾客状态版本',before:null,after:2}]);
+  expect(filtered.items.find(row=>row.id===empty.id)).toMatchObject({businessReferences:[],changes:[],hasReason:false});
+  expect((await good<List>(list({...range,targetId,actorCustomerId:buyer.actor.subjectId}))).items).toEqual(filtered.items);
+  const systemOnly=await good<List>(list({...range,targetId,actorType:'SYSTEM'}));expect(systemOnly.items.map(row=>row.id)).toEqual([system.id]);
+  expect(systemOnly.items[0]!.actor).toEqual({type:'SYSTEM',id:null,employee:null});
+  const byReference=await good<List>(list({...range,targetId,businessType:'AFTER_SALE',businessNo:'AS1'}));expect(byReference.items).toEqual([found]);
+  expect((await good<List>(list({...range,targetId,businessType:'ORDER',businessNo:'AS1'}))).total).toBe(0);
 });
 it('真实支付→售后→逐行核实→成功模拟退款后，可按原订单/售后/退款号追踪已写引用',async()=>{
   f.clock.followWallClock();const order=await paid(),sale=await apply(order);await review(sale.afterSaleId);await physical(order,sale.afterSaleId);await claim(sale.afterSaleId,'REFUND_PROCESS',f.support,'AFTER_SALE');
@@ -119,12 +167,56 @@ it('count后并发插入审计，RR内items/total仍同快照，下一请求才�
   const service=new AuditQueryService(db,{now:()=>now} as Clock,f.app.get(OrderAccess)),pending=service.list(f.admin,Object.assign(new AuditListQueryDto(),{targetId,...range}));
   await reached;await audit({targetId});release();const old=await pending;expect(old.total).toBe(1);expect(old.items).toHaveLength(1);expect((await good<List>(list({targetId,...range}))).total).toBe(2);
 });
+it('仅日期count完成后并发插入，RR页首和total同快照，下一请求才看到新页首',async()=>{
+  const from=new Date(+now-99*86_400_000),to=new Date(+from+1000),window={from:from.toISOString(),to:to.toISOString()};
+  expect(await f.db.auditLog.count({where:{createdAt:{gte:from,lt:to}}})).toBe(0);
+  const first=await audit({createdAt:new Date(+from+1)});
+  let entered!:()=>void,release!:()=>void,paused=false;
+  const reached=new Promise<void>(resolve=>{entered=resolve;}),gate=new Promise<void>(resolve=>{release=resolve;});
+  const pauseAfterCount=async()=>{if(paused)return;paused=true;entered();await gate;};
+  const isAuditCount=(args:unknown[])=>{
+    const query=args[0];let text='';
+    if(Array.isArray(query)&&query.every(part=>typeof part==='string'))text=query.join(' ');
+    else if(query&&typeof query==='object'&&'sql'in query&&typeof query.sql==='string')text=query.sql;
+    else if(query&&typeof query==='object'&&'strings'in query&&Array.isArray(query.strings))text=query.strings.join(' ');
+    return /\bcount\s*\(/i.test(text)&&/\bfrom\s+(?:(?:"public"|public)\s*\.\s*)?(?:"audit_log"|audit_log)(?:\s|$)/i.test(text)&&!/\bauth_session\b/i.test(text);
+  };
+  const db={$transaction:(work:(tx:Prisma.TransactionClient)=>Promise<unknown>,options:object)=>f.db.$transaction(async tx=>{
+    const delegate=new Proxy(tx.auditLog,{get(target,key){
+      if(key==='count')return async(args:Prisma.AuditLogCountArgs)=>{const total=await target.count(args);await pauseAfterCount();return total;};
+      const value=Reflect.get(target,key,target);return typeof value==='function'?value.bind(target):value;
+    }});
+    return work(new Proxy(tx,{get(target,key){
+      if(key==='auditLog')return delegate;
+      const value=Reflect.get(target,key,target);
+      if(key==='$queryRaw')return async(...args:unknown[])=>{const result:unknown=await Reflect.apply(value,target,args);if(isAuditCount(args))await pauseAfterCount();return result;};
+      return typeof value==='function'?value.bind(target):value;
+    }}));
+  },options)} as unknown as PrismaService;
+  const service=new AuditQueryService(db,{now:()=>now} as Clock,f.app.get(OrderAccess));
+  const pending=service.list(f.admin,Object.assign(new AuditListQueryDto(),{...window,pageSize:1}));
+  try{
+    await Promise.race([reached,pending.then(()=>{throw new Error('审计count屏障未命中');})]);
+    const newest=await audit({createdAt:new Date(+from+2)});
+    release();const old=await pending;
+    expect(old.total).toBe(1);expect(typeof old.total).toBe('number');expect(old.items.map(row=>row.id)).toEqual([first.id]);
+    const next=await good<List>(list({...window,pageSize:1}));
+    expect(next.total).toBe(old.total+1);expect(next.items.map(row=>row.id)).toEqual([newest.id]);
+  }finally{release();await pending.catch(()=>undefined);}
+});
 it('20→100行实际SQL次数不线性增长；GET无写副作用，无审计修改删除入口',async()=>{
   const targetId=randomUUID();for(let i=0;i<105;i++)await audit({targetId});
   const before={audits:await f.db.auditLog.count(),payments:await f.db.payment.count(),refunds:await f.db.refund.count(),actions:await f.db.inventoryAction.count(),tasks:await f.db.task.count()};
   const spy=vi.spyOn(Client.prototype,'query');
   try{
-    const measure=async(size:number)=>{spy.mockClear();const result=await good<List>(list({targetId,...range,pageSize:size}));const queries=spy.mock.calls.map(call=>{const value:unknown=call[0];return typeof value==='string'?value:typeof value==='object'&&value&&'text'in value?String(value.text):'';});expect(queries.filter(s=>/SELECT/.test(s)).length).toBeGreaterThan(0);expect(queries.every(s=>!/FOR\s+(?:UPDATE|NO KEY UPDATE|SHARE|KEY SHARE)/i.test(s))).toBe(true);return {n:queries.filter(s=>/SELECT/.test(s)).length,result};};
+    const measure=async(size:number)=>{
+      spy.mockClear();const result=await good<List>(list({targetId,...range,pageSize:size}));
+      const queries=spy.mock.calls.map(call=>{const value:unknown=call[0];return typeof value==='string'?value:typeof value==='object'&&value&&'text'in value?String(value.text):'';});
+      expect(queries.filter(s=>/SELECT/.test(s))).toHaveLength(4);
+      expect(queries.filter(s=>/FROM audit_log a/.test(s)&&/jsonb_agg\(/.test(s))).toHaveLength(1);
+      expect(queries.every(s=>!/FOR\s+(?:UPDATE|NO KEY UPDATE|SHARE|KEY SHARE)/i.test(s))).toBe(true);
+      return {n:queries.filter(s=>/SELECT/.test(s)).length,result};
+    };
     const small=await measure(20),large=await measure(100);expect(small.result.items).toHaveLength(20);expect(large.result.items).toHaveLength(100);expect(large.n).toBe(small.n);
   }finally{spy.mockRestore();}
   const row=(await good<List>(list({targetId,...range}))).items[0]!;for(const method of ['PUT','PATCH','DELETE'])expect((await http(method,'/admin/audit-logs/'+row.id,f.admin,{})).status).toBe(404);

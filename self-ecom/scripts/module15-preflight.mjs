@@ -1,0 +1,14 @@
+// 作用：只读盘点最终验收基线，不读取或输出凭据。
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {mkdirSync,readFileSync,readdirSync,writeFileSync} from 'node:fs';
+import path from 'node:path';
+const git=args=>execFileSync('git',args,{encoding:'utf8',windowsHide:true,maxBuffer:32*1024*1024});
+const sha=body=>createHash('sha256').update(body).digest('hex');
+const migrations=readdirSync('apps/api/prisma/migrations',{withFileTypes:true}).filter(e=>e.isDirectory()).map(e=>({name:e.name,sha256:sha(readFileSync(path.join('apps/api/prisma/migrations',e.name,'migration.sql')))}));
+const packages=Object.fromEntries(['.','apps/api','apps/admin-web','apps/store-web','packages/shared','packages/api-client','packages/ui'].map(folder=>{const p=JSON.parse(readFileSync(path.join(folder,'package.json'),'utf8'));return [p.name,{version:p.version,scripts:p.scripts,dependencies:p.dependencies}];}));
+const routes=JSON.parse(readFileSync('docs/openapi/openapi.json','utf8'));const installedAdapters=Object.fromEntries(['apps/api/src/app.module.ts','apps/api/src/orders/order.adapters.ts','apps/api/src/after-sales/after-sale.adapters.ts','apps/api/src/after-sales/settlement.adapters.ts','apps/api/src/coordination/coordination.module.ts','apps/api/src/customers/customers.module.ts'].map(file=>{try{return [file,{sha256:sha(readFileSync(file))}];}catch{return [file,{missing:true}];}}));
+const report={at:new Date().toISOString(),node:process.version,head:git(['rev-parse','HEAD']).trim(),branch:git(['branch','--show-current']).trim(),remote:git(['remote','get-url','origin']).trim(),status:git(['-c','core.quotepath=false','status','--short']).trim().split('\n').filter(Boolean),staged:git(['diff','--cached','--name-only']).trim(),lockfileSha256:sha(readFileSync('pnpm-lock.yaml')),migrations,packages,installedAdapters,openapi:{operations:Object.values(routes.paths).reduce((n,p)=>n+Object.keys(p).filter(k=>['get','post','put','patch','delete'].includes(k)).length,0),servers:routes.servers},consistencyReviewFile:'自动搜索未发现独立《文档一致性审查记录.md》；按需求v2.0、实际源码与本轮已确认规则逐项核对，不以文件缺失代替验证'};
+const folder='docs/verification/M4-15';mkdirSync(folder,{recursive:true});writeFileSync(path.join(folder,'preflight.json'),JSON.stringify(report,null,2)+'\n');
+const markdown='# 板块15实施前盘点\n\n基线：'+report.head+'，分支'+report.branch+'。板块14同SHA CI已成功，15从此基线增量实施。\n\n'+report.consistencyReviewFile+'。\n\n|状态|实际范围|\n|---|---|\n|已实现待本轮最终验证|1～14正式领域、17条迁移、207个API操作、真实适配器及既有集成/HTTP/浏览器入口|\n|缺失/正在补齐|只读对账、三路线100并发、双独立进程五类扫描、完整SW链路、维护脚本、合法10万订单与168分钟正式长压、完整CI|\n|发现待复验|任务列表全量业务ID参数与逐条摘要；Proxy到期扫描单条异常中断批次|\n\n完整版本、脚本、源码指纹、全部迁移校验和与工作区范围见[preflight.json](preflight.json)。所有临时文件、备份、原日志和失败现场保留，禁止递归清理。历史PASS只作为线索；本轮最终AC/NFR表在实际执行后填写。\n';
+writeFileSync(path.join(folder,'preflight.md'),markdown);console.log(JSON.stringify({head:report.head,migrations:migrations.length,openapiOperations:report.openapi.operations,stagedEmpty:!report.staged,report:folder+'/preflight.json'}));

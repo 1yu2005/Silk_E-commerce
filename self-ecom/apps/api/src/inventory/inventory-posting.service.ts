@@ -1,5 +1,6 @@
 // 作用：确认前完整验算来源、原根净量、批次与逐笔余额；核实失败之前不写成功动作。
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { Clock } from '../common/time/clock.js';
 import type { InventoryAdjustment, InventoryAdjustmentLine, Prisma } from '@prisma/client';
 import type { InventoryEffect } from './inventory-kernel.service.js';
 import { InventoryError } from './inventory.errors.js';
@@ -7,6 +8,7 @@ import { MAX } from './inventory-support.js';
 export interface PostingPlan {effects:InventoryEffect[];sourceDeltas:Map<string,number>;batches:{sourceLineId:string;batchKey:string;rootAdjustmentLineId:string}[]}
 @Injectable()
 export class InventoryPosting {
+ constructor(@Inject(Clock) private readonly clock:Clock){}
  async plan(tx:Prisma.TransactionClient,adjustment:InventoryAdjustment,lines:InventoryAdjustmentLine[]):Promise<PostingPlan>{
   if(!lines.length)throw new InventoryError('VALIDATION_FAILED');
   const result:PostingPlan={effects:[],sourceDeltas:new Map(),batches:[]};const balances=new Map<string,{a:bigint}>();
@@ -44,10 +46,11 @@ export class InventoryPosting {
   return result;
  }
  async applySources(tx:Prisma.TransactionClient,plan:PostingPlan){
+  const now=this.clock.now();
   for(const [id,delta]of plan.sourceDeltas){const count=await tx.$executeRaw`UPDATE inventory_source_line SET net_posted_quantity=(net_posted_quantity::bigint+${delta}::bigint)::integer,
-   version=version+1,updated_at=clock_timestamp() WHERE id=${id}::uuid AND version<2147483647
+   version=version+1,updated_at=${now} WHERE id=${id}::uuid AND version<2147483647
    AND net_posted_quantity::bigint+${delta}::bigint BETWEEN 0 AND verified_quantity::bigint`;
    if(count!==1)throw new InventoryError('SOURCE_QUANTITY_EXCEEDED');}
-  for(const batch of plan.batches)await tx.inventoryReceiptBatch.create({data:batch});
+  for(const batch of plan.batches)await tx.inventoryReceiptBatch.create({data:{...batch,createdAt:now}});
  }
 }

@@ -6,6 +6,7 @@ coverage/
 .env
 .env.*
 !.env.example
+!.env.restore.example
 storage/
 *.tsbuildinfo
 *.log
@@ -21,6 +22,7 @@ output/testing/M4-14/
 output/schema/M4-14/
 output/build/M4-15/
 output/playwright/M4-15/
+output/playwright/functional-*/
 output/testing/M4-15/
 output/schema/M4-15/
 output/build/M3-11/

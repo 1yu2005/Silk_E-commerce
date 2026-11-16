@@ -45,9 +45,14 @@ export class TaskAccessService {
     if (current.mustChangePassword) throw new AccessDeniedError('PASSWORD_CHANGE_REQUIRED');
     return current;
   }
-  async scope(tx: Prisma.TransactionClient, actor: TaskEmployee): Promise<Prisma.Sql> {
+  async scope(tx: Prisma.TransactionClient, actor: TaskEmployee, selectedBusinessType?: TaskBusinessType): Promise<Prisma.Sql> {
     const parts: Prisma.Sql[] = [];
     for (const [type, adapter] of this.adapters.accessEntries()) {
+      if (selectedBusinessType !== undefined && type !== selectedBusinessType) continue;
+      if (adapter.visibleScope) {
+        parts.push(Prisma.sql`(t.business_type=${type}::"TaskBusinessType" AND (${adapter.visibleScope(actor)}))`);
+        continue;
+      }
       const ids = [...new Set((await adapter.visibleBusinessIds(tx, actor)).map(checkedId))];
       if (ids.length) parts.push(Prisma.sql`(t.business_type=${type}::"TaskBusinessType" AND t.business_id IN (${Prisma.join(ids.map(id => Prisma.sql`${id}::uuid`))}))`);
     }
@@ -64,6 +69,9 @@ export class TaskAccessService {
   async businessView(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<TaskBusinessView> {
     const adapter = this.adapters.access(task.businessType); if (!adapter) throw new TaskError('BUSINESS_MODULE_NOT_READY');
     const view = await adapter.describe(tx, actor, task);
+    return this.checkedView(task.businessType, view);
+  }
+  private checkedView(type: TaskBusinessType, view: TaskBusinessView | undefined): TaskBusinessView {
     // 即使真实领域误传多余字段也不扩散；链接仅允许应用内无查询串的详情路径。
     if (!view || typeof view.number !== 'string' || !view.number.trim() || [...view.number].length > 100
       || typeof view.label !== 'string' || !view.label.trim() || [...view.label].length > 100
@@ -71,12 +79,28 @@ export class TaskAccessService {
       || (view.detailPath !== null && (typeof view.detailPath !== 'string' || !/^\/(?!\/)[A-Za-z0-9/_-]+$/.test(view.detailPath)))) throw new TaskError('TASK_ENTRY_BLOCKED');
     return { number: view.number, label: view.label, detailPath: view.detailPath, canClaim: view.canClaim,
       canRelease: view.canRelease, canReadHistoryReasons: view.canReadHistoryReasons,
-      canTransfer: view.canTransfer === true && !!this.adapters.getHandoff(task.businessType),
-      canExtendDeadline: view.canExtendDeadline === true && !!this.adapters.getDeadline(task.businessType) };
+      canTransfer: view.canTransfer === true && !!this.adapters.getHandoff(type),
+      canExtendDeadline: view.canExtendDeadline === true && !!this.adapters.getDeadline(type) };
   }
   async present(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task, now: Date) {
     const view = await this.businessView(tx, actor, task);
     const assignee = task.assigneeId ? await tx.employee.findUnique({ where: { id: task.assigneeId }, select: { id: true, displayName: true } }) : null;
+    return this.project(actor, task, now, view, assignee);
+  }
+  async presentMany(tx: Prisma.TransactionClient, actor: TaskEmployee, tasks: readonly Task[], now: Date) {
+    if (!tasks.length) return [];
+    const views = new Map<string, TaskBusinessView>();
+    for (const type of new Set(tasks.map(task => task.businessType))) {
+      const adapter = this.requireBusinessAccess(type), group = tasks.filter(task => task.businessType === type);
+      const batch = adapter.describeMany ? await adapter.describeMany(tx, actor, group)
+        : new Map(await Promise.all(group.map(async task => [task.id, await adapter.describe(tx, actor, task)] as const)));
+      for (const task of group) views.set(task.id, this.checkedView(type, batch.get(task.id)));
+    }
+    const assigneeIds = [...new Set(tasks.flatMap(task => task.assigneeId ? [task.assigneeId] : []))];
+    const assignees = new Map((assigneeIds.length ? await tx.employee.findMany({ where: { id: { in: assigneeIds } }, select: { id: true, displayName: true } }) : []).map(row => [row.id, row]));
+    return tasks.map(task => this.project(actor, task, now, views.get(task.id)!, task.assigneeId ? assignees.get(task.assigneeId) ?? null : null));
+  }
+  private project(actor: TaskEmployee, task: Task, now: Date, view: TaskBusinessView, assignee: {id: string; displayName: string} | null) {
     const isCurrentlyOverdue = isTaskActive(task) && task.dueAt !== null && now >= task.dueAt;
     const allowedActions: ('claim' | 'release' | 'transfer' | 'extendDeadline')[] = [];
     if (task.version < 2147483647 && task.status === 'OPEN' && isTaskEligible(actor, task) && view.canClaim) allowedActions.push('claim');

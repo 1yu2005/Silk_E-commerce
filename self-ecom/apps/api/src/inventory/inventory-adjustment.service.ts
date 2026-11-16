@@ -17,6 +17,7 @@ import { InventoryKernel } from './inventory-kernel.service.js';
 import { InventoryPosting } from './inventory-posting.service.js';
 import { InventoryBlocks } from './inventory-block.service.js';
 import { InventoryError } from './inventory.errors.js';
+import { Clock } from '../common/time/clock.js';
 import { fingerprint, integer, lockSources, lockStock, normalize, text } from './inventory-support.js';
 import type { AdjustmentCommandDto, AdjustmentCreateDto, AdjustmentEditDto, AdjustmentResolveDto, AdjustmentVoidDto, CorrectionCreateDto } from './inventory.dto.js';
 export type NewInventoryLine={skuId:string;sourceLineId:string;batchKey?:string|null;quantity?:number|null;signedDeltaA?:number|null;rootLineId?:string|null};
@@ -28,7 +29,7 @@ export class InventoryAdjustments {
   @Inject(TaskEntryService) private readonly entry:TaskEntryService,@Inject(TaskLifecycleService) private readonly lifecycle:TaskLifecycleService,
   @Inject(TaskCommandService) private readonly tasks:TaskCommandService,@Inject(StateHistoryService) private readonly history:StateHistoryService,
   @Inject(InventoryKernel) private readonly kernel:InventoryKernel,@Inject(InventoryPosting) private readonly posting:InventoryPosting,
-  @Inject(InventoryBlocks) private readonly blocks:InventoryBlocks){}
+  @Inject(InventoryBlocks) private readonly blocks:InventoryBlocks,@Inject(Clock) private readonly clock:Clock){}
  async lines(tx:Prisma.TransactionClient,type:InventoryAdjustmentType,lines:NewInventoryLine[],maximum=100){
   if(!lines.length||lines.length>maximum)throw new InventoryError('VALIDATION_FAILED');const keys=new Set<string>();
   for(const line of lines){
@@ -56,7 +57,8 @@ export class InventoryAdjustments {
   conversion?:{key:string;fingerprint:string;snapshot:Prisma.InputJsonValue}){
   await this.lines(tx,type,lines,conversion?200:100);
   if(type==='CORRECTION'&&!text(evidenceNote,2000,true)&&!fileIds?.length)throw new InventoryError('VALIDATION_FAILED');
-  const row=await tx.inventoryAdjustment.create({data:{number:'INV-'+randomUUID().replaceAll('-','').toUpperCase(),type,reason:text(reason,500),evidenceNote:text(evidenceNote,2000,true)||null,
+  const now=this.clock.now();
+  const row=await tx.inventoryAdjustment.create({data:{createdAt:now,updatedAt:now,number:'INV-'+randomUUID().replaceAll('-','').toUpperCase(),type,reason:text(reason,500),evidenceNote:text(evidenceNote,2000,true)||null,
    createdById:ctx.actor.subjectId,...(conversion?{conversionKey:conversion.key,conversionFingerprint:conversion.fingerprint,conversionSnapshot:conversion.snapshot}:{})}});
   await tx.inventoryAdjustmentLine.createMany({data:lines.map(line=>({...line,adjustmentId:row.id,type}))});
   await this.entry.withContext(tx,{type:'EMPLOYEE',subjectId:ctx.actor.subjectId,token:ctx.token},[inventoryRef(row.id)],ctx.requestId,async context=>{
@@ -109,7 +111,7 @@ export class InventoryAdjustments {
   const lines=await this.lines(tx,row.type,proposed,row.conversionKey?200:100);
   if(row.type==='CORRECTION'&&!text(input.evidenceNote,2000,true)&&!input.evidenceFileIds?.length)throw new InventoryError('VALIDATION_FAILED');
   await tx.inventoryAdjustmentLine.deleteMany({where:{adjustmentId:id}});await tx.inventoryAdjustmentLine.createMany({data:lines.map(l=>({...l,adjustmentId:id,type:row.type}))});
-  const updated=await tx.inventoryAdjustment.update({where:{id},data:{reason:text(input.reason,500),evidenceNote:text(input.evidenceNote,2000,true)||null,version:{increment:1}}});
+  const updated=await tx.inventoryAdjustment.update({where:{id},data:{updatedAt:this.clock.now(),reason:text(input.reason,500),evidenceNote:text(input.evidenceNote,2000,true)||null,version:{increment:1}}});
   await this.evidence.bind(tx,ctx,'INVENTORY_ADJUSTMENT',id,input.evidenceFileIds,`edit:${row.version}`);await this.record(tx,ctx,id,'EDIT',updated.version,updated.reason);return {id,changed:true};
  },extra);}
  async claim(ctx:InventoryContext,id:string,input:AdjustmentCommandDto){
@@ -139,7 +141,7 @@ export class InventoryAdjustments {
    let plan;
    try{plan=await this.posting.plan(tx,row,lines);}catch(error){
     if(!(error instanceof InventoryError)||!['STOCK_INSUFFICIENT','SOURCE_QUANTITY_EXCEEDED'].includes(error.code))throw error;
-    const updated=await tx.inventoryAdjustment.update({where:{id},data:{checkRequired:true,checkReasonCode:error.code,version:{increment:1}}});
+    const updated=await tx.inventoryAdjustment.update({where:{id},data:{updatedAt:this.clock.now(),checkRequired:true,checkReasonCode:error.code,version:{increment:1}}});
     for(const sku of [...new Set(lines.map(l=>l.skuId))])await this.blocks.open(tx,sku,'ADJUSTMENT',id,error.code,{type:'EMPLOYEE',id:actor.subjectId},ctx.requestId);
     await this.lifecycle.transition(context,{...inventoryRef(id),taskId:task.id,expectedVersion:task.version,action:'SUSPENDED',commandKey:`check:${row.version}`,reason:error.message});
     await this.entry.enterStage(context,{...inventoryRef(id),stage:'INVENTORY_RECONCILE',entryKey:`check:${row.version}`,reason:error.message});
@@ -148,7 +150,8 @@ export class InventoryAdjustments {
    await this.posting.applySources(tx,plan);
    const result=await this.kernel.execute(tx,{businessType:'ADJUSTMENT',businessId:id,businessNumber:row.number,actionType:'MANUAL_POST',actionKey:key,semantic,
     actor:{type:'EMPLOYEE',id:actor.subjectId},requestId:ctx.requestId,reason:row.reason,effects:plan.effects});
-   const updated=await tx.inventoryAdjustment.update({where:{id},data:{status:'POSTED',postedById:actor.subjectId,postedAt:new Date(),version:{increment:1}}});
+   const now=this.clock.now();
+   const updated=await tx.inventoryAdjustment.update({where:{id},data:{updatedAt:now,status:'POSTED',postedById:actor.subjectId,postedAt:now,version:{increment:1}}});
    await this.lifecycle.transition(context,{...inventoryRef(id),taskId:task.id,expectedVersion:task.version,action:'COMPLETED',commandKey:'post',reason:row.reason});
    await this.state(tx,ctx,id,'POSTED',row.reason);await this.record(tx,ctx,id,'POST',updated.version,row.reason);return {id,changed:result.changed,actionId:result.action.id};
   });
@@ -158,7 +161,8 @@ export class InventoryAdjustments {
  void(ctx:InventoryContext,id:string,input:AdjustmentVoidDto){return this.command(ctx,id,async(tx,context)=>{
   const actor=await this.access.actor(tx,ctx,['inventory.adjustment.void'],false);const row=await this.pending(tx,id,input.expectedVersion);
   const current=await this.access.task(tx,id,row.checkRequired);this.access.assignee(actor,current,input.expectedTaskVersion);const reason=text(input.reason,500);
-  const updated=await tx.inventoryAdjustment.update({where:{id},data:{status:'VOID',voidedById:actor.subjectId,voidedAt:new Date(),checkRequired:false,checkReasonCode:null,version:{increment:1}}});
+  const now=this.clock.now();
+  const updated=await tx.inventoryAdjustment.update({where:{id},data:{updatedAt:now,status:'VOID',voidedById:actor.subjectId,voidedAt:now,checkRequired:false,checkReasonCode:null,version:{increment:1}}});
   for(const task of await tx.task.findMany({where:{...inventoryRef(id),status:{in:['OPEN','CLAIMED','SUSPENDED']}}}))await this.lifecycle.transition(context,{...inventoryRef(id),taskId:task.id,expectedVersion:task.version,action:'CANCELLED',commandKey:'void',reason});
   for(const line of await tx.inventoryAdjustmentLine.findMany({where:{adjustmentId:id}}))await this.blocks.resolve(tx,line.skuId,'ADJUSTMENT',id,{type:'EMPLOYEE',id:actor.subjectId},ctx.requestId,reason);
   await this.state(tx,ctx,id,'VOID',reason);await this.record(tx,ctx,id,'VOID',updated.version,reason);return {id,changed:true};
@@ -168,7 +172,7 @@ export class InventoryAdjustments {
   if(!row.checkRequired)throw new InventoryError('INVENTORY_CHECK_UNRESOLVED');const task=await this.access.task(tx,id,true);this.access.assignee(actor,task,input.expectedTaskVersion);
   const lines=await tx.inventoryAdjustmentLine.findMany({where:{adjustmentId:id}});
   try{await this.posting.plan(tx,row,lines);}catch(error){if(error instanceof InventoryError)throw new InventoryError('INVENTORY_CHECK_UNRESOLVED');throw error;}
-  const reason=text(input.reason,500);const updated=await tx.inventoryAdjustment.update({where:{id},data:{checkRequired:false,checkReasonCode:null,evidenceNote:text(input.evidenceNote,2000),version:{increment:1}}});
+  const reason=text(input.reason,500);const updated=await tx.inventoryAdjustment.update({where:{id},data:{updatedAt:this.clock.now(),checkRequired:false,checkReasonCode:null,evidenceNote:text(input.evidenceNote,2000),version:{increment:1}}});
   // command已锁定全部既有游标/任务，此时仍由核实经办绑定证据；后面只插入本事务的新入账轮。
   await this.evidence.bind(tx,ctx,'INVENTORY_ADJUSTMENT',id,input.evidenceFileIds,`resolve:${row.version}`);
   await this.lifecycle.transition(context,{...inventoryRef(id),taskId:task.id,expectedVersion:task.version,action:'COMPLETED',commandKey:`resolve:${row.version}`,reason});

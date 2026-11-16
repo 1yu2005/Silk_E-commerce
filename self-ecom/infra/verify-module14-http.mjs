@@ -1,6 +1,6 @@
 // 作用：正式HTTP创建真实交易样本，逐步核对统计/消费/审计/岗位历史；不直接写业务表或改时钟。
 import assert from 'node:assert/strict';
-import {randomBytes,randomUUID} from 'node:crypto';
+import {createHash,randomBytes,randomUUID} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {verifyModule14Browser} from './verify-module14-browser.mjs';
 export async function verifyModule14Http(c){
@@ -29,7 +29,8 @@ export async function verifyModule14Http(c){
  const completedId=await checkout();await ship(completedId);await customer('/store/orders/'+completedId+'/confirm-receipt','POST',{});
  let consumption=await admin('/admin/customers/'+customerId+'/consumption');assert.equal(consumption.availability,'AVAILABLE');assert.equal(consumption.amountCents,'10700');
  const unshippedId=await checkout(),pausedId=await checkout();await ship(pausedId);const unpaidId=await checkout(false);
- const apply=id=>customer('/store/after-sales','POST',{orderId:id,type:'REFUND_ONLY',reasonCode:'QUALITY',description:reason,evidenceFileIds:[],commandKey:randomUUID()},201);
+ const recoveryPrivateFiles=[],recoveryPrivateBytes=new Map();
+ const apply=async id=>{const fileId=c.module15RecoveryFiles?await upload('AFTER_SALE_EVIDENCE',customerToken):null,result=await customer('/store/after-sales','POST',{orderId:id,type:'REFUND_ONLY',reasonCode:'QUALITY',description:reason,evidenceFileIds:fileId?[fileId]:[],commandKey:randomUUID()},201);if(fileId){const response=await fetch(storeOrigin+'/api/v1/files/'+fileId+'/content',{headers:{Authorization:'Bearer '+customerToken}});assert.equal(response.status,200);const bytes=Buffer.from(await response.arrayBuffer());assert.ok(bytes.length>0);recoveryPrivateBytes.set(fileId,bytes);recoveryPrivateFiles.push({fileId,orderId:id,afterSaleId:result.afterSaleId,size:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')});}return result;};
  const pausedSale=await apply(pausedId),unshippedSale=await apply(unshippedId);
  const waiting=await admin('/admin/dashboard/overview');assert.deepEqual(waiting.today,{createdOrderCount:'4',newCustomerCount:'1',paidAmountCents:'32100',refundAmountCents:'0',netReceiptsCents:'32100'});assert.equal(waiting.current.waitingShipmentOrderCount,'1');assert.equal(waiting.current.afterSalePausedOrderCount,'2');assert.equal(waiting.current.pendingReviewAfterSaleCount,'2');passed('4正式订单/3支付含运费32100分；未付不计支付，未收货不计消费，待发与售后暂停卡片可重叠');
  async function approve(id){await claim((await sale(id)).tasks,'AFTER_SALE_REVIEW',support);const {commandKey,expectedAfterSaleVersion,expectedTaskVersion}=await settlementBody(id,'AFTER_SALE_REVIEW');await support('/admin/after-sales/'+id+'/review','POST',{commandKey,expectedAfterSaleVersion,expectedTaskVersion,decision:'APPROVE',publicExplanation:'本轮独占按实际事实同意整单仅退款，仍须原流程核实执行'});}
@@ -60,7 +61,18 @@ export async function verifyModule14Http(c){
  const orderHistory=await admin('/admin/orders/'+completedId+'/history?page=1&pageSize=100'),saleHistory=await admin('/admin/after-sales/'+completedSale.afterSaleId+'/history?page=1&pageSize=100');assert.ok(orderHistory.items.some(row=>row.kind==='PAYMENT'));assert.ok(saleHistory.items.some(row=>row.kind==='REFUND_ATTEMPT'&&row.afterStatus==='SUCCEEDED'));passed('原订单号关联支付/售后/退款审计不扇出，安全详情与正式业务历史真实可读');
  for(const path of ['/admin/dashboard/trends?days=8','/admin/dashboard/hot-products?days=7','/admin/audit-logs?page=101&pageSize=100','/admin/audit-logs?actorType=SYSTEM&actorEmployeeId='+cs.id])await admin(path,'GET',undefined,400);
  report.fixture={meaning:'仅本轮独占开发演示，无实际寄件或真实资金',customerId,productId:product.id,skuId,completedRefundedOrderId:completedId,unshippedRefundedOrderId:unshippedId,pausedShippedOrderId:pausedId,unpaidOrderId:unpaidId,completedAfterSaleId:completedSale.afterSaleId,pausedAfterSaleId:pausedSale.afterSaleId,offlineCaseId:caseId,orderNo:selectedOrder.number,paidAmountCents:'32100',refundAmountCents:'21400',netReceiptsCents:'10700',paidQuantity:'3',consumptionAmountCents:'0',balance:{available:(await admin('/admin/inventory/'+skuId)).available,reserved:(await admin('/admin/inventory/'+skuId)).reserved},timeCoverage:'真实运行当天样本；跨日/负净额/边界/失败通道另见真实数据库集成证据，不冒充本脚本执行'};
+ if(c.module15RecoveryFiles){report.fixture.recoveryPrivateFiles=recoveryPrivateFiles;assert.equal(recoveryPrivateFiles.length,3);}
  await verifyModule14Browser({origin,browser,admin:{username:c.adminUsername,password:c.adminPassword},warehouse:wh,support:cs,orderId:completedId,orderNo:selectedOrder.number,afterSaleId:completedSale.afterSaleId,customerId,expected:final,report,output});
  const expectedBalance=await admin('/admin/inventory/'+skuId);
- return {async verifyPersistence(){await verifyFacts();assert.deepEqual(await admin('/admin/inventory/'+skuId),expectedBalance);const persisted=await admin('/admin/audit-logs?businessType=ORDER&businessNo='+encodeURIComponent(selectedOrder.number)+'&pageSize=100');assert.deepEqual(persisted.items,audit.items);const history=await admin('/admin/after-sales/'+completedSale.afterSaleId+'/history?page=1&pageSize=100');assert.equal(history.items.filter(row=>row.kind==='REFUND_ATTEMPT'&&row.afterStatus==='SUCCEEDED').length,1);passed('DB/API重启和API重建后真实统计、审计引用、安全详情、业务历史与库存保持，会话继续合法');}};
+ return {
+  async prepareRecoveryCandidates(){
+   assert.equal(c.module15RecoveryFiles,true);const setting=await admin('/admin/settings'),value=setting.currentSetting;assert.ok(value);
+   await admin('/admin/settings','PUT',{expectedVersion:setting.version,shippingFeeCents:value.shippingFeeCents,freeShippingEnabled:value.freeShippingEnabled,freeShippingThresholdCents:value.freeShippingThresholdCents,returnAddress:value.returnAddress,serviceContact:value.serviceContact,deadlines:{...value.deadlines,paymentMinutes:1},reason:'仅本轮恢复演练：通过正式配置和建单产生真实到期候选，不修改已有订单快照'});
+   const before=await admin('/admin/inventory/'+skuId),id=await checkout(false),candidate=await customer('/store/orders/'+id),reserved=await admin('/admin/inventory/'+skuId);
+   assert.equal(candidate.status,'WAIT_PAYMENT');assert.equal(candidate.items.reduce((n,item)=>n+item.quantity,0),1);assert.equal(reserved.available,before.available-1);assert.equal(reserved.reserved,before.reserved+1);assert.ok(Date.parse(candidate.paymentDeadline)>Date.now());
+   report.fixture.recoveryCandidate={orderId:id,skuId,quantity:1,paymentDeadline:candidate.paymentDeadline,balanceBefore:before,balanceReserved:reserved,createdThrough:'formal settings and checkout HTTP after all reporting persistence assertions'};
+   passed('恢复专属候选经正式1分钟配置/新订单创建，A减1/R加1；四单统计基线此前已全部核验，随后停机等待真实截止');
+  },
+  async verifyPersistence(){await verifyFacts();assert.deepEqual(await admin('/admin/inventory/'+skuId),expectedBalance);const persisted=await admin('/admin/audit-logs?businessType=ORDER&businessNo='+encodeURIComponent(selectedOrder.number)+'&pageSize=100');assert.deepEqual(persisted.items,audit.items);const history=await admin('/admin/after-sales/'+completedSale.afterSaleId+'/history?page=1&pageSize=100');assert.equal(history.items.filter(row=>row.kind==='REFUND_ATTEMPT'&&row.afterStatus==='SUCCEEDED').length,1);for(const file of recoveryPrivateFiles){const response=await fetch(storeOrigin+'/api/v1/files/'+file.fileId+'/content',{headers:{Authorization:'Bearer '+customerToken}});assert.equal(response.status,200);assert.deepEqual(Buffer.from(await response.arrayBuffer()),recoveryPrivateBytes.get(file.fileId));assert.equal((await fetch(origin+'/api/v1/files/'+file.fileId+'/content',{headers:{Authorization:'Bearer '+wh.token}})).status,404);}passed('DB/API重启和API重建后真实统计、审计引用、安全详情、业务历史与库存保持，会话继续合法');}
+ };
 }

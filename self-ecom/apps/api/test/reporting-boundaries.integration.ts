@@ -1,7 +1,7 @@
 // 作用：独立m414真实PostgreSQL核验看板空库、半开时间边界、MVCC、只读、查询预算和真实连接故障。
 import 'reflect-metadata';
-import { randomUUID } from 'node:crypto';
-import { mkdirSync,writeFileSync } from 'node:fs';
+import { createHash,randomUUID } from 'node:crypto';
+import { mkdirSync,readFileSync,writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { Client } from 'pg';
 import { Prisma } from '@prisma/client';
@@ -64,6 +64,51 @@ it('生产read首句合并事务模式真实生效：RR/只读且PostgreSQL拒�
   const combined=statements.findIndex(text=>/SET TRANSACTION READ ONLY, ISOLATION LEVEL REPEATABLE READ/.test(text)),firstSelect=statements.findIndex(text=>/^\s*SELECT/i.test(text));
   expect(combined).toBeGreaterThanOrEqual(0);expect(firstSelect).toBeGreaterThan(combined);expect(statements.filter(text=>/^\s*SET/i.test(text))).toHaveLength(1);
   expect((await http('GET','/admin/dashboard/overview',fixture.warehouse)).status).toBe(200);save('reporting-transaction-mode',{mode,writeErrorCode,combinedBeforeFirstSelect:true,recovered:true});
+});
+it('0018真实支付覆盖索引有效，保留旧0017迁移原checksum和索引定义',async()=>{
+  const originalChecksum='ad0dffc10e535f45f118c5f6e07224f6bfc34e7810390b2a45abc3027cbc1ed0',migrationChecksum=createHash('sha256').update(readFileSync(resolve(__dirname,'../prisma/migrations/0017_reporting_audit_query_indexes/migration.sql'))).digest('hex');
+  expect(migrationChecksum).toBe(originalChecksum);
+  const [migration]=await fixture.db.$queryRaw<{checksum:string;finished:boolean;rolledBack:boolean}[]>`SELECT checksum,finished_at IS NOT NULL AS finished,rolled_back_at IS NOT NULL AS "rolledBack" FROM _prisma_migrations WHERE migration_name='0017_reporting_audit_query_indexes'`;
+  expect(migration).toEqual({checksum:originalChecksum,finished:true,rolledBack:false});
+  const [index]=await fixture.db.$queryRaw<{definition:string;predicate:string;valid:boolean;ready:boolean;unique:boolean;keyCount:number;attributeCount:number;columns:string[]}[]>`
+    SELECT pg_get_indexdef(i.indexrelid) AS definition,pg_get_expr(i.indpred,i.indrelid) AS predicate,i.indisvalid AS valid,i.indisready AS ready,i.indisunique AS unique,
+      i.indnkeyatts::integer AS "keyCount",i.indnatts::integer AS "attributeCount",
+      ARRAY(SELECT a.attname::text FROM unnest(i.indkey::smallint[]) WITH ORDINALITY k(attnum,position)
+        JOIN pg_attribute a ON a.attrelid=i.indrelid AND a.attnum=k.attnum ORDER BY k.position) AS columns
+    FROM pg_index i JOIN pg_class c ON c.oid=i.indexrelid JOIN pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND c.relname='payment_succeeded_order_paid_at_idx' AND i.indrelid='payment'::regclass`;
+  expect(index).toMatchObject({valid:true,ready:true,unique:false,keyCount:1,attributeCount:2,columns:['order_id','paid_at'],predicate:"((status)::text = 'SUCCEEDED'::text)"});
+  expect(index!.definition).toMatch(/^CREATE INDEX payment_succeeded_order_paid_at_idx ON public\.payment USING btree \(order_id\) INCLUDE \(paid_at\) WHERE /);
+  const [oldIndex]=await fixture.db.$queryRaw<{definition:string}[]>`SELECT indexdef AS definition FROM pg_indexes WHERE schemaname='public' AND indexname='order_item_order_product_quantity_idx'`;
+  expect(oldIndex!.definition).toBe('CREATE INDEX order_item_order_product_quantity_idx ON public.order_item USING btree (order_id, product_id) INCLUDE (quantity)');
+  save('reporting-hot-covering-index',{migration:{name:'0017_reporting_audit_query_indexes',checksum:migrationChecksum,applied:migration},index,oldIndex});
+});
+it('热销串行和hashjoin-off仅在当前RR只读事务生效，成功和真实SQL失败后均恢复连接原GUC',async()=>{
+  const original=Client.prototype.query,attempts:{connection:Client;before:Record<string,string>;during?:Record<string,string>;after?:Record<string,string>;errorCode?:string}[]=[];let failQuery=false;
+  const plannerSql="SELECT current_setting('max_parallel_workers_per_gather') parallel,current_setting('enable_hashjoin') hashjoin";
+  const wrapper=function(this:Client,...args:unknown[]){
+    const text=sql(args[0]);
+    if(/SET LOCAL max_parallel_workers_per_gather=0/.test(text))return (async()=>{
+      const result=await Reflect.apply(original,this,[{text:plannerSql}]);
+      attempts.push({connection:this,before:result.rows[0]});return Reflect.apply(original,this,args);
+    })();
+    if(text.includes('WITH quantities AS'))return (async()=>{
+      const attempt=attempts.at(-1)!;attempt.during=(await Reflect.apply(original,this,[{text:plannerSql+",current_setting('transaction_isolation') isolation,current_setting('transaction_read_only') readonly"}])).rows[0];
+      if(failQuery)try{await Reflect.apply(original,this,[{text:'SELECT 1/0'}]);}catch(error){attempt.errorCode=(error as {code?:string}).code;throw error;}
+      return Reflect.apply(original,this,args);
+    })();
+    return Reflect.apply(original,this,args);
+  };
+  const spy=vi.spyOn(Client.prototype,'query').mockImplementation(wrapper as unknown as typeof Client.prototype.query);
+  try{
+    expect(Array.isArray((await reporting().hotProducts(fixture.warehouse,10)).items)).toBe(true);
+    for(const attempt of attempts)attempt.after=(await Reflect.apply(original,attempt.connection,[{text:plannerSql}])).rows[0];
+    failQuery=true;await expect(reporting().hotProducts(fixture.warehouse,20)).rejects.toBeDefined();
+    const failed=attempts.at(-1)!;failed.after=(await Reflect.apply(original,failed.connection,[{text:plannerSql}])).rows[0];
+  }finally{spy.mockRestore();}
+  expect(attempts).toHaveLength(2);for(const attempt of attempts){expect(attempt.before.hashjoin).toBe('on');expect(attempt.during).toEqual({parallel:'0',hashjoin:'off',isolation:'repeatable read',readonly:'on'});expect(attempt.after).toEqual(attempt.before);}
+  expect(attempts[0]!.errorCode).toBeUndefined();expect(attempts[1]!.errorCode).toBe('22012');
+  save('reporting-hot-local-planner',{attempts:attempts.map(({before,during,after,errorCode})=>({before,during,after,errorCode})),restoredAfterCommitAndRollback:true});
 });
 async function performanceBalances(count:number){
   const db=fixture.db,productIds=Array.from({length:count},()=>randomUUID()),skuIds=Array.from({length:count},()=>randomUUID());

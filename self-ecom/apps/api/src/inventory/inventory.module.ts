@@ -6,6 +6,7 @@ import { CatalogModule } from '../catalog/catalog.module.js';
 import { FilesModule } from '../files/files.module.js';
 import { RecordsModule } from '../records/records.module.js';
 import { TasksModule } from '../tasks/tasks.module.js';
+import { TimeModule } from '../common/time/time.module.js';
 import { InventoryAccess } from './inventory-access.service.js';
 import { InventoryEvidence } from './inventory-evidence.service.js';
 import { InventoryKernel } from './inventory-kernel.service.js';
@@ -18,7 +19,7 @@ import { InventoryAdapters } from './inventory.adapters.js';
 import { InventoryAutomatic, InventoryDomainPorts } from './inventory-automatic.service.js';
 import { InventoryQueries } from './inventory-query.service.js';
 import { InventoryController, InventoryConversionController } from './inventory.controller.js';
-@Module({imports:[AuthGuardModule,AuditModule,CatalogModule,FilesModule,RecordsModule,TasksModule],
+@Module({imports:[AuthGuardModule,AuditModule,CatalogModule,FilesModule,RecordsModule,TasksModule,TimeModule],
  controllers:[InventoryController,InventoryConversionController],
  providers:[InventoryAccess,InventoryEvidence,InventoryKernel,InventorySources,InventoryAdjustments,InventoryPosting,InventoryBlocks,InventoryConversion,InventoryAdapters,InventoryAutomatic,InventoryDomainPorts,InventoryQueries],
  exports:[InventoryKernel,InventoryBlocks,InventoryAutomatic,InventoryDomainPorts]})

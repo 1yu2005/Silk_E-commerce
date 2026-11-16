@@ -29,6 +29,42 @@ export function auditQueryRange(query:AuditListQueryDto,asOf:Date) {
   if(from>=to)throw new AuditQueryError('VALIDATION_FAILED');
   return {from,to};
 }
+function auditListPageSql(query:AuditListQueryDto,{from,to}:ReturnType<typeof auditQueryRange>) {
+  const predicates=[Prisma.sql`a.created_at>=${from} AND a.created_at<${to}`];
+  if(query.actorType)predicates.push(Prisma.sql`a.actor_type=${query.actorType}::"AuditActorType"`);
+  if(query.actorEmployeeId)predicates.push(Prisma.sql`a.actor_employee_id=${query.actorEmployeeId}::uuid`);
+  if(query.actorCustomerId)predicates.push(Prisma.sql`a.actor_customer_id=${query.actorCustomerId}::uuid`);
+  if(query.action)predicates.push(Prisma.sql`a.action=${query.action}`);
+  if(query.targetType)predicates.push(Prisma.sql`a.target_type=${query.targetType}`);
+  if(query.targetId)predicates.push(Prisma.sql`a.target_id=${query.targetId}`);
+  if(query.requestId)predicates.push(Prisma.sql`a.request_id=${query.requestId}`);
+  if(query.businessType||query.businessNo){
+    const references=[Prisma.sql`f.audit_log_id=a.id`];
+    if(query.businessType)references.push(Prisma.sql`f.business_type=${query.businessType}::"AuditBusinessType"`);
+    if(query.businessNo)references.push(Prisma.sql`f.business_no=${query.businessNo}`);
+    predicates.push(Prisma.sql`EXISTS(SELECT 1 FROM audit_business_reference f WHERE ${Prisma.join(references,' AND ')})`);
+  }
+  // 先限定审计页，再关联最小员工标识和有序引用，避免每页额外往返读取两个关系。
+  return Prisma.sql`
+    SELECT a.id,a.actor_type AS "actorType",a.actor_employee_id AS "actorEmployeeId",a.actor_customer_id AS "actorCustomerId",
+      a.action,a.target_type AS "targetType",a.target_id AS "targetId",a.reason,a.before_data AS "beforeData",a.after_data AS "afterData",
+      a.request_id AS "requestId",a.created_at AS "createdAt",
+      CASE WHEN e.id IS NULL THEN NULL ELSE jsonb_build_object('id',e.id,'username',e.username,'status',e.status) END AS "actorEmployee",
+      COALESCE(refs.items,'[]'::jsonb) AS "businessReferences"
+    FROM (
+      SELECT a.id,a.actor_type,a.actor_employee_id,a.actor_customer_id,a.action,a.target_type,a.target_id,a.reason,
+        a.before_data,a.after_data,a.request_id,a.created_at
+      FROM audit_log a WHERE ${Prisma.join(predicates,' AND ')}
+      ORDER BY a.created_at DESC,a.id DESC LIMIT ${query.pageSize} OFFSET ${(query.page-1)*query.pageSize}
+    ) a
+    LEFT JOIN employee e ON e.id=a.actor_employee_id
+    LEFT JOIN LATERAL (
+      SELECT jsonb_agg(jsonb_build_object('businessType',r.business_type,'businessId',r.business_id,'businessNo',r.business_no)
+        ORDER BY r.business_type ASC,r.business_id ASC) AS items
+      FROM audit_business_reference r WHERE r.audit_log_id=a.id
+    ) refs ON TRUE
+    ORDER BY a.created_at DESC,a.id DESC`;
+}
 function project(row:AuditRow) {
   const details=projectAuditDetails(row.action,row.targetType,row.beforeData,row.afterData,row.reason);
   return {id:row.id,actor:{type:row.actorType,id:row.actorEmployeeId??row.actorCustomerId,
@@ -55,11 +91,16 @@ export class AuditQueryService {
       ...(query.targetType?{targetType:query.targetType}:{}),...(query.targetId?{targetId:query.targetId}:{}),...(query.requestId?{requestId:query.requestId}:{}),
       ...(query.businessType||query.businessNo?{businessReferences:{some:{...(query.businessType?{businessType:query.businessType}:{}),...(query.businessNo?{businessNo:query.businessNo}:{})}}}:{}),
     };
+    const timeFilter=where.createdAt;
+    const dateOnly=Object.keys(where).length===1&&timeFilter!==null&&typeof timeFilter==='object'&&!(timeFilter instanceof Date)
+      &&Object.keys(timeFilter).length===2&&timeFilter.gte===from&&timeFilter.lt===to;
     return this.prisma.$transaction(async tx=>{
       await tx.$executeRaw`SET TRANSACTION READ ONLY`;
       await this.authorize(tx,ctx);
-      const total=await tx.auditLog.count({where});
-      const rows=await tx.auditLog.findMany({where,select:auditSelect,orderBy:[{createdAt:'desc'},{id:'desc'}],skip:(query.page-1)*query.pageSize,take:query.pageSize});
+      // Prisma count的零OFFSET包装阻止并行聚合；仅日期范围可直接精确计数，其余筛选继续使用完整where。
+      const total=dateOnly?Number((await tx.$queryRaw<{total:bigint}[]>`SELECT count(*) AS total FROM audit_log
+        WHERE created_at>=${from} AND created_at<${to}`)[0]!.total):await tx.auditLog.count({where});
+      const rows=await tx.$queryRaw<AuditRow[]>(auditListPageSql(query,{from,to}));
       return {items:rows.map(project),total,page:query.page,pageSize:query.pageSize,asOf:asOf.toISOString(),timeZone:'Asia/Shanghai' as const,from:from.toISOString(),to:to.toISOString(),
         coverageNotice:'按业务号仅检索已建立确定引用的历史；未能确定的旧关联不作推断'};
     },readOptions);

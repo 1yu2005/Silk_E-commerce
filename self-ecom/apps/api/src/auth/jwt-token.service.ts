@@ -35,14 +35,15 @@ const safeInteger = (value: unknown): value is number => Number.isSafeInteger(va
 const subjectType = (value: unknown): value is SubjectType => value === 'EMPLOYEE' || value === 'CUSTOMER';
 
 export class JwtTokenService {
-  #key: Uint8Array;
+  #key: Promise<CryptoKey>;
   #ttlSeconds: number;
   #clock: () => Date;
 
   constructor(config: JwtConfiguration, clock: () => Date = () => new Date()) {
     const checked = validateJwtConfiguration({ JWT_SECRET: config.secret, JWT_TTL_SECONDS: String(config.ttlSeconds) });
     // 密钥不保存为可枚举的实例属性，避免误序列化服务实例泄漏配置。
-    this.#key = new TextEncoder().encode(checked.secret);
+    this.#key = crypto.subtle.importKey('raw', new TextEncoder().encode(checked.secret),
+      { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify']);
     this.#ttlSeconds = checked.ttlSeconds;
     this.#clock = clock;
   }
@@ -63,7 +64,7 @@ export class JwtTokenService {
       tokenVersion: identity.tokenVersion })
       .setProtectedHeader({ alg: 'HS256', typ: 'JWT' })
       .setSubject(identity.subjectId).setIssuer('shop-api').setAudience(audiences[identity.subjectType])
-      .setIssuedAt(issuedAtSeconds).setExpirationTime(expiresAtSeconds).sign(this.#key);
+      .setIssuedAt(issuedAtSeconds).setExpirationTime(expiresAtSeconds).sign(await this.#key);
     // 返回整秒时间，后续会话必须原样保存expiresAt，与JWT exp完全一致。
     return { accessToken, issuedAt, expiresAt };
   }
@@ -77,7 +78,7 @@ export class JwtTokenService {
     const nowSeconds = Math.floor(now.getTime() / 1000);
     if (!safeInteger(nowSeconds)) throw new Error('JWT校验时钟不合法');
     try {
-      const { payload, protectedHeader } = await jwtVerify(token, this.#key, {
+      const { payload, protectedHeader } = await jwtVerify(token, await this.#key, {
         algorithms: ['HS256'], issuer: 'shop-api', audience: ['shop-admin', 'shop-store'],
         requiredClaims: claimNames, typ: 'JWT', currentDate: now, clockTolerance: 0,
       });

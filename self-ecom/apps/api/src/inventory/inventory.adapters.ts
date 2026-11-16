@@ -1,6 +1,6 @@
 // 作用：将真实库存聚合接入任务、文件、状态历史和SKU引用保护；无订单占位适配器。
 import { Inject, Injectable, type OnModuleInit } from '@nestjs/common';
-import type { Prisma, Task } from '@prisma/client';
+import { Prisma, type Task } from '@prisma/client';
 import { TaskBusinessAdapters, type TaskLockResource, type TaskCommandActor } from '../tasks/task-business-adapters.js';
 import { isTaskEligible } from '../tasks/task-access.service.js';
 import { TaskError } from '../tasks/task.errors.js';
@@ -46,6 +46,8 @@ export class InventoryAdapters implements OnModuleInit {
    },
   });
   this.tasks.registerAccess('INVENTORY_ADJUSTMENT',{
+   visibleScope:actor=>actor.effectivePermissions.includes('inventory.read')?Prisma.sql`EXISTS (SELECT 1 FROM inventory_adjustment a WHERE a.id=t.business_id)`:Prisma.sql`false`,
+   async describeMany(tx,actor,tasks){permission(actor,['inventory.read']);const rows=await tx.inventoryAdjustment.findMany({where:{id:{in:tasks.map(t=>t.businessId)}}}),byId=new Map(rows.map(row=>[row.id,row]));return new Map(tasks.map(task=>{const row=byId.get(task.businessId);if(!row)throw new TaskError('TASK_NOT_FOUND');const active=row.status==='PENDING'&&task.stage===(row.checkRequired?'INVENTORY_RECONCILE':'INVENTORY_POST');return [task.id,{number:row.number,label:row.checkRequired?'库存待核实':'库存待确认',detailPath:`/inventory/adjustments/${row.id}`,canClaim:active&&task.status==='OPEN'&&isTaskEligible(actor,task),canRelease:active&&task.status==='CLAIMED'&&task.assigneeId===actor.subjectId,canReadHistoryReasons:true,canTransfer:active,canExtendDeadline:active}];}));},
    async visibleBusinessIds(tx,actor){if(!actor.effectivePermissions.includes('inventory.read'))return [];return (await tx.inventoryAdjustment.findMany({select:{id:true}})).map(r=>r.id);},
    async describe(tx,actor,task){await authorize(tx,task.businessId,actor);const row=await tx.inventoryAdjustment.findUniqueOrThrow({where:{id:task.businessId}});
     const active=row.status==='PENDING'&&task.stage===(row.checkRequired?'INVENTORY_RECONCILE':'INVENTORY_POST');

@@ -1,7 +1,7 @@
 // 作用：在一致快照内读取本人/岗位池/待安排、摘要、详情和统一时间线，范围和业务摘要都经过真实适配器裁剪。
 import { Inject, Injectable } from '@nestjs/common';
 import { Prisma, type DeadlineEvent, type Task, type TaskHistoryAction, type TaskStatus } from '@prisma/client';
-import { paginationWindow } from '@shop/shared';
+import { normalizePagination, paginationWindow } from '@shop/shared';
 import { AccessDeniedError } from '../auth/access-denied.error.js';
 import type { CurrentIdentity } from '../auth/current-identity.service.js';
 import { checkedId } from '../auth/session-support.js';
@@ -31,7 +31,7 @@ export class TaskQueryService {
     return this.prisma.$transaction(async tx => {
       const current = await this.access.authenticate(tx, actor, token); const now = this.clock.now();
       if (query.view === 'reassign' && !canReassign(current)) throw new AccessDeniedError('FORBIDDEN');
-      const clauses = [await this.access.scope(tx, current)];
+      const clauses = [await this.access.scope(tx, current, query.businessType)];
       if (query.view === 'mine') clauses.push(Prisma.sql`t.assignee_id=${current.subjectId}::uuid`);
       if (query.view === 'pool') clauses.push(Prisma.sql`t.status='OPEN' AND (${eligibleTaskSql(current)})`);
       if (query.view === 'reassign') clauses.push(Prisma.sql`t.reassign_needed=true AND ${activeTaskSql}`);
@@ -42,12 +42,25 @@ export class TaskQueryService {
       const overdue = Prisma.sql`(${activeTaskSql} AND t.due_at IS NOT NULL AND t.due_at<=${now})`;
       if (query.overdue !== undefined) clauses.push(query.overdue ? overdue : Prisma.sql`NOT (${overdue})`);
       const where = Prisma.join(clauses.map(clause => Prisma.sql`(${clause})`), ' AND ');
-      const [count] = await tx.$queryRaw<{ total: bigint }[]>`SELECT count(*) AS total FROM task t WHERE ${where}`;
-      const total = Number(count!.total); const window = paginationWindow(query, total);
-      const rows = window.skip === null ? [] : await tx.$queryRaw<{ id: string }[]>`SELECT t.id FROM task t WHERE ${where}
-        ORDER BY t.due_at ASC NULLS LAST,t.created_at ASC,t.id ASC LIMIT ${window.take} OFFSET ${window.skip}`;
+      const pagination = normalizePagination(query);
+      const requestedOffset = ((BigInt(pagination.page) - 1n) * BigInt(pagination.pageSize)).toString();
+      // 同一授权筛选只执行一次；越界偏移先以numeric比较，避免极大合法页码溢出bigint。
+      const [selection] = await tx.$queryRaw<{ total: bigint; ids: string[] }[]>`
+        WITH eligible AS MATERIALIZED (
+          SELECT t.id,t.due_at,t.created_at FROM task t WHERE ${where}
+        ), task_total AS (SELECT count(*) AS total FROM eligible), bounds AS (
+          SELECT total,
+            CASE WHEN requested_offset<total THEN requested_offset::bigint ELSE 0::bigint END AS skip,
+            CASE WHEN requested_offset<total THEN ${pagination.pageSize}::bigint ELSE 0::bigint END AS take
+          FROM task_total CROSS JOIN (SELECT ${requestedOffset}::numeric AS requested_offset) requested
+        )
+        SELECT total,ARRAY(SELECT e.id FROM eligible e
+          ORDER BY e.due_at ASC NULLS LAST,e.created_at ASC,e.id ASC
+          LIMIT (SELECT take FROM bounds) OFFSET (SELECT skip FROM bounds)) AS ids FROM bounds`;
+      const total = Number(selection!.total); const window = paginationWindow(query, total);
+      const rows = window.skip === null ? [] : selection!.ids.map(id => ({ id }));
       const tasks = await tx.task.findMany({ where: { id: { in: rows.map(row => row.id) } } }); const byId = new Map(tasks.map(task => [task.id, task]));
-      const items = []; for (const row of rows) items.push(await this.access.present(tx, current, byId.get(row.id)!, now));
+      const items = await this.access.presentMany(tx, current, rows.map(row => byId.get(row.id)!), now);
       return { items, total, page: query.page, pageSize: query.pageSize };
     }, readOptions);
   }

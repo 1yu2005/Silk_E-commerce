@@ -15,6 +15,7 @@ import {settlementStageActive,settlementStartedAt,settlementTransition,afterSale
 import {Clock} from '../common/time/clock.js';
 import {assertProxyContext} from '../coordination/proxy.rules.js';
 import {SkuReferences} from '../catalog/sku-reference.service.js';
+import {afterSaleTaskScope,describeAfterSaleTasks} from './after-sale-task-read.js';
 export async function afterSaleSkuReferenced(tx:Prisma.TransactionClient,skuIds:string[]){
  const items=await tx.orderItem.findMany({where:{skuId:{in:skuIds}},select:{orderId:true}});
  return await tx.afterSale.count({where:{orderId:{in:items.map(i=>i.orderId)}}})>0;
@@ -34,6 +35,8 @@ export class AfterSaleAdapters implements OnModuleInit{
    async resolveEntry(tx,e,a,current){await authorize(tx,e.businessId,a);if(current)throw new TaskError('TASK_STAGE_ACTIVE');const s=await tx.afterSale.findUniqueOrThrow({where:{id:e.businessId}});await stageActive(tx,{businessId:s.id,stage:e.stage,entryKey:e.entryKey} as Task);return {startedAt:await settlementStartedAt(tx,s,e),...(e.stage==='RETURN_INSPECT'?{startBasis:e.entryKey.startsWith('approval:')?'APPROVAL' as const:'ACTUAL_RECEIPT' as const}:e.stage==='RETURN_FOLLOW'&&e.entryKey.startsWith('reship:')?{startBasis:'RESHIPMENT_AUTHORIZATION' as const}:{})};}
   });
   this.tasks.registerAccess('AFTER_SALE',{
+   visibleScope:afterSaleTaskScope,
+   describeMany:describeAfterSaleTasks,
    async visibleBusinessIds(tx,a){if(!serviceReader(a)&&!inspectionReader(a))return [];return (await tx.afterSale.findMany({select:{id:true}})).map(s=>s.id);},
    async describe(tx,a,t){await authorize(tx,t.businessId,a);const s=await tx.afterSale.findUniqueOrThrow({where:{id:t.businessId}});let valid=true;try{await stageActive(tx,t);}catch{valid=false;}return {number:s.number,label:'售后处理',detailPath:'/after-sales/'+s.id,canClaim:valid&&t.status==='OPEN'&&isTaskEligible(a,t),canRelease:valid&&t.status==='CLAIMED'&&t.assigneeId===a.subjectId,canReadHistoryReasons:serviceReader(a),canTransfer:valid,canExtendDeadline:valid&&!!t.dueAt};},
    async assertClaim(tx,a,t){await authorize(tx,t.businessId,a);await stageActive(tx,t);},async assertRelease(tx,a,t){await authorize(tx,t.businessId,a);await stageActive(tx,t);}

@@ -38,9 +38,12 @@ export interface TaskBusinessHandoff {
 }
 /** 独立于阶段进入的读取/交接端口；缺失时不展示任务，也不允许领取或释放。 */
 export interface TaskBusinessAccess {
-  // 返回经过真实业务读取权限裁剪且确实存在的业务ID；小店首期按此集合分页，不接受浏览器提供范围。
+  /** 真实领域读取谓词，关联外层任务别名t；权限和业务存在性必须同时保留。 */
+  visibleScope?(actor: TaskEmployee): Prisma.Sql;
+  // 兼容隔离测试/外接适配器；生产使用visibleScope避免全库ID展开。
   visibleBusinessIds(tx: Prisma.TransactionClient, actor: TaskEmployee): Promise<readonly string[]>;
   describe(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<TaskBusinessView>;
+  describeMany?(tx: Prisma.TransactionClient, actor: TaskEmployee, tasks: readonly Task[]): Promise<ReadonlyMap<string, TaskBusinessView>>;
   assertClaim(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<void>;
   assertRelease(tx: Prisma.TransactionClient, actor: TaskEmployee, task: Task): Promise<void>;
   /** 可选的同事务领域同步；通用领取入口与专用入口共享，不能在领取提交后补写。 */

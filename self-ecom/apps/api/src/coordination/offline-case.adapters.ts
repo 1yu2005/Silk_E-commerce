@@ -1,6 +1,6 @@
 // 作用：将线下工单接入真实任务池、经办资格、锁序和私有文件；未使用测试适配器。
 import {Inject,Injectable,type OnModuleInit} from '@nestjs/common';
-import type {OfflineCase,Prisma,Task} from '@prisma/client';
+import {Prisma,type OfflineCase,type Task} from '@prisma/client';
 import {TaskBusinessAdapters,type TaskCommandActor,type TaskLockResource} from '../tasks/task-business-adapters.js';
 import {isTaskEligible} from '../tasks/task-access.service.js';
 import {TaskError} from '../tasks/task.errors.js';
@@ -28,6 +28,8 @@ export class OfflineCaseAdapters implements OnModuleInit{
    async resolveEntry(tx,e,a,current){await authorize(tx,e.businessId,a);if(current)throw new TaskError('TASK_STAGE_ACTIVE');const row=await tx.offlineCase.findUniqueOrThrow({where:{id:e.businessId}});stageActive(row,e);if(e.stage==='OFFLINE_FOLLOW'&&!e.entryKey.startsWith('create:'))throw new TaskError('TASK_ENTRY_BLOCKED');if(e.stage==='ADMIN_DISPUTE'){const request=await tx.offlineCaseEvent.findUnique({where:{id:row.adminRequestEventId!}});if(!request||request.adminDecision!=='REQUEST')throw new TaskError('TASK_ENTRY_BLOCKED');return {startedAt:request.createdAt};}return {startedAt:row.createdAt};}
   });
   this.tasks.registerAccess('OFFLINE_CASE',{
+   visibleScope:a=>{try{offlinePermission(a);return Prisma.sql`EXISTS (SELECT 1 FROM offline_case c WHERE c.id=t.business_id)`;}catch{return Prisma.sql`false`;}},
+   async describeMany(tx,a,tasks){offlinePermission(a);const rows=await tx.offlineCase.findMany({where:{id:{in:tasks.map(t=>t.businessId)}}}),byId=new Map(rows.map(row=>[row.id,row]));return new Map(tasks.map(t=>{const row=byId.get(t.businessId);if(!row)throw new TaskError('TASK_NOT_FOUND');let active=true;try{stageActive(row,t);}catch{active=false;}return [t.id,{number:row.caseNo,label:'线下处理工单',detailPath:'/offline-cases/'+row.id,canClaim:active&&t.status==='OPEN'&&isTaskEligible(a,t),canRelease:active&&t.status==='CLAIMED'&&t.assigneeId===a.subjectId,canTransfer:active,canExtendDeadline:false,canReadHistoryReasons:true}];}));},
    async visibleBusinessIds(tx,a){try{offlinePermission(a);}catch{return [];}return (await tx.offlineCase.findMany({select:{id:true}})).map(row=>row.id);},
    async describe(tx,a,t){await authorize(tx,t.businessId,a);const row=await tx.offlineCase.findUniqueOrThrow({where:{id:t.businessId}});let active=true;try{stageActive(row,t);}catch{active=false;}return {number:row.caseNo,label:'线下处理工单',detailPath:'/offline-cases/'+row.id,canClaim:active&&t.status==='OPEN'&&isTaskEligible(a,t),canRelease:active&&t.status==='CLAIMED'&&t.assigneeId===a.subjectId,canTransfer:active,canExtendDeadline:false,canReadHistoryReasons:true};},
    async assertClaim(tx,a,t){await authorize(tx,t.businessId,a);stageActive(await tx.offlineCase.findUniqueOrThrow({where:{id:t.businessId}}),t);},

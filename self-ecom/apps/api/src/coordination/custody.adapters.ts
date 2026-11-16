@@ -1,6 +1,6 @@
 // 作用：真实保管安排的任务/锁/文件解析器；售后终态不抹除实物执行义务。
 import {Inject,Injectable,type OnModuleInit} from '@nestjs/common';
-import type {Prisma,Task} from '@prisma/client';
+import {Prisma,type Task} from '@prisma/client';
 import {TaskBusinessAdapters,type TaskCommandActor} from '../tasks/task-business-adapters.js';
 import {TaskError} from '../tasks/task.errors.js';
 import {isTaskEligible} from '../tasks/task-access.service.js';
@@ -23,6 +23,8 @@ export class CustodyAdapters implements OnModuleInit{
    async resolveEntry(tx,e,a,active){await authorize(tx,e.businessId,a);if(active)throw new TaskError('TASK_STAGE_ACTIVE');const v=await current(tx,e);return {startedAt:v.a.createdAt};}
   });
   this.tasks.registerAccess('CUSTODY_ARRANGEMENT',{
+   visibleScope:a=>inspectionReader(a)?Prisma.sql`EXISTS (SELECT 1 FROM custody_arrangement c WHERE c.id=t.business_id)`:Prisma.sql`false`,
+   async describeMany(tx,a,tasks){if(!inspectionReader(a))throw new DisputeError('DISPUTE_NOT_FOUND');const rows=await tx.$queryRaw<{id:string;number:string;status:string}[]>`SELECT c.id,s.number,c.status FROM custody_arrangement c JOIN after_sale s ON s.id=c.after_sale_id WHERE c.id=ANY(${tasks.map(t=>t.businessId)}::uuid[])`,byId=new Map(rows.map(row=>[row.id,row]));return new Map(tasks.map(t=>{const row=byId.get(t.businessId);if(!row)throw new TaskError('TASK_NOT_FOUND');const current=valid(row.status,t.entryKey);return [t.id,{number:row.number,label:'结案后物品保管与寄还',detailPath:'/custody-arrangements/'+t.businessId,canClaim:current&&t.status==='OPEN'&&isTaskEligible(a,t),canRelease:current&&t.status==='CLAIMED'&&t.assigneeId===a.subjectId,canReadHistoryReasons:true,canTransfer:current,canExtendDeadline:false}];}));},
    async visibleBusinessIds(tx,a){if(!inspectionReader(a))return [];return (await tx.custodyArrangement.findMany({select:{id:true}})).map(x=>x.id);},
    async describe(tx,a,t){const v=await authorize(tx,t.businessId,a),current=valid(v.a.status,t.entryKey);return {number:v.s.number,label:'结案后物品保管与寄还',detailPath:'/custody-arrangements/'+t.businessId,canClaim:current&&t.status==='OPEN'&&isTaskEligible(a,t),canRelease:current&&t.status==='CLAIMED'&&t.assigneeId===a.subjectId,canReadHistoryReasons:true,canTransfer:current,canExtendDeadline:false};},
    async assertClaim(tx,a,t){await authorize(tx,t.businessId,a);await current(tx,t);},async assertRelease(tx,a,t){await authorize(tx,t.businessId,a);await current(tx,t);}

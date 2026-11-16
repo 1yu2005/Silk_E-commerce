@@ -23,6 +23,7 @@ import * as D from '../src/catalog/catalog.dto.js';
 import { CategoryService } from '../src/catalog/category.service.js';
 import { ProductCommands, type CatalogContext } from '../src/catalog/product-command.service.js';
 import { CatalogQueries } from '../src/catalog/catalog-query.service.js';
+import { CatalogAccess } from '../src/catalog/catalog-access.service.js';
 import { SkuReferences } from '../src/catalog/sku-reference.service.js';
 import { signature } from '../src/catalog/catalog.rules.js';
 import { FILE_CONFIG } from '../src/files/file-configuration.js';
@@ -39,7 +40,12 @@ class ControlledAudit extends AuditService{
   checkpoint:((tx:Prisma.TransactionClient,payload:AuditPayload)=>Promise<void>)|undefined;
   override async appendAudit(tx:Prisma.TransactionClient,payload:AuditPayload){await super.appendAudit(tx,payload);await this.checkpoint?.(tx,payload);if(this.fail&&['category.change','product.change'].includes(payload.action))throw new Error('商品测试审计故障');}
 }
+class ControlledCatalogAccess extends CatalogAccess{
+  checkpoint:((tx:Prisma.TransactionClient,id:string)=>Promise<void>)|undefined;
+  override async product(tx:Prisma.TransactionClient,id:string,version?:number){const row=await super.product(tx,id,version);await this.checkpoint?.(tx,id);return row;}
+}
 const audit=new ControlledAudit();let app:INestApplication,db:PrismaService,commands:ProductCommands,categories:CategoryService,queries:CatalogQueries;
+let access:ControlledCatalogAccess;
 let base='',directory='',staff:CatalogContext,peer:CatalogContext,service:CatalogContext;
 const responses:{path:string;method:string;status:number;code?:string;requestId:string|null}[]=[];
 async function actor(role:'SUPER_ADMIN'|'MERCH_WAREHOUSE'|'CUSTOMER_SERVICE'='MERCH_WAREHOUSE'){
@@ -51,9 +57,10 @@ async function actor(role:'SUPER_ADMIN'|'MERCH_WAREHOUSE'|'CUSTOMER_SERVICE'='ME
 beforeAll(async()=>{
   directory=await mkdtemp(join(tmpdir(),'self-ecom-catalog-'));
   const module=await Test.createTestingModule({imports:[AppModule]}).overrideProvider(APP_CONFIG).useValue({...loadConfiguration({...process.env,LOG_LEVEL:'silent'}),uploadDir:directory})
-    .overrideProvider(AuditService).useValue(audit).overrideProvider(FILE_CONFIG).useValue({stagedQuota:1000,uploadsPerMinute:100,cleanupIntervalSeconds:86400}).compile();
+    .overrideProvider(AuditService).useValue(audit).overrideProvider(CatalogAccess).useFactory({factory:(identities:CurrentIdentityService)=>new ControlledCatalogAccess(identities),inject:[CurrentIdentityService]}).overrideProvider(FILE_CONFIG).useValue({stagedQuota:1000,uploadsPerMinute:100,cleanupIntervalSeconds:86400}).compile();
   app=module.createNestApplication();configureApp(app);await app.listen(0,'127.0.0.1');base=await app.getUrl();db=app.get(PrismaService);
   await seedPermissionCatalog(db);commands=app.get(ProductCommands);categories=app.get(CategoryService);queries=app.get(CatalogQueries);
+  access=app.get(CatalogAccess) as ControlledCatalogAccess;
   staff=await actor();peer=await actor();service=await actor('CUSTOMER_SERVICE');
 },30000);
 afterAll(async()=>{await app?.close();console.log('保留测试图片目录：'+directory);await writeFile(resolve('../../docs/verification/evidence/M1-05',`catalog-http-${Date.now()}.json`),JSON.stringify(responses,null,2));});
@@ -196,6 +203,24 @@ it('SW11/IT05：客服403、只读裁剪、同版本并发仅一次提交、停�
   const results=await Promise.allSettled([commands.edit(staff,p.id,{expectedVersion:0,name:'并发甲'}),commands.edit(peer,p.id,{expectedVersion:0,name:'并发乙'})]);expect(results.filter(r=>r.status==='fulfilled')).toHaveLength(1);const rejected=results.find(r=>r.status==='rejected');expect(rejected,JSON.stringify(rejected)).toMatchObject({reason:{code:'VERSION_CONFLICT'}});
   const disabled=await actor();await db.employee.update({where:{id:disabled.actor.subjectId},data:{status:'DISABLED'}});p={...await queries.detail(p.id,staff.actor),changed:false};
   await bad('/admin/products/'+p.id,'PATCH',{expectedVersion:p.version,name:'不允许'},401,'ACCOUNT_UNAVAILABLE',disabled);
+});
+it.each(['profile','archive'] as const)('IT05：%s先持商品锁、创建人并发等待时仍仅提交一次版本',async action=>{
+  const p=await create();let release!:()=>void,signal!:(pid:number)=>void;
+  const held=new Promise<void>(resolve=>{release=resolve;}),ready=new Promise<number>(resolve=>{signal=resolve;});
+  access.checkpoint=async(tx,id)=>{if(id!==p.id)return;access.checkpoint=undefined;const [row]=await tx.$queryRaw<{pid:number}[]>`SELECT pg_backend_pid() AS pid`;signal(row!.pid);await held;};
+  const write=(ctx:CatalogContext)=>action==='profile'?commands.edit({...ctx,requestId:randomUUID()},p.id,{expectedVersion:0,name:'锁序回归'}):commands.status({...ctx,requestId:randomUUID()},p.id,{expectedVersion:0,reason:'锁序回归'},'archive');
+  let settled=Promise.allSettled([] as ReturnType<typeof write>[]);
+  try{
+    const first=write(peer);settled=Promise.allSettled([first]);
+    const pid=await Promise.race([ready,first.then(()=>{throw new Error('商品命令未进入锁检查点');})]);
+    const second=write(staff);settled=Promise.allSettled([first,second]);
+    let blocked=false;const until=performance.now()+1500;
+    while(performance.now()<until&&!blocked){const [row]=await db.$queryRaw<{blocked:boolean}[]>`SELECT EXISTS(SELECT 1 FROM pg_stat_activity WHERE ${pid}=ANY(pg_blocking_pids(pid)) AND (query LIKE '%system_guard%' OR query LIKE '%FROM product%')) AS blocked`;blocked=row!.blocked;}
+    expect(blocked).toBe(true);
+  }finally{access.checkpoint=undefined;release();await settled;}
+  const results=await settled;expect(results[0]).toMatchObject({status:'fulfilled',value:{changed:true,version:1}});expect(results[1]).toMatchObject({status:'rejected',reason:{code:'VERSION_CONFLICT'}});
+  expect(await db.product.findUniqueOrThrow({where:{id:p.id}})).toMatchObject({version:1,updatedById:peer.actor.subjectId,...(action==='profile'?{name:'锁序回归'}:{status:'OFF_SALE'})});
+  expect(await db.auditLog.count({where:{targetId:p.id,actorEmployeeId:peer.actor.subjectId}})).toBe(1);
 });
 it('IT02：业务引用检查器接入后阻止改方案/清价，未注册已安装领域明确失败',async()=>{
   const p=await create();const refs=new SkuReferences();await expect(refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});refs.register({domain:'inventory',async referenced(){return false;}});refs.register({domain:'order',async referenced(){return true;}});await expect(refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).rejects.toMatchObject({code:'SKU_REFERENCE_NOT_READY'});refs.register({domain:'after-sale',async referenced(){return false;}});expect(await refs.referenced(db as unknown as Prisma.TransactionClient,[p.skus[0]!.id])).toBe(true);

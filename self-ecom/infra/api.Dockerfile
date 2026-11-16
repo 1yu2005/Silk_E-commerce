@@ -9,8 +9,9 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 COPY apps ./apps
 COPY packages ./packages
 RUN pnpm install --frozen-lockfile
-# 生成客户端时使用不含真实凭据的构建专用地址，不会连接数据库。
-RUN DATABASE_URL=postgresql://build:build@127.0.0.1:5432/build pnpm --filter @shop/api db:generate
+# 生成器保留既有输出，不删除文件；构建专用地址不会连接数据库。
+RUN cd apps/api && NODE_OPTIONS=--require=/app/apps/api/scripts/retain-prisma-generation.cjs \
+    DATABASE_URL=postgresql://build:build@127.0.0.1:5432/build node node_modules/prisma/build/index.js generate
 # API复用共享密码规则，先生成共享包导出的dist。
 RUN pnpm --filter @shop/shared build \
     && pnpm --filter @shop/api build \

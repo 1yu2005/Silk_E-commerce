@@ -5,6 +5,7 @@ import { Prisma } from '@prisma/client';
 import { runAuthTransaction } from '../auth/auth-transaction.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuditService } from '../audit/audit.service.js';
+import { Clock } from '../common/time/clock.js';
 import { InventoryAccess, type InventoryContext } from './inventory-access.service.js';
 import { InventoryEvidence } from './inventory-evidence.service.js';
 import { InventoryError } from './inventory.errors.js';
@@ -13,7 +14,7 @@ import type { SourceAddLineDto, SourceCreateDto, SourceVerifyDto } from './inven
 @Injectable()
 export class InventorySources {
  constructor(@Inject(PrismaService) private readonly db:PrismaService,@Inject(InventoryAccess) private readonly access:InventoryAccess,
-  @Inject(InventoryEvidence) private readonly evidence:InventoryEvidence,@Inject(AuditService) private readonly audit:AuditService){}
+  @Inject(InventoryEvidence) private readonly evidence:InventoryEvidence,@Inject(AuditService) private readonly audit:AuditService,@Inject(Clock) private readonly clock:Clock){}
  async create(ctx:InventoryContext,input:SourceCreateDto){
   const namespace=normalize(text(input.namespace,80)),reference=text(input.reference??`INTERNAL-${randomUUID()}`,100),note=text(input.note,2000,true);
   if(!note&&!input.evidenceFileIds?.length)throw new InventoryError('VALIDATION_FAILED');
@@ -21,8 +22,9 @@ export class InventorySources {
   if(!lines.length||lines.length>200||new Set(lines.map(l=>l.lineKey)).size!==lines.length)throw new InventoryError('VALIDATION_FAILED');
   try{return await runAuthTransaction(this.db,async tx=>{
    const actor=await this.access.actor(tx,ctx,['inventory.source.manage']);await lockStock(tx,lines.map(l=>l.skuId));
-   const row=await tx.inventorySource.create({data:{sourceType:input.sourceType,namespace,reference,normalizedReference:normalize(reference),note:note||null,createdById:actor.subjectId}});
-   await tx.inventorySourceLine.createMany({data:lines.map(line=>({...line,sourceId:row.id}))});
+   const now=this.clock.now();
+   const row=await tx.inventorySource.create({data:{createdAt:now,updatedAt:now,sourceType:input.sourceType,namespace,reference,normalizedReference:normalize(reference),note:note||null,createdById:actor.subjectId}});
+   await tx.inventorySourceLine.createMany({data:lines.map(line=>({...line,sourceId:row.id,createdAt:now,updatedAt:now}))});
    await this.evidence.bind(tx,ctx,'INVENTORY_SOURCE',row.id,input.evidenceFileIds,'create');
    await this.access.actor(tx,ctx,['inventory.source.manage'],false);
    await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:actor.subjectId},action:'inventory.source',targetId:row.id,requestId:ctx.requestId,reason:note.slice(0,500)||'来源图片核实',after:{inventoryOperation:'CREATE',inventoryVersion:0,inventoryQuantity:lines.length}});
@@ -36,8 +38,9 @@ export class InventorySources {
    const source=await tx.inventorySource.findUnique({where:{id}});if(!source)throw new InventoryError('SOURCE_NOT_FOUND');
    if(source.version===MAX)throw new InventoryError('INVENTORY_LIMIT_EXCEEDED');
    if(source.version!==input.expectedSourceVersion)throw new InventoryError('VERSION_CONFLICT');
-   const line=await tx.inventorySourceLine.create({data:{sourceId:id,lineKey:normalize(text(input.lineKey,64)),skuId:input.skuId,verifiedQuantity:integer(input.verifiedQuantity,1)}});
-   const updated=await tx.inventorySource.update({where:{id},data:{version:{increment:1}}});
+   const now=this.clock.now();
+   const line=await tx.inventorySourceLine.create({data:{createdAt:now,updatedAt:now,sourceId:id,lineKey:normalize(text(input.lineKey,64)),skuId:input.skuId,verifiedQuantity:integer(input.verifiedQuantity,1)}});
+   const updated=await tx.inventorySource.update({where:{id},data:{updatedAt:now,version:{increment:1}}});
    await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:actor.subjectId},action:'inventory.source',targetId:id,requestId:ctx.requestId,reason:text(input.reason,500),after:{inventoryOperation:'EDIT',inventoryVersion:updated.version,inventoryQuantity:input.verifiedQuantity}});
    return {...line,sourceVersion:updated.version,changed:true};
   });}catch(e){if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2002')throw new InventoryError('SOURCE_ALREADY_EXISTS');throw e;}
@@ -51,8 +54,9 @@ export class InventorySources {
   const source=await tx.inventorySource.findUniqueOrThrow({where:{id:line.sourceId}});
   if(line.version===MAX||source.version===MAX)throw new InventoryError('INVENTORY_LIMIT_EXCEEDED');
   const quantity=integer(input.verifiedQuantity,1);if(quantity<line.netPostedQuantity)throw new InventoryError('SOURCE_QUANTITY_BELOW_POSTED');
-  const updated=await tx.inventorySourceLine.update({where:{id},data:{verifiedQuantity:quantity,version:{increment:1}}});
-  await tx.inventorySource.update({where:{id:line.sourceId},data:{version:{increment:1},note:text(input.evidenceNote,2000)}});
+  const now=this.clock.now();
+  const updated=await tx.inventorySourceLine.update({where:{id},data:{updatedAt:now,verifiedQuantity:quantity,version:{increment:1}}});
+  await tx.inventorySource.update({where:{id:line.sourceId},data:{updatedAt:now,version:{increment:1},note:text(input.evidenceNote,2000)}});
   await this.evidence.bind(tx,ctx,'INVENTORY_SOURCE',line.sourceId,input.evidenceFileIds,`verify:${id}:${line.version}`);
   await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:actor.subjectId},action:'inventory.source',targetId:line.sourceId,requestId:ctx.requestId,reason:text(input.reason,500),
    before:{inventoryOperation:'VERIFY',inventoryVersion:line.version,inventoryQuantity:line.verifiedQuantity},after:{inventoryOperation:'VERIFY',inventoryVersion:updated.version,inventoryQuantity:quantity}});

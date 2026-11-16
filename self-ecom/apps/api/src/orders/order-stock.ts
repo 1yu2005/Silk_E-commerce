@@ -6,6 +6,7 @@ export async function currentDamage(tx:Prisma.TransactionClient,orderId:string){
  return items.map(i=>{const facts=i.incidents.filter(f=>f.incident.status==='OPEN');const unknown=facts.some(f=>f.damagedQuantity===null||(f.damagedQuantity===0&&f.conclusion==='WAIT_REPLACEMENT'&&f.verificationState!=='REPLENISHED'));const damaged=facts.reduce((n,f)=>n+(f.damagedQuantity??0)-f.replenishments.reduce((q,r)=>q+r.quantity,0),0);
   if(damaged<0||damaged>i.quantity)throw new OrderError('STOCK_INCIDENT_CONFLICT');return {...i,unknown,damaged};});
 }
-export async function refreshDamage(tx:Prisma.TransactionClient,orderId:string){const lines=await currentDamage(tx,orderId);for(const l of lines)await tx.orderItem.update({where:{id:l.id},data:{damageUnknown:l.unknown,damagedReservedQuantity:l.damaged}});
- const unknown=lines.some(l=>l.unknown),damaged=lines.some(l=>l.damaged>0);await tx.order.update({where:{id:orderId},data:{paymentBlocked:unknown||damaged,releaseBlocked:unknown}});return lines;
+export async function refreshDamage(tx:Prisma.TransactionClient,orderId:string,now:Date){const lines=await currentDamage(tx,orderId);for(const l of lines)await tx.orderItem.update({where:{id:l.id},data:{damageUnknown:l.unknown,damagedReservedQuantity:l.damaged}});
+ // 后续订单计时内核使用同一业务Clock，不让Prisma墙钟覆盖当前命令时刻。
+ const unknown=lines.some(l=>l.unknown),damaged=lines.some(l=>l.damaged>0);await tx.order.update({where:{id:orderId},data:{paymentBlocked:unknown||damaged,releaseBlocked:unknown,updatedAt:now}});return lines;
 }

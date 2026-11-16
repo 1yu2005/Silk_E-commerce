@@ -17,6 +17,7 @@ import {Clock} from '../common/time/clock.js';
 import {FulfillmentTaskPolicy} from './fulfillment-task.policy.js';
 import {FulfillmentAfterSales} from './fulfillment-after-sales.js';
 import {sourceBelongs,pendingHandover,shipmentBlocked} from './fulfillment.rules.js';
+import {describeOrderTasks,orderTaskScope} from './order-task-read.js';
 const sourceRow=(r:TaskBusinessSource):TaskSourceRecord=>({...r,sourceType:r.sourceType as TaskSourceRecord['sourceType'],status:r.status as TaskSourceRecord['status'],resolutionOutcome:r.resolutionOutcome as TaskSourceRecord['resolutionOutcome']});
 @Injectable()
 export class OrderAdapters implements OnModuleInit {
@@ -46,6 +47,8 @@ export class OrderAdapters implements OnModuleInit {
    }
   });
   this.tasks.registerAccess('ORDER',{
+   visibleScope:orderTaskScope,
+   describeMany:(tx,a,t)=>describeOrderTasks(tx,a,t,clock.now()),
    async visibleBusinessIds(tx,a){if(!orderReader(a)&&!a.effectivePermissions.includes('inventory.order-exception.manage'))return [];return (await tx.order.findMany({select:{id:true}})).map(o=>o.id);},
    async describe(tx,a,t){await authorize(tx,t.businessId,a);const o=await tx.order.findUniqueOrThrow({where:{id:t.businessId}});let valid=true;try{await active(tx,t);}catch{valid=false;}
     return {number:o.number,label:t.stage==='SHIPMENT_PROCESS'?'订单待发货':'订单实物异常跟进',detailPath:'/orders/'+o.id,canClaim:valid&&t.status==='OPEN'&&isTaskEligible(a,t),canRelease:valid&&t.status==='CLAIMED'&&t.assigneeId===a.subjectId,canReadHistoryReasons:true,canTransfer:valid,canExtendDeadline:valid};},

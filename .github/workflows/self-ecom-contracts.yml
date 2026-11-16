@@ -1,4 +1,5 @@
-# 文件作用：检查自营电商源码、OpenAPI与生成客户端一致；不连接开发库，不执行整板块回归。
+# Check contracts, all ordinary engineering tests (including ops), real PostgreSQL integration, and three production images.
+# Long performance and full browser/business acceptance remain explicit delivery runs.
 name: self-ecom contracts
 on:
   pull_request:
@@ -32,3 +33,128 @@ jobs:
       - run: pnpm --filter @shop/api-client exec tsc -p tsconfig.contracts.json
       - run: pnpm --filter @shop/shared test
       - run: pnpm --filter @shop/api-client test
+
+  engineering:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: self-ecom
+    env:
+      DATABASE_URL: postgresql://build:build@127.0.0.1:1/build
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+          cache: pnpm
+          cache-dependency-path: self-ecom/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+      - name: Lint every package
+        run: node scripts/record-module15.mjs ci-lint . scripts/verify-module15.mjs lint
+      - name: Typecheck every package
+        if: ${{ !cancelled() }}
+        run: node scripts/record-module15.mjs ci-typecheck . scripts/verify-module15.mjs typecheck
+      - name: All ordinary tests, including ops and reconciliation unit tests
+        if: ${{ !cancelled() }}
+        run: node scripts/record-module15.mjs ci-unit-tests . scripts/verify-module15.mjs test
+      - name: Build API and both web applications
+        if: ${{ !cancelled() }}
+        run: node scripts/record-module15.mjs ci-build . scripts/verify-module15.mjs build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: self-ecom-engineering-redacted
+          path: self-ecom/docs/verification/M4-15/engineering
+          if-no-files-found: warn
+
+  integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    services:
+      postgres:
+        image: postgres:16.6-bookworm
+        env:
+          POSTGRES_DB: m415_ci_dev
+          POSTGRES_USER: integration
+          # Only this ephemeral runner-local service uses trust; no password or production credential is required.
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports:
+          - 25432:5432
+        options: >-
+          --health-cmd "pg_isready -U integration -d m415_ci_dev"
+          --health-interval 2s
+          --health-timeout 2s
+          --health-retries 30
+    defaults:
+      run:
+        working-directory: self-ecom
+    env:
+      NODE_ENV: test
+      DATABASE_URL: postgresql://integration@127.0.0.1:25432/m415_ci_dev
+      TEST_DATABASE_URL: postgresql://integration@127.0.0.1:25432/m415_ci_template_test
+      CORS_ORIGINS: http://localhost:5173,http://localhost:5174
+      JWT_TTL_SECONDS: '7200'
+      LOG_LEVEL: silent
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+          cache: pnpm
+          cache-dependency-path: self-ecom/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm db:generate
+      - name: Configure the isolated PostgreSQL service for 100 real transaction waiters
+        env:
+          CI_POSTGRES_CONTAINER: ${{ job.services.postgres.id }}
+        run: |
+          docker exec "$CI_POSTGRES_CONTAINER" psql -U integration -d postgres -v ON_ERROR_STOP=1 -c 'ALTER SYSTEM SET max_connections = 240'
+          docker restart "$CI_POSTGRES_CONTAINER"
+          for attempt in $(seq 1 60); do
+            if docker exec "$CI_POSTGRES_CONTAINER" pg_isready -U integration -d m415_ci_dev; then break; fi
+            if [ "$attempt" = 60 ]; then exit 1; fi
+            sleep 1
+          done
+      - name: Generate a process-only JWT secret without committing or publishing it
+        run: |
+          node --input-type=module -e 'import {randomBytes} from "node:crypto"; import {appendFileSync} from "node:fs"; const value=randomBytes(48).toString("hex"); console.log("::add-mask::"+value); appendFileSync(process.env.GITHUB_ENV,"JWT_SECRET="+value+"\n");'
+      - run: pnpm --filter @shop/shared build
+      - run: pnpm --filter @shop/api build
+      - name: Every correctness integration suite against its own newly migrated random database
+        run: node scripts/record-module15.mjs ci-postgresql-integration apps/api apps/api/node_modules/tsx/dist/cli.mjs scripts/integration.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: self-ecom-postgresql-integration-redacted
+          path: |
+            self-ecom/docs/verification/M4-15/engineering
+            self-ecom/docs/verification/evidence/M4-15
+          if-no-files-found: warn
+
+  production-images:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: self-ecom
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.18.0
+      - name: Build three production images, migrate a fresh volume, verify health and database failure recovery
+        run: node infra/module15-ci-smoke.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: self-ecom-production-images-smoke-redacted
+          path: self-ecom/docs/verification/M4-15/ci-smoke
+          if-no-files-found: warn

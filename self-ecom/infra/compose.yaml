@@ -1,8 +1,15 @@
 # 文件作用：编排数据库、API、后台与商城四个服务；密钥只在运行时注入。
 name: self-ecom
 
+x-logging: &rotated-logs
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
 services:
   api:
+    logging: *rotated-logs
     image: self-ecom-api:local
     build:
       context: ..
@@ -31,6 +38,7 @@ services:
     init: true
     restart: unless-stopped
   admin-web:
+    logging: *rotated-logs
     image: self-ecom-admin-web:local
     build:
       context: ..
@@ -44,6 +52,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
   store-web:
+    logging: *rotated-logs
     image: self-ecom-store-web:local
     build:
       context: ..
@@ -57,6 +66,7 @@ services:
         condition: service_healthy
     restart: unless-stopped
   db:
+    logging: *rotated-logs
     image: postgres:16.6-bookworm
     environment:
       POSTGRES_DB: ${POSTGRES_DB:?请配置 POSTGRES_DB}

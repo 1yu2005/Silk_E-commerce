@@ -16,6 +16,7 @@ import { SkuReferences } from './sku-reference.service.js';
 import type { BatchStatusDto, DraftSaveDto, DraftVoidDto, ProductCreateDto, ProductEditDto, ProductImagesDto, SchemeSaveDto, SkuBatchDto, SkuEditDto, SkuEnabledDto, ReasonDto } from './catalog.dto.js';
 export interface CatalogContext { actor:CurrentIdentity;token:string;requestId:string }
 interface Change {id:string;field:string;before:string|number|boolean|null;after:string|number|boolean|null}
+type ProductPatch=Partial<Pick<Product,'name'|'brand'|'description'|'categoryId'|'status'|'archivedAt'>>;
 function changes(id:string,before:Record<string,unknown>,after:Record<string,unknown>):Change[]{
   const scalar=(v:unknown):Change['before']=>v===undefined||v===null?null:typeof v==='string'||typeof v==='number'||typeof v==='boolean'?v:JSON.stringify(v);
   return Object.keys(after).filter(k=>JSON.stringify(before[k])!==JSON.stringify(after[k])).map(k=>({id,field:k,before:scalar(before[k]),after:scalar(after[k])}));
@@ -41,12 +42,13 @@ export class ProductCommands {
     return {...await this.queries.detailTx(tx,p.id,actor),changed:true};
   }),'SKU_CODE_EXISTS',2);}
   private async command(ctx:CatalogContext,id:string,version:number,action:string,permissions:string[],tree:boolean,
-    reason:string|undefined,work:(tx:Prisma.TransactionClient,p:Product,actor:Extract<CurrentIdentity,{subjectType:'EMPLOYEE'}>)=>Promise<{changes:Change[];extra?:Record<string,unknown>;skuTransition?:{id:string;from:boolean;to:boolean}}>){
+    reason:string|undefined,work:(tx:Prisma.TransactionClient,p:Product,actor:Extract<CurrentIdentity,{subjectType:'EMPLOYEE'}>)=>Promise<{changes:Change[];productPatch?:ProductPatch;extra?:Record<string,unknown>;skuTransition?:{id:string;from:boolean;to:boolean}}>){
     return this.guarded(()=>runAuthTransaction(this.db,async tx=>{
       const actor=await this.access.actor(tx,ctx.actor,ctx.token,permissions);if(tree)await this.access.tree(tx);const p=await this.access.product(tx,id,version);
       if(p.archivedAt&&action!=='profile')throw new CatalogError('PRODUCT_ARCHIVED');
       const result=await work(tx,p,actor);if(!result.changes.length)return {...await this.queries.detailTx(tx,id,actor),changed:false,...result.extra};
-      const updated=await tx.product.update({where:{id},data:{version:{increment:1},updatedById:actor.subjectId}});
+      // 同事务重复更新商品会重新检查未变创建人外键，与持员工锁等待商品的命令形成锁环。
+      const updated=await tx.product.update({where:{id},data:{...result.productPatch,version:{increment:1},updatedById:actor.subjectId}});
       // 已上架商品可自然缺货，但编辑不能清除主图、分类或启用款式的有效售价。
       if(updated.status==='ON_SALE')await this.publishable(tx,updated,false);
       if(['publish','unpublish','archive','sku.enabled'].includes(action))await this.history.appendStateHistory(tx,{type:'EMPLOYEE',id:actor.subjectId},{aggregateType:'PRODUCT',aggregateId:id,dimension:result.skuTransition?'sku:'+result.skuTransition.id:'sales',commandKey:action+':'+id+':'+updated.version,fromState:result.skuTransition?(result.skuTransition.from?'ENABLED':'DISABLED'):p.status,toState:result.skuTransition?(result.skuTransition.to?'ENABLED':'DISABLED'):updated.status,requestId:ctx.requestId,reason});
@@ -64,14 +66,14 @@ export class ProductCommands {
   }
   edit(ctx:CatalogContext,id:string,input:ProductEditDto){return this.command(ctx,id,input.expectedVersion,'profile',['product.manage'],true,undefined,async(tx,p)=>{
     const data={...(input.name!==undefined?{name:input.name}:{}),...(input.brand!==undefined?{brand:input.brand}:{}),...(input.description!==undefined?{description:input.description}:{}),...(input.categoryId!==undefined?{categoryId:input.categoryId}:{})};await this.validCategory(tx,data.categoryId);const diff=changes(id,p as unknown as Record<string,unknown>,data);
-    if(diff.length)await tx.product.update({where:{id},data});return {changes:diff};
+    return {changes:diff,productPatch:data};
   });}
   status(ctx:CatalogContext,id:string,input:ReasonDto,action:'publish'|'unpublish'|'archive'){
     return this.command(ctx,id,input.expectedVersion,action,action==='archive'?['product.publish','product.manage']:['product.publish'],action==='publish',input.reason,async(tx,p)=>{
       if((action==='publish'&&p.status==='ON_SALE')||(action==='unpublish'&&p.status==='OFF_SALE'))return {changes:[]};
       if(action==='publish')await this.publishable(tx,p,true);
       const patch=action==='archive'?{status:'OFF_SALE' as const,archivedAt:new Date()}: {status:action==='publish'?'ON_SALE' as const:'OFF_SALE' as const};
-      const diff=changes(id,{status:p.status,archivedAt:p.archivedAt},patch);if(diff.length)await tx.product.update({where:{id},data:patch});return {changes:diff};
+      const diff=changes(id,{status:p.status,archivedAt:p.archivedAt},patch);return {changes:diff,productPatch:patch};
     });
   }
   async batch(ctx:CatalogContext,input:BatchStatusDto){

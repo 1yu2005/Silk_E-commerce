@@ -18,7 +18,7 @@ const claims = () => ({ sub: identity.subjectId, sid: identity.sessionId, subjec
   iat: seconds, exp: seconds + 7200, iss: 'shop-api', aud: 'shop-admin' });
 const sign = (payload: Record<string, unknown>, header = { alg: 'HS256', typ: 'JWT' }) =>
   new SignJWT(payload).setProtectedHeader(header).sign(key);
-afterEach(() => { vi.unstubAllEnvs(); });
+afterEach(() => { vi.restoreAllMocks(); vi.unstubAllEnvs(); });
 
 it('签发只含规定8个字段，JWT与返回的会话时间精确到同一整秒', async () => {
   const issued = await service().issue({ ...identity, phone: '13800138001', permissions: ['employee.create'], password: 'private' } as typeof identity);
@@ -29,6 +29,59 @@ it('签发只含规定8个字段，JWT与返回的会话时间精确到同一整
   expect(issued.expiresAt.getTime()).toBe(payload.exp! * 1000);
   expect(issued.expiresAt.getTime() - issued.issuedAt.getTime()).toBe(7200_000);
   expect(await service().verify(issued.accessToken, 'EMPLOYEE')).toEqual(claims());
+});
+
+it('同一实例并发签发和校验共享一次密钥导入，重复token仍逐次验签', async () => {
+  const externalToken = await sign(claims());
+  const subtle = globalThis.crypto.subtle, realImport = subtle.importKey;
+  let release!: () => void;
+  const gate = new Promise<void>(resolve => { release = resolve; });
+  const imported: CryptoKey[] = [];
+  const importSpy = vi.spyOn(subtle, 'importKey').mockImplementation(async (...args) => {
+    await gate;
+    const result = await (Reflect.apply(realImport, subtle, args) as Promise<CryptoKey>);
+    imported.push(result);
+    return result;
+  });
+  const signSpy = vi.spyOn(subtle, 'sign'), verifySpy = vi.spyOn(subtle, 'verify');
+  const pending: Promise<unknown>[] = [];
+  const track = <T>(promise: Promise<T>) => {
+    pending.push(promise);
+    void promise.catch(() => undefined);
+    return promise;
+  };
+  try {
+    const tokens = service(), parallel = 8;
+    const issuing = Array.from({ length: parallel }, () => track(tokens.issue(identity)));
+    const checking = Array.from({ length: parallel }, () => track(tokens.verify(externalToken, 'EMPLOYEE')));
+    await new Promise<void>(resolve => { setImmediate(resolve); });
+    expect(importSpy).toHaveBeenCalledTimes(1);
+    expect(importSpy.mock.calls[0]!.slice(2)).toEqual([
+      { name: 'HMAC', hash: 'SHA-256' }, false, ['sign', 'verify'],
+    ]);
+    expect(signSpy).not.toHaveBeenCalled();
+    expect(verifySpy).not.toHaveBeenCalled();
+    release();
+    const [issued, verified] = await Promise.all([Promise.all(issuing), Promise.all(checking)]);
+    expect(imported).toHaveLength(1);
+    expect(imported[0]).toMatchObject({ type: 'secret', extractable: false,
+      algorithm: { name: 'HMAC', hash: { name: 'SHA-256' } } });
+    expect([...imported[0]!.usages].sort()).toEqual(['sign', 'verify']);
+    for (const result of issued) expect(decodeJwt(result.accessToken)).toEqual(claims());
+    for (const result of verified) expect(result).toEqual(claims());
+    expect(signSpy).toHaveBeenCalledTimes(parallel);
+    expect(verifySpy).toHaveBeenCalledTimes(parallel);
+    await tokens.verify(externalToken, 'EMPLOYEE');
+    await tokens.verify(externalToken, 'EMPLOYEE');
+    expect(verifySpy).toHaveBeenCalledTimes(parallel + 2);
+    expect(importSpy).toHaveBeenCalledTimes(1);
+    expect(Object.keys(tokens)).toEqual([]);
+    expect(JSON.stringify(tokens)).toBe('{}');
+  } finally {
+    release();
+    try { await Promise.allSettled(pending); }
+    finally { vi.restoreAllMocks(); }
+  }
 });
 
 it('两个登录域分别签发并互相拒绝，合法跨域返回专用错误', async () => {

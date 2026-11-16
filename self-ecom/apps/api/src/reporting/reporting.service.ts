@@ -42,19 +42,28 @@ export class ReportingService {
  });}
  trends(ctx:CustomerContext,days:7|30){return this.read(ctx,days,async(tx,r)=>{
   const items=await tx.$queryRaw<(Events&{date:string})[]>`WITH dates AS (
-   SELECT generate_series(${r.firstDate}::date,${r.lastDate}::date,interval '1 day')::date AS d
-  ),p AS (SELECT (paid_at AT TIME ZONE 'Asia/Shanghai')::date d,sum(amount_cents::bigint) n FROM payment
-   WHERE status='SUCCEEDED' AND paid_at>=${r.from} AND paid_at<${r.to} GROUP BY 1),
-  f AS (SELECT (succeeded_at AT TIME ZONE 'Asia/Shanghai')::date d,sum(amount_cents::bigint) n FROM refund
-   WHERE status='SUCCEEDED' AND succeeded_at>=${r.from} AND succeeded_at<${r.to} GROUP BY 1),
-  o AS (SELECT (created_at AT TIME ZONE 'Asia/Shanghai')::date d,count(*) n FROM "order" WHERE created_at>=${r.from} AND created_at<${r.to} GROUP BY 1),
-  c AS (SELECT (created_at AT TIME ZONE 'Asia/Shanghai')::date d,count(*) n FROM customer WHERE created_at>=${r.from} AND created_at<${r.to} GROUP BY 1)
-  SELECT dates.d::text date,COALESCE(o.n,0)::text AS "createdOrderCount",COALESCE(c.n,0)::text AS "newCustomerCount",
-   COALESCE(p.n,0)::text AS "paidAmountCents",COALESCE(f.n,0)::text AS "refundAmountCents",(COALESCE(p.n,0)-COALESCE(f.n,0))::text AS "netReceiptsCents"
-  FROM dates LEFT JOIN p USING(d) LEFT JOIN f USING(d) LEFT JOIN o USING(d) LEFT JOIN c USING(d) ORDER BY dates.d`;
+   -- 整数序列让计划准确估计7/30日，避免日期聚合连接误估触发高成本JIT。
+   SELECT ${r.firstDate}::date+day_offset.n AS d FROM generate_series(0,${days}::integer-1) AS day_offset(n)
+  ),bounds AS (
+   SELECT d,GREATEST(d::timestamp AT TIME ZONE 'Asia/Shanghai',${r.from}::timestamptz) AS from_at,
+    LEAST((d+1)::timestamp AT TIME ZONE 'Asia/Shanghai',${r.to}::timestamptz) AS to_at FROM dates
+  )
+  SELECT dates.d::text date,o.n::text AS "createdOrderCount",c.n::text AS "newCustomerCount",
+   p.n::text AS "paidAmountCents",f.n::text AS "refundAmountCents",(p.n-f.n)::text AS "netReceiptsCents"
+  FROM bounds dates
+  CROSS JOIN LATERAL (SELECT COALESCE(sum(amount_cents::bigint),0) n FROM payment
+   WHERE status='SUCCEEDED' AND paid_at>=dates.from_at AND paid_at<dates.to_at) p
+  CROSS JOIN LATERAL (SELECT COALESCE(sum(amount_cents::bigint),0) n FROM refund
+   WHERE status='SUCCEEDED' AND succeeded_at>=dates.from_at AND succeeded_at<dates.to_at) f
+  CROSS JOIN LATERAL (SELECT count(*) n FROM "order" WHERE created_at>=dates.from_at AND created_at<dates.to_at) o
+  CROSS JOIN LATERAL (SELECT count(*) n FROM customer WHERE created_at>=dates.from_at AND created_at<dates.to_at) c ORDER BY dates.d`;
   return {days,items};
  });}
  hotProducts(ctx:CustomerContext,limit:number){return this.read(ctx,30,async(tx,r)=>{
+  // 单请求串行聚合，避免100并发并行Hash占满Docker默认64MB动态共享内存；仅当前事务生效。
+  await tx.$executeRaw`SET LOCAL max_parallel_workers_per_gather=0`;
+  // 让支付/明细按order_id覆盖索引合并，避免每次重建付款UUID哈希；设置随事务结束恢复。
+  await tx.$executeRaw`SET LOCAL enable_hashjoin=off`;
   const items=await tx.$queryRaw<{productId:string;productCode:string;name:string;status:string;archived:boolean;paidQuantity:string}[]>`WITH quantities AS (
    SELECT i.product_id,sum(i.quantity::bigint) AS quantity FROM payment p JOIN order_item i ON i.order_id=p.order_id
    WHERE p.status='SUCCEEDED' AND p.paid_at>=${r.from} AND p.paid_at<${r.to} GROUP BY i.product_id

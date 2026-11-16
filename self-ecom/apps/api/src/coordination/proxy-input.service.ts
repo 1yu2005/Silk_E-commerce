@@ -1,6 +1,9 @@
 // 作用：冻结顾客单动作核实、显式领单与员工代录同事务；重放不重复消费。
 import {Inject,Injectable,type OnModuleInit} from '@nestjs/common';
+import {randomUUID} from 'node:crypto';
+import {Client} from 'pg';
 import type {Prisma,ProxyContext,ProxyExecution} from '@prisma/client';
+import {APP_CONFIG,type EnvironmentConfig} from '../config/environment.js';
 import {AfterSaleService,type ResultReference} from '../after-sales/after-sale.service.js';
 import {ownedSale} from '../after-sales/after-sale.access.js';
 import {orderRef,saleRef} from '../after-sales/after-sale.rules.js';
@@ -24,11 +27,13 @@ import {TaskIdentityEffects} from '../tasks/task-identity-effects.js';
 const active={status:{in:['OPEN','CLAIMED','SUSPENDED'] as ('OPEN'|'CLAIMED'|'SUSPENDED')[]}};
 @Injectable()
 export class ProxyInputService implements OnModuleInit {
+ private readonly instanceId=randomUUID();
  constructor(@Inject(PrismaService)private readonly db:PrismaService,@Inject(AfterSaleService)private readonly sales:AfterSaleService,
  @Inject(TaskEntryService)private readonly entry:TaskEntryService,@Inject(TaskSourceService)private readonly sources:TaskSourceService,
  @Inject(Clock)private readonly clock:Clock,@Inject(AuditService)private readonly audit:AuditService,
  @Inject(FileBusinessAdapters)private readonly files:FileBusinessAdapters,@Inject(OfflineCaseService)private readonly offline:OfflineCaseService,
- @Inject(CustomerStatusEffects)private readonly customerEffects:CustomerStatusEffects,@Inject(TaskIdentityEffects)private readonly employeeEffects:TaskIdentityEffects){}
+ @Inject(CustomerStatusEffects)private readonly customerEffects:CustomerStatusEffects,@Inject(TaskIdentityEffects)private readonly employeeEffects:TaskIdentityEffects,
+ @Inject(APP_CONFIG)private readonly config:EnvironmentConfig){}
  private access(ctx:CustomerContext){return {type:ctx.actor.subjectType,subjectId:ctx.actor.subjectId,token:ctx.token};}
  private fingerprint(ctx:CustomerContext,action:string,body:object){return commandFingerprint({command:'proxy.'+action.toLowerCase().replaceAll('_','-'),version:1,actor:{type:ctx.actor.subjectType,id:ctx.actor.subjectId},payload:JSON.parse(JSON.stringify(body))});}
  private async auditChange(s:TaskTransactionScope,id:string,action:string,orderId:string,reason=action){await this.audit.appendAudit(s.tx,{actor:s.actor.subjectType==='EMPLOYEE'?{type:'EMPLOYEE',id:s.actor.subjectId}:{type:'SYSTEM'},action:'coordination.change',targetId:id,requestId:s.requestId,reason,after:{coordinationAction:action.toLowerCase().replaceAll('_','-'),orderId,proxyContextId:id}});}
@@ -76,7 +81,35 @@ export class ProxyInputService implements OnModuleInit {
   const rows=await s.tx.taskBusinessSource.findMany({where:{sourceType:'PROXY_CONTEXT',sourceId:p.id,status:'ACTIVE'}});for(const row of rows){const t=await s.tx.task.findUniqueOrThrow({where:{id:row.taskId}});const input={...orderRef(p.orderId),taskId:t.id,expectedVersion:t.version,sourceType:'PROXY_CONTEXT' as const,sourceId:p.id,commandKey:'proxy-end:'+key,reason:outcome==='COMPLETED'?'本次顾客输入已代录，只结束自身核实来源':'本次核实失效，只结束自身来源'};if(outcome==='COMPLETED')await this.sources.resolve(c,input);else await this.sources.cancel(c,input);}
  }
  async invalidateOrderInContext(s:TaskTransactionScope,c:TaskEntryContext,orderId:string,reason:string,where:Prisma.ProxyContextWhereInput={}){const rows=await s.tx.proxyContext.findMany({where:{orderId,status:'VERIFIED',...where},orderBy:{id:'asc'}});for(const p of rows){await s.tx.proxyContext.update({where:{id:p.id},data:{status:'INVALIDATED',invalidatedReason:reason}});await this.endSource(s,c,p,p.id,'CANCELLED');await this.auditChange(s,p.id,'proxy-context-invalidated',p.orderId,reason);}return rows.length;}
- async expire(batchSize=100){if(!Number.isInteger(batchSize)||batchSize<1||batchSize>500)throw new ProxyError('VALIDATION_FAILED');let cursor:string|undefined,changed=0;const now=this.clock.now();for(;;){const rows=await this.db.proxyContext.findMany({where:{status:'VERIFIED',expiresAt:{lte:now},...(cursor?{id:{gt:cursor}}:{})},orderBy:{id:'asc'},take:batchSize});if(!rows.length)break;for(const p of rows)changed+=await this.sales.run(tx=>this.entry.withContext(tx,{type:'SYSTEM'},[orderRef(p.orderId)],crypto.randomUUID(),c=>this.entry.inContext(c,orderRef(p.orderId),s=>this.invalidateOrderInContext(s,c,p.orderId,'身份核实已过期',{id:p.id,expiresAt:{lte:now}}))));cursor=rows.at(-1)!.id;}return {changed};}
+ async expire(batchSize=100){
+  if(!Number.isInteger(batchSize)||batchSize<1||batchSize>500)throw new ProxyError('VALIDATION_FAILED');
+  const id=randomUUID(),requestId=randomUUID(),jobName='proxy-context-expiry',now=this.clock.now();
+  let changed=0,scannedCount=0,failedCount=0,created=false,disconnected=false;
+  const guard=new Client({connectionString:this.config.databaseUrl,connectionTimeoutMillis:1000,statement_timeout:1000,query_timeout:1500});guard.on('error',()=>{disconnected=true;});
+  try{
+   await guard.connect();const lock=await guard.query<{locked:boolean}>('SELECT pg_try_advisory_lock(hashtextextended($1,0)) AS locked',[jobName]);
+   if(!lock.rows[0]?.locked)return {status:'SKIPPED',changed,scannedCount,failedCount};
+   await guard.query("UPDATE scheduler_run SET status='ABANDONED',finished_at=GREATEST(started_at,$2) WHERE job_name=$1 AND status='RUNNING'",[jobName,now]);
+   await this.db.schedulerRun.create({data:{id,jobName,instanceId:this.instanceId,requestId,startedAt:now}});created=true;
+   let cursor:string|undefined;
+   for(;;){
+    if(disconnected)throw new Error('核实扫描守护连接失效');
+    const rows=await this.db.proxyContext.findMany({where:{status:'VERIFIED',expiresAt:{lte:now},...(cursor?{id:{gt:cursor}}:{})},orderBy:{id:'asc'},take:batchSize});if(!rows.length)break;
+    for(const p of rows){
+     if(disconnected)throw new Error('核实扫描守护连接失效');scannedCount++;
+     try{changed+=await this.sales.run(tx=>this.entry.withContext(tx,{type:'SYSTEM'},[orderRef(p.orderId)],requestId,c=>this.entry.inContext(c,orderRef(p.orderId),s=>this.invalidateOrderInContext(s,c,p.orderId,'身份核实已过期',{id:p.id,expiresAt:{lte:now}}))));}
+     catch(error){failedCount++;await this.db.schedulerFailure.create({data:{runId:id,errorCode:error instanceof ProxyError?error.code:'PROXY_EXPIRY_FAILED',sanitizedMessage:'核实 '+p.id+' 失效事务未提交，下轮补扫',occurredAt:this.clock.now()}});}
+    }
+    cursor=rows.at(-1)!.id;
+   }
+   const status=failedCount?(changed?'PARTIAL_FAILED':'FAILED'):'SUCCEEDED';
+   await this.db.schedulerRun.update({where:{id},data:{status,scannedCount,changedCount:changed,failedCount,finishedAt:this.clock.now()}});
+   return {id,requestId,status,changed,scannedCount,failedCount};
+  }catch(error){
+   if(created)await this.db.schedulerRun.updateMany({where:{id,status:'RUNNING'},data:{status:'FAILED',scannedCount,changedCount:changed,failedCount:failedCount+1,finishedAt:this.clock.now()}});
+   throw error;
+  }finally{await guard.end();}
+ }
  onModuleInit(){
   this.customerEffects.register(async(tx,ctx,id,work)=>{const ps=await tx.proxyContext.findMany({where:{customerId:id,status:'VERIFIED'},select:{orderId:true}});if(!ps.length)return work();const refs=[...new Set(ps.map(p=>p.orderId))].sort().map(orderRef);return this.entry.withContext(tx,this.access(ctx),refs,ctx.requestId,async c=>{const before=await tx.customer.findUniqueOrThrow({where:{id},select:{statusVersion:true}});const result=await work();const after=await tx.customer.findUniqueOrThrow({where:{id},select:{statusVersion:true}});if(before.statusVersion===after.statusVersion)return result;for(const ref of refs)await this.entry.inContext(c,ref,s=>this.invalidateOrderInContext(s,c,ref.businessId,'顾客状态版本已变化'));return result;});});
   this.employeeEffects.register({references:async(tx,id,permissions,change)=>change.permission!=='employee.role.change'&&['customer.frozen.proxy','customer.read','after-sale.service.read'].every(p=>permissions.includes(p))?[]:(await tx.proxyContext.findMany({where:{verifiedById:id,status:'VERIFIED'},distinct:['orderId'],select:{orderId:true}})).map(p=>orderRef(p.orderId)),invalidate:(tx,id,permissions,change)=>change.permission!=='employee.role.change'&&['customer.frozen.proxy','customer.read','after-sale.service.read'].every(p=>permissions.includes(p))?Promise.resolve():this.invalidateEmployeeLocked(tx,id,change.requestId)});

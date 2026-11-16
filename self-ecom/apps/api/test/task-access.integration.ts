@@ -8,7 +8,7 @@ import type { INestApplication } from '@nestjs/common';
 import { Test } from '@nestjs/testing';
 import type { EmployeeRole, Prisma, Task } from '@prisma/client';
 import { Client } from 'pg';
-import { afterAll, beforeAll, beforeEach, expect, it } from 'vitest';
+import { afterAll, beforeAll, beforeEach, expect, it, vi } from 'vitest';
 import { assertSafeTestDatabase } from '../scripts/database-env.js';
 import { runPrisma } from '../scripts/database.js';
 import { AppModule } from '../src/app.module.js';
@@ -25,6 +25,7 @@ import { APP_CONFIG, loadConfiguration, type EnvironmentConfig } from '../src/co
 import { PermissionService } from '../src/permissions/permission.service.js';
 import { seedPermissionCatalog } from '../src/permissions/permission-seed.js';
 import { PrismaService } from '../src/prisma/prisma.service.js';
+import { StoreSettingsService } from '../src/settings/store-settings.service.js';
 import { TaskBusinessAdapters, type TaskEmployee } from '../src/tasks/task-business-adapters.js';
 import { TaskCommandService } from '../src/tasks/task-command.service.js';
 import { TaskAccessService } from '../src/tasks/task-access.service.js';
@@ -86,6 +87,8 @@ async function person(role: EmployeeRole, username: string) {
 beforeEach(async () => {
   now = start.getTime(); audit.failAction = null; audit.observed = false; adapters.onScope = undefined; adapters.onClaim = undefined; adapters.onRelease = undefined; adapters.onPlan = undefined;
   await prisma.deadlineEvent.deleteMany(); await prisma.taskHistory.deleteMany(); await prisma.task.deleteMany(); await prisma.taskStageCursor.deleteMany();
+  await prisma.storeSettingHead.update({ where: { id: 1 }, data: { currentVersionId: null, version: 0 } });
+  await prisma.storeSettingVersion.deleteMany();
   await prisma.$executeRawUnsafe('DELETE FROM task_entry_fixture'); await prisma.$executeRawUnsafe('DELETE FROM task_entry_fixture_resource');
   await prisma.auditLog.deleteMany(); await prisma.authSession.deleteMany(); await prisma.employeeExtraPermission.deleteMany(); await prisma.employee.deleteMany(); await prisma.customer.deleteMany();
   manager = await person('SUPER_ADMIN', 'access_manager'); warehouse = await person('MERCH_WAREHOUSE', 'access_warehouse'); support = await person('CUSTOMER_SERVICE', 'access_support');
@@ -162,6 +165,18 @@ it('分页与筛选使用同一授权范围，截止/无截止稳定排序，超
   expect((await http<ListData>(`/admin/tasks?view=pool&businessType=ORDER&businessId=${late.businessId}&stage=SHIPMENT_PROCESS&status=OPEN&overdue=false`)).data.total).toBe(1);
   expect((await http<ListData>('/admin/tasks?view=pool&overdue=true')).data.items.map(row => row.id)).toEqual([early.id]);
   expect((await http<ListData>('/admin/tasks?view=pool&page=9007199254740991&pageSize=100')).data).toMatchObject({ items: [], total: 3 });
+});
+it('相同截止与创建时刻按ID稳定分页，越界仍返回准确总数', async () => {
+  const first = await makeTask(), second = await makeTask(), later = await makeTask(), none = await makeTask();
+  for (const task of [first, second]) await prisma.task.update({ where: { id: task.id }, data: { dueAt: clock(), createdAt: start } });
+  await prisma.task.update({ where: { id: later.id }, data: { dueAt: clock(), createdAt: new Date(start.getTime() + 1) } });
+  await prisma.task.update({ where: { id: none.id }, data: { dueAt: null, createdAt: new Date(start.getTime() - 1) } });
+  const expected = [...[first.id, second.id].sort(), later.id, none.id];
+  for (let page = 1; page <= expected.length; page++) {
+    const result = (await http<ListData>(`/admin/tasks?view=pool&businessType=ORDER&stage=SHIPMENT_PROCESS&page=${page}&pageSize=1`)).data;
+    expect(result.total).toBe(4); expect(result.items.map(task => task.id)).toEqual([expected[page - 1]]);
+  }
+  expect((await http<ListData>('/admin/tasks?view=pool&page=5&pageSize=1')).data).toMatchObject({ total: 4, items: [], page: 5, pageSize: 1 });
 });
 it('列表与总数使用同一快照，查询中新增任务不污染本页', async () => {
   await makeTask(); const gate = barrier(); let scopes = 0; adapters.onScope = async () => { if (++scopes === 1) { gate.signal(); await gate.held; } };
@@ -276,3 +291,57 @@ it('释放原因必填、规范化且按Unicode长度限制，不能夹带状态
     expect((await http(`/admin/tasks/${task.id}/release`, { body, status: 400 })).code).toBe('VALIDATION_FAILED');
   expect((await release(task, warehouse, 1, ` ${'😀'.repeat(500)} `)).data.changed).toBe(true);
 });
+
+it.each([['ORDER', 'SHIPMENT_PROCESS'], ['AFTER_SALE', 'REFUND_PROCESS']] as const)('%s旧ID适配器：筛选前后完整分页和动作等价，存在性/读取权/完整资格不放宽', async (businessType, stage) => {
+  await configureTaskDeadlines();
+  const who = businessType === 'ORDER' ? warehouse : support;
+  const first = await makeTask({ businessType, allowedStage: stage }), second = await makeTask({ businessType, allowedStage: stage });
+  const hidden = await makeTask({ businessType, allowedStage: stage }), disqualified = await makeTask({ businessType, allowedStage: stage });
+  await prisma.$executeRaw`UPDATE task_entry_fixture SET reader_employee_id=${manager.identity.subjectId}::uuid WHERE id=${hidden.businessId}::uuid`;
+  await prisma.task.update({ where: { id: disqualified.id }, data: { requiredPermissions: [...disqualified.requiredPermissions as string[], 'task.transfer'] } });
+  // 业务UUID存在于Task而真实业务不存在时，任何业务类型筛选都不能令孤立任务可见。
+  const orphan = await makeTask({ businessType, allowedStage: stage });
+  await prisma.$executeRaw`DELETE FROM task_entry_fixture WHERE id=${orphan.businessId}::uuid`;
+  await prisma.task.update({ where: { id: first.id }, data: { dueAt: new Date(now + 1000) } });
+  await prisma.task.update({ where: { id: second.id }, data: { dueAt: new Date(now + 2000) } });
+  await makeTask({ businessType: businessType === 'ORDER' ? 'AFTER_SALE' : 'ORDER', allowedStage: businessType === 'ORDER' ? 'REFUND_PROCESS' : 'SHIPMENT_PROCESS' });
+  const access = app.get(TaskAccessService), original = access.scope;
+  const path = `/admin/tasks?view=pool&businessType=${businessType}&stage=${stage}&pageSize=1`;
+  let baseline: ListData[];
+  // 实际执行旧的全业务范围，外层业务条件和响应投影仍走真实HTTP/PostgreSQL。
+  access.scope = function(tx, current) { return Reflect.apply(original, this, [tx, current]); };
+  try { baseline = [(await http<ListData>(path, { person: who })).data, (await http<ListData>(path + '&page=2', { person: who })).data]; }
+  finally { access.scope = original; }
+  expect(baseline[0]!.total).toBe(2); expect(baseline.map(page => page.items[0]!.id)).toEqual([first.id, second.id]);
+  const selected = [(await http<ListData>(path, { person: who })).data, (await http<ListData>(path + '&page=2', { person: who })).data];
+  expect(selected).toEqual(baseline); expect(selected[0]!.items[0]!.allowedActions).toEqual(['claim']);
+  await http(`/admin/tasks/${hidden.id}`, { person: who, status: 404 }); await http(`/admin/tasks/${orphan.id}`, { person: who, status: 404 });
+  const claimed = (await claim(first, who)).data.task;
+  expect((await http<ListData>(`/admin/tasks?view=mine&businessType=${businessType}&stage=${stage}`, { person: who })).data).toMatchObject({ total: 1, items: [{ id: first.id, allowedActions: ['release'] }] });
+  expect(claimed.id).toBe(first.id);
+});
+
+it('无业务筛选仍返回跨业务列表/摘要/详情；未注册的筛选类型保持真实空范围', async () => {
+  await configureTaskDeadlines();
+  const order = await makeTask(), sale = await makeTask({ businessType: 'AFTER_SALE', allowedStage: 'REFUND_PROCESS' });
+  const access = app.get(TaskAccessService), scope = vi.spyOn(access, 'scope');
+  try {
+    const all = (await http<ListData>('/admin/tasks?view=pool', { person: manager })).data;
+    expect(all.total).toBe(2); expect(new Set(all.items.map(row => row.id))).toEqual(new Set([order.id, sale.id]));
+    scope.mockClear();
+    expect((await http<SummaryData>('/admin/tasks/summary', { person: manager })).data.eligibleOpen).toBe(2);
+    await http<DetailData>(`/admin/tasks/${order.id}`, { person: manager }); await http<DetailData>(`/admin/tasks/${sale.id}`, { person: manager });
+    expect(scope).toHaveBeenCalledTimes(3); expect(scope.mock.calls.every(call => call.length === 2)).toBe(true);
+    expect((await http<ListData>('/admin/tasks?view=pool&businessType=CUSTODY_ARRANGEMENT', { person: manager })).data).toMatchObject({ items: [], total: 0 });
+  } finally { scope.mockRestore(); }
+});
+
+async function configureTaskDeadlines() {
+  const settings = app.get(StoreSettingsService), current = await settings.current();
+  await settings.update(manager.identity, manager.token, { expectedVersion: current.version, reason: '本轮任务范围测试期限设置',
+    shippingFeeCents: 800, freeShippingEnabled: true, freeShippingThresholdCents: 20000,
+    returnAddress: { receiver: '隔离任务收件人', phone: '01000000000', province: '测试省', city: '测试市', district: '测试区', detail: '本轮隔离测试资料' },
+    serviceContact: { phone: '01000000000', serviceHours: '测试' },
+    deadlines: { paymentMinutes: 30, autoReceiptDays: 10, afterSaleWindowDays: 7, reviewWorkdays: 3, supplementDays: 7,
+      returnShipDays: 7, inspectionWorkdays: 3, refundWorkdays: 3 } }, randomUUID());
+}
