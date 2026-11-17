@@ -195,6 +195,44 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .inventory-conversion-sku strong { display:flex; align-items:center; min-height:38px; font-weight:600; }
 .catalog-form .inventory-conversion-line > label { min-width:0; margin-bottom:0; }
 .inventory-conversion-line :is(input,select) { height:38px; }
+/* 履约操作以商品核对行和独立表单分区，复选框保持正常尺寸。 */
+.fulfillment-panel { margin-top:32px; padding-top:28px; border-top:1px solid #dfe7e9; min-width:0; }
+.fulfillment-panel > .employee-result-heading { align-items:center; gap:16px; margin-bottom:16px; }
+.fulfillment-panel > .employee-result-heading h2 { margin:0; font-size:21px; }
+.fulfillment-status { display:flex; flex-wrap:wrap; align-items:center; gap:10px 18px; padding:14px 18px; background:#f1f7f5; border-radius:6px; font-size:13px; color:#526970; margin-bottom:20px; }
+.fulfillment-status .ant-tag { margin:0; }
+.fulfillment-tasks { display:grid; gap:10px; margin-bottom:20px; }
+.fulfillment-tasks:empty { display:none; }
+.fulfillment-task { display:flex; align-items:center; flex-wrap:wrap; gap:12px 24px; padding:16px 18px; border:1px solid #dfe7e9; border-radius:6px; font-size:13px; }
+.fulfillment-task > div { flex:1; min-width:180px; display:flex; flex-wrap:wrap; gap:8px 16px; }
+.fulfillment-task a { font-weight:600; }
+.fulfillment-task span { color:#647780; }
+.fulfillment-panel .fulfillment-form { margin:24px 0; padding:24px; border:1px solid #dfe7e9; border-radius:8px; background:#fff; min-width:0; }
+.fulfillment-panel .fulfillment-form > h3 { margin:0 0 20px; padding-bottom:16px; border-bottom:1px solid #e7edef; font-size:18px; font-weight:600; }
+.fulfillment-panel .fulfillment-form-intro { margin:-6px 0 20px; font-size:13px; color:#647780; max-width:none; }
+.fulfillment-form .fulfillment-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 24px; }
+.fulfillment-form label { min-width:0; }
+.fulfillment-form .fulfillment-type { max-width:360px; }
+.fulfillment-form .fulfillment-items { margin:0 0 22px; }
+.fulfillment-form .fulfillment-items > legend { margin:0 0 10px; font-size:13px; font-weight:600; color:#526970; }
+.fulfillment-item-row { display:grid; grid-template-columns:minmax(0,1fr) 132px; gap:20px; align-items:center; padding:16px; background:#f5f8f9; border:1px solid #e3ebed; border-radius:6px; }
+.fulfillment-item-row + .fulfillment-item-row { margin-top:10px; }
+.fulfillment-form label.fulfillment-check { display:flex; flex-direction:row; align-items:center; gap:14px; margin:0; cursor:pointer; }
+.fulfillment-panel input[type=checkbox] { width:18px; height:18px; flex:0 0 18px; margin:0; align-self:center; }
+.fulfillment-item-copy { display:flex; flex-direction:column; gap:5px; min-width:0; overflow-wrap:anywhere; }
+.fulfillment-item-copy strong { font-size:14px; font-weight:600; color:#20343d; }
+.fulfillment-item-copy > span { font-size:12px; color:#647780; }
+.fulfillment-item-copy b { color:#16756b; font-weight:600; }
+.fulfillment-form .fulfillment-quantity { margin:0; font-size:12px; color:#647780; }
+.fulfillment-form label.fulfillment-related-item { padding:14px 16px; border:1px solid #e3ebed; border-radius:6px; background:#f5f8f9; }
+.fulfillment-related-item + .fulfillment-related-item { margin-top:10px; }
+.fulfillment-panel .fulfillment-hint { max-width:none; margin:0 0 18px; padding:12px 16px; border-left:3px solid #91b9ac; background:#f1f7f5; font-size:13px; color:#526970; }
+.fulfillment-evidence { padding:16px; margin:20px 0; border:1px dashed #cbdadb; border-radius:6px; background:#fafcfc; }
+.fulfillment-evidence .image-uploader > p { max-width:none; font-size:12px; color:#647780; }
+.fulfillment-actions { display:flex; align-items:center; flex-wrap:wrap; gap:12px; padding-top:18px; border-top:1px solid #e7edef; }
+.fulfillment-actions > .ant-btn { height:auto; min-height:38px; white-space:normal; text-align:left; }
+@media(max-width:900px) { .fulfillment-form .fulfillment-fields { grid-template-columns:minmax(0,1fr); gap:0; } }
+@media(max-width:600px) { .fulfillment-panel .fulfillment-form { padding:16px; } .fulfillment-item-row { grid-template-columns:minmax(0,1fr); gap:14px; padding:14px; } .fulfillment-form .fulfillment-quantity { flex-direction:row; align-items:center; justify-content:space-between; gap:12px; } .fulfillment-quantity input { max-width:100px; } .fulfillment-actions { align-items:stretch; flex-direction:column; } .fulfillment-actions > .ant-btn { width:100%; } .fulfillment-evidence { padding:12px; } }
 @media(max-width:850px) { .catalog-grid,.category-columns { grid-template-columns:1fr; } .catalog-panel { padding:18px; } .catalog-heading { align-items:flex-start; flex-direction:column; } .catalog-heading h1 { font-size:24px; } }
 .customer-admin-heading{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:20px 0}.customer-admin-avatar{width:64px;height:64px;object-fit:cover;border-radius:50%}.customer-admin-section{border-top:1px solid #dce1d8;margin-top:28px;padding-top:20px}.customer-admin-addresses{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.customer-admin-addresses article{padding:20px;background:#fafbf8;border:1px solid #dce1d8;overflow-wrap:anywhere}.customer-status-history{padding-left:24px}.customer-status-history li{padding:14px 0;overflow-wrap:anywhere}.customer-status-form{max-width:700px}.customer-status-form fieldset{border:0;padding:0}.customer-status-form label{display:flex;flex-direction:column;gap:8px;margin:16px 0}.customer-status-form select,.customer-status-form textarea{font:inherit;padding:10px;border:1px solid #b8c3b6;border-radius:4px}
 /* 经营面板沿用后台的蓝灰与青色，数据卡片和精确表格兼顾手机读取。 */
