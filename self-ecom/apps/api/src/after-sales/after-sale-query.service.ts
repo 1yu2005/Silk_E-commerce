@@ -27,7 +27,7 @@ export class AfterSaleQueries{
   const [materials,requests,decisions,parcels,verifications,tasks,items]=await Promise.all([
    customer||service?tx.afterSaleMaterialVersion.findMany({where:{afterSaleId:id},orderBy:{versionNo:'asc'}}):[],
    customer||service?tx.afterSaleSupplementRequest.findMany({where:{afterSaleId:id},orderBy:{requestNo:'asc'}}):[],
-   tx.afterSaleDecision.findMany({where:{afterSaleId:id},orderBy:[{createdAt:'asc'},{id:'asc'}]}),tx.returnParcel.findMany({where:{afterSaleId:id},orderBy:{batchNo:'asc'}}),
+   tx.afterSaleDecision.findMany({where:{afterSaleId:id},orderBy:[{createdAt:'asc'},{id:'asc'}]}),tx.returnParcel.findMany({where:{afterSaleId:id,cancelledAt:null},orderBy:{batchNo:'asc'}}),
    customer||service?tx.returnDispatchVerification.findMany({where:{afterSaleId:id},orderBy:[{createdAt:'asc'},{id:'asc'}]}):[],
    tx.task.findMany({where:saleRef(id),orderBy:[{stage:'asc'},{round:'desc'}]}),tx.orderItem.findMany({where:{orderId:a.orderId},select:{id:true,productNameSnapshot:true,specSnapshot:true,quantity:true}})
   ]);

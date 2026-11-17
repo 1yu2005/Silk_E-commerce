@@ -35,11 +35,11 @@ it('connects through the real Prisma PostgreSQL adapter to the isolated PostgreS
   await expect(prisma.ping()).resolves.toBeUndefined();
 });
 
-it('已应用0001～0018全部迁移，并保留完整业务表及审计引用表', async () => {
+it('已应用0001～0019全部迁移，并保留完整业务表及审计引用表', async () => {
   const rows = await prisma.$queryRaw<{ migration_name: string; finished_at: Date | null }[]>`
     SELECT migration_name, finished_at FROM public._prisma_migrations ORDER BY migration_name`;
   expect(rows).toEqual(['0001_bootstrap', '0002_auth_employee_permission_audit', '0003_files_communication_history',
-    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference','0011_fulfillment_shipments_handover','0012_fulfillment_fact_guards','0013_inventory_fact_guards','0014_after_sales_review_material_return','0015_return_inspections_physical_checks_refunds','0016_exception_coordination','0017_reporting_audit_query_indexes','0018_reporting_hot_payment_cover']
+    '0004_store_settings_tasks_deadlines', '0005_categories_products_skus_inventory_accounts','0006_inventory_sources_adjustments_ledger','0007_customer_status_addresses_cart','0008_orders_quotes_idempotency_blocks','0009_payments_stock_issues','0010_order_snapshot_file_reference','0011_fulfillment_shipments_handover','0012_fulfillment_fact_guards','0013_inventory_fact_guards','0014_after_sales_review_material_return','0015_return_inspections_physical_checks_refunds','0016_exception_coordination','0017_reporting_audit_query_indexes','0018_reporting_hot_payment_cover','0019_return_receipt_source_cancellation']
     .map(migration_name => ({ migration_name, finished_at: expect.any(Date) })));
   const tables = await prisma.$queryRaw<{ tablename: string }[]>`
     SELECT tablename FROM pg_tables WHERE schemaname='public' ORDER BY tablename`;

@@ -20,6 +20,8 @@ export class SettlementController{
  detail(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto){return this.queries.detail(ctx(a,r),p.id);}
  @Post(':id/receipt-sources') @HttpCode(200) @EmployeeAccess('after-sale.receipt.record') @idParam() @endpoint('prepareAfterSaleReceipt','登记稳定实包来源，不视为实际收包',O.result,O.prepare)
  prepareAfterSaleReceipt(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Body() b:D.PrepareReceiptDto){return this.inspections.prepare(ctx(a,r),p.id,b);}
+ @Post(':id/receipt-source-cancellations') @HttpCode(200) @EmployeeAccess('after-sale.receipt.record') @idParam() @endpoint('cancelAfterSaleReceiptSource','撤销无物流且未实收的仓储误登记，保留审计',O.result,O.cancelReceiptSource)
+ cancelAfterSaleReceiptSource(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Body() b:D.CancelReceiptSourceDto){return this.inspections.cancelSource(ctx(a,r),p.id,b);}
  @Post(':id/receipts') @HttpCode(200) @EmployeeAccess('after-sale.receipt.record') @idParam() @endpoint('receiveAfterSaleReturn','登记真实到仓及保管位置',O.result,O.receive)
  receiveAfterSaleReturn(@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest,@Param() p:OrderIdDto,@Body() b:D.ReceiveDto){return this.inspections.receive(ctx(a,r),p.id,b);}
  @Post(':id/inspection-drafts') @HttpCode(200) @EmployeeAccess('after-sale.inspection.confirm') @idParam() @endpoint('saveAfterSaleInspectionDraft','按包追加完整核对版本',O.result,O.draft)

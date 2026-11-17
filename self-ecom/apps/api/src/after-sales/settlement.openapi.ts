@@ -9,6 +9,7 @@ export const unmatched=object({description:text(1000),quantity:integer(214748364
 const missing=array(object({orderItemId:uuid,remainingQty:integer(99,1)}),100);
 export const prepare=object({...command,parcelId:uuid,sourceNamespace:text(80),sourceReference:text(200)},[...Object.keys(command),'sourceNamespace','sourceReference']);
 export const receive=object({...staff,parcelId:uuid,receivedAt:date,goodsLocation:text(200),sourceNote:text(1000),evidenceFileIds:fileIds});
+export const cancelReceiptSource=object({...staff,parcelId:uuid});
 export const draft=object({...staff,receiptId:uuid,expectedReceiptVersion:version,expectedReturnPhysicalVersion:version,inspectionComplete:bool,items:array(line,100),unmatchedItems:array(unmatched,100),evidenceFileIds:fileIds});
 export const inspectionRefs=object(refs);
 export const exception=object({...refs,exceptionTypes:{...array({type:'string',enum:['SHORTAGE','WRONG_ITEM','EMPTY_PACKAGE','UNKNOWN_QUANTITY','DAMAGED']},5),minItems:1,uniqueItems:true},publicExplanation:text(1000)});
@@ -29,7 +30,7 @@ const task=object({id:uuid,stage:text(40),round:integer(),status:text(20),versio
 const totalProps={orderItemId:uuid,purchasedQty:integer(99,1),receivedQty:integer(99),missingQty:integer(99),sellableQty:integer(99),unsellableQty:integer(99)};
 export const view=object({afterSaleId:uuid,status:text(40),version,returnPhysicalVersion:version,stockPhysicalVersion:version,activeUnshippedCheckId:nullable(uuid),currentRevisionRefs:array(uuid),receivedPackages:integer(),
  receipts:array(object({id:uuid,parcelId:uuid,receivedAt:date,recordedAt:date,version,physicalVersion:version,goodsLocation:text(200),sourceNote:text(1000),currentRevisionId:nullable(uuid),evidence,revisions:array(revision)})),totals:array(object(totalProps,['orderItemId','purchasedQty','receivedQty','missingQty'])),
- parcels:array(object({id:uuid,batchNo:integer(2147483647,1),origin:text(30),reshipmentRequestId:nullable(uuid),received:bool})),
+ parcels:array(object({id:uuid,batchNo:integer(2147483647,1),origin:text(30),reshipmentRequestId:nullable(uuid),received:bool,cancelledAt:nullable(date),cancellationReason:nullable(text(500)),canCancel:bool})),finalInspectionBlockers:array(text(500)),
  reshipments:array(object({id:uuid,round:integer(),status:text(20),dueAt:date,publicExplanation:nullable(text(1000)),missingItems:missing,returnAddressSnapshot:address,parcelIds:array(uuid)})),
  approvals:array(object({id:uuid,approvalNo:integer(),basedReturnPhysicalVersion:version,approvedAt:date,invalidatedAt:nullable(date),publicExplanation:text(1000)})),finalInspection:nullable(object({id:uuid,mode:text(30),confirmedAt:date})),
  physicalCheck:nullable(object({id:uuid,physicalVersion:version,status:text(20),goodsLocation:text(200),stoppedAt:date,checkedAt:date,evidence,items:array(object({orderItemId:uuid,purchasedQty:integer(99,1),sellableQty:integer(99),damagedQty:integer(99)}))})),physicalItems:array(object({orderItemId:uuid,quantity:integer(99,1),damagedQty:integer(99),unknown:bool,incidentItemIds:array(uuid)})),

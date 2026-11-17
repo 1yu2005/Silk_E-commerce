@@ -1634,6 +1634,9 @@ model AfterSaleDecision {
  @@map("after_sale_decision")
 }
 model ReturnParcel {
+ cancelledAt DateTime? @map("cancelled_at") @db.Timestamptz(3)
+ cancellationReason String? @map("cancellation_reason") @db.VarChar(500)
+ cancelledById String? @map("cancelled_by_id") @db.Uuid
  origin String @default("CUSTOMER_LOGISTICS") @db.VarChar(40)
  reshipmentRequestId String? @map("reshipment_request_id") @db.Uuid
  sourceNamespace String? @map("source_namespace") @db.VarChar(80)

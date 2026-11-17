@@ -14,6 +14,9 @@ export class PrepareReceiptDto extends SettlementCommandDto{
  @Transform(trim) @IsString() @Length(1,80) sourceNamespace!:string;
  @Transform(trim) @IsString() @Length(1,200) sourceReference!:string;
 }
+export class CancelReceiptSourceDto extends SettlementStaffDto{
+ @IsUUID() parcelId!:string;
+}
 export class ReceiveDto extends SettlementStaffDto{
  @IsUUID() parcelId!:string;
  @IsDateString({strict:true}) receivedAt!:string;

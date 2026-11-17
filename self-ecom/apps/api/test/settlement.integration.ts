@@ -101,7 +101,7 @@ async function saleBody(id:string,stage:TaskStage='AFTER_SALE_REVIEW'){const a=a
 async function review(id:string,decision:'APPROVE'|'REJECT'|'REQUEST_SUPPLEMENT',extra:Partial<A.ReviewDto>={}){await saleTask(id);return sales().review(support,id,{...await saleBody(id),decision,publicExplanation:'已实际核对本轮材料，'+decision,...extra});}
 
 const inspect=()=>app.get(ReturnInspectionService),refunds=()=>app.get(RefundService);
-metadata(SettlementController.prototype,{executeAfterSaleRefund:[Object,Object,OrderIdDto,SD.RefundDto],retryAfterSaleRefund:[Object,Object,OrderIdDto,SD.RefundRetryDto],confirmAfterSalePhysicalCheck:[Object,Object,OrderIdDto,SD.PhysicalCheckDto],receiveAfterSaleReturn:[Object,Object,OrderIdDto,SD.ReceiveDto]});
+metadata(SettlementController.prototype,{cancelAfterSaleReceiptSource:[Object,Object,OrderIdDto,SD.CancelReceiptSourceDto],executeAfterSaleRefund:[Object,Object,OrderIdDto,SD.RefundDto],retryAfterSaleRefund:[Object,Object,OrderIdDto,SD.RefundRetryDto],confirmAfterSalePhysicalCheck:[Object,Object,OrderIdDto,SD.PhysicalCheckDto],receiveAfterSaleReturn:[Object,Object,OrderIdDto,SD.ReceiveDto]});
 async function settlementBody(id:string,stage:TaskStage){return {...await saleBody(id,stage),reason:'本轮实际业务核对'};}
 async function physical(f:Awaited<ReturnType<typeof paid>>,id:string){await claim(f.id,'PHYSICAL_VERIFY');const a=await db.afterSale.findUniqueOrThrow({where:{id}}),o=await db.order.findUniqueOrThrow({where:{id:f.id}}),t=await db.task.findFirstOrThrow({where:{businessId:f.id,stage:'PHYSICAL_VERIFY',status:'CLAIMED'}}),ls=await db.orderItem.findMany({where:{orderId:f.id}});return app.get(UnshippedPhysicalService).check(warehouse,id,{commandKey:randomUUID(),expectedAfterSaleVersion:a.version,expectedTaskVersion:t.version,expectedPhysicalVersion:o.stockPhysicalVersion,reason:'实物仍在本仓，已停止作业',stoppedAt:clock.now().toISOString(),goodsLocation:'隔离货架',evidenceFileIds:[],items:ls.map(l=>({orderItemId:l.id,sellableQty:l.quantity,damagedQty:0,incidentItemIds:[]}))});}
 async function refundBody(id:string){const a=await db.afterSale.findUniqueOrThrow({where:{id}}),o=await db.order.findUniqueOrThrow({where:{id:a.orderId}});return {...await settlementBody(id,'REFUND_PROCESS'),...(a.activeUnshippedCheckId?{physicalCheckId:a.activeUnshippedCheckId,expectedPhysicalVersion:o.stockPhysicalVersion}:{}),...(a.finalInspectionId?{expectedFinalInspectionId:a.finalInspectionId}:{})};}
@@ -115,6 +115,31 @@ it('未交运：真实核实→失败不回补→同业务新键重试→只回�
 });
 it('退货：真实交运→无物流实收→草稿→最终验收回补→退款失败不撤回→重试无第二次回补',async()=>{
  const f=await shipped(),a=await apply(f,'RETURN_REFUND');await review(a.afterSaleId,'APPROVE');const r=await receive(a.afterSaleId);await draft(a.afterSaleId,r);await inspect().final(warehouse,a.afterSaleId,{...await settlementBody(a.afterSaleId,'RETURN_INSPECT'),...await refs(a.afterSaleId)});expect(await db.inventoryBalance.findUnique({where:{skuId:f.sku.id}})).toMatchObject({available:10});await saleTask(a.afterSaleId,'REFUND_PROCESS');simulator.mode='FAIL_ONCE';const result=await refunds().execute(support,a.afterSaleId,await refundBody(a.afterSaleId));expect(result.attemptOutcome).toBe('FAILED');expect(await db.inventoryBalance.findUnique({where:{skuId:f.sku.id}})).toMatchObject({available:10});await expect(sales().close(admin,a.afterSaleId,{...await saleBody(a.afterSaleId),reason:'不得关闭',publicExplanation:'不应成功'})).rejects.toMatchObject({code:'AFTER_SALE_CLOSE_FORBIDDEN'});await refunds().execute(support,a.afterSaleId,{...await refundBody(a.afterSaleId),refundId:result.refundId,expectedRefundVersion:result.refundVersion},true);expect(await db.inventoryAction.count({where:{actionKey:'RESTOCK_FINAL_INSPECTION:'+a.afterSaleId}})).toBe(1);expect(await db.inventoryBalance.findUnique({where:{skuId:f.sku.id}})).toMatchObject({available:10});
+});
+it('齐货仍被误登记待收包阻塞；撤销保留原记录和来源审计，刷新后可唯一最终验收',async()=>{
+ const f=await shipped(),a=await apply(f,'RETURN_REFUND');await review(a.afterSaleId,'APPROVE');const receiptId=await receive(a.afterSaleId);await draft(a.afterSaleId,receiptId);
+ const extra=await inspect().prepare(warehouse,a.afterSaleId,{commandKey:randomUUID(),expectedAfterSaleVersion:(await saleBody(a.afterSaleId)).expectedAfterSaleVersion,reason:'误把同一个实包再次登记',sourceNamespace:'DUPLICATE',sourceReference:randomUUID()});
+ await saleTask(a.afterSaleId,'RETURN_RECEIVE',warehouse);
+ const oldFinal={...await settlementBody(a.afterSaleId,'RETURN_INSPECT'),...await refs(a.afterSaleId)};
+ await expect(inspect().final(warehouse,a.afterSaleId,oldFinal)).rejects.toMatchObject({code:'RETURN_PARCELS_PENDING'});
+ const before=await app.get(SettlementQueries).detail(warehouse,a.afterSaleId);expect(before.finalInspectionBlockers.join(' ')).toContain('2');
+ const cancel={...await settlementBody(a.afterSaleId,'RETURN_RECEIVE'),parcelId:extra.parcelId,reason:'核实只有一个实包，撤销重复登记'};
+ const path='/admin/after-sales/'+a.afterSaleId+'/receipt-source-cancellations';
+ const original=(await db.returnReceipt.findUniqueOrThrow({where:{id:receiptId}})).parcelId;
+ expect(await http('POST',path,warehouse,{...cancel,parcelId:original})).toMatchObject({status:409});
+ expect(await http('POST',path,support,cancel)).toMatchObject({status:403});
+ expect(await http('POST',path,warehouse,cancel)).toMatchObject({status:200});
+ expect(await http('POST',path,warehouse,cancel)).toMatchObject({status:200,json:{data:{replayed:true}}});
+ expect(await db.returnParcel.findUniqueOrThrow({where:{id:extra.parcelId}})).toMatchObject({origin:'WAREHOUSE_UNANNOUNCED',cancellationReason:cancel.reason,cancelledById:warehouse.actor.subjectId});
+ expect(await db.taskBusinessSource.findFirst({where:{sourceId:extra.parcelId}})).toMatchObject({status:'CANCELLED',resolutionReason:cancel.reason});
+ expect(await db.returnReceipt.count({where:{afterSaleId:a.afterSaleId}})).toBe(1);
+ await expect(inspect().receive(warehouse,a.afterSaleId,{...await settlementBody(a.afterSaleId,'RETURN_RECEIVE'),parcelId:extra.parcelId!,receivedAt:clock.now().toISOString(),goodsLocation:'不得虚填',sourceNote:'已撤销不可收包',evidenceFileIds:[]})).rejects.toBeDefined();
+ await expect(inspect().final(warehouse,a.afterSaleId,oldFinal)).rejects.toMatchObject({code:'VERSION_CONFLICT'});
+ const latest=await app.get(SettlementQueries).detail(warehouse,a.afterSaleId);expect(latest.finalInspectionBlockers).toEqual([]);
+ const done={...await settlementBody(a.afterSaleId,'RETURN_INSPECT'),...await refs(a.afterSaleId)};await inspect().final(warehouse,a.afterSaleId,done);await inspect().final(warehouse,a.afterSaleId,done);
+ expect(await db.finalInspection.count({where:{afterSaleId:a.afterSaleId}})).toBe(1);expect(await db.inventoryAction.count({where:{actionKey:'RESTOCK_FINAL_INSPECTION:'+a.afterSaleId}})).toBe(1);
+ expect(await db.afterSale.findUnique({where:{id:a.afterSaleId}})).toMatchObject({status:'WAIT_REFUND'});
+ expect(await db.task.findFirst({where:{businessId:a.afterSaleId,stage:'REFUND_PROCESS'}})).toMatchObject({status:'OPEN'});
 });
 it('同键100并发只有一次成功、一次Attempt；异键同版本失败只执行一次，不串行重试',async()=>{
  const f=await paid(),a=await apply(f);await review(a.afterSaleId,'APPROVE');await physical(f,a.afterSaleId);await saleTask(a.afterSaleId,'REFUND_PROCESS');const b=await refundBody(a.afterSaleId),pending=await Promise.allSettled(Array.from({length:100},()=>refunds().execute(support,a.afterSaleId,b)));for(const r of pending)if(r.status==='rejected')expect(r.reason).toMatchObject({code:'REQUEST_IN_PROGRESS'});const rs=[];for(const r of pending)rs.push(r.status==='fulfilled'?r.value:await refunds().execute(support,a.afterSaleId,b));expect(new Set(rs.map(r=>r.attemptId)).size).toBe(1);expect(await db.refundAttempt.count({where:{refundId:rs[0]!.refundId}})).toBe(1);
@@ -151,7 +176,7 @@ it('真实已交运仅退款不回补，完成后全退保留完成/支付历史
 });
 
 
-it('0014旧账号库存订单支付快照无损升级0018，重复deploy幂等',async()=>{
+it('0014旧账号库存订单支付快照无损升级0019，重复deploy幂等',async()=>{
  const name='m312_upgrade_'+randomUUID().replaceAll('-','')+'_test',url=new URL(process.env.DATABASE_URL!);url.pathname='/'+name;const adminUrl=new URL(url);adminUrl.pathname='/postgres';
  const connection=new Client({connectionString:adminUrl.toString()}),old=new Client({connectionString:url.toString()}),scratch=mkdtempSync(join(tmpdir(),'self-ecom-m312-upgrade-')),migrations=join(scratch,'migrations');mkdirSync(migrations);
  const root=resolve('prisma/migrations');for(const item of readdirSync(root).filter(n=>/^\d+_/.test(n)&&n<'0015_')){mkdirSync(join(migrations,item));copyFileSync(join(root,item,'migration.sql'),join(migrations,item,'migration.sql'));}copyFileSync(join(root,'migration_lock.toml'),join(migrations,'migration_lock.toml'));
@@ -161,7 +186,7 @@ it('0014旧账号库存订单支付快照无损升级0018，重复deploy幂等',
   const selections:[string,string,unknown[]][]=[['employee','',[]],['customer','WHERE id=$1',[f.c.actor.subjectId]],['store_setting_version','',[]],['product','WHERE id=$1',[sku.productId]],['sku','WHERE id=$1',[sku.id]],['inventory_balance','WHERE sku_id=$1',[sku.id]],['address','WHERE id=$1',[order.sourceAddressId]],['checkout_quote','WHERE id=$1',[order.quoteId]],['checkout_quote_item','WHERE quote_id=$1',[order.quoteId]],['order','WHERE id=$1',[f.id]],['order_item','WHERE order_id=$1',[f.id]],['payment','WHERE order_id=$1',[f.id]]];
   for(const [table,where,params]of selections){const rows=await db.$queryRawUnsafe<{row:unknown}[]>(`SELECT to_jsonb(t) AS row FROM "${table}" t ${where}`, ...params);for(const {row}of rows)await old.query(`INSERT INTO "${table}" SELECT * FROM jsonb_populate_record(NULL::"${table}",$1::jsonb)`,[JSON.stringify(row)]);}
   const snapshot=async()=>{const values:Record<string,unknown>={};for(const [table]of selections)values[table]=(await old.query(`SELECT to_jsonb(t) - 'shipment_reclaim_required' AS row FROM "${table}" t ORDER BY to_jsonb(t)::text`)).rows;return values;};const before=await snapshot();
-  runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);expect((await old.query('SELECT shipment_reclaim_required FROM "order"')).rows).toEqual([{shipment_reclaim_required:false}]);expect((await old.query('SELECT count(*)::int AS n FROM _prisma_migrations WHERE finished_at IS NOT NULL')).rows[0].n).toBe(18);expect((await old.query('SELECT migration_name FROM _prisma_migrations ORDER BY migration_name')).rows.at(-1)?.migration_name).toBe('0018_reporting_hot_payment_cover');
+  runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);expect((await old.query('SELECT shipment_reclaim_required FROM "order"')).rows).toEqual([{shipment_reclaim_required:false}]);expect((await old.query('SELECT count(*)::int AS n FROM _prisma_migrations WHERE finished_at IS NOT NULL')).rows[0].n).toBe(19);expect((await old.query('SELECT migration_name FROM _prisma_migrations ORDER BY migration_name')).rows.at(-1)?.migration_name).toBe('0019_return_receipt_source_cancellation');
   runPrisma(['migrate','deploy'],env);expect(await snapshot()).toEqual(before);
  }finally{if(connected)await old.end();if(created)await connection.query(`DROP DATABASE "${name}"`);await connection.end();console.log('保留本轮升级临时目录：'+scratch);}
 },90000);

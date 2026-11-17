@@ -45,7 +45,7 @@ function Detail({id}:{id:string}){
     </DetailSection>
    </div>
    <AfterSaleMaterials sale={s}/>
-   <div id="sale-settlement" className="detail-section detail-embedded-section"><AuthError error={settlement.error}/>{settlement.data?<SettlementPanel s={s} v={settlement.data} cmd={cmd} contactIds={communications.data?.items.map(c=>c.id)??[]}/>:!settlement.error?<><h2>退货验收与退款</h2><Spin/></>:null}</div>
+   <div id="sale-settlement" className="detail-section detail-embedded-section"><AuthError error={settlement.error}/>{settlement.data?<SettlementPanel s={s} v={settlement.data} cmd={cmd} reload={reload} contactIds={communications.data?.items.map(c=>c.id)??[]}/>:!settlement.error?<><h2>退货验收与退款</h2><Spin/></>:null}</div>
    {service?<>
     <DetailSection id="sale-communication" title="客服沟通" description="内部记录与顾客可见说明分别保存。">
      <AuthError error={communications.error}/>{communications.status==='loading'?<Spin/>:null}
