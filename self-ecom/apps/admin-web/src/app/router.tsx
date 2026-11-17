@@ -1,5 +1,6 @@
 /** 文件作用：配置后台路由及员工登录、改密和业务权限守卫。 */
 import { createBrowserRouter } from 'react-router-dom';
+import { RouteLoading } from '@shop/ui';
 import { AppLayout } from './AppLayout';
 import { AuthRoot, LoginOnly, RequireEmployee } from '../auth/AuthRoutes';
 import { EmployeeReadGuard } from '../employees/EmployeeReadGuard';
@@ -8,7 +9,7 @@ import { SettingsGuard } from '../settings/SettingsGuard';
 import { CatalogGuard } from '../catalog/CatalogGuard';
 import {OrdersGuard} from '../orders/OrdersGuard';
 
-export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{ element: <AppLayout />, children: [
+export const router = createBrowserRouter([{ element: <AuthRoot />, HydrateFallback: RouteLoading, children: [{ element: <AppLayout />, children: [
   { element: <LoginOnly />, children: [
     { path: '/login', lazy: async () => ({ Component: (await import('../pages/LoginPage')).LoginPage }) },
   ] },

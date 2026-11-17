@@ -1,9 +1,10 @@
 /** 文件作用：配置商城公开页面、匿名页面和顾客本人页面路由。 */
 import { createBrowserRouter } from 'react-router-dom';
+import { RouteLoading } from '@shop/ui';
 import { AppLayout } from './AppLayout';
 import { AnonymousOnly, AuthRoot, RequireCustomer } from '../auth/AuthRoutes';
 
-export const router = createBrowserRouter([{ element: <AuthRoot />, children: [{ element: <AppLayout />, children: [
+export const router = createBrowserRouter([{ element: <AuthRoot />, HydrateFallback: RouteLoading, children: [{ element: <AppLayout />, children: [
   { path: '/', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
   { path: '/products', lazy: async () => ({ Component: (await import('../pages/HomePage')).HomePage }) },
   { path: '/products/:id', lazy: async () => ({ Component: (await import('../pages/ProductDetailPage')).ProductDetailPage }) },
