@@ -103,6 +103,16 @@ a { color:#3d5140; }
 .product-detail-grid { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:7%; align-items:start; }
 .detail-main-image { aspect-ratio:4/5; background:#e7e4db; display:grid; place-items:center; }
 .detail-main-image img { width:100%; height:100%; object-fit:cover; }
+.product-gallery { min-width:0; }
+.product-gallery-stage { position:relative; overflow:hidden; }
+.product-gallery-arrow { position:absolute; top:50%; transform:translateY(-50%); width:40px; height:48px; padding:0; border:1px solid #ffffff8c; border-radius:4px; background:#293b32bf; color:#fff; font:30px/1 sans-serif; cursor:pointer; }
+.product-gallery-prev { left:14px; }
+.product-gallery-next { right:14px; }
+.product-gallery-arrow:hover { background:#293b32; }
+.product-gallery-count { position:absolute; bottom:16px; right:16px; padding:5px 12px; border-radius:20px; background:#293b32bf; color:#fff; font-size:12px; font-variant-numeric:tabular-nums; }
+.product-gallery-toolbar { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:12px; color:#65715e; font-size:12px; }
+.product-gallery-toolbar button { border:0; background:transparent; padding:6px 0 6px 12px; color:#344d41; text-decoration:underline; text-underline-offset:4px; cursor:pointer; }
+.product-gallery :is(button,.slick-list):focus-visible { outline:2px solid #344d41; outline-offset:3px; }
 .detail-thumbnails { display:flex; gap:12px; margin:14px 0; flex-wrap:wrap; }
 .detail-thumbnails button { width:65px; height:80px; border:1px solid transparent; background:transparent; padding:3px; cursor:pointer; }
 .detail-thumbnails button[aria-pressed=true] { border-color:#3d5140; }
