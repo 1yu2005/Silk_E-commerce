@@ -77,7 +77,7 @@ it.each([true, false])('serves native Swagger documents only when enabled=%s', a
           ...['supplements','withdraw','return-logistics'].map(action=>'/api/v1/store/after-sales/{id}/'+action),
           '/api/v1/store/after-sales/{id}/communications',
           ...['review','return-verifications','close','confirm-no-return-refund'].map(action=>'/api/v1/admin/after-sales/{id}/'+action),
-          ...['settlement','receipt-sources','receipts','inspection-drafts','inspection-exceptions','reshipments','exception-refund-requests','exception-refund-approvals','final-inspection','exception-final-inspection','return-physical-events','physical-checks','refund','refund-retries'].map(action=>'/api/v1/admin/after-sales/{id}/'+action),
+          ...['settlement','receipt-sources','receipt-source-cancellations','receipts','inspection-drafts','inspection-exceptions','reshipments','exception-refund-requests','exception-refund-approvals','final-inspection','exception-final-inspection','return-physical-events','physical-checks','refund','refund-retries'].map(action=>'/api/v1/admin/after-sales/{id}/'+action),
           '/api/v1/store/after-sales/{id}/settlement',
         ]).sort());
         for(const [path,item] of Object.entries(doc.paths))if(/\/admin\/(categories|products|inventory)/.test(path))for(const key of ['get','post','put','patch','delete'] as const){

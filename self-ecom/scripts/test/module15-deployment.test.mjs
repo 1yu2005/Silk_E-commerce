@@ -99,29 +99,48 @@ function transitionFixture(chain,beforeCount=17){
  return {before:before.summary,after:after.summary,options:{chain,beforeMigrationRows:before.raw,afterMigrationRows:after.raw}};
 }
 const sourceMigrationChain=()=>readMigrationChain(fileURLToPath(new URL('../../',import.meta.url)));
+// 17→18 的历史部署验收仅允许覆盖索引迁移，后续业务迁移须独立验收。
+async function coveringMigrationChain(){
+ const chain=await sourceMigrationChain(),index=chain.findIndex(row=>row.name===COVERING_MIGRATION_NAME);
+ assert.equal(index,17);assert.equal(chain[index].sha256,COVERING_MIGRATION_SHA256);
+ return chain.slice(0,index+1);
+}
 
 test('frozen directory and image require the complete ordered migration chain and every checksum',async()=>{
- const chain=await sourceMigrationChain();assert.equal(chain.at(-1).name,COVERING_MIGRATION_NAME);assert.equal(chain.at(-1).sha256,COVERING_MIGRATION_SHA256);
+ const chain=await sourceMigrationChain();
  assert.doesNotThrow(()=>assertMigrationFiles(structuredClone(chain),chain));
- for(const change of [rows=>rows.pop(),rows=>rows.push({...rows.at(-1)}),rows=>rows.reverse(),rows=>{rows[0].sha256='f'.repeat(64);}]){const rows=structuredClone(chain);change(rows);assert.throws(()=>assertMigrationFiles(rows,chain));}
+ for(const change of [rows=>rows.pop(),rows=>rows.push({...rows.at(-1)}),rows=>rows.reverse(),rows=>{rows[0].sha256='f'.repeat(64);},rows=>{rows.at(-1).sha256='f'.repeat(64);}]){const rows=structuredClone(chain);change(rows);assert.throws(()=>assertMigrationFiles(rows,chain));}
+});
+
+test('only the historical covering-index migration may remain pending in its approved chain',async()=>{
+ const chain=await coveringMigrationChain();
  const f=transitionFixture(chain);assert.deepEqual(assertMigrationChain(f.before.migrations,chain,{allowCoveringIndexPending:true}).pending,[COVERING_MIGRATION_NAME]);
  assert.throws(()=>assertMigrationChain(f.before.migrations,chain));assert.doesNotThrow(()=>assertMigrationChain(f.after.migrations,chain));
  const earlier=f.before.migrations.slice(0,-1);assert.throws(()=>assertMigrationChain(earlier,chain,{allowCoveringIndexPending:true}));
 });
 
+test('current complete chain validates later business migrations without approving them as an index-only transition',async()=>{
+ const chain=await sourceMigrationChain();assert.ok(chain.length>18);
+ const rows=chain.map(row=>({migration_name:row.name,checksum:row.sha256,finished_at:'2026-11-17T00:01:00.000Z',rolled_back_at:null,applied_steps_count:1}));
+ assert.equal(assertMigrationChain(rows,chain).count,chain.length);
+ for(const allowCoveringIndexPending of [false,true])assert.throws(()=>assertMigrationChain(rows.slice(0,-1),chain,{allowCoveringIndexPending}));
+ const changed=structuredClone(rows);changed.at(-1).checksum='f'.repeat(64);assert.throws(()=>assertMigrationChain(changed,chain));
+ const f=transitionFixture(chain);assert.throws(()=>assertCoveringIndexTransition(f.before,f.after,f.options),/COVERING_MIGRATION_FILE_NOT_APPROVED/);
+});
+
 test('17 to 18 permits only the approved index and one successful appended migration, preserving all old columns',async()=>{
- const f=transitionFixture(await sourceMigrationChain()),result=assertCoveringIndexTransition(f.before,f.after,f.options);
+ const f=transitionFixture(await coveringMigrationChain()),result=assertCoveringIndexTransition(f.before,f.after,f.options);
  assert.deepEqual(result.appendedMigrations,[COVERING_MIGRATION_NAME]);assert.equal(result.schemaOtherwiseEqual,true);assert.equal(result.allExistingMigrationColumnsEqual,true);
  assert.equal(result.allOtherTablesAllColumnsEqual,true);assert.equal(result.migrationCountBefore,17);assert.equal(result.migrationCountAfter,18);
 });
 
 test('already applied 18 migration deployment is strictly idempotent and needs the same approved index',async()=>{
- const f=transitionFixture(await sourceMigrationChain(),18),result=assertCoveringIndexTransition(f.before,f.after,f.options);assert.deepEqual(result.appendedMigrations,[]);assert.equal(result.onlyApprovedIndexAdded,false);
+ const f=transitionFixture(await coveringMigrationChain(),18),result=assertCoveringIndexTransition(f.before,f.after,f.options);assert.deepEqual(result.appendedMigrations,[]);assert.equal(result.onlyApprovedIndexAdded,false);
  f.after.schema.indexes.pop();f.after.schemaSha256=digest(JSON.stringify(f.after.schema));assert.throws(()=>assertCoveringIndexTransition(f.before,f.after,f.options),/COVERING_INDEX_PRESENCE_MISMATCH/);
 });
 
 test('changed historical checksum, migration log, new-row status or arbitrary migration SQL cannot be accepted',async()=>{
- const chain=await sourceMigrationChain();
+ const chain=await coveringMigrationChain();
  for(const change of [
   f=>{f.after.migrations[0].checksum='e'.repeat(64);},
   f=>{const rows=f.options.afterMigrationRows,values=JSON.parse(rows[0]);values[4]='changed old log';rows[0]=JSON.stringify(values);rows.sort((a,b)=>Buffer.compare(Buffer.from(a),Buffer.from(b)));refreshMigrations(f.after,rows);},
@@ -132,7 +151,7 @@ test('changed historical checksum, migration log, new-row status or arbitrary mi
 });
 
 test('business, accounts, permission, file columns and any additional schema change remain forbidden',async()=>{
- const chain=await sourceMigrationChain();
+ const chain=await coveringMigrationChain();
  for(const change of [
   ...['employee','employee_extra_permission','order','file_asset'].map(name=>f=>{f.after.tables.find(row=>row.name===name).sha256='b'.repeat(64);}),
   f=>{f.after.schema.indexes.push({schema:'public',relation:'payment',name:'extra_index',definition:'CREATE INDEX extra_index ON public.payment USING btree (paid_at)',valid:true});},
@@ -144,7 +163,7 @@ test('business, accounts, permission, file columns and any additional schema cha
 });
 
 test('scheduler allowance changes only the two known technical tables count/hash after startup',async()=>{
- const chain=await sourceMigrationChain(),f=transitionFixture(chain);f.after.tables.find(row=>row.name==='scheduler_run').sha256='c'.repeat(64);
+ const chain=await coveringMigrationChain(),f=transitionFixture(chain);f.after.tables.find(row=>row.name==='scheduler_run').sha256='c'.repeat(64);
  assert.throws(()=>assertCoveringIndexTransition(f.before,f.after,f.options));
  assert.doesNotThrow(()=>assertCoveringIndexTransition(f.before,f.after,{...f.options,allowSchedulerChanges:true}));
  f.after.tables.find(row=>row.name==='scheduler_run').columns.push({name:'unexpected',type:'text'});
