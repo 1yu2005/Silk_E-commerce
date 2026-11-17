@@ -57,6 +57,64 @@ test('StrictMode清理再启动和同时重读共用一组请求', async () => {
   assert.equal(f.calls.me, 1); assert.equal(f.calls.permissions, 1); stop();
 });
 
+test('选图窗口返回焦点时，同一会话的复核保留页面身份直到最新权限返回', async () => {
+  const f = fixture(); await f.controller.restore(); const before = f.controller.getSnapshot();
+  const me = deferred(), access = deferred(), entered = deferred();
+  f.behavior.me = () => me.promise;
+  f.behavior.permissions = () => { entered.resolve(); return access.promise; };
+  const pending = f.controller.restore(true, null, true);
+  assert.equal(f.controller.getSnapshot(), before);
+  assert.equal(f.controller.restore(true, null, true), pending);
+  me.resolve(result({ ...profile, displayName: '更新后的员工' })); await entered.promise;
+  assert.equal(f.controller.getSnapshot(), before);
+  access.resolve(result({ ...permissions, permissionVersion: 2, effectivePermissions: [] })); await pending;
+  assert.equal(f.controller.getSnapshot().status, 'ready');
+  assert.equal(f.controller.getSnapshot().employee.displayName, '更新后的员工');
+  assert.equal(f.controller.getSnapshot().permissions.permissionVersion, 2);
+  assert.deepEqual(f.controller.getSnapshot().permissions.effectivePermissions, []);
+  assert.equal(f.calls.me, 2); assert.equal(f.calls.permissions, 2); f.stop();
+});
+
+test('焦点复核遇到新会话时仍先清空旧员工和权限', async () => {
+  const f = fixture(); await f.controller.restore(); f.stop(); f.save('token-b');
+  const gate = deferred(); f.behavior.me = () => gate.promise;
+  const pending = f.controller.restore(true, null, true);
+  assert.equal(f.controller.getSnapshot().status, 'checking');
+  assert.equal(f.controller.getSnapshot().employee, null); assert.equal(f.controller.getSnapshot().permissions, null);
+  gate.resolve(result({ ...profile, id: 'employee-b' })); await pending;
+  assert.equal(f.controller.getSnapshot().employee.id, 'employee-b');
+});
+
+test('同会话焦点复核失败后清空权限，允许手动重读', async () => {
+  const f = fixture(); await f.controller.restore(); const gate = deferred(); f.behavior.me = () => gate.promise;
+  const pending = f.controller.restore(true, null, true);
+  assert.equal(f.controller.getSnapshot().status, 'ready');
+  gate.reject(new ApiClientError('NETWORK_ERROR', '网络失败')); await pending;
+  assert.equal(f.controller.getSnapshot().status, 'error');
+  assert.equal(f.controller.getSnapshot().employee, null); assert.equal(f.controller.getSnapshot().permissions, null);
+  f.behavior.me = async () => result(profile); await f.controller.restore(true);
+  assert.equal(f.controller.getSnapshot().status, 'ready'); f.stop();
+});
+
+test('焦点复核期间收到403立即隐藏旧权限，复用在途权限检查', async () => {
+  const f = fixture(); await f.controller.restore(); const gate = deferred(); f.behavior.me = () => gate.promise;
+  const pending = f.controller.restore(true, null, true);
+  f.controller.onForbidden('FORBIDDEN');
+  assert.equal(f.controller.getSnapshot().status, 'checking');
+  assert.equal(f.controller.getSnapshot().employee, null); assert.equal(f.controller.getSnapshot().permissions, null);
+  gate.resolve(result(profile)); await pending;
+  assert.equal(f.calls.me, 2); assert.equal(f.calls.permissions, 2); f.stop();
+});
+
+test('焦点复核确认必须改密后立即移除业务权限', async () => {
+  const f = fixture(); await f.controller.restore(); const gate = deferred(); f.behavior.me = () => gate.promise;
+  const pending = f.controller.restore(true, null, true);
+  assert.equal(f.controller.getSnapshot().status, 'ready');
+  gate.resolve(result({ ...profile, mustChangePassword: true })); await pending;
+  assert.equal(f.controller.getSnapshot().status, 'password-change');
+  assert.equal(f.controller.getSnapshot().permissions, null); assert.equal(f.calls.permissions, 1); f.stop();
+});
+
 test('强制改密只查本人，不查询被禁止的权限接口', async () => {
   const f = fixture({ forced: true }); await f.controller.restore();
   assert.equal(f.controller.getSnapshot().status, 'password-change'); assert.equal(f.calls.permissions, 0);

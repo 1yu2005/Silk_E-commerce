@@ -41,7 +41,7 @@ export class EmployeeAuthController {
     return () => { stop(); if (this.stopSession === stop) this.stopSession = undefined; };
   };
 
-  restore = (force = false, notice: string | null = null): Promise<void> => {
+  restore = (force = false, notice: string | null = null, keepReady = false): Promise<void> => {
     const current = this.client.session.current();
     if (!current.credential) {
       const lost = this.snapshot.status !== 'anonymous';
@@ -54,9 +54,11 @@ export class EmployeeAuthController {
     if (this.signingOutRevision === current.revision) return Promise.resolve();
     // StrictMode重挂载、多个403和同一时刻的焦点事件共用正在进行的恢复。
     if (current.revision === this.observedRevision && (this.pending || !force)) return this.pending ?? Promise.resolve();
+    const background = keepReady && force && current.revision === this.observedRevision && this.snapshot.status === 'ready';
     this.observedRevision = current.revision;
     const generation = ++this.generation;
-    this.update({ status: 'checking', employee: null, permissions: null, error: null, notice });
+    // 系统选图窗口返回焦点时，仅后台复核同一会话，避免卸载编辑页并丢失文件选择。
+    if (!background) this.update({ status: 'checking', employee: null, permissions: null, error: null, notice });
     const task = this.load(current.revision, generation, notice).finally(() => {
       if (this.pending === task) this.pending = null;
     });
@@ -95,6 +97,10 @@ export class EmployeeAuthController {
     } else if (!this.pending) {
       // 只重读身份和权限，不重放原业务请求；恢复自身的403也不再次触发恢复。
       void this.restore(true, '当前操作没有权限，已重新读取账号权限。');
+    } else if (this.snapshot.status === 'ready') {
+      // 背景复核期间发现权限被拒绝时，立即隐藏旧权限，继续等待已有的本人/权限请求。
+      this.update({ status: 'checking', employee: null, permissions: null, error: null,
+        notice: '当前操作没有权限，正在重新读取账号权限。' });
     }
   };
 
