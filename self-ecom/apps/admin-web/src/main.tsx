@@ -9,6 +9,7 @@ import 'antd/dist/reset.css';
 import '@shop/ui/styles.css';
 import './styles.css';
 import './desktop.css';
+import './detail-workspace.css';
 
 const root = document.getElementById('root');
 if (!root) throw new Error('缺少应用挂载节点');
