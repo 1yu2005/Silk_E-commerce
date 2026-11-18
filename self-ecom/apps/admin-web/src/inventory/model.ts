@@ -20,3 +20,5 @@ export function nextSourceLineKey(lines:readonly {lineKey:string}[]){
  let next=1;while(used.has(String(next)))next++;
  return String(next);
 }
+
+export const inventoryEvents:Record<string,string>={INITIALIZATION:'初始化入库',ARRIVAL:'到货入库',AVAILABLE_LOSS:'可售损耗',CORRECTION:'差额更正',RESERVE:'下单占用',PAY:'付款扣占用',CLOSE:'关单释放',RETURN_RESTOCK:'退货回库',UNSHIPPED_REFUND_RESTOCK:'未发货退款回库',PAID_PREPARATION_LOSS:'备货损耗',ALLOCATE_REPLACEMENT:'换补货分配',REFUNDED_AVAILABLE_LOSS:'退款后可售损耗'};

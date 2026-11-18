@@ -53,7 +53,7 @@ const statuses:Record<string,string>={WAIT_PAYMENT:'待付款',WAIT_SHIPMENT:'�
   PENDING_REVIEW:'待审核',WAIT_SUPPLEMENT:'待补充',WAIT_FULFILLMENT_CHECK:'待实物核实',WAIT_REFUND:'待退款',WAIT_RETURN:'待寄回',WAIT_RECEIPT:'待收包',WAIT_INSPECTION:'待验收',
   INSPECTION_EXCEPTION:'验收异常',FINAL_INSPECTION:'已最终验收',REFUNDING:'退款处理中',REFUND_FAILED:'退款失败',REJECTED:'已拒绝',WITHDRAWN:'已撤回',SUCCEEDED:'已成功',
   SUPER_ADMIN:'超级管理员',MERCH_WAREHOUSE:'商品与仓储',CUSTOMER_SERVICE:'客服',SYSTEM:'系统',EMPLOYEE:'员工',CUSTOMER:'顾客',IN_PROGRESS:'执行中',WAIT_EXTERNAL:'等待外部',RESOLVED:'已解决',
-  VERIFIED:'核实可用',CONSUMED:'已使用',INVALIDATED:'已失效',PLANNED:'已安排',DECIDED:'已决定',HANDED_OFF:'已移交',EXCEPTION:'异常'};
+  VERIFIED:'核实可用',CONSUMED:'已使用',INVALIDATED:'已失效',PLANNED:'已安排',DECIDED:'已决定',HANDED_OFF:'已移交',EXCEPTION:'异常',DELETE:'删除'};
 export function auditValue(field:string,value:unknown):string{
   if(value===null||value===undefined)return '未记录';if(typeof value==='boolean')return value?'是':'否';if(Array.isArray(value))return value.join('、')||'无';
   if(field==='amountCents'&&(typeof value==='number'||typeof value==='string')&&/^-?\d+$/.test(String(value))){const n=BigInt(value);const v=n<0n?-n:n;return `${n<0n?'-':''}${v/100n}.${String(v%100n).padStart(2,'0')} 元`;}

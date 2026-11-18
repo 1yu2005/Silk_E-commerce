@@ -1618,7 +1618,11 @@ export interface paths {
         get: operations["getInventorySource"];
         put?: never;
         post?: never;
-        delete?: never;
+        /**
+         * 删除没有登记或入账引用的来源凭据
+         * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
+         */
+        delete: operations["deleteInventorySource"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2900,8 +2904,8 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * 分页查询本人任务、合资格岗位池或管理员待安排
-         * @description 默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；reassign须管理员task.transfer。所有范围还需真实业务读取权。按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。
+         * 分页查询本人待办、已完成、合资格岗位池或管理员待安排
+         * @description 默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；completed仅本人经办完成，按完成时间倒序、ID升序，以完成历史中的原经办（无经办时取操作人）归属；reassign须管理员task.transfer。所有范围还需真实业务读取权。其它视图按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。completed不接受非COMPLETED状态或overdue=true。
          */
         get: operations["listTasks"];
         put?: never;
@@ -14353,7 +14357,7 @@ export interface operations {
                         data: {
                             availableTotal: string;
                             /**
-                             * @description 分页单位；默认sku，product每页返回完整商品组
+                             * @description 分页单位；默认sku，product按商品分页。余额返回整款规格，流水每款预览最近5笔。
                              * @enum {string}
                              */
                             groupBy: "sku" | "product";
@@ -14478,7 +14482,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -14626,7 +14630,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -14782,7 +14786,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -14964,7 +14968,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -14983,10 +14987,12 @@ export interface operations {
         parameters: {
             query?: {
                 assigneeId?: string;
+                categoryId?: string;
                 from?: string;
                 keyword?: string;
                 page?: number;
                 pageSize?: number;
+                productId?: string;
                 status?: "PENDING" | "POSTED" | "VOID";
                 to?: string;
                 type?: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
@@ -15037,9 +15043,27 @@ export interface operations {
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                createdByName: string;
                                 evidenceNote: string | null;
                                 /** Format: uuid */
                                 id: string;
+                                lines: {
+                                    batchKey: string | null;
+                                    categoryPath: string[];
+                                    choices: string[];
+                                    deltaA: number;
+                                    /** Format: uuid */
+                                    id: string;
+                                    productCode: string;
+                                    /** Format: uuid */
+                                    productId: string;
+                                    productName: string;
+                                    skuCode: string;
+                                    /** Format: uuid */
+                                    skuId: string;
+                                    skuRetired: boolean;
+                                    sourceReference: string;
+                                }[];
                                 number: string;
                                 /** Format: date-time */
                                 postedAt: string | null;
@@ -15048,6 +15072,15 @@ export interface operations {
                                 reason: string;
                                 /** @enum {string} */
                                 status: "PENDING" | "POSTED" | "VOID";
+                                task: {
+                                    /** Format: uuid */
+                                    assigneeId: string | null;
+                                    assigneeName: string | null;
+                                    /** Format: uuid */
+                                    id: string;
+                                    /** @enum {string} */
+                                    status: "OPEN" | "CLAIMED";
+                                } | null;
                                 /** @enum {string} */
                                 type: "INITIALIZATION" | "ARRIVAL" | "AVAILABLE_LOSS" | "CORRECTION";
                                 /** Format: date-time */
@@ -15146,7 +15179,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -15358,11 +15391,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -15545,7 +15580,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -15741,11 +15776,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -15928,7 +15965,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -16147,11 +16184,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -16334,7 +16373,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -16537,11 +16576,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -16724,7 +16765,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -16933,11 +16974,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -17120,7 +17163,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -17323,11 +17366,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -17510,7 +17555,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -17716,11 +17761,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -17903,7 +17950,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -18107,11 +18154,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -18294,7 +18343,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -18314,10 +18363,14 @@ export interface operations {
             query?: {
                 actorEmployeeId?: string;
                 businessNumber?: string;
+                categoryId?: string;
                 eventType?: string;
                 from?: string;
+                groupBy?: "sku" | "product";
+                keyword?: string;
                 page?: number;
                 pageSize?: number;
+                productId?: string;
                 skuId?: string;
                 to?: string;
             };
@@ -18336,6 +18389,16 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
+                            /**
+                             * @description sku按流水分页；product按商品分页，每款预览最近5笔，可通过productId查询完整历史
+                             * @enum {string}
+                             */
+                            groupBy: "sku" | "product";
+                            groups: {
+                                /** Format: uuid */
+                                productId: string;
+                                recordCount: number;
+                            }[];
                             items: {
                                 /** Format: uuid */
                                 actionId: string;
@@ -18343,6 +18406,7 @@ export interface operations {
                                 actorCustomerId: string | null;
                                 /** Format: uuid */
                                 actorEmployeeId: string | null;
+                                actorName: string;
                                 /** @enum {string} */
                                 actorType: "EMPLOYEE" | "CUSTOMER" | "SYSTEM";
                                 afterA: number;
@@ -18353,6 +18417,8 @@ export interface operations {
                                 businessId: string;
                                 businessNumber: string;
                                 businessType: string;
+                                categoryPath: string[];
+                                choices: string[];
                                 /** Format: date-time */
                                 createdAt: string;
                                 deltaA: number;
@@ -18360,6 +18426,10 @@ export interface operations {
                                 eventType: string;
                                 /** Format: uuid */
                                 id: string;
+                                productCode: string;
+                                /** Format: uuid */
+                                productId: string;
+                                productName: string;
                                 quantityDamaged: number | null;
                                 quantityReleased: number | null;
                                 reason: string;
@@ -18368,13 +18438,17 @@ export interface operations {
                                 /** Format: uuid */
                                 rootAdjustmentLineId: string | null;
                                 sequence: number;
+                                skuCode: string;
                                 /** Format: uuid */
                                 skuId: string;
+                                skuRetired: boolean;
                                 /** Format: uuid */
                                 sourceLineId: string | null;
                             }[];
                             page: number;
                             pageSize: number;
+                            productTotal: number;
+                            recordTotal: number;
                             total: number;
                         };
                         /** Format: uuid */
@@ -18461,7 +18535,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -18506,11 +18580,13 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
+                            canDelete: boolean;
                             changed?: boolean;
                             /** Format: date-time */
                             createdAt: string;
                             /** Format: uuid */
                             createdById: string;
+                            deleteBlockedReason: string | null;
                             evidence: {
                                 contentUrl: string;
                                 /** Format: uuid */
@@ -18650,7 +18726,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -18689,10 +18765,12 @@ export interface operations {
                     "application/json": {
                         data: {
                             items: {
+                                canDelete: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 /** Format: uuid */
                                 id: string;
                                 namespace: string;
@@ -18793,7 +18871,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -18843,11 +18921,13 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
+                            canDelete: boolean;
                             changed?: boolean;
                             /** Format: date-time */
                             createdAt: string;
                             /** Format: uuid */
                             createdById: string;
+                            deleteBlockedReason: string | null;
                             evidence: {
                                 contentUrl: string;
                                 /** Format: uuid */
@@ -18987,7 +19067,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -19022,11 +19102,13 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
+                            canDelete: boolean;
                             changed?: boolean;
                             /** Format: date-time */
                             createdAt: string;
                             /** Format: uuid */
                             createdById: string;
+                            deleteBlockedReason: string | null;
                             evidence: {
                                 contentUrl: string;
                                 /** Format: uuid */
@@ -19166,7 +19248,137 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        details?: {
+                            /** Format: uuid */
+                            adjustmentId?: string;
+                            checkRequired?: boolean;
+                            number?: string;
+                        };
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteInventorySource: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: unknown;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            deleted: boolean;
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "SESSION_REVOKED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "INVENTORY_NOT_FOUND" | "SOURCE_NOT_FOUND" | "ADJUSTMENT_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -19212,11 +19424,13 @@ export interface operations {
                 content: {
                     "application/json": {
                         data: {
+                            canDelete: boolean;
                             changed?: boolean;
                             /** Format: date-time */
                             createdAt: string;
                             /** Format: uuid */
                             createdById: string;
+                            deleteBlockedReason: string | null;
                             evidence: {
                                 contentUrl: string;
                                 /** Format: uuid */
@@ -19356,7 +19570,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -27919,11 +28133,13 @@ export interface operations {
                             postedById: string | null;
                             reason: string;
                             sources: {
+                                canDelete: boolean;
                                 changed?: boolean;
                                 /** Format: date-time */
                                 createdAt: string;
                                 /** Format: uuid */
                                 createdById: string;
+                                deleteBlockedReason: string | null;
                                 evidence: {
                                     contentUrl: string;
                                     /** Format: uuid */
@@ -28106,7 +28322,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
+                        code: "VERSION_CONFLICT" | "SOURCE_ALREADY_EXISTS" | "SOURCE_IN_USE" | "SOURCE_BATCH_ALREADY_POSTED" | "SOURCE_QUANTITY_EXCEEDED" | "SOURCE_QUANTITY_BELOW_POSTED" | "STOCK_INSUFFICIENT" | "INVENTORY_LIMIT_EXCEEDED" | "CORRECTION_NOT_ALLOWED" | "INVENTORY_ACTION_CONFLICT" | "INITIAL_CONVERSION_CONFLICT" | "INITIAL_DRAFT_EMPTY" | "INITIAL_DRAFT_NOT_EDITABLE" | "ADJUSTMENT_NOT_PENDING" | "TASK_NOT_ASSIGNEE" | "INVENTORY_CHECK_REQUIRED" | "INVENTORY_CHECK_UNRESOLVED";
                         details?: {
                             /** Format: uuid */
                             adjustmentId?: string;
@@ -31451,7 +31667,8 @@ export interface operations {
                 pageSize?: number;
                 stage?: "INVENTORY_POST" | "INVENTORY_RECONCILE" | "SHIPMENT_PROCESS" | "HANDOVER_VERIFY" | "PHYSICAL_VERIFY" | "STOCK_EXCEPTION_VERIFY" | "SHIPMENT_EXCEPTION_VERIFY" | "CUSTOMER_CONTACT" | "AFTER_SALE_REVIEW" | "SUPPLEMENT_FOLLOW" | "RETURN_FOLLOW" | "RETURN_RECEIVE" | "RETURN_INSPECT" | "INSPECTION_EXCEPTION_CONTACT" | "REFUND_PROCESS" | "ADMIN_DISPUTE" | "ADMIN_STOCK_REVIEW" | "PROXY_INPUT" | "OFFLINE_FOLLOW" | "CUSTODY_EXECUTE";
                 status?: "OPEN" | "CLAIMED" | "SUSPENDED" | "COMPLETED" | "CANCELLED";
-                view?: "mine" | "pool" | "reassign";
+                /** @description completed仅本人经办完成的任务，不接受非COMPLETED状态或overdue=true */
+                view?: "mine" | "pool" | "completed" | "reassign";
             };
             header?: never;
             path?: never;
@@ -31485,6 +31702,8 @@ export interface operations {
                                 businessId: string;
                                 /** @enum {string} */
                                 businessType: "INVENTORY_ADJUSTMENT" | "ORDER" | "AFTER_SALE" | "OFFLINE_CASE" | "CUSTODY_ARRANGEMENT";
+                                /** Format: date-time */
+                                closedAt: string | null;
                                 /** Format: date-time */
                                 dueAt: string | null;
                                 /** Format: date-time */

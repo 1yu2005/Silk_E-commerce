@@ -32182,7 +32182,7 @@
             "name": "groupBy",
             "required": false,
             "schema": {
-              "description": "分页单位；默认sku，product每页返回完整商品组",
+              "description": "分页单位；默认sku，product按商品分页。余额返回整款规格，流水每款预览最近5笔。",
               "enum": [
                 "sku",
                 "product"
@@ -32230,7 +32230,7 @@
                           "type": "string"
                         },
                         "groupBy": {
-                          "description": "分页单位；默认sku，product每页返回完整商品组",
+                          "description": "分页单位；默认sku，product按商品分页。余额返回整款规格，流水每款预览最近5笔。",
                           "enum": [
                             "sku",
                             "product"
@@ -32633,6 +32633,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -33191,6 +33192,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -33289,6 +33291,24 @@
             "required": false,
             "schema": {
               "maxLength": 120,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "productId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "categoryId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
               "type": "string"
             }
           },
@@ -33479,6 +33499,11 @@
                                 "format": "uuid",
                                 "type": "string"
                               },
+                              "createdByName": {
+                                "maxLength": 40,
+                                "minLength": 0,
+                                "type": "string"
+                              },
                               "evidenceNote": {
                                 "maxLength": 2000,
                                 "minLength": 0,
@@ -33488,6 +33513,91 @@
                               "id": {
                                 "format": "uuid",
                                 "type": "string"
+                              },
+                              "lines": {
+                                "items": {
+                                  "additionalProperties": false,
+                                  "properties": {
+                                    "batchKey": {
+                                      "maxLength": 80,
+                                      "minLength": 0,
+                                      "nullable": true,
+                                      "type": "string"
+                                    },
+                                    "categoryPath": {
+                                      "items": {
+                                        "maxLength": 80,
+                                        "minLength": 0,
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "choices": {
+                                      "items": {
+                                        "maxLength": 100,
+                                        "minLength": 0,
+                                        "type": "string"
+                                      },
+                                      "type": "array"
+                                    },
+                                    "deltaA": {
+                                      "maximum": 2147483647,
+                                      "minimum": -2147483647,
+                                      "type": "integer"
+                                    },
+                                    "id": {
+                                      "format": "uuid",
+                                      "type": "string"
+                                    },
+                                    "productCode": {
+                                      "maxLength": 64,
+                                      "minLength": 0,
+                                      "type": "string"
+                                    },
+                                    "productId": {
+                                      "format": "uuid",
+                                      "type": "string"
+                                    },
+                                    "productName": {
+                                      "maxLength": 120,
+                                      "minLength": 0,
+                                      "type": "string"
+                                    },
+                                    "skuCode": {
+                                      "maxLength": 64,
+                                      "minLength": 0,
+                                      "type": "string"
+                                    },
+                                    "skuId": {
+                                      "format": "uuid",
+                                      "type": "string"
+                                    },
+                                    "skuRetired": {
+                                      "type": "boolean"
+                                    },
+                                    "sourceReference": {
+                                      "maxLength": 100,
+                                      "minLength": 0,
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "skuCode",
+                                    "skuRetired",
+                                    "productId",
+                                    "productName",
+                                    "productCode",
+                                    "categoryPath",
+                                    "choices",
+                                    "id",
+                                    "skuId",
+                                    "batchKey",
+                                    "sourceReference",
+                                    "deltaA"
+                                  ],
+                                  "type": "object"
+                                },
+                                "type": "array"
                               },
                               "number": {
                                 "maxLength": 64,
@@ -33516,6 +33626,41 @@
                                   "VOID"
                                 ],
                                 "type": "string"
+                              },
+                              "task": {
+                                "additionalProperties": false,
+                                "nullable": true,
+                                "properties": {
+                                  "assigneeId": {
+                                    "format": "uuid",
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "assigneeName": {
+                                    "maxLength": 40,
+                                    "minLength": 0,
+                                    "nullable": true,
+                                    "type": "string"
+                                  },
+                                  "id": {
+                                    "format": "uuid",
+                                    "type": "string"
+                                  },
+                                  "status": {
+                                    "enum": [
+                                      "OPEN",
+                                      "CLAIMED"
+                                    ],
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "status",
+                                  "assigneeId",
+                                  "assigneeName"
+                                ],
+                                "type": "object"
                               },
                               "type": {
                                 "enum": [
@@ -33565,7 +33710,10 @@
                               "checkRequired",
                               "checkReasonCode",
                               "createdAt",
-                              "updatedAt"
+                              "updatedAt",
+                              "createdByName",
+                              "task",
+                              "lines"
                             ],
                             "type": "object"
                           },
@@ -33809,6 +33957,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -34610,6 +34759,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -34619,6 +34771,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -34843,6 +35001,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -35264,6 +35424,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -35997,6 +36158,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -36006,6 +36170,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -36230,6 +36400,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -36651,6 +36823,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -37491,6 +37664,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -37500,6 +37676,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -37724,6 +37906,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -38145,6 +38329,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -38905,6 +39090,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -38914,6 +39102,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -39138,6 +39332,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -39559,6 +39755,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -40352,6 +40549,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -40361,6 +40561,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -40585,6 +40791,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -41006,6 +41214,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -41766,6 +41975,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -41775,6 +41987,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -41999,6 +42217,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -42420,6 +42640,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -43201,6 +43422,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -43210,6 +43434,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -43434,6 +43664,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -43855,6 +44087,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -44621,6 +44854,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -44630,6 +44866,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -44854,6 +45096,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -45275,6 +45519,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -45378,6 +45623,46 @@
           },
           {
             "in": "query",
+            "name": "productId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "categoryId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "keyword",
+            "required": false,
+            "schema": {
+              "maxLength": 120,
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "groupBy",
+            "required": false,
+            "schema": {
+              "description": "分页单位；默认sku，product按商品分页。余额返回整款规格，流水每款预览最近5笔。",
+              "enum": [
+                "sku",
+                "product"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "eventType",
             "required": false,
             "schema": {
@@ -45432,6 +45717,36 @@
                     "data": {
                       "additionalProperties": false,
                       "properties": {
+                        "groupBy": {
+                          "description": "sku按流水分页；product按商品分页，每款预览最近5笔，可通过productId查询完整历史",
+                          "enum": [
+                            "sku",
+                            "product"
+                          ],
+                          "type": "string"
+                        },
+                        "groups": {
+                          "items": {
+                            "additionalProperties": false,
+                            "properties": {
+                              "productId": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "recordCount": {
+                                "maximum": 9007199254740991,
+                                "minimum": 0,
+                                "type": "integer"
+                              }
+                            },
+                            "required": [
+                              "productId",
+                              "recordCount"
+                            ],
+                            "type": "object"
+                          },
+                          "type": "array"
+                        },
                         "items": {
                           "items": {
                             "additionalProperties": false,
@@ -45448,6 +45763,11 @@
                               "actorEmployeeId": {
                                 "format": "uuid",
                                 "nullable": true,
+                                "type": "string"
+                              },
+                              "actorName": {
+                                "maxLength": 40,
+                                "minLength": 0,
                                 "type": "string"
                               },
                               "actorType": {
@@ -45492,6 +45812,22 @@
                                 "minLength": 0,
                                 "type": "string"
                               },
+                              "categoryPath": {
+                                "items": {
+                                  "maxLength": 80,
+                                  "minLength": 0,
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
+                              "choices": {
+                                "items": {
+                                  "maxLength": 100,
+                                  "minLength": 0,
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
                               "createdAt": {
                                 "format": "date-time",
                                 "type": "string"
@@ -45513,6 +45849,20 @@
                               },
                               "id": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "productCode": {
+                                "maxLength": 64,
+                                "minLength": 0,
+                                "type": "string"
+                              },
+                              "productId": {
+                                "format": "uuid",
+                                "type": "string"
+                              },
+                              "productName": {
+                                "maxLength": 120,
+                                "minLength": 0,
                                 "type": "string"
                               },
                               "quantityDamaged": {
@@ -45546,9 +45896,17 @@
                                 "minimum": 1,
                                 "type": "integer"
                               },
+                              "skuCode": {
+                                "maxLength": 64,
+                                "minLength": 0,
+                                "type": "string"
+                              },
                               "skuId": {
                                 "format": "uuid",
                                 "type": "string"
+                              },
+                              "skuRetired": {
+                                "type": "boolean"
                               },
                               "sourceLineId": {
                                 "format": "uuid",
@@ -45580,7 +45938,15 @@
                               "actorEmployeeId",
                               "actorCustomerId",
                               "requestId",
-                              "createdAt"
+                              "createdAt",
+                              "skuCode",
+                              "skuRetired",
+                              "productId",
+                              "productName",
+                              "productCode",
+                              "categoryPath",
+                              "choices",
+                              "actorName"
                             ],
                             "type": "object"
                           },
@@ -45596,6 +45962,16 @@
                           "minimum": 1,
                           "type": "integer"
                         },
+                        "productTotal": {
+                          "maximum": 9007199254740991,
+                          "minimum": 0,
+                          "type": "integer"
+                        },
+                        "recordTotal": {
+                          "maximum": 9007199254740991,
+                          "minimum": 0,
+                          "type": "integer"
+                        },
                         "total": {
                           "maximum": 9007199254740991,
                           "minimum": 0,
@@ -45606,7 +45982,11 @@
                         "items",
                         "total",
                         "page",
-                        "pageSize"
+                        "pageSize",
+                        "groups",
+                        "recordTotal",
+                        "productTotal",
+                        "groupBy"
                       ],
                       "type": "object"
                     },
@@ -45824,6 +46204,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -45963,6 +46344,9 @@
                     "data": {
                       "additionalProperties": false,
                       "properties": {
+                        "canDelete": {
+                          "type": "boolean"
+                        },
                         "changed": {
                           "type": "boolean"
                         },
@@ -45972,6 +46356,12 @@
                         },
                         "createdById": {
                           "format": "uuid",
+                          "type": "string"
+                        },
+                        "deleteBlockedReason": {
+                          "maxLength": 200,
+                          "minLength": 0,
+                          "nullable": true,
                           "type": "string"
                         },
                         "evidence": {
@@ -46196,6 +46586,8 @@
                         "createdById",
                         "createdAt",
                         "updatedAt",
+                        "canDelete",
+                        "deleteBlockedReason",
                         "lines",
                         "evidence"
                       ],
@@ -46415,6 +46807,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -46543,12 +46936,21 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "createdAt": {
                                 "format": "date-time",
                                 "type": "string"
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "id": {
@@ -46603,7 +47005,9 @@
                               "version",
                               "createdById",
                               "createdAt",
-                              "updatedAt"
+                              "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason"
                             ],
                             "type": "object"
                           },
@@ -46847,6 +47251,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -47006,6 +47411,9 @@
                     "data": {
                       "additionalProperties": false,
                       "properties": {
+                        "canDelete": {
+                          "type": "boolean"
+                        },
                         "changed": {
                           "type": "boolean"
                         },
@@ -47015,6 +47423,12 @@
                         },
                         "createdById": {
                           "format": "uuid",
+                          "type": "string"
+                        },
+                        "deleteBlockedReason": {
+                          "maxLength": 200,
+                          "minLength": 0,
+                          "nullable": true,
                           "type": "string"
                         },
                         "evidence": {
@@ -47239,6 +47653,8 @@
                         "createdById",
                         "createdAt",
                         "updatedAt",
+                        "canDelete",
+                        "deleteBlockedReason",
                         "lines",
                         "evidence"
                       ],
@@ -47458,6 +47874,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -47526,6 +47943,351 @@
       }
     },
     "/api/v1/admin/inventory/sources/{id}": {
+      "delete": {
+        "description": "库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。",
+        "operationId": "deleteInventorySource",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "expectedVersion": {
+                    "maximum": 2147483646,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "reason": {
+                    "maxLength": 500,
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "expectedVersion",
+                  "reason"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "deleted": {
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "deleted"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "SESSION_REVOKED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "INVENTORY_NOT_FOUND",
+                        "SOURCE_NOT_FOUND",
+                        "ADJUSTMENT_NOT_FOUND"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VERSION_CONFLICT",
+                        "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
+                        "SOURCE_BATCH_ALREADY_POSTED",
+                        "SOURCE_QUANTITY_EXCEEDED",
+                        "SOURCE_QUANTITY_BELOW_POSTED",
+                        "STOCK_INSUFFICIENT",
+                        "INVENTORY_LIMIT_EXCEEDED",
+                        "CORRECTION_NOT_ALLOWED",
+                        "INVENTORY_ACTION_CONFLICT",
+                        "INITIAL_CONVERSION_CONFLICT",
+                        "INITIAL_DRAFT_EMPTY",
+                        "INITIAL_DRAFT_NOT_EDITABLE",
+                        "ADJUSTMENT_NOT_PENDING",
+                        "TASK_NOT_ASSIGNEE",
+                        "INVENTORY_CHECK_REQUIRED",
+                        "INVENTORY_CHECK_UNRESOLVED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "adjustmentId": {
+                          "format": "uuid",
+                          "type": "string"
+                        },
+                        "checkRequired": {
+                          "type": "boolean"
+                        },
+                        "number": {
+                          "maxLength": 64,
+                          "minLength": 0,
+                          "type": "string"
+                        }
+                      },
+                      "required": [],
+                      "type": "object"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "删除没有登记或入账引用的来源凭据",
+        "tags": [
+          "Inventory"
+        ]
+      },
       "get": {
         "description": "库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。",
         "operationId": "getInventorySource",
@@ -47549,6 +48311,9 @@
                     "data": {
                       "additionalProperties": false,
                       "properties": {
+                        "canDelete": {
+                          "type": "boolean"
+                        },
                         "changed": {
                           "type": "boolean"
                         },
@@ -47558,6 +48323,12 @@
                         },
                         "createdById": {
                           "format": "uuid",
+                          "type": "string"
+                        },
+                        "deleteBlockedReason": {
+                          "maxLength": 200,
+                          "minLength": 0,
+                          "nullable": true,
                           "type": "string"
                         },
                         "evidence": {
@@ -47782,6 +48553,8 @@
                         "createdById",
                         "createdAt",
                         "updatedAt",
+                        "canDelete",
+                        "deleteBlockedReason",
                         "lines",
                         "evidence"
                       ],
@@ -48001,6 +48774,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -48136,6 +48910,9 @@
                     "data": {
                       "additionalProperties": false,
                       "properties": {
+                        "canDelete": {
+                          "type": "boolean"
+                        },
                         "changed": {
                           "type": "boolean"
                         },
@@ -48145,6 +48922,12 @@
                         },
                         "createdById": {
                           "format": "uuid",
+                          "type": "string"
+                        },
+                        "deleteBlockedReason": {
+                          "maxLength": 200,
+                          "minLength": 0,
+                          "nullable": true,
                           "type": "string"
                         },
                         "evidence": {
@@ -48369,6 +49152,8 @@
                         "createdById",
                         "createdAt",
                         "updatedAt",
+                        "canDelete",
+                        "deleteBlockedReason",
                         "lines",
                         "evidence"
                       ],
@@ -48588,6 +49373,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -52384,6 +53170,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -52855,6 +53642,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -78039,6 +78827,9 @@
                           "items": {
                             "additionalProperties": false,
                             "properties": {
+                              "canDelete": {
+                                "type": "boolean"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -78048,6 +78839,12 @@
                               },
                               "createdById": {
                                 "format": "uuid",
+                                "type": "string"
+                              },
+                              "deleteBlockedReason": {
+                                "maxLength": 200,
+                                "minLength": 0,
+                                "nullable": true,
                                 "type": "string"
                               },
                               "evidence": {
@@ -78272,6 +79069,8 @@
                               "createdById",
                               "createdAt",
                               "updatedAt",
+                              "canDelete",
+                              "deleteBlockedReason",
                               "lines",
                               "evidence"
                             ],
@@ -78693,6 +79492,7 @@
                       "enum": [
                         "VERSION_CONFLICT",
                         "SOURCE_ALREADY_EXISTS",
+                        "SOURCE_IN_USE",
                         "SOURCE_BATCH_ALREADY_POSTED",
                         "SOURCE_QUANTITY_EXCEEDED",
                         "SOURCE_QUANTITY_BELOW_POSTED",
@@ -89041,7 +89841,7 @@
     },
     "/api/v1/admin/tasks": {
       "get": {
-        "description": "默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；reassign须管理员task.transfer。所有范围还需真实业务读取权。按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。",
+        "description": "默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；completed仅本人经办完成，按完成时间倒序、ID升序，以完成历史中的原经办（无经办时取操作人）归属；reassign须管理员task.transfer。所有范围还需真实业务读取权。其它视图按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。completed不接受非COMPLETED状态或overdue=true。",
         "operationId": "listTasks",
         "parameters": [
           {
@@ -89144,6 +89944,7 @@
             }
           },
           {
+            "description": "completed仅本人经办完成的任务，不接受非COMPLETED状态或overdue=true",
             "in": "query",
             "name": "view",
             "required": false,
@@ -89152,6 +89953,7 @@
               "enum": [
                 "mine",
                 "pool",
+                "completed",
                 "reassign"
               ],
               "type": "string"
@@ -89243,6 +90045,11 @@
                                   "OFFLINE_CASE",
                                   "CUSTODY_ARRANGEMENT"
                                 ],
+                                "type": "string"
+                              },
+                              "closedAt": {
+                                "format": "date-time",
+                                "nullable": true,
                                 "type": "string"
                               },
                               "dueAt": {
@@ -89349,7 +90156,8 @@
                               "reassignNeeded",
                               "version",
                               "allowedActions",
-                              "business"
+                              "business",
+                              "closedAt"
                             ],
                             "type": "object"
                           },
@@ -89578,7 +90386,7 @@
             "bearerAuth": []
           }
         ],
-        "summary": "分页查询本人任务、合资格岗位池或管理员待安排",
+        "summary": "分页查询本人待办、已完成、合资格岗位池或管理员待安排",
         "tags": [
           "Tasks"
         ]

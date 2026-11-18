@@ -16,6 +16,13 @@ test('未知、重复、空白、指数、小数、越界、非法枚举和UUID�
   for (const search of ['view=other', 'page=0', 'page=-1', 'page=1e2', 'page=1.2', 'page=2147483648', 'pageSize=101', 'page=1&page=2',
     'view=mine&view=pool', 'anything=1', 'status=ACTIVE', 'stage=REFUND', 'businessType=OTHER', 'businessId=123', 'overdue=1', 'page=', 'overdue=']) assert.ok(parseTaskSearch(search).error, search);
 });
+
+test('已完成视图保留业务筛选与返回页码，拒绝矛盾状态和当前逾期', () => {
+  const query = { view: 'completed', page: 2, pageSize: 10, stage: 'INVENTORY_POST', businessType: 'INVENTORY_ADJUSTMENT', businessId: id };
+  assert.deepEqual(parseTaskSearch(taskSearchParams(query).toString()).query, query);
+  assert.equal(parseTaskSearch('view=completed&status=COMPLETED&overdue=false').query.view, 'completed');
+  for (const search of ['view=completed&status=CLAIMED', 'view=completed&status=CANCELLED', 'view=completed&overdue=true']) assert.ok(parseTaskSearch(search).error, search);
+});
 test('管理员待安排要求真实管理员岗位与有效转交权限同时满足', () => {
   assert.equal(canArrangeTasks(null), false); assert.equal(canArrangeTasks({ role: 'SUPER_ADMIN', effectivePermissions: [] }), false);
   assert.equal(canArrangeTasks({ role: 'CUSTOMER_SERVICE', effectivePermissions: ['task.transfer'] }), false);

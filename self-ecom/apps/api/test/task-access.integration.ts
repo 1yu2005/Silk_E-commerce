@@ -114,6 +114,16 @@ async function http<T>(path: string, options: { person?: Person | null; token?: 
 }
 const claim = (task: Task, who = warehouse, version = task.version, status = 200) => http<CommandData>(`/admin/tasks/${task.id}/claim`, { person: who, body: { expectedVersion: version }, status });
 const release = (task: Task, who = warehouse, version = 1, reason = '交班前已确认安全交接', status = 200) => http<CommandData>(`/admin/tasks/${task.id}/release`, { person: who, body: { expectedVersion: version, reason }, status });
+// 查询夹具复现真实完成行为：清空当前经办，将最终经办留在不可变完成历史中。
+async function finishTask(task: Task, assignee: Person | null = warehouse, actor: Person | null = assignee, outcome: 'COMPLETED' | 'CANCELLED' = 'COMPLETED') {
+  await prisma.$transaction(async tx => {
+    const current = await tx.task.findUniqueOrThrow({ where: { id: task.id } });
+    await tx.task.update({ where: { id: task.id }, data: { status: outcome, assigneeId: null, closedAt: clock(), version: { increment: 1 } } });
+    await tx.taskHistory.create({ data: { taskId: task.id, action: outcome, actorType: actor ? 'EMPLOYEE' : 'SYSTEM',
+      actorEmployeeId: actor?.identity.subjectId ?? null, fromAssigneeId: assignee?.identity.subjectId ?? null, toAssigneeId: null,
+      beforeStatus: current.status, afterStatus: outcome, reason: '完成列表查询夹具', commandKey: randomUUID(), requestId: randomUUID(), createdAt: clock() } });
+  });
+}
 async function state() { return { tasks: await prisma.task.findMany({ orderBy: { id: 'asc' } }), cursors: await prisma.taskStageCursor.findMany({ orderBy: { id: 'asc' } }),
   history: await prisma.taskHistory.findMany({ orderBy: { id: 'asc' } }), events: await prisma.deadlineEvent.findMany({ orderBy: { id: 'asc' } }), audit: await prisma.auditLog.findMany({ orderBy: { id: 'asc' } }),
   roots: await prisma.$queryRaw`SELECT * FROM task_entry_fixture ORDER BY id` }; }
@@ -177,6 +187,44 @@ it('相同截止与创建时刻按ID稳定分页，越界仍返回准确总数',
     expect(result.total).toBe(4); expect(result.items.map(task => task.id)).toEqual([expected[page - 1]]);
   }
   expect((await http<ListData>('/admin/tasks?view=pool&page=5&pageSize=1')).data).toMatchObject({ total: 4, items: [], page: 5, pageSize: 1 });
+});
+it('已完成依据最终经办归属，清空当前经办仍可见，排除取消和转交后他人完成', async () => {
+  const own = await makeTask(); await claim(own); await finishTask(own);
+  const systemClosed = await makeTask(); await claim(systemClosed); await finishTask(systemClosed, warehouse, null);
+  const other = await makeTask(); await claim(other); await release(other); await claim(other, manager, 2); await finishTask(other, manager);
+  const cancelled = await makeTask(); await claim(cancelled); await finishTask(cancelled, warehouse, warehouse, 'CANCELLED');
+  const automatic = await makeTask(); await finishTask(automatic, null, null);
+  const actorFallback = await makeTask(); await finishTask(actorFallback, null, warehouse);
+  const result = (await http<ListData>('/admin/tasks?view=completed')).data;
+  expect(result.total).toBe(3); expect(new Set(result.items.map(row => row.id))).toEqual(new Set([own.id, systemClosed.id, actorFallback.id]));
+  expect(result.items.every(row => row.status === 'COMPLETED' && row.assignee === null && row.allowedActions.length === 0)).toBe(true);
+  expect(result.items.every(row => row.closedAt?.toString() === clock().toISOString())).toBe(true);
+  expect((await http<ListData>('/admin/tasks?view=completed', { person: manager })).data.items.map(row => row.id)).toEqual([other.id]);
+  expect((await http<ListData>('/admin/tasks?view=mine')).data.total).toBe(0);
+  expect((await http<DetailData>(`/admin/tasks/${own.id}`)).data).toMatchObject({ status: 'COMPLETED', closedAt: clock().toISOString(), allowedActions: [] });
+  expect((await http<HistoryData>(`/admin/tasks/${own.id}/history`)).data.items.some(row => row.kind === 'TASK_CHANGE' && row.action === 'COMPLETED')).toBe(true);
+});
+it('已完成保留历史经办可见性，但不能越过真实业务读取权', async () => {
+  const task = await makeTask(); await claim(task); await finishTask(task, warehouse, null);
+  await prisma.employee.update({ where: { id: warehouse.identity.subjectId }, data: { role: 'CUSTOMER_SERVICE' } });
+  expect((await http<ListData>('/admin/tasks?view=completed')).data.items.map(row => row.id)).toEqual([task.id]);
+  await prisma.$executeRaw`UPDATE task_entry_fixture SET reader_employee_id=${manager.identity.subjectId}::uuid WHERE id=${task.businessId}::uuid`;
+  expect((await http<ListData>('/admin/tasks?view=completed')).data.total).toBe(0);
+  await http(`/admin/tasks/${task.id}`, { status: 404 }); await http(`/admin/tasks/${task.id}/history`, { status: 404 });
+});
+it('已完成按完成时间倒序和ID稳定分页，业务筛选与极大越界页准确', async () => {
+  const old = await makeTask(); await claim(old); await finishTask(old);
+  now += 1000;
+  const first = await makeTask(), second = await makeTask();
+  for (const task of [first, second]) { await claim(task); await finishTask(task); }
+  const expected = [...[first.id, second.id].sort(), old.id];
+  for (let page = 1; page <= expected.length; page++) {
+    const result = (await http<ListData>(`/admin/tasks?view=completed&status=COMPLETED&overdue=false&businessType=ORDER&stage=SHIPMENT_PROCESS&page=${page}&pageSize=1`)).data;
+    expect(result.total).toBe(3); expect(result.items.map(row => row.id)).toEqual([expected[page - 1]]);
+  }
+  expect((await http<ListData>(`/admin/tasks?view=completed&businessId=${old.businessId}`)).data.items.map(row => row.id)).toEqual([old.id]);
+  expect((await http<ListData>('/admin/tasks?view=completed&businessType=AFTER_SALE')).data).toMatchObject({ total: 0, items: [] });
+  expect((await http<ListData>('/admin/tasks?view=completed&page=9007199254740991&pageSize=100')).data).toMatchObject({ total: 3, items: [] });
 });
 it('列表与总数使用同一快照，查询中新增任务不污染本页', async () => {
   await makeTask(); const gate = barrier(); let scopes = 0; adapters.onScope = async () => { if (++scopes === 1) { gate.signal(); await gate.held; } };
@@ -279,7 +327,7 @@ it('锁计划归属变化整笔回滚后重定位，整体最多三次，不在�
   const pending = claim(task); await gate.ready; try { await peer.$executeRaw`UPDATE task_entry_fixture SET customer_id=${other}::uuid WHERE id=${task.businessId}::uuid`; } finally { gate.release(); }
   expect((await pending).data.changed).toBe(true); expect(calls).toBe(4); expect(await prisma.taskHistory.count({ where: { action: 'CLAIMED' } })).toBe(1);
 });
-it.each(['?page=0', '?pageSize=101', '?view=all', '?overdue=0', '?overdue=true&overdue=false', '?stage=toString', '?status=NOPE', '?businessId=invalid', '?secret=leak'])('严格查询拒绝%s', async query => {
+it.each(['?page=0', '?pageSize=101', '?view=all', '?overdue=0', '?overdue=true&overdue=false', '?stage=toString', '?status=NOPE', '?businessId=invalid', '?secret=leak', '?view=completed&status=OPEN', '?view=completed&status=CANCELLED', '?view=completed&overdue=true'])('严格查询拒绝%s', async query => {
   expect((await http(`/admin/tasks${query}`, { status: 400 })).code).toBe('VALIDATION_FAILED');
 });
 it.each([{ expectedVersion: '0' }, { expectedVersion: true }, { expectedVersion: 1.2 }, { expectedVersion: -1 }, { expectedVersion: 2147483648 }, { expectedVersion: 0, assigneeId: randomUUID() }, {}])('领取HTTP严格拒绝%s', async body => {

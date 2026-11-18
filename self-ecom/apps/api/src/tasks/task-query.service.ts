@@ -1,4 +1,4 @@
-// 作用：在一致快照内读取本人/岗位池/待安排、摘要、详情和统一时间线，范围和业务摘要都经过真实适配器裁剪。
+// 作用：在一致快照内读取待办/岗位池/本人已完成/待安排、摘要、详情和统一时间线，范围和业务摘要都经过真实适配器裁剪。
 import { Inject, Injectable } from '@nestjs/common';
 import { Prisma, type DeadlineEvent, type Task, type TaskHistoryAction, type TaskStatus } from '@prisma/client';
 import { normalizePagination, paginationWindow } from '@shop/shared';
@@ -34,6 +34,12 @@ export class TaskQueryService {
       const clauses = [await this.access.scope(tx, current, query.businessType)];
       if (query.view === 'mine') clauses.push(Prisma.sql`t.assignee_id=${current.subjectId}::uuid`);
       if (query.view === 'pool') clauses.push(Prisma.sql`t.status='OPEN' AND (${eligibleTaskSql(current)})`);
+      // 完成会清空当前经办，归属取完成瞬间的经办（无经办时取完成操作人），不能用任意参与历史代替。
+      if (query.view === 'completed') clauses.push(Prisma.sql`t.status='COMPLETED' AND (
+        SELECT COALESCE(h.from_assignee_id,h.actor_employee_id) FROM task_history h
+        WHERE h.task_id=t.id AND h.action='COMPLETED' AND h.after_status='COMPLETED'
+        ORDER BY h.created_at DESC,h.id DESC LIMIT 1
+      )=${current.subjectId}::uuid`);
       if (query.view === 'reassign') clauses.push(Prisma.sql`t.reassign_needed=true AND ${activeTaskSql}`);
       if (query.stage) clauses.push(Prisma.sql`t.stage=${query.stage}::"TaskStage"`);
       if (query.status) clauses.push(Prisma.sql`t.status=${query.status}::"TaskStatus"`);
@@ -44,10 +50,12 @@ export class TaskQueryService {
       const where = Prisma.join(clauses.map(clause => Prisma.sql`(${clause})`), ' AND ');
       const pagination = normalizePagination(query);
       const requestedOffset = ((BigInt(pagination.page) - 1n) * BigInt(pagination.pageSize)).toString();
+      const ordering = query.view === 'completed' ? Prisma.sql`e.closed_at DESC NULLS LAST,e.id ASC`
+        : Prisma.sql`e.due_at ASC NULLS LAST,e.created_at ASC,e.id ASC`;
       // 同一授权筛选只执行一次；越界偏移先以numeric比较，避免极大合法页码溢出bigint。
       const [selection] = await tx.$queryRaw<{ total: bigint; ids: string[] }[]>`
         WITH eligible AS MATERIALIZED (
-          SELECT t.id,t.due_at,t.created_at FROM task t WHERE ${where}
+          SELECT t.id,t.due_at,t.created_at,t.closed_at FROM task t WHERE ${where}
         ), task_total AS (SELECT count(*) AS total FROM eligible), bounds AS (
           SELECT total,
             CASE WHEN requested_offset<total THEN requested_offset::bigint ELSE 0::bigint END AS skip,
@@ -55,12 +63,13 @@ export class TaskQueryService {
           FROM task_total CROSS JOIN (SELECT ${requestedOffset}::numeric AS requested_offset) requested
         )
         SELECT total,ARRAY(SELECT e.id FROM eligible e
-          ORDER BY e.due_at ASC NULLS LAST,e.created_at ASC,e.id ASC
+          ORDER BY ${ordering}
           LIMIT (SELECT take FROM bounds) OFFSET (SELECT skip FROM bounds)) AS ids FROM bounds`;
       const total = Number(selection!.total); const window = paginationWindow(query, total);
       const ids = window.skip === null ? [] : selection!.ids;
       const tasks = await tx.task.findMany({ where: { id: { in: ids } } }); const byId = new Map(tasks.map(task => [task.id, task]));
-      const items = await this.access.presentMany(tx, current, ids.map(id => byId.get(id)!), now);
+      const views = await this.access.presentMany(tx, current, ids.map(id => byId.get(id)!), now);
+      const items = views.map(view => ({ ...view, closedAt: byId.get(view.id)!.closedAt }));
       return { items, total, page: query.page, pageSize: query.pageSize };
     }, readOptions);
   }

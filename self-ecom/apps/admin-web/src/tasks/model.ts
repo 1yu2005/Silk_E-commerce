@@ -2,14 +2,14 @@
 import type { ApiOperations, EmployeePermissions } from '@shop/api-client';
 
 export type TaskQuery = NonNullable<ApiOperations['listTasks']['parameters']['query']>;
-export type TaskSearch = TaskQuery & { view: 'mine' | 'pool' | 'reassign'; page: number; pageSize: number };
+export type TaskSearch = TaskQuery & { view: 'mine' | 'pool' | 'completed' | 'reassign'; page: number; pageSize: number };
 export type TaskList = ApiOperations['listTasks']['responses'][200]['content']['application/json']['data'];
 export type TaskItem = TaskList['items'][number];
 export type TaskDetail = ApiOperations['getTaskDetail']['responses'][200]['content']['application/json']['data'];
 export type TaskHistory = ApiOperations['getTaskHistory']['responses'][200]['content']['application/json']['data'];
 export type TaskSummary = ApiOperations['getTaskSummary']['responses'][200]['content']['application/json']['data'];
 export type TaskAction = TaskItem['allowedActions'][number];
-export const taskViews = { mine: '我的待办', pool: '岗位池', reassign: '管理员待安排' } as const;
+export const taskViews = { mine: '我的待办', pool: '岗位池', completed: '已完成', reassign: '管理员待安排' } as const;
 export const taskStatuses = { OPEN: '待领取', CLAIMED: '已领取', SUSPENDED: '已暂停', COMPLETED: '本环节完成', CANCELLED: '已取消' } as const;
 export const taskBusinesses = { INVENTORY_ADJUSTMENT: '库存调整', ORDER: '订单', AFTER_SALE: '售后', OFFLINE_CASE: '线下工单', CUSTODY_ARRANGEMENT: '实物保管' } as const;
 export const taskStages = {
@@ -41,6 +41,7 @@ export function parseTaskSearch(search: string): { query: TaskSearch; error?: ne
   }
   const businessId = params.get('businessId'); if (businessId !== null) { if (taskIdIssue(businessId)) return { error: '业务编号格式不正确。' }; query.businessId = businessId.toLowerCase(); }
   const overdue = params.get('overdue'); if (overdue !== null) { if (!['true', 'false'].includes(overdue)) return { error: '逾期筛选不正确。' }; query.overdue = overdue === 'true'; }
+  if (query.view === 'completed' && ((query.status && query.status !== 'COMPLETED') || query.overdue === true)) return { error: '已完成列表仅展示完成任务，请清除未完成状态或当前逾期筛选。' };
   return { query };
 }
 export function taskSearchParams(query: TaskSearch): URLSearchParams {

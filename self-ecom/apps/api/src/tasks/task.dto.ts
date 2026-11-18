@@ -7,7 +7,12 @@ import { strictBoolean } from '../common/http/dto-transforms.js';
 import { parseTaskDueAt } from './task-deadline-input.js';
 const provided = (_object: unknown, value: unknown) => value !== undefined;
 export class TaskQueryDto extends PaginationDto {
-  @IsIn(['mine', 'pool', 'reassign']) view: 'mine' | 'pool' | 'reassign' = 'mine';
+  @IsIn(['mine', 'pool', 'completed', 'reassign'])
+  @ValidateBy({ name: 'isCompletedTaskQuery', validator: { validate: (value, args) => {
+    const query = args!.object as TaskQueryDto;
+    return value !== 'completed' || ((!query.status || query.status === 'COMPLETED') && query.overdue !== true);
+  } } })
+  view: 'mine' | 'pool' | 'completed' | 'reassign' = 'mine';
   @ValidateIf(provided) @IsEnum(TaskStage) stage?: TaskStage;
   @ValidateIf(provided) @IsEnum(TaskStatus) status?: TaskStatus;
   @ValidateIf(provided) @IsEnum(TaskBusinessType) businessType?: TaskBusinessType;

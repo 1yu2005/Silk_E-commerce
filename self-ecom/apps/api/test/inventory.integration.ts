@@ -1,7 +1,7 @@
 // 作用：仅在本轮独占PostgreSQL验证库存成功事实、并发与失败回滚；不连接开发库制造余额。
 import 'reflect-metadata';
 import { randomUUID } from 'node:crypto';
-import { mkdtemp, writeFile } from 'node:fs/promises';
+import { mkdtemp, readFile, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import sharp from 'sharp';
@@ -40,6 +40,7 @@ const metadata=(controller:object,rows:Record<string,unknown[]>)=>{for(const [ke
 metadata(InventoryController.prototype,{list:[D.InventoryQueryDto],ledger:[D.InventoryQueryDto],action:[D.InventoryIdDto],sourceList:[D.InventoryQueryDto],sourceDetail:[D.InventoryIdDto],sourceCreate:[D.SourceCreateDto,Object,Object],sourceAdd:[D.InventoryIdDto,D.SourceAddLineDto,Object,Object],verify:[D.InventoryIdDto,D.SourceVerifyDto,Object,Object],adjustmentList:[D.InventoryQueryDto],adjustmentDetail:[D.InventoryIdDto],create:[D.AdjustmentCreateDto,Object,Object],edit:[D.InventoryIdDto,D.AdjustmentEditDto,Object,Object],claim:[D.InventoryIdDto,D.AdjustmentCommandDto,Object,Object],post:[D.InventoryIdDto,D.AdjustmentCommandDto,Object,Object],void:[D.InventoryIdDto,D.AdjustmentVoidDto,Object,Object],corrections:[D.InventoryIdDto,D.CorrectionCreateDto,Object,Object],resolve:[D.InventoryIdDto,D.AdjustmentResolveDto,Object,Object]});
 metadata(InventoryConversionController.prototype,{convert:[D.InventoryIdDto,D.InitialConvertDto,Object,Object]});
 metadata(InventorySkuController.prototype,{balance:[D.InventorySkuIdDto],threshold:[D.InventorySkuIdDto,D.InventoryThresholdDto,Object,Object]});
+metadata(InventoryController.prototype,{sourceDelete:[D.InventoryIdDto,D.InventoryReasonDto,Object,Object]});
 assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL,process.env.DATABASE_URL);
 if(process.env.NODE_ENV!=='test'||!/^\/m105_[a-f0-9]{32}_test$/.test(new URL(process.env.DATABASE_URL!).pathname))throw new Error('仅允许运行本轮独占库存测试库');
 class ControlledAudit extends AuditService{
@@ -73,6 +74,72 @@ async function fixture(quantity=100,type:'RECEIPT'|'LOSS'='RECEIPT',skuId?:strin
 async function pending(f:Awaited<ReturnType<typeof fixture>>,quantity:number,batchKey='B001',who=staff){return adjustments.create(ctx(who),{type:f.source.sourceType==='LOSS'?'AVAILABLE_LOSS':'ARRIVAL',reason:'隔离实收核实',evidenceNote:'独占夹具',lines:[{skuId:f.skuId,sourceLineId:f.line.id,quantity,...(f.source.sourceType==='LOSS'?{}:{batchKey})}]});}
 async function versions(id:string){const a=await db.inventoryAdjustment.findUniqueOrThrow({where:{id}});const t=await db.task.findFirstOrThrow({where:{businessType:'INVENTORY_ADJUSTMENT',businessId:id,stage:a.checkRequired?'INVENTORY_RECONCILE':'INVENTORY_POST',status:{in:['OPEN','CLAIMED']}}});return {expectedVersion:a.version,expectedTaskVersion:t.version};}
 async function post(id:string,who=staff){await adjustments.claim(ctx(who),id,await versions(id));const input=await versions(id);const result=await adjustments.post(ctx(who),id,input);return {result,input};}
+it('来源删除：无引用凭据可删除，清除从属行与图片关联，保留文件、审计及原库存',async()=>{
+ const f=await fixture(10),assetId=await upload();
+ await source.verify(ctx(),f.line.id,{expectedVersion:0,verifiedQuantity:10,reason:'补充收货图片',evidenceNote:'独占删除测试凭据',evidenceFileIds:[assetId]});
+ const asset=await db.fileAsset.findUniqueOrThrow({where:{id:assetId}}),bytes=await readFile(join(directory,asset.storageKey));
+ const balance=await db.inventoryBalance.findUniqueOrThrow({where:{skuId:f.skuId}});
+ const before=await call('/admin/inventory/sources/'+f.source.id);expect(before.json.data).toMatchObject({canDelete:true,deleteBlockedReason:null,version:1});
+ const result=await call('/admin/inventory/sources/'+f.source.id,'DELETE',{expectedVersion:1,reason:'删除未使用的误建凭据'});
+ expect(result.r.status).toBe(200);expect(result.json.data).toEqual({id:f.source.id,deleted:true});
+ expect((await call('/admin/inventory/sources/'+f.source.id)).r.status).toBe(404);
+ expect(await db.inventorySourceLine.count({where:{sourceId:f.source.id}})).toBe(0);
+ expect(await db.fileReference.count({where:{ownerType:'INVENTORY_SOURCE',ownerId:f.source.id}})).toBe(0);
+ expect(await db.fileAsset.findUniqueOrThrow({where:{id:assetId}})).toEqual(asset);expect(await readFile(join(directory,asset.storageKey))).toEqual(bytes);
+ expect(await db.inventoryBalance.findUniqueOrThrow({where:{skuId:f.skuId}})).toEqual(balance);
+ expect(await db.auditLog.findFirstOrThrow({where:{targetId:f.source.id,action:'inventory.source'},orderBy:{createdAt:'desc'}})).toMatchObject({reason:'删除未使用的误建凭据',afterData:{inventoryOperation:'DELETE'}});
+ const list=await call('/admin/inventory/sources?keyword='+f.source.reference);expect(list.json.data.items).toEqual([]);
+});
+it('来源删除：匿名、无权限、过期版本和非法输入均不能删除，重复删除返回不存在',async()=>{
+ const f=await fixture(),path='/admin/inventory/sources/'+f.source.id,body={expectedVersion:0,reason:'删除误建凭据'};
+ expect((await call(path,'DELETE',body,null)).r.status).toBe(401);
+ expect((await call(path,'DELETE',body,service)).r.status).toBe(403);
+ expect((await call(path,'DELETE',{...body,expectedVersion:1})).json.code).toBe('VERSION_CONFLICT');
+ for(const invalid of [{expectedVersion:0},{...body,reason:' '},{...body,unexpected:true}])expect((await call(path,'DELETE',invalid)).r.status).toBe(400);
+ expect(await db.inventorySource.findUnique({where:{id:f.source.id}})).not.toBeNull();
+ expect((await call(path,'DELETE',body)).r.status).toBe(200);expect((await call(path,'DELETE',body)).json.code).toBe('SOURCE_NOT_FOUND');
+});
+it('来源删除：待确认、已作废及已入账后全额更正为零的登记仍保护来源',async()=>{
+ for(const state of ['PENDING','VOID','CORRECTED'] as const){
+  const f=await fixture(2),p=await pending(f,2);
+  if(state==='VOID'){await adjustments.claim(ctx(),p.id,await versions(p.id));await adjustments.void(ctx(),p.id,{...await versions(p.id),reason:'保留作废依据'});}
+  if(state==='CORRECTED'){
+   await post(p.id);const root=await db.inventoryAdjustmentLine.findFirstOrThrow({where:{adjustmentId:p.id}});
+   const c=await adjustments.corrections(ctx(),p.id,{reason:'核对后全部冲回',evidenceNote:'保留原来源历史',lines:[{rootLineId:root.id,signedDeltaA:-2}]});await post(c.id);
+   expect(await db.inventorySourceLine.findUniqueOrThrow({where:{id:f.line.id}})).toMatchObject({netPostedQuantity:0});
+  }
+  const view=await call('/admin/inventory/sources/'+f.source.id);expect(view.json.data.canDelete).toBe(false);expect(view.json.data.deleteBlockedReason).toBeTruthy();
+  const list=await call('/admin/inventory/sources?keyword='+f.source.reference);expect(list.json.data.items[0].canDelete).toBe(false);
+  const result=await call('/admin/inventory/sources/'+f.source.id,'DELETE',{expectedVersion:0,reason:'尝试删除已引用来源'});
+  expect(result.r.status).toBe(409);expect(result.json.code).toBe('SOURCE_IN_USE');expect(await db.inventorySource.findUnique({where:{id:f.source.id}})).not.toBeNull();
+ }
+});
+it('来源删除：审计失败回滚凭据、明细及附件关联',async()=>{
+ const f=await fixture(3),assetId=await upload();
+ await source.verify(ctx(),f.line.id,{expectedVersion:0,verifiedQuantity:3,reason:'补充依据',evidenceNote:'故障回滚测试',evidenceFileIds:[assetId]});
+ const before=await app.get(InventoryQueries).source(f.source.id);
+ audit.checkpoint=async(_tx,payload)=>{if(payload.action==='inventory.source'&&payload.after?.inventoryOperation==='DELETE')throw new Error('隔离来源删除审计故障');};
+ try{await expect(source.remove(ctx(),f.source.id,{expectedVersion:1,reason:'故障回滚测试'})).rejects.toThrow('隔离来源删除审计故障');}finally{audit.checkpoint=undefined;}
+ expect(await app.get(InventoryQueries).source(f.source.id)).toEqual(before);
+ expect(await db.auditLog.count({where:{targetId:f.source.id,afterData:{path:['inventoryOperation'],equals:'DELETE'}}})).toBe(0);
+});
+it.each(['CREATE','DELETE'] as const)('来源删除与登记创建并发：%s 先取得来源锁时不会留下悬空引用',async first=>{
+ const f=await fixture(3),who=await actor();let entered!:()=>void,release!:()=>void;
+ const reached=new Promise<void>(r=>{entered=r;}),gate=new Promise<void>(r=>{release=r;});
+ audit.checkpoint=async(_tx,payload)=>{if((first==='CREATE'&&payload.action==='inventory.adjustment'&&payload.after?.inventoryOperation==='CREATE')
+  ||(first==='DELETE'&&payload.action==='inventory.source'&&payload.after?.inventoryOperation==='DELETE')){entered();await gate;}};
+ const deleting=()=>source.remove(ctx(who),f.source.id,{expectedVersion:0,reason:'并发删除测试'});
+ const creating=()=>pending(f,3);
+ try{
+  if(first==='CREATE'){
+   const creation=creating();await reached;const rejection=expect(deleting()).rejects.toMatchObject({code:'SOURCE_IN_USE'});release();await creation;await rejection;
+   expect(await db.inventorySource.findUnique({where:{id:f.source.id}})).not.toBeNull();
+  }else{
+   const deletion=deleting();await reached;const rejection=expect(creating()).rejects.toMatchObject({code:'SOURCE_NOT_FOUND'});release();await deletion;await rejection;
+   expect(await db.inventorySource.findUnique({where:{id:f.source.id}})).toBeNull();expect(await db.inventoryAdjustmentLine.count({where:{sourceLineId:f.line.id}})).toBe(0);
+  }
+ }finally{release();audit.checkpoint=undefined;}
+});
 it('库存浏览：整款分页、规格顺序、同名不同款、父分类及筛选汇总一致',async()=>{
  const categories=app.get(CategoryService),admin=await actor('SUPER_ADMIN');
  const category=async(name:string,parentId?:string)=>(await categories.write(admin.actor,admin.token,randomUUID(),null,{name,parentId},'create')).id;
@@ -120,6 +187,61 @@ it('库存浏览：整款分页、规格顺序、同名不同款、父分类及�
  expect((await call('/admin/inventory?groupBy=unknown')).r.status).toBe(400);
  expect((await call('/admin/inventory?categoryId=bad')).r.status).toBe(400);
  expect((await call('/admin/inventory?groupBy=product','GET',undefined,service)).r.status).toBe(403);
+},30000);
+it('流水浏览：分类覆盖子类、同名商品分组独立、预览与完整历史分页一致',async()=>{
+ const categories=app.get(CategoryService),admin=await actor('SUPER_ADMIN');
+ const root=(await categories.write(admin.actor,admin.token,randomUUID(),null,{name:'流水浏览分类'},'create')).id;
+ const child=(await categories.write(admin.actor,admin.token,randomUUID(),null,{name:'子类',parentId:root},'create')).id;
+ const a=await fixture(100),b=await fixture(100),outside=await fixture(100);
+ await db.product.update({where:{id:a.product!.id},data:{name:'流水浏览同名裙子',categoryId:child}});
+ await db.product.update({where:{id:b.product!.id},data:{name:'流水浏览同名裙子',categoryId:root}});
+ for(let i=0;i<7;i++)await post((await pending(a,1,'LEDGER-'+i)).id);
+ await post((await pending(b,2)).id);await post((await pending(outside,3)).id);
+ const list=async(query:string)=>{const r=await call('/admin/inventory/ledger?'+query);expect(r.r.status,JSON.stringify(r.json)).toBe(200);return r.json.data;};
+ const first=await list(`categoryId=${root}&groupBy=product&pageSize=1`),second=await list(`categoryId=${root}&groupBy=product&pageSize=1&page=2`);
+ expect(first).toMatchObject({groupBy:'product',total:2,recordTotal:8,productTotal:2});
+ expect(new Set([...first.groups,...second.groups].map((g:{productId:string})=>g.productId))).toEqual(new Set([a.product!.id,b.product!.id]));
+ const aPage=first.groups[0].productId===a.product!.id?first:second;
+ expect(aPage.items).toHaveLength(5);expect(aPage.groups[0].recordCount).toBe(7);
+ expect(aPage.items.every((r:{productId:string;categoryPath:string[];skuCode:string;actorName:string;deltaA:number})=>r.productId===a.product!.id&&r.categoryPath.join('/')==='流水浏览分类/子类'&&!!r.skuCode&&r.actorName==='库存隔离测试'&&r.deltaA===1)).toBe(true);
+ const full1=await list(`productId=${a.product!.id}&pageSize=3`),full2=await list(`productId=${a.product!.id}&pageSize=3&page=2`),full3=await list(`productId=${a.product!.id}&pageSize=3&page=3`);
+ expect(full1).toMatchObject({groupBy:'sku',total:7,recordTotal:7,groups:[]});
+ const all=[...full1.items,...full2.items,...full3.items];expect(new Set(all.map((r:{id:string})=>r.id)).size).toBe(7);
+ expect(all.slice(0,5).map((r:{id:string})=>r.id)).toEqual(aPage.items.map((r:{id:string})=>r.id));
+ expect((await list(`categoryId=${child}&keyword=流水浏览&eventType=ARRIVAL`)).total).toBe(7);
+ expect((await list(`businessNumber=${encodeURIComponent(full1.items[0].businessNumber)}`)).items[0].id).toBe(full1.items[0].id);
+ expect((await list(`skuId=${a.skuId}&actorEmployeeId=${staff.actor.subjectId}`)).total).toBe(7);
+ expect((await list('keyword=%&groupBy=product')).total).toBe(0);
+ expect((await list(`categoryId=${randomUUID()}&groupBy=product`))).toMatchObject({items:[],groups:[],total:0,recordTotal:0});
+ expect((await list(`productId=${outside.product!.id}`)).items[0].categoryPath).toEqual([]);
+ expect((await call('/admin/inventory/ledger?categoryId=bad')).r.status).toBe(400);
+ expect((await call('/admin/inventory/ledger?from=2030-02-01T00:00:00Z&to=2030-01-01T00:00:00Z')).r.status).toBe(400);
+ expect((await call('/admin/inventory/ledger','GET',undefined,service)).r.status).toBe(403);
+},30000);
+it('登记浏览：整张单展示商品来源及任务，分类筛选保留跨商品明细且读取不改库存',async()=>{
+ const f=await fixture(),g=await fixture(),categories=app.get(CategoryService),admin=await actor('SUPER_ADMIN');
+ const root=(await categories.write(admin.actor,admin.token,randomUUID(),null,{name:'登记浏览分类'},'create')).id;
+ const child=(await categories.write(admin.actor,admin.token,randomUUID(),null,{name:'登记子类',parentId:root},'create')).id;
+ await db.product.update({where:{id:f.product!.id},data:{name:'登记浏览外套',categoryId:child}});
+ const a=await adjustments.create(ctx(),{type:'ARRIVAL',reason:'浏览待入账测试',lines:[{skuId:f.skuId,sourceLineId:f.line.id,batchKey:'READ-A',quantity:20},{skuId:g.skuId,sourceLineId:g.line.id,batchKey:'READ-B',quantity:3}]});
+ const before=await db.inventoryBalance.findMany({where:{skuId:{in:[f.skuId,g.skuId]}},orderBy:{skuId:'asc'}});
+ const list=async(query:string)=>{const r=await call('/admin/inventory/adjustments?'+query);expect(r.r.status,JSON.stringify(r.json)).toBe(200);return r.json.data;};
+ const read=await list(`categoryId=${root}&status=PENDING`);
+ expect(read.total).toBe(1);expect(read.items[0]).toMatchObject({id:a.id,createdByName:'库存隔离测试',task:{status:'OPEN',assigneeId:null},status:'PENDING'});
+ expect(read.items[0].lines).toHaveLength(2);expect(read.items[0].lines.find((l:{skuId:string})=>l.skuId===f.skuId)).toMatchObject({productName:'登记浏览外套',sourceReference:f.source.reference,batchKey:'READ-A',deltaA:20,categoryPath:['登记浏览分类','登记子类']});
+ expect((await list(`keyword=${f.source.reference}`)).items[0].id).toBe(a.id);
+ expect((await list('keyword=登记浏览外套')).items[0].id).toBe(a.id);
+ expect((await list(`productId=${g.product!.id}`)).items[0].lines).toHaveLength(2);
+ expect(await db.inventoryBalance.findMany({where:{skuId:{in:[f.skuId,g.skuId]}},orderBy:{skuId:'asc'}})).toEqual(before);
+ await adjustments.claim(ctx(),a.id,await versions(a.id));
+ const claimed=await list(`assigneeId=${staff.actor.subjectId}&categoryId=${root}`);expect(claimed.items[0].task).toMatchObject({status:'CLAIMED',assigneeName:'库存隔离测试'});
+ await adjustments.void(ctx(),a.id,{...await versions(a.id),reason:'单据浏览作废验证'});
+ const voided=await list(`categoryId=${root}&status=VOID`);expect(voided.items[0]).toMatchObject({id:a.id,status:'VOID',task:null});
+ expect((await list(`assigneeId=${staff.actor.subjectId}&categoryId=${root}`)).total).toBe(0);
+ const posted=await pending(f,5,'READ-POSTED');await post(posted.id);
+ expect((await list(`categoryId=${root}&status=POSTED&type=ARRIVAL`)).items[0]).toMatchObject({id:posted.id,status:'POSTED',task:null});
+ expect((await list('keyword=%')).total).toBe(0);
+ expect((await call('/admin/inventory/adjustments?from=2030-02-01T00:00:00Z&to=2030-01-01T00:00:00Z')).r.status).toBe(400);
 },30000);
 it('IT01/SW01：来源规范身份、核实边界、SKU外键与原零账户复用',async()=>{
  const f=await fixture();expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:0,reserved:0});

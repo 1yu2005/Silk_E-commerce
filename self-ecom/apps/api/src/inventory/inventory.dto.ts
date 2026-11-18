@@ -78,6 +78,7 @@ export class InventoryQueryDto {
  @IsOptional() @IsString() @Length(1,120) keyword?:string;
  @IsOptional() @IsUUID() skuId?:string;
  @IsOptional() @IsUUID() categoryId?:string;
+ @IsOptional() @IsUUID() productId?:string;
  @IsOptional() @IsIn(['sku','product']) groupBy?:'sku'|'product';
  @IsOptional() @IsIn(['true','false']) lowStock?:string;
  @IsOptional() @IsIn(['true','false']) purchaseBlocked?:string;
@@ -85,7 +86,7 @@ export class InventoryQueryDto {
  @IsOptional() @IsIn(['PENDING','POSTED','VOID']) status?:'PENDING'|'POSTED'|'VOID';
  @IsOptional() @IsIn(['INITIALIZATION','ARRIVAL','AVAILABLE_LOSS','CORRECTION']) type?:'INITIALIZATION'|'ARRIVAL'|'AVAILABLE_LOSS'|'CORRECTION';
  @IsOptional() @IsUUID() assigneeId?:string;
- @IsOptional() @IsIn(['INITIALIZATION','ARRIVAL','AVAILABLE_LOSS','CORRECTION','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT']) eventType?:string;
+ @IsOptional() @IsIn(['INITIALIZATION','ARRIVAL','AVAILABLE_LOSS','CORRECTION','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','REFUNDED_AVAILABLE_LOSS']) eventType?:string;
  @IsOptional() @IsString() @Length(1,64) businessNumber?:string;
  @IsOptional() @IsUUID() actorEmployeeId?:string;
  @IsOptional() @IsISO8601({strict:true}) from?:string;

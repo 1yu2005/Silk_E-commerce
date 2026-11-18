@@ -111,7 +111,7 @@ function snapshot(value: Record<string, unknown> | undefined, fields: readonly s
     else if(field==='closeReasonCode') valid=typeof item==='string'&&['USER_CANCELLED','ADMIN_CLOSED','PAYMENT_TIMEOUT'].includes(item);
     else if(field==='incidentAction') valid=typeof item==='string'&&['CREATE','VERIFY','REPLENISH','RESOLVE','SETTLE'].includes(item);
     else if (field === 'inventoryVersion' || field === 'inventoryQuantity') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
-    else if(field === 'inventoryOperation') valid=typeof item==='string'&&['MANUAL_POST','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','REFUNDED_AVAILABLE_LOSS','CREATE','EDIT','VERIFY','CONVERT','POST','VOID','CHECK','RESOLVE','THRESHOLD','BLOCK','UNBLOCK'].includes(item);
+    else if(field === 'inventoryOperation') valid=typeof item==='string'&&['MANUAL_POST','RESERVE','PAY','CLOSE','RETURN_RESTOCK','UNSHIPPED_REFUND_RESTOCK','PAID_PREPARATION_LOSS','ALLOCATE_REPLACEMENT','REFUNDED_AVAILABLE_LOSS','CREATE','EDIT','VERIFY','DELETE','CONVERT','POST','VOID','CHECK','RESOLVE','THRESHOLD','BLOCK','UNBLOCK'].includes(item);
     else if (field === 'catalogVersion' || field === 'affectedCount') valid = Number.isInteger(item) && (item as number)>=0 && (item as number)<=2147483647;
     else if (field === 'catalogAction') valid = typeof item==='string' && /^[a-z.-]{1,60}$/.test(item);
     else if (field === 'catalogChanges') valid = Array.isArray(item) && item.length<=1000 && item.every(change => {

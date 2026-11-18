@@ -12,7 +12,7 @@ const pageFields = { total: integer(0, Number.MAX_SAFE_INTEGER), page: integer(1
 export const pageParameters: ApiQueryOptions[] = [{ name: 'page', required: false, schema: { ...pageFields.page, default: 1 } },
   { name: 'pageSize', required: false, schema: { ...pageFields.pageSize, default: 20 } }];
 export const taskQueryParameters: ApiQueryOptions[] = [
-  { name: 'view', required: false, schema: { ...enumeration(['mine', 'pool', 'reassign']), default: 'mine' } },
+  { name: 'view', required: false, description: 'completed仅本人经办完成的任务，不接受非COMPLETED状态或overdue=true', schema: { ...enumeration(['mine', 'pool', 'completed', 'reassign']), default: 'mine' } },
   { name: 'stage', required: false, schema: enumeration(Object.values(TaskStage)) }, { name: 'status', required: false, schema: enumeration(Object.values(TaskStatus)) },
   { name: 'businessType', required: false, schema: enumeration(Object.values(TaskBusinessType)) }, { name: 'businessId', required: false, schema: uuid },
   { name: 'overdue', required: false, schema: { type: 'boolean' } },
@@ -35,7 +35,7 @@ export const transferTaskBody = object({ targetEmployeeId: uuid, expectedVersion
 transferTaskBody.properties.physicalHandoff=object({physicalVersion:integer(),goodsLocation:text(200),items:{type:'array',minItems:1,maxItems:100,items:object({orderItemId:uuid,checkedQuantity:integer(1,99)})}});
 export const extendTaskDeadlineBody = object({ newDueAt: { ...date, pattern: '^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{1,3})?Z$',
   description: '真实有效的ISO UTC时刻，必须带Z，精度最多毫秒；必须晚于当前截止及服务器当前时间' }, expectedVersion: integer(), reason: text(500) });
-export const taskListSchema = envelope(object({ items: { type: 'array', maxItems: 100, items: task }, ...pageFields }));
+export const taskListSchema = envelope(object({ items: { type: 'array', maxItems: 100, items: object({ ...task.properties, closedAt: { ...date, nullable: true } }) }, ...pageFields }));
 export const taskCommandSchema = envelope(object({ changed: { type: 'boolean' }, task }));
 export const taskDetailSchema = envelope(object({ ...task.properties, settingsVersionId: { ...uuid, nullable: true }, closedAt: { ...date, nullable: true },
   ruleSnapshot: object({ ruleCode: { type: 'string', nullable: true }, source: { type: 'string', nullable: true }, sourceField: { type: 'string', nullable: true },

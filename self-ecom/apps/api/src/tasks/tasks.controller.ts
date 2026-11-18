@@ -21,7 +21,7 @@ export class TasksController {
   constructor(@Inject(TaskQueryService) private readonly queries: TaskQueryService, @Inject(TaskCommandService) private readonly commands: TaskCommandService,
     @Inject(TaskDeadlineService) private readonly deadlines: TaskDeadlineService) {}
   @Get() @Header('Cache-Control', 'no-store')
-  @ApiOperation({ operationId: 'listTasks', summary: '分页查询本人任务、合资格岗位池或管理员待安排', description: '默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；reassign须管理员task.transfer。所有范围还需真实业务读取权。按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。' })
+  @ApiOperation({ operationId: 'listTasks', summary: '分页查询本人待办、已完成、合资格岗位池或管理员待安排', description: '默认mine，仅当前本人经办；pool仅当前完整资格且OPEN；completed仅本人经办完成，按完成时间倒序、ID升序，以完成历史中的原经办（无经办时取操作人）归属；reassign须管理员task.transfer。所有范围还需真实业务读取权。其它视图按截止升序、无截止在后、创建时间/ID稳定排序；overdue为当前未终结任务是否到期。completed不接受非COMPLETED状态或overdue=true。' })
   @ApiQuery(taskQueryParameters[0]!) @ApiQuery(taskQueryParameters[1]!) @ApiQuery(taskQueryParameters[2]!) @ApiQuery(taskQueryParameters[3]!)
   @ApiQuery(taskQueryParameters[4]!) @ApiQuery(taskQueryParameters[5]!) @ApiQuery(pageParameters[0]!) @ApiQuery(pageParameters[1]!)
   @ApiOkResponse({ headers: requestIdHeader, schema: taskListSchema })

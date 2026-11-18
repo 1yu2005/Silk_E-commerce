@@ -1,4 +1,4 @@
-/** 文件作用：展示真实待办、合资格岗位池和管理员待安排，地址保留筛选分页与返回位置。 */
+/** 文件作用：展示真实待办、合资格岗位池、本人已完成和管理员待安排，地址保留筛选分页与返回位置。 */
 import { useMemo } from 'react';
 import { Alert, Button, Form, Input, Select, Space, Table, Tag } from 'antd';
 import type { TableColumnsType } from 'antd';
@@ -24,25 +24,27 @@ function TaskFilters({ query, change }: { query: TaskSearch; change: (value: Tas
     ...(values.stage ? { stage: values.stage } : {}), ...(values.status ? { status: values.status } : {}), ...(values.businessType ? { businessType: values.businessType } : {}),
     ...(values.businessId?.trim() ? { businessId: values.businessId.trim().toLowerCase() } : {}), ...(values.overdue !== undefined ? { overdue: values.overdue === 'true' } : {}) })}>
     <Form.Item name="stage" label="任务阶段"><Select allowClear placeholder="全部阶段" options={Object.entries(taskStages).map(([value, label]) => ({ value, label }))} /></Form.Item>
-    <Form.Item name="status" label="任务状态"><Select allowClear placeholder="全部状态" options={Object.entries(taskStatuses).map(([value, label]) => ({ value, label }))} /></Form.Item>
+    {query.view !== 'completed' ? <Form.Item name="status" label="任务状态"><Select allowClear placeholder="全部状态" options={Object.entries(taskStatuses).map(([value, label]) => ({ value, label }))} /></Form.Item> : null}
     <Form.Item name="businessType" label="业务类型"><Select allowClear placeholder="全部业务" options={Object.entries(taskBusinesses).map(([value, label]) => ({ value, label }))} /></Form.Item>
-    <Form.Item name="overdue" label="当前逾期"><Select allowClear placeholder="全部期限" options={[{ value: 'true', label: '当前已逾期' }, { value: 'false', label: '当前未逾期' }]} /></Form.Item>
+    {query.view !== 'completed' ? <Form.Item name="overdue" label="当前逾期"><Select allowClear placeholder="全部期限" options={[{ value: 'true', label: '当前已逾期' }, { value: 'false', label: '当前未逾期' }]} /></Form.Item> : null}
     <Form.Item name="businessId" label="业务编号（UUID）" rules={[{ validator: (_, value: string | undefined) => !value?.trim() || !taskIdIssue(value.trim()) ? Promise.resolve() : Promise.reject(new Error('请输入有效的业务编号')) }]}><Input allowClear placeholder="可选，输入完整业务编号" /></Form.Item>
     <Space wrap className="task-filter-actions"><Button type="primary" htmlType="submit">查询任务</Button><Button onClick={() => change({ view: query.view, page: 1, pageSize: 20 })}>重置筛选</Button></Space>
   </Form>;
 }
 function TaskList({ query, change }: { query: TaskSearch; change: (value: TaskSearch) => void }) {
+  const completed = query.view === 'completed';
   const key = taskSearchParams(query).toString(); const state = useEmployeeQuery(taskQueries.list, key, query);
   const refresh = () => { void taskQueries.list.read(key, query, true); void taskQueries.summary.read('summary', undefined, true); };
   const columns: TableColumnsType<TaskItem> = [
-    { title: '业务与阶段', key: 'business', width: 300, render: (_, row) => <><Link to={`/tasks/${row.id}?${key}`}>{row.business.number}</Link><div className="task-subline">{taskStages[row.stage]} · 第{row.round}轮</div><div className="task-subline">{row.business.label}</div></> },
-    { title: '状态与经办', key: 'state', width: 180, render: (_, row) => <><Tag color={row.status === 'CLAIMED' ? 'blue' : 'default'}>{taskStatuses[row.status]}</Tag><div className="task-subline">{row.assignee?.displayName ?? '尚未分配经办'}</div>{row.reassignNeeded ? <Tag color="orange">待安排</Tag> : null}</> },
-    { title: '截止时间（北京时间）', key: 'deadline', width: 235, render: (_, row) => <>{row.dueAt ? beijingTime(row.dueAt) : '未指定截止时间'}<div>{row.isCurrentlyOverdue ? <Tag color="red">当前已逾期</Tag> : null}{row.hasEverOverdue ? <Tag color="orange">曾逾期</Tag> : null}</div></> },
-    { title: '操作', key: 'detail', width: 110, render: (_, row) => <Link to={`/tasks/${row.id}?${key}`}>查看任务</Link> },
+    { title: '业务与阶段', key: 'business', width: 300, render: (_, row) => <><Link to={`/tasks/${row.id}?${key}`}>{row.business.number}</Link><div className="task-subline">{taskStages[row.stage]} · 第{row.round}轮</div><div className="task-subline">{['COMPLETED', 'CANCELLED'].includes(row.status) ? taskBusinesses[row.businessType] : row.business.label}</div></> },
+    { title: completed ? '办理结果' : '状态与经办', key: 'state', width: 180, render: (_, row) => <><Tag color={row.status === 'COMPLETED' ? 'green' : row.status === 'CLAIMED' ? 'blue' : 'default'}>{taskStatuses[row.status]}</Tag><div className="task-subline">{completed ? '本人经办完成' : row.assignee?.displayName ?? (['COMPLETED', 'CANCELLED'].includes(row.status) ? '本环节已结束' : '尚未分配经办')}</div>{row.reassignNeeded ? <Tag color="orange">待安排</Tag> : null}</> },
+    { title: completed ? '完成时间（北京时间）' : '截止时间（北京时间）', key: 'deadline', width: 235, render: (_, row) => <>{completed ? (row.closedAt ? beijingTime(row.closedAt) : '未记录完成时间') : (row.dueAt ? beijingTime(row.dueAt) : '未指定截止时间')}{completed && row.dueAt ? <div className="task-subline">截止：{beijingTime(row.dueAt)}</div> : null}<div>{row.isCurrentlyOverdue ? <Tag color="red">当前已逾期</Tag> : null}{row.hasEverOverdue ? <Tag color="orange">曾逾期</Tag> : null}</div></> },
+    { title: '操作', key: 'detail', width: 110, render: (_, row) => <Link to={`/tasks/${row.id}?${key}`}>{completed ? '查看记录' : '查看任务'}</Link> },
   ];
   return <><TaskFilters key={key} query={query} change={change} /><div className="employee-result-heading"><h2>{taskViews[query.view]}</h2><Button onClick={refresh} disabled={state.status === 'loading'}>刷新任务</Button></div>
+    {completed ? <p className="muted">显示本人经办完成的任务，按完成时间从新到旧排列。完成仅代表当前任务环节结束。</p> : null}
     {state.status === 'ready' && state.data ? <Table<TaskItem> className="task-table" rowKey="id" columns={columns} dataSource={state.data.items} scroll={{ x: 825 }}
-      locale={{ emptyText: query.view === 'pool' ? '暂无可领取的任务。岗位池仅展示你有资格领取的任务。' : query.view === 'reassign' ? '暂无待安排任务。' : '暂无待办，可到岗位池查看可领取的任务。' }}
+      locale={{ emptyText: completed ? '暂无符合筛选条件的已完成任务。' : query.view === 'pool' ? '暂无可领取的任务。岗位池仅展示你有资格领取的任务。' : query.view === 'reassign' ? '暂无待安排任务。' : '暂无待办，可到岗位池查看可领取的任务。' }}
       pagination={{ current: query.page, pageSize: query.pageSize, total: state.data.total, showTotal: total => `共 ${total} 项任务`, showSizeChanger: true, pageSizeOptions: [10, 20, 50, 100],
         onChange: (page, pageSize) => change({ ...query, page: pageSize === query.pageSize ? page : 1, pageSize }) }} /> : <TaskQueryState error={state.error} retry={refresh} />}</>;
 }

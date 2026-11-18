@@ -1,5 +1,5 @@
 // 作用：库存静态路径先注册，所有写命令只接收业务输入；余额没有直接覆盖或改R入口。
-import { Body, Controller, Get, HttpCode, Inject, Param, Patch, Post, Put, Query, Req } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Inject, Param, Patch, Post, Put, Query, Req } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { EmployeeAccess } from '../auth/auth.decorators.js';
 import { CurrentActor, readBearerToken, type AuthHttpRequest } from '../auth/auth-request-context.js';
@@ -17,7 +17,7 @@ export class InventoryController {
  constructor(@Inject(InventoryQueries) private readonly queries:InventoryQueries,@Inject(InventorySources) private readonly sources:InventorySources,@Inject(InventoryAdjustments) private readonly adjustments:InventoryAdjustments){}
  @Get() @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','keyword','skuId','categoryId','groupBy','lowStock','purchaseBlocked']) @O.Endpoint('listInventoryBalances','筛选库存；groupBy=product时按整款分页，默认按SKU分页',O.balanceList)
  list(@Query() q:D.InventoryQueryDto){return this.queries.balances(q);}
- @Get('ledger') @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','skuId','eventType','businessNumber','actorEmployeeId','from','to']) @O.Endpoint('listInventoryLedger','库存不可改流水',O.ledgerList)
+ @Get('ledger') @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','skuId','productId','categoryId','keyword','groupBy','eventType','businessNumber','actorEmployeeId','from','to']) @O.Endpoint('listInventoryLedger','库存不可改流水',O.ledgerList)
  ledger(@Query() q:D.InventoryQueryDto){return this.queries.ledger(q);}
  @Get('actions/:id') @EmployeeAccess('inventory.read') @O.Params() @O.Endpoint('getInventoryAction','库存成功动作及关联流水',O.action)
  action(@Param() p:D.InventoryIdDto){return this.queries.action(p.id);}
@@ -25,13 +25,15 @@ export class InventoryController {
  sourceList(@Query() q:D.InventoryQueryDto){return this.queries.sources(q);}
  @Get('sources/:id') @EmployeeAccess('inventory.read') @O.Params() @O.Endpoint('getInventorySource','来源行净量和实际批次',O.sourceDetail)
  sourceDetail(@Param() p:D.InventoryIdDto){return this.queries.source(p.id);}
+ @Delete('sources/:id') @EmployeeAccess('inventory.source.manage') @O.Params() @O.Endpoint('deleteInventorySource','删除没有登记或入账引用的来源凭据',O.sourceDeleted,O.sourceDelete)
+ sourceDelete(@Param() p:D.InventoryIdDto,@Body() b:D.InventoryReasonDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){return this.sources.remove(ctx(a,r),p.id,b);}
  @Post('sources') @EmployeeAccess('inventory.source.manage') @O.Endpoint('createInventorySource','创建核实来源凭据',O.sourceDetail,O.sourceCreate,true)
  async sourceCreate(@Body() b:D.SourceCreateDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){const result=await this.sources.create(ctx(a,r),b);return {...await this.queries.source(result.id),changed:result.changed};}
  @Post('sources/:id/lines') @EmployeeAccess('inventory.source.manage') @O.Params() @O.Endpoint('addInventorySourceLine','追加固定SKU的核实来源行',O.sourceDetail,O.sourceAdd,true)
  async sourceAdd(@Param() p:D.InventoryIdDto,@Body() b:D.SourceAddLineDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){await this.sources.addLine(ctx(a,r),p.id,b);return {...await this.queries.source(p.id),changed:true};}
  @Put('source-lines/:id/verified-quantity') @EmployeeAccess('inventory.source.manage') @O.Params() @O.Endpoint('verifyInventorySourceLine','有证据地修订核实数量',O.sourceDetail,O.sourceVerify)
  async verify(@Param() p:D.InventoryIdDto,@Body() b:D.SourceVerifyDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){const line=await this.sources.verify(ctx(a,r),p.id,b);return {...await this.queries.source(line.sourceId),changed:true};}
- @Get('adjustments') @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','keyword','status','type','assigneeId','from','to']) @O.Endpoint('listInventoryAdjustments','筛选库存登记',O.adjustmentList)
+ @Get('adjustments') @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','keyword','productId','categoryId','status','type','assigneeId','from','to']) @O.Endpoint('listInventoryAdjustments','筛选库存登记',O.adjustmentList)
  adjustmentList(@Query() q:D.InventoryQueryDto){return this.queries.adjustments(q);}
  @Get('adjustments/:id') @EmployeeAccess('inventory.read') @O.Params() @O.Endpoint('getInventoryAdjustment','登记、经办、核实和账务事实',O.adjustmentDetail)
  adjustmentDetail(@Param() p:D.InventoryIdDto){return this.queries.adjustment(p.id);}

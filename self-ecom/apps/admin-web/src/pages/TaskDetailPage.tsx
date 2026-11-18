@@ -37,7 +37,7 @@ function TaskDetail({ id }: { id: string }) {
       <Descriptions bordered column={{ xs: 1, sm: 1, md: 2 }} items={[
         { key: 'business', label: '业务号', children: businessPath ? <Link to={businessPath}>{task.business.number}</Link> : task.business.number, span: 2 },
         { key: 'type', label: '业务类型', children: taskBusinesses[task.businessType] }, { key: 'round', label: '阶段轮次', children: `第${task.round}轮` },
-        { key: 'assignee', label: '当前经办', children: task.assignee?.displayName ?? '尚未分配经办' }, { key: 'version', label: '任务版本', children: task.version },
+        { key: 'assignee', label: '当前经办', children: task.assignee?.displayName ?? (['COMPLETED', 'CANCELLED'].includes(task.status) ? '本环节已结束，无当前经办' : '尚未分配经办') }, { key: 'version', label: '任务版本', children: task.version },
         { key: 'startedAt', label: '开始时间（北京时间）', children: beijingTime(task.startedAt) }, { key: 'dueAt', label: '当前截止（北京时间）', children: task.dueAt ? beijingTime(task.dueAt) : '未指定截止时间' },
         { key: 'originalDueAt', label: '原始截止（北京时间）', children: task.originalDueAt ? beijingTime(task.originalDueAt) : '本阶段原来没有自动期限' }, { key: 'firstOverdueAt', label: '首次逾期（北京时间）', children: task.firstOverdueAt ? beijingTime(task.firstOverdueAt) : '暂无记录' },
         { key: 'closedAt', label: '结束时间（北京时间）', children: task.closedAt ? beijingTime(task.closedAt) : '尚未结束' },

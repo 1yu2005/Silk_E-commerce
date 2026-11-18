@@ -29,6 +29,12 @@ it('查询复用严格布尔/分页，释放Unicode规范化长度与HTTP一致'
   expect(await validate(plainToInstance(ReleaseTaskDto, { expectedVersion: 0, reason: ` ${'😀'.repeat(500)} ` }))).toHaveLength(0);
   expect(await validate(plainToInstance(ReleaseTaskDto, { expectedVersion: 0, reason: '😀'.repeat(501) }))).not.toHaveLength(0);
 });
+it('已完成视图接受业务筛选，拒绝非完成状态和当前逾期条件', async () => {
+  for (const input of [{ view: 'completed' }, { view: 'completed', status: 'COMPLETED', overdue: 'false', businessType: 'INVENTORY_ADJUSTMENT' }])
+    expect(await validate(plainToInstance(TaskQueryDto, input))).toHaveLength(0);
+  for (const input of [{ view: 'completed', status: 'OPEN' }, { view: 'completed', status: 'CANCELLED' }, { view: 'completed', overdue: 'true' }])
+    expect(await validate(plainToInstance(TaskQueryDto, input))).not.toHaveLength(0);
+});
 it('补充锁集合变化重试与数据库冲突共用总共三次上限，普通业务拒绝仍不重试', async () => {
   const error = new TaskError('TASK_LOCK_PLAN_CHANGED'); const transaction = vi.fn().mockRejectedValue(error); const retry = (value: unknown) => value instanceof TaskError && value.code === 'TASK_LOCK_PLAN_CHANGED';
   await expect(runAuthTransaction({ $transaction: transaction } as unknown as PrismaService, vi.fn(), retry)).rejects.toBe(error); expect(transaction).toHaveBeenCalledTimes(3);
