@@ -149,10 +149,6 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .catalog-create label { min-width:280px; }
 .catalog-create label,.catalog-filter label,.catalog-batch label { margin:0; }
 .catalog-section-nav { display:flex; flex-wrap:wrap; gap:22px; margin:24px 0; padding:14px 0; border-block:1px solid #dce5e9; }
-.category-tree { list-style:none; padding:0; }
-.category-tree li { display:flex; gap:12px; align-items:center; padding:14px 0; border-bottom:1px solid #edf1f3; }
-.category-tree li span { flex:1; }
-.category-tree small { color:#536a79; }
 .product-name-cell { display:flex; align-items:center; gap:14px; }
 .product-name-cell img,.image-placeholder { width:48px; height:64px; object-fit:cover; background:#eeeae3; display:grid; place-items:center; }
 .product-name-cell small,.sku-table small { display:block; font-size:12px; color:#536a79; margin:6px 0; overflow-wrap:anywhere; }

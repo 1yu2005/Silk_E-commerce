@@ -48,7 +48,14 @@ try{
   scenario='分类新增、三级树与子树移动';await page.goto(adminOrigin+'/categories');await page.getByLabel('分类名称',{exact:true}).fill('服装验收');await page.getByRole('button',{name:'保存分类',exact:true}).click();await page.getByText('服装验收',{exact:true}).first().waitFor();
   const roots=await request('/admin/categories/tree'),rootCategory=roots.find(c=>c.name==='服装验收');assert.ok(rootCategory);
   const child=await request('/admin/categories','POST',{name:'上衣',parentId:rootCategory.id});await request('/admin/categories','POST',{name:'T恤',parentId:child.id});
-  await page.getByRole('button',{name:'刷新分类'}).click();await page.locator('.category-tree').getByText('　上衣',{exact:true}).waitFor();await page.locator('.category-tree li').filter({hasText:'上衣'}).getByRole('button').click();
+  await page.getByRole('button',{name:'刷新分类'}).click();await page.locator('.category-tree').getByText('服装验收',{exact:true}).waitFor();
+  await page.locator('.category-tree').getByText('上衣',{exact:true}).waitFor({state:'hidden'});
+  await page.getByRole('button',{name:'展开「服装验收」的下级分类',exact:true}).click();await page.locator('.category-tree').getByText('上衣',{exact:true}).waitFor();
+  await page.locator('.category-tree').getByText('T恤',{exact:true}).waitFor({state:'hidden'});
+  await page.getByRole('button',{name:'展开「上衣」的下级分类',exact:true}).press('Enter');await page.locator('.category-tree').getByText('T恤',{exact:true}).waitFor();
+  await page.getByRole('button',{name:'收起全部',exact:true}).click();await page.locator('.category-tree').getByText('上衣',{exact:true}).waitFor({state:'hidden'});
+  await page.getByRole('button',{name:'展开「服装验收」的下级分类',exact:true}).click();await page.locator('.category-tree').getByText('T恤',{exact:true}).waitFor({state:'hidden'});
+  await page.getByRole('button',{name:'查看 / 编辑「上衣」',exact:true}).click();
   await page.getByLabel('目标父分类',{exact:true}).selectOption('');await page.getByLabel('原因',{exact:true}).fill('整树移动到根');await Promise.all([page.waitForResponse(r=>r.url().endsWith('/'+child.id+'/move')&&r.request().method()==='POST'),page.getByRole('button',{name:'确认操作',exact:true}).click()]);
   const moved=await db.category.findUniqueOrThrow({where:{id:child.id}});assert.equal(moved.depth,1);assert.equal((await db.category.findFirstOrThrow({where:{parentId:child.id}})).depth,2);await screenshot(page,'categories.png');check();
   scenario='新建服装草稿、资料保存与六SKU矩阵';await page.goto(adminOrigin+'/products');await page.getByLabel('新款工作名称').fill('日常纯棉T恤·验收');await page.getByRole('button',{name:'新建商品草稿'}).click();await page.waitForURL(/\/products\/[0-9a-f-]+$/);const productId=new URL(page.url()).pathname.split('/').at(-1);report.productId=productId;
