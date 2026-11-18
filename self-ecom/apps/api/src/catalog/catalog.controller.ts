@@ -33,6 +33,8 @@ export class ProductController {
   detail(@Param() p:CatalogIdDto,@CurrentActor() actor:CurrentIdentity){return this.queries.detail(p.id,actor);}
   @Post() @EmployeeAccess('product.manage') @O.CatalogEndpoint('createProduct','新建草稿和默认SKU零账户',O.detailSchema(true,true),O.object(O.profileFields,['name']),true)
   create(@Body() b:ProductCreateDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){return this.commands.create(ctx(a,r),b);}
+  @Delete(':id') @EmployeeAccess('product.manage') @O.CatalogParams() @O.CatalogEndpoint('deleteProductDraft','删除无业务引用且零库存的未归档商品草稿',O.deletedDraft,O.object(O.reasonFields))
+  removeDraft(@Param() p:CatalogIdDto,@Body() b:ReasonDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){return this.commands.deleteDraft(ctx(a,r),p.id,b);}
   @Patch(':id') @EmployeeAccess('product.manage') @O.CatalogParams() @O.CatalogEndpoint('updateProduct','保存商品资料',O.detailSchema(true,true),O.object({...O.versionFields,...O.profileFields},['expectedVersion']))
   edit(@Param() p:CatalogIdDto,@Body() b:ProductEditDto,@CurrentActor() a:CurrentIdentity,@Req() r:AuthHttpRequest){return this.commands.edit(ctx(a,r),p.id,b);}
   @Put(':id/images') @EmployeeAccess('product.manage') @O.CatalogParams() @O.CatalogEndpoint('setProductImages','替换当前图片并保留历史引用',O.detailSchema(true,true),O.object(O.imagesFields))

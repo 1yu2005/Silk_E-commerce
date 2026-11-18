@@ -9,9 +9,9 @@ const rootId='abcdefab-cdef-4abc-8def-abcdefabcdef';
 const skuId='12345678-abcd-4abc-8def-abcdefabcdef';
 const sourceLineId='87654321-abcd-4abc-8def-abcdefabcdef';
 
-function fixture(){
+function fixture(productExists=true){
  const root={id:rootId,skuId,sourceLineId,adjustmentId:'original'};
- const tx={inventoryAdjustmentLine:{findMany:vi.fn().mockResolvedValue([root])},sku:{findMany:vi.fn().mockResolvedValue([{id:skuId,productId:'product'}])},$queryRaw:vi.fn().mockResolvedValue([])};
+ const tx={inventoryAdjustmentLine:{findMany:vi.fn().mockResolvedValue([root])},sku:{findMany:vi.fn().mockResolvedValue([{id:skuId,productId:'product'}])},$queryRaw:vi.fn(async(sql:TemplateStringsArray)=>productExists&&sql.join('').includes('FROM product')?[{id:'product'}]:[])};
  const db={$transaction:async(work:(client:Prisma.TransactionClient)=>Promise<unknown>)=>work(tx as unknown as Prisma.TransactionClient)};
  const access={actor:vi.fn().mockResolvedValue({subjectId:'employee'})};
  const service=Reflect.construct(InventoryAdjustments,[db,access]) as InventoryAdjustments;
@@ -29,5 +29,11 @@ it.each([rootId,rootId.toUpperCase()])('更正使用同一根UUID %s，传入后
 it('同一更正根大小写混用仍作为重复目标拒绝，不创建任何登记',async()=>{
  const {service,create}=fixture();
  await expect(service.corrections(ctx,'original',{reason:'重复目标',evidenceNote:'独立回归',lines:[{rootLineId:rootId,signedDeltaA:-1},{rootLineId:rootId.toUpperCase(),signedDeltaA:-1}]})).rejects.toMatchObject({code:'CORRECTION_NOT_ALLOWED'});
+ expect(create).not.toHaveBeenCalled();
+});
+
+it('取得库存商品锁时草稿已被删除，返回不存在且不创建登记',async()=>{
+ const {service,create}=fixture(false);
+ await expect(service.corrections(ctx,'original',{reason:'核实差额',evidenceNote:'删除竞争回归',lines:[{rootLineId:rootId,signedDeltaA:-1}]})).rejects.toMatchObject({code:'INVENTORY_NOT_FOUND'});
  expect(create).not.toHaveBeenCalled();
 });

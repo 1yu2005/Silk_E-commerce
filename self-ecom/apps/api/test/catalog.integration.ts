@@ -33,7 +33,7 @@ assertSafeTestDatabase(process.env.DEVELOPMENT_DATABASE_URL,process.env.DATABASE
 if(process.env.NODE_ENV!=='test'||!/^\/m105_[a-f0-9]{32}_test$/.test(new URL(process.env.DATABASE_URL!).pathname))throw new Error('本文件只运行在verify-module5创建的独占库');
 const metadata=(controller:object,rows:Record<string,unknown[]>)=>{for(const [key,types]of Object.entries(rows))Reflect.defineMetadata('design:paramtypes',types,controller,key);};
 metadata(CategoryController.prototype,{create:[D.CategoryCreateDto,Object,Object],edit:[D.CatalogIdDto,D.CategoryEditDto,Object,Object],move:[D.CatalogIdDto,D.CategoryMoveDto,Object,Object],remove:[D.CatalogIdDto,D.ReasonDto,Object,Object]});
-metadata(ProductController.prototype,{list:[D.AdminProductsQueryDto,Object],detail:[D.CatalogIdDto,Object],create:[D.ProductCreateDto,Object,Object],edit:[D.CatalogIdDto,D.ProductEditDto,Object,Object],images:[D.CatalogIdDto,D.ProductImagesDto,Object,Object],publish:[D.CatalogIdDto,D.ReasonDto,Object,Object],unpublish:[D.CatalogIdDto,D.ReasonDto,Object,Object],archive:[D.CatalogIdDto,D.ReasonDto,Object,Object],batch:[D.BatchStatusDto,Object,Object],preview:[D.CatalogIdDto,D.SchemePreviewDto],scheme:[D.CatalogIdDto,D.SchemeSaveDto,Object,Object],sku:[D.SkuIdDto,D.SkuEditDto,Object,Object],fill:[D.CatalogIdDto,D.SkuBatchDto,Object,Object],enabled:[D.SkuIdDto,D.SkuEnabledDto,Object,Object],draft:[D.CatalogIdDto],saveDraft:[D.CatalogIdDto,D.DraftSaveDto,Object,Object],voidDraft:[D.CatalogIdDto,D.DraftVoidDto,Object,Object]});
+metadata(ProductController.prototype,{list:[D.AdminProductsQueryDto,Object],detail:[D.CatalogIdDto,Object],create:[D.ProductCreateDto,Object,Object],edit:[D.CatalogIdDto,D.ProductEditDto,Object,Object],images:[D.CatalogIdDto,D.ProductImagesDto,Object,Object],publish:[D.CatalogIdDto,D.ReasonDto,Object,Object],unpublish:[D.CatalogIdDto,D.ReasonDto,Object,Object],archive:[D.CatalogIdDto,D.ReasonDto,Object,Object],removeDraft:[D.CatalogIdDto,D.ReasonDto,Object,Object],batch:[D.BatchStatusDto,Object,Object],preview:[D.CatalogIdDto,D.SchemePreviewDto],scheme:[D.CatalogIdDto,D.SchemeSaveDto,Object,Object],sku:[D.SkuIdDto,D.SkuEditDto,Object,Object],fill:[D.CatalogIdDto,D.SkuBatchDto,Object,Object],enabled:[D.SkuIdDto,D.SkuEnabledDto,Object,Object],draft:[D.CatalogIdDto],saveDraft:[D.CatalogIdDto,D.DraftSaveDto,Object,Object],voidDraft:[D.CatalogIdDto,D.DraftVoidDto,Object,Object]});
 metadata(StoreCatalogController.prototype,{list:[D.StoreProductsQueryDto],detail:[D.CatalogIdDto]});
 class ControlledAudit extends AuditService{
   fail=false;
@@ -94,6 +94,57 @@ async function convertInitialDraft(productId:string,skuId:string,quantity=1){
   await app.get(InventoryConversion).convert(staff,productId,{expectedProductVersion:product.version!,expectedDraftVersion:draft.version,sourceId:source.id,mappings:[{skuId,sourceLineId:line.id,batchKey:'INITIAL'}],reason:'真实转换建立商品引用'});
   return db.initialInventoryDraft.findUniqueOrThrow({where:{id:draft.id}});
 }
+it('删除草稿：无业务引用时移除资料、规格和零账户，保留审计及图片文件',async()=>{
+ let p=await create('可删除草稿');
+ p=await commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'建立规格',dimensions:scheme()});
+ const image=await upload();p=await commands.images(staff,p.id,{expectedVersion:p.version!,mainImageId:image,galleryImageIds:[]});
+ p=await commands.draftSave(staff,p.id,{expectedProductVersion:p.version!,expectedDraftVersion:null,lines:[{skuId:p.skus.find(s=>!s.retiredAt)!.id,quantity:30}]});
+ const skuIds=p.skus.map(s=>s.id),dimensionIds=p.specDimensions.map(d=>d.id);
+ expect(await ok('/admin/products/'+p.id,'DELETE',{expectedVersion:p.version,reason:'放弃尚未使用的草稿'})).toMatchObject({id:p.id,deleted:true});
+ expect(await db.product.findUnique({where:{id:p.id}})).toBeNull();
+ expect(await db.sku.count({where:{id:{in:skuIds}}})).toBe(0);
+ expect(await db.inventoryBalance.count({where:{skuId:{in:skuIds}}})).toBe(0);
+ expect(await db.skuSpecChoice.count({where:{skuId:{in:skuIds}}})).toBe(0);
+ expect(await db.productSpecDimension.count({where:{productId:p.id}})).toBe(0);
+ expect(await db.productSpecValue.count({where:{dimensionId:{in:dimensionIds}}})).toBe(0);
+ expect(await db.initialInventoryDraft.count({where:{productId:p.id}})).toBe(0);
+ expect(await db.productImage.count({where:{productId:p.id}})).toBe(0);
+ expect(await db.fileReference.count({where:{ownerType:'PRODUCT',ownerId:p.id}})).toBe(0);
+ expect(await db.fileAsset.findUnique({where:{id:image}})).not.toBeNull();
+ expect((await db.auditLog.findMany({where:{targetId:p.id}})).some(a=>(a.afterData as {catalogAction?:string})?.catalogAction==='delete-draft')).toBe(true);
+ await bad('/admin/products/'+p.id,'GET',undefined,404,'PRODUCT_NOT_FOUND');
+ await bad('/admin/products/'+p.id,'DELETE',{expectedVersion:p.version,reason:'重复删除'},404,'PRODUCT_NOT_FOUND');
+});
+it('删除草稿：拒绝越权、旧版本、在售/归档及已有库存或入库来源的商品',async()=>{
+ const p=await create();
+ await bad('/admin/products/'+p.id,'DELETE',{expectedVersion:0,reason:'无权限'},403,'FORBIDDEN',service);
+ await bad('/admin/products/'+p.id,'DELETE',{expectedVersion:1,reason:'旧版本'},409,'VERSION_CONFLICT');
+ await bad('/admin/products/'+p.id,'DELETE',{expectedVersion:0},400,'VALIDATION_FAILED');
+ const stocked=await ready(1);
+ await bad('/admin/products/'+stocked.id,'DELETE',{expectedVersion:stocked.version,reason:'仍有库存'},409,'PRODUCT_IN_USE');
+ const online=await commands.status(staff,stocked.id,{expectedVersion:stocked.version!,reason:'上架'},'publish');
+ await bad('/admin/products/'+online.id,'DELETE',{expectedVersion:online.version,reason:'在售'},409,'PRODUCT_NOT_DRAFT');
+ const archived=await commands.status(staff,p.id,{expectedVersion:0,reason:'保留归档'},'archive');
+ await bad('/admin/products/'+p.id,'DELETE',{expectedVersion:archived.version,reason:'归档'},409,'PRODUCT_NOT_DRAFT');
+ const linked=await create();await app.get(InventorySources).create(staff,{sourceType:'RECEIPT',namespace:'DELETE-TEST',reference:randomUUID(),note:'仅有凭据尚未入账',lines:[{lineKey:'1',skuId:linked.skus[0]!.id,verifiedQuantity:1}]});
+ await bad('/admin/products/'+linked.id,'DELETE',{expectedVersion:linked.version,reason:'已有凭据'},409,'PRODUCT_IN_USE');
+ expect(await db.product.count({where:{id:linked.id}})).toBe(1);expect(await db.inventorySourceLine.count({where:{skuId:linked.skus[0]!.id}})).toBe(1);
+ const converted=await create();await convertInitialDraft(converted.id,converted.skus[0]!.id);const latest=await queries.detail(converted.id,staff.actor);
+ await bad('/admin/products/'+converted.id,'DELETE',{expectedVersion:latest.version,reason:'已生成库存任务'},409,'PRODUCT_IN_USE');
+});
+it('删除草稿：审计失败整体回滚，并发删除及创建入库来源不会留下断开的引用',async()=>{
+ const p=await create(),body={expectedVersion:p.version,reason:'删除回滚验证'};
+ audit.fail=true;try{await bad('/admin/products/'+p.id,'DELETE',body,500,'INTERNAL_ERROR');}finally{audit.fail=false;}
+ expect(await db.product.count({where:{id:p.id}})).toBe(1);expect(await db.inventoryBalance.count({where:{skuId:p.skus[0]!.id}})).toBe(1);
+ const repeated=await Promise.all([call('/admin/products/'+p.id,'DELETE',body),call('/admin/products/'+p.id,'DELETE',body)]);
+ expect(repeated.map(r=>r.r.status).sort()).toEqual([200,404]);
+ const race=await create(),skuId=race.skus[0]!.id;
+ const results=await Promise.all([call('/admin/products/'+race.id,'DELETE',{expectedVersion:race.version,reason:'删除与入库互斥'}),call('/admin/inventory/sources','POST',{sourceType:'RECEIPT',namespace:'DELETE-RACE',reference:randomUUID(),note:'并发核实凭据',lines:[{lineKey:'1',skuId,verifiedQuantity:1}]},peer)]);
+ expect(results.filter(r=>r.r.ok)).toHaveLength(1);
+ const exists=await db.product.count({where:{id:race.id}});
+ expect(await db.inventorySourceLine.count({where:{skuId}})).toBe(exists);
+ expect(results.find(r=>!r.r.ok)!.json.code).toBe(exists?'PRODUCT_IN_USE':'INVENTORY_NOT_FOUND');
+});
 it('SW01/IT01：根和子名称规范化、三级、版本与删除保护',async()=>{
   const root=await category('ÉTÉ');await expect(category(' e\u0301te\u0301 ')).rejects.toMatchObject({code:'CATEGORY_NAME_EXISTS'});
   const child=await category('上衣',root.id),leaf=await category('T恤',child.id);await expect(category('第四级',leaf.id)).rejects.toMatchObject({code:'CATEGORY_DEPTH_EXCEEDED'});

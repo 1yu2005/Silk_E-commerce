@@ -22,7 +22,11 @@ export async function lockStock(tx:Prisma.TransactionClient,skuIds:readonly stri
  const ids=[...new Set(skuIds)].sort();if(!ids.length)return;
  const skus=await tx.sku.findMany({where:{id:{in:ids}},select:{productId:true}});
  if(skus.length!==ids.length)throw new InventoryError('INVENTORY_NOT_FOUND');
- for(const id of [...new Set(skus.map(s=>s.productId))].sort())await tx.$queryRaw`SELECT id FROM product WHERE id=${id}::uuid FOR UPDATE`;
+ for(const id of [...new Set(skus.map(s=>s.productId))].sort()){
+  const locked=await tx.$queryRaw<{id:string}[]>`SELECT id FROM product WHERE id=${id}::uuid FOR UPDATE`;
+  // 等待商品锁期间，未使用的商品草稿可能已被删除；禁止继续创建悬空来源或返回数据库异常。
+  if(!locked.length)throw new InventoryError('INVENTORY_NOT_FOUND');
+ }
  for(const id of ids){await tx.$queryRaw`SELECT id FROM sku WHERE id=${id}::uuid FOR UPDATE`;await tx.$queryRaw`SELECT sku_id FROM inventory_balance WHERE sku_id=${id}::uuid FOR UPDATE`;}
 }
 export async function lockSources(tx:Prisma.TransactionClient,ids:readonly string[]) {

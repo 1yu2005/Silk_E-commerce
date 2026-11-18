@@ -2450,7 +2450,11 @@ export interface paths {
         get: operations["getAdminProduct"];
         put?: never;
         post?: never;
-        delete?: never;
+        /**
+         * 删除无业务引用且零库存的未归档商品草稿
+         * @description 严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。
+         */
+        delete: operations["deleteProductDraft"];
         options?: never;
         head?: never;
         /**
@@ -9783,7 +9787,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -9938,7 +9942,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -10096,7 +10100,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -10253,7 +10257,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -10417,7 +10421,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -26020,7 +26024,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -26257,7 +26261,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -26458,7 +26462,146 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+        };
+    };
+    deleteProductDraft: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": {
+                    expectedVersion: number;
+                    reason: string;
+                };
+            };
+        };
+        responses: {
+            200: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        data: {
+                            /** @enum {boolean} */
+                            deleted: true;
+                            /** Format: uuid */
+                            id: string;
+                        };
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            400: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VALIDATION_FAILED" | "SKU_COMBINATION_LIMIT";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            401: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "TOKEN_INVALID" | "TOKEN_EXPIRED" | "SESSION_REVOKED" | "ACCOUNT_UNAVAILABLE";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            403: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "FORBIDDEN" | "PASSWORD_CHANGE_REQUIRED";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            404: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "CATEGORY_NOT_FOUND" | "PRODUCT_NOT_FOUND" | "SKU_NOT_FOUND";
+                        details?: {
+                            field?: string;
+                            message?: string;
+                        }[];
+                        message: string;
+                        /** Format: uuid */
+                        requestId: string;
+                    };
+                };
+            };
+            409: {
+                headers: {
+                    /** @description 服务器生成的请求编号，与响应体requestId一致 */
+                    "X-Request-Id"?: string;
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        /** @enum {string} */
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -26698,7 +26841,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -26934,7 +27077,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -27172,7 +27315,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -27322,7 +27465,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -27563,7 +27706,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -28202,7 +28345,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -28438,7 +28581,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -28597,7 +28740,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -28849,7 +28992,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -29088,7 +29231,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -29326,7 +29469,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -29564,7 +29707,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -29800,7 +29943,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -29947,7 +30090,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -37107,7 +37250,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -38907,7 +39050,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;
@@ -39039,7 +39182,7 @@ export interface operations {
                 content: {
                     "application/json": {
                         /** @enum {string} */
-                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
+                        code: "VERSION_CONFLICT" | "CATEGORY_NAME_EXISTS" | "CATEGORY_IN_USE" | "CATEGORY_CYCLE" | "CATEGORY_DEPTH_EXCEEDED" | "SKU_CODE_EXISTS" | "SKU_COMBINATION_EXISTS" | "PRODUCT_NOT_PUBLISHABLE" | "PRODUCT_ARCHIVED" | "PRODUCT_NOT_DRAFT" | "PRODUCT_IN_USE" | "PRODUCT_MUST_UNPUBLISH" | "SKU_SCHEME_REFERENCED" | "SKU_PRICE_REQUIRED" | "INITIAL_DRAFT_NOT_EDITABLE" | "SKU_REFERENCE_NOT_READY" | "FILE_NOT_BINDABLE" | "FILE_PURPOSE_MISMATCH";
                         details?: {
                             field?: string;
                             message?: string;

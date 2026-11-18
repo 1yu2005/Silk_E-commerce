@@ -18483,6 +18483,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -19044,6 +19046,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -19520,6 +19524,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -20011,6 +20017,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -20493,6 +20501,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -71135,6 +71145,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -71945,6 +71957,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -72385,6 +72399,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -72451,6 +72467,404 @@
       }
     },
     "/api/v1/admin/products/{id}": {
+      "delete": {
+        "description": "严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。",
+        "operationId": "deleteProductDraft",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "additionalProperties": false,
+                "properties": {
+                  "expectedVersion": {
+                    "maximum": 2147483646,
+                    "minimum": 0,
+                    "type": "integer"
+                  },
+                  "reason": {
+                    "maxLength": 500,
+                    "minLength": 1,
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "expectedVersion",
+                  "reason"
+                ],
+                "type": "object"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": false,
+                  "properties": {
+                    "data": {
+                      "additionalProperties": false,
+                      "properties": {
+                        "deleted": {
+                          "enum": [
+                            true
+                          ],
+                          "type": "boolean"
+                        },
+                        "id": {
+                          "format": "uuid",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "deleted"
+                      ],
+                      "type": "object"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VALIDATION_FAILED",
+                        "SKU_COMBINATION_LIMIT"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "401": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "TOKEN_INVALID",
+                        "TOKEN_EXPIRED",
+                        "SESSION_REVOKED",
+                        "ACCOUNT_UNAVAILABLE"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "403": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "FORBIDDEN",
+                        "PASSWORD_CHANGE_REQUIRED"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "CATEGORY_NOT_FOUND",
+                        "PRODUCT_NOT_FOUND",
+                        "SKU_NOT_FOUND"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "409": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "code": {
+                      "enum": [
+                        "VERSION_CONFLICT",
+                        "CATEGORY_NAME_EXISTS",
+                        "CATEGORY_IN_USE",
+                        "CATEGORY_CYCLE",
+                        "CATEGORY_DEPTH_EXCEEDED",
+                        "SKU_CODE_EXISTS",
+                        "SKU_COMBINATION_EXISTS",
+                        "PRODUCT_NOT_PUBLISHABLE",
+                        "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
+                        "PRODUCT_MUST_UNPUBLISH",
+                        "SKU_SCHEME_REFERENCED",
+                        "SKU_PRICE_REQUIRED",
+                        "INITIAL_DRAFT_NOT_EDITABLE",
+                        "SKU_REFERENCE_NOT_READY",
+                        "FILE_NOT_BINDABLE",
+                        "FILE_PURPOSE_MISMATCH"
+                      ],
+                      "type": "string"
+                    },
+                    "details": {
+                      "items": {
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "type": "object"
+                      },
+                      "type": "array"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "requestId": {
+                      "format": "uuid",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "requestId"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "",
+            "headers": {
+              "X-Request-Id": {
+                "description": "服务器生成的请求编号，与响应体requestId一致",
+                "schema": {
+                  "example": "9bc421ac-5987-493e-a6cf-73fe46082272",
+                  "format": "uuid",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "删除无业务引用且零库存的未归档商品草稿",
+        "tags": [
+          "Products"
+        ]
+      },
       "get": {
         "description": "严格字段白名单；金额为整数分。写命令锁内复核会话权限、统一版本及审计。公开查询无需登录；初始数量草稿不入账。",
         "operationId": "getAdminProduct",
@@ -73075,6 +73489,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -73900,6 +74316,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -74711,6 +75129,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -75531,6 +75951,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -75966,6 +76388,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -76800,6 +77224,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -79086,6 +79512,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -79897,6 +80325,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -80380,6 +80810,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -81254,6 +81686,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -82082,6 +82516,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -82914,6 +83350,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -83738,6 +84176,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -84549,6 +84989,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -106366,6 +106808,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -112023,6 +112467,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",
@@ -112478,6 +112924,8 @@
                         "SKU_COMBINATION_EXISTS",
                         "PRODUCT_NOT_PUBLISHABLE",
                         "PRODUCT_ARCHIVED",
+                        "PRODUCT_NOT_DRAFT",
+                        "PRODUCT_IN_USE",
                         "PRODUCT_MUST_UNPUBLISH",
                         "SKU_SCHEME_REFERENCED",
                         "SKU_PRICE_REQUIRED",

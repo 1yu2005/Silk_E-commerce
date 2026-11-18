@@ -41,6 +41,41 @@ export class ProductCommands {
     await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:actor.subjectId},action:'product.change',targetId:p.id,requestId:ctx.requestId,after:{catalogVersion:0,catalogAction:'create',affectedCount:1,catalogChanges:changes(p.id,{},input as unknown as Record<string,unknown>)}});
     return {...await this.queries.detailTx(tx,p.id,actor),changed:true};
   }),'SKU_CODE_EXISTS',2);}
+  async deleteDraft(ctx:CatalogContext,id:string,input:ReasonDto){
+    try{return await runAuthTransaction(this.db,async tx=>{
+      const actor=await this.access.actor(tx,ctx.actor,ctx.token,['product.manage']);
+      const p=await this.access.product(tx,id,input.expectedVersion);
+      if(p.status!=='DRAFT'||p.archivedAt)throw new CatalogError('PRODUCT_NOT_DRAFT');
+      // 与库存来源/入账共享商品→SKU→余额的锁序；引用检查必须在取得这些锁之后。
+      const locked=await tx.$queryRaw<{id:string}[]>`SELECT id FROM sku WHERE product_id=${id}::uuid ORDER BY id FOR UPDATE`;
+      await tx.$queryRaw`SELECT b.sku_id FROM inventory_balance b JOIN sku s ON s.id=b.sku_id WHERE s.product_id=${id}::uuid ORDER BY b.sku_id FOR UPDATE OF b`;
+      const ids=locked.map(s=>s.id),balances=await tx.inventoryBalance.findMany({where:{skuId:{in:ids}}});
+      if(p.paidSalesCount!==0n||balances.length!==ids.length||balances.some(b=>b.available!==0||b.reserved!==0||b.purchaseBlocked)
+        ||await this.references.referenced(tx,ids)||await tx.cartItem.count({where:{skuId:{in:ids}}})
+        ||await tx.initialInventoryDraft.count({where:{productId:id,status:'CONVERTED'}}))throw new CatalogError('PRODUCT_IN_USE');
+      const references=await tx.fileReference.findMany({where:{ownerType:'PRODUCT',ownerId:id},select:{fileAssetId:true}});
+      const files=[...new Set(references.map(r=>r.fileAssetId))].sort();
+      if(files.length)await tx.$queryRaw(Prisma.sql`SELECT id FROM file_asset WHERE id IN (${Prisma.join(files.map(file=>Prisma.sql`${file}::uuid`))}) ORDER BY id FOR UPDATE`);
+      await this.audit.appendAudit(tx,{actor:{type:'EMPLOYEE',id:actor.subjectId},action:'product.change',targetId:id,requestId:ctx.requestId,reason:input.reason,
+        before:{catalogVersion:p.version},after:{catalogVersion:p.version+1,catalogAction:'delete-draft',affectedCount:ids.length,
+          catalogChanges:changes(id,{name:p.name},{name:null})}});
+      // 只移除此未使用草稿的从属资料；图片文件、操作审计及其他商品均保留。
+      await tx.fileReference.deleteMany({where:{ownerType:'PRODUCT',ownerId:id}});
+      await tx.productImage.deleteMany({where:{productId:id}});
+      await tx.initialInventoryDraftLine.deleteMany({where:{draft:{productId:id}}});
+      await tx.initialInventoryDraft.deleteMany({where:{productId:id}});
+      await tx.skuSpecChoice.deleteMany({where:{skuId:{in:ids}}});
+      await tx.productSpecValue.deleteMany({where:{dimension:{productId:id}}});
+      await tx.productSpecDimension.deleteMany({where:{productId:id}});
+      await tx.inventoryBalance.deleteMany({where:{skuId:{in:ids}}});
+      await tx.sku.deleteMany({where:{productId:id}});
+      await tx.product.delete({where:{id}});
+      return {id,deleted:true};
+    });}catch(e){
+      // 后续领域新增的真实外键仍是最后一道保护；失败回滚全部删除，禁止留下半个商品。
+      if(e instanceof Prisma.PrismaClientKnownRequestError&&e.code==='P2003')throw new CatalogError('PRODUCT_IN_USE');throw e;
+    }
+  }
   private async command(ctx:CatalogContext,id:string,version:number,action:string,permissions:string[],tree:boolean,
     reason:string|undefined,work:(tx:Prisma.TransactionClient,p:Product,actor:Extract<CurrentIdentity,{subjectType:'EMPLOYEE'}>)=>Promise<{changes:Change[];productPatch?:ProductPatch;extra?:Record<string,unknown>;skuTransition?:{id:string;from:boolean;to:boolean}}>){
     return this.guarded(()=>runAuthTransaction(this.db,async tx=>{

@@ -1,7 +1,7 @@
 // 作用：商品编辑各区域共享服务器商品版本，保存后重读；只读员工不加载管理草稿。
 import { useState } from 'react';
 import { Button, Tag } from 'antd';
-import { Link,useParams } from 'react-router-dom';
+import { Link,useNavigate,useParams } from 'react-router-dom';
 import { catalog,catalogQueries } from '../services/api';
 import { useEmployeeQuery } from '../employees/use-employee-query';
 import { useEmployeeAuth } from '../auth/use-employee-auth';
@@ -14,6 +14,7 @@ import { ProductImages } from '../catalog/ProductImages';
 import { ProductScheme } from '../catalog/ProductScheme';
 import { ProductSkus } from '../catalog/ProductSkus';
 import { ProductInitialDraft } from '../catalog/ProductInitialDraft';
+import { ProductDeleteDialog } from '../catalog/ProductDeleteDialog';
 export function ProductEditPage(){
   const {id=''}=useParams();if(!/^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(id))return <section><h1>商品编号不正确</h1><Link to="/products">返回商品</Link></section>;
   return <ProductLoader key={id} id={id}/>;
@@ -25,6 +26,7 @@ function ProductLoader({id}:{id:string}){
     {data.status==='ready'&&data.data?<CatalogCommandScope key={id+':'+data.data.version}><ProductEditor product={data.data} categories={(tree.data??[]) as Category[]} reload={reload} saved={()=>{setNotice('已保存，请核对最新版本。');reload();}}/></CatalogCommandScope>:<CatalogQueryState error={data.error} onRetry={reload}/>}</section>;
 }
 function ProductEditor({product:p,categories,reload,saved}:{product:Product;categories:Category[];reload:()=>void;saved:()=>void}){
+  const navigate=useNavigate(),[deleteOpen,setDeleteOpen]=useState(false);
   const {permissions}=useEmployeeAuth();const can=(code:string)=>permissions?.effectivePermissions.includes(code)??false;
   const cmd=useCatalogCommand(saved);const [reason,setReason]=useState('');const manage=can('product.manage')&&!p.archivedAt;
   return <><div className="catalog-heading"><div><span className="eyebrow">{p.productCode} · 版本 {p.version}</span><h1>{p.name}</h1><Tag>{p.archivedAt?'归档':statuses[p.status]}</Tag></div><Button onClick={reload}>刷新商品</Button></div>
@@ -37,6 +39,8 @@ function ProductEditor({product:p,categories,reload,saved}:{product:Product;cate
     <ProductScheme product={p} disabled={!manage} onSaved={saved} reload={reload}/>
     <ProductSkus product={p} manage={manage} publish={can('product.publish')&&!p.archivedAt} onSaved={saved} reload={reload}/>
     {manage?<ProductInitialDraft product={p} onSaved={saved} reload={reload}/>:null}
-    {can('product.publish')&&!p.archivedAt?<section className="catalog-card"><h2>销售状态</h2><p>上架前需要有效分类、主图、完整售价，以及至少一个真实可售SKU。数量草稿不增加可售库存。</p><form className="catalog-form" onSubmit={e=>{e.preventDefault();const action=new FormData(e.currentTarget).get('action');const input={path:{id:p.id},body:{expectedVersion:p.version,reason}};void cmd.run(()=>action==='publish'?catalog.publishProduct(input):action==='archive'?catalog.archiveProduct(input):catalog.unpublishProduct(input));}}><fieldset disabled={cmd.busy||cmd.blocked}><label>操作<select name="action" aria-label="操作"><option value="publish">上架</option><option value="unpublish">下架</option>{can('product.manage')?<option value="archive">下架并归档（不可恢复）</option>:null}</select></label><label>操作原因<input value={reason} onChange={e=>setReason(e.target.value)} required maxLength={500}/></label><Button htmlType="submit">确认销售操作</Button></fieldset></form></section>:null}
+    {can('product.publish')&&!p.archivedAt?<section className="catalog-card"><h2>销售状态</h2><p>上架前需要有效分类、主图、完整售价，以及至少一个真实可售SKU。数量草稿不增加可售库存。</p><form className="catalog-form" onSubmit={e=>{e.preventDefault();const action=new FormData(e.currentTarget).get('action');const input={path:{id:p.id},body:{expectedVersion:p.version,reason}};void cmd.run(()=>action==='publish'?catalog.publishProduct(input):action==='archive'?catalog.archiveProduct(input):catalog.unpublishProduct(input));}}><fieldset disabled={cmd.busy||cmd.blocked}><label>操作<select name="action" aria-label="操作"><option value="publish">上架</option>{p.status!=='DRAFT'?<option value="unpublish">下架</option>:null}{can('product.manage')?<option value="archive">{p.status==='DRAFT'?'归档并保留记录':'下架并归档'}（不可恢复）</option>:null}</select></label><label>操作原因<input value={reason} onChange={e=>setReason(e.target.value)} required maxLength={500}/></label><Button htmlType="submit">确认销售操作</Button></fieldset></form></section>:null}
+    {manage&&p.status==='DRAFT'?<section className="catalog-card"><h2>删除草稿</h2><p>不再使用的零库存草稿可以直接删除。已有入库凭据或其他业务记录的商品请归档保留。</p><Button danger disabled={cmd.busy||cmd.blocked} onClick={()=>setDeleteOpen(true)}>删除草稿</Button></section>:null}
+    {deleteOpen?<ProductDeleteDialog product={p} onClose={()=>setDeleteOpen(false)} reload={()=>{setDeleteOpen(false);reload();}} onDeleted={()=>navigate('/products',{replace:true})}/>:null}
   </>;
 }
