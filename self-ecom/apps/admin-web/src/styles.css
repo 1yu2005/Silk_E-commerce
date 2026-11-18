@@ -144,6 +144,16 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .catalog-panel input:not([type=checkbox]),.catalog-panel select,.catalog-panel textarea { font:inherit; color:#243746; padding:9px 10px; border:1px solid #b9cbd1; border-radius:4px; width:100%; box-sizing:border-box; background:white; }
 .catalog-panel :disabled { cursor:not-allowed; opacity:.65; }
 .catalog-panel input:focus-visible,.catalog-panel select:focus-visible,.catalog-panel textarea:focus-visible { outline:2px solid #087e8b; outline-offset:2px; }
+.catalog-category-select { position:relative; width:100%; min-width:0; font-weight:400; }
+.catalog-category-trigger { display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; min-height:40px; padding:9px 12px; border:1px solid #b9cbd1; border-radius:4px; background:#fff; color:#243746; text-align:left; font:inherit; cursor:pointer; }
+.catalog-category-select:has(.catalog-category-clear) .catalog-category-trigger { padding-right:38px; }
+.catalog-category-trigger > span:first-child { min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.catalog-category-trigger:focus-visible,.catalog-category-clear:focus-visible { outline:2px solid #087e8b; outline-offset:2px; }
+.catalog-category-placeholder { color:#536a79; }
+.catalog-category-clear { position:absolute; right:5px; top:50%; transform:translateY(-50%); display:grid; place-items:center; width:28px; height:28px; border:0; background:#fff; color:#536a79; border-radius:4px; font-size:18px; cursor:pointer; }
+.catalog-category-clear:hover { background:#edf5f5; color:#087e8b; }
+.catalog-category-popup { width:min(360px,calc(100vw - 128px)); max-height:320px; overflow:auto; }
+.catalog-refresh-fields { margin:0; padding:0; border:0; min-width:0; }
 .catalog-filter,.catalog-create,.catalog-batch { display:flex; align-items:end; flex-wrap:wrap; gap:12px; margin:20px 0; }
 .catalog-filter label { max-width:170px; flex:1; min-width:120px; }
 .catalog-create label { min-width:280px; }
@@ -153,9 +163,11 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .product-name-cell img,.image-placeholder { width:48px; height:64px; object-fit:cover; background:#eeeae3; display:grid; place-items:center; }
 .product-name-cell small,.sku-table small { display:block; font-size:12px; color:#536a79; margin:6px 0; overflow-wrap:anywhere; }
 .catalog-image img { width:180px; height:230px; object-fit:cover; display:block; margin:10px 0; }
+.catalog-image > span[role=status] { width:180px; height:230px; display:grid; place-items:center; margin:10px 0; background:#f1f6f7; }
 .catalog-gallery { padding:0; list-style:none; }
 .catalog-gallery li { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:10px 0; }
 .catalog-gallery img { width:52px; height:65px; object-fit:cover; }
+.catalog-gallery li > span[role=status] { width:52px; height:65px; display:grid; place-items:center; font-size:11px; background:#f1f6f7; }
 .spec-dimension { padding:16px; margin:14px 0; border:1px solid #dce5e9; background:#f7f9fa; }
 .spec-dimension>label { max-width:300px; }
 .spec-values { display:flex; flex-wrap:wrap; gap:14px; }

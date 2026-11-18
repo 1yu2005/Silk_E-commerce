@@ -6,5 +6,5 @@ export function useEmployeeQuery<Input, Data>(controller: EmployeeQueryControlle
   const snapshot = useSyncExternalStore(controller.subscribe, controller.getSnapshot);
   useEffect(() => { if(enabled)void controller.read(key, input); }, [controller, key, input,enabled]);
   // 参数变化后不把上一筛选或上一员工的资料短暂显示在新地址下。
-  return enabled&&snapshot.key === key ? snapshot : { key, status: 'loading' as const, data: null, error: null };
+  return enabled&&snapshot.key === key ? snapshot : { key, status: 'loading' as const, refreshing: false, data: null, error: null };
 }

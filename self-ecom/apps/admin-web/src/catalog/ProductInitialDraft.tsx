@@ -11,7 +11,7 @@ import { InitialConversion } from '../inventory/InitialConversion';
 export function ProductInitialDraft(props:{product:Product;onSaved:()=>void;reload:()=>void}){
   const query=useEmployeeQuery(catalogQueries.draft,props.product.id,props.product.id);
   return <section id="initial-draft" className="catalog-card"><h2>初始数量草稿</h2><Alert type="info" title="数量草稿，确认库存登记后才生效" description="保存草稿不改变可用/占用数量。匹配核实来源与批次后生成待确认库存登记，再领取并确认入账。"/>
-    {query.status==='ready'?<DraftForm key={query.data?.id+':'+query.data?.version} {...props} draft={query.data}/>:<CatalogQueryState error={query.error} onRetry={()=>void catalogQueries.draft.invalidate()}/>}</section>;
+    {query.status==='ready'||query.refreshing?<fieldset className="catalog-refresh-fields" disabled={query.refreshing}><DraftForm key={query.data?.id+':'+query.data?.version} {...props} draft={query.data}/></fieldset>:<CatalogQueryState error={query.error} onRetry={()=>void catalogQueries.draft.invalidate()}/>}</section>;
 }
 function DraftForm({product:p,draft,onSaved,reload}:{product:Product;draft:Draft;onSaved:()=>void;reload:()=>void}){
   const active=p.skus.filter(s=>!s.retiredAt),[quantities,setQuantities]=useState<Record<string,string>>(()=>Object.fromEntries(active.map(s=>[s.id,String(draft?.lines.find(l=>l.skuId===s.id)?.quantity??0)])));

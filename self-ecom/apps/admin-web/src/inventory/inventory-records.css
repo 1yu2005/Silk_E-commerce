@@ -22,7 +22,7 @@
 .inventory-record-results p { font-size:12px; color:var(--record-muted); margin:0; }
 .inventory-records .inventory-record-explainer { max-width:none; font-size:12px; color:var(--record-muted); margin:0 0 20px; }
 .inventory-record-selection { display:flex; flex-wrap:wrap; justify-content:space-between; gap:12px; align-items:center; padding:12px 16px; background:#e7f3f3; border-left:3px solid #087e8b; font-size:13px; }
-.inventory-ledger-groups { display:grid; gap:24px; }
+.inventory-ledger-groups { display:grid; gap:12px; }
 .inventory-ledger-group { border:1px solid #cedee2; border-radius:8px; min-width:0; overflow:hidden; }
 .inventory-ledger-group > header { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; padding:18px 20px; background:var(--record-tint); }
 .inventory-ledger-group h3 { margin:4px 0; font-size:18px; }
@@ -30,7 +30,12 @@
 .inventory-ledger-group h3 a:hover { text-decoration:underline; }
 .inventory-ledger-group header p { margin:0; color:var(--record-muted); font-size:12px; }
 .inventory-ledger-group header small { color:var(--record-muted); font-size:11px; }
-.inventory-ledger-group-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px; font-size:12px; color:var(--record-muted); }
+.inventory-ledger-group-identity { flex:1; min-width:180px; }
+.inventory-ledger-group-latest { display:grid; gap:7px; color:var(--record-muted); font-size:11px; }
+.inventory-ledger-group-latest strong { font-size:14px; color:var(--record-ink); font-weight:500; }
+.inventory-ledger-toggle { flex-shrink:0; }
+.inventory-ledger-toggle:focus-visible { outline:2px solid #087e8b; outline-offset:3px; }
+.inventory-ledger-group-actions { display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:12px; padding:12px 20px; border-top:1px solid var(--record-line); font-size:12px; color:var(--record-muted); }
 .inventory-record-table-wrap { max-width:100%; overflow-x:auto; }
 .inventory-ledger-table { width:100%; table-layout:fixed; border-collapse:collapse; min-width:700px; font-size:12px; }
 .inventory-ledger-spec-col { width:26%; }

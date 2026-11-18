@@ -58,8 +58,8 @@ export const inventoryQueries={
 export const catalogQueries={
   categories:new EmployeeQueryController<undefined,CategoryTree>(session,(_,signal)=>catalog.getAdminCategoryTree({signal}),'分类读取失败'),
   products:new EmployeeQueryController<ProductQuery,Products>(session,(query,signal)=>catalog.listAdminProducts({query,signal}),'商品读取失败'),
-  product:new EmployeeQueryController<string,Product>(session,(id,signal)=>catalog.getAdminProduct({path:{id},signal}),'商品读取失败'),
-  draft:new EmployeeQueryController<string,Draft>(session,(id,signal)=>catalog.getInitialInventoryDraft({path:{id},signal}),'数量草稿读取失败'),
+  product:new EmployeeQueryController<string,Product>(session,(id,signal)=>catalog.getAdminProduct({path:{id},signal}),'商品读取失败',true),
+  draft:new EmployeeQueryController<string,Draft>(session,(id,signal)=>catalog.getInitialInventoryDraft({path:{id},signal}),'数量草稿读取失败',true),
 };
 export const taskQueries = {
   list: new EmployeeQueryController<TaskSearch, TaskList>(session, (query, signal) => tasks.listTasks({ query, signal }), '任务列表读取失败，请重试'),

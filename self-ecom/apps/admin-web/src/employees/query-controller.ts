@@ -4,13 +4,14 @@ import { ApiClientError, type AuthSessionStore, type ApiResponse } from '@shop/a
 interface QuerySnapshot<Data> {
   readonly key: string | null;
   readonly status: 'idle' | 'loading' | 'ready' | 'error';
+  readonly refreshing: boolean;
   readonly data: Data | null;
   readonly error: ApiClientError | null;
 }
 
 /** 查询只保存在内存，切换登录即清空；403在权限刷新重挂载后等待手动重试。 */
 export class EmployeeQueryController<Input, Data> {
-  private snapshot: QuerySnapshot<Data> = Object.freeze({ key: null, status: 'idle', data: null, error: null });
+  private snapshot: QuerySnapshot<Data> = Object.freeze({ key: null, status: 'idle', refreshing: false, data: null, error: null });
   private readonly session: AuthSessionStore;
   private readonly fetch: (input: Input, signal: AbortSignal) => Promise<ApiResponse<Data>>;
   private readonly listeners = new Set<() => void>();
@@ -32,7 +33,7 @@ export class EmployeeQueryController<Input, Data> {
       const current = session.getSnapshot().revision;
       if (current === this.revision) return;
       this.revision = current; this.generation++; this.abort?.abort(); this.pending = null; this.lastRead = null;
-      this.update({ key: null, status: 'idle', data: null, error: null });
+      this.update({ key: null, status: 'idle', refreshing: false, data: null, error: null });
     });
   }
 
@@ -50,8 +51,10 @@ export class EmployeeQueryController<Input, Data> {
     }
     const generation = ++this.generation; const revision = this.session.getSnapshot().revision;
     this.abort?.abort(); const abort = new AbortController(); this.abort = abort;
-    const data=this.preserveOnRefresh&&key===this.snapshot.key?this.snapshot.data:null;
-    this.update({ key, status: 'loading', data, error: null });
+    // null也可能是已成功读取的空草稿，不能仅通过data真假判断是否保留当前表单。
+    const refreshing=this.preserveOnRefresh&&key===this.snapshot.key&&(this.snapshot.status==='ready'||this.snapshot.refreshing);
+    const data=refreshing?this.snapshot.data:null;
+    this.update({ key, status: 'loading', refreshing, data, error: null });
     const task = this.load(key, input, abort.signal, revision, generation).finally(() => { if (this.pending === task) this.pending = null; });
     this.pending = task; return task;
   };
@@ -62,7 +65,7 @@ export class EmployeeQueryController<Input, Data> {
     const previous = this.lastRead;
     this.generation++; this.abort?.abort(); this.pending = null;
     if(this.preserveOnRefresh&&previous&&this.listeners.size)return this.read(previous.key,previous.input,true);
-    this.update({ key: null, status: 'idle', data: null, error: null });
+    this.update({ key: null, status: 'idle', refreshing: false, data: null, error: null });
     return previous && this.listeners.size ? this.read(previous.key, previous.input, true) : Promise.resolve();
   };
 
@@ -70,9 +73,9 @@ export class EmployeeQueryController<Input, Data> {
     const isCurrent = () => generation === this.generation && revision === this.session.current().revision;
     try {
       const { data } = await this.fetch(input, signal);
-      if (isCurrent()) this.update({ key, status: 'ready', data, error: null });
+      if (isCurrent()) this.update({ key, status: 'ready', refreshing: false, data, error: null });
     } catch (error) {
-      if (isCurrent()) this.update({ key, status: 'error', data: null,
+      if (isCurrent()) this.update({ key, status: 'error', refreshing: false, data: null,
         error: error instanceof ApiClientError ? error : new ApiClientError('REQUEST_FAILED', this.failureMessage) });
     }
   }

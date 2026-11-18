@@ -129,3 +129,22 @@ test('售后同键刷新保留表单依赖数据，换键/错误/换会话立即
  behavior=async()=>{throw new ApiClientError('FORBIDDEN','无权',403);};await controller.read('sale-a','a',true);assert.equal(controller.getSnapshot().data,null);
  behavior=async()=>response('新售后');await controller.read('sale-b','b');f.session.clear();assert.equal(controller.getSnapshot().data,null);stop();controller.dispose();f.controller.dispose();
 });
+
+test('详情刷新保留空草稿这一有效结果，等待期间标记刷新，切换记录或会话不保留', async () => {
+ const f=fixture(),gate=deferred();let behavior=async()=>response(null);
+ const controller=new EmployeeQueryController(f.session,()=>behavior(),'详情读取失败',true),stop=controller.subscribe(()=>{});
+ await controller.read('product-a','a');behavior=()=>gate.promise;
+ const refresh=controller.invalidate('product-a');
+ assert.equal(controller.getSnapshot().refreshing,true);
+ assert.equal(controller.getSnapshot().key,'product-a');assert.equal(controller.getSnapshot().data,null);
+ gate.resolve(response({version:1}));await refresh;
+ assert.equal(controller.getSnapshot().refreshing,false);assert.equal(controller.getSnapshot().data.version,1);
+ const next=deferred();behavior=()=>next.promise;const change=controller.read('product-b','b');
+ assert.equal(controller.getSnapshot().refreshing,false);assert.equal(controller.getSnapshot().data,null);
+ next.resolve(response({version:2}));await change;
+ const late=deferred();behavior=()=>late.promise;const pending=controller.invalidate();
+ assert.equal(controller.getSnapshot().refreshing,true);f.session.clear();
+ assert.equal(controller.getSnapshot().refreshing,false);assert.equal(controller.getSnapshot().data,null);
+ late.resolve(response({version:3}));await pending;assert.equal(controller.getSnapshot().status,'idle');
+ stop();controller.dispose();f.controller.dispose();
+});

@@ -6,7 +6,8 @@ import { catalogQueries, inventoryQueries } from '../services/api';
 import { useEmployeeQuery } from '../employees/use-employee-query';
 import { InventoryNav, InventoryPager, InventoryState } from '../inventory/InventoryCommon';
 import type { Balances, BalanceQuery } from '../inventory/model';
-import { flatten, type Category } from '../catalog/model';
+import type { Category } from '../catalog/model';
+import { CategorySelect } from '../catalog/CategorySelect';
 import { parseListLink } from '../routing/list-link';
 import '../inventory/inventory-balances.css';
 
@@ -53,10 +54,7 @@ function InventoryBalances({ initial, clearLink }: { initial: BalanceQuery; clea
       setCollapsed(new Set());
     }}>
       <label>商品 / SKU<input name="keyword" maxLength={120} placeholder="搜索商品名称或 SKU 编码" value={draft.keyword} onChange={e => setDraft({ ...draft, keyword: e.target.value })}/></label>
-      <label>商品分类<select name="categoryId" value={draft.categoryId} disabled={categories.status !== 'ready'} onChange={e => setDraft({ ...draft, categoryId: e.target.value })}>
-        <option value="">{categories.status === 'ready' ? '全部分类（含未分类）' : '正在读取分类…'}</option>
-        {flatten((categories.data ?? []) as Category[]).map(({ node }) => <option key={node.id} value={node.id}>{'　'.repeat(node.depth - 1)}{node.name}</option>)}
-      </select></label>
+      <label>商品分类<CategorySelect categories={(categories.data??[]) as Category[]} value={draft.categoryId} disabled={categories.status!=='ready'} onChange={categoryId=>setDraft({...draft,categoryId})} placeholder={categories.status==='ready'?'全部分类（含未分类）':'正在读取分类…'}/></label>
       <label>库存预警<select name="lowStock" value={draft.lowStock} onChange={e => setDraft({ ...draft, lowStock: e.target.value })}><option value="">全部库存</option><option value="true">低库存（A ≤ 预警线）</option><option value="false">高于预警线</option></select></label>
       <label>新购状态<select name="purchaseBlocked" value={draft.purchaseBlocked} onChange={e => setDraft({ ...draft, purchaseBlocked: e.target.value })}><option value="">全部状态</option><option value="true">暂停新购</option><option value="false">未暂停</option></select></label>
       <div className="inventory-filter-actions"><Button type="primary" htmlType="submit">查询</Button><Button onClick={reset}>清除筛选</Button></div>

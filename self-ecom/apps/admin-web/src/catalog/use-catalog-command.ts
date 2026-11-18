@@ -9,7 +9,7 @@ export function useCatalogCommand(onSaved:()=>void,options:{blockConflicts?:bool
   const {busy,setBusy,blocked,setBlocked,pending}=shared??{busy:localBusy,setBusy:setLocalBusy,blocked:localBlocked,setBlocked:setLocalBlocked,pending:localPending};
   useEffect(()=>{mounted.current=true;return()=>{mounted.current=false;};},[]);
   async function run(work:()=>Promise<unknown>){
-    if(pending.current||blocked||!session.current().credential)return;pending.current=true;setBusy(true);setError(null);
+    if(busy||pending.current||blocked||!session.current().credential)return;pending.current=true;setBusy(true);setError(null);
     const revision=session.current().revision;const current=()=>mounted.current&&session.current().revision===revision;
     try{await work();if(current())onSaved();}catch(e){if(current()){setError(e);if(!(e instanceof ApiClientError)||e.code==='VERSION_CONFLICT'||(options.blockConflicts&&e.status===409)||!e.status||e.status>=500)setBlocked(true);}}
     finally{pending.current=false;if(current())setBusy(false);}

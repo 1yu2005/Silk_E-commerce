@@ -20,11 +20,11 @@ export function OrderDetailPage(){
  const {id=''}=useParams(),{revision}=useSyncExternalStore(session.subscribe,session.getSnapshot),[epoch,setEpoch]=useState(0),state=useEmployeeQuery(orderQueries.detail,id,id);
  const reload=()=>{void orderQueries.detail.invalidate();void orderQueries.communications.invalidate();void historyQueries.order.invalidate();setEpoch(e=>e+1);};
  return <section className="catalog-panel detail-workspace">
-  <header className="detail-page-heading"><div><Link to="/orders">返回订单列表</Link><h1>订单详情</h1><p>查看交易信息，衔接仓储履约与售后服务。</p></div><Button onClick={reload}>读取最新订单</Button></header>
-  <AuthError error={state.error}/>{state.data&&state.status==='ready'?<CatalogCommandScope key={id+':'+revision+':'+epoch+':'+state.data.version}><Detail o={state.data} reload={reload}/></CatalogCommandScope>:!state.error?<Spin/>:null}
+  <header className="detail-page-heading"><div><Link to="/orders">返回订单列表</Link><h1>订单详情</h1><p>查看交易信息，衔接仓储履约与售后服务。</p></div><Button disabled={state.refreshing} onClick={reload}>{state.refreshing?'正在更新订单…':'读取最新订单'}</Button></header>
+  <AuthError error={state.error}/>{state.data?<CatalogCommandScope key={id+':'+revision+':'+epoch+':'+state.data.version} refreshing={state.refreshing}><Detail o={state.data} refreshing={state.refreshing} reload={reload}/></CatalogCommandScope>:!state.error?<Spin/>:null}
  </section>;
 }
-function Detail({o,reload}:{o:OrderDetail;reload:()=>void}){
+function Detail({o,refreshing,reload}:{o:OrderDetail;refreshing:boolean;reload:()=>void}){
  const {permissions,employee}=useEmployeeAuth(),cmd=useCatalogCommand(reload,{blockConflicts:true});
  const can=(p:string)=>permissions?.effectivePermissions.includes(p),label=(labels:Readonly<Record<string,string>>,value:string)=>labels[value]??value;
  return <>
@@ -44,7 +44,7 @@ function Detail({o,reload}:{o:OrderDetail;reload:()=>void}){
    <div className="detail-task-list">{o.tasks?.length?o.tasks.map(t=><article className="detail-task-row" key={t.id}><div><Link to={'/tasks/'+t.id}>{label(taskStages,t.stage)}</Link><small>第{t.round}轮 · 版本 {t.version}</small></div><Tag>{label(taskStatuses,t.status)}</Tag><span className="detail-task-owner">{t.assigneeId===employee?.id?'本人经办':t.assigneeId?'经办 '+t.assigneeId:t.status==='OPEN'?'尚未领取':'当前无经办人'}</span></article>):<p className="detail-empty">暂无业务任务</p>}</div>
    {o.blocks?.length?<div className="detail-block-list">{o.blocks.map(b=><div className="detail-block" key={b.sourceId}><Tag color="warning">{b.type}</Tag>{b.sourceType==='AFTER_SALE'?<Link to={'/after-sales/'+b.sourceId}>查看售后来源</Link>:null}{b.sourceType==='STOCK_EXCEPTION'?<Link to={'/inventory/stock-incidents/'+b.sourceId}>查看库存异常来源</Link>:null}</div>)}</div>:<p className="detail-note">当前没有独立暂停来源。</p>}
   </DetailSection>
-  <div id="order-fulfillment" className="detail-section detail-embedded-section"><FulfillmentPanel o={o}/></div>
+  <div id="order-fulfillment" className="detail-section detail-embedded-section"><FulfillmentPanel o={o} refreshing={refreshing}/></div>
   {can('order.service.read')?<div id="order-communication" className="detail-section detail-embedded-section"><Communications id={o.id} reload={reload}/></div>:null}
   <div id="order-history" className="detail-section detail-embedded-section"><HistoryTimeline key={o.id} id={o.id} type="order"/></div>
  </>;

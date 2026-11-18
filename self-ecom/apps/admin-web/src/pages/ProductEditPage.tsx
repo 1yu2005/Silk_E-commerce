@@ -9,7 +9,8 @@ import { CatalogQueryState } from '../catalog/CatalogQueryState';
 import { CatalogFeedback } from '../catalog/CatalogFeedback';
 import { useCatalogCommand } from '../catalog/use-catalog-command';
 import { CatalogCommandScope } from '../catalog/CatalogCommandScope';
-import { flatten,statuses,type Category,type Product } from '../catalog/model';
+import { statuses,type Category,type Product } from '../catalog/model';
+import { CategorySelect } from '../catalog/CategorySelect';
 import { ProductImages } from '../catalog/ProductImages';
 import { ProductScheme } from '../catalog/ProductScheme';
 import { ProductSkus } from '../catalog/ProductSkus';
@@ -23,17 +24,17 @@ function ProductLoader({id}:{id:string}){
   const data=useEmployeeQuery(catalogQueries.product,id,id),tree=useEmployeeQuery(catalogQueries.categories,'categories',undefined);const [notice,setNotice]=useState('');
   const reload=()=>{void catalogQueries.product.invalidate();void catalogQueries.draft.invalidate();void catalogQueries.products.invalidate();};
   return <section className="catalog-panel"><Link to="/products">← 商品列表</Link>{notice?<p role="status">{notice}</p>:null}
-    {data.status==='ready'&&data.data?<CatalogCommandScope key={id+':'+data.data.version}><ProductEditor product={data.data} categories={(tree.data??[]) as Category[]} reload={reload} saved={()=>{setNotice('已保存，请核对最新版本。');reload();}}/></CatalogCommandScope>:<CatalogQueryState error={data.error} onRetry={reload}/>}</section>;
+    {data.data?<CatalogCommandScope key={id+':'+data.data.version} refreshing={data.refreshing}><ProductEditor product={data.data} categories={(tree.data??[]) as Category[]} refreshing={data.refreshing} reload={reload} saved={()=>{setNotice('已保存，请核对最新版本。');reload();}}/></CatalogCommandScope>:<CatalogQueryState error={data.error} onRetry={reload}/>}</section>;
 }
-function ProductEditor({product:p,categories,reload,saved}:{product:Product;categories:Category[];reload:()=>void;saved:()=>void}){
+function ProductEditor({product:p,categories,refreshing,reload,saved}:{product:Product;categories:Category[];refreshing:boolean;reload:()=>void;saved:()=>void}){
   const navigate=useNavigate(),[deleteOpen,setDeleteOpen]=useState(false);
   const {permissions}=useEmployeeAuth();const can=(code:string)=>permissions?.effectivePermissions.includes(code)??false;
   const cmd=useCatalogCommand(saved);const [reason,setReason]=useState('');const manage=can('product.manage')&&!p.archivedAt;
-  return <><div className="catalog-heading"><div><span className="eyebrow">{p.productCode} · 版本 {p.version}</span><h1>{p.name}</h1><Tag>{p.archivedAt?'归档':statuses[p.status]}</Tag></div><Button onClick={reload}>刷新商品</Button></div>
+  return <><div className="catalog-heading"><div><span className="eyebrow">{p.productCode} · 版本 {p.version}</span><h1>{p.name}</h1><Tag>{p.archivedAt?'归档':statuses[p.status]}</Tag></div><Button disabled={refreshing} onClick={reload}>{refreshing?'正在更新商品…':'刷新商品'}</Button></div>
     <CatalogFeedback {...cmd} reload={reload}/>
     <nav className="catalog-section-nav" aria-label="编辑区域"><a href="#profile">基础资料</a><a href="#images">商品图片</a><a href="#scheme">颜色与尺码</a><a href="#skus">SKU与价格</a>{manage?<a href="#initial-draft">初始数量草稿</a>:null}</nav>
     <section id="profile" className="catalog-card"><h2>基础资料</h2><form className="catalog-form" onSubmit={e=>{e.preventDefault();const f=new FormData(e.currentTarget);void cmd.run(()=>catalog.updateProduct({path:{id:p.id},body:{expectedVersion:p.version,name:String(f.get('name')),brand:String(f.get('brand'))||null,description:String(f.get('description'))||null,categoryId:String(f.get('categoryId'))||null}}));}}><fieldset disabled={!can('product.manage')||cmd.busy||cmd.blocked}>
-      <div className="catalog-grid"><label>商品名称<input name="name" defaultValue={p.name} required maxLength={120}/></label><label>品牌（文本）<input name="brand" defaultValue={p.brand??''} maxLength={80}/></label><label>分类<select aria-label="分类" name="categoryId" defaultValue={p.categoryId??''}><option value="">尚未分类</option>{flatten(categories).map(o=><option key={o.value} value={o.value}>{o.label}</option>)}</select></label></div>
+      <div className="catalog-grid"><label>商品名称<input name="name" defaultValue={p.name} required maxLength={120}/></label><label>品牌（文本）<input name="brand" defaultValue={p.brand??''} maxLength={80}/></label><label>分类<CategorySelect categories={categories} defaultValue={p.categoryId??''} placeholder="尚未分类" label="分类" disabled={!manage||cmd.busy||cmd.blocked||!categories.length}/></label></div>
       <label>商品介绍（纯文本）<textarea name="description" defaultValue={p.description??''} maxLength={20000} rows={5}/></label><Button htmlType="submit" type="primary" disabled={!can('product.manage')} loading={cmd.busy}>保存资料</Button></fieldset></form></section>
     <ProductImages product={p} disabled={!manage} onSaved={saved} reload={reload}/>
     <ProductScheme product={p} disabled={!manage} onSaved={saved} reload={reload}/>

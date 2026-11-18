@@ -3,12 +3,13 @@ import { Alert, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import { catalogQueries } from '../services/api';
 import { useEmployeeQuery } from '../employees/use-employee-query';
-import { flatten, type Category } from '../catalog/model';
+import type { Category } from '../catalog/model';
+import { CategorySelect } from '../catalog/CategorySelect';
 import { signed, type Ledger } from './model';
 
 export function InventoryCategoryField({value,onChange}:{value:string;onChange:(value:string)=>void}){
  const query=useEmployeeQuery(catalogQueries.categories,'categories',undefined);
- return <div className="inventory-record-category"><label>商品分类<select name="categoryId" value={value} disabled={query.status!=='ready'} onChange={e=>onChange(e.target.value)}><option value="">{query.status==='ready'?'全部分类（含未分类）':'正在读取分类…'}</option>{flatten((query.data??[]) as Category[]).map(({node})=><option key={node.id} value={node.id}>{'　'.repeat(node.depth-1)}{node.name}</option>)}</select></label>{query.error?<Alert type="warning" title="分类读取失败" action={<Button size="small" onClick={()=>void catalogQueries.categories.invalidate()}>重试</Button>}/>:null}</div>;
+ return <div className="inventory-record-category"><label>商品分类<CategorySelect categories={(query.data??[]) as Category[]} value={value} disabled={query.status!=='ready'} onChange={onChange} placeholder={query.status==='ready'?'全部分类（含未分类）':'正在读取分类…'}/></label>{query.error?<Alert type="warning" title="分类读取失败" action={<Button size="small" onClick={()=>void catalogQueries.categories.invalidate()}>重试</Button>}/>:null}</div>;
 }
 
 export function InventorySkuIdentity({row,showProduct=false}:{row:Pick<Ledger['items'][number],'productId'|'productName'|'choices'|'skuCode'|'skuId'|'skuRetired'>;showProduct?:boolean}){
