@@ -45,11 +45,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .store-search input { background: #fff; border-color: #d0d8cc; padding: 12px 16px; font-size: 13px; }
 .store-search button { background: var(--store-green); border-color: var(--store-green); padding-inline: 26px; white-space: nowrap; }
 .collection-layout { grid-template-columns: 176px minmax(0, 1fr); gap: 28px; }
-.collection-layout aside { padding-right: 22px; border-right: 1px solid var(--store-line); }
-.collection-layout aside h3 { font-size: 12px; margin: 10px 0 22px 12px; color: var(--store-muted); }
-.collection-layout aside button { padding-block: 13px; border-left: 2px solid transparent; margin-bottom: 6px; line-height: 1.6; color: #53604f; }
-.collection-layout aside button:hover { background: #eef0e9; }
-.collection-layout aside button.selected { border-color: var(--store-green); background: #e9ede3; color: #304a37; font-weight: 600; }
 .collection-toolbar { min-height: 38px; margin: 0 0 20px; font-size: 12px; }
 .collection-toolbar select { margin-left: 12px; padding: 8px 18px 8px 10px; color: var(--store-ink); border-color: var(--store-line); }
 .product-grid { gap: 36px 24px; }
@@ -92,5 +87,5 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .store-contact p { font-size: 13px; color: #596753; }
 .store-footer-note { border-top: 1px solid #d5dbce; padding-top: 18px; font-size: 12px; text-align: left; color: var(--store-muted); }
 @media (max-width: 1100px) and (min-width: 721px) { .site-header { gap: 20px; } .site-header nav { gap: 8px 16px; } .brand { font-size: 21px; } .clothing-hero { min-height: 430px; } .clothing-hero > div:first-child { padding: 40px 10%; } .hero-garment svg { height: 340px; } .collection-layout { grid-template-columns: 150px minmax(0, 1fr); gap: 24px; } .store-search > label { width: 150px; } .product-grid { gap: 28px 18px; } }
-@media (max-width: 720px) { .site-header { position: static; align-items: flex-start; padding: 20px 5vw; } .site-header nav { justify-content: flex-start; gap: 10px 16px; } .clothing-hero { min-height: 330px; } .clothing-hero > div:first-child { padding: 28px 20px; } .clothing-hero h1 { font-size: 34px; } .hero-garment svg { height: 240px; } .hero-garment::before { top: 45px; } .store-primary-link { padding: 10px; gap: 12px; } .collection-layout { grid-template-columns: 120px minmax(0, 1fr); gap: 20px; } .collection-layout aside { padding-right: 10px; } .store-search > label { width: 120px; } .product-grid { gap: 24px 12px; } }
-@media (max-width: 600px) { .collection-layout { display: block; } .collection-layout aside { border-right: 0; } .login-panel { padding: 28px; } .product-detail-grid { grid-template-columns: 1fr; } .hero-garment::before { display: none; } .hero-caption { left: 12px; font-size: 8px; } .hero-footnote { right: 12px; font-size: 9px; } }
+@media (max-width: 720px) { .site-header { position: static; align-items: flex-start; padding: 20px 5vw; } .site-header nav { justify-content: flex-start; gap: 10px 16px; } .clothing-hero { min-height: 330px; } .clothing-hero > div:first-child { padding: 28px 20px; } .clothing-hero h1 { font-size: 34px; } .hero-garment svg { height: 240px; } .hero-garment::before { top: 45px; } .store-primary-link { padding: 10px; gap: 12px; } .collection-layout { grid-template-columns: 120px minmax(0, 1fr); gap: 20px; } .store-search > label { width: 120px; } .product-grid { gap: 24px 12px; } }
+@media (max-width: 600px) { .collection-layout { display: block; } .login-panel { padding: 28px; } .product-detail-grid { grid-template-columns: 1fr; } .hero-garment::before { display: none; } .hero-caption { left: 12px; font-size: 8px; } .hero-footnote { right: 12px; font-size: 9px; } }

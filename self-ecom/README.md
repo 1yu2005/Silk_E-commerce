@@ -1,5 +1,72 @@
 # 自营电商系统
 
+> 2026-11-16 清理说明：性能专用文档及报告已删除，相关链接已移除；下文性能描述仅为历史记录。
+
+## 当前交付安排（2026-11-16）
+
+按用户最新要求，先提交并推送当前实现，再在独立窗口验证全部功能。性能专用测试脚本及入口已按清单移除，当前以业务功能验收为目标；本次代码上传不代表最终交付验收通过。常用入口为后台 http://localhost:8080、商城 http://localhost:8081 和 API http://localhost:3001；账号密码、真实配置、上传文件及浏览器资料仅保留在本机私有目录。
+
+功能验证将覆盖顾客、客服、仓储和管理员的登录、商品库存、购买履约、售后退款、异常协作、任务、统计及审计。当前已发现顾客头像的数据库记录和本机原图一致，但常用 API 上传卷缺少对应文件，需在功能验证窗口补回并复验。以下性能与交付记录保留历史状态，不能替代本次功能验证结论。
+
+## 板块15性能验收历史记录（已停止，不作为当前功能部署门槛）
+
+本轮source266的控制扫描最小修正已完成同镜像保留刷新（1575项溯源绑定）、普通测试、控制协议8/8、受控13/13及152截图、三镜像reuse复核。source3f/build12的65套1782项、run8及独立恢复保持原来源身份，仅有资格的不变子集按前置gate复用。原正式232b19cb已完整结束FAILED/exit1，24轮19通过5失败，全部数据/文件保护及48次对账通过。新八类诊断在任务预检因57014中止、完成0轮；三fresh只读重放首条超时、后两条成功，根因未确定。新正式119c仅准备未跑，生产750ms/1000ms及原验收门槛保持，常用环境仍为板块14及17条迁移；板块15部署、最终材料、提交推送和同SHA CI尚未完成。最新依据见性能状态、[验收矩阵](docs/verification/M4-15/acceptance-matrix.md)及[证据索引](docs/verification/M4-15/evidence-index.md)。下文13/14段落保留原交付快照。
+
+使用锁定的Node 24.18.0、pnpm 11.25.0和PG16。普通测试不连接常用开发库；并发、调度、受控浏览器、性能和恢复都必须使用新项目/新测试库/独立端口及上传目录，由同一执行者分配重数据库窗口。不要同时跑长压、E2E和数据库集成；不要把根`.env`当隔离库配置。示例中的“本轮”路径须替换为已核验的实际私有配置，密码和token只放ignored配置或账号台账。
+
+| 工具 | 入口与用途 |
+|---|---|
+| 工程检查 | `pnpm verify:engineering typecheck`、`lint`、`test`、`build`逐项运行；`pnpm contracts:check`核契约 |
+| 并发正确性 | `pnpm test:concurrency`；100顾客/20员工/退款与来源入账锁屏障，需显式隔离PG配置 |
+| 调度恢复 | `pnpm test:scheduler`；两个独立OS API进程，真实跨页、单项失败、停机和补扫 |
+| 五套生产E2E | `pnpm test:e2e`；orders、after-sales、settlement、coordination、reporting分库分卷，三应用复用同组镜像 |
+| 只读对账 | `pnpm verify:reconcile`；独立READ ONLY/REPEATABLE READ，校验账链、来源、任务、退款、统计及真实文件 |
+| 备份/恢复 | 恢复使用`pnpm ops:restore`、`pnpm ops:verify-restore`；本机保留式部署后的日备份使用下方私有精确ID入口 |
+
+需要公开复现证据时，使用记录器选择隔离配置，例如：
+
+```powershell
+node scripts/record-module15.mjs --env-file private-delivery/M4-15/本轮/.env.local correctness-concurrency . scripts/module15-concurrency.mjs
+```
+
+记录器保留真实命令、Git SHA、源码指纹、退出码和脱敏日志；原始日志、浏览器profile、截图、附件、dump、真实配置均在ignored目录，公共结果只列安全业务ID及文件大小/SHA。所有新项目、容器、卷、helper、失败包和证据保留；不执行自动删除、`down`、`prune`或临时容器自动清理。
+
+### 板块15日备份与独立恢复
+
+本机日备份的运行身份为Windows维护账户`20334`（操作系统账户，需有项目/私有备份目录和Docker访问权）。板块15常用环境尚未部署；待保留式部署真实成功后，旧三应用和新三应用会保留相同Compose project/service标签，普通`pnpm ops:backup`的唯一标签解析会产生多候选，因此不能直接用于这个本机环境。
+
+部署完成后必须使用交付私有`backup-module15-preserving-revision2.local.mjs`精确ID备份wrapper及已核验的私有`--request`文件：绑定真正成功的部署报告、同冻结target、报告中的最终精确容器ID和全新输出；复核原DB/卷/网络及保留旧应用后，只暂停、备份和恢复该组精确ID。请求包含`--deployment-result`成功报告、`--output`和`--confirm-project self-ecom`。尚无成功部署报告时，不生成可运行的日备份请求，也不安装计划任务。
+
+维护操作者先实际验证精确ID备份成功，再在Windows任务计划程序或既有运维系统按`Asia/Shanghai`每天一次（建议02:00）安排；每天的作业须重新核验成功部署报告并生成全新私有请求及输出路径，不能复用已使用请求中的固定输出目录。工作目录、请求和输出均使用核验后的绝对路径。操作者负责空间检查、退出码/manifest巡检、既有通知渠道的失败通知和异机副本。工具本身不会创建计划任务、自动轮换或清理旧包；本任务尚未安装操作系统定时任务，也没有未实测的RPO承诺。
+
+命令只暂停原本运行的两站与API，使用同一个只读数据库快照生成全表全列摘要与PG16 custom dump，并复制真实uploads完整文件树和字节SHA；finally只按原容器ID恢复本轮停止的服务。原DB不重启，不改权限、账号、业务或库存。每次创建唯一备份包，只有最终私有`manifest.json`为`COMPLETE`且原状态恢复成功才算备份成功。未知数据库客户端或卷写者会使备份拒绝通过。
+
+空间不足时由操作者停止本次安排并扩容或转移，保留失败包/日志与原现场，不自动删除。排错后再次运行生成新backupId；备份不使用业务commandKey，也不覆盖失败包。仅将最终COMPLETE包整体复制到操作者控制的异机私有位置并复核checksums；未完成复制不能声称有异机恢复点。责任和失败处置详见[每日备份运行责任](docs/verification/M4-15/restore.md#每日备份运行责任)。
+
+恢复前将[.env.restore.example](.env.restore.example)复制到ignored私有`.env.restore`，填写全新的项目名、数据库名、四个互异端口和PG/JWT配置；不要覆盖根`.env`。恢复项目和数据库名必须包含`restore`，端口、卷和真实PG集群身份均须与源不同。以下路径和名称仅为示例：
+
+```powershell
+pnpm ops:restore -- --backup ./backups/实际backupId --env-file .env.restore --project shop-restore-check --confirm-target m415_restore_check
+pnpm ops:verify-restore -- --backup ./backups/实际backupId --env-file .env.restore --project shop-restore-check
+pnpm ops:verify-restore -- --backup ./backups/实际backupId --env-file .env.restore --project shop-restore-check --dynamic
+```
+
+恢复只允许空新库/新卷，固定复用备份中的四个实际镜像ID，不运行迁移、seed或回填。首次启动API前，全表全列、技术行、结构、序列、迁移及文件都要与备份相等并通过只读对账；静态报告应为`RESTORED_STATIC`和`VERIFIED_STATIC`。动态核验才启动正式API补扫并产生`VERIFIED_DYNAMIC`，记录实际候选和唯一业务动作，候选0不能声称发生过补扫。还须独立以原账号重新登录、读取原付款/退款历史和私图200/404/SHA；健康就绪不代替业务可读。
+
+恢复与校验默认沿用`private-delivery/M4-15/<project>`状态目录；若首步指定`--output`，后续两次也须沿用同目录。失败目标保留，不能在非空库上强制重放、清库、seed或覆盖旧备份；定位后改用全新目标。实测`restoreToReadableMs`和完整业务可读时间分别登记，`backupAgeAtRestoreMs`只表示备份年龄，不能当作未发生故障的RPO。设计及排错详见[运维设计](docs/verification/M4-15/ops-design.md)和[恢复步骤](docs/verification/M4-15/restore.md)。
+
+### 板块15功能验收与部署入口
+
+性能专用入口已移除。部署仍要求新构建的同组三镜像完成五套功能E2E，以及备份、静态和动态恢复、业务可读、文件与原资源保护检查。新E2E报告记录源码指纹，部署前须保持一致；旧报告或显式复用镜像的检查不能替代本轮源码构建证明。
+
+以下仅为命令格式示例；须填写实际通过的本轮结果，并在获准部署后运行：
+
+```powershell
+node infra/deploy-module15-local.mjs --e2e-result docs/verification/M4-15/e2e/本轮/result.json --restore-result docs/verification/M4-15/ops/本轮/result.json --output docs/verification/M4-15/deployment/本轮 --confirm-project self-ecom
+```
+
+部署入口仍核对完整迁移文件与checksum、同组镜像、源码指纹和恢复证据，逐列保护原业务、账号、库存及上传文件，不执行seed或回填。详见[部署说明](docs/verification/M4-15/deployment.md)。此前性能报告仅作历史记录保留。
+
 ## 板块14本地验收、部署与演示完成，待独立提交CI（2026-11-15）
 
 经营看板、真实批量净消费、管理员安全审计查询和订单/售后统一业务历史已接入。北京日期半开窗口、成功支付/退款独立聚合、净收款可负、支付销量不因退款倒扣；消费只计完成且未成功全退的订单。单据历史先授权再计数分页，库存/线下/代录仍受原权限约束，顾客原公开契约保持。
@@ -93,7 +160,7 @@
 
 后台`/tasks`提供我的待办、合资格岗位池和管理员待安排，以及详情、领取/释放/转交/延期和统一历史。修改全店设置不回写旧任务快照；延期保留原截止和曾逾期。正式环境启动补扫、每分钟扫描，test环境不自动调度。库存、真实ORDER履约/交运核实/发货异常已接Task，付款唯一生成发货任务，真实收货及暂停计时已验证；未交运不启动收货计时，售后任务留11。
 
-手动体验任务动作见[隔离应用说明](apps/api/test/acceptance/README.md)，使用独立专属库、5175页面与3001测试API。**当前Docker API也占3001，须按说明先停止Docker的api服务，结束隔离应用后再恢复**；不要同时启动或把测试页面误接到开发库。任务测试账号只在临时库，密码随机且仅在启动终端显示。
+历史任务专项入口见[隔离应用说明](apps/api/test/acceptance/README.md)。当前完整浏览器验收使用板块15的独立随机端口与测试数据库，避免占用常用3001端口。临时测试成员与私有凭据仅用于对应隔离环境；常用演示沿用已有账号，不为测试停止常用服务。
 
 图片接口：`POST /api/v1/files`、`GET /api/v1/files/{id}`、`GET /api/v1/files/{id}/content`。本机Swagger在`http://localhost:3000/api/docs`，先登录并Authorize；multipart先放purpose、再放一个file。支持JPEG/PNG/WebP、单图5MiB、宽高各10000及总像素4000万以内，不支持动画；服务端实际解码重编码，不按扩展名放行。未绑定图片仅本人可读，24小时到期；业务绑定只供后端事务调用，不提供任意业务ID绑定接口。
 
@@ -289,9 +356,9 @@ docker compose --env-file .env -f infra/compose.yaml config --quiet
 docker compose --env-file .env -f infra/compose.yaml build
 # 先启动数据库，再在容器内执行迁移和初始化。
 docker compose --env-file .env -f infra/compose.yaml up -d --wait db
-docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm db:migrate:deploy
-docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm db:seed:permissions
-docker compose --env-file .env -f infra/compose.yaml run --rm --no-deps api pnpm db:seed:admin
+docker compose --env-file .env -f infra/compose.yaml run --no-deps api pnpm db:migrate:deploy
+docker compose --env-file .env -f infra/compose.yaml run --no-deps api pnpm db:seed:permissions
+docker compose --env-file .env -f infra/compose.yaml run --no-deps api pnpm db:seed:admin
 # 启动全部四个服务并查看状态。
 docker compose --env-file .env -f infra/compose.yaml up -d --wait --wait-timeout 90
 docker compose --env-file .env -f infra/compose.yaml ps
@@ -333,7 +400,7 @@ docker compose --env-file .env -f infra/compose.yaml stop
 
 数据保存在`db_data`卷，上传路径使用`uploads`卷，不要用`down -v`作为日常停止命令。Compose将JWT密钥作为运行配置传入API；数据库密码拼接连接串时应使用URI安全字符。Nginx不直接提供私有上传目录，修改运行配置后重新`up`使配置生效。
 
-最新完整隔离部署入口：`node infra/verify-auth-compose.mjs --inventory --output=output/playwright/新的验收目录`，包含前置认证、文件、设置、商品和库存。默认冻结依赖并构建三个镜像，使用随机项目/端口/凭据/独立空卷，结束仅清理本次专属资源。需可用Docker及已有Playwright/Chromium，用`DOCKER_EXECUTABLE`、`PLAYWRIGHT_MODULE_PATH`和`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定路径；使用新目录保留证据。本轮首轮中断后的库存与通用尾项采用同组镜像定向续验，不重复全工程；实际命令、失败和结果见[M1-06验收](docs/verification/M1-06.md)。任务竞争/回滚等破坏性验证仅用独占库。
+当前完整隔离部署入口为`pnpm test:e2e`，覆盖订单履约、售后、结算、异常协作及统计审计五套独立四服务环境；随机项目、端口、凭据、数据库与上传卷均独立。所有容器、卷、文件和失败证据保留，仅停止已确认归属的本轮服务。需可用Docker及已有Playwright/Chromium，用`DOCKER_EXECUTABLE`、`PLAYWRIGHT_MODULE_PATH`和`PLAYWRIGHT_CHROMIUM_EXECUTABLE`指定路径，重新执行时使用新证据目录。前置库存专项的历史命令与结果保留在[M1-06验收](docs/verification/M1-06.md)，不作为最终系统验收入口。任务竞争、回滚和故障注入只用独占测试库。
 
 2026-11-14已将板块6同组验收镜像部署常用四服务，原数据库容器和两卷保持；API重建后账务/图片/原会话保持，见[部署](docs/verification/evidence/M1-06/deployment.json)、[持久化](docs/verification/evidence/M1-06/deployed-persistence.json)和[最终截图](output/playwright/M1-06/final-copy/result.json)。后续源码改变后仍需重新构建/部署，healthy不能代替代码版本与业务验收。
 

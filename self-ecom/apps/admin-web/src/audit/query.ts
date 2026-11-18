@@ -11,8 +11,9 @@ const actions:Record<NonNullable<AuditSearch['action']>,true>={
   'task.claim':true,'task.release':true,'task.transfer':true,'task.qualification.lost':true,'task.deadline.extend':true,'task.receipt-start.correct':true,'task.stage.suspend':true,'task.stage.resume':true,
   'task.source.add':true,'task.source.resolve':true,'task.source.cancel':true,'order.timer.block.add':true,'order.timer.block.release':true,'order.timer.handover.record':true,'order.timer.finish':true,
 };
-const targets:Record<NonNullable<AuditSearch['targetType']>,true>={Coordination:true,AfterSale:true,Order:true,StockIncident:true,Customer:true,Address:true,CartItem:true,InventoryAction:true,InventorySource:true,
-  InventoryAdjustment:true,InventoryBalance:true,InventoryPurchaseBlock:true,Category:true,Product:true,Employee:true,FileAsset:true,Communication:true,AuthSession:true,StoreSettingVersion:true,Task:true};
+const targets:Record<NonNullable<AuditSearch['targetType']>,string>={Coordination:'协同工单',AfterSale:'售后单',Order:'订单',StockIncident:'订单库存异常',Customer:'顾客',Address:'收货地址',CartItem:'购物车商品',InventoryAction:'库存操作',InventorySource:'库存来源',
+  InventoryAdjustment:'库存登记',InventoryBalance:'库存账户',InventoryPurchaseBlock:'商品购买限制',Category:'商品分类',Product:'商品',Employee:'员工',FileAsset:'图片文件',Communication:'沟通记录',AuthSession:'登录会话',StoreSettingVersion:'店铺设置',Task:'任务'};
+export const auditTargetLabel=(value:string)=>Object.hasOwn(targets,value)?targets[value as keyof typeof targets]:value;
 const isAction=(value:string):value is NonNullable<AuditSearch['action']>=>Object.hasOwn(actions,value);
 const isTarget=(value:string):value is NonNullable<AuditSearch['targetType']>=>Object.hasOwn(targets,value);
 const isBusiness=(value:string):value is NonNullable<AuditSearch['businessType']>=>Object.hasOwn(auditBusinessLabels,value);

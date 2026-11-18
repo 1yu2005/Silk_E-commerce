@@ -4,7 +4,11 @@ export type Products=ApiOperations['listStoreProducts']['responses'][200]['conte
 export type Product=ApiOperations['getStoreProduct']['responses'][200]['content']['application/json']['data'];
 export type ProductQuery=NonNullable<ApiOperations['listStoreProducts']['parameters']['query']>;
 export interface Category{id:string;name:string;parentId:string|null;children:Category[]}
-export const flatten=(nodes:Category[],level=0):{id:string;name:string;level:number}[]=>nodes.flatMap(n=>[{id:n.id,name:n.name,level},...flatten(n.children,level+1)]);
+export function categoryPath(nodes:Category[],id:string|undefined):Category[]{
+  if(!id)return [];
+  for(const node of nodes){if(node.id===id)return [node];const children=categoryPath(node.children,id);if(children.length)return [node,...children];}
+  return [];
+}
 export const price=(cents:number|null)=>cents===null?'暂无可售规格':'¥'+(cents/100).toFixed(2);
 export function parseSearch(search:string):ProductQuery|null{
   const p=new URLSearchParams(search),query:ProductQuery={page:1,pageSize:12,sort:'NEWEST'};

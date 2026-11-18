@@ -1,0 +1,28 @@
+/* 服装分类使用可展开目录，折线与缩进表达上下级，筛选与展开分别操作。 */
+.collection-layout .store-category-sidebar { align-self:start; min-width:0; padding-right:18px; border-right:1px solid var(--store-line); }
+.store-category-heading { display:flex; align-items:center; justify-content:space-between; gap:8px; margin:4px 0 6px; }
+.store-category-heading h3 { margin:0; font-size:13px; color:var(--store-ink); font-weight:600; }
+.store-category-sidebar button { border:0; border-radius:3px; background:transparent; color:var(--store-ink); font:inherit; font-size:13px; line-height:1.6; cursor:pointer; }
+.store-category-heading .store-category-collapse { padding:5px 4px; font-size:11px; color:var(--store-muted); }
+.store-category-collapse:hover { color:var(--store-green); text-decoration:underline; }
+.store-category-collapse:disabled { opacity:.5; cursor:not-allowed; }
+.store-category-hint { margin:0 0 18px; font-size:11px; color:var(--store-muted); }
+.store-category-sidebar .store-category-all { display:block; width:100%; min-height:42px; margin-bottom:10px; padding:10px 12px; text-align:left; border-left:2px solid transparent; }
+.store-category-all:hover,.store-category-row:hover { background:#eef1e9; }
+.store-category-sidebar .store-category-all.selected,.store-category-row.selected { border-left-color:var(--store-green); background:#e7ede3; font-weight:600; }
+.store-category-tree,.store-category-children { list-style:none; padding:0; margin:0; }
+.store-category-tree > .store-category-node + .store-category-node { margin-top:4px; }
+.store-category-row { display:flex; align-items:center; min-height:40px; border-left:2px solid transparent; border-radius:3px; }
+.store-category-row.in-selected-path > .store-category-name { font-weight:600; color:#3e5945; }
+.store-category-row .store-category-toggle { display:grid; place-items:center; align-self:stretch; flex:0 0 26px; padding:0; border-radius:3px; color:var(--store-muted); }
+.store-category-toggle:hover { background:#e0e8da; color:var(--store-green); }
+.store-category-toggle[aria-expanded=true] svg { transform:rotate(90deg); }
+.store-category-row .store-category-name { flex:1; min-width:0; padding:9px 6px 9px 2px; text-align:left; overflow-wrap:anywhere; }
+.store-category-row.selected .store-category-name { color:#2e4b37; font-weight:600; }
+.store-category-leaf { flex:0 0 26px; }
+.store-category-children { margin:2px 0 4px 14px; padding-left:8px; border-left:1px solid #d2dbcc; }
+.store-category-children[hidden] { display:none; }
+.store-category-current { margin:18px 0 0; padding-top:14px; border-top:1px solid var(--store-line); color:var(--store-muted); font-size:11px; line-height:1.8; }
+.store-category-current strong { display:block; margin-top:5px; color:var(--store-green); font-size:12px; font-weight:500; overflow-wrap:anywhere; }
+@media(max-width:720px) { .collection-layout .store-category-sidebar { padding-right:10px; } .store-category-row .store-category-toggle,.store-category-leaf { flex-basis:22px; } .store-category-children { margin-left:10px; padding-left:6px; } }
+@media(max-width:600px) { .collection-layout .store-category-sidebar { display:block; overflow:visible; padding:0 0 20px; margin-bottom:22px; border-right:0; border-bottom:1px solid var(--store-line); } .store-category-hint { margin-bottom:12px; } .store-category-sidebar .store-category-all { margin-bottom:6px; } }
