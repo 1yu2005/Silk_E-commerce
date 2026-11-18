@@ -80,6 +80,7 @@ export class InventoryQueryDto {
  @IsOptional() @IsUUID() categoryId?:string;
  @IsOptional() @IsUUID() productId?:string;
  @IsOptional() @IsIn(['sku','product']) groupBy?:'sku'|'product';
+ @IsOptional() @IsIn(['current','history','all']) skuScope?:'current'|'history'|'all';
  @IsOptional() @IsIn(['true','false']) lowStock?:string;
  @IsOptional() @IsIn(['true','false']) purchaseBlocked?:string;
  @IsOptional() @IsIn(['RECEIPT','LOSS']) sourceType?:'RECEIPT'|'LOSS';

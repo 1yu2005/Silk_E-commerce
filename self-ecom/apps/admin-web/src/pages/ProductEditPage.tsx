@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button, Tag } from 'antd';
 import { Link,useNavigate,useParams } from 'react-router-dom';
-import { catalog,catalogQueries } from '../services/api';
+import { catalog,catalogQueries,inventoryQueries } from '../services/api';
 import { useEmployeeQuery } from '../employees/use-employee-query';
 import { useEmployeeAuth } from '../auth/use-employee-auth';
 import { CatalogQueryState } from '../catalog/CatalogQueryState';
@@ -22,7 +22,7 @@ export function ProductEditPage(){
 }
 function ProductLoader({id}:{id:string}){
   const data=useEmployeeQuery(catalogQueries.product,id,id),tree=useEmployeeQuery(catalogQueries.categories,'categories',undefined);const [notice,setNotice]=useState('');
-  const reload=()=>{void catalogQueries.product.invalidate();void catalogQueries.draft.invalidate();void catalogQueries.products.invalidate();};
+  const reload=()=>{void catalogQueries.product.invalidate();void catalogQueries.draft.invalidate();void catalogQueries.products.invalidate();void inventoryQueries.balances.invalidate();void inventoryQueries.skuOptions.invalidate();};
   return <section className="catalog-panel"><Link to="/products">← 商品列表</Link>{notice?<p role="status">{notice}</p>:null}
     {data.data?<CatalogCommandScope key={id+':'+data.data.version} refreshing={data.refreshing}><ProductEditor product={data.data} categories={(tree.data??[]) as Category[]} refreshing={data.refreshing} reload={reload} saved={()=>{setNotice('已保存，请核对最新版本。');reload();}}/></CatalogCommandScope>:<CatalogQueryState error={data.error} onRetry={reload}/>}</section>;
 }

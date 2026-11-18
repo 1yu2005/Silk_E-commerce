@@ -146,10 +146,23 @@ export class ProductCommands {
     if(row.retiredAt)throw new CatalogError('SKU_SCHEME_REFERENCED');if(input.enabled&&p.status==='ON_SALE'&&row.priceCents===null)throw new CatalogError('SKU_PRICE_REQUIRED');
     if(row.enabled===input.enabled)return {changes:[]};await tx.sku.update({where:{id:skuId},data:{enabled:input.enabled}});return {changes:changes(skuId,{enabled:row.enabled},{enabled:input.enabled}),skuTransition:{id:skuId,from:row.enabled,to:input.enabled}};
   });}
+  private async removeUnusedDefault(tx:Prisma.TransactionClient,productId:string):Promise<Change[]>{
+    // 调用方已持商品锁；与库存命令保持商品→SKU→余额锁序，再检查是否真的是未使用占位。
+    const [locked]=await tx.$queryRaw<{id:string}[]>`SELECT id FROM sku WHERE product_id=${productId}::uuid AND combination_signature='DEFAULT' FOR UPDATE`;
+    if(!locked)return [];
+    await tx.$queryRaw`SELECT sku_id FROM inventory_balance WHERE sku_id=${locked.id}::uuid FOR UPDATE`;
+    const sku=await tx.sku.findUniqueOrThrow({where:{id:locked.id},include:{balance:true}}),balance=sku.balance;
+    if(!balance||balance.available!==0||balance.reserved!==0||balance.purchaseBlocked||balance.version!==0||balance.warningThreshold!==10
+      ||await tx.skuSpecChoice.count({where:{skuId:sku.id}})||await tx.initialInventoryDraftLine.count({where:{skuId:sku.id}})
+      ||await tx.cartItem.count({where:{skuId:sku.id}})||await this.references.referenced(tx,[sku.id]))return [];
+    await tx.inventoryBalance.delete({where:{skuId:sku.id}});
+    await tx.sku.delete({where:{id:sku.id}});
+    return changes(sku.id,{code:sku.code},{code:null});
+  }
   scheme(ctx:CatalogContext,id:string,input:SchemeSaveDto){validateScheme(input.dimensions);return this.command(ctx,id,input.expectedVersion,'sku.scheme',['product.manage'],false,input.reason,async(tx)=>{
     const current=await tx.productSpecDimension.findMany({where:{productId:id,retiredAt:null},include:{values:{where:{retiredAt:null},orderBy:{sortOrder:'asc'}}},orderBy:{sortOrder:'asc'}});
     const same=JSON.stringify(current.map(d=>({id:d.id,name:d.name,values:d.values.map(v=>({id:v.id,name:v.name}))})))===JSON.stringify(input.dimensions.map(d=>({id:d.id,name:d.name,values:d.values.map(v=>({id:v.id,name:v.name}))})));
-    if(same)return {changes:[],extra:{clientKeyMap:{}}};
+    if(same)return {changes:input.dimensions.length?await this.removeUnusedDefault(tx,id):[],extra:{clientKeyMap:{}}};
     const oldSkus=await tx.sku.findMany({where:{productId:id},include:{balance:true}});
     if(input.mode==='APPEND'){
       if(input.dimensions.length!==current.length||current.some((d,i)=>input.dimensions[i]?.id!==d.id||input.dimensions[i]?.name!==d.name||d.values.some(v=>!input.dimensions[i]!.values.some(x=>x.id===v.id&&x.name===v.name))))throw new CatalogError('SKU_SCHEME_REFERENCED');
@@ -163,7 +176,7 @@ export class ProductCommands {
       resolved.push({id:dimensionId,name:d.name,values});
     }
     const diff=changes(id,{dimensions:current.map(d=>({id:d.id,name:d.name,values:d.values.map(v=>({id:v.id,name:v.name}))}))},{dimensions:resolved});
-    if(!diff.length)return {changes:[],extra:{clientKeyMap:map}};
+    if(!diff.length)return {changes:input.dimensions.length?await this.removeUnusedDefault(tx,id):[],extra:{clientKeyMap:map}};
     // 先退休整个旧方案再恢复保留身份，避免当前名称/位置部分唯一索引的交换冲突。
     const now=new Date();await tx.productSpecValue.updateMany({where:{dimension:{productId:id}},data:{retiredAt:now}});await tx.productSpecDimension.updateMany({where:{productId:id},data:{retiredAt:now}});
     for(const [i,d]of resolved.entries()){await tx.productSpecDimension.upsert({where:{id:d.id},create:{id:d.id,productId:id,name:d.name,nameKey:nameKey(d.name),sortOrder:i},update:{name:d.name,nameKey:nameKey(d.name),sortOrder:i,retiredAt:null}});
@@ -173,6 +186,7 @@ export class ProductCommands {
     for(const choice of combos){const sig=signature(choice);const old=oldSkus.find(s=>s.combinationSignature===sig);
       if(old){await tx.sku.update({where:{id:old.id},data:{retiredAt:null,enabled:old.retiredAt?true:old.enabled}});}
       else{const sku=await tx.sku.create({data:{productId:id,code:'S-'+randomUUID().replaceAll('-','').toUpperCase(),combinationSignature:sig,balance:{create:{}}}});if(choice.length)await tx.skuSpecChoice.createMany({data:choice.map(c=>({...c,skuId:sku.id}))});}}
+    if(resolved.length)diff.push(...await this.removeUnusedDefault(tx,id));
     return {changes:diff,extra:{clientKeyMap:map}};
   });}
   async draft(id:string){if(!await this.db.product.count({where:{id}}))throw new CatalogError('PRODUCT_NOT_FOUND');return this.db.initialInventoryDraft.findFirst({where:{productId:id},orderBy:{createdAt:'desc'},include:{lines:{select:{skuId:true,quantity:true}}}});}

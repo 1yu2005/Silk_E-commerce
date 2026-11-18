@@ -32192,6 +32192,21 @@
           },
           {
             "in": "query",
+            "name": "skuScope",
+            "required": false,
+            "schema": {
+              "default": "current",
+              "description": "规格范围：current当前（含已停用），history历史，all全部；分页及合计使用同一范围",
+              "enum": [
+                "current",
+                "history",
+                "all"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "lowStock",
             "required": false,
             "schema": {
@@ -32695,7 +32710,7 @@
             "bearerAuth": []
           }
         ],
-        "summary": "筛选库存；groupBy=product时按整款分页，默认按SKU分页",
+        "summary": "筛选库存；默认仅当前规格，skuScope可选历史或全部；groupBy=product按整款分页",
         "tags": [
           "Inventory"
         ]

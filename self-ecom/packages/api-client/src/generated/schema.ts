@@ -1320,7 +1320,7 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * 筛选库存；groupBy=product时按整款分页，默认按SKU分页
+         * 筛选库存；默认仅当前规格，skuScope可选历史或全部；groupBy=product按整款分页
          * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
          */
         get: operations["listInventoryBalances"];
@@ -14339,6 +14339,7 @@ export interface operations {
                 pageSize?: number;
                 purchaseBlocked?: "true" | "false";
                 skuId?: string;
+                skuScope?: "current" | "history" | "all";
             };
             header?: never;
             path?: never;

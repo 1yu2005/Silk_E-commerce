@@ -2,6 +2,8 @@
 .inventory-page-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:24px; }
 .inventory-page-heading h1 { margin:0 0 6px; }
 .inventory-page-heading p { margin:0; color:#536a79; font-size:14px; }
+.inventory-scope-switch { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin:22px 0 0; }
+.inventory-scope-switch > span { color:#536a79; font-size:12px; margin-left:8px; }
 .inventory-balance-filters { display:grid; grid-template-columns:minmax(180px,1.4fr) minmax(150px,1.1fr) repeat(2,minmax(135px,1fr)); gap:16px; padding:22px 0; border-bottom:1px solid #dce5e9; }
 .inventory-balance-filters label { display:flex; flex-direction:column; gap:8px; min-width:0; font-size:13px; font-weight:600; }
 .inventory-balance-filters :is(input,select) { width:100%; min-width:0; box-sizing:border-box; height:40px; padding:8px 10px; border:1px solid #bdcdd3; border-radius:6px; background:#fff; color:#243746; font:inherit; font-weight:400; }

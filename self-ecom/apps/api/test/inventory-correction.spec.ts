@@ -9,9 +9,11 @@ const rootId='abcdefab-cdef-4abc-8def-abcdefabcdef';
 const skuId='12345678-abcd-4abc-8def-abcdefabcdef';
 const sourceLineId='87654321-abcd-4abc-8def-abcdefabcdef';
 
-function fixture(productExists=true){
+function fixture(productExists=true,skuExists=true){
  const root={id:rootId,skuId,sourceLineId,adjustmentId:'original'};
- const tx={inventoryAdjustmentLine:{findMany:vi.fn().mockResolvedValue([root])},sku:{findMany:vi.fn().mockResolvedValue([{id:skuId,productId:'product'}])},$queryRaw:vi.fn(async(sql:TemplateStringsArray)=>productExists&&sql.join('').includes('FROM product')?[{id:'product'}]:[])};
+ const tx={inventoryAdjustmentLine:{findMany:vi.fn().mockResolvedValue([root])},sku:{findMany:vi.fn().mockResolvedValue([{id:skuId,productId:'product'}])},$queryRaw:vi.fn(async(sql:TemplateStringsArray)=>{
+  const text=sql.join('');return text.includes('FROM product')?(productExists?[{id:'product'}]:[]):text.includes('FROM sku')&&skuExists?[{id:skuId}]:[];
+ })};
  const db={$transaction:async(work:(client:Prisma.TransactionClient)=>Promise<unknown>)=>work(tx as unknown as Prisma.TransactionClient)};
  const access={actor:vi.fn().mockResolvedValue({subjectId:'employee'})};
  const service=Reflect.construct(InventoryAdjustments,[db,access]) as InventoryAdjustments;
@@ -35,5 +37,10 @@ it('同一更正根大小写混用仍作为重复目标拒绝，不创建任何�
 it('取得库存商品锁时草稿已被删除，返回不存在且不创建登记',async()=>{
  const {service,create}=fixture(false);
  await expect(service.corrections(ctx,'original',{reason:'核实差额',evidenceNote:'删除竞争回归',lines:[{rootLineId:rootId,signedDeltaA:-1}]})).rejects.toMatchObject({code:'INVENTORY_NOT_FOUND'});
+ expect(create).not.toHaveBeenCalled();
+});
+it('商品仍在但默认占位SKU已被清理，返回不存在且不创建登记',async()=>{
+ const {service,create}=fixture(true,false);
+ await expect(service.corrections(ctx,'original',{reason:'核实差额',evidenceNote:'规格保存竞争回归',lines:[{rootLineId:rootId,signedDeltaA:-1}]})).rejects.toMatchObject({code:'INVENTORY_NOT_FOUND'});
  expect(create).not.toHaveBeenCalled();
 });

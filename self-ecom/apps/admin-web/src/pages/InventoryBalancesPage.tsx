@@ -13,13 +13,14 @@ import '../inventory/inventory-balances.css';
 
 type Row = Balances['items'][number];
 const pageSize = 20;
+const skuScopes = [{ value: 'current', label: '当前规格' }, { value: 'history', label: '历史规格' }, { value: 'all', label: '全部规格' }] as const;
 
 export function InventoryListPage() {
   const [params, setParams] = useSearchParams(), search = params.toString();
   const parsed = parseListLink(search, { lowStock: ['true', 'false'] });
   if (!parsed.filters) return <section className="catalog-panel"><h1>库存余额与预警</h1><Alert type="error" title={parsed.issue}/><Button onClick={() => setParams(new URLSearchParams())}>重置筛选</Button></section>;
   const lowStock = parsed.filters.lowStock as BalanceQuery['lowStock'];
-  return <InventoryBalances key={search} initial={{ page: 1, pageSize, lowStock, groupBy: lowStock ? 'sku' : 'product' }} clearLink={() => { if (search) setParams(new URLSearchParams()); }}/>;
+  return <InventoryBalances key={search} initial={{ page: 1, pageSize, lowStock, skuScope: 'current', groupBy: lowStock ? 'sku' : 'product' }} clearLink={() => { if (search) setParams(new URLSearchParams()); }}/>;
 }
 
 function InventoryBalances({ initial, clearLink }: { initial: BalanceQuery; clearLink: () => void }) {
@@ -39,18 +40,19 @@ function InventoryBalances({ initial, clearLink }: { initial: BalanceQuery; clea
   }
   const reset = () => {
     setDraft({ keyword: '', categoryId: '', lowStock: '', purchaseBlocked: '' });
-    setQ({ page: 1, pageSize, groupBy: 'product' });
+    setQ({ page: 1, pageSize, groupBy: 'product', skuScope: 'current' });
     setCollapsed(new Set());
     clearLink();
   };
   return <section className="catalog-panel inventory-balances">
     <div className="inventory-page-heading"><div><h1>库存余额与预警</h1><p>同款集中查看，按颜色与尺码核对库存。</p></div><Button onClick={reload}>刷新库存</Button></div>
     <InventoryNav/>
+    <div className="inventory-scope-switch" role="group" aria-label="库存规格范围">{skuScopes.map(scope=><Button key={scope.value} type={q.skuScope===scope.value?'primary':'default'} aria-pressed={q.skuScope===scope.value} onClick={()=>{setQ({...q,page:1,skuScope:scope.value});setCollapsed(new Set());}}>{scope.label}</Button>)}<span>默认查看当前方案；历史账户保留原始数量与业务记录。</span></div>
     <form className="inventory-balance-filters" onSubmit={e => {
       e.preventDefault();
       const keyword = draft.keyword.trim();
       const filtered = Boolean(keyword || draft.categoryId || draft.lowStock || draft.purchaseBlocked);
-      setQ({ page: 1, pageSize, groupBy: filtered ? 'sku' : 'product', keyword: keyword || undefined, categoryId: draft.categoryId || undefined, lowStock: (draft.lowStock || undefined) as BalanceQuery['lowStock'], purchaseBlocked: (draft.purchaseBlocked || undefined) as BalanceQuery['purchaseBlocked'] });
+      setQ({ page: 1, pageSize, skuScope: q.skuScope, groupBy: filtered ? 'sku' : 'product', keyword: keyword || undefined, categoryId: draft.categoryId || undefined, lowStock: (draft.lowStock || undefined) as BalanceQuery['lowStock'], purchaseBlocked: (draft.purchaseBlocked || undefined) as BalanceQuery['purchaseBlocked'] });
       setCollapsed(new Set());
     }}>
       <label>商品 / SKU<input name="keyword" maxLength={120} placeholder="搜索商品名称或 SKU 编码" value={draft.keyword} onChange={e => setDraft({ ...draft, keyword: e.target.value })}/></label>
@@ -63,6 +65,7 @@ function InventoryBalances({ initial, clearLink }: { initial: BalanceQuery; clea
     {categories.error ? <Alert type="warning" title="分类读取失败，仍可按商品或库存状态查询" action={<Button onClick={() => void catalogQueries.categories.invalidate()}>重试分类</Button>}/> : null}
     {data ? <>
       <div className="inventory-balance-summary" aria-label="当前筛选库存合计">
+        <Tag>{skuScopes.find(scope=>scope.value===q.skuScope)?.label}</Tag>
         <span><strong>{data.productTotal}</strong> 款商品 / <strong>{data.skuTotal}</strong> 个规格账户</span>
         <span>可用 A <strong>{data.availableTotal}</strong></span><span>待付款占用 R <strong>{data.reservedTotal}</strong></span>
       </div>
@@ -73,7 +76,7 @@ function InventoryBalances({ initial, clearLink }: { initial: BalanceQuery; clea
         const next = new Set(previous); if (next.has(id)) next.delete(id); else next.add(id); return next;
       })}/>)}</div> : <InventoryBalanceTable rows={data.items} showProduct/>}
       <InventoryPager page={data.page} size={data.pageSize} total={data.total} unit={grouped ? '款商品' : '个规格账户'} onPage={page => { setQ({ ...q, page }); setCollapsed(new Set()); }}/>
-      <p className="inventory-balance-footnote">A 可分给新订单，R 为待付款订单占用，均不含已付款备货。历史与停用规格保留账户及真实数量。</p>
+      <p className="inventory-balance-footnote">A 可分给新订单，R 为待付款订单占用，均不含已付款备货。合计与预警仅计算当前所选范围；已停用的当前规格仍会显示，历史账户请切换“历史规格”或“全部规格”查看。</p>
     </> : <InventoryState error={query.error} reload={reload}/>}
   </section>;
 }

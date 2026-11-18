@@ -181,6 +181,11 @@ p { font-size: 16px; line-height: 1.9; max-width: 36em; }
 .sku-row-form label { width:110px; margin:0; }
 .sku-row-form label:first-child { width:180px; }
 .retired-sku { background:#f5f5f5; color:#68777e; }
+.sku-history { margin-top:24px; border-top:1px solid #dce5e9; padding-top:18px; }
+.sku-history summary { width:fit-content; cursor:pointer; color:#255c68; font-weight:600; padding:6px 0; }
+.sku-history summary:focus-visible { outline:2px solid #087e8b; outline-offset:4px; }
+.sku-history p { font-size:13px; color:#536a79; }
+.sku-history .sku-table { min-width:640px; }
 .catalog-panel .ant-pagination { margin:20px 0; }
 /* 库存长单号和流水在窄屏只滚动表格区域，保留正文可读宽度。 */
 .catalog-panel { min-width:0; overflow-wrap:anywhere; }

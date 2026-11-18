@@ -160,20 +160,20 @@ it('库存浏览：整款分页、规格顺序、同名不同款、父分类及�
  await db.sku.update({where:{id:b.skus[0]!.id},data:{enabled:false}});
  const list=async(query:string)=>{const result=await call('/admin/inventory?'+query);expect(result.r.status).toBe(200);return result.json.data;};
  const all=await list(`categoryId=${root}&groupBy=product&pageSize=1`);
- expect(all).toMatchObject({total:3,productTotal:3,skuTotal:21,groupBy:'product',availableTotal:'0',reservedTotal:'0'});
+ expect(all).toMatchObject({total:3,productTotal:3,skuTotal:18,groupBy:'product',availableTotal:'0',reservedTotal:'0'});
  const pages=[all,await list(`categoryId=${root}&groupBy=product&pageSize=1&page=2`),await list(`categoryId=${root}&groupBy=product&pageSize=1&page=3`)];
  expect(new Set(pages.flatMap(page=>page.items.map((r:{productId:string})=>r.productId)))).toEqual(new Set([a.id,b.id,c.id]));
  for(const page of pages){
-  expect(page.items).toHaveLength(7);expect(new Set(page.items.map((r:{productId:string})=>r.productId)).size).toBe(1);
+  expect(page.items).toHaveLength(6);expect(new Set(page.items.map((r:{productId:string})=>r.productId)).size).toBe(1);
   expect(page.items.slice(0,6).map((r:{choices:string[]})=>r.choices)).toEqual(['黑色','白色'].flatMap(color=>['S','M','L'].map(size=>[`颜色：${color}`,`尺码：${size}`])));
-  expect(page.items[6]).toMatchObject({skuRetired:true,skuEnabled:false});
+  expect(page.items.every((r:{skuRetired:boolean})=>!r.skuRetired)).toBe(true);
  }
  const leafRows=await list(`categoryId=${leaf}`);
- expect(leafRows).toMatchObject({total:7,productTotal:1,skuTotal:7,groupBy:'sku'});
+ expect(leafRows).toMatchObject({total:6,productTotal:1,skuTotal:6,groupBy:'sku'});
  expect(leafRows.items[0].categoryPath).toEqual(['库存浏览分类','裙装','连衣裙']);
- const skuPage=await list(`categoryId=${root}&pageSize=2`);expect(skuPage.items).toHaveLength(2);expect(skuPage.total).toBe(21);
+ const skuPage=await list(`categoryId=${root}&pageSize=2`);expect(skuPage.items).toHaveLength(2);expect(skuPage.total).toBe(18);
  const flat=await list('keyword=库存分组验证裙子&pageSize=100');
- expect(flat).toMatchObject({total:35,productTotal:5,skuTotal:35});
+ expect(flat).toMatchObject({total:30,productTotal:5,skuTotal:30});
  expect(flat.items.filter((r:{productId:string})=>r.productId===uncategorized.id)[0].categoryPath).toEqual([]);
  expect(new Set(flat.items.map((r:{productId:string})=>r.productId))).toEqual(new Set([a.id,b.id,c.id,d.id,uncategorized.id]));
  expect(flat.items.find((r:{skuId:string})=>r.skuId===b.skus[0]!.id)).toMatchObject({skuRetired:false,skuEnabled:false,available:0});
@@ -182,12 +182,35 @@ it('库存浏览：整款分页、规格顺序、同名不同款、父分类及�
  const f=await fixture(12,'RECEIPT',a.skus[0]!.id);await post((await pending(f,12)).id);
  const high=await list(`categoryId=${root}&lowStock=false&purchaseBlocked=false`);
  expect(high).toMatchObject({total:1,productTotal:1,skuTotal:1,availableTotal:'12',reservedTotal:'0'});
- const low=await list(`categoryId=${root}&lowStock=true`);expect(low.total).toBe(20);expect(low.availableTotal).toBe('0');
+ const low=await list(`categoryId=${root}&lowStock=true`);expect(low.total).toBe(17);expect(low.availableTotal).toBe('0');
  const empty=await list(`categoryId=${randomUUID()}&groupBy=product`);expect(empty).toMatchObject({items:[],total:0,productTotal:0,skuTotal:0,availableTotal:'0'});
  expect((await call('/admin/inventory?groupBy=unknown')).r.status).toBe(400);
  expect((await call('/admin/inventory?categoryId=bad')).r.status).toBe(400);
  expect((await call('/admin/inventory?groupBy=product','GET',undefined,service)).r.status).toBe(403);
 },30000);
+it('库存规格范围：默认当前，历史独立查询，分页、分类、合计与预警范围一致',async()=>{
+ const categories=app.get(CategoryService);
+ const root=(await categories.write(staff.actor,staff.token,randomUUID(),null,{name:'规格范围父类'},'create')).id;
+ const leaf=(await categories.write(staff.actor,staff.token,randomUUID(),null,{name:'规格范围子类',parentId:root},'create')).id;
+ const p=await products.create(ctx(),{name:'规格范围隔离商品',categoryId:leaf});
+ const saved=await products.scheme(ctx(),p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'范围回归',dimensions:[{name:'尺码',clientKey:randomUUID(),values:['S','M'].map(name=>({name,clientKey:randomUUID()}))}]});
+ await db.sku.update({where:{id:saved.skus[0]!.id},data:{enabled:false}});
+ // 升级前已使用的历史账户：余额必须真实保留，并仅计入相应范围。
+ const legacy=await db.sku.upsert({where:{productId_combinationSignature:{productId:p.id,combinationSignature:'DEFAULT'}},update:{balance:{update:{available:5}}},create:{productId:p.id,code:'HISTORY-'+randomUUID().toUpperCase(),combinationSignature:'DEFAULT',enabled:false,retiredAt:new Date(),balance:{create:{available:5}}}});
+ await source.create(ctx(),{sourceType:'RECEIPT',namespace:'SCOPE',reference:randomUUID(),note:'历史凭据仍可查看',lines:[{lineKey:'1',skuId:legacy.id,verifiedQuantity:5}]});
+ const list=async(query:string)=>{const r=await call('/admin/inventory?'+query);expect(r.r.status,JSON.stringify(r.json)).toBe(200);return r.json.data;};
+ const current=await list(`categoryId=${root}&groupBy=product`);
+ expect(current).toMatchObject({total:1,skuTotal:2,availableTotal:'0',reservedTotal:'0'});expect(current.items).toHaveLength(2);
+ expect(current.items.every((r:{skuRetired:boolean})=>!r.skuRetired)).toBe(true);expect(current.items.some((r:{skuEnabled:boolean})=>!r.skuEnabled)).toBe(true);
+ const history=await list(`categoryId=${root}&skuScope=history&lowStock=true`);
+ expect(history).toMatchObject({total:1,skuTotal:1,availableTotal:'5'});expect(history.items[0]).toMatchObject({skuId:legacy.id,skuRetired:true,categoryPath:['规格范围父类','规格范围子类']});
+ const all=await list(`categoryId=${root}&skuScope=all&groupBy=product`);expect(all).toMatchObject({total:1,skuTotal:3,availableTotal:'5'});expect(all.items).toHaveLength(3);
+ const pages=await Promise.all([1,2,3].map(page=>list(`keyword=规格范围隔离商品&skuScope=all&pageSize=1&page=${page}`)));
+ expect(new Set(pages.flatMap(page=>page.items.map((r:{skuId:string})=>r.skuId))).size).toBe(3);expect(pages.every(page=>page.total===3&&page.availableTotal==='5')).toBe(true);
+ expect((await list(`skuId=${legacy.id}`)).total).toBe(0);expect((await list(`skuId=${legacy.id}&skuScope=all`)).total).toBe(1);
+ const detail=await call('/admin/inventory/'+legacy.id);expect(detail.r.status).toBe(200);expect(detail.json.data).toMatchObject({skuRetired:true,available:5});
+ expect((await call('/admin/inventory?skuScope=unknown')).r.status).toBe(400);
+});
 it('流水浏览：分类覆盖子类、同名商品分组独立、预览与完整历史分页一致',async()=>{
  const categories=app.get(CategoryService),admin=await actor('SUPER_ADMIN');
  const root=(await categories.write(admin.actor,admin.token,randomUUID(),null,{name:'流水浏览分类'},'create')).id;

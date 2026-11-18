@@ -178,10 +178,65 @@ it('SW03/04：默认SKU零账户，预览只读，6组合映射与重复无新�
   const p=await create(),dimensions=scheme();expect(p.status).toBe('DRAFT');expect(p.skus[0]).toMatchObject({available:0,reserved:0,priceCents:null,costCents:null});
   const preview=await queries.preview(p.id,{dimensions});expect(preview.count).toBe(6);expect(await db.sku.count({where:{productId:p.id}})).toBe(1);
   const saved=await commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'颜色尺码',dimensions});expect(Object.keys((saved as unknown as {clientKeyMap:object}).clientKeyMap)).toHaveLength(7);
-  expect(saved.skus.filter(s=>!s.retiredAt)).toHaveLength(6);expect(saved.skus.filter(s=>s.retiredAt)).toHaveLength(1);expect(saved.skus.every(s=>s.available===0&&s.reserved===0)).toBe(true);
+  expect(saved.skus).toHaveLength(6);expect(saved.skus.every(s=>!s.retiredAt&&s.available===0&&s.reserved===0)).toBe(true);
+  expect(await db.sku.findUnique({where:{id:p.skus[0]!.id}})).toBeNull();expect(await db.inventoryBalance.findUnique({where:{skuId:p.skus[0]!.id}})).toBeNull();
   const dimensions2=saved.specDimensions.map(d=>({id:d.id,name:d.name,values:d.values.map(v=>({name:v.name,id:v.id}))}));
   const again=await commands.scheme(staff,p.id,{expectedVersion:saved.version!,mode:'REBUILD',reason:'相同方案',dimensions:dimensions2});expect(again.changed).toBe(false);expect(again.version).toBe(saved.version);
-  expect(await db.inventoryBalance.count({where:{sku:{productId:p.id}}})).toBe(7);
+  expect(await db.inventoryBalance.count({where:{sku:{productId:p.id}}})).toBe(6);
+});
+it('默认占位：单规格保留默认SKU；旧商品重存相同正式方案也清理，并记录版本与审计',async()=>{
+  const single=await create();const unchanged=await commands.scheme(staff,single.id,{expectedVersion:0,mode:'REBUILD',reason:'保持单规格',dimensions:[]});
+  expect(unchanged.changed).toBe(false);expect(unchanged.skus.map(s=>s.id)).toEqual([single.skus[0]!.id]);
+  const p=await create();const saved=await commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'正式规格',dimensions:scheme()});
+  // 模拟升级前遗留的占位账户，不能通过读取接口顺带删除。
+  const legacy=await db.sku.upsert({where:{productId_combinationSignature:{productId:p.id,combinationSignature:'DEFAULT'}},update:{},create:{productId:p.id,code:'LEGACY-'+randomUUID().toUpperCase(),combinationSignature:'DEFAULT',enabled:false,retiredAt:new Date(),balance:{create:{}}}});
+  expect((await queries.detail(p.id,staff.actor)).skus.some(s=>s.id===legacy.id)).toBe(true);
+  const result=await commands.scheme(staff,p.id,{expectedVersion:saved.version!,mode:'APPEND',reason:'清理旧占位',dimensions:saved.specDimensions});
+  expect(result.changed).toBe(true);expect(result.version).toBe(saved.version!+1);expect(result.skus).toHaveLength(6);
+  expect(await db.inventoryBalance.findUnique({where:{skuId:legacy.id}})).toBeNull();
+  const log=await db.auditLog.findFirstOrThrow({where:{targetId:p.id,afterData:{path:['catalogVersion'],equals:result.version}}});
+  expect(log.afterData).toMatchObject({catalogAction:'sku.scheme',catalogChanges:expect.arrayContaining([{id:legacy.id,field:'code',before:legacy.code,after:null}])});
+});
+it.each(['EDITABLE','VOID','CART','SOURCE','THRESHOLD'] as const)('默认占位：零余额但有%s引用或配置的历史SKU必须保留',async kind=>{
+  let p=await create();const skuId=p.skus[0]!.id;
+  if(kind==='EDITABLE'||kind==='VOID')await db.initialInventoryDraft.create({data:{productId:p.id,createdById:staff.actor.subjectId,status:kind,lines:{create:{skuId,quantity:0}}}});
+  if(kind==='CART'){
+    const customer=await db.customer.create({data:{phone:'139'+String(await db.customer.count()).padStart(8,'0'),nickname:'隔离购物车',passwordHash:'隔离测试'}});
+    await db.cartItem.create({data:{skuId,customerId:customer.id,quantity:1}});
+  }
+  if(kind==='THRESHOLD')await db.inventoryBalance.update({where:{skuId},data:{warningThreshold:8,version:1}});
+  // 来源引用必须继续阻止重建；用历史夹具模拟升级前已保存的正式方案。
+  if(kind==='SOURCE'){
+    p=await commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'正式规格',dimensions:scheme()});
+    await db.sku.upsert({where:{productId_combinationSignature:{productId:p.id,combinationSignature:'DEFAULT'}},update:{},create:{id:skuId,productId:p.id,code:'USED-'+randomUUID().toUpperCase(),combinationSignature:'DEFAULT',enabled:false,retiredAt:new Date(),balance:{create:{}}}});
+    await app.get(InventorySources).create(staff,{sourceType:'RECEIPT',namespace:'DEFAULT-TEST',reference:randomUUID(),note:'未入账也属于业务引用',lines:[{lineKey:'1',skuId,verifiedQuantity:1}]});
+    await expect(commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'引用保护',dimensions:scheme()})).rejects.toMatchObject({code:'SKU_SCHEME_REFERENCED'});
+  }else p=await commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'正式规格',dimensions:scheme()});
+  const resaved=await commands.scheme(staff,p.id,{expectedVersion:p.version!,mode:'APPEND',reason:'相同方案保护',dimensions:p.specDimensions});
+  expect(resaved.changed).toBe(false);expect(resaved.skus.find(s=>s.id===skuId)).toMatchObject({enabled:false,retiredAt:expect.anything(),available:0,reserved:0});
+  expect(await db.inventoryBalance.findUnique({where:{skuId}})).not.toBeNull();
+});
+it('默认占位：规格保存审计失败回滚清理及新规格',async()=>{
+  const p=await create(),skuId=p.skus[0]!.id;
+  audit.fail=true;try{await expect(commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'回滚占位清理',dimensions:scheme()})).rejects.toThrow('商品测试审计故障');}finally{audit.fail=false;}
+  const after=await queries.detail(p.id,staff.actor);expect(after.version).toBe(0);expect(after.specDimensions).toEqual([]);expect(after.skus.map(s=>s.id)).toEqual([skuId]);
+  expect(await db.inventoryBalance.findUnique({where:{skuId}})).not.toBeNull();
+});
+it.each(['SCHEME','SOURCE'] as const)('默认占位与来源登记并发：%s先锁定时引用与清理互斥',async first=>{
+  const p=await create(),skuId=p.skus[0]!.id;
+  let entered!:()=>void,release!:()=>void;const reached=new Promise<void>(r=>{entered=r;}),gate=new Promise<void>(r=>{release=r;});
+  audit.checkpoint=async(_tx,payload)=>{if((first==='SCHEME'&&payload.action==='product.change'&&payload.targetId===p.id)
+    ||(first==='SOURCE'&&payload.action==='inventory.source')){entered();await gate;}};
+  const save=()=>commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'并发保存正式规格',dimensions:scheme()});
+  const register=()=>app.get(InventorySources).create(peer,{sourceType:'RECEIPT',namespace:'DEFAULT-RACE',reference:randomUUID(),note:'并发登记来源',lines:[{lineKey:'1',skuId,verifiedQuantity:1}]});
+  const winner=first==='SCHEME'?save():register();await reached;
+  const loser=expect(first==='SCHEME'?register():save()).rejects.toMatchObject({code:first==='SCHEME'?'INVENTORY_NOT_FOUND':'SKU_SCHEME_REFERENCED'});
+  try{
+    await expect.poll(async()=>{const [row]=await db.$queryRaw<{waiting:boolean}[]>`SELECT EXISTS(SELECT 1 FROM pg_stat_activity WHERE datname=current_database() AND wait_event_type='Lock') AS waiting`;return row!.waiting;},{timeout:3000,interval:10}).toBe(true);
+    release();await winner;await loser;
+    expect(await db.sku.count({where:{id:skuId}})).toBe(first==='SCHEME'?0:1);
+    expect(await db.inventorySourceLine.count({where:{skuId}})).toBe(first==='SCHEME'?0:1);
+  }finally{release();audit.checkpoint=undefined;await Promise.allSettled([winner,loser]);}
 });
 it('IT02：容量提前拒绝、跨商品ID拒绝、签名不受选择顺序影响',async()=>{
   const p=await create();await expect(queries.preview(p.id,{dimensions:scheme([Array.from({length:20},(_,i)=>''+i),Array.from({length:20},(_,i)=>''+i)])})).rejects.toMatchObject({code:'SKU_COMBINATION_LIMIT'});
@@ -192,7 +247,7 @@ it('IT02：容量提前拒绝、跨商品ID拒绝、签名不受选择顺序影�
 it('IT02：三维200组合边界实际保存、账户与重复提交稳定',async()=>{
   const p=await create(),dimensions=scheme([Array.from({length:10},(_,i)=>'颜色'+i),Array.from({length:10},(_,i)=>'尺码'+i),['常规','修身']]);
   const saved=await commands.scheme(staff,p.id,{expectedVersion:0,mode:'REBUILD',reason:'容量边界',dimensions});
-  expect(saved.skus.filter(s=>!s.retiredAt)).toHaveLength(200);expect(await db.inventoryBalance.count({where:{sku:{productId:p.id},available:0,reserved:0}})).toBe(201);
+  expect(saved.skus.filter(s=>!s.retiredAt)).toHaveLength(200);expect(await db.inventoryBalance.count({where:{sku:{productId:p.id},available:0,reserved:0}})).toBe(200);
   const again=await commands.scheme(staff,p.id,{expectedVersion:saved.version!,mode:'REBUILD',reason:'重复边界',dimensions:saved.specDimensions});expect(again.changed).toBe(false);expect(again.version).toBe(saved.version);
 });
 it('SW05：严格金额与余额/状态白名单、批量归属失败整体不写',async()=>{

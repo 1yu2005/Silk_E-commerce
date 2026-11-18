@@ -19,6 +19,8 @@ export class InventoryQueries {
   @Inject(InventoryAccess) private readonly access:InventoryAccess,@Inject(AuditService) private readonly audit:AuditService){}
  async balances(q:InventoryQueryDto){
   const clauses=[Prisma.sql`true`];if(q.skuId)clauses.push(Prisma.sql`b.sku_id=${q.skuId}::uuid`);
+  const skuScope=q.skuScope??'current';
+  if(skuScope!=='all')clauses.push(skuScope==='history'?Prisma.sql`s.retired_at IS NOT NULL`:Prisma.sql`s.retired_at IS NULL`);
   if(q.keyword)clauses.push(Prisma.sql`(s.code ILIKE ${'%'+q.keyword+'%'} OR p.name ILIKE ${'%'+q.keyword+'%'})`);
   if(q.lowStock)clauses.push(q.lowStock==='true'?Prisma.sql`b.available<=b.warning_threshold`:Prisma.sql`b.available>b.warning_threshold`);
   if(q.purchaseBlocked)clauses.push(Prisma.sql`b.purchase_blocked=${q.purchaseBlocked==='true'}`);
