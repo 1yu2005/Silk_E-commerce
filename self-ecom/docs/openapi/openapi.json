@@ -32160,6 +32160,28 @@
           },
           {
             "in": "query",
+            "name": "categoryId",
+            "required": false,
+            "schema": {
+              "format": "uuid",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "groupBy",
+            "required": false,
+            "schema": {
+              "description": "分页单位；默认sku，product每页返回完整商品组",
+              "enum": [
+                "sku",
+                "product"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
             "name": "lowStock",
             "required": false,
             "schema": {
@@ -32195,6 +32217,14 @@
                       "properties": {
                         "availableTotal": {
                           "pattern": "^[0-9]+$",
+                          "type": "string"
+                        },
+                        "groupBy": {
+                          "description": "分页单位；默认sku，product每页返回完整商品组",
+                          "enum": [
+                            "sku",
+                            "product"
+                          ],
                           "type": "string"
                         },
                         "items": {
@@ -32244,6 +32274,14 @@
                                 },
                                 "type": "array"
                               },
+                              "categoryPath": {
+                                "items": {
+                                  "maxLength": 80,
+                                  "minLength": 0,
+                                  "type": "string"
+                                },
+                                "type": "array"
+                              },
                               "changed": {
                                 "type": "boolean"
                               },
@@ -32263,6 +32301,11 @@
                               "lowStock": {
                                 "type": "boolean"
                               },
+                              "productCode": {
+                                "maxLength": 64,
+                                "minLength": 0,
+                                "type": "string"
+                              },
                               "productId": {
                                 "format": "uuid",
                                 "type": "string"
@@ -32280,9 +32323,15 @@
                                 "minimum": 0,
                                 "type": "integer"
                               },
+                              "skuEnabled": {
+                                "type": "boolean"
+                              },
                               "skuId": {
                                 "format": "uuid",
                                 "type": "string"
+                              },
+                              "skuRetired": {
+                                "type": "boolean"
                               },
                               "version": {
                                 "maximum": 2147483647,
@@ -32299,7 +32348,11 @@
                               "skuId",
                               "code",
                               "productId",
+                              "productCode",
                               "productName",
+                              "categoryPath",
+                              "skuEnabled",
+                              "skuRetired",
                               "choices",
                               "available",
                               "reserved",
@@ -32323,9 +32376,19 @@
                           "minimum": 1,
                           "type": "integer"
                         },
+                        "productTotal": {
+                          "maximum": 9007199254740991,
+                          "minimum": 0,
+                          "type": "integer"
+                        },
                         "reservedTotal": {
                           "pattern": "^[0-9]+$",
                           "type": "string"
+                        },
+                        "skuTotal": {
+                          "maximum": 9007199254740991,
+                          "minimum": 0,
+                          "type": "integer"
                         },
                         "total": {
                           "maximum": 9007199254740991,
@@ -32339,7 +32402,10 @@
                         "page",
                         "pageSize",
                         "availableTotal",
-                        "reservedTotal"
+                        "reservedTotal",
+                        "groupBy",
+                        "productTotal",
+                        "skuTotal"
                       ],
                       "type": "object"
                     },
@@ -32618,7 +32684,7 @@
             "bearerAuth": []
           }
         ],
-        "summary": "筛选SKU可用量和待付款占用",
+        "summary": "筛选库存；groupBy=product时按整款分页，默认按SKU分页",
         "tags": [
           "Inventory"
         ]
@@ -52004,6 +52070,14 @@
                           },
                           "type": "array"
                         },
+                        "categoryPath": {
+                          "items": {
+                            "maxLength": 80,
+                            "minLength": 0,
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
                         "changed": {
                           "type": "boolean"
                         },
@@ -52023,6 +52097,11 @@
                         "lowStock": {
                           "type": "boolean"
                         },
+                        "productCode": {
+                          "maxLength": 64,
+                          "minLength": 0,
+                          "type": "string"
+                        },
                         "productId": {
                           "format": "uuid",
                           "type": "string"
@@ -52040,9 +52119,15 @@
                           "minimum": 0,
                           "type": "integer"
                         },
+                        "skuEnabled": {
+                          "type": "boolean"
+                        },
                         "skuId": {
                           "format": "uuid",
                           "type": "string"
+                        },
+                        "skuRetired": {
+                          "type": "boolean"
                         },
                         "version": {
                           "maximum": 2147483647,
@@ -52059,7 +52144,11 @@
                         "skuId",
                         "code",
                         "productId",
+                        "productCode",
                         "productName",
+                        "categoryPath",
+                        "skuEnabled",
+                        "skuRetired",
                         "choices",
                         "available",
                         "reserved",
@@ -52452,6 +52541,14 @@
                           },
                           "type": "array"
                         },
+                        "categoryPath": {
+                          "items": {
+                            "maxLength": 80,
+                            "minLength": 0,
+                            "type": "string"
+                          },
+                          "type": "array"
+                        },
                         "changed": {
                           "type": "boolean"
                         },
@@ -52471,6 +52568,11 @@
                         "lowStock": {
                           "type": "boolean"
                         },
+                        "productCode": {
+                          "maxLength": 64,
+                          "minLength": 0,
+                          "type": "string"
+                        },
                         "productId": {
                           "format": "uuid",
                           "type": "string"
@@ -52488,9 +52590,15 @@
                           "minimum": 0,
                           "type": "integer"
                         },
+                        "skuEnabled": {
+                          "type": "boolean"
+                        },
                         "skuId": {
                           "format": "uuid",
                           "type": "string"
+                        },
+                        "skuRetired": {
+                          "type": "boolean"
                         },
                         "version": {
                           "maximum": 2147483647,
@@ -52507,7 +52615,11 @@
                         "skuId",
                         "code",
                         "productId",
+                        "productCode",
                         "productName",
+                        "categoryPath",
+                        "skuEnabled",
+                        "skuRetired",
                         "choices",
                         "available",
                         "reserved",

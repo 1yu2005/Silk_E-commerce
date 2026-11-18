@@ -1,0 +1,65 @@
+/* 作用：以商品标题组织规格库存，数量列对齐，窄屏仅明细表局部滚动。 */
+.inventory-page-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; margin-bottom:24px; }
+.inventory-page-heading h1 { margin:0 0 6px; }
+.inventory-page-heading p { margin:0; color:#536a79; font-size:14px; }
+.inventory-balance-filters { display:grid; grid-template-columns:minmax(180px,1.4fr) minmax(150px,1.1fr) repeat(2,minmax(135px,1fr)); gap:16px; padding:22px 0; border-bottom:1px solid #dce5e9; }
+.inventory-balance-filters label { display:flex; flex-direction:column; gap:8px; min-width:0; font-size:13px; font-weight:600; }
+.inventory-balance-filters :is(input,select) { width:100%; min-width:0; box-sizing:border-box; height:40px; padding:8px 10px; border:1px solid #bdcdd3; border-radius:6px; background:#fff; color:#243746; font:inherit; font-weight:400; }
+.inventory-balance-filters :is(input,select):focus-visible { outline:3px solid #087e8b; outline-offset:2px; }
+.inventory-filter-actions { display:flex; gap:10px; align-items:center; }
+.inventory-balance-filters p { grid-column:2 / -1; align-self:center; margin:0; max-width:none; color:#536a79; font-size:12px; }
+.inventory-balance-summary { display:flex; flex-wrap:wrap; gap:16px 32px; padding:22px 0; border-bottom:1px solid #dce5e9; font-size:14px; color:#536a79; font-variant-numeric:tabular-nums; }
+.inventory-balance-summary strong { color:#243746; font-size:19px; font-weight:600; }
+.inventory-results-heading { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:16px; margin:26px 0 18px; }
+.inventory-results-heading h2 { margin:0 0 6px; font-size:19px; }
+.inventory-results-heading p { margin:0; max-width:none; font-size:12px; color:#536a79; }
+.inventory-results-heading > div:last-child { display:flex; flex-wrap:wrap; gap:8px; }
+.inventory-results-heading > div:first-child { display:block; }
+.inventory-product-groups { display:grid; gap:22px; margin-bottom:24px; }
+.inventory-product-group { min-width:0; border:1px solid #d5e2e5; border-radius:8px; overflow:hidden; }
+.inventory-product-heading { display:flex; align-items:center; flex-wrap:wrap; gap:16px 24px; padding:18px 20px; background:#edf5f5; }
+.inventory-product-identity { flex:1; min-width:180px; overflow-wrap:anywhere; }
+.inventory-product-identity h3 { margin:0 0 5px; font-size:17px; }
+.inventory-product-identity h3 a { color:#224750; text-decoration:none; }
+.inventory-product-identity h3 a:hover { text-decoration:underline; }
+.inventory-product-identity p { margin:0 0 4px; font-size:12px; color:#536a79; }
+.inventory-product-identity small { font-size:11px; color:#536a79; }
+.inventory-product-totals { display:flex; flex-wrap:wrap; gap:12px 20px; font-size:12px; color:#536a79; font-variant-numeric:tabular-nums; }
+.inventory-product-totals strong { font-size:16px; color:#224750; }
+.inventory-balance-table-wrap { max-width:100%; overflow-x:auto; }
+.inventory-balance-table { width:100%; min-width:740px; table-layout:fixed; border-collapse:collapse; font-size:13px; }
+.inventory-balance-table .inventory-spec-col { width:39%; }
+.inventory-balance-table .inventory-status-col { width:19%; }
+.inventory-balance-table .inventory-action-col { width:12%; }
+.inventory-balance-table :is(th,td) { padding:14px 16px; text-align:right; vertical-align:middle; border-bottom:1px solid #e5ecee; font-variant-numeric:tabular-nums; }
+.inventory-balance-table th { background:#f7f9fa; font-size:12px; color:#536a79; font-weight:500; }
+.inventory-balance-table :is(th,td):first-child,.inventory-balance-table :is(th,td):nth-last-child(-n+2) { text-align:left; }
+.inventory-balance-table tbody tr:last-child td { border-bottom:0; }
+.inventory-balance-table tbody tr:hover { background:#f7fbfb; }
+.inventory-row-product { display:block; margin-bottom:5px; font-weight:600; overflow-wrap:anywhere; }
+.inventory-row-choices { display:block; font-weight:500; overflow-wrap:anywhere; }
+.inventory-balance-table small { display:block; margin-top:6px; font-size:11px; color:#536a79; overflow-wrap:anywhere; }
+.inventory-account-tags { display:flex; flex-wrap:wrap; gap:5px; }
+.inventory-account-tags .ant-tag { margin:0; }
+.inventory-low-quantity { color:#956600; }
+.inventory-retired-row { background:#fafbfc; }
+.inventory-empty { padding:36px 16px; text-align:center; background:#f7f9fa; margin-bottom:20px; }
+.inventory-empty h3 { font-size:16px; }
+.inventory-empty p { max-width:none; font-size:14px; color:#536a79; }
+.inventory-balances .inventory-balance-footnote { margin:22px 0 0; max-width:none; font-size:12px; color:#536a79; }
+.inventory-sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; border:0; }
+@media(max-width:1050px) {
+ .inventory-balance-filters { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .inventory-balance-filters p { grid-column:auto; }
+}
+@media(max-width:600px) {
+ .inventory-page-heading { align-items:flex-start; }
+ .inventory-page-heading h1 { font-size:23px; }
+ .inventory-page-heading > .ant-btn { flex-shrink:0; }
+ .inventory-balance-filters { grid-template-columns:1fr; }
+ .inventory-product-heading { padding:16px; gap:14px; }
+ .inventory-product-identity { flex-basis:100%; }
+ .inventory-product-totals { flex:1; }
+ .inventory-balance-summary { gap:12px 22px; }
+ .inventory-balance-summary > span:first-child { flex-basis:100%; }
+}

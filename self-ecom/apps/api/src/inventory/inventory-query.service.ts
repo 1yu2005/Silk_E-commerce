@@ -20,20 +20,42 @@ export class InventoryQueries {
   if(q.keyword)clauses.push(Prisma.sql`(s.code ILIKE ${'%'+q.keyword+'%'} OR p.name ILIKE ${'%'+q.keyword+'%'})`);
   if(q.lowStock)clauses.push(q.lowStock==='true'?Prisma.sql`b.available<=b.warning_threshold`:Prisma.sql`b.available>b.warning_threshold`);
   if(q.purchaseBlocked)clauses.push(Prisma.sql`b.purchase_blocked=${q.purchaseBlocked==='true'}`);
+  if(q.categoryId)clauses.push(Prisma.sql`EXISTS (SELECT 1 FROM category c WHERE c.id=p.category_id AND c.deleted_at IS NULL AND ${q.categoryId}::uuid=ANY(c.path_ids))`);
   const where=Prisma.join(clauses,' AND ');
+  const groupBy=q.groupBy??'sku';
   return this.db.$transaction(async tx=>{
-   const rows=await tx.$queryRaw<{sku_id:string}[]>(Prisma.sql`SELECT b.sku_id FROM inventory_balance b JOIN sku s ON s.id=b.sku_id JOIN product p ON p.id=s.product_id WHERE ${where} ORDER BY s.code,b.sku_id OFFSET ${(q.page-1)*q.pageSize} LIMIT ${q.pageSize}`);
-   const [total]=await tx.$queryRaw<{count:string;available:string;reserved:string}[]>(Prisma.sql`SELECT COUNT(*)::text AS count,COALESCE(SUM(b.available::bigint),0)::text AS available,COALESCE(SUM(b.reserved::bigint),0)::text AS reserved FROM inventory_balance b JOIN sku s ON s.id=b.sku_id JOIN product p ON p.id=s.product_id WHERE ${where}`);
-   const items=[];for(const r of rows)items.push(await this.balanceTx(tx,r.sku_id));return {items,total:Number(total!.count),page:q.page,pageSize:q.pageSize,availableTotal:total!.available,reservedTotal:total!.reserved};
+   // 先分页商品身份再取整组，避免同款规格被SKU页边界拆开；未显式分组的候选查询仍按SKU分页。
+   const matched=Prisma.sql`SELECT b.sku_id,p.id AS product_id,p.name AS product_name,s.code,s.retired_at IS NOT NULL AS retired,
+    ARRAY(SELECT v.sort_order FROM sku_spec_choice sc JOIN product_spec_dimension d ON d.id=sc.dimension_id
+     JOIN product_spec_value v ON v.id=sc.value_id WHERE sc.sku_id=s.id ORDER BY d.sort_order,d.id) AS spec_order
+    FROM inventory_balance b JOIN sku s ON s.id=b.sku_id JOIN product p ON p.id=s.product_id WHERE ${where}`;
+   const paging=Prisma.sql`OFFSET ${(q.page-1)*q.pageSize} LIMIT ${q.pageSize}`;
+   const rows=await tx.$queryRaw<{sku_id:string}[]>(Prisma.sql`WITH matched AS (${matched}) SELECT m.sku_id FROM matched m
+    ${groupBy==='product'?Prisma.sql`JOIN (SELECT product_id,product_name FROM matched GROUP BY product_id,product_name ORDER BY product_name,product_id ${paging}) page ON page.product_id=m.product_id`:Prisma.empty}
+    ORDER BY m.product_name,m.product_id,m.retired,m.spec_order,m.code,m.sku_id ${groupBy==='sku'?paging:Prisma.empty}`);
+   const [total]=await tx.$queryRaw<{count:string;products:string;available:string;reserved:string}[]>(Prisma.sql`SELECT COUNT(*)::text AS count,COUNT(DISTINCT p.id)::text AS products,COALESCE(SUM(b.available::bigint),0)::text AS available,COALESCE(SUM(b.reserved::bigint),0)::text AS reserved FROM inventory_balance b JOIN sku s ON s.id=b.sku_id JOIN product p ON p.id=s.product_id WHERE ${where}`);
+   const items=await this.balancesTx(tx,rows.map(r=>r.sku_id));
+   return {items,total:Number(groupBy==='product'?total!.products:total!.count),groupBy,productTotal:Number(total!.products),skuTotal:Number(total!.count),page:q.page,pageSize:q.pageSize,availableTotal:total!.available,reservedTotal:total!.reserved};
   },readOptions);
  }
  balance(id:string){return this.db.$transaction(tx=>this.balanceTx(tx,id),readOptions);}
  private async balanceTx(tx:Prisma.TransactionClient,id:string){
-  const b=await tx.inventoryBalance.findUnique({where:{skuId:id},include:{sku:{include:{product:{select:{id:true,name:true}},choices:{include:{dimension:true,value:true}}}}}});
-  if(!b)throw new InventoryError('INVENTORY_NOT_FOUND');
-  return {skuId:b.skuId,code:b.sku.code,productId:b.sku.product.id,productName:b.sku.product.name,choices:b.sku.choices.map(c=>`${c.dimension.name}：${c.value.name}`),
-   available:b.available,reserved:b.reserved,warningThreshold:b.warningThreshold,lowStock:b.available<=b.warningThreshold,purchaseBlocked:b.purchaseBlocked,version:b.version,
-   blocks:await tx.inventoryPurchaseBlock.findMany({where:{skuId:id,active:true},select:{id:true,sourceType:true,sourceId:true,reasonCode:true,createdAt:true}})};
+  const [row]=await this.balancesTx(tx,[id]);if(!row)throw new InventoryError('INVENTORY_NOT_FOUND');return row;
+ }
+ private async balancesTx(tx:Prisma.TransactionClient,ids:string[]){
+  if(!ids.length)return [];
+  const balances=await tx.inventoryBalance.findMany({where:{skuId:{in:ids}},include:{sku:{include:{product:{select:{id:true,name:true,productCode:true,category:{select:{pathIds:true}}}},choices:{orderBy:[{dimension:{sortOrder:'asc'}},{dimensionId:'asc'}],include:{dimension:true,value:true}}}}}});
+  const blocks=await tx.inventoryPurchaseBlock.findMany({where:{skuId:{in:ids},active:true},select:{skuId:true,id:true,sourceType:true,sourceId:true,reasonCode:true,createdAt:true}});
+  const categories=await tx.category.findMany({where:{id:{in:[...new Set(balances.flatMap(b=>b.sku.product.category?.pathIds??[]))]}},select:{id:true,name:true}});
+  const names=new Map(categories.map(c=>[c.id,c.name]));
+  const rows=new Map(balances.map(b=>[b.skuId,{
+   skuId:b.skuId,code:b.sku.code,productId:b.sku.product.id,productCode:b.sku.product.productCode,productName:b.sku.product.name,
+   categoryPath:(b.sku.product.category?.pathIds??[]).map(id=>names.get(id)??'未知分类'),skuEnabled:b.sku.enabled,skuRetired:b.sku.retiredAt!==null,
+   choices:b.sku.choices.map(c=>`${c.dimension.name}：${c.value.name}`),available:b.available,reserved:b.reserved,warningThreshold:b.warningThreshold,
+   lowStock:b.available<=b.warningThreshold,purchaseBlocked:b.purchaseBlocked,version:b.version,
+   blocks:blocks.filter(block=>block.skuId===b.skuId).map(({id,sourceType,sourceId,reasonCode,createdAt})=>({id,sourceType,sourceId,reasonCode,createdAt}))
+  }]));
+  return ids.map(id=>rows.get(id)!);
  }
  threshold(ctx:InventoryContext,id:string,input:InventoryThresholdDto){return runAuthTransaction(this.db,async tx=>{
   const actor=await this.access.actor(tx,ctx,['inventory.alert.manage']);await lockStock(tx,[id]);const row=await tx.inventoryBalance.findUnique({where:{skuId:id}});if(!row)throw new InventoryError('INVENTORY_NOT_FOUND');

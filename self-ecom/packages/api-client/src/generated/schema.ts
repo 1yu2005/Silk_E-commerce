@@ -1320,7 +1320,7 @@ export interface paths {
             cookie?: never;
         };
         /**
-         * 筛选SKU可用量和待付款占用
+         * 筛选库存；groupBy=product时按整款分页，默认按SKU分页
          * @description 库存命令在同一事务复核当前权限、经办和版本。PENDING不入账；核实失败可以合法提交待办后返回409。来源附件私有；不接受任意A/R效果。
          */
         get: operations["listInventoryBalances"];
@@ -14323,6 +14323,8 @@ export interface operations {
     listInventoryBalances: {
         parameters: {
             query?: {
+                categoryId?: string;
+                groupBy?: "sku" | "product";
                 keyword?: string;
                 lowStock?: "true" | "false";
                 page?: number;
@@ -14346,6 +14348,11 @@ export interface operations {
                     "application/json": {
                         data: {
                             availableTotal: string;
+                            /**
+                             * @description 分页单位；默认sku，product每页返回完整商品组
+                             * @enum {string}
+                             */
+                            groupBy: "sku" | "product";
                             items: {
                                 available: number;
                                 blocks: {
@@ -14358,23 +14365,29 @@ export interface operations {
                                     sourceId: string;
                                     sourceType: string;
                                 }[];
+                                categoryPath: string[];
                                 changed?: boolean;
                                 choices: string[];
                                 code: string;
                                 lowStock: boolean;
+                                productCode: string;
                                 /** Format: uuid */
                                 productId: string;
                                 productName: string;
                                 purchaseBlocked: boolean;
                                 reserved: number;
+                                skuEnabled: boolean;
                                 /** Format: uuid */
                                 skuId: string;
+                                skuRetired: boolean;
                                 version: number;
                                 warningThreshold: number;
                             }[];
                             page: number;
                             pageSize: number;
+                            productTotal: number;
                             reservedTotal: string;
+                            skuTotal: number;
                             total: number;
                         };
                         /** Format: uuid */
@@ -14507,17 +14520,21 @@ export interface operations {
                                 sourceId: string;
                                 sourceType: string;
                             }[];
+                            categoryPath: string[];
                             changed?: boolean;
                             choices: string[];
                             code: string;
                             lowStock: boolean;
+                            productCode: string;
                             /** Format: uuid */
                             productId: string;
                             productName: string;
                             purchaseBlocked: boolean;
                             reserved: number;
+                            skuEnabled: boolean;
                             /** Format: uuid */
                             skuId: string;
+                            skuRetired: boolean;
                             version: number;
                             warningThreshold: number;
                         };
@@ -14659,17 +14676,21 @@ export interface operations {
                                 sourceId: string;
                                 sourceType: string;
                             }[];
+                            categoryPath: string[];
                             changed?: boolean;
                             choices: string[];
                             code: string;
                             lowStock: boolean;
+                            productCode: string;
                             /** Format: uuid */
                             productId: string;
                             productName: string;
                             purchaseBlocked: boolean;
                             reserved: number;
+                            skuEnabled: boolean;
                             /** Format: uuid */
                             skuId: string;
+                            skuRetired: boolean;
                             version: number;
                             warningThreshold: number;
                         };

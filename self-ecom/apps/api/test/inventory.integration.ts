@@ -73,6 +73,54 @@ async function fixture(quantity=100,type:'RECEIPT'|'LOSS'='RECEIPT',skuId?:strin
 async function pending(f:Awaited<ReturnType<typeof fixture>>,quantity:number,batchKey='B001',who=staff){return adjustments.create(ctx(who),{type:f.source.sourceType==='LOSS'?'AVAILABLE_LOSS':'ARRIVAL',reason:'隔离实收核实',evidenceNote:'独占夹具',lines:[{skuId:f.skuId,sourceLineId:f.line.id,quantity,...(f.source.sourceType==='LOSS'?{}:{batchKey})}]});}
 async function versions(id:string){const a=await db.inventoryAdjustment.findUniqueOrThrow({where:{id}});const t=await db.task.findFirstOrThrow({where:{businessType:'INVENTORY_ADJUSTMENT',businessId:id,stage:a.checkRequired?'INVENTORY_RECONCILE':'INVENTORY_POST',status:{in:['OPEN','CLAIMED']}}});return {expectedVersion:a.version,expectedTaskVersion:t.version};}
 async function post(id:string,who=staff){await adjustments.claim(ctx(who),id,await versions(id));const input=await versions(id);const result=await adjustments.post(ctx(who),id,input);return {result,input};}
+it('库存浏览：整款分页、规格顺序、同名不同款、父分类及筛选汇总一致',async()=>{
+ const categories=app.get(CategoryService),admin=await actor('SUPER_ADMIN');
+ const category=async(name:string,parentId?:string)=>(await categories.write(admin.actor,admin.token,randomUUID(),null,{name,parentId},'create')).id;
+ const root=await category('库存浏览分类'),child=await category('裙装',root),leaf=await category('连衣裙',child),other=await category('其他库存分类');
+ const make=async(categoryId?:string)=>{
+  const p=await products.create(ctx(),{name:'库存分组验证裙子',categoryId});
+  const result=await products.scheme(ctx(),p.id,{expectedVersion:p.version!,mode:'REBUILD',reason:'库存分组验证',dimensions:[
+   {clientKey:randomUUID(),name:'颜色',values:[{clientKey:randomUUID(),name:'黑色'},{clientKey:randomUUID(),name:'白色'}]},
+   {clientKey:randomUUID(),name:'尺码',values:['S','M','L'].map(name=>({clientKey:randomUUID(),name}))}
+  ]});
+  // 编码刻意与尺码顺序相反，验证列表不再按随机SKU编码排序。
+  const rank=(s:typeof result.skus[number])=>['黑色','白色'].indexOf(s.choices.find(c=>c.dimension==='颜色')!.value)*3+['S','M','L'].indexOf(s.choices.find(c=>c.dimension==='尺码')!.value);
+  const skus=result.skus.filter(s=>!s.retiredAt).sort((a,b)=>rank(a)-rank(b));
+  for(const [i,s]of skus.entries())await db.sku.update({where:{id:s.id},data:{code:`BROWSE_${p.id.slice(0,8).toUpperCase()}_${9-i}`}});
+  return {id:p.id,skus};
+ };
+ const a=await make(leaf),b=await make(child),c=await make(root),d=await make(other),uncategorized=await make();
+ await db.sku.update({where:{id:b.skus[0]!.id},data:{enabled:false}});
+ const list=async(query:string)=>{const result=await call('/admin/inventory?'+query);expect(result.r.status).toBe(200);return result.json.data;};
+ const all=await list(`categoryId=${root}&groupBy=product&pageSize=1`);
+ expect(all).toMatchObject({total:3,productTotal:3,skuTotal:21,groupBy:'product',availableTotal:'0',reservedTotal:'0'});
+ const pages=[all,await list(`categoryId=${root}&groupBy=product&pageSize=1&page=2`),await list(`categoryId=${root}&groupBy=product&pageSize=1&page=3`)];
+ expect(new Set(pages.flatMap(page=>page.items.map((r:{productId:string})=>r.productId)))).toEqual(new Set([a.id,b.id,c.id]));
+ for(const page of pages){
+  expect(page.items).toHaveLength(7);expect(new Set(page.items.map((r:{productId:string})=>r.productId)).size).toBe(1);
+  expect(page.items.slice(0,6).map((r:{choices:string[]})=>r.choices)).toEqual(['黑色','白色'].flatMap(color=>['S','M','L'].map(size=>[`颜色：${color}`,`尺码：${size}`])));
+  expect(page.items[6]).toMatchObject({skuRetired:true,skuEnabled:false});
+ }
+ const leafRows=await list(`categoryId=${leaf}`);
+ expect(leafRows).toMatchObject({total:7,productTotal:1,skuTotal:7,groupBy:'sku'});
+ expect(leafRows.items[0].categoryPath).toEqual(['库存浏览分类','裙装','连衣裙']);
+ const skuPage=await list(`categoryId=${root}&pageSize=2`);expect(skuPage.items).toHaveLength(2);expect(skuPage.total).toBe(21);
+ const flat=await list('keyword=库存分组验证裙子&pageSize=100');
+ expect(flat).toMatchObject({total:35,productTotal:5,skuTotal:35});
+ expect(flat.items.filter((r:{productId:string})=>r.productId===uncategorized.id)[0].categoryPath).toEqual([]);
+ expect(new Set(flat.items.map((r:{productId:string})=>r.productId))).toEqual(new Set([a.id,b.id,c.id,d.id,uncategorized.id]));
+ expect(flat.items.find((r:{skuId:string})=>r.skuId===b.skus[0]!.id)).toMatchObject({skuRetired:false,skuEnabled:false,available:0});
+ const productIds=flat.items.map((r:{productId:string})=>r.productId);
+ expect(productIds.filter((id:string,i:number)=>i===0||id!==productIds[i-1])).toHaveLength(5);
+ const f=await fixture(12,'RECEIPT',a.skus[0]!.id);await post((await pending(f,12)).id);
+ const high=await list(`categoryId=${root}&lowStock=false&purchaseBlocked=false`);
+ expect(high).toMatchObject({total:1,productTotal:1,skuTotal:1,availableTotal:'12',reservedTotal:'0'});
+ const low=await list(`categoryId=${root}&lowStock=true`);expect(low.total).toBe(20);expect(low.availableTotal).toBe('0');
+ const empty=await list(`categoryId=${randomUUID()}&groupBy=product`);expect(empty).toMatchObject({items:[],total:0,productTotal:0,skuTotal:0,availableTotal:'0'});
+ expect((await call('/admin/inventory?groupBy=unknown')).r.status).toBe(400);
+ expect((await call('/admin/inventory?categoryId=bad')).r.status).toBe(400);
+ expect((await call('/admin/inventory?groupBy=product','GET',undefined,service)).r.status).toBe(403);
+},30000);
 it('IT01/SW01：来源规范身份、核实边界、SKU外键与原零账户复用',async()=>{
  const f=await fixture();expect(await db.inventoryBalance.findUnique({where:{skuId:f.skuId}})).toMatchObject({available:0,reserved:0});
  await expect(source.create(ctx(),{sourceType:'RECEIPT',namespace:' test ',reference:f.source.reference.toLowerCase(),note:'重复核实',lines:[{lineKey:'1',skuId:f.skuId,verifiedQuantity:1}]})).rejects.toMatchObject({code:'SOURCE_ALREADY_EXISTS'});

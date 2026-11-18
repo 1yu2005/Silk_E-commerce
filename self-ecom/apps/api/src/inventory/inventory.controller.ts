@@ -15,7 +15,7 @@ const ctx=(actor:CurrentIdentity,r:AuthHttpRequest)=>({actor,token:readBearerTok
 @Controller('admin/inventory') @ApiTags('Inventory') @O.Protected()
 export class InventoryController {
  constructor(@Inject(InventoryQueries) private readonly queries:InventoryQueries,@Inject(InventorySources) private readonly sources:InventorySources,@Inject(InventoryAdjustments) private readonly adjustments:InventoryAdjustments){}
- @Get() @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','keyword','skuId','lowStock','purchaseBlocked']) @O.Endpoint('listInventoryBalances','筛选SKU可用量和待付款占用',O.balanceList)
+ @Get() @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','keyword','skuId','categoryId','groupBy','lowStock','purchaseBlocked']) @O.Endpoint('listInventoryBalances','筛选库存；groupBy=product时按整款分页，默认按SKU分页',O.balanceList)
  list(@Query() q:D.InventoryQueryDto){return this.queries.balances(q);}
  @Get('ledger') @EmployeeAccess('inventory.read') @O.QueryFields(['page','pageSize','skuId','eventType','businessNumber','actorEmployeeId','from','to']) @O.Endpoint('listInventoryLedger','库存不可改流水',O.ledgerList)
  ledger(@Query() q:D.InventoryQueryDto){return this.queries.ledger(q);}

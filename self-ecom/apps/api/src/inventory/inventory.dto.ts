@@ -77,6 +77,8 @@ export class InventoryQueryDto {
  @IsOptional() @Type(()=>Number) @IsInt() @Min(1) @Max(100) pageSize=20;
  @IsOptional() @IsString() @Length(1,120) keyword?:string;
  @IsOptional() @IsUUID() skuId?:string;
+ @IsOptional() @IsUUID() categoryId?:string;
+ @IsOptional() @IsIn(['sku','product']) groupBy?:'sku'|'product';
  @IsOptional() @IsIn(['true','false']) lowStock?:string;
  @IsOptional() @IsIn(['true','false']) purchaseBlocked?:string;
  @IsOptional() @IsIn(['RECEIPT','LOSS']) sourceType?:'RECEIPT'|'LOSS';
